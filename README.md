@@ -50,6 +50,7 @@ ps:因为喜欢刀锋战士所以取名了SpringBlade，当中有一个类也命
 ![后台界面](http://git.oschina.net/uploads/images/2016/0706/092002_1dd317a7_474499.png "后台界面")
 ![后台界面](http://git.oschina.net/uploads/images/2016/0706/110441_d286b7c7_474499.png "后台界面")
 ![后台界面](http://git.oschina.net/uploads/images/2016/0706/110523_4a5256ff_474499.png "后台界面")
+![后台界面](http://git.oschina.net/uploads/images/2016/0706/111014_9292e52f_474499.png "后台界面")
 ![后台界面](http://git.oschina.net/uploads/images/2016/0706/110631_bc667dc7_474499.png "后台界面")
 
 ## 代码示例
