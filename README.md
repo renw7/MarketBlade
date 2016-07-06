@@ -211,7 +211,7 @@ public class Notice extends BaseModel {
 =======
 
 欢迎提出更好的意见，大家共同进步  
-SpringBlade供交流学习，代码可以随便商用，随便改。但是因为商业用途引起的纠纷和造成的一切后果请自行承担，谢谢。  
+SpringBlade主要用于交流学习，开源协议署名为smallchill的代码可以随便商用，随便改。但是因为商业用途引起的纠纷和造成的一切后果请自行承担，谢谢。  
 登陆名密码：两个 admin
 
 
