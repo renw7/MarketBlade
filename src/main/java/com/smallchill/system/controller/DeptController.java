@@ -1,0 +1,156 @@
+/**
+ * Copyright (c) 2015-2016, Chill Zhuang 庄骞 (smallchill@163.com).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.smallchill.system.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.smallchill.common.base.BaseController;
+import com.smallchill.core.plugins.dao.Blade;
+import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.ajax.AjaxResult;
+import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.core.toolbox.kit.JsonKit;
+import com.smallchill.core.toolbox.kit.StrKit;
+import com.smallchill.system.meta.intercept.DeptIntercept;
+import com.smallchill.system.model.Dept;
+
+@Controller
+@RequestMapping("/dept")
+public class DeptController extends BaseController{
+	private static String LIST_SOURCE = "Dept.list";
+	private static String BASE_PATH = "/system/dept/";
+	private static String CODE = "dept";
+	private static String PERFIX = "tfw_dept";
+	
+	@RequestMapping("/")
+	public ModelAndView index() {
+		ModelAndView view = new ModelAndView(BASE_PATH + "dept.html");
+		view.addObject("code", CODE);
+		return view;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(KEY_LIST)
+	public Object list() {
+		Object gird = paginate(LIST_SOURCE, new DeptIntercept());
+		return gird;
+	}
+	
+	@RequestMapping(KEY_ADD)
+	public ModelAndView add() {
+		ModelAndView view = new ModelAndView(BASE_PATH + "dept_add.html");
+		view.addObject("code", CODE);
+		return view;
+	}
+	
+	@RequestMapping(KEY_ADD + "/{id}")
+	public ModelAndView add(@PathVariable String id) {
+		ModelAndView view = new ModelAndView(BASE_PATH + "dept_add.html");
+		if (StrKit.notBlank(id)) {
+			view.addObject("pId", id);
+			view.addObject("num", findLastNum(id));
+		}
+		view.addObject("code", CODE);
+		return view;
+	}
+	
+	@RequestMapping(KEY_EDIT + "/{id}")
+	public ModelAndView edit(@PathVariable String id) {
+		ModelAndView view = new ModelAndView(BASE_PATH + "dept_edit.html");
+		Dept Dept = Blade.create(Dept.class).findById(id);
+		view.addObject("model", JsonKit.toJson(Dept));
+		view.addObject("code", CODE);
+		return view;
+	}
+
+	@RequestMapping(KEY_VIEW + "/{id}")
+	public ModelAndView view(@PathVariable String id) {
+		ModelAndView view = new ModelAndView(BASE_PATH + "dept_view.html");
+		Blade blade = Blade.create(Dept.class);
+		Dept Dept = blade.findById(id);
+		Dept parent = blade.findById(Dept.getPid());
+		String pName = (null == parent) ? "" : parent.getSimplename();
+		Maps maps = Maps.parse(Dept);
+		maps.set("pName", pName);
+		view.addObject("model", JsonKit.toJson(maps));
+		view.addObject("code", CODE);
+		return view;
+	}
+	
+	@ResponseBody
+	@RequestMapping(KEY_SAVE)
+	public AjaxResult save() {
+		Dept dept = mapping(PERFIX, Dept.class);
+		boolean temp = Blade.create(Dept.class).save(dept);
+		if (temp) {
+			CacheKit.removeAll(DEPT_CACHE);
+			return success("新增成功");
+		} else {
+			return error("新增失败");
+		}
+	}
+
+	@ResponseBody
+	@RequestMapping(KEY_UPDATE)
+	public AjaxResult update() {
+		Dept dept = mapping(PERFIX, Dept.class);
+		dept.setVersion(getParaToInt("VERSION", 0) + 1);
+		boolean temp =  Blade.create(Dept.class).update(dept);
+		if (temp) {
+			CacheKit.removeAll(DEPT_CACHE);
+			return success("修改成功");
+		} else {
+			return error("修改失败");
+		}
+	}
+
+	@ResponseBody
+	@RequestMapping(KEY_REMOVE)
+	public AjaxResult remove(@RequestParam String ids) {
+		int cnt = Blade.create(Dept.class).deleteByIds(ids);
+		if (cnt > 0) {
+			CacheKit.removeAll(DEPT_CACHE);
+			return success("删除成功!");
+		} else {
+			return error("删除失败!");
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	private int findLastNum(String id){
+		try{
+			Blade blade = Blade.create(Dept.class);
+			Dept dept = blade.findFirstBy("pId = #{pId} order by num desc", Maps.create().set("pId", id));
+			return dept.getNum() + 1;
+		}
+		catch(Exception ex){
+			return 1;
+		}
+	}
+	
+	
+}
