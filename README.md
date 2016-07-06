@@ -1,4 +1,4 @@
-#Spring-Blade 企业级开发平台
+#Spring-Blade java开发平台
 ## 平台简介
 Spring-Blade是基于多个优秀的开源项目，高度整合封装而成的快速开发平台。（主要用于交流学习）  
 感谢活跃于开源中国的各位前辈：jfinal作者、eova作者、hutool作者、beetl作者、dreamlu大牛等。  
