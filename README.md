@@ -142,6 +142,67 @@ public class Notice extends BaseModel {
 	int cnt = Blade.create(News.class).deleteBy("status in #{join(#{ids})}", Maps.create().set("ids", idArr));
 ```
 
+## 通用Service
+```
+	public interface NoticeService extends IService<Notice> {
+	
+	}
+	
+	
+	@Service
+	public class NoticeServiceImpl extends BaseService<Notice> implements NoticeService {
+	
+	}
+
+
+	@Autowired
+	NoticeService service;
+
+	@ResponseBody
+	@RequestMapping(KEY_SAVE)
+	public AjaxResult save() {
+		Notice notice = mapping(PERFIX, Notice.class);
+		boolean temp = service.save(notice);
+		if (temp) {
+			return success(SAVE_SUCCESS_MSG);
+		} else {
+			return error(SAVE_FAIL_MSG);
+		}
+	}
+
+```
+
+## 分页
+```
+	@ResponseBody
+	@RequestMapping(KEY_LIST)
+	public Object list() {
+		Object grid = paginate(LIST_SOURCE, new IQuery() {
+			
+			@Override
+			public void queryBefore(AopContext ac) {
+				if (ShiroKit.lacksRole(ConstShiro.ADMINISTRATOR)) {
+					String condition = "and creater = #{creater}";
+					ac.setCondition(condition);
+					ac.getParam().put("creater", ShiroKit.getUser().getId());
+				}
+			}
+			
+			@Override
+			public void queryAfter(AopContext ac) {
+				@SuppressWarnings("unchecked")
+				PageInfo<Map<String, Object>> page = (PageInfo<Map<String, Object>>) ac.getObject();
+				List<Map<String, Object>> list = page.getList();
+				for (Map<String, Object> map : list) {
+					map.put("createrName", Func.getDictName(102, map.get("creater")));
+				}
+			}
+		});
+		
+		return grid;
+	}
+```
+
 注：
 =======
 
