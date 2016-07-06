@@ -191,8 +191,8 @@ public class Notice extends BaseModel {
 			@Override
 			public void queryAfter(AopContext ac) {
 				@SuppressWarnings("unchecked")
-				PageInfo<Map<String, Object>> page = (PageInfo<Map<String, Object>>) ac.getObject();
-				List<Map<String, Object>> list = page.getList();
+				BladePage<Map<String, Object>> page = (BladePage<Map<String, Object>>) ac.getObject();
+				List<Map<String, Object>> list = page.getRows();
 				for (Map<String, Object> map : list) {
 					map.put("createrName", Func.getDictName(102, map.get("creater")));
 				}
