@@ -139,7 +139,7 @@ public class Notice extends BaseModel {
 ```
 	String ids = "1,2,3,4,5";
 	String[] idArr = ids.split(",");
-	int cnt = Blade.create(News.class).deleteBy("status in #{join(#{ids})}", Maps.create().set("ids", idArr));
+	int cnt = Blade.create(News.class).deleteBy("status in (#{join(ids)})}", Maps.create().set("ids", idArr));
 ```
 
 ## 通用Service
