@@ -189,6 +189,10 @@ var showTab = function() {
 
 var reloadTab = function() {
 	var id = $("#tmsp_tab_content .active iframe").attr("id");
+	if (id == undefined) {
+		window.top.location.reload(true);
+		return;
+	}
 	document.getElementById(id).contentWindow.location.reload(true);
 
 };
