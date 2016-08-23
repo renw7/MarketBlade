@@ -3,11 +3,11 @@ package com.smallchill.platform.controller;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.core.plugins.dao.Blade;
@@ -28,43 +28,39 @@ public class NoticeController extends BaseController {
 	
 
 	@RequestMapping(KEY_MAIN)
-	public ModelAndView index() {
-		ModelAndView view = new ModelAndView(BASE_PATH + "notice.html");
-		view.addObject("code", CODE);
-		return view;
+	public String index(ModelMap mm) {
+		mm.put("code", CODE);
+		return BASE_PATH + "notice.html";
 	}
 
 	@RequestMapping(KEY_ADD)
-	public ModelAndView add() {
-		ModelAndView view = new ModelAndView(BASE_PATH + "notice_add.html");
-		view.addObject("code", CODE);
-		return view;
+	public String add(ModelMap mm) {
+		mm.put("code", CODE);
+		return BASE_PATH + "notice_add.html";
 	}
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(KEY_EDIT + "/{id}")
-	public ModelAndView edit(@PathVariable String id) {
-		ModelAndView view = new ModelAndView(BASE_PATH + "notice_edit.html");
+	public String edit(@PathVariable String id, ModelMap mm) {
 		Map<String, Object> map = Blade.dao().selectSingle(DATA_SOURCE, Maps.create().set("id", id), Map.class);
-		view.addObject("model", JsonKit.toJson(map));
-		view.addObject("id", id);
-		view.addObject("code", CODE);
-		return view;
+		mm.put("model", JsonKit.toJson(map));
+		mm.put("id", id);
+		mm.put("code", CODE);
+		return BASE_PATH + "notice_edit.html";
 	}
 
 	@RequestMapping(KEY_VIEW + "/{id}")
-	public ModelAndView view(@PathVariable String id) {
-		ModelAndView view = new ModelAndView(BASE_PATH + "notice_view.html");
+	public String view(@PathVariable String id, ModelMap mm) {
 		Notice notice = Blade.create(Notice.class).findById(id);
 		//将javabean转化为maps
 		Maps maps = Maps.parse(notice);
 		//使用Func.getDictName方法从缓存中获取对应字典项的中文值
 		maps.set("dic_f_it_lx", Func.getDictName(102, notice.getF_it_lx()));
 		//将maps传回前台
-		view.addObject("model", JsonKit.toJson(maps));
-		view.addObject("id", id);
-		view.addObject("code", CODE);
-		return view;
+		mm.put("model", JsonKit.toJson(maps));
+		mm.put("id", id);
+		mm.put("code", CODE);
+		return BASE_PATH + "notice_view.html";
 	}
 
 	@ResponseBody
