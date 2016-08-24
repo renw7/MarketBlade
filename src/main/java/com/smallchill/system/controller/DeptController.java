@@ -16,11 +16,11 @@
 package com.smallchill.system.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.core.plugins.dao.Blade;
@@ -41,10 +41,9 @@ public class DeptController extends BaseController{
 	private static String PERFIX = "tfw_dept";
 	
 	@RequestMapping("/")
-	public ModelAndView index() {
-		ModelAndView view = new ModelAndView(BASE_PATH + "dept.html");
-		view.addObject("code", CODE);
-		return view;
+	public String index(ModelMap mm) {
+		mm.put("code", CODE);
+		return BASE_PATH + "dept.html";
 	}
 	
 	
@@ -56,44 +55,40 @@ public class DeptController extends BaseController{
 	}
 	
 	@RequestMapping(KEY_ADD)
-	public ModelAndView add() {
-		ModelAndView view = new ModelAndView(BASE_PATH + "dept_add.html");
-		view.addObject("code", CODE);
-		return view;
+	public String add(ModelMap mm) {
+		mm.put("code", CODE);
+		return BASE_PATH + "dept_add.html";
 	}
 	
 	@RequestMapping(KEY_ADD + "/{id}")
-	public ModelAndView add(@PathVariable String id) {
-		ModelAndView view = new ModelAndView(BASE_PATH + "dept_add.html");
+	public String add(@PathVariable String id, ModelMap mm) {
 		if (StrKit.notBlank(id)) {
-			view.addObject("pId", id);
-			view.addObject("num", findLastNum(id));
+			mm.put("pId", id);
+			mm.put("num", findLastNum(id));
 		}
-		view.addObject("code", CODE);
-		return view;
+		mm.put("code", CODE);
+		return BASE_PATH + "dept_add.html";
 	}
 	
 	@RequestMapping(KEY_EDIT + "/{id}")
-	public ModelAndView edit(@PathVariable String id) {
-		ModelAndView view = new ModelAndView(BASE_PATH + "dept_edit.html");
+	public String edit(@PathVariable String id, ModelMap mm) {
 		Dept Dept = Blade.create(Dept.class).findById(id);
-		view.addObject("model", JsonKit.toJson(Dept));
-		view.addObject("code", CODE);
-		return view;
+		mm.put("model", JsonKit.toJson(Dept));
+		mm.put("code", CODE);
+		return BASE_PATH + "dept_edit.html";
 	}
 
 	@RequestMapping(KEY_VIEW + "/{id}")
-	public ModelAndView view(@PathVariable String id) {
-		ModelAndView view = new ModelAndView(BASE_PATH + "dept_view.html");
+	public String view(@PathVariable String id, ModelMap mm) {
 		Blade blade = Blade.create(Dept.class);
 		Dept Dept = blade.findById(id);
 		Dept parent = blade.findById(Dept.getPid());
 		String pName = (null == parent) ? "" : parent.getSimplename();
 		Maps maps = Maps.parse(Dept);
 		maps.set("pName", pName);
-		view.addObject("model", JsonKit.toJson(maps));
-		view.addObject("code", CODE);
-		return view;
+		mm.put("model", JsonKit.toJson(maps));
+		mm.put("code", CODE);
+		return BASE_PATH + "dept_view.html";
 	}
 	
 	@ResponseBody

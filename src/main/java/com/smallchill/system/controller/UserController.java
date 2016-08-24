@@ -21,11 +21,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.common.vo.User;
@@ -58,10 +58,9 @@ public class UserController extends BaseController implements ConstShiro{
 
 	@RequestMapping("/")
 	@Permission({ ADMINISTRATOR, ADMIN })
-	public ModelAndView index() {
-		ModelAndView view = new ModelAndView(BASE_PATH + "user.html");
-		view.addObject("code", CODE);
-		return view;
+	public String index(ModelMap mm) {
+		mm.put("code", CODE);
+		return BASE_PATH + "user.html";
 	}
 	
 	/**
@@ -78,43 +77,39 @@ public class UserController extends BaseController implements ConstShiro{
 	
 	@RequestMapping(KEY_ADD)
 	@Permission({ ADMINISTRATOR, ADMIN })
-	public ModelAndView add() {
-		ModelAndView view = new ModelAndView(BASE_PATH + "user_add.html");
-		view.addObject("code", CODE);
-		return view;
+	public String add(ModelMap mm) {
+		mm.put("code", CODE);
+		return BASE_PATH + "user_add.html";
 	}
 	
 	@RequestMapping(KEY_EDIT + "/{id}")
 	@Permission({ ADMINISTRATOR, ADMIN })
-	public ModelAndView edit(@PathVariable String id) {
-		ModelAndView view = new ModelAndView(BASE_PATH + "user_edit.html");
+	public String edit(@PathVariable String id, ModelMap mm) {
 		User user = Blade.create(User.class).findById(id);
 		Maps maps = Maps.parse(user);
 		maps.set("roleName", Func.getRoleName(user.getRoleid()));
-		view.addObject("user", maps);
-		view.addObject("code", CODE);
-		return view;
+		mm.put("user", maps);
+		mm.put("code", CODE);
+		return BASE_PATH + "user_edit.html";
 	}
 	
 	@RequestMapping("/editMySelf/{id}")
-	public ModelAndView editMySelf(@PathVariable String id) {
-		ModelAndView view = new ModelAndView(BASE_PATH + "user_edit.html");
+	public String editMySelf(@PathVariable String id, ModelMap mm) {
 		User user = Blade.create(User.class).findById(id);
 		Maps maps = Maps.parse(user);
 		maps.set("roleName", Func.getRoleName(user.getRoleid()));
-		view.addObject("user", maps);
-		view.addObject("code", CODE);
-		view.addObject("methodName", "editMySelf");
-		return view;
+		mm.put("user", maps);
+		mm.put("code", CODE);
+		mm.put("methodName", "editMySelf");
+		return BASE_PATH + "user_edit.html";
 	}
 	
 	@RequestMapping("/editPassword/{id}")
-	public ModelAndView editPassword(@PathVariable String id){
-		ModelAndView view = new ModelAndView(BASE_PATH + "user_edit_password.html");
+	public String editPassword(@PathVariable String id, ModelMap mm){
 		User user = Blade.create(User.class).findById(id);
-		view.addObject("user", user);
-		view.addObject("code", CODE);
-		return view;
+		mm.put("user", user);
+		mm.put("code", CODE);
+		return BASE_PATH + "user_edit_password.html";
 	}
 
 	@ResponseBody
@@ -138,16 +133,15 @@ public class UserController extends BaseController implements ConstShiro{
 
 	@RequestMapping(KEY_VIEW + "/{id}")
 	@Permission({ ADMINISTRATOR, ADMIN })
-	public ModelAndView view(@PathVariable String id) {
-		ModelAndView view = new ModelAndView(BASE_PATH + "user_view.html");
+	public String view(@PathVariable String id, ModelMap mm) {
 		User user = Blade.create(User.class).findById(id);
 		Maps maps = Maps.parse(user);
 		maps.set("deptName", Func.getDeptName(user.getDeptid()))
 			.set("roleName", Func.getRoleName(user.getRoleid()))
 			.set("sexName", Func.getDictName(101, user.getSex()));
-		view.addObject("user", maps);
-		view.addObject("code", CODE);
-		return view;
+		mm.put("user", maps);
+		mm.put("code", CODE);
+		return BASE_PATH + "user_view.html";
 	}
 	
 	
@@ -306,14 +300,13 @@ public class UserController extends BaseController implements ConstShiro{
 	}
 	
 	@RequestMapping("/extrole/{id}/{roleName}")
-	public ModelAndView extrole(@PathVariable String id, @PathVariable String roleName) {
+	public String extrole(@PathVariable String id, @PathVariable String roleName, ModelMap mm) {
 		User user = Blade.create(User.class).findById(id);
 		String roleId = user.getRoleid();
-		ModelAndView view = new ModelAndView(BASE_PATH + "user_extrole.html");
-		view.addObject("userId", id);
-		view.addObject("roleId", roleId);
-		view.addObject("roleName", Func.decodeUrl(roleName));
-		return view;
+		mm.put("userId", id);
+		mm.put("roleId", roleId);
+		mm.put("roleName", Func.decodeUrl(roleName));
+		return BASE_PATH + "user_extrole.html";
 	}
 	
 	@ResponseBody
@@ -388,12 +381,11 @@ public class UserController extends BaseController implements ConstShiro{
 	}
 	
 	@RequestMapping("/roleAssign/{id}/{name}/{roleId}")
-	public ModelAndView roleAssign(@PathVariable String id, @PathVariable String name, @PathVariable String roleId) {
-		ModelAndView view = new ModelAndView(BASE_PATH + "user_roleassign.html");
-		setAttr("id", id);
-		setAttr("roleId", roleId);
-		setAttr("name", Func.decodeUrl(name));
-		return view;
+	public String roleAssign(@PathVariable String id, @PathVariable String name, @PathVariable String roleId, ModelMap mm) {
+		mm.put("id", id);
+		mm.put("roleId", roleId);
+		mm.put("name", Func.decodeUrl(name));
+		return BASE_PATH + "user_roleassign.html";
 	}
 	
 	@ResponseBody

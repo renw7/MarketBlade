@@ -32,7 +32,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.common.vo.LoginLog;
@@ -52,21 +51,19 @@ public class LoginController extends BaseController implements Const{
 	private static Logger log = LoggerFactory.getLogger(LoginController.class);
 
 	@RequestMapping("/")
-	public ModelAndView index() {
-		ModelAndView view = new ModelAndView(indexRealPath);
-		return view;
+	public String index() {
+		return indexRealPath;
 	}
 	
 	/**
 	 * GET 登录
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public void login(HttpServletResponse response) {
+	public String login() {
 		if (ShiroKit.isAuthenticated()) {
-			redirect(response, "/");
-			return;
+			return "redirect:/";
 		}
-		render(response, loginRealPath);
+		return loginRealPath;
 	}
 
 	/**
@@ -106,20 +103,19 @@ public class LoginController extends BaseController implements Const{
 	}
 
 	@RequestMapping("/logout")
-	public void logout(HttpServletResponse response) {
+	public String logout() {
 		doLog(ShiroKit.getSession(), "登出");
 		Subject currentUser = ShiroKit.getSubject();
 		currentUser.logout();
-		redirect(response, "/login");
+		return "redirect:/login";
 	}
 
 	@RequestMapping(value = "/unauth")
-	public void unauth(HttpServletResponse response) {
+	public String unauth() {
 		if (ShiroKit.notAuthenticated()) {
-			redirect(response, "/login");
-			return;
+			return "redirect:/login";
 		}
-		render(response, noPermissionPath);
+		return noPermissionPath;
 	}
 
 	@RequestMapping("/captcha")

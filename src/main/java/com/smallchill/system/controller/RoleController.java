@@ -17,11 +17,11 @@ package com.smallchill.system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.core.constant.ConstShiro;
@@ -48,10 +48,9 @@ public class RoleController extends BaseController{
 	RoleService service;
 
 	@RequestMapping("/")
-	public ModelAndView index() {
-		ModelAndView view = new ModelAndView(BASE_PATH + "role.html");
-		view.addObject("code", CODE);
-		return view;
+	public String index(ModelMap mm) {
+		mm.put("code", CODE);
+		return BASE_PATH + "role.html";
 	}
 	
 	@ResponseBody
@@ -62,56 +61,50 @@ public class RoleController extends BaseController{
 	}
 	
 	@RequestMapping(KEY_ADD)
-	public ModelAndView add() {
-		ModelAndView view = new ModelAndView(BASE_PATH + "role_add.html");
-		view.addObject("code", CODE);
-		return view;
+	public String add(ModelMap mm) {
+		mm.put("code", CODE);
+		return BASE_PATH + "role_add.html";
 	}
 	
 	@RequestMapping(KEY_ADD + "/{id}")
-	public ModelAndView add(@PathVariable String id) {
-		ModelAndView view = new ModelAndView(BASE_PATH + "role_add.html");
+	public String add(@PathVariable String id, ModelMap mm) {
 		if (StrKit.notBlank(id)) {
-			view.addObject("pId", id);
-			view.addObject("num", service.findLastNum(id));
+			mm.put("pId", id);
+			mm.put("num", service.findLastNum(id));
 		}
-		view.addObject("code", CODE);
-		return view;
+		mm.put("code", CODE);
+		return BASE_PATH + "role_add.html";
 	}
 	
 	@RequestMapping(KEY_EDIT + "/{id}")
-	public ModelAndView edit(@PathVariable String id) {
-		ModelAndView view = new ModelAndView(BASE_PATH + "role_edit.html");
+	public String edit(@PathVariable String id, ModelMap mm) {
 		Role role = service.findById(id);
-		view.addObject("model", JsonKit.toJson(role));
-		view.addObject("code", CODE);
-		return view;
+		mm.put("model", JsonKit.toJson(role));
+		mm.put("code", CODE);
+		return BASE_PATH + "role_edit.html";
 	}
 
 	@RequestMapping(KEY_VIEW + "/{id}")
-	public ModelAndView view(@PathVariable String id) {
-		ModelAndView view = new ModelAndView(BASE_PATH + "role_view.html");
+	public String view(@PathVariable String id, ModelMap mm) {
 		Role role = service.findById(id);
 		Role parent = service.findById(role.getPid());
 		String pName = (null == parent) ? "" : parent.getName();
 		Maps maps = Maps.parse(role);
 		maps.set("deptName", Func.getDeptName(role.getDeptid()))
 			.set("pName", pName);
-		view.addObject("model", JsonKit.toJson(maps));
-		view.addObject("code", CODE);
-		return view;
+		mm.put("model", JsonKit.toJson(maps));
+		mm.put("code", CODE);
+		return BASE_PATH + "role_view.html";
 	}
 	
 	@RequestMapping("/authority/{roleId}/{roleName}")
-	public ModelAndView authority(@PathVariable String roleId, @PathVariable String roleName) {
-		ModelAndView view = new ModelAndView(BASE_PATH + "role_authority.html");	
+	public String authority(@PathVariable String roleId, @PathVariable String roleName, ModelMap mm) {
 		if(!ShiroKit.hasAnyRoles(ConstShiro.ADMINISTRATOR + "," + ConstShiro.ADMIN)){
-			view.setViewName("redirect:/unauth");
-			return view;
+			return "redirect:/unauth";
 		}
-		view.addObject("roleId", roleId);
-		view.addObject("roleName", Func.decodeUrl(roleName));
-		return view;
+		mm.put("roleId", roleId);
+		mm.put("roleName", Func.decodeUrl(roleName));
+		return BASE_PATH + "role_authority.html";
 	}
 	
 	@ResponseBody

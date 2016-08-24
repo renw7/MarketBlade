@@ -20,11 +20,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.core.annotation.Before;
@@ -57,55 +57,49 @@ public class MenuController extends BaseController implements ConstShiro{
 
 	@RequestMapping("/")
 	@Permission(ADMINISTRATOR)
-	public ModelAndView index() {
-		ModelAndView view = new ModelAndView(BASE_PATH + "menu.html");
-		view.addObject("code", CODE);
-		return view;
+	public String index(ModelMap mm) {
+		mm.put("code", CODE);
+		return BASE_PATH + "menu.html";
 	}
 
 	@RequestMapping(KEY_ADD)
-	public ModelAndView add() {
-		ModelAndView view = new ModelAndView(BASE_PATH + "menu_add.html");
+	public String add(ModelMap mm) {
 		if(ShiroKit.lacksRole(ADMINISTRATOR)){
-			view.setViewName(REDIRECT_UNAUTH);
-			return view;
+			return REDIRECT_UNAUTH;
 		}
-		view.addObject("code", CODE);
-		return view;
+		mm.put("code", CODE);
+		return BASE_PATH + "menu_add.html";
 	}
 	
 	@RequestMapping(KEY_ADD + "/{id}")
 	@Permission(ADMINISTRATOR)
-	public ModelAndView add(@PathVariable String id) {
-		ModelAndView view = new ModelAndView(BASE_PATH + "menu_add.html");
+	public String add(@PathVariable String id, ModelMap mm) {
 		if (StrKit.notBlank(id)) {
 			Menu menu = service.findById(id);
-			view.addObject("PCODE", menu.getCode());
-			view.addObject("LEVELS", menu.getLevels() + 1);
-			view.addObject("NUM", service.findLastNum(menu.getCode()));
+			mm.put("PCODE", menu.getCode());
+			mm.put("LEVELS", menu.getLevels() + 1);
+			mm.put("NUM", service.findLastNum(menu.getCode()));
 		}
-		view.addObject("code", CODE);
-		return view;
+		mm.put("code", CODE);
+		return BASE_PATH + "menu_add.html";
 	}
 
 	@RequestMapping(KEY_EDIT + "/{id}")
 	@Permission(ADMINISTRATOR)
-	public ModelAndView edit(@PathVariable String id) {
-		ModelAndView view = new ModelAndView(BASE_PATH + "menu_edit.html");
+	public String edit(@PathVariable String id, ModelMap mm) {
 		Menu menu = service.findById(id);
-		view.addObject("model", JsonKit.toJson(menu));
-		view.addObject("code", CODE);
-		return view;
+		mm.put("model", JsonKit.toJson(menu));
+		mm.put("code", CODE);
+		return BASE_PATH + "menu_edit.html";
 	}
 
 	@RequestMapping(KEY_VIEW + "/{id}")
 	@Permission(ADMINISTRATOR)
-	public ModelAndView view(@PathVariable String id) {
-		ModelAndView view = new ModelAndView(BASE_PATH + "menu_view.html");
+	public String view(@PathVariable String id, ModelMap mm) {
 		Menu menu = service.findById(id);
-		view.addObject("model", JsonKit.toJson(menu));
-		view.addObject("code", CODE);
-		return view;
+		mm.put("model", JsonKit.toJson(menu));
+		mm.put("code", CODE);
+		return BASE_PATH + "menu_view.html";
 	}
 
 	@ResponseBody

@@ -16,11 +16,11 @@
 package com.smallchill.system.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.core.plugins.dao.Blade;
@@ -40,10 +40,9 @@ public class DictController extends BaseController{
 	private static String PERFIX = "tfw_dict";
 	
 	@RequestMapping("/")
-	public ModelAndView index() {
-		ModelAndView view = new ModelAndView(BASE_PATH + "dict.html");
-		view.addObject("code", CODE);
-		return view;
+	public String index(ModelMap mm) {
+		mm.put("code", CODE);
+		return BASE_PATH + "dict.html";
 	}
 	
 	
@@ -55,46 +54,42 @@ public class DictController extends BaseController{
 	}
 	
 	@RequestMapping(KEY_ADD)
-	public ModelAndView add() {
-		ModelAndView view = new ModelAndView(BASE_PATH + "dict_add.html");
-		view.addObject("code", CODE);
-		return view;
+	public String add(ModelMap mm) {
+		mm.put("code", CODE);
+		return BASE_PATH + "dict_add.html";
 	}
 	
 	@RequestMapping(KEY_ADD + "/{id}")
-	public ModelAndView add(@PathVariable String id) {
-		ModelAndView view = new ModelAndView(BASE_PATH + "dict_add.html");
+	public String add(@PathVariable String id, ModelMap mm) {
 		if (StrKit.notBlank(id)) {
 			Dict dict = Blade.create(Dict.class).findById(id);
-			view.addObject("dictcode", dict.getCode());
-			view.addObject("pId", id);
-			view.addObject("num", findLastNum(dict.getCode()));
+			mm.put("dictcode", dict.getCode());
+			mm.put("pId", id);
+			mm.put("num", findLastNum(dict.getCode()));
 		}
-		view.addObject("code", CODE);
-		return view;
+		mm.put("code", CODE);
+		return BASE_PATH + "dict_add.html";
 	}
 	
 	@RequestMapping(KEY_EDIT + "/{id}")
-	public ModelAndView edit(@PathVariable String id) {
-		ModelAndView view = new ModelAndView(BASE_PATH + "dict_edit.html");
+	public String edit(@PathVariable String id, ModelMap mm) {
 		Dict dict = Blade.create(Dict.class).findById(id);
-		view.addObject("model", JsonKit.toJson(dict));
-		view.addObject("code", CODE);
-		return view;
+		mm.put("model", JsonKit.toJson(dict));
+		mm.put("code", CODE);
+		return BASE_PATH + "dict_edit.html";
 	}
 
 	@RequestMapping(KEY_VIEW + "/{id}")
-	public ModelAndView view(@PathVariable String id) {
-		ModelAndView view = new ModelAndView(BASE_PATH + "dict_view.html");
+	public String view(@PathVariable String id, ModelMap mm) {
 		Blade blade = Blade.create(Dict.class);
 		Dict dict = blade.findById(id);
 		Dict parent = blade.findById(dict.getPid());
 		String pName = (null == parent) ? "" : parent.getName();
 		Maps maps = Maps.parse(dict);
 		maps.set("pName", pName);
-		view.addObject("model", JsonKit.toJson(maps));
-		view.addObject("code", CODE);
-		return view;
+		mm.put("model", JsonKit.toJson(maps));
+		mm.put("code", CODE);
+		return BASE_PATH + "dict_view.html";
 	}
 	
 	@ResponseBody
