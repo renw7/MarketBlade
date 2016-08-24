@@ -121,7 +121,7 @@ public interface IService<M> {
 	 * @param model 实体类
 	 * @return
 	 */
-	public boolean saveAssign(M model);
+	/*public boolean saveAssign(M model);*/
 	
 	/**
 	 * 新增返回int型主键 

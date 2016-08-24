@@ -19,14 +19,12 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.annotatoin.Table;
 import org.beetl.sql.core.db.ClassDesc;
 import org.beetl.sql.core.db.KeyHolder;
-import org.beetl.sql.core.mapping.handler.ScalarHandler;
 
 import com.smallchill.core.annotation.BindID;
 import com.smallchill.core.annotation.Slave;
@@ -361,7 +359,7 @@ public class Blade {
 	 * @param model 实体类
 	 * @return
 	 */
-	public boolean saveAssign(Object model) {
+	/*public boolean saveAssign(Object model) {
 		SQLManager sql = getSqlManager();
 		String table = sql.getNc().getTableName(this.modelClass);
 		ClassDesc desc = sql.getMetaDataManager().getTable(table).getClassDesc(this.modelClass, sql.getNc());
@@ -378,7 +376,7 @@ public class Blade {
 			throw new UnsupportedOperationException("autoAssignKey failure " + ex.getMessage());
 		}
 		return sql.insert(this.modelClass, model, false) > 0;
-	}
+	}*/
 
 	/**
 	 * 新增一条数据,返回int型主键值
@@ -427,7 +425,7 @@ public class Blade {
 		SQLManager sql = getSqlManager();
 		String table = sql.getNc().getTableName(this.modelClass);
 		ClassDesc desc = sql.getMetaDataManager().getTable(table).getClassDesc(this.modelClass, sql.getNc());
-		Method getterMethod =  desc.getIdMethods().get(desc.getIdNames().get(0));
+		Method getterMethod = (Method) desc.getIdMethods().get(desc.getIdCols().get(0));
 		Object idValue = null;
 		try {
 			idValue = getterMethod.invoke(model);
@@ -469,7 +467,7 @@ public class Blade {
 		SQLManager sql = getSqlManager();
 		String table = sql.getNc().getTableName(this.modelClass);
 		ClassDesc desc = sql.getMetaDataManager().getTable(table).getClassDesc(this.modelClass, sql.getNc());
-		Method getterMethod = desc.getIdMethods().get(desc.getIdNames().get(0));
+		Method getterMethod = (Method) desc.getIdMethods().get(desc.getIdCols().get(0));
 		Object idValue = null;
 		try {
 			idValue = getterMethod.invoke(model);

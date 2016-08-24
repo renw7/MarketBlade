@@ -150,7 +150,7 @@ public class GenerateController extends CurdController<Generate> {
 			
 			//webapp
 			final TableDesc tableDesc = Blade.dao().getMetaDataManager().getTable(tableName);
-			Set<String> cols = tableDesc.getMetaCols();
+			Set<String> cols = tableDesc.getIdNames();
 			maps.set("cols", cols);
 			
 			BeetlMaker.makeHtml(indexTemplatePath, maps, indexPath);
