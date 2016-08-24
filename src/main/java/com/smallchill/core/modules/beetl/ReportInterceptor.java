@@ -1,6 +1,5 @@
 package com.smallchill.core.modules.beetl;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.beetl.sql.core.InterceptorContext;
@@ -36,8 +35,9 @@ public class ReportInterceptor extends DebugInterceptor {
 			if(!found&&tr.getClassName().indexOf("SQLManager")!=-1){
 				found = true ;
 			}
-			if(found&&tr.getClassName().indexOf("SQLManager")==-1){
-					//found 
+			if(found&&!tr.getClassName().startsWith("org.beetl.sql.core")&&!tr.getClassName().startsWith("com.sun")){
+				//startwith("com.sun"),proxy call,please refer to MapperJava Proxy since beetlsql 2.0
+				//found 
 				String className = tr.getClassName();
 				String mehodName = tr.getMethodName();
 				int line = tr.getLineNumber();
@@ -64,7 +64,13 @@ public class ReportInterceptor extends DebugInterceptor {
 		if(ctx.isUpdate()){
 			sb.append("成功更新	: [");
 			if(ctx.getResult().getClass().isArray()){
-				sb.append(Arrays.asList((int[])ctx.getResult()));
+				int[] ret = (int[])ctx.getResult();
+				for(int i=0;i<ret.length;i++){
+					sb.append(ret[i]);
+					if(i!=ret.length-1){
+						sb.append(",");
+					}
+				}
 			}else{
 				sb.append(ctx.getResult());
 			}
