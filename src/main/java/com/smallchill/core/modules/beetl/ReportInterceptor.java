@@ -84,7 +84,6 @@ public class ReportInterceptor extends DebugInterceptor {
 
 	}
 	
-	@Override
 	protected void print(String sqlId,String sql,List<Object> paras){
 		StringBuilder sb = new StringBuilder();
 		sb.append("\nBlade beetlsql before ----------------- " + DateKit.getTime() + " -----------------------------\n")
