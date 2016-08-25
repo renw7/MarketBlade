@@ -24,10 +24,10 @@
 		        dataType: this.dataType,
 		        async: this.async,
 		        data: this.data,
-				beforeSend : function(data) {
+				beforeSend: function(data) {
 					//loadDialog(data);
 				},
-		        success : function(data) {
+		        success: function(data) {
 		        	me.success(data);
 		        }
 		    });
