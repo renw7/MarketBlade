@@ -13,9 +13,9 @@
 			var me = this;
 			
 			if (this.url.indexOf("?") == -1) {
-				this.url = this.url + "?_=" + new Date().getTime();
+				this.url = this.url + "?jstime=" + new Date().getTime();
 			} else {
-				this.url = this.url + "&_=" + new Date().getTime();
+				this.url = this.url + "&jstime=" + new Date().getTime();
 			}
 			
 			$.ajax({
@@ -25,9 +25,9 @@
 		        async: this.async,
 		        data: this.data,
 				beforeSend : function(data) {
-					
+					//loadDialog(data);
 				},
-		        success: function(data) {
+		        success : function(data) {
 		        	me.success(data);
 		        }
 		    });
@@ -40,7 +40,7 @@
 					this.data[i] = key[i];
 				}
 			} else {
-				this.data[key] = (typeof value == "undefined") ? (document.getElementById(key).value || "") : value;
+				this.data[key] = (typeof value == "undefined") ? $("#" + key).val() : value;
 			}
 			return this;
 		},
@@ -49,6 +49,10 @@
 			return this;
 		}
 	};
+	
+	$(document).ajaxStop(function(){
+		//closeDialog(data);
+	});
 	
 	window.$ax = $ax;
 	
