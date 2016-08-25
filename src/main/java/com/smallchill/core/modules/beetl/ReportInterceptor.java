@@ -41,7 +41,7 @@ public class ReportInterceptor extends DebugInterceptor {
 				String className = tr.getClassName();
 				String mehodName = tr.getMethodName();
 				int line = tr.getLineNumber();
-				println("location : " + className + "." + mehodName + " " + line);
+				println("location : " + className + "." + mehodName + "(" + tr.getFileName() + ":" + line + ")");
 				break ;
 			}
 		}
