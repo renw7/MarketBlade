@@ -25,6 +25,7 @@
 		<link rel="stylesheet" href="${basePath}/static/assets/css/ace.css" />
 		<link rel="stylesheet" href="${basePath}/static/assets/css/ace-rtl.css" />
 		<script src="${basePath}/static/layer/layer.js"></script>		
+		<script src="${basePath}/static/blade/js/blade-ajax.js" type="text/javascript" ></script>
 	</head>
 
 	<body class="login-layout light-login">
@@ -146,7 +147,8 @@
 				$("form").submit(function(){
 					var $form = $(this);
 					var $imgcode=$("#"+$form.attr("data-imgcode"));
-					$.post($form.attr("action"), $form.serialize(), function(data){
+					
+					var ajax = new $ax($form.attr("action"), function(data){
 						if (data.code === 0) {
 							layer.msg(data.message, {shift: 1});
 							setTimeout(function(){window.location.href = "${basePath}/";}, 1200);
@@ -156,7 +158,10 @@
 							$imgcode.click();
 							return false;
 						}
-					}, "json");
+					});
+					ajax.data = $form.serialize();
+					ajax.start();
+					
 					return false;
 				});
 				 $(document).on('click', '.toolbar a[data-target]', function(e) {

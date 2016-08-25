@@ -32,7 +32,8 @@
 					$("#btn_save").attr("disabled","disabled");
 					var appindex = appLoading();
 					var $form = $(this);
-					$.post($form.attr("data-url"), $form.serialize(), function(data){
+					
+					var ajax = new $ax($form.attr("data-url"), function(data){
 						if (data.code === 0) {
 							clearLoading(appindex);
 							layer.msg(data.message, {shift: 1});
@@ -51,7 +52,10 @@
 							}
 							return false;
 						}
-					}, "json");
+					});
+					ajax.data = $form.serialize();
+					ajax.start();
+					
 					return false;
 				}, {
 					// novalidate: false

@@ -26,7 +26,6 @@ public class NoticeController extends BaseController {
 	private static String LIST_SOURCE = "Notice.list";
 	private static String BASE_PATH = "/platform/notice/";
 	
-
 	@RequestMapping(KEY_MAIN)
 	public String index(ModelMap mm) {
 		mm.put("code", CODE);
