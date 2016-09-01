@@ -61,7 +61,7 @@ public class LoginController extends BaseController implements Const{
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
 		if (ShiroKit.isAuthenticated()) {
-			return "redirect:/";
+			return redirect + "/";
 		}
 		return loginRealPath;
 	}
@@ -107,13 +107,13 @@ public class LoginController extends BaseController implements Const{
 		doLog(ShiroKit.getSession(), "登出");
 		Subject currentUser = ShiroKit.getSubject();
 		currentUser.logout();
-		return "redirect:/login";
+		return redirect + "/login";
 	}
 
 	@RequestMapping(value = "/unauth")
 	public String unauth() {
 		if (ShiroKit.notAuthenticated()) {
-			return "redirect:/login";
+			return redirect + "/login";
 		}
 		return noPermissionPath;
 	}

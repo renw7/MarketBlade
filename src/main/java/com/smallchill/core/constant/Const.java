@@ -87,5 +87,10 @@ public interface Const {
 	 * 定义mybatis条件封装的值
 	 */
 	final static String SQL_EX_STR = "sqlEx";
+	
+	/**
+	 * 定义跳转常量
+	 */
+	final static String redirect = "redirect:";
 
 }
