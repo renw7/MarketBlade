@@ -38,7 +38,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
 import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.core.constant.Const;
@@ -89,10 +88,7 @@ public class BladeController implements ConstCurd, ConstCache{
 		String msg = ex.getMessage();
 		Object resultModel = null;
 		try {
-			if (ex.getClass() == NoSuchRequestHandlingMethodException.class) {
-				url = Const.error404Path;
-				msg = ConstShiro.NO_METHOD;
-			} else if (ex.getClass() == HttpRequestMethodNotSupportedException.class) {
+			if (ex.getClass() == HttpRequestMethodNotSupportedException.class) {
 				url = Const.error500Path;// 请求方式不允许抛出的异常,后面可自定义页面
 			} else if (ex.getClass() == NoPermissionException.class) {
 				url = Const.noPermissionPath;// 无权限抛出的异常
