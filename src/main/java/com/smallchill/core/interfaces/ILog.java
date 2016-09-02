@@ -18,7 +18,7 @@ package com.smallchill.core.interfaces;
 import javax.servlet.http.HttpServletRequest;
 
 import com.smallchill.common.vo.ShiroUser;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 
 /**
  *  日志记录接口
@@ -33,7 +33,7 @@ public interface ILog {
 	/**
 	 * 定义日志拦截的方法名
 	 */
-	Maps logMaps();
+	Record logMaps();
 	
 	/**
 	 * 是否需要记录日志

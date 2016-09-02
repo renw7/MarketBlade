@@ -31,13 +31,13 @@ import com.smallchill.core.interfaces.IShiro;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.kit.CacheKit;
 
 public class DefaultShiroFactroy implements IShiro{
 	
 	public User user(String account) {
-		User user = Blade.create(User.class).findFirstBy("account = #{account}", Maps.create().set("account", account));
+		User user = Blade.create(User.class).findFirstBy("account = #{account}", Record.create().set("account", account));
 		// 账号不存在
 		if (null == user) {
 			return null;
@@ -66,7 +66,7 @@ public class DefaultShiroFactroy implements IShiro{
 		Map<String, Object> userRole = CacheKit.get(ConstCache.MENU_CACHE, "role_ext_" + userId, new ILoader() {
 			@Override
 			public Object load() {
-				return Db.init().selectOne("select * from TFW_ROLE_EXT where USERID=#{userId}", Maps.create().set("userId", userId));
+				return Db.init().selectOne("select * from TFW_ROLE_EXT where USERID=#{userId}", Record.create().set("userId", userId));
 			}
 		}); 
 
@@ -74,7 +74,7 @@ public class DefaultShiroFactroy implements IShiro{
 		String roleIn = "0";
 		String roleOut = "0";
 		if (!Func.isEmpty(userRole)) {
-			Maps map = Maps.parse(userRole);
+			Record map = Record.parse(userRole);
 			roleIn = map.getStr("ROLEIN");
 			roleOut = map.getStr("ROLEOUT");
 		}
@@ -103,7 +103,7 @@ public class DefaultShiroFactroy implements IShiro{
 		Map<String, Object> map = CacheKit.get(ConstCache.ROLE_CACHE, "findRoleNameByRoleId" + roleId, new ILoader() {
 			@Override
 			public Object load() {
-				return Db.init().selectOne("select TIPS from tfw_role where id = #{id}", Maps.create().set("id", roleId));
+				return Db.init().selectOne("select TIPS from tfw_role where id = #{id}", Record.create().set("id", roleId));
 			}
 		});
 		return Func.format(map.get("TIPS"));

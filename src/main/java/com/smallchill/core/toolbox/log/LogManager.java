@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.ILog;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 
 /**
  * @title 日志工厂
@@ -57,7 +57,7 @@ public class LogManager {
 		return me.defaultLogFactory.logPatten();
 	}
 	
-	public static Maps logMaps(){
+	public static Record logMaps(){
 		return me.defaultLogFactory.logMaps();
 	}
 	

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.plugins.dao.Blade;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.platform.model.Notice;
 
 /**
@@ -24,14 +24,14 @@ public class ExampleBlade extends BladeController{
 	public void more(){
 		Blade dao = Blade.create(Notice.class);
 		//指定表名、查询条件查询多条数据
-		List<Notice> list = dao.findBy("tb_tfw_tzgg", "f_it_xl = #{xl},f_it_cjr = #{cjr}", Maps.create().set("xl", 1).set("cjr", 1));
+		List<Notice> list = dao.findBy("tb_tfw_tzgg", "f_it_xl = #{xl},f_it_cjr = #{cjr}", Record.create().set("xl", 1).set("cjr", 1));
 		System.out.println(list);
 	}
 	
 	public void other(){
 		Blade dao = Blade.create(Notice.class);
 		//指定表名、查询条件查询多条数据(完整sql)
-		List<Notice> list = dao.find("select * from tb_tfw_tzgg where f_it_xl = #{xl},f_it_cjr = #{cjr}", Maps.create().set("xl", 1).set("cjr", 1));
+		List<Notice> list = dao.find("select * from tb_tfw_tzgg where f_it_xl = #{xl},f_it_cjr = #{cjr}", Record.create().set("xl", 1).set("cjr", 1));
 		System.out.println(list);
 	}
 	
@@ -49,7 +49,7 @@ public class ExampleBlade extends BladeController{
 	public void saveAndSwitch(){
 		Blade dao = Blade.create(Notice.class);
 		//创建字段转换map,可将前端隐藏起来的数据库字段到后台自动映射为javabean
-		Map<String, Object> switchMap = Maps.createHashMap();
+		Map<String, Object> switchMap = Record.createHashMap();
 		switchMap.put("bt", "f_vc_bt");
 		switchMap.put("cjsj", "f_dt_cjsj");
 		switchMap.put("cjr", "f_it_cjr");
@@ -89,7 +89,7 @@ public class ExampleBlade extends BladeController{
 	public void countBy(){
 		Blade dao = Blade.create(Notice.class);
 		//查询出tb_tfw_tzgg表所有f_vc_bt字段值为"this is title"并且f_it_cjr字段为1的总数
-		dao.count("f_vc_bt = #{bt} and f_it_cjr = #{cjr}", Maps.create().set("bt", "this is title").set("cjr", 1));
+		dao.count("f_vc_bt = #{bt} and f_it_cjr = #{cjr}", Record.create().set("bt", "this is title").set("cjr", 1));
 	}
 	
 }

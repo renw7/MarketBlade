@@ -24,7 +24,7 @@ import com.smallchill.core.constant.Cst;
 import com.smallchill.core.meta.MetaIntercept;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.support.BladePage;
 
 public class AttachIntercept extends MetaIntercept {
@@ -50,7 +50,7 @@ public class AttachIntercept extends MetaIntercept {
 	 * @param ac
 	 */
 	public void renderViewBefore(AopContext ac) {
-		Maps maps = (Maps) ac.getObject();
+		Record maps = (Record) ac.getObject();
 		maps
 		.set("attachUrl", Cst.me().getContextPath() + "/kindeditor/renderFile/" + maps.get("id"))
 		.set("statusName", Func.getDictName(902, maps.get("status")))

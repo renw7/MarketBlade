@@ -27,7 +27,7 @@ import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.IQuery;
 import com.smallchill.core.plugins.connection.ConnectionPlugin;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.support.BladePage;
 
@@ -108,8 +108,8 @@ public class Db {
 	 * @param sqlTemplate	sql语句
 	 * @return
 	 */
-	public Maps selectOne(String sqlTemplate){
-		return queryMap(sqlTemplate, Maps.create());
+	public Record selectOne(String sqlTemplate){
+		return queryMap(sqlTemplate, Record.create());
 	}
 	
 	/**
@@ -118,7 +118,7 @@ public class Db {
 	 * @param modelOrMap	实体类或map
 	 * @return
 	 */
-	public Maps selectOne(String sqlTemplate, Object modelOrMap){
+	public Record selectOne(String sqlTemplate, Object modelOrMap){
 		return queryMap(sqlTemplate, modelOrMap);
 	}
 	
@@ -127,8 +127,8 @@ public class Db {
 	 * @param sqlTemplate	sql语句
 	 * @return
 	 */
-	public List<Maps> selectList(String sqlTemplate){	
-		return queryListMap(sqlTemplate, Maps.create());
+	public List<Record> selectList(String sqlTemplate){	
+		return queryListMap(sqlTemplate, Record.create());
 	}
 	
 	/**
@@ -137,7 +137,7 @@ public class Db {
 	 * @param modelOrMap	实体类或map
 	 * @return
 	 */
-	public List<Maps> selectList(String sqlTemplate, Object modelOrMap){	
+	public List<Record> selectList(String sqlTemplate, Object modelOrMap){	
 		return queryListMap(sqlTemplate, modelOrMap);
 	}
 	
@@ -147,8 +147,8 @@ public class Db {
 	 * @param pkValue	主键值
 	 * @return
 	 */
-	public Maps findById(String tableName, String pkValue) {
-		return selectOneBy(tableName, "id = #{id}", Maps.create().set("id", pkValue));
+	public Record findById(String tableName, String pkValue) {
+		return selectOneBy(tableName, "id = #{id}", Record.create().set("id", pkValue));
 	}
 	
 	/**
@@ -158,8 +158,8 @@ public class Db {
 	 * @param pkValue	主键值
 	 * @return
 	 */
-	public Maps findById(String tableName, String pk, String pkValue) {
-		return selectOneBy(tableName, pk + " = #{id}", Maps.create().set("id", pkValue));
+	public Record findById(String tableName, String pk, String pkValue) {
+		return selectOneBy(tableName, pk + " = #{id}", Record.create().set("id", pkValue));
 	}
 	
 	/**
@@ -169,7 +169,7 @@ public class Db {
 	 * @param modelOrMap 实体类或map
 	 * @return
 	 */
-	public Maps selectOneBy(String tableName, String where, Object modelOrMap){
+	public Record selectOneBy(String tableName, String where, Object modelOrMap){
 		String sqlTemplate = Func.format("select * from {} where {} ", tableName, where);
 		return selectOne(sqlTemplate, modelOrMap);
 	}
@@ -181,7 +181,7 @@ public class Db {
 	 * @param modelOrMap 实体类或map
 	 * @return
 	 */
-	public List<Maps> selectListBy(String tableName, String where, Object modelOrMap){
+	public List<Record> selectListBy(String tableName, String where, Object modelOrMap){
 		String sqlTemplate = Func.format("select * from {} where {} ", tableName, where);
 		return selectList(sqlTemplate, modelOrMap);
 	}
@@ -244,12 +244,12 @@ public class Db {
 	 * @param modelOrMap	实体类或map
 	 * @return
 	 */
-	public Maps queryMap(String sqlTemplate, Object modelOrMap){
+	public Record queryMap(String sqlTemplate, Object modelOrMap){
 		List<Map> list = getSqlManager().execute(sqlTemplate, Map.class, modelOrMap, 1, 1);
 		if(list.size() == 0){
 			return null;
 		} else {
-			return Maps.parse(list.get(0));
+			return Record.parse(list.get(0));
 		}
 	}	
 	
@@ -259,11 +259,11 @@ public class Db {
 	 * @param modelOrMap	实体类或map
 	 * @return
 	 */
-	public List<Maps> queryListMap(String sqlTemplate, Object modelOrMap){
+	public List<Record> queryListMap(String sqlTemplate, Object modelOrMap){
 		List<Map> list = getSqlManager().execute(sqlTemplate, Map.class, modelOrMap);
-		List<Maps> maps = new ArrayList<>();
+		List<Record> maps = new ArrayList<>();
 		for (Map m : list){
-			maps.add(Maps.parse(m));
+			maps.add(Record.parse(m));
 		}
 		return maps;
 	}
@@ -274,7 +274,7 @@ public class Db {
 	 * @param ac
 	 * @return
 	 */
-	public Maps selectOne(String sqlTemplate, Map<String, Object> param, AopContext ac) {
+	public Record selectOne(String sqlTemplate, Map<String, Object> param, AopContext ac) {
 		return selectOne(sqlTemplate, param, ac, Cst.me().getDefaultQueryFactory());
 	}
 	
@@ -284,7 +284,7 @@ public class Db {
 	 * @param ac
 	 * @return
 	 */
-	public List<Maps> selectList(String sqlTemplate, Map<String, Object> param, AopContext ac) {
+	public List<Record> selectList(String sqlTemplate, Map<String, Object> param, AopContext ac) {
 		return selectList(sqlTemplate, param, ac, Cst.me().getDefaultQueryFactory());
 	}
 	
@@ -295,7 +295,7 @@ public class Db {
 	 * @param intercept
 	 * @return
 	 */
-	public Maps selectOne(String sqlTemplate, Map<String, Object> param, AopContext ac, IQuery intercept) {
+	public Record selectOne(String sqlTemplate, Map<String, Object> param, AopContext ac, IQuery intercept) {
 		ac.setSql(sqlTemplate);
 		ac.setCondition("");
 		ac.setParam(param);
@@ -303,7 +303,7 @@ public class Db {
 			intercept.queryBefore(ac);
 			sqlTemplate = (StrKit.notBlank(ac.getWhere())) ? ac.getWhere() : (sqlTemplate + " " + ac.getCondition());
 		}
-		Maps rst = selectOne(sqlTemplate, param);
+		Record rst = selectOne(sqlTemplate, param);
 		if (null != intercept) {
 			ac.setObject(rst);
 			intercept.queryAfter(ac);
@@ -318,7 +318,7 @@ public class Db {
 	 * @param intercept
 	 * @return
 	 */
-	public List<Maps> selectList(String sqlTemplate, Map<String, Object> param, AopContext ac, IQuery intercept) {
+	public List<Record> selectList(String sqlTemplate, Map<String, Object> param, AopContext ac, IQuery intercept) {
 		ac.setSql(sqlTemplate);
 		ac.setCondition("");
 		ac.setParam(param);
@@ -326,7 +326,7 @@ public class Db {
 			intercept.queryBefore(ac);
 			sqlTemplate = (StrKit.notBlank(ac.getWhere())) ? ac.getWhere() : (sqlTemplate + " " + ac.getCondition());
 		}
-		List<Maps> rst = selectList(sqlTemplate, param);
+		List<Record> rst = selectList(sqlTemplate, param);
 		if (null != intercept) {
 			ac.setObject(rst);
 			intercept.queryAfter(ac);
@@ -342,7 +342,7 @@ public class Db {
 	 * @param maps		maps
 	 * @return
 	 */
-	public int save(Maps maps){
+	public int save(Record maps){
 		return save(maps.getTableName(), maps.getPkName(), maps);
 	}
 	
@@ -353,7 +353,7 @@ public class Db {
 	 * @param maps		msps
 	 * @return
 	 */
-	public int update(Maps maps){
+	public int update(Record maps){
 		return update(maps.getTableName(), maps.getPkName(), maps);
 	}
 	
@@ -364,7 +364,7 @@ public class Db {
 	 * @param maps		maps
 	 * @return
 	 */
-	public int save(String tableName, String pk, Maps maps) {
+	public int save(String tableName, String pk, Record maps) {
 		if(Func.isOneEmpty(tableName, pk)){
 			throw new RuntimeException("表名或主键不能为空!");
 		}
@@ -404,7 +404,7 @@ public class Db {
 	 * @param maps		msps
 	 * @return
 	 */
-	public int update(String tableName, String pk, Maps maps) {
+	public int update(String tableName, String pk, Record maps) {
 		if(Func.isOneEmpty(tableName, pk)){
 			throw new RuntimeException("表名或主键不能为空!");
 		}
@@ -429,7 +429,7 @@ public class Db {
 	 */
 	public int deleteByIds(String table, String col, String ids) {
 		String sqlTemplate = " DELETE FROM " + table + " WHERE " + col + " IN (#{join(ids)}) ";
-		Maps paras = Maps.create().set("ids", ids.split(","));
+		Record paras = Record.create().set("ids", ids.split(","));
 		int result = getSqlManager().executeUpdate(sqlTemplate, paras);
 		return result;
 	}

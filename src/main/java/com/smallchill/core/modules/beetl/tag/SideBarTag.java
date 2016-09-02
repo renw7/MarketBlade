@@ -29,7 +29,7 @@ import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.kit.CacheKit;
 
 public class SideBarTag extends Tag {
@@ -51,7 +51,7 @@ public class SideBarTag extends Tag {
 			Map<String, Object> userRole = CacheKit.get(MENU_CACHE, "role_ext_" + userId, new ILoader() {
 				@Override
 				public Object load() {
-					return Db.init().selectOne("select * from TFW_ROLE_EXT where USERID=#{userId}", Maps.create().set("userId", userId));
+					return Db.init().selectOne("select * from TFW_ROLE_EXT where USERID=#{userId}", Record.create().set("userId", userId));
 				}
 			}); 
 
@@ -59,7 +59,7 @@ public class SideBarTag extends Tag {
 			String roleIn = "0";
 			String roleOut = "0";
 			if (!Func.isEmpty(userRole)) {
-				Maps map = Maps.parse(userRole);
+				Record map = Record.parse(userRole);
 				roleIn = map.getStr("ROLEIN");
 				roleOut = map.getStr("ROLEOUT");
 			}
@@ -82,7 +82,7 @@ public class SideBarTag extends Tag {
 			
 			for (Map<String, Object> side : sideBar) {
 				TreeNode node = new TreeNode();
-				Maps map = Maps.parse(side);
+				Record map = Record.parse(side);
 				node.setId(map.getStr("CODE"));
 				node.setParentId(map.getStr("PCODE"));
 				node.setName(map.getStr("NAME"));
@@ -165,7 +165,7 @@ public class SideBarTag extends Tag {
 		String Str = "";
 		String subStr = "";
 		for (Map<String, Object> subside : sideBar) {
-			Maps map = Maps.parse(subside);
+			Record map = Record.parse(subside);
 			int _levels = map.getInt("LEVELS");
 			String _code = map.getStr("CODE");
 			String _pCode = map.getStr("PCODE");

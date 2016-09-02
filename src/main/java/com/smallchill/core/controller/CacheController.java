@@ -30,7 +30,7 @@ import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.StrKit;
@@ -57,7 +57,7 @@ public class CacheController extends BladeController {
 		Map<String, Object> userRole = CacheKit.get(MENU_CACHE, "roleExt_" + userId,
 				new ILoader() {
 					public Object load() {
-						return Db.init().selectOne("select * from TFW_ROLE_EXT where userId= #{id}", Maps.create().set("id", userId));
+						return Db.init().selectOne("select * from TFW_ROLE_EXT where userId= #{id}", Record.create().set("id", userId));
 					}
 				});
 
@@ -82,7 +82,7 @@ public class CacheController extends BladeController {
 		List<Map<String, Object>> btnList = CacheKit.get(MENU_CACHE, "btnList_" + code + "_"
 				+ userId, new ILoader() {
 			public Object load() {
-				return Db.init().selectList(sql.toString(), Maps.create().set("code", code));
+				return Db.init().selectList(sql.toString(), Record.create().set("code", code));
 			}
 		});
 		return json(btnList);
@@ -102,7 +102,7 @@ public class CacheController extends BladeController {
 		Map<String, Object> userRole = CacheKit.get(MENU_CACHE, "roleExt_" + userId,
 				new ILoader() {
 					public Object load() {
-						return Db.init().selectOne("select * from TFW_ROLE_EXT where userId= #{id}", Maps.create().set("id", userId));
+						return Db.init().selectOne("select * from TFW_ROLE_EXT where userId= #{id}", Record.create().set("id", userId));
 					}
 				});
 
@@ -126,7 +126,7 @@ public class CacheController extends BladeController {
 
 		List<Map<String, Object>> btnList = CacheKit.get(MENU_CACHE, "childBtnList_" + code + "_" + userId, new ILoader() {
 			public Object load() {
-				return Db.init().selectList(sql.toString(), Maps.create().set("code", code));
+				return Db.init().selectList(sql.toString(), Record.create().set("code", code));
 			}
 		});
 		return json(btnList);
@@ -149,7 +149,7 @@ public class CacheController extends BladeController {
 		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, "dict_common_" + code,
 				new ILoader() {
 					public Object load() {
-						return Db.init().selectList("select num as ID,pId as PID,name as TEXT from  TFW_DICT where code=#{code} and num>0", Maps.create().set("code", code));
+						return Db.init().selectList("select num as ID,pId as PID,name as TEXT from  TFW_DICT where code=#{code} and num>0", Record.create().set("code", code));
 					}
 				});
 		StringBuilder sb = new StringBuilder();
@@ -170,7 +170,7 @@ public class CacheController extends BladeController {
 		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, "dict_combo_" + code,
 				new ILoader() {
 					public Object load() {
-						return Db.init().selectList("select num as \"id\",name as \"text\" from  TFW_DICT where code=#{code} and num>0", Maps.create().set("code", code), new AopContext("ztree"));
+						return Db.init().selectList("select num as \"id\",name as \"text\" from  TFW_DICT where code=#{code} and num>0", Record.create().set("code", code), new AopContext("ztree"));
 					}
 				});
 
@@ -184,7 +184,7 @@ public class CacheController extends BladeController {
 		List<Map<String, Object>> dept = CacheKit.get(DEPT_CACHE, "dept_all",
 				new ILoader() {
 					public Object load() {
-						return Db.init().selectList("select ID,PID,simpleName as TEXT from  TFW_DEPT order by pId,num asc", Maps.create(), new AopContext(), Cst.me().getDefaultSelectFactory().deptIntercept());
+						return Db.init().selectList("select ID,PID,simpleName as TEXT from  TFW_DEPT order by pId,num asc", Record.create(), new AopContext(), Cst.me().getDefaultSelectFactory().deptIntercept());
 					}
 				});
 		StringBuilder sb = new StringBuilder();
@@ -205,7 +205,7 @@ public class CacheController extends BladeController {
 		List<Map<String, Object>> dept = CacheKit.get(DEPT_CACHE, "user_all",
 				new ILoader() {
 					public Object load() {
-						return Db.init().selectList("select ID,name TEXT from TFW_USER where status=1 and name is not null order by name ", Maps.create(), new AopContext(), Cst.me().getDefaultSelectFactory().userIntercept());
+						return Db.init().selectList("select ID,name TEXT from TFW_USER where status=1 and name is not null order by name ", Record.create(), new AopContext(), Cst.me().getDefaultSelectFactory().userIntercept());
 					}
 				});
 		StringBuilder sb = new StringBuilder();
@@ -226,7 +226,7 @@ public class CacheController extends BladeController {
 		List<Map<String, Object>> dept = CacheKit.get(ROLE_CACHE, "role_all",
 				new ILoader() {
 					public Object load() {
-						return Db.init().selectList("select ID,name TEXT from TFW_Role where  name is not null order by name ", Maps.create(), new AopContext("ztree"));
+						return Db.init().selectList("select ID,name TEXT from TFW_Role where  name is not null order by name ", Record.create(), new AopContext("ztree"));
 					}
 				});
 		StringBuilder sb = new StringBuilder();
@@ -246,7 +246,7 @@ public class CacheController extends BladeController {
 		List<Map<String, Object>> dic = CacheKit.get(DICT_CACHE, "dict_all",
 				new ILoader() {
 					public Object load() {
-						return Db.init().selectList("select code \"code\",id \"id\",pId \"pId\",name \"name\",num \"num\",'false' \"open\" from TFW_DICT order by code asc,num asc", Maps.create());
+						return Db.init().selectList("select code \"code\",id \"id\",pId \"pId\",name \"name\",num \"num\",'false' \"open\" from TFW_DICT order by code asc,num asc", Record.create());
 					}
 				});
 
@@ -259,7 +259,7 @@ public class CacheController extends BladeController {
 		List<Map<String, Object>> dept = CacheKit.get(DEPT_CACHE, "dept_tree_all_" + ShiroKit.getUser().getId(),
 				new ILoader() {
 					public Object load() {
-						return Db.init().selectList("select id \"id\",pId \"pId\",simpleName as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_DEPT ", Maps.create(), new AopContext("ztree"), Cst.me().getDefaultSelectFactory().deptIntercept());
+						return Db.init().selectList("select id \"id\",pId \"pId\",simpleName as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_DEPT ", Record.create(), new AopContext("ztree"), Cst.me().getDefaultSelectFactory().deptIntercept());
 					}
 				});
 
@@ -272,7 +272,7 @@ public class CacheController extends BladeController {
 		List<Map<String, Object>> dept = CacheKit.get(ROLE_CACHE, "role_tree_all_" + ShiroKit.getUser().getId(),
 				new ILoader() {
 					public Object load() {
-						return Db.init().selectList("select id \"id\",pId \"pId\",name as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_ROLE ", Maps.create(), new AopContext("ztree"), Cst.me().getDefaultSelectFactory().roleIntercept());
+						return Db.init().selectList("select id \"id\",pId \"pId\",name as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_ROLE ", Record.create(), new AopContext("ztree"), Cst.me().getDefaultSelectFactory().roleIntercept());
 					}
 				});
 
@@ -286,7 +286,7 @@ public class CacheController extends BladeController {
 		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, "dict_" + id,
 				new ILoader() {
 					public Object load() {
-						return Db.init().selectList("select CODE from TFW_DICT where id=#{id}",Maps.create().set("id", id), new AopContext("ztree"));
+						return Db.init().selectList("select CODE from TFW_DICT where id=#{id}",Record.create().set("id", id), new AopContext("ztree"));
 					}
 				});
 		return json(dict);
@@ -314,7 +314,7 @@ public class CacheController extends BladeController {
 					public Object load() {
 						String table = "TFW_MENU";
 						String pid = "";
-						List<Maps> record = Db.init().selectList("select PID from TFW_ROLE where id in (" + roleId + ")"); 
+						List<Record> record = Db.init().selectList("select PID from TFW_ROLE where id in (" + roleId + ")"); 
 						for (Map<String, Object> p : record) {
 							if (!Func.isEmpty(p.get("PID"))) {
 								pid += p.get("PID").toString() + ",";

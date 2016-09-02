@@ -11,7 +11,7 @@ import java.util.Map.Entry;
 import com.smallchill.core.exception.ToolBoxException;
 import com.smallchill.core.modules.support.Conver;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 
 /**
  * Bean工具类
@@ -207,7 +207,7 @@ public class BeanKit {
 		if (bean == null) {
 			return null;
 		}
-		if(bean.getClass().equals(Maps.class)){
+		if(bean.getClass().equals(Record.class)){
 			return (Map<String, Object>) bean;
 		}
 		Map<String, Object> map = new HashMap<String, Object>();

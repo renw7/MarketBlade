@@ -19,7 +19,7 @@ import com.smallchill.common.vo.User;
 import com.smallchill.core.aop.Invocation;
 import com.smallchill.core.intercept.BladeValidator;
 import com.smallchill.core.plugins.dao.Blade;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.kit.StrKit;
 
 public class UserValidator extends BladeValidator {
@@ -50,7 +50,7 @@ public class UserValidator extends BladeValidator {
 		if (StrKit.isBlank(account)) {
 			addError("请输入账号!");
 		}
-		if (Blade.create(User.class).isExist("SELECT * FROM tfw_user WHERE account = #{account} and status=1", Maps.create().set("account", account))) {
+		if (Blade.create(User.class).isExist("SELECT * FROM tfw_user WHERE account = #{account} and status=1", Record.create().set("account", account))) {
 			addError(errorMessage);
 		}
 	}

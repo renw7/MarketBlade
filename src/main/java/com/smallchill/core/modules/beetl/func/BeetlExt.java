@@ -32,7 +32,7 @@ import com.smallchill.core.constant.ConstConfig;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.DateKit;
 import com.smallchill.core.toolbox.kit.DateTimeKit;
@@ -500,7 +500,7 @@ public class BeetlExt {
 		Map<String, Object> userRole = CacheKit.get(ConstCache.MENU_CACHE, "roleExt_" + userId,
 				new ILoader() {
 					public Object load() {
-						return Db.init().selectOne("select * from TFW_ROLE_EXT where userId=#{userId}", Maps.create().set("userId", userId));
+						return Db.init().selectOne("select * from TFW_ROLE_EXT where userId=#{userId}", Record.create().set("userId", userId));
 					}
 				});
 
@@ -526,7 +526,7 @@ public class BeetlExt {
 
 		List<Map<String, Object>> btnList = CacheKit.get(ConstCache.MENU_CACHE, "btnList_rightMenu_" + code + "_" + userId, new ILoader() {
 			public Object load() {
-				return Db.init().selectList(sql.toString(), Maps.create().set("code", code));
+				return Db.init().selectList(sql.toString(), Record.create().set("code", code));
 			}
 		});
 

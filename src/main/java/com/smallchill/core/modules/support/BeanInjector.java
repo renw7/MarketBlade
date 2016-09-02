@@ -26,7 +26,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.smallchill.core.constant.Const;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.kit.BeanKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 
@@ -71,22 +71,22 @@ public class BeanInjector {
 		}
 	}
 	
-	public static final Maps injectMaps(HttpServletRequest request, boolean skipConvertError) {
-		return Maps.parse(request.getParameterMap());
+	public static final Record injectMaps(HttpServletRequest request, boolean skipConvertError) {
+		return Record.parse(request.getParameterMap());
 	}
 
-	public static final Maps injectMaps(Map<String, Object> switchMap, HttpServletRequest request, boolean skipConvertError) {
-		return Maps.parse(BeanKit.map2Map(request.getParameterMap(), switchMap));
+	public static final Record injectMaps(Map<String, Object> switchMap, HttpServletRequest request, boolean skipConvertError) {
+		return Record.parse(BeanKit.map2Map(request.getParameterMap(), switchMap));
 	}
 
-	public static final Maps injectMaps(String recordName, HttpServletRequest request, boolean skipConvertError) {
+	public static final Record injectMaps(String recordName, HttpServletRequest request, boolean skipConvertError) {
 		Map<String, Object> map = injectPara(recordName, request, skipConvertError);
-		return Maps.parse(map);
+		return Record.parse(map);
 	}
 
-	public static final Maps injectMaps(Map<String, Object> switchMap, String recordName, HttpServletRequest request, boolean skipConvertError) {
+	public static final Record injectMaps(Map<String, Object> switchMap, String recordName, HttpServletRequest request, boolean skipConvertError) {
 		Map<String, Object> map = injectPara(recordName, request, skipConvertError);
-		return Maps.parse(BeanKit.map2Map(map, switchMap));
+		return Record.parse(BeanKit.map2Map(map, switchMap));
 	}
 
 	private static final Map<String, Object> injectPara(String recordName, HttpServletRequest request, boolean skipConvertError) {

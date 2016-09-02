@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.smallchill.common.base.BaseController;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.platform.model.Notice;
@@ -41,7 +41,7 @@ public class NoticeController extends BaseController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(KEY_EDIT + "/{id}")
 	public String edit(@PathVariable String id, ModelMap mm) {
-		Map<String, Object> map = Blade.dao().selectSingle(DATA_SOURCE, Maps.create().set("id", id), Map.class);
+		Map<String, Object> map = Blade.dao().selectSingle(DATA_SOURCE, Record.create().set("id", id), Map.class);
 		mm.put("model", JsonKit.toJson(map));
 		mm.put("id", id);
 		mm.put("code", CODE);
@@ -52,7 +52,7 @@ public class NoticeController extends BaseController {
 	public String view(@PathVariable String id, ModelMap mm) {
 		Notice notice = Blade.create(Notice.class).findById(id);
 		//将javabean转化为maps
-		Maps maps = Maps.parse(notice);
+		Record maps = Record.parse(notice);
 		//使用Func.getDictName方法从缓存中获取对应字典项的中文值
 		maps.set("dic_f_it_lx", Func.getDictName(102, notice.getF_it_lx()));
 		//将maps传回前台

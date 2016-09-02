@@ -32,7 +32,7 @@ import com.smallchill.core.constant.Const;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.plugins.connection.ConnectionPlugin;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.support.BladePage;
 
 @SuppressWarnings({"unchecked","rawtypes"})
@@ -146,12 +146,12 @@ public class Blade {
 	 * @param columns		字段名
 	 * @return
 	 */
-	public Maps findOneColBy(String columns){
-		List<Map> list = getSqlManager().execute(getSelectSql(columns) + getFromSql(), Map.class, Maps.create(), 1, 1);
+	public Record findOneColBy(String columns){
+		List<Map> list = getSqlManager().execute(getSelectSql(columns) + getFromSql(), Map.class, Record.create(), 1, 1);
 		if(list.size() == 0){
 			return null;
 		} else {
-			return Maps.parse(list.get(0));
+			return Record.parse(list.get(0));
 		}
 	}
 	
@@ -162,12 +162,12 @@ public class Blade {
 	 * @param modelOrMap	实体类或map
 	 * @return
 	 */
-	public Maps findOneColBy(String columns, String where, Object modelOrMap){
+	public Record findOneColBy(String columns, String where, Object modelOrMap){
 		List<Map> list = getSqlManager().execute(getSelectSql(columns) + getFromSql() + getWhere(where), Map.class, modelOrMap, 1, 1);
 		if (list.size() == 0){
 			return null;
 		} else {
-			return Maps.parse(list.get(0));
+			return Record.parse(list.get(0));
 		}
 	}
 	
@@ -177,11 +177,11 @@ public class Blade {
 	 * @param modelOrMap	实体类或map
 	 * @return
 	 */
-	public List<Maps> findColBy(String columns){
-		List<Map> list = getSqlManager().execute(getSelectSql(columns) + getFromSql(), Map.class, Maps.create());
-		List<Maps> maps = new ArrayList<>();
+	public List<Record> findColBy(String columns){
+		List<Map> list = getSqlManager().execute(getSelectSql(columns) + getFromSql(), Map.class, Record.create());
+		List<Record> maps = new ArrayList<>();
 		for (Map m : list){
-			maps.add(Maps.parse(m));
+			maps.add(Record.parse(m));
 		}
 		return maps;
 	}
@@ -193,11 +193,11 @@ public class Blade {
 	 * @param modelOrMap	实体类或map
 	 * @return
 	 */
-	public List<Maps> findColBy(String columns, String where, Object modelOrMap){
+	public List<Record> findColBy(String columns, String where, Object modelOrMap){
 		List<Map> list = getSqlManager().execute(getSelectSql(columns) + getFromSql() + getWhere(where), Map.class, modelOrMap);
-		List<Maps> maps = new ArrayList<>();
+		List<Record> maps = new ArrayList<>();
 		for (Map m : list){
-			maps.add(Maps.parse(m));
+			maps.add(Record.parse(m));
 		}
 		return maps;
 	}
@@ -258,7 +258,7 @@ public class Blade {
 	 * @return
 	 */
 	public <T> List<T> findTop(int topNum, String sqlTemplate) {
-		List<T> list = (List<T>) getSqlManager().execute(sqlTemplate, this.modelClass, Maps.create(), 1, topNum);
+		List<T> list = (List<T>) getSqlManager().execute(sqlTemplate, this.modelClass, Record.create(), 1, topNum);
 		return list;
 	}
 	
@@ -439,13 +439,13 @@ public class Blade {
 		if(Cst.me().isOptimisticLock()){
 			// 1.数据是否还存在
 			String sqlExist = new StringBuffer("select * from ").append(table).append(" where ").append(pk).append(" = #{idValue} ").toString();
-			Maps modelOld = Db.init(dbName).selectOne(sqlExist, Maps.create().set("idValue", idValue));
+			Record modelOld = Db.init(dbName).selectOne(sqlExist, Record.create().set("idValue", idValue));
 			// 数据已经被删除
 			if (null == modelOld) { 
 				throw new RuntimeException("数据库中此数据不存在，可能数据已经被删除，请刷新数据后在操作");
 			}
 			// 2.乐观锁控制
-			Maps modelForm = Maps.parse(model);
+			Record modelForm = Record.parse(model);
 			if (modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase()) != null) { // 是否需要乐观锁控制
 				int versionDB = modelOld.getInt(Const.OPTIMISTIC_LOCK.toLowerCase()); // 数据库中的版本号
 				int versionForm = modelForm.getInt(Const.OPTIMISTIC_LOCK.toLowerCase()); // 表单中的版本号
@@ -481,13 +481,13 @@ public class Blade {
 		if(Cst.me().isOptimisticLock()){
 			// 1.数据是否还存在
 			String sqlExist = new StringBuffer("select * from ").append(table).append(" where ").append(pk).append(" = #{idValue} ").toString();
-			Maps modelOld = Db.init(dbName).selectOne(sqlExist, Maps.create().set("idValue", idValue));
+			Record modelOld = Db.init(dbName).selectOne(sqlExist, Record.create().set("idValue", idValue));
 			// 数据已经被删除
 			if (null == modelOld) { 
 				throw new RuntimeException("数据库中此数据不存在，可能数据已经被删除，请刷新数据后在操作");
 			}
 			// 2.乐观锁控制
-			Maps modelForm = Maps.parse(model);
+			Record modelForm = Record.parse(model);
 			if (modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase()) != null) { // 是否需要乐观锁控制
 				int versionDB = modelOld.getInt(Const.OPTIMISTIC_LOCK.toLowerCase()); // 数据库中的版本号
 				int versionForm = modelForm.getInt(Const.OPTIMISTIC_LOCK.toLowerCase()); // 表单中的版本号
@@ -569,7 +569,7 @@ public class Blade {
 	 */
 	public int deleteByIds(String ids) {
 		String sqlTemplate = getDeleteSql(this.table, this.pk);
-		Maps paras = Maps.create().set("ids", ids.split(","));
+		Record paras = Record.create().set("ids", ids.split(","));
 		int result = getSqlManager().executeUpdate(sqlTemplate, paras);
 		return result;
 	}
@@ -582,7 +582,7 @@ public class Blade {
 	 */
 	public int deleteByCols(String col, String ids) {
 		String sqlTemplate = getDeleteSql(this.table, col);
-		Maps paras = Maps.create().set("ids", ids.split(","));
+		Record paras = Record.create().set("ids", ids.split(","));
 		int result = getSqlManager().executeUpdate(sqlTemplate, paras);
 		return result;
 	}
@@ -596,7 +596,7 @@ public class Blade {
 	 */
 	public int deleteTableByCols(String table, String col, String ids) {
 		String sqlTemplate = getDeleteSql(table, col);
-		Maps paras = Maps.create().set("ids", ids.split(","));
+		Record paras = Record.create().set("ids", ids.split(","));
 		int result = getSqlManager().executeUpdate(sqlTemplate, paras);
 		return result;
 	}

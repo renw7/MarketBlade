@@ -16,7 +16,7 @@ import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.file.BladeFile;
 import com.smallchill.core.toolbox.file.UploadFileUtils;
 import com.smallchill.core.toolbox.kit.PathKit;
@@ -27,8 +27,8 @@ public class UploadifyController extends BladeController {
 	
 	@ResponseBody
 	@RequestMapping("/upload")
-	public Maps upload(@RequestParam("imgFile") MultipartFile file) {
-		Maps maps = Maps.create();
+	public Record upload(@RequestParam("imgFile") MultipartFile file) {
+		Record maps = Record.create();
 		if (null == file) {
 			maps.set("error", 1);
 			maps.set("message", "请选择要上传的图片");

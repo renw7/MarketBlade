@@ -32,7 +32,7 @@ import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.file.BladeFile;
 import com.smallchill.core.toolbox.file.UploadFileUtils;
@@ -44,8 +44,8 @@ public class KindEditorController extends BladeController {
 	
 	@ResponseBody
 	@RequestMapping("/upload_json")
-	public Maps upload_json(@RequestParam("imgFile") MultipartFile file) {
-		Maps maps = Maps.create();
+	public Record upload_json(@RequestParam("imgFile") MultipartFile file) {
+		Record maps = Record.create();
 		if (null == file) {
 			maps.set("error", 1);
 			maps.set("message", "请选择要上传的图片");
@@ -106,7 +106,7 @@ public class KindEditorController extends BladeController {
 	@RequestMapping("/initfile")
 	public AjaxResult initfile(@RequestParam String ids) {
 		Db dao = Db.init();
-		List<Maps> file = dao.selectList("select ID as \"id\",NAME as \"name\",URL as \"url\" from TFW_ATTACH where ID in (#{join(ids)})", Maps.create().set("ids", ids.split(",")));
+		List<Record> file = dao.selectList("select ID as \"id\",NAME as \"name\",URL as \"url\" from TFW_ATTACH where ID in (#{join(ids)})", Record.create().set("ids", ids.split(",")));
 		if (null != file) {
 			return json(file);
 		} else {

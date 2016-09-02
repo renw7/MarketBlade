@@ -22,7 +22,7 @@ import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.meta.MetaIntercept;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.support.BladePage;
 
@@ -49,7 +49,7 @@ public class LogIntercept extends MetaIntercept {
 	 * @param ac
 	 */
 	public void renderViewBefore(AopContext ac) {
-		Maps maps = (Maps) ac.getObject();
+		Record maps = (Record) ac.getObject();
 		String succeedName = (maps.getInt("succeed") == 1) ? "成功" : "失败";
 		maps.set("succeedName", succeedName).set("userName", Func.getUserName(maps.get("userid")));
 	}

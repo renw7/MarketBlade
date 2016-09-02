@@ -56,7 +56,7 @@ import com.smallchill.core.render.Render;
 import com.smallchill.core.render.RenderFactory;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.file.BladeFile;
 import com.smallchill.core.toolbox.grid.GridManager;
@@ -448,7 +448,7 @@ public class BladeController implements ConstCurd, ConstCache{
 	 * 
 	 * @return Maps
 	 */
-	public Maps getMaps() {
+	public Record getMaps() {
 		return paraMapsInject();
 	}
 
@@ -458,7 +458,7 @@ public class BladeController implements ConstCurd, ConstCache{
 	 * @param switchMap 字段混淆Map  map.put("前端字段","数据库字段");
 	 * @return Maps
 	 */
-	public Maps getMaps(Map<String, Object> switchMap) {
+	public Record getMaps(Map<String, Object> switchMap) {
 		return paraMapsInject(switchMap);
 	}
 
@@ -468,7 +468,7 @@ public class BladeController implements ConstCurd, ConstCache{
 	 * @param paraPerfix  name前缀
 	 * @return Maps
 	 */
-	public Maps getMaps(String paraPerfix) {
+	public Record getMaps(String paraPerfix) {
 		return paraMapsInject(paraPerfix);
 	}
 
@@ -479,7 +479,7 @@ public class BladeController implements ConstCurd, ConstCache{
 	 * @param switchMap 字段混淆Map  map.put("前端字段","数据库字段");
 	 * @return Maps
 	 */
-	public Maps getMaps(String paraPerfix, Map<String, Object> switchMap) {
+	public Record getMaps(String paraPerfix, Map<String, Object> switchMap) {
 		return paraMapsInject(switchMap, paraPerfix);
 	}
 	
@@ -499,19 +499,19 @@ public class BladeController implements ConstCurd, ConstCache{
 		return (T) BeanInjector.inject(beanClass, switchMap, paraPerfix, this.request, false);
 	}
 	
-	private Maps paraMapsInject() {
+	private Record paraMapsInject() {
 		return BeanInjector.injectMaps(this.request, false);
 	}
 
-	private Maps paraMapsInject(Map<String, Object> switchMap) {
+	private Record paraMapsInject(Map<String, Object> switchMap) {
 		return BeanInjector.injectMaps(switchMap, this.request, false);
 	}
 
-	private Maps paraMapsInject(String paraPerfix) {
+	private Record paraMapsInject(String paraPerfix) {
 		return BeanInjector.injectMaps(paraPerfix, this.request, false);
 	}
 
-	private Maps paraMapsInject(Map<String, Object> switchMap, String paraPerfix) {
+	private Record paraMapsInject(Map<String, Object> switchMap, String paraPerfix) {
 		return BeanInjector.injectMaps(switchMap, paraPerfix, this.request, false);
 	}
 

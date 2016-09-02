@@ -28,7 +28,7 @@ import com.smallchill.core.interfaces.ILog;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.kit.CacheKit;
 
 /**
@@ -42,8 +42,8 @@ public class BladeLogFactory implements ILog {
 		return patten;
 	}
 
-	public Maps logMaps() {
-		Maps maps = Maps.create()
+	public Record logMaps() {
+		Record maps = Record.create()
 				.set("login", "登录")
 				.set("logout", "登出")
 				.set("grant", "授权")
@@ -57,10 +57,10 @@ public class BladeLogFactory implements ILog {
 	}
 
 	public boolean isDoLog() {
-		Maps map = CacheKit.get(ConstCache.SYS_CACHE, "parameter_log", new ILoader() {
+		Record map = CacheKit.get(ConstCache.SYS_CACHE, "parameter_log", new ILoader() {
 			@Override
 			public Object load() {
-				return Db.init().selectOne("select para from tfw_parameter where code = #{code}", Maps.create().set("code", Const.PARA_LOG_CODE));
+				return Db.init().selectOne("select para from tfw_parameter where code = #{code}", Record.create().set("code", Const.PARA_LOG_CODE));
 			}
 		}); 
 		if(map.getStr("para").equals("1")){

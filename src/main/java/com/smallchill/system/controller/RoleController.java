@@ -27,7 +27,7 @@ import com.smallchill.common.base.BaseController;
 import com.smallchill.core.constant.ConstShiro;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
@@ -89,7 +89,7 @@ public class RoleController extends BaseController{
 		Role role = service.findById(id);
 		Role parent = service.findById(role.getPid());
 		String pName = (null == parent) ? "" : parent.getName();
-		Maps maps = Maps.parse(role);
+		Record maps = Record.parse(role);
 		maps.set("deptName", Func.getDeptName(role.getDeptid()))
 			.set("pName", pName);
 		mm.put("model", JsonKit.toJson(maps));

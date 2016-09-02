@@ -39,7 +39,7 @@ import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.StrKit;
@@ -86,7 +86,7 @@ public class UserController extends BaseController implements ConstShiro{
 	@Permission({ ADMINISTRATOR, ADMIN })
 	public String edit(@PathVariable String id, ModelMap mm) {
 		User user = Blade.create(User.class).findById(id);
-		Maps maps = Maps.parse(user);
+		Record maps = Record.parse(user);
 		maps.set("roleName", Func.getRoleName(user.getRoleid()));
 		mm.put("user", maps);
 		mm.put("code", CODE);
@@ -96,7 +96,7 @@ public class UserController extends BaseController implements ConstShiro{
 	@RequestMapping("/editMySelf/{id}")
 	public String editMySelf(@PathVariable String id, ModelMap mm) {
 		User user = Blade.create(User.class).findById(id);
-		Maps maps = Maps.parse(user);
+		Record maps = Record.parse(user);
 		maps.set("roleName", Func.getRoleName(user.getRoleid()));
 		mm.put("user", maps);
 		mm.put("code", CODE);
@@ -135,7 +135,7 @@ public class UserController extends BaseController implements ConstShiro{
 	@Permission({ ADMINISTRATOR, ADMIN })
 	public String view(@PathVariable String id, ModelMap mm) {
 		User user = Blade.create(User.class).findById(id);
-		Maps maps = Maps.parse(user);
+		Record maps = Record.parse(user);
 		maps.set("deptName", Func.getDeptName(user.getDeptid()))
 			.set("roleName", Func.getRoleName(user.getRoleid()))
 			.set("sexName", Func.getDictName(101, user.getSex()));
@@ -199,7 +199,7 @@ public class UserController extends BaseController implements ConstShiro{
 	@RequestMapping(KEY_DEL)
 	@Permission({ ADMINISTRATOR, ADMIN })
 	public AjaxResult del(@RequestParam String ids) {
-		boolean temp = Blade.create(User.class).updateBy("status = #{status}", "id in (#{join(ids)})", Maps.create().set("status", 5).set("ids", ids.split(",")));
+		boolean temp = Blade.create(User.class).updateBy("status = #{status}", "id in (#{join(ids)})", Record.create().set("status", 5).set("ids", ids.split(",")));
 		if (temp) {
 			return success(DEL_SUCCESS_MSG);
 		} else {
@@ -237,12 +237,12 @@ public class UserController extends BaseController implements ConstShiro{
 	@RequestMapping("/auditOk")
 	public AjaxResult auditOk(@RequestParam String ids) {
 		Blade blade = Blade.create(User.class);
-		Maps countMap = Maps.create().set("ids", ids.split(","));
+		Record countMap = Record.create().set("ids", ids.split(","));
 		int cnt = blade.count("id in (#{join(ids)}) and (roleId='' or roleId is null)", countMap);
 		if (cnt > 0) {
 			return warn("存在没有分配角色的账号!");
 		}
-		Maps updateMap = Maps.create().set("status", 1).set("ids", ids.split(","));
+		Record updateMap = Record.create().set("status", 1).set("ids", ids.split(","));
 		boolean temp = blade.updateBy("status = #{status}", "id in (#{join(ids)})", updateMap);
 		if (temp) {
 			return success("审核成功!");
@@ -254,7 +254,7 @@ public class UserController extends BaseController implements ConstShiro{
 	@ResponseBody
 	@RequestMapping("/auditRefuse")
 	public AjaxResult auditRefuse(@RequestParam String ids) {
-		Maps updateMap = Maps.create().set("status", 4).set("ids", ids.split(","));
+		Record updateMap = Record.create().set("status", 4).set("ids", ids.split(","));
 		boolean temp = Blade.create(User.class).updateBy("status = #{status}", "id in (#{join(ids)})", updateMap);
 		if (temp) {
 			return success("审核拒绝成功!");
@@ -266,7 +266,7 @@ public class UserController extends BaseController implements ConstShiro{
 	@ResponseBody
 	@RequestMapping("/ban")
 	public AjaxResult ban(@RequestParam String ids) {
-		Maps updateMap = Maps.create().set("ids", ids.split(","));
+		Record updateMap = Record.create().set("ids", ids.split(","));
 		boolean temp = Blade.create(User.class).updateBy("status = (CASE WHEN STATUS=2 THEN 3 ELSE 2 END)", "id in (#{join(ids)})", updateMap);
 		if (temp) {
 			return success("操作成功!");
@@ -278,7 +278,7 @@ public class UserController extends BaseController implements ConstShiro{
 	@ResponseBody
 	@RequestMapping("/restore")
 	public AjaxResult restore(@RequestParam String ids) {
-		Maps updateMap = Maps.create().set("status", 3).set("ids", ids.split(","));
+		Record updateMap = Record.create().set("status", 3).set("ids", ids.split(","));
 		boolean temp = Blade.create(User.class).updateBy("status = #{status}", "id in (#{join(ids)})", updateMap);
 		if (temp) {
 			return success("还原成功!");
@@ -313,7 +313,7 @@ public class UserController extends BaseController implements ConstShiro{
 	@RequestMapping("/menuTreeIn")
 	public AjaxResult menuTreeIn(@RequestParam String userId) {
 		Db dao = Db.init();
-		Map<String, Object> roleIn = dao.selectOne("select ROLEIN from tfw_role_ext where userId = #{userId}", Maps.create().set("userId",userId));
+		Map<String, Object> roleIn = dao.selectOne("select ROLEIN from tfw_role_ext where userId = #{userId}", Record.create().set("userId",userId));
 		
 		String in = "0";
 		if (!Func.isEmpty(roleIn)) {
@@ -328,7 +328,7 @@ public class UserController extends BaseController implements ConstShiro{
 				" where m.status=1 order by m.levels,m.num asc"
 				);
 		
-		List<Maps> menu = dao.selectList(sb.toString());
+		List<Record> menu = dao.selectList(sb.toString());
 		return json(menu);
 	}
 	
@@ -336,7 +336,7 @@ public class UserController extends BaseController implements ConstShiro{
 	@RequestMapping("/menuTreeOut")
 	public AjaxResult menuTreeOut(@RequestParam String userId) {
 		Db dao = Db.init();
-		Map<String, Object> roleOut = dao.selectOne("select ROLEOUT from tfw_role_ext where userId = #{userId}", Maps.create().set("userId",userId));
+		Map<String, Object> roleOut = dao.selectOne("select ROLEOUT from tfw_role_ext where userId = #{userId}", Record.create().set("userId",userId));
 		
 		String out = "0";
 		if (!Func.isEmpty(roleOut)) {
@@ -351,7 +351,7 @@ public class UserController extends BaseController implements ConstShiro{
 				" where m.status=1 order by m.levels,m.num asc"
 				);
 		
-		List<Maps> menu = dao.selectList(sb.toString());
+		List<Record> menu = dao.selectList(sb.toString());
 		return json(menu);
 	}
 	
@@ -362,7 +362,7 @@ public class UserController extends BaseController implements ConstShiro{
 		String userId = getPara("userId");
 		String roleIn = getPara("idsIn", "0");
 		String roleOut = getPara("idsOut", "0");
-		RoleExt roleExt = blade.findFirstBy("userId = #{userId}", Maps.create().set("userId", userId));	
+		RoleExt roleExt = blade.findFirstBy("userId = #{userId}", Record.create().set("userId", userId));	
 		boolean flag = false;
 		if (Func.isEmpty(roleExt)) {
 			roleExt = new RoleExt();
@@ -391,7 +391,7 @@ public class UserController extends BaseController implements ConstShiro{
 	@ResponseBody
 	@RequestMapping("/saveRole")
 	public AjaxResult saveRole(@RequestParam String id, @RequestParam String roleIds) {
-		Maps maps = Maps.create();
+		Record maps = Record.create();
 		maps.set("roleIds", roleIds).set("id", id.split(","));
 		boolean temp = Blade.create(User.class).updateBy("ROLEID = #{roleIds}", "id in (#{join(id)})", maps);
 		if (temp) {
@@ -409,7 +409,7 @@ public class UserController extends BaseController implements ConstShiro{
 		List<Map<String, Object>> dept = CacheKit.get(DEPT_CACHE, "user_tree_all",
 				new ILoader() {
 					public Object load() {
-						return Db.init().selectList("select id \"id\",pId \"pId\",simpleName as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_DEPT order by pId,num asc", Maps.create(), new AopContext(), new IQuery() {
+						return Db.init().selectList("select id \"id\",pId \"pId\",simpleName as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_DEPT order by pId,num asc", Record.create(), new AopContext(), new IQuery() {
 							
 							@Override
 							public void queryBefore(AopContext ac) {
@@ -424,10 +424,10 @@ public class UserController extends BaseController implements ConstShiro{
 								List<Map<String, Object>> _list = new ArrayList<>(); 
 								for (Map<String, Object> map : list) {
 									String [] deptIds = map.get("id").toString().split(",");
-									List<User> users = Blade.create(User.class).findBy("DEPTID in (#{join(deptId)})", Maps.create().set("deptId", deptIds));
+									List<User> users = Blade.create(User.class).findBy("DEPTID in (#{join(deptId)})", Record.create().set("deptId", deptIds));
 									for (User user : users) {
 										for (String deptId : deptIds) {
-											Map<String, Object> userMap = Maps.createHashMap();
+											Map<String, Object> userMap = Record.createHashMap();
 											userMap.put("id", user.getId() + 9999);
 											userMap.put("pId", deptId);
 											userMap.put("name", user.getName());

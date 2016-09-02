@@ -20,7 +20,7 @@ import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.IMeta;
 import com.smallchill.core.modules.beetl.BeetlMaker;
 import com.smallchill.core.plugins.dao.Blade;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.system.meta.factory.GenerateFactory;
@@ -58,7 +58,7 @@ public class GenerateController extends CurdController<Generate> {
 	@ResponseBody
 	@RequestMapping("/code")
 	public AjaxResult gencode(@RequestParam String ids){
-		List<Generate> list = Blade.create(Generate.class).findBy("id in (#{join(ids)})", Maps.create().set("ids", ids.split(",")));
+		List<Generate> list = Blade.create(Generate.class).findBy("id in (#{join(ids)})", Record.create().set("ids", ids.split(",")));
 
 		for (Generate gen : list) {
 			boolean flag = false;
@@ -131,7 +131,7 @@ public class GenerateController extends CurdController<Generate> {
 			String editTemplatePath = baseTemplatePath + "_view" + File.separator + "_edit.bld";
 			String viewTemplatePath = baseTemplatePath + "_view" + File.separator + "_view.bld";
 			
-			Maps maps = Maps.create();
+			Record maps = Record.create();
 			maps.set("realPath", realPath);
 			maps.set("packageName", packageName);
 			maps.set("modelName", upperModelName);

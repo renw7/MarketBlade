@@ -493,7 +493,7 @@ public class Func {
 		Dict dict = CacheKit.get(ConstCache.DICT_CACHE, "getDictName_" + code + "_" + num, new ILoader() {
 			@Override
 			public Object load() {
-				return Blade.create(Dict.class).findFirstBy("code=#{code} and num=#{num}", Maps.create().set("code", code).set("num", num));
+				return Blade.create(Dict.class).findFirstBy("code=#{code} and num=#{num}", Record.create().set("code", code).set("num", num));
 			}
 		});
 		if(null == dict){
@@ -574,7 +574,7 @@ public class Func {
 	 * @return String
 	*/
 	public static String getParamByCode(String code){
-		Parameter param = Blade.create(Parameter.class).findFirstBy("code = #{code} and status = 1", Maps.create().set("code", code));
+		Parameter param = Blade.create(Parameter.class).findFirstBy("code = #{code} and status = 1", Record.create().set("code", code));
 		return param.getPara();
 	}
 	

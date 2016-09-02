@@ -22,7 +22,7 @@ import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.meta.MetaIntercept;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.service.CurdService;
-import com.smallchill.core.toolbox.Maps;
+import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.grid.GridManager;
 
 @Service
@@ -83,7 +83,7 @@ public class CurdServiceImpl implements CurdService {
 			ac.setId(ids);
 			intercept.delBefore(ac);
 		}
-		boolean temp = Blade.create(modelClass).updateBy("status = #{status}", "id in (#{join(ids)})", Maps.create().set("status", 5).set("ids", ids.split(",")));
+		boolean temp = Blade.create(modelClass).updateBy("status = #{status}", "id in (#{join(ids)})", Record.create().set("status", 5).set("ids", ids.split(",")));
 		boolean tempAfter = true;
 		if (null != intercept && temp) {
 			tempAfter = intercept.delAfter(ac);
@@ -99,7 +99,7 @@ public class CurdServiceImpl implements CurdService {
 			ac.setId(ids);
 			intercept.restoreBefore(ac);
 		}
-		boolean temp = Blade.create(modelClass).updateBy("status = #{status}", "id in (#{join(ids)})", Maps.create().set("status", 1).set("ids", ids.split(",")));
+		boolean temp = Blade.create(modelClass).updateBy("status = #{status}", "id in (#{join(ids)})", Record.create().set("status", 1).set("ids", ids.split(",")));
 		boolean tempAfter = true;
 		if (null != intercept && temp) {
 			tempAfter = intercept.restoreAfter(ac);
