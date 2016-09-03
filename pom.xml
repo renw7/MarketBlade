@@ -20,7 +20,7 @@
 		<slf4j.version>1.7.16</slf4j.version>
 		<logback.version>1.1.5</logback.version>
 		<beetl.version>2.5.0</beetl.version>
-		<beetlsql.version>2.5.4</beetlsql.version>
+		<beetlsql.version>2.6.0</beetlsql.version>
 	</properties>
 
 	<dependencies>
@@ -48,11 +48,11 @@
 			<version>${logback.version}</version>
 		</dependency>
 		<!-- beetl -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.ibeetl</groupId>
 			<artifactId>beetl</artifactId>
 			<version>${beetl.version}</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>com.ibeetl</groupId>
 			<artifactId>beetlsql</artifactId>
@@ -173,17 +173,17 @@
 		<dependency>
 			<groupId>org.jeecg</groupId>
 			<artifactId>easypoi-base</artifactId>
-			<version>2.3.0.2</version>
+			<version>2.3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jeecg</groupId>
 			<artifactId>easypoi-web</artifactId>
-			<version>2.3.0.2</version>
+			<version>2.3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jeecg</groupId>
 			<artifactId>easypoi-annotation</artifactId>
-			<version>2.3.0.2</version>
+			<version>2.3.1</version>
 		</dependency>
 	</dependencies>
 
