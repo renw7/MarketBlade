@@ -78,7 +78,7 @@ public class LoginController extends BaseController implements Const{
 		}
 		Subject currentUser = ShiroKit.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(account, password.toCharArray());
-		token.setRememberMe(true);
+		token.setRememberMe(false);
 		try {
 			currentUser.login(token);
 			Session session = ShiroKit.getSession();
