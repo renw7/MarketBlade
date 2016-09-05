@@ -16,7 +16,8 @@
 
 package com.smallchill.core.toolbox.kit;
 
-import com.smallchill.core.toolbox.json.Json;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 
 /**
  * JsonKit.
@@ -24,11 +25,11 @@ import com.smallchill.core.toolbox.json.Json;
 public class JsonKit {
 	
 	public static String toJson(Object object) {
-		return Json.getJson().toJson(object);
+		return JSON.toJSONStringWithDateFormat(object, "yyyy-MM-dd HH:mm:ss", SerializerFeature.WriteDateUseDateFormat);
 	}
 	
 	public static <T> T parse(String jsonString, Class<T> type) {
-		return Json.getJson().parse(jsonString, type);
+		return JSON.parseObject(jsonString, type);
 	}
 	
 }

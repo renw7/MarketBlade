@@ -19,6 +19,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -31,10 +32,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.plugins.dao.Db;
-import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.file.BladeFile;
+import com.smallchill.core.toolbox.file.FileRender;
 import com.smallchill.core.toolbox.file.UploadFileUtils;
 import com.smallchill.core.toolbox.kit.PathKit;
 
@@ -115,16 +116,11 @@ public class KindEditorController extends BladeController {
 	}
 
 	@RequestMapping("/renderFile/{id}")
-	public void renderFile(HttpServletResponse response, @PathVariable String id) {
+	public void renderFile(HttpServletRequest request, HttpServletResponse response, @PathVariable String id) {
 		Map<String, Object> file = Db.init().findById("TFW_ATTACH", id);
-		if (Func.isEmpty(file)) {
-			redirect(response, "/error/error404");
-			return;
-		} else {
-			String url = file.get("URL").toString();
-			File f = new File((Cst.me().isRemoteMode() ? "" : PathKit.getWebRootPath()) + url);
-			renderFile(response, f);
-		}
+		String url = file.get("URL").toString();
+		File f = new File((Cst.me().isRemoteMode() ? "" : PathKit.getWebRootPath()) + url);
+		new FileRender(request, response, f).render();
 	}
 	
 	

@@ -19,9 +19,7 @@ import java.util.Map;
 
 import org.springframework.web.servlet.ModelAndView;
 
-import com.smallchill.common.vo.User;
 import com.smallchill.core.base.controller.BladeController;
-import com.smallchill.core.constant.Const;
 
 /**
  * 业务拦截器上下文
@@ -33,11 +31,6 @@ public class AopContext {
 	 * 当前控制器
 	 */
 	private BladeController ctrl;
-
-	/**
-	 * 当前用户对象
-	 */
-	private User user;
 
 	/**
 	 * 视图
@@ -88,7 +81,6 @@ public class AopContext {
 
 	public AopContext(BladeController ctrl) {
 		this.ctrl = ctrl;
-		this.user = (User) ctrl.getSessionAttr(Const.USER_SESSION_KEY);
 	}
 
 	public AopContext(BladeController ctrl, Object object) {
@@ -112,14 +104,6 @@ public class AopContext {
 
 	public void setCtrl(BladeController ctrl) {
 		this.ctrl = ctrl;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public ModelAndView getView() {

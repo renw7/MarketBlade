@@ -35,23 +35,25 @@ public class GenerateController extends CurdController<Generate> {
 		return GenerateFactory.class;
 	}
 	
+	@ResponseBody
 	@RequestMapping("/pojo/{table}")
-	public void createPojo(HttpServletResponse response, @PathVariable String table) {
+	public String createPojo(HttpServletResponse response, @PathVariable String table) {
 		try {
 			Blade.dao().genPojoCodeToConsole(table);
-			renderText(response, "[ " + table + " ] pojo生成成功,请查看控制台");
+			return "[ " + table + " ] pojo生成成功,请查看控制台";
 		} catch (Exception e) {
-			renderText(response, "[ " + table + " ] pojo生成失败:" + e.getMessage());
+			return "[ " + table + " ] pojo生成失败:" + e.getMessage();
 		}
 	}
 	
+	@ResponseBody
 	@RequestMapping("/pojo/{slave}/{table}")
-	public void createPojoSlave(HttpServletResponse response, @PathVariable String slave, @PathVariable String table) {
+	public String createPojoSlave(HttpServletResponse response, @PathVariable String slave, @PathVariable String table) {
 		try {
 			Blade.dao(slave).genPojoCodeToConsole(table);
-			renderText(response, "[ " + table + " ] pojo生成成功,请查看控制台");
+			return "[ " + table + " ] pojo生成成功,请查看控制台";
 		} catch (Exception e) {
-			renderText(response, "[ " + table + " ] pojo生成失败:" + e.getMessage());
+			return "[ " + table + " ] pojo生成失败:" + e.getMessage();
 		}
 	}
 	

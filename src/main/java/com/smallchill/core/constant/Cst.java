@@ -31,8 +31,6 @@ import com.smallchill.core.toolbox.check.PermissionCheckFactory;
 import com.smallchill.core.toolbox.file.DefaultFileProxyFactory;
 import com.smallchill.core.toolbox.file.IFileProxy;
 import com.smallchill.core.toolbox.grid.JqGridFactory;
-import com.smallchill.core.toolbox.json.FastJsonFactory;
-import com.smallchill.core.toolbox.json.IJsonFactory;
 import com.smallchill.core.toolbox.log.BladeLogFactory;
 
 public class Cst {
@@ -96,11 +94,6 @@ public class Cst {
 	 * 默认grid分页工厂类
 	 */
 	private IGrid defaultGridFactory = new JqGridFactory();
-
-	/**
-	 * 默认json工厂类
-	 */
-	private IJsonFactory defaultJsonFactory = new FastJsonFactory();
 
 	/**
 	 * 默认日志处理工厂类
@@ -247,15 +240,7 @@ public class Cst {
 	public void setDefaultGridFactory(IGrid defaultGridFactory) {
 		this.defaultGridFactory = defaultGridFactory;
 	}
-
-	public IJsonFactory getDefaultJsonFactory() {
-		return defaultJsonFactory;
-	}
-
-	public void setDefaultJsonFactory(IJsonFactory defaultJsonFactory) {
-		this.defaultJsonFactory = defaultJsonFactory;
-	}
-
+	
 	public ILog getDefaultLogFactory() {
 		return defaultLogFactory;
 	}

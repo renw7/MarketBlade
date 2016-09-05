@@ -17,6 +17,7 @@ package com.smallchill.system.controller;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.authc.DisabledAccountException;
@@ -41,6 +42,7 @@ import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
+import com.smallchill.core.toolbox.captcha.Captcha;
 import com.smallchill.core.toolbox.kit.LogKit;
 import com.smallchill.core.toolbox.log.LogManager;
 import com.smallchill.system.meta.intercept.LoginValidator;
@@ -72,8 +74,8 @@ public class LoginController extends BaseController implements Const{
 	@Before(LoginValidator.class)
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult login(@RequestParam("account") String account, @RequestParam("password") String password, @RequestParam("imgCode") String imgCode) {
-		if (!validateCaptcha("imgCode")) {
+	public AjaxResult login(HttpServletRequest request, HttpServletResponse response, @RequestParam("account") String account, @RequestParam("password") String password, @RequestParam("imgCode") String imgCode) {
+		if (!Captcha.validate(request, response, imgCode)) {
 			return error("验证码错误");
 		}
 		Subject currentUser = ShiroKit.getSubject();
@@ -120,7 +122,7 @@ public class LoginController extends BaseController implements Const{
 
 	@RequestMapping("/captcha")
 	public void captcha(HttpServletResponse response) {
-		renderCaptcha(response);
+		new Captcha().render(response);
 	}
 
 	public void doLog(Session session, String type){
