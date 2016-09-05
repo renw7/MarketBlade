@@ -60,9 +60,6 @@ import com.smallchill.core.toolbox.log.LogManager;
  */
 public class BladeController implements ConstCurd, ConstCache{
 	private static final Logger log = LoggerFactory.getLogger(BladeController.class);
-	
-	@Deprecated
-	protected AjaxResult result = new AjaxResult();
 
 	@Resource
 	private HttpServletRequest request;
