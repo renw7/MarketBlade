@@ -123,46 +123,46 @@ public abstract class CurdController<M> extends BaseController {
 	@RequestMapping(KEY_EDIT + "/{id}")
 	public ModelAndView edit(@PathVariable String id) {
 		ModelAndView view = new ModelAndView(renderMap.get(KEY_EDIT));
-		Record maps = Record.create();
+		Record rd = Record.create();
 		if (StrKit.isBlank(sourceMap.get(KEY_EDIT))) {
 			M model = Blade.create(modelClass).findById(id);
-			maps.parseBean(model);
+			rd.parseBean(model);
 		} else {
 			Map<String, Object> map = new HashMap<>();
 			map.put("id", id);
 			Map<String, Object> model = this.find(sourceMap.get(KEY_EDIT), map);
-			maps.parseMap(model);
+			rd.parseMap(model);
 		}
 		if (null != intercept) {
-			AopContext ac = new AopContext(ctrl, maps, view);
+			AopContext ac = new AopContext(ctrl, rd, view);
 			intercept.renderEditBefore(ac);
 		}
 		view.addObject("code", controllerKey);
-		view.addObject("_model", autoReverse(maps));
-		view.addObject("model", JsonKit.toJson(maps));
+		view.addObject("_model", autoReverse(rd));
+		view.addObject("model", JsonKit.toJson(rd));
 		return view;
 	}
 
 	@RequestMapping(KEY_VIEW + "/{id}")
 	public ModelAndView view(@PathVariable String id) {
 		ModelAndView view = new ModelAndView(renderMap.get(KEY_VIEW));
-		Record maps = Record.create();
+		Record rd = Record.create();
 		if (StrKit.isBlank(sourceMap.get(KEY_VIEW))) {
 			M model = Blade.create(modelClass).findById(id);
-			maps.parseBean(model);
+			rd.parseBean(model);
 		} else {
 			Map<String, Object> map = new HashMap<>();
 			map.put("id", id);
 			Map<String, Object> model = this.find(sourceMap.get(KEY_VIEW), map);
-			maps.parseMap(model);
+			rd.parseMap(model);
 		}
 		if (null != intercept) {
-			AopContext ac = new AopContext(ctrl, maps, view);
+			AopContext ac = new AopContext(ctrl, rd, view);
 			intercept.renderViewBefore(ac);
 		}
 		view.addObject("code", controllerKey);
-		view.addObject("_model", autoReverse(maps));
-		view.addObject("model", JsonKit.toJson(maps));
+		view.addObject("_model", autoReverse(rd));
+		view.addObject("model", JsonKit.toJson(rd));
 		return view;
 	}
 

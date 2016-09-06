@@ -133,32 +133,32 @@ public class GenerateController extends CurdController<Generate> {
 			String editTemplatePath = baseTemplatePath + "_view" + File.separator + "_edit.bld";
 			String viewTemplatePath = baseTemplatePath + "_view" + File.separator + "_view.bld";
 			
-			Record maps = Record.create();
-			maps.set("realPath", realPath);
-			maps.set("packageName", packageName);
-			maps.set("modelName", upperModelName);
-			maps.set("lowerModelName", lowerModelName);
-			maps.set("tableName", tableName);
-			maps.set("pkName", pkName);
+			Record rd = Record.create();
+			rd.set("realPath", realPath);
+			rd.set("packageName", packageName);
+			rd.set("modelName", upperModelName);
+			rd.set("lowerModelName", lowerModelName);
+			rd.set("tableName", tableName);
+			rd.set("pkName", pkName);
 			
 			//java
-			BeetlMaker.makeHtml(controllerTemplatePath, maps, controllerPath);
-			BeetlMaker.makeHtml(modelTemplatePath, maps, modelPath);
-			BeetlMaker.makeHtml(serviceTemplatePath, maps, servicePath);
-			BeetlMaker.makeHtml(serviceimplTemplatePath, maps, serviceimplPath);
+			BeetlMaker.makeHtml(controllerTemplatePath, rd, controllerPath);
+			BeetlMaker.makeHtml(modelTemplatePath, rd, modelPath);
+			BeetlMaker.makeHtml(serviceTemplatePath, rd, servicePath);
+			BeetlMaker.makeHtml(serviceimplTemplatePath, rd, serviceimplPath);
 			
 			//resources
-			BeetlMaker.makeHtml(sqlTemplatePath, maps, sqlPath);
+			BeetlMaker.makeHtml(sqlTemplatePath, rd, sqlPath);
 			
 			//webapp
 			final TableDesc tableDesc = Blade.dao().getMetaDataManager().getTable(tableName);
 			Set<String> cols = tableDesc.getIdNames();
-			maps.set("cols", cols);
+			rd.set("cols", cols);
 			
-			BeetlMaker.makeHtml(indexTemplatePath, maps, indexPath);
-			BeetlMaker.makeHtml(addTemplatePath, maps, addPath);
-			BeetlMaker.makeHtml(editTemplatePath, maps, editPath);
-			BeetlMaker.makeHtml(viewTemplatePath, maps, viewPath);
+			BeetlMaker.makeHtml(indexTemplatePath, rd, indexPath);
+			BeetlMaker.makeHtml(addTemplatePath, rd, addPath);
+			BeetlMaker.makeHtml(editTemplatePath, rd, editPath);
+			BeetlMaker.makeHtml(viewTemplatePath, rd, viewPath);
 			
 		}
 		

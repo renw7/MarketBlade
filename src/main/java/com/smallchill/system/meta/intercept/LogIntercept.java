@@ -49,9 +49,9 @@ public class LogIntercept extends MetaIntercept {
 	 * @param ac
 	 */
 	public void renderViewBefore(AopContext ac) {
-		Record maps = (Record) ac.getObject();
-		String succeedName = (maps.getInt("succeed") == 1) ? "成功" : "失败";
-		maps.set("succeedName", succeedName).set("userName", Func.getUserName(maps.get("userid")));
+		Record rd = (Record) ac.getObject();
+		String succeedName = (rd.getInt("succeed") == 1) ? "成功" : "失败";
+		rd.set("succeedName", succeedName).set("userName", Func.getUserName(rd.get("userid")));
 	}
 	
 	

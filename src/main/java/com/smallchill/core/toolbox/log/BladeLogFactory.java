@@ -43,7 +43,7 @@ public class BladeLogFactory implements ILog {
 	}
 
 	public Record logMaps() {
-		Record maps = Record.create()
+		Record rd = Record.create()
 				.set("login", "登录")
 				.set("logout", "登出")
 				.set("grant", "授权")
@@ -53,7 +53,7 @@ public class BladeLogFactory implements ILog {
 				.set("del", "删除")
 				.set("delete", "删除")
 				.set("restore", "还原");
-		return maps;
+		return rd;
 	}
 
 	public boolean isDoLog() {

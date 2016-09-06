@@ -50,11 +50,11 @@ public class AttachIntercept extends MetaIntercept {
 	 * @param ac
 	 */
 	public void renderViewBefore(AopContext ac) {
-		Record maps = (Record) ac.getObject();
-		maps
-		.set("attachUrl", Cst.me().getContextPath() + "/kindeditor/renderFile/" + maps.get("id"))
-		.set("statusName", Func.getDictName(902, maps.get("status")))
-		.set("createrName", Func.getUserName(maps.get("creater")));
+		Record rd = (Record) ac.getObject();
+		rd
+		.set("attachUrl", Cst.me().getContextPath() + "/kindeditor/renderFile/" + rd.get("id"))
+		.set("statusName", Func.getDictName(902, rd.get("status")))
+		.set("createrName", Func.getUserName(rd.get("creater")));
 	}
 	
 	/**

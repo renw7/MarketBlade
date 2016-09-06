@@ -85,9 +85,9 @@ public class DictController extends BaseController{
 		Dict dict = blade.findById(id);
 		Dict parent = blade.findById(dict.getPid());
 		String pName = (null == parent) ? "" : parent.getName();
-		Record maps = Record.parse(dict);
-		maps.set("pName", pName);
-		mm.put("model", JsonKit.toJson(maps));
+		Record rd = Record.parse(dict);
+		rd.set("pName", pName);
+		mm.put("model", JsonKit.toJson(rd));
 		mm.put("code", CODE);
 		return BASE_PATH + "dict_view.html";
 	}

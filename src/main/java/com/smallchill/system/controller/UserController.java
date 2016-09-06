@@ -86,9 +86,9 @@ public class UserController extends BaseController implements ConstShiro{
 	@Permission({ ADMINISTRATOR, ADMIN })
 	public String edit(@PathVariable String id, ModelMap mm) {
 		User user = Blade.create(User.class).findById(id);
-		Record maps = Record.parse(user);
-		maps.set("roleName", Func.getRoleName(user.getRoleid()));
-		mm.put("user", maps);
+		Record rd = Record.parse(user);
+		rd.set("roleName", Func.getRoleName(user.getRoleid()));
+		mm.put("user", rd);
 		mm.put("code", CODE);
 		return BASE_PATH + "user_edit.html";
 	}
@@ -96,9 +96,9 @@ public class UserController extends BaseController implements ConstShiro{
 	@RequestMapping("/editMySelf/{id}")
 	public String editMySelf(@PathVariable String id, ModelMap mm) {
 		User user = Blade.create(User.class).findById(id);
-		Record maps = Record.parse(user);
-		maps.set("roleName", Func.getRoleName(user.getRoleid()));
-		mm.put("user", maps);
+		Record rd = Record.parse(user);
+		rd.set("roleName", Func.getRoleName(user.getRoleid()));
+		mm.put("user", rd);
 		mm.put("code", CODE);
 		mm.put("methodName", "editMySelf");
 		return BASE_PATH + "user_edit.html";
@@ -135,11 +135,11 @@ public class UserController extends BaseController implements ConstShiro{
 	@Permission({ ADMINISTRATOR, ADMIN })
 	public String view(@PathVariable String id, ModelMap mm) {
 		User user = Blade.create(User.class).findById(id);
-		Record maps = Record.parse(user);
-		maps.set("deptName", Func.getDeptName(user.getDeptid()))
+		Record rd = Record.parse(user);
+		rd.set("deptName", Func.getDeptName(user.getDeptid()))
 			.set("roleName", Func.getRoleName(user.getRoleid()))
 			.set("sexName", Func.getDictName(101, user.getSex()));
-		mm.put("user", maps);
+		mm.put("user", rd);
 		mm.put("code", CODE);
 		return BASE_PATH + "user_view.html";
 	}
@@ -391,9 +391,9 @@ public class UserController extends BaseController implements ConstShiro{
 	@ResponseBody
 	@RequestMapping("/saveRole")
 	public AjaxResult saveRole(@RequestParam String id, @RequestParam String roleIds) {
-		Record maps = Record.create();
-		maps.set("roleIds", roleIds).set("id", id.split(","));
-		boolean temp = Blade.create(User.class).updateBy("ROLEID = #{roleIds}", "id in (#{join(id)})", maps);
+		Record rd = Record.create();
+		rd.set("roleIds", roleIds).set("id", id.split(","));
+		boolean temp = Blade.create(User.class).updateBy("ROLEID = #{roleIds}", "id in (#{join(id)})", rd);
 		if (temp) {
 			CacheKit.removeAll(ROLE_CACHE);
 			CacheKit.removeAll(MENU_CACHE);

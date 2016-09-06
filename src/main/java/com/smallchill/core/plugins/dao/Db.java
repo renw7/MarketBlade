@@ -261,11 +261,11 @@ public class Db {
 	 */
 	public List<Record> queryListMap(String sqlTemplate, Object modelOrMap){
 		List<Map> list = getSqlManager().execute(sqlTemplate, Map.class, modelOrMap);
-		List<Record> maps = new ArrayList<>();
+		List<Record> rd = new ArrayList<>();
 		for (Map m : list){
-			maps.add(Record.parse(m));
+			rd.add(Record.parse(m));
 		}
-		return maps;
+		return rd;
 	}
 	
 	/** 查询aop返回单条数据
@@ -339,59 +339,59 @@ public class Db {
 	
 	/**
 	 * 新增一条数据
-	 * @param maps		maps
+	 * @param rd		rd
 	 * @return
 	 */
-	public int save(Record maps){
-		return save(maps.getTableName(), maps.getPkName(), maps);
+	public int save(Record rd){
+		return save(rd.getTableName(), rd.getPkName(), rd);
 	}
 	
 	/**
 	 * 修改一条数据
 	 * @param tableName	表名
 	 * @param pk		主键名
-	 * @param maps		msps
+	 * @param rd		msps
 	 * @return
 	 */
-	public int update(Record maps){
-		return update(maps.getTableName(), maps.getPkName(), maps);
+	public int update(Record rd){
+		return update(rd.getTableName(), rd.getPkName(), rd);
 	}
 	
 	/**
 	 * 新增一条数据
 	 * @param tableName	表名
 	 * @param pk		主键名
-	 * @param maps		maps
+	 * @param rd		rd
 	 * @return
 	 */
-	public int save(String tableName, String pk, Record maps) {
+	public int save(String tableName, String pk, Record rd) {
 		if(Func.isOneEmpty(tableName, pk)){
 			throw new RuntimeException("表名或主键不能为空!");
 		}
 		String mainSql = " insert into {} ({}) values ({})";
 		pk = (String) Func.getValue(pk, "ID");
 		if(Func.isOracle()){
-			String pkValue = maps.getStr(pk);
+			String pkValue = rd.getStr(pk);
 			if(pkValue.indexOf(".nextval") > 0){
 				Map<String, Object> map = selectOne("select " + pkValue + " as PK from dual");
 				Object val = map.get("PK");
-				maps.set(pk, val);
+				rd.set(pk, val);
 			}
 		}
 		StringBuilder fields = new StringBuilder();
 		StringBuilder values = new StringBuilder();
-		for(String key : maps.keySet()){
+		for(String key : rd.keySet()){
 			fields.append(key + ",");
 			values.append("#{" + key + "},");
 		}
 		String sqlTemplate = Func.format(mainSql, tableName, StrKit.removeSuffix(fields.toString(), ","), StrKit.removeSuffix(values.toString(), ","));
-		int cnt = insert(sqlTemplate, maps);
+		int cnt = insert(sqlTemplate, rd);
 		if(cnt > 0 && Func.isMySql()){
-			Object pkValue = maps.get(pk);
+			Object pkValue = rd.get(pk);
 			if(Func.isEmpty(pkValue)){
 				Map<String, Object> map = selectOne(" select LAST_INSERT_ID() as PK ");
 				Object val = map.get("PK");
-				maps.set(pk, val);
+				rd.set(pk, val);
 			}
 		}
 		return cnt;
@@ -401,23 +401,23 @@ public class Db {
 	 * 修改一条数据
 	 * @param tableName	表名
 	 * @param pk		主键名
-	 * @param maps		msps
+	 * @param rd		map
 	 * @return
 	 */
-	public int update(String tableName, String pk, Record maps) {
+	public int update(String tableName, String pk, Record rd) {
 		if(Func.isOneEmpty(tableName, pk)){
 			throw new RuntimeException("表名或主键不能为空!");
 		}
 		pk = (String) Func.getValue(pk, "ID");
 		String mainSql = " update {} set {} where {} = #{" + pk + "}";
 		StringBuilder fields = new StringBuilder();
-		for(String key : maps.keySet()){
+		for(String key : rd.keySet()){
 			if(!key.equals(pk)){
 				fields.append(key + " = #{" + key + "},");
 			}
 		}
 		String sqlTemplate = Func.format(mainSql, tableName, StrKit.removeSuffix(fields.toString(), ","), pk);
-		return update(sqlTemplate, maps);
+		return update(sqlTemplate, rd);
 	}
 	
 	/**

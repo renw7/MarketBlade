@@ -51,12 +51,12 @@ public class NoticeController extends BaseController {
 	@RequestMapping(KEY_VIEW + "/{id}")
 	public String view(@PathVariable String id, ModelMap mm) {
 		Notice notice = Blade.create(Notice.class).findById(id);
-		//将javabean转化为maps
-		Record maps = Record.parse(notice);
+		//将javabean转化为rd
+		Record rd = Record.parse(notice);
 		//使用Func.getDictName方法从缓存中获取对应字典项的中文值
-		maps.set("dic_f_it_lx", Func.getDictName(102, notice.getF_it_lx()));
-		//将maps传回前台
-		mm.put("model", JsonKit.toJson(maps));
+		rd.set("dic_f_it_lx", Func.getDictName(102, notice.getF_it_lx()));
+		//将rd传回前台
+		mm.put("model", JsonKit.toJson(rd));
 		mm.put("id", id);
 		mm.put("code", CODE);
 		return BASE_PATH + "notice_view.html";

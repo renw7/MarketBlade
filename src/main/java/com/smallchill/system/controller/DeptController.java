@@ -84,9 +84,9 @@ public class DeptController extends BaseController{
 		Dept Dept = blade.findById(id);
 		Dept parent = blade.findById(Dept.getPid());
 		String pName = (null == parent) ? "" : parent.getSimplename();
-		Record maps = Record.parse(Dept);
-		maps.set("pName", pName);
-		mm.put("model", JsonKit.toJson(maps));
+		Record rd = Record.parse(Dept);
+		rd.set("pName", pName);
+		mm.put("model", JsonKit.toJson(rd));
 		mm.put("code", CODE);
 		return BASE_PATH + "dept_view.html";
 	}

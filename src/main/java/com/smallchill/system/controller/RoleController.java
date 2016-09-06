@@ -89,10 +89,10 @@ public class RoleController extends BaseController{
 		Role role = service.findById(id);
 		Role parent = service.findById(role.getPid());
 		String pName = (null == parent) ? "" : parent.getName();
-		Record maps = Record.parse(role);
-		maps.set("deptName", Func.getDeptName(role.getDeptid()))
+		Record rd = Record.parse(role);
+		rd.set("deptName", Func.getDeptName(role.getDeptid()))
 			.set("pName", pName);
-		mm.put("model", JsonKit.toJson(maps));
+		mm.put("model", JsonKit.toJson(rd));
 		mm.put("code", CODE);
 		return BASE_PATH + "role_view.html";
 	}

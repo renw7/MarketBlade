@@ -29,30 +29,30 @@ public class UploadifyController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/upload")
 	public Record upload(@RequestParam("imgFile") MultipartFile file) {
-		Record maps = Record.create();
+		Record rd = Record.create();
 		if (null == file) {
-			maps.set("error", 1);
-			maps.set("message", "请选择要上传的图片");
-			return maps;
+			rd.set("error", 1);
+			rd.set("message", "请选择要上传的图片");
+			return rd;
 		}
 		String originalFileName = file.getOriginalFilename();
 		String dir = getParameter("dir", "image");
 		// 测试后缀
 		boolean ok = UploadFileUtils.testExt(dir, originalFileName);
 		if (!ok) {
-			maps.set("error", 1);
-			maps.set("message", "上传文件的类型不允许");
-			return maps;
+			rd.set("error", 1);
+			rd.set("message", "上传文件的类型不允许");
+			return rd;
 		}
 		BladeFile bf = getFile(file);
 		bf.transfer();
 		Object fileId = bf.getFileId();	
 		String url = "/uploadify/renderFile/" + fileId;
-		maps.set("error", 0);
-		maps.set("fileId", fileId);
-		maps.set("url", Cst.me().getContextPath() + url);
-		maps.set("fileName", originalFileName);
-		return maps;	
+		rd.set("error", 0);
+		rd.set("fileId", fileId);
+		rd.set("url", Cst.me().getContextPath() + url);
+		rd.set("fileName", originalFileName);
+		return rd;	
 	}
 	
 	@RequestMapping("/renderFile/{id}")
