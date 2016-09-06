@@ -122,7 +122,7 @@ public class LoginController extends BaseController implements Const{
 
 	@RequestMapping("/captcha")
 	public void captcha(HttpServletResponse response) {
-		new Captcha().render(response);
+		new Captcha(response).render();
 	}
 
 	public void doLog(Session session, String type){

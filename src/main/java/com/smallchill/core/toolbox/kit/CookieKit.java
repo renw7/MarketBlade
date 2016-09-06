@@ -20,7 +20,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CookieKit {
-	
+
+	/**
+	 * Get cookie value by cookie name.
+	 */
+	public static String getCookie(String name, HttpServletRequest request) {
+		return getCookie(name, null, request);
+	}
 
 	/**
 	 * Get cookie value by cookie name.
@@ -28,13 +34,6 @@ public class CookieKit {
 	public static String getCookie(String name, String defaultValue, HttpServletRequest request) {
 		Cookie cookie = getCookieObject(name, request);
 		return cookie != null ? cookie.getValue() : defaultValue;
-	}
-
-	/**
-	 * Get cookie value by cookie name.
-	 */
-	public static String getCookie(String name, HttpServletRequest request) {
-		return getCookie(name, null, request);
 	}
 	
 	/**

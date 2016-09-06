@@ -43,6 +43,8 @@ import com.smallchill.core.toolbox.kit.StrKit;
  */
 public class Captcha {
 
+	private HttpServletResponse response;
+	
 	private static String captchaName = "_tframework_captcha";
 
 	// 默认的验证码大小
@@ -59,6 +61,10 @@ public class Captcha {
 		new Font(Font.MONOSPACED, Font.BOLD, 40)
 	};
 	
+	public Captcha(HttpServletResponse response){
+		this.response = response;
+	}
+	
 	/**
 	 * 设置 captchaName
 	 */
@@ -72,7 +78,7 @@ public class Captcha {
 	/**
 	 * 生成验证码
 	 */
-	public void render(HttpServletResponse response) {
+	public void render() {
 		BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		String vCode = drawGraphic(image);
 		vCode = vCode.toUpperCase();	// 转成大写重要
