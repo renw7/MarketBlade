@@ -39,7 +39,11 @@ public class FileRender {
 	
 	private HttpServletResponse response;
 	
-	public FileRender(HttpServletRequest request, HttpServletResponse response, File file) {
+	public static FileRender init(HttpServletRequest request, HttpServletResponse response, File file) {
+		return new FileRender(request, response, file);
+	}
+	
+	private FileRender(HttpServletRequest request, HttpServletResponse response, File file) {
 		if (file == null) {
 			throw new IllegalArgumentException("file can not be null.");
 		}

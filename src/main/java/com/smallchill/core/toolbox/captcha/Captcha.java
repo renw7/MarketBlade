@@ -61,7 +61,11 @@ public class Captcha {
 		new Font(Font.MONOSPACED, Font.BOLD, 40)
 	};
 	
-	public Captcha(HttpServletResponse response){
+	public static Captcha init(HttpServletResponse response) {
+		return new Captcha(response);
+	}
+	
+	private Captcha(HttpServletResponse response){
 		this.response = response;
 	}
 	

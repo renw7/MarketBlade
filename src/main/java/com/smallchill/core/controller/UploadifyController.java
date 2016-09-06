@@ -60,7 +60,7 @@ public class UploadifyController extends BladeController {
 		Map<String, Object> file = Db.init().findById("TFW_ATTACH", id);
 		String url = file.get("URL").toString();
 		File f = new File((Cst.me().isRemoteMode() ? "" : PathKit.getWebRootPath()) + url);
-		new FileRender(request, response, f).render();
+		FileRender.init(request, response, f).render();
 	}
 	
 }
