@@ -36,7 +36,7 @@ public class UploadifyController extends BladeController {
 			return maps;
 		}
 		String originalFileName = file.getOriginalFilename();
-		String dir = getPara("dir", "image");
+		String dir = getParameter("dir", "image");
 		// 测试后缀
 		boolean ok = UploadFileUtils.testExt(dir, originalFileName);
 		if (!ok) {

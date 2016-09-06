@@ -1,18 +1,3 @@
-/**
- * Copyright (c) 2015-2016, Chill Zhuang 庄骞 (smallchill@163.com).
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.smallchill.core.modules.support;
 
 import java.util.HashMap;
@@ -36,7 +21,7 @@ import com.smallchill.core.toolbox.kit.StrKit;
  */
 public class BeanInjector {
 
-	public static final <T> T inject(Class<T> beanClass, HttpServletRequest request, boolean skipConvertError) {
+	public static final <T> T inject(Class<T> beanClass, HttpServletRequest request) {
 		try {
 			return BeanKit.mapToBeanIgnoreCase(request.getParameterMap(), beanClass);
 		} catch (Exception e) {
@@ -44,8 +29,7 @@ public class BeanInjector {
 		}
 	}
 
-	public static final <T> T inject(Class<T> beanClass, Map<String, Object> switchMap, HttpServletRequest request,
-			boolean skipConvertError) {
+	public static final <T> T inject(Class<T> beanClass, Map<String, Object> switchMap, HttpServletRequest request) {
 		try {
 			return BeanKit.mapToBeanIgnoreCase(BeanKit.map2Map(request.getParameterMap(), switchMap), beanClass);
 		} catch (Exception e) {
@@ -53,43 +37,43 @@ public class BeanInjector {
 		}
 	}
 
-	public static final <T> T inject(Class<T> beanClass, String recordName, HttpServletRequest request, boolean skipConvertError) {
+	public static final <T> T inject(Class<T> beanClass, String recordName, HttpServletRequest request) {
 		try {
-			Map<String, Object> map = injectPara(recordName, request, skipConvertError);
+			Map<String, Object> map = injectPara(recordName, request);
 			return BeanKit.mapToBeanIgnoreCase(map, beanClass);
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
 
-	public static final <T> T inject(Class<T> beanClass, Map<String, Object> switchMap, String recordName, HttpServletRequest request, boolean skipConvertError) {
+	public static final <T> T inject(Class<T> beanClass, Map<String, Object> switchMap, String recordName, HttpServletRequest request) {
 		try {
-			Map<String, Object> map = injectPara(recordName, request, skipConvertError);
+			Map<String, Object> map = injectPara(recordName, request);
 			return BeanKit.mapToBeanIgnoreCase(BeanKit.map2Map(map, switchMap), beanClass);
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
 	
-	public static final Record injectMaps(HttpServletRequest request, boolean skipConvertError) {
+	public static final Record injectMaps(HttpServletRequest request) {
 		return Record.parse(request.getParameterMap());
 	}
 
-	public static final Record injectMaps(Map<String, Object> switchMap, HttpServletRequest request, boolean skipConvertError) {
+	public static final Record injectMaps(Map<String, Object> switchMap, HttpServletRequest request) {
 		return Record.parse(BeanKit.map2Map(request.getParameterMap(), switchMap));
 	}
 
-	public static final Record injectMaps(String recordName, HttpServletRequest request, boolean skipConvertError) {
-		Map<String, Object> map = injectPara(recordName, request, skipConvertError);
+	public static final Record injectMaps(String recordName, HttpServletRequest request) {
+		Map<String, Object> map = injectPara(recordName, request);
 		return Record.parse(map);
 	}
 
-	public static final Record injectMaps(Map<String, Object> switchMap, String recordName, HttpServletRequest request, boolean skipConvertError) {
-		Map<String, Object> map = injectPara(recordName, request, skipConvertError);
+	public static final Record injectMaps(Map<String, Object> switchMap, String recordName, HttpServletRequest request) {
+		Map<String, Object> map = injectPara(recordName, request);
 		return Record.parse(BeanKit.map2Map(map, switchMap));
 	}
 
-	private static final Map<String, Object> injectPara(String recordName, HttpServletRequest request, boolean skipConvertError) {
+	private static final Map<String, Object> injectPara(String recordName, HttpServletRequest request) {
 		Map<String, String[]> paramMap = request.getParameterMap();
 		Map<String, Object> map = new HashMap<>();
 		String start = recordName.toLowerCase() + ".";

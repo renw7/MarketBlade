@@ -17,7 +17,6 @@ package com.smallchill.core.base.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
@@ -51,7 +50,6 @@ import com.smallchill.core.toolbox.file.BladeFile;
 import com.smallchill.core.toolbox.grid.GridManager;
 import com.smallchill.core.toolbox.kit.BeanKit;
 import com.smallchill.core.toolbox.kit.LogKit;
-import com.smallchill.core.toolbox.kit.PathKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.log.LogManager;
 
@@ -121,198 +119,25 @@ public class BladeController implements ConstCurd, ConstCache{
 		return isAjax;
 	}
 
-
-	/** ============================     request    =================================================  */
-	
-	/**
-	 * Stores an attribute in this request
-	 * 
-	 * @param name
-	 *            a String specifying the name of the attribute
-	 * @param value
-	 *            the Object to be stored
-	 */
-	public BladeController setAttr(String name, Object value) {
-		request.setAttribute(name, value);
-		return this;
-	}
-
-	/**
-	 * Removes an attribute from this request
-	 * 
-	 * @param name
-	 *            a String specifying the name of the attribute to remove
-	 */
-	public BladeController removeAttr(String name) {
-		request.removeAttribute(name);
-		return this;
-	}
-
-	/**
-	 * Stores attributes in this request, key of the map as attribute name and
-	 * value of the map as attribute value
-	 * 
-	 * @param attrMap
-	 *            key and value as attribute of the map to be stored
-	 */
-	public BladeController setAttrs(Map<String, Object> attrMap) {
-		for (Map.Entry<String, Object> entry : attrMap.entrySet())
-			request.setAttribute(entry.getKey(), entry.getValue());
-		return this;
-	}
-
-	/**
-	 * Returns the value of a request parameter as a String, or null if the
-	 * parameter does not exist.
-	 * <p>
-	 * You should only use this method when you are sure the parameter has only
-	 * one value. If the parameter might have more than one value, use
-	 * getParaValues(java.lang.String).
-	 * <p>
-	 * If you use this method with a multivalued parameter, the value returned
-	 * is equal to the first value in the array returned by getParameterValues.
-	 * 
-	 * @param name
-	 *            a String specifying the name of the parameter
-	 * @return a String representing the single value of the parameter
-	 */
-	public String getPara(String name) {
+	public String getParameter(String name) {
 		return request.getParameter(name);
 	}
 
-	/**
-	 * Returns the value of a request parameter as a String, or default value if
-	 * the parameter does not exist.
-	 * 
-	 * @param name
-	 *            a String specifying the name of the parameter
-	 * @param defaultValue
-	 *            a String value be returned when the value of parameter is null
-	 * @return a String representing the single value of the parameter
-	 */
-	public String getPara(String name, String defaultValue) {
+	public String getParameter(String name, String defaultValue) {
 		String result = request.getParameter(name);
-		return result != null && !"".equals(result) ? result : defaultValue;
-	}
-
-	/**
-	 * Returns the values of the request parameters as a Map.
-	 * 
-	 * @return a Map contains all the parameters name and value
-	 */
-	public Map<String, String[]> getParaMap() {
-		return request.getParameterMap();
-	}
-
-	/**
-	 * Returns an Enumeration of String objects containing the names of the
-	 * parameters contained in this request. If the request has no parameters,
-	 * the method returns an empty Enumeration.
-	 * 
-	 * @return an Enumeration of String objects, each String containing the name
-	 *         of a request parameter; or an empty Enumeration if the request
-	 *         has no parameters
-	 */
-	public Enumeration<String> getParaNames() {
-		return request.getParameterNames();
-	}
-
-	/**
-	 * Returns an array of String objects containing all of the values the given
-	 * request parameter has, or null if the parameter does not exist. If the
-	 * parameter has a single value, the array has a length of 1.
-	 * 
-	 * @param name
-	 *            a String containing the name of the parameter whose value is
-	 *            requested
-	 * @return an array of String objects containing the parameter's values
-	 */
-	public String[] getParaValues(String name) {
-		return request.getParameterValues(name);
+		return StrKit.notBlank(result) ? result : defaultValue;
 	}
 
 	public String getParaToDecode(String para) {
 		return Func.decodeUrl(request.getParameter(para));
 	}
 
-	private Integer toInt(String value, Integer defaultValue) {
-		try {
-			if (value == null || "".equals(value.trim()))
-				return defaultValue;
-			value = value.trim();
-			if (value.startsWith("N") || value.startsWith("n"))
-				return -Integer.parseInt(value.substring(1));
-			return Integer.parseInt(value);
-		} catch (Exception e) {
-			throw new RuntimeException("Can not parse the parameter \"" + value + "\" to Integer value.");
-		}
+	public Integer getParameterToInt(String name) {
+		return Func.toInt(request.getParameter(name));
 	}
 
-	/**
-	 * Returns the value of a request parameter and convert to Integer.
-	 * 
-	 * @param name
-	 *            a String specifying the name of the parameter
-	 * @return a Integer representing the single value of the parameter
-	 */
-	public Integer getParaToInt(String name) {
-		return toInt(request.getParameter(name), null);
-	}
-
-	/**
-	 * Returns the value of a request parameter and convert to Integer with a
-	 * default value if it is null.
-	 * 
-	 * @param name
-	 *            a String specifying the name of the parameter
-	 * @return a Integer representing the single value of the parameter
-	 */
-	public Integer getParaToInt(String name, Integer defaultValue) {
-		return toInt(request.getParameter(name), defaultValue);
-	}
-
-	private Long toLong(String value, Long defaultValue) {
-		try {
-			if (value == null || "".equals(value.trim()))
-				return defaultValue;
-			value = value.trim();
-			if (value.startsWith("N") || value.startsWith("n"))
-				return -Long.parseLong(value.substring(1));
-			return Long.parseLong(value);
-		} catch (Exception e) {
-			throw new RuntimeException("Can not parse the parameter \"" + value + "\" to Long value.");
-		}
-	}
-
-	/**
-	 * Returns the value of a request parameter and convert to Long.
-	 * 
-	 * @param name
-	 *            a String specifying the name of the parameter
-	 * @return a Integer representing the single value of the parameter
-	 */
-	public Long getParaToLong(String name) {
-		return toLong(request.getParameter(name), null);
-	}
-
-	/**
-	 * Returns the value of a request parameter and convert to Long with a
-	 * default value if it is null.
-	 * 
-	 * @param name
-	 *            a String specifying the name of the parameter
-	 * @return a Integer representing the single value of the parameter
-	 */
-	public Long getParaToLong(String name, Long defaultValue) {
-		return toLong(request.getParameter(name), defaultValue);
-	}
-
-	public String getRootClassPath() {
-		return PathKit.getRootClassPath();
-	}
-
-	public String getWebRootPath() {
-		return PathKit.getWebRootPath();
+	public Integer getParameterToInt(String name, Integer defaultValue) {
+		return Func.toInt(request.getParameter(name), defaultValue);
 	}
 
 	public String getContextPath() {
@@ -418,35 +243,35 @@ public class BladeController implements ConstCurd, ConstCache{
 	}
 	
 	private <T> T paraInject(Class<T> beanClass) {
-		return (T) BeanInjector.inject(beanClass, this.request, false);
+		return (T) BeanInjector.inject(beanClass, this.request);
 	}
 
 	private <T> T paraInject(Class<T> beanClass, Map<String, Object> switchMap) {
-		return (T) BeanInjector.inject(beanClass, switchMap, this.request, false);
+		return (T) BeanInjector.inject(beanClass, switchMap, this.request);
 	}
 
 	private <T> T paraInject(Class<T> beanClass, String paraPerfix) {
-		return (T) BeanInjector.inject(beanClass, paraPerfix, this.request, false);
+		return (T) BeanInjector.inject(beanClass, paraPerfix, this.request);
 	}
 
 	private <T> T paraInject(Class<T> beanClass, Map<String, Object> switchMap, String paraPerfix) {
-		return (T) BeanInjector.inject(beanClass, switchMap, paraPerfix, this.request, false);
+		return (T) BeanInjector.inject(beanClass, switchMap, paraPerfix, this.request);
 	}
 	
 	private Record paraMapsInject() {
-		return BeanInjector.injectMaps(this.request, false);
+		return BeanInjector.injectMaps(this.request);
 	}
 
 	private Record paraMapsInject(Map<String, Object> switchMap) {
-		return BeanInjector.injectMaps(switchMap, this.request, false);
+		return BeanInjector.injectMaps(switchMap, this.request);
 	}
 
 	private Record paraMapsInject(String paraPerfix) {
-		return BeanInjector.injectMaps(paraPerfix, this.request, false);
+		return BeanInjector.injectMaps(paraPerfix, this.request);
 	}
 
 	private Record paraMapsInject(Map<String, Object> switchMap, String paraPerfix) {
-		return BeanInjector.injectMaps(switchMap, paraPerfix, this.request, false);
+		return BeanInjector.injectMaps(switchMap, paraPerfix, this.request);
 	}
 
 	public <T> T reverse(Object model) {
@@ -577,13 +402,13 @@ public class BladeController implements ConstCurd, ConstCache{
 	/** ============================     paginate    =================================================  */
 	
 	private Object basepage(String slaveName, String source, IQuery intercept){
-		Integer page = getParaToInt("page", 1);
-		Integer rows = getParaToInt("rows", 10);
-		String where = getPara("where", "");
-		String sidx =  getPara("sidx", "");
-		String sord =  getPara("sord", "");
-		String sort =  getPara("sort", "");
-		String order =  getPara("order", "");
+		Integer page = getParameterToInt("page", 1);
+		Integer rows = getParameterToInt("rows", 10);
+		String where = getParameter("where", "");
+		String sidx =  getParameter("sidx", "");
+		String sord =  getParameter("sord", "");
+		String sort =  getParameter("sort", "");
+		String order =  getParameter("order", "");
 		if (StrKit.notBlank(sidx)) {
 			sort = sidx + " " + sord
 					+ (StrKit.notBlank(sort) ? ("," + sort) : "");

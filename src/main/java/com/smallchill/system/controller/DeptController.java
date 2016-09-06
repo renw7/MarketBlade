@@ -108,7 +108,7 @@ public class DeptController extends BaseController{
 	@RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
 		Dept dept = mapping(PERFIX, Dept.class);
-		dept.setVersion(getParaToInt("VERSION", 0) + 1);
+		dept.setVersion(getParameterToInt("VERSION", 0) + 1);
 		boolean temp =  Blade.create(Dept.class).update(dept);
 		if (temp) {
 			CacheKit.removeAll(DEPT_CACHE);

@@ -45,10 +45,7 @@ import com.smallchill.system.model.Parameter;
 import com.smallchill.system.model.Role;
 
 /**
- * what：高频常用方法集合<br>
- * where：Func.xxx简短快捷的输入操作<br>
- * why：整合高频常用方法,编码速度+50%,代码量-70%
- * 
+ * 高频方法集合类
  */
 public class Func {
 

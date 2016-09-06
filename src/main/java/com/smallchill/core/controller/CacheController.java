@@ -49,7 +49,7 @@ public class CacheController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/getBtn")
 	public AjaxResult getBtn() {
-		final String code = getPara("code");
+		final String code = getParameter("code");
 		ShiroUser user = ShiroKit.getUser();
 		final String userId = user.getId().toString();
 		final String roleId = user.getRoles().toString();
@@ -94,7 +94,7 @@ public class CacheController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/getChildBtn")
 	public AjaxResult getChildBtn() {
-		final String code = getPara("code");
+		final String code = getParameter("code");
 		ShiroUser user = ShiroKit.getUser();
 		final String userId = user.getId().toString();
 		final String roleId = user.getRoles().toString();
@@ -144,8 +144,8 @@ public class CacheController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/getSelect")
 	public AjaxResult getSelect() {
-		final String code = getPara("code");
-		final String num = getPara("num");
+		final String code = getParameter("code");
+		final String num = getParameter("num");
 		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, "dict_common_" + code,
 				new ILoader() {
 					public Object load() {
@@ -166,7 +166,7 @@ public class CacheController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/getCombo")
 	public AjaxResult getCombo() {
-		final String code = getPara("code");
+		final String code = getParameter("code");
 		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, "dict_combo_" + code,
 				new ILoader() {
 					public Object load() {
@@ -180,7 +180,7 @@ public class CacheController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/getDeptSelect")
 	public AjaxResult getDeptSelect() {
-		final String num = getPara("num");
+		final String num = getParameter("num");
 		List<Map<String, Object>> dept = CacheKit.get(DEPT_CACHE, "dept_all",
 				new ILoader() {
 					public Object load() {
@@ -201,7 +201,7 @@ public class CacheController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/getUserSelect")
 	public AjaxResult getUserSelect() {
-		final String num = getPara("num");
+		final String num = getParameter("num");
 		List<Map<String, Object>> dept = CacheKit.get(DEPT_CACHE, "user_all",
 				new ILoader() {
 					public Object load() {
@@ -222,7 +222,7 @@ public class CacheController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/getRoleSelect")
 	public AjaxResult getRoleSelect() {
-		final String num = getPara("num");
+		final String num = getParameter("num");
 		List<Map<String, Object>> dept = CacheKit.get(ROLE_CACHE, "role_all",
 				new ILoader() {
 					public Object load() {
@@ -282,7 +282,7 @@ public class CacheController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/getDicById")
 	public AjaxResult getDicById() {
-		final int id = getParaToInt("id");
+		final int id = getParameterToInt("id");
 		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, "dict_" + id,
 				new ILoader() {
 					public Object load() {
@@ -308,7 +308,7 @@ public class CacheController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/menuTreeListByRoleId")
 	public AjaxResult menuTreeListByRoleId() {
-		final String roleId = getPara("roleId", "0");
+		final String roleId = getParameter("roleId", "0");
 		List<Map<String, Object>> menu = CacheKit.get(MENU_CACHE, "tree_role_" + roleId,
 				new ILoader() {
 					public Object load() {
@@ -342,8 +342,8 @@ public class CacheController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/roleTreeListById")
 	public AjaxResult roleTreeListById() {
-		final String Id = getPara("id");
-		final String roleId = getPara("roleId", "0");
+		final String Id = getParameter("id");
+		final String roleId = getParameter("roleId", "0");
 		List<Map<String, Object>> menu = CacheKit.get(ROLE_CACHE, "role_tree_" + Id,
 				new ILoader() {
 					public Object load() {

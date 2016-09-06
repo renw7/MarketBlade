@@ -144,7 +144,7 @@ public class RoleController extends BaseController{
 	@RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
 		Role role = mapping(PERFIX, Role.class);
-		role.setVersion(getParaToInt("VERSION", 0) + 1);
+		role.setVersion(getParameterToInt("VERSION", 0) + 1);
 		boolean temp = service.update(role);
 		if (temp) {
 			CacheKit.removeAll(ROLE_CACHE);

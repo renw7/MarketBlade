@@ -254,13 +254,13 @@ public abstract class CurdController<M> extends BaseController {
 	@ResponseBody
 	@RequestMapping(KEY_LIST)
 	public Object list() {
-		Integer page = getParaToInt("page");
-		Integer rows = getParaToInt("rows");
-		String where = getPara("where");
-		String sidx = getPara("sidx");
-		String sord = getPara("sord");
-		String sort = getPara("sort");
-		String order = getPara("order");
+		Integer page = getParameterToInt("page");
+		Integer rows = getParameterToInt("rows");
+		String where = getParameter("where");
+		String sidx = getParameter("sidx");
+		String sord = getParameter("sord");
+		String sort = getParameter("sort");
+		String order = getParameter("order");
 		if (StrKit.notBlank(sidx)) {
 			sort = sidx + " " + sord
 					+ (StrKit.notBlank(sort) ? ("," + sort) : "");

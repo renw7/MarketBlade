@@ -69,7 +69,7 @@ public class ParameterIntercept extends MetaIntercept {
 	 */
 	public void saveBefore(AopContext ac) {
 		BladeController ctrl = ac.getCtrl();
-		String code = ctrl.getPara("tfw_parameter.code");
+		String code = ctrl.getParameter("tfw_parameter.code");
 		int cnt = Blade.create(Parameter.class).count("code = #{code}", Record.create().set("code", code));
 		if(cnt > 0){
 			throw new RuntimeException("参数编号已存在!");

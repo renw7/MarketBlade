@@ -109,7 +109,7 @@ public class DictController extends BaseController{
 	@RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
 		Dict dict = mapping(PERFIX, Dict.class);
-		dict.setVersion(getParaToInt("VERSION", 0) + 1);
+		dict.setVersion(getParameterToInt("VERSION", 0) + 1);
 		boolean temp =  Blade.create(Dict.class).update(dict);
 		if (temp) {
 			CacheKit.removeAll(DICT_CACHE);

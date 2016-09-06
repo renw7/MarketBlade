@@ -17,7 +17,7 @@ public class ExampleBlade extends BladeController{
 	public void one(){
 		Blade dao = Blade.create(Notice.class);
 		//根据主键值查询一条数据
-		Notice notice = dao.findById(getPara("id"));
+		Notice notice = dao.findById(getParameter("id"));
 		System.out.println(notice);
 	}
 	

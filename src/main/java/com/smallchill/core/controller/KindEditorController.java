@@ -53,7 +53,7 @@ public class KindEditorController extends BladeController {
 			return maps;
 		}
 		String originalFileName = file.getOriginalFilename();
-		String dir = getPara("dir", "image");
+		String dir = getParameter("dir", "image");
 		// 测试后缀
 		boolean ok = UploadFileUtils.testExt(dir, originalFileName);
 		if (!ok) {
@@ -75,9 +75,9 @@ public class KindEditorController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/file_manager_json")
 	public Object file_manager_json() {
-		String dir = getPara("dir", "image");
+		String dir = getParameter("dir", "image");
 		// 考虑安全问题
-		String path = getPara("path", "");
+		String path = getParameter("path", "");
 		// 不允许使用..移动到上一级目录
 		if (path.indexOf("..") >= 0) {
 			return "Access is not allowed.";
@@ -86,7 +86,7 @@ public class KindEditorController extends BladeController {
 		if (!"".equals(path) && !path.endsWith("/")) {
 			return "Parameter is not valid.";
 		}
-		String order = getPara("order", "name");
+		String order = getParameter("order", "name");
 
 		Map<String, Object> result = UploadFileUtils.listFiles(dir, path, order);
 		return result;

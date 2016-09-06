@@ -117,8 +117,8 @@ public class UserController extends BaseController implements ConstShiro{
 	@RequestMapping("/updatePassword")
 	public AjaxResult updatePassword(){
 		Blade blade = Blade.create(User.class);
-		String userId = getPara("user.id");
-		String password = getPara("user.newPassword");
+		String userId = getParameter("user.id");
+		String password = getParameter("user.newPassword");
 		User user = blade.findById(userId);
 		String salt = user.getSalt();
 		user.setPassword(ShiroKit.md5(password, salt));
@@ -183,7 +183,7 @@ public class UserController extends BaseController implements ConstShiro{
 				user.setPassword(pwdMd5);
 			}
 		}
-		user.setVersion(getParaToInt("VERSION", 0) + 1);
+		user.setVersion(getParameterToInt("VERSION", 0) + 1);
 		boolean temp = Blade.create(User.class).update(user);
 		if (temp) {
 			CacheKit.removeAll(DEPT_CACHE);
@@ -359,9 +359,9 @@ public class UserController extends BaseController implements ConstShiro{
 	@RequestMapping("/saveRoleExt")
 	public AjaxResult saveRoleExt() {
 		Blade blade = Blade.create(RoleExt.class);
-		String userId = getPara("userId");
-		String roleIn = getPara("idsIn", "0");
-		String roleOut = getPara("idsOut", "0");
+		String userId = getParameter("userId");
+		String roleIn = getParameter("idsIn", "0");
+		String roleOut = getParameter("idsOut", "0");
 		RoleExt roleExt = blade.findFirstBy("userId = #{userId}", Record.create().set("userId", userId));	
 		boolean flag = false;
 		if (Func.isEmpty(roleExt)) {

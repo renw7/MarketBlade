@@ -132,7 +132,7 @@ public class MenuController extends BaseController implements ConstShiro{
 	@Permission(ADMINISTRATOR)
 	public AjaxResult update() {
 		Menu menu = mapping(PERFIX, Menu.class);
-		menu.setVersion(getParaToInt("VERSION", 0) + 1);
+		menu.setVersion(getParameterToInt("VERSION", 0) + 1);
 		boolean temp = service.update(menu);
 		if (temp) {
 			if(Func.equals(menu.getUrl(), "")){
@@ -194,8 +194,8 @@ public class MenuController extends BaseController implements ConstShiro{
 	@RequestMapping("/getMenu")
 	public List<Map<String, Object>> getMenu(){
 		String MENU_CACHE = ConstCache.MENU_CACHE;
-		final Object userId = getPara("userId");
-		final Object roleId = getPara("roleId");
+		final Object userId = getParameter("userId");
+		final Object roleId = getParameter("roleId");
 
 		Map<String, Object> userRole = CacheKit.get(MENU_CACHE, "role_ext_" + userId, new ILoader() {
 			@Override
