@@ -26,7 +26,7 @@ import org.beetl.sql.core.db.ClassDesc;
 import org.beetl.sql.core.db.KeyHolder;
 
 import com.smallchill.core.annotation.BindID;
-import com.smallchill.core.annotation.Slave;
+import com.smallchill.core.annotation.DbName;
 import com.smallchill.core.constant.Const;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.plugins.connection.ConnectionPlugin;
@@ -47,13 +47,13 @@ public class Blade {
 		if (null == sql) {
 			synchronized (Blade.class) {
 				if (null == sql) {
-					Slave slave = modelClass.getAnnotation(Slave.class);
-					if (null == slave){
+					DbName dbName = modelClass.getAnnotation(DbName.class);
+					if (null == dbName){
 						sql = dao();
-						dbName = ConnectionPlugin.init().MASTER;
+						this.dbName = ConnectionPlugin.init().MASTER;
 					} else {
-						sql = dao(slave.name());
-						dbName = slave.name();
+						sql = dao(dbName.name());
+						this.dbName = dbName.name();
 					}
 				}
 			}
@@ -89,11 +89,11 @@ public class Blade {
 			synchronized (Blade.class) {
 				blade = pool.get(modelClass);
 				if (null == blade) {
-					Slave slave = modelClass.getAnnotation(Slave.class);
-					if (null == slave){
+					DbName dbName = modelClass.getAnnotation(DbName.class);
+					if (null == dbName){
 						blade = new Blade(ConnectionPlugin.init().MASTER, modelClass);
 					} else {
-						blade = new Blade(slave.name(), modelClass);
+						blade = new Blade(dbName.name(), modelClass);
 					}
 					pool.put(modelClass, blade);
 				}
