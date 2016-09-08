@@ -10,16 +10,16 @@ import com.smallchill.core.base.model.BaseModel;
 @Table(name = "tfw_generate")
 @BindID(name = "id")
 @SuppressWarnings("serial")
+//在线开发
 public class Generate extends BaseModel {
-
-	private Integer id;
-	private String modelname;
-	private String name;
-	private String realpath;
-	private String packagename;
-	private String pkname;
-	private String tablename;
-	private String tips;
+	private Integer id; //主键
+	private String modelname; //实体类名
+	private String name; //模块名称
+	private String realpath; //物理地址
+	private String packagename; //package包名
+	private String pkname; //主键名
+	private String tablename; //表名
+	private String tips; //备注
 
 	@AutoID
 	@SeqID(name = "SEQ_GENERATE")

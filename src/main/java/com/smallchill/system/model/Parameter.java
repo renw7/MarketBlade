@@ -25,15 +25,16 @@ import com.smallchill.core.base.model.BaseModel;
 @Table(name = "tfw_parameter")
 @BindID(name = "id")
 @SuppressWarnings("serial")
+//参数表
 public class Parameter extends BaseModel {
-	private Integer id;
-	private String code;
-	private String name;
-	private Integer num;
-	private String para;
-	private Integer status;
-	private String tips;
-	private Integer version;
+	private Integer id; //主键
+	private String code; //参数编号
+	private String name; //参数名
+	private Integer num; //排序号
+	private String para; //参数值
+	private Integer status; //状态
+	private String tips; //备注
+	private Integer version; //版本号
 
 	@AutoID
 	@SeqID(name = "SEQ_PARAMETER")

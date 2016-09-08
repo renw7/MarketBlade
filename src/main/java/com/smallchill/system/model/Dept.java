@@ -25,14 +25,15 @@ import com.smallchill.core.base.model.BaseModel;
 @Table(name = "tfw_dept")
 @BindID(name = "id")
 @SuppressWarnings("serial")
+//部门表
 public class Dept extends BaseModel {
-	private Integer id;
-	private String fullname;
-	private Integer num;
-	private Integer pid;
-	private String simplename;
-	private String tips;
-	private Integer version;
+	private Integer id; //主键
+	private String fullname; //全称
+	private Integer num; //排序号
+	private Integer pid; //上级部门
+	private String simplename; //简称
+	private String tips; //备注
+	private Integer version; //版本号
 
 	@AutoID
 	@SeqID(name = "SEQ_DEPT")

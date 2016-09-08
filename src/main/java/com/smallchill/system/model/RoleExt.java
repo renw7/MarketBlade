@@ -25,11 +25,12 @@ import com.smallchill.core.base.model.BaseModel;
 @Table(name = "tfw_role_ext")
 @BindID(name = "id")
 @SuppressWarnings("serial")
+//角色代理表
 public class RoleExt extends BaseModel {
-	private Integer id;
-	private String rolein;
-	private String roleout;
-	private String userid;
+	private Integer id; //主键
+	private String rolein; //额外附加的权限
+	private String roleout; //额外剔除的权限
+	private String userid; //用户id
 
 	@AutoID
 	@SeqID(name = "SEQ_ROLE_EXT")

@@ -12,24 +12,26 @@ import com.smallchill.core.base.model.BaseModel;
 @Table(name = "tfw_user")
 @BindID(name = "id")
 @SuppressWarnings("serial")
+//用户表
 public class User extends BaseModel {
-	private Integer id;
-	private String account;
-	private Integer deptid;
-	private String email;
-	private String name;
-	private String password;
-	private String salt;
-	private String phone;
-	private String roleid;
-	private Integer sex;
-	private Integer status;
-	private Integer version;
-	private Date birthday;
-	private Date createtime;
+	private Integer id; //主键
+	private String account; //账号
+	private Integer deptid; //部门id
+	private String email; //邮箱
+	private String name; //姓名
+	private String password; //密码
+	private String salt; //密码盐
+	private String phone; //手机号
+	private String roleid; //角色id
+	private Integer sex; //性别
+	private Integer status; //状态
+	private Integer version; //版本号
+	private Date birthday; //生日
+	private Date createtime; //创建时间
 
-	@AutoID
-	@SeqID(name = "SEQ_USER")
+	@AutoID //mysql自增
+	@SeqID(name = "SEQ_USER") //oracle sequence自增
+	//两者只需要写一个,根据数据库不同来选择
 	public Integer getId() {
 		return id;
 	}

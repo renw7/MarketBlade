@@ -12,14 +12,15 @@ import com.smallchill.core.base.model.BaseModel;
 @Table(name = "tfw_attach")
 @BindID(name = "id")
 @SuppressWarnings("serial")
+//附件表
 public class Attach extends BaseModel {
-	private Integer id;
-	private String code;
-	private Integer creater;
-	private String name;
-	private Integer status;
-	private String url;
-	private Date createtime;
+	private Integer id; //主键
+	private String code; //编码
+	private Integer creater; //创建人
+	private String name; //附件名
+	private Integer status; //状态
+	private String url; //附件地址
+	private Date createtime; //上传时间
 
 	@AutoID
 	@SeqID(name = "SEQ_ATTACH")

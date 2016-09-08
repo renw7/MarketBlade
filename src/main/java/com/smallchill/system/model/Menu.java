@@ -25,23 +25,24 @@ import com.smallchill.core.base.model.BaseModel;
 @Table(name = "tfw_menu")
 @BindID(name = "id")
 @SuppressWarnings("serial")
+//菜单表
 public class Menu extends BaseModel {
-	private Integer id;
-	private String code;
-	private String alias;
-	private String icon;
-	private String isopen;
-	private String istemplate;
-	private Integer levels;
-	private String name;
-	private Integer num;
-	private String path;
-	private String pcode;
-	private String source;
-	private Integer status;
-	private String tips;
-	private String url;
-	private Integer version;
+	private Integer id; //主键
+	private String code; //菜单编号
+	private String alias; //菜单别名
+	private String icon; //图标
+	private String isopen; //是否打开tab
+	private String istemplate; //是否模板
+	private Integer levels; //菜单层级
+	private String name; //菜单名称
+	private Integer num; //排序号
+	private String path; //地址
+	private String pcode; //父编号
+	private String source; //数据源
+	private Integer status; //状态
+	private String tips; //备注
+	private String url; //接口地址
+	private Integer version; //版本号
 
 	@AutoID
 	@SeqID(name = "SEQ_MENU")
