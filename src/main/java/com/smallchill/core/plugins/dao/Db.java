@@ -337,8 +337,8 @@ public class Db {
 	 * @param rd		rd
 	 * @return
 	 */
-	public int save(Record rd){
-		return save(rd.getTableName(), rd.getPkName(), rd);
+	public int save(String tableName, Record rd){
+		return save(tableName, "ID", rd);
 	}
 	
 	/**
@@ -348,8 +348,8 @@ public class Db {
 	 * @param rd		msps
 	 * @return
 	 */
-	public int update(Record rd){
-		return update(rd.getTableName(), rd.getPkName(), rd);
+	public int update(String tableName, Record rd){
+		return update(tableName, "ID", rd);
 	}
 	
 	/**

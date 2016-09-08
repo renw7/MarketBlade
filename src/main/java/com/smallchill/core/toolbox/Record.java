@@ -21,53 +21,17 @@ import com.smallchill.core.toolbox.kit.BeanKit;
  */
 @SuppressWarnings("serial")
 public class Record extends HashMap<String, Object> {
-	
-	private String tableName;
-	private String pkName;
-	
-	public String getTableName() {
-		return tableName;
-	}
-
-	public Record setTableName(String tableName) {
-		this.tableName = tableName;
-		return this;
-	}
-
-	public String getPkName() {
-		return pkName;
-	}
-
-	public Record setPkName(String pkName) {
-		this.pkName = pkName;
-		return this;
-	}
 
 	/**
-	 * 创建Maps
-	 * @return Maps
+	 * 创建Record
+	 * @return Record
 	 */
 	public static Record create() {
 		return new Record();
 	}
-	
-	/**
-	 * 创建Maps
-	 * @param tableName	表名
-	 * @param pkName	主键名
-	 * @return Maps
-	 */
-	public static Record create(String tableName, String pkName) {
-		return new Record(tableName, pkName);
-	}
 
 	private Record(){
 		
-	}
-	
-	private Record(String tableName, String pkName){
-		this.tableName = tableName;
-		this.pkName = pkName;
 	}
 	
 	/**
