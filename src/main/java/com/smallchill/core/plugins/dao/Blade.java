@@ -70,7 +70,7 @@ public class Blade {
 	}
 	
 	/**
-	 * 返回SQLManager(从库)
+	 * 返回SQLManager(其他数据源)
 	 * @param name
 	 * @return
 	 */
