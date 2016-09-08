@@ -10,15 +10,19 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
+import java.net.URI;
 import java.net.URL;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -200,34 +204,6 @@ public class ClassKit {
 	}
 	
 	/**
-	 * 获得ClassPath
-	 * @return ClassPath集合
-	 */
-	public static Set<String> getClassPathResources(){
-		return getClassPaths(StrKit.EMPTY);
-	}
-	
-	/**
-	 * 获得ClassPath
-	 * @param packageName 包名称
-	 * @return ClassPath路径字符串集合
-	 */
-	public static Set<String> getClassPaths(String packageName){
-		String packagePath = packageName.replace(StrKit.DOT, StrKit.SLASH);
-		Enumeration<URL> resources;
-		try {
-			resources = getClassLoader().getResources(packagePath);
-		} catch (IOException e) {
-			throw new ToolBoxException(StrKit.format("Loading classPath [{}] error!", packagePath), e);
-		}
-		Set<String> paths = new HashSet<String>();
-		while(resources.hasMoreElements()) {
-			paths.add(resources.nextElement().getPath());
-		}
-		return paths;
-	}
-	
-	/**
 	 * @return 获得Java ClassPath路径，不包括 jre
 	 */
 	public static String[] getJavaClassPaths() {
@@ -389,63 +365,124 @@ public class ClassKit {
 	}
 	
 	/**
-	 * 执行方法<br>
-	 * 可执行Private方法，也可执行static方法<br>
-	 * 执行非static方法时，必须满足对象有默认构造方法<br>
-	 * 非单例模式，如果是非静态方法，每次创建一个新对象
-	 * @param <T>
-	 * @param classNameDotMethodName 类名和方法名表达式，例如：com.xiaoleilu.hutool.StrKit.isBlank
-	 * @param args 参数，必须严格对应指定方法的参数类型和数量
-	 * @return 返回结果
+	 * 获得ClassPath
+	 * @return ClassPath集合
 	 */
-	public static <T> T invoke(String classNameDotMethodName, Object... args){
-		return invoke(classNameDotMethodName, false, args);
+	public static Set<String> getClassPathResources(){
+		return getClassPaths(StrKit.EMPTY);
+	}
+
+	/**
+	 * 获得ClassPath
+	 * 
+	 * @param packageName 包名称
+	 * @return ClassPath路径字符串集合
+	 */
+	public static Set<String> getClassPaths(String packageName) {
+		String packagePath = packageName.replace(StrKit.DOT, StrKit.SLASH);
+		Enumeration<URL> resources;
+		try {
+			resources = getClassLoader().getResources(packagePath);
+		} catch (IOException e) {
+			throw new ToolBoxException(StrKit.format("Loading classPath [{}] error!", packagePath), e);
+		}
+		Set<String> paths = new HashSet<String>();
+		while (resources.hasMoreElements()) {
+			paths.add(resources.nextElement().getPath());
+		}
+		return paths;
+	}
+
+	/**
+	 * 获得ClassPath
+	 * 
+	 * @return ClassPath
+	 */
+	public static String getClassPath() {
+		return getClassPathURL().getPath();
+	}
+
+	/**
+	 * 获得ClassPath URL
+	 * 
+	 * @return ClassPath URL
+	 */
+	public static URL getClassPathURL() {
+		return getURL(StrKit.EMPTY);
+	}
+
+	/**
+	 * 获得资源的URL
+	 * 
+	 * @param resource 资源（相对Classpath的路径）
+	 * @return 资源URL
+	 */
+	public static URL getURL(String resource) {
+		return ClassKit.getClassLoader().getResource(resource);
 	}
 	
 	/**
 	 * 执行方法<br>
 	 * 可执行Private方法，也可执行static方法<br>
 	 * 执行非static方法时，必须满足对象有默认构造方法<br>
+	 * 非单例模式，如果是非静态方法，每次创建一个新对象
+	 * 
 	 * @param <T>
-	 * @param classNameDotMethodName 类名和方法名表达式，例如：com.xiaoleilu.hutool.StrKit.isBlank
+	 * @param classNameDotMethodName 类名和方法名表达式，例如：com.xiaoleilu.hutool.StrKit.isEmpty
+	 * @param args 参数，必须严格对应指定方法的参数类型和数量
+	 * @return 返回结果
+	 */
+	public static <T> T invoke(String classNameDotMethodName, Object... args) {
+		return invoke(classNameDotMethodName, false, args);
+	}
+
+	/**
+	 * 执行方法<br>
+	 * 可执行Private方法，也可执行static方法<br>
+	 * 执行非static方法时，必须满足对象有默认构造方法<br>
+	 * 
+	 * @param <T>
+	 * @param classNameDotMethodName 类名和方法名表达式，例如：com.xiaoleilu.hutool.StrKit.isEmpty
 	 * @param isSingleton 是否为单例对象，如果此参数为false，每次执行方法时创建一个新对象
 	 * @param args 参数，必须严格对应指定方法的参数类型和数量
 	 * @return 返回结果
 	 */
-	public static <T> T invoke(String classNameDotMethodName, boolean isSingleton, Object... args){
-		if(StrKit.isBlank(classNameDotMethodName)){
+	public static <T> T invoke(String classNameDotMethodName, boolean isSingleton, Object... args) {
+		if (StrKit.isBlank(classNameDotMethodName)) {
 			throw new ToolBoxException("Blank classNameDotMethodName!");
 		}
 		final int dotIndex = classNameDotMethodName.lastIndexOf('.');
-		if(dotIndex <= 0){
+		if (dotIndex <= 0) {
 			throw new ToolBoxException("Invalid classNameDotMethodName [{}]!", classNameDotMethodName);
 		}
-		
+
 		final String className = classNameDotMethodName.substring(0, dotIndex);
 		final String methodName = classNameDotMethodName.substring(dotIndex + 1);
-		
+
 		return invoke(className, methodName, isSingleton, args);
 	}
-	
+
 	/**
 	 * 执行方法<br>
 	 * 可执行Private方法，也可执行static方法<br>
 	 * 执行非static方法时，必须满足对象有默认构造方法<br>
 	 * 非单例模式，如果是非静态方法，每次创建一个新对象
+	 * 
 	 * @param <T>
 	 * @param className 类名，完整类路径
 	 * @param methodName 方法名
 	 * @param args 参数，必须严格对应指定方法的参数类型和数量
 	 * @return 返回结果
 	 */
-	public static <T> T invoke(String className, String methodName, Object... args){
+	public static <T> T invoke(String className, String methodName, Object... args) {
 		return invoke(className, methodName, false, args);
 	}
-	
+
 	/**
 	 * 执行方法<br>
 	 * 可执行Private方法，也可执行static方法<br>
 	 * 执行非static方法时，必须满足对象有默认构造方法<br>
+	 * 
 	 * @param <T>
 	 * @param className 类名，完整类路径
 	 * @param methodName 方法名
@@ -453,23 +490,84 @@ public class ClassKit {
 	 * @param args 参数，必须严格对应指定方法的参数类型和数量
 	 * @return 返回结果
 	 */
-	@SuppressWarnings("unchecked")
-	public static <T> T invoke(String className, String methodName, boolean isSingleton, Object... args){
+	public static <T> T invoke(String className, String methodName, boolean isSingleton, Object... args) {
 		Class<Object> clazz = loadClass(className);
 		try {
-			Method method = clazz.getDeclaredMethod(methodName, getClasses(args));
-			int modifiers = method.getModifiers();
-			if(Modifier.isPrivate(modifiers)){
-				method.setAccessible(true);
-			}
-			if(Modifier.isStatic(modifiers)){
-				return (T) method.invoke(null, args);
-			}else{
-				return (T) method.invoke(isSingleton ? Singleton.create(clazz) : clazz.newInstance(), args);
-			}
+			return invoke(isSingleton ? Singleton.create(clazz) : clazz.newInstance(), methodName, args);
 		} catch (Exception e) {
 			throw new ToolBoxException(e);
 		}
+	}
+
+	/**
+	 * 执行方法<br>
+	 * 可执行Private方法，也可执行static方法<br>
+	 * @param <T>
+	 * @param obj 对象
+	 * @param methodName 方法名
+	 * @param args 参数，必须严格对应指定方法的参数类型和数量
+	 * @return 返回结果
+	 */
+	public static <T> T invoke(Object obj, String methodName, Object... args) {
+		try {
+			final Method method = getDeclaredMethod(obj, methodName, args);
+			return invoke(obj, method, args);
+		} catch (Exception e) {
+			throw new ToolBoxException(e);
+		}
+	}
+	
+	/**
+	 * 执行方法
+	 * @param obj 对象
+	 * @param method 方法（对象方法或static方法都可）
+	 * @param args 参数对象
+	 * @return 结果
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T invoke(Object obj, Method method, Object... args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+		if (false == method.isAccessible()) {
+			method.setAccessible(true);
+		}
+		return (T) method.invoke(isStatic(method) ? null : obj, args);
+	}
+	
+	/**
+	 * 查找指定对象中的所有方法（包括非public方法），也包括父对象和Object类的方法
+	 * @param obj 被查找的对象
+	 * @param methodName 方法名
+	 * @param args 参数
+	 * @return 方法
+	 * @throws NoSuchMethodException 无此方法
+	 * @throws SecurityException
+	 */
+	public static Method getDeclaredMethod(Object obj, String methodName, Object... args) throws NoSuchMethodException, SecurityException {
+		return getDeclaredMethod(obj.getClass(), methodName, getClasses(args));
+	}
+
+	/**
+	 * 查找指定类中的所有方法（包括非public方法），也包括父类和Object类的方法
+	 * @param clazz 被查找的类
+	 * @param methodName 方法名
+	 * @param parameterTypes 参数类型
+	 * @return 方法
+	 * @throws NoSuchMethodException 无此方法
+	 * @throws SecurityException
+	 */
+	public static Method getDeclaredMethod(Class<?> clazz, String methodName, Class<?>... parameterTypes) throws NoSuchMethodException, SecurityException {
+		Method method = null;
+		for (; clazz != Object.class; clazz = clazz.getSuperclass()) {
+			try {
+				method = clazz.getDeclaredMethod(methodName, parameterTypes);
+				return method;
+			} catch (NoSuchMethodException e) {
+				//继续向上寻找
+			}
+		}
+		return Object.class.getDeclaredMethod(methodName, parameterTypes);
 	}
 	
 	/**
@@ -503,6 +601,162 @@ public class ClassKit {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	/**
+	 * 是否为包装类型
+	 * 
+	 * @param clazz 类
+	 * @return 是否为包装类型
+	 */
+	public static boolean isPrimitiveWrapper(Class<?> clazz) {
+		if (null == clazz) {
+			return false;
+		}
+		return BasicType.wrapperPrimitiveMap.containsKey(clazz);
+	}
+
+	/**
+	 * 是否为基本类型（包括包装类和原始类）
+	 * 
+	 * @param clazz 类
+	 * @return 是否为基本类型
+	 */
+	public static boolean isBasicType(Class<?> clazz) {
+		if (null == clazz) {
+			return false;
+		}
+		return (clazz.isPrimitive() || isPrimitiveWrapper(clazz));
+	}
+
+	/**
+	 * 是否简单值类型或简单值类型的数组<br>
+	 * 包括：原始类型,、String、other CharSequence, a Number, a Date, a URI, a URL, a Locale or a Class及其数组
+	 * 
+	 * @param clazz 属性类
+	 * @return 是否简单值类型或简单值类型的数组
+	 */
+	public static boolean isSimpleTypeOrArray(Class<?> clazz) {
+		if (null == clazz) {
+			return false;
+		}
+		return isSimpleValueType(clazz) || (clazz.isArray() && isSimpleValueType(clazz.getComponentType()));
+	}
+
+	/**
+	 * 是否为简单值类型<br>
+	 * 包括：原始类型,、String、other CharSequence, a Number, a Date, a URI, a URL, a Locale or a Class.
+	 * 
+	 * @param clazz 类
+	 * @return 是否为简单值类型
+	 */
+	public static boolean isSimpleValueType(Class<?> clazz) {
+		return isBasicType(clazz) || clazz.isEnum() || CharSequence.class.isAssignableFrom(clazz) || Number.class.isAssignableFrom(clazz) || Date.class.isAssignableFrom(clazz) || clazz
+				.equals(URI.class) || clazz.equals(URL.class) || clazz.equals(Locale.class) || clazz.equals(Class.class);
+	}
+
+	/**
+	 * 检查目标类是否可以从原类转化<br>
+	 * 转化包括：<br>
+	 * 1、原类是对象，目标类型是原类型实现的接口<br>
+	 * 2、目标类型是原类型的父类<br>
+	 * 3、两者是原始类型或者包装类型（相互转换）
+	 * 
+	 * @param targetType 目标类型
+	 * @param sourceType 原类型
+	 * @return 是否可转化
+	 */
+	public static boolean isAssignable(Class<?> targetType, Class<?> sourceType) {
+		if (null == targetType || null == sourceType) {
+			return false;
+		}
+		// 对象类型
+		if (targetType.isAssignableFrom(sourceType)) {
+			return true;
+		}
+		// 基本类型
+		if (targetType.isPrimitive()) {
+			// 原始类型
+			Class<?> resolvedPrimitive = BasicType.wrapperPrimitiveMap.get(sourceType);
+			if (resolvedPrimitive != null && targetType.equals(resolvedPrimitive)) {
+				return true;
+			}
+		} else {
+			// 包装类型
+			Class<?> resolvedWrapper = BasicType.primitiveWrapperMap.get(sourceType);
+			if (resolvedWrapper != null && targetType.isAssignableFrom(resolvedWrapper)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * 指定类是否为Public
+	 * 
+	 * @param clazz 类
+	 * @return 是否为public
+	 */
+	public static boolean isPublic(Class<?> clazz) {
+		if (null == clazz) {
+			throw new NullPointerException("Class to provided is null.");
+		}
+		return Modifier.isPublic(clazz.getModifiers());
+	}
+
+	/**
+	 * 指定方法是否为Public
+	 * 
+	 * @param method 方法
+	 * @return 是否为public
+	 */
+	public static boolean isPublic(Method method) {
+		if (null == method) {
+			throw new NullPointerException("Method to provided is null.");
+		}
+		return isPublic(method.getDeclaringClass());
+	}
+
+	/**
+	 * 指定类是否为非public
+	 * 
+	 * @param clazz 类
+	 * @return 是否为非public
+	 */
+	public static boolean isNotPublic(Class<?> clazz) {
+		return false == isPublic(clazz);
+	}
+
+	/**
+	 * 指定方法是否为非public
+	 *
+	 * @param method 方法
+	 * @return 是否为非public
+	 */
+	public static boolean isNotPublic(Method method) {
+		return false == isPublic(method);
+	}
+	
+	/**
+	 * 是否为静态方法
+	 * @param method 方法
+	 * @return 是否为静态方法
+	 */
+	public static boolean isStatic(Method method){
+		return Modifier.isStatic(method.getModifiers());
+	}
+
+	/**
+	 * 设置方法为可访问
+	 * 
+	 * @param method 方法
+	 * @return 方法
+	 */
+	public static Method setAccessible(Method method) {
+		if (null != method && isNotPublic(method)) {
+			method.setAccessible(true);
+		}
+		return method;
 	}
 	
 	//--------------------------------------------------------------------------------------------------- Private method start

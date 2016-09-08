@@ -3,6 +3,7 @@ package com.smallchill.core.toolbox.kit;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,8 +11,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * 字符串工具类
+ * 
+ * @author xiaoleilu
+ *
+ */
 public class StrKit {
-	
+
 	public static final String SPACE = " ";
 	public static final String DOT = ".";
 	public static final String SLASH = "/";
@@ -29,7 +36,8 @@ public class StrKit {
 	public static final String HTML_GT = "&gt;";
 
 	public static final String EMPTY_JSON = "{}";
-	
+
+
 	/**
 	 * 首字母变小写
 	 */
@@ -55,33 +63,44 @@ public class StrKit {
 		}
 		return str;
 	}
-	
+
+	// ------------------------------------------------------------------------ Blank
+	/**
+	 * 字符串是否为空白 空白的定义如下： <br>
+	 * 1、为null <br>
+	 * 2、为不可见字符（如空格）<br>
+	 * 3、""<br>
+	 * 
+	 * @param str 被检测的字符串
+	 * @return 是否为空
+	 */
 	public static boolean isBlank(String str) {
-		return str == null || "".equals(str.trim()) ? true : false;
+		int length;
+		if ((str == null) || ((length = str.length()) == 0)) {
+			return true;
+		}
+		for (int i = 0; i < length; i++) {
+			// 只要有一个非空字符即为非空字符串
+			if (false == Character.isWhitespace(str.charAt(i))) {
+				return false;
+			}
+		}
+		return true;
 	}
-	
+
+	/**
+	 * 字符串是否为非空白 空白的定义如下： <br>
+	 * 1、不为null <br>
+	 * 2、不为不可见字符（如空格）<br>
+	 * 3、不为""<br>
+	 * 
+	 * @param str 被检测的字符串
+	 * @return 是否为非空
+	 */
 	public static boolean notBlank(String str) {
-		return str == null || "".equals(str.trim()) ? false : true;
+		return false == isBlank(str);
 	}
-	
-	public static boolean notBlank(String... strs) {
-		if (strs == null)
-			return false;
-		for (String str : strs)
-			if (str == null || "".equals(str.trim()))
-				return false;
-		return true;
-	}
-	
-	public static boolean notNull(Object... paras) {
-		if (paras == null)
-			return false;
-		for (Object obj : paras)
-			if (obj == null)
-				return false;
-		return true;
-	}
-	
+
 	/**
 	 * 是否包含空字符串
 	 * 
@@ -89,16 +108,57 @@ public class StrKit {
 	 * @return 是否包含空字符串
 	 */
 	public static boolean hasBlank(String... strs) {
-		if(CollectionKit.isEmpty(strs)) {
+		if (CollectionKit.isEmpty(strs)) {
 			return true;
 		}
-		
 		for (String str : strs) {
 			if (isBlank(str)) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * 给定所有字符串是否为空白
+	 * 
+	 * @param strs 字符串
+	 * @return 所有字符串是否为空白
+	 */
+	public static boolean isAllBlank(String... strs) {
+		if (CollectionKit.isEmpty(strs)) {
+			return true;
+		}
+		for (String str : strs) {
+			if (notBlank(str)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	// ------------------------------------------------------------------------ Empty
+	/**
+	 * 字符串是否为空，空的定义如下 1、为null <br>
+	 * 2、为""<br>
+	 * 
+	 * @param str 被检测的字符串
+	 * @return 是否为空
+	 */
+	public static boolean isEmpty(String str) {
+		return str == null || str.length() == 0;
+	}
+
+	/**
+	 * 字符串是否为非空白 空白的定义如下： <br>
+	 * 1、不为null <br>
+	 * 2、不为""<br>
+	 * 
+	 * @param str 被检测的字符串
+	 * @return 是否为非空
+	 */
+	public static boolean isNotEmpty(String str) {
+		return false == isEmpty(str);
 	}
 
 	/**
@@ -108,7 +168,26 @@ public class StrKit {
 	 * @return 转换后的字符串
 	 */
 	public static String nullToEmpty(String str) {
-		return str == null ? EMPTY : str;
+		return nullToDefault(str, EMPTY);
+	}
+
+	/**
+	 * 如果字符串是<code>null</code>，则返回指定默认字符串，否则返回字符串本身。
+	 * 
+	 * <pre>
+	 * nullToDefault(null, &quot;default&quot;)  = &quot;default&quot;
+	 * nullToDefault(&quot;&quot;, &quot;default&quot;)    = &quot;&quot;
+	 * nullToDefault(&quot;  &quot;, &quot;default&quot;)  = &quot;  &quot;
+	 * nullToDefault(&quot;bat&quot;, &quot;default&quot;) = &quot;bat&quot;
+	 * </pre>
+	 * 
+	 * @param str 要转换的字符串
+	 * @param defaultStr 默认字符串
+	 * 
+	 * @return 字符串本身或指定的默认字符串
+	 */
+	public static String nullToDefault(String str, String defaultStr) {
+		return (str == null) ? defaultStr : str;
 	}
 
 	/**
@@ -118,7 +197,7 @@ public class StrKit {
 	 * @return 转换后的字符串
 	 */
 	public static String emptyToNull(String str) {
-		return isBlank(str) ? null : str;
+		return isEmpty(str) ? null : str;
 	}
 
 	/**
@@ -128,8 +207,12 @@ public class StrKit {
 	 * @return 是否包含空字符串
 	 */
 	public static boolean hasEmpty(String... strs) {
+		if (CollectionKit.isEmpty(strs)) {
+			return true;
+		}
+
 		for (String str : strs) {
-			if (isBlank(str)) {
+			if (isEmpty(str)) {
 				return true;
 			}
 		}
@@ -137,13 +220,197 @@ public class StrKit {
 	}
 
 	/**
-	 * 去除字符串两边的空格符，如果为null返回null
+	 * 是否全部为空字符串
 	 * 
-	 * @param str 字符串
-	 * @return 处理后的字符串
+	 * @param strs 字符串列表
+	 * @return 是否全部为空字符串
+	 */
+	public static boolean isAllEmpty(String... strs) {
+		if (CollectionKit.isEmpty(strs)) {
+			return true;
+		}
+
+		for (String str : strs) {
+			if (isNotEmpty(str)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	// ------------------------------------------------------------------------ Trim
+	/**
+	 * 除去字符串头尾部的空白，如果字符串是<code>null</code>，依然返回<code>null</code>。
+	 * 
+	 * <p>
+	 * 注意，和<code>String.trim</code>不同，此方法使用<code>Character.isWhitespace</code> 来判定空白， 因而可以除去英文字符集之外的其它空白，如中文空格。
+	 * 
+	 * <pre>
+	 * trim(null)          = null
+	 * trim(&quot;&quot;)            = &quot;&quot;
+	 * trim(&quot;     &quot;)       = &quot;&quot;
+	 * trim(&quot;abc&quot;)         = &quot;abc&quot;
+	 * trim(&quot;    abc    &quot;) = &quot;abc&quot;
+	 * </pre>
+	 * 
+	 * </p>
+	 * 
+	 * @param str 要处理的字符串
+	 * 
+	 * @return 除去空白的字符串，如果原字串为<code>null</code>，则返回<code>null</code>
 	 */
 	public static String trim(String str) {
-		return (null == str) ? null : str.trim();
+		return (null == str) ? null : trim(str, 0);
+	}
+
+	/**
+	 * 给定字符串数组全部做去首尾空格
+	 * 
+	 * @param strs 字符串数组
+	 */
+	public static void trim(String[] strs) {
+		if (null == strs) {
+			return;
+		}
+		String str;
+		for (int i = 0; i < strs.length; i++) {
+			str = strs[i];
+			if (null != str) {
+				strs[i] = str.trim();
+			}
+		}
+	}
+
+	/**
+	 * 除去字符串头部的空白，如果字符串是<code>null</code>，则返回<code>null</code>。
+	 * 
+	 * <p>
+	 * 注意，和<code>String.trim</code>不同，此方法使用<code>Character.isWhitespace</code> 来判定空白， 因而可以除去英文字符集之外的其它空白，如中文空格。
+	 * 
+	 * <pre>
+	 * trimStart(null)         = null
+	 * trimStart(&quot;&quot;)           = &quot;&quot;
+	 * trimStart(&quot;abc&quot;)        = &quot;abc&quot;
+	 * trimStart(&quot;  abc&quot;)      = &quot;abc&quot;
+	 * trimStart(&quot;abc  &quot;)      = &quot;abc  &quot;
+	 * trimStart(&quot; abc &quot;)      = &quot;abc &quot;
+	 * </pre>
+	 * 
+	 * </p>
+	 * 
+	 * @param str 要处理的字符串
+	 * 
+	 * @return 除去空白的字符串，如果原字串为<code>null</code>或结果字符串为<code>""</code>，则返回 <code>null</code>
+	 */
+	public static String trimStart(String str) {
+		return trim(str, -1);
+	}
+
+	/**
+	 * 除去字符串尾部的空白，如果字符串是<code>null</code>，则返回<code>null</code>。
+	 * 
+	 * <p>
+	 * 注意，和<code>String.trim</code>不同，此方法使用<code>Character.isWhitespace</code> 来判定空白， 因而可以除去英文字符集之外的其它空白，如中文空格。
+	 * 
+	 * <pre>
+	 * trimEnd(null)       = null
+	 * trimEnd(&quot;&quot;)         = &quot;&quot;
+	 * trimEnd(&quot;abc&quot;)      = &quot;abc&quot;
+	 * trimEnd(&quot;  abc&quot;)    = &quot;  abc&quot;
+	 * trimEnd(&quot;abc  &quot;)    = &quot;abc&quot;
+	 * trimEnd(&quot; abc &quot;)    = &quot; abc&quot;
+	 * </pre>
+	 * 
+	 * </p>
+	 * 
+	 * @param str 要处理的字符串
+	 * 
+	 * @return 除去空白的字符串，如果原字串为<code>null</code>或结果字符串为<code>""</code>，则返回 <code>null</code>
+	 */
+	public static String trimEnd(String str) {
+		return trim(str, 1);
+	}
+
+	/**
+	 * 除去字符串头尾部的空白符，如果字符串是<code>null</code>，依然返回<code>null</code>。
+	 * 
+	 * @param str 要处理的字符串
+	 * @param mode <code>-1</code>表示trimStart，<code>0</code>表示trim全部， <code>1</code>表示trimEnd
+	 * 
+	 * @return 除去指定字符后的的字符串，如果原字串为<code>null</code>，则返回<code>null</code>
+	 */
+	public static String trim(String str, int mode) {
+		if (str == null) {
+			return null;
+		}
+
+		int length = str.length();
+		int start = 0;
+		int end = length;
+
+		// 扫描字符串头部
+		if (mode <= 0) {
+			while ((start < end) && (Character.isWhitespace(str.charAt(start)))) {
+				start++;
+			}
+		}
+
+		// 扫描字符串尾部
+		if (mode >= 0) {
+			while ((start < end) && (Character.isWhitespace(str.charAt(end - 1)))) {
+				end--;
+			}
+		}
+
+		if ((start > 0) || (end < length)) {
+			return str.substring(start, end);
+		}
+
+		return str;
+	}
+	
+	/**
+	 * 是否以指定字符串开头
+	 * @param str 被监测字符串
+	 * @param prefix 开头字符串
+	 * @param isIgnoreCase 是否忽略大小写
+	 * @return 是否以指定字符串开头
+	 */
+	public static boolean startWith(String str, String prefix, boolean isIgnoreCase){
+		if(isIgnoreCase){
+			return str.toLowerCase().startsWith(prefix.toLowerCase());
+		}else{
+			return str.startsWith(prefix);
+		}
+	}
+	
+	/**
+	 * 是否以指定字符串结尾
+	 * @param str 被监测字符串
+	 * @param suffix 结尾字符串
+	 * @param isIgnoreCase 是否忽略大小写
+	 * @return 是否以指定字符串结尾
+	 */
+	public static boolean endWith(String str, String suffix, boolean isIgnoreCase){
+		if(isIgnoreCase){
+			return str.toLowerCase().endsWith(suffix.toLowerCase());
+		}else{
+			return str.endsWith(suffix);
+		}
+	}
+	
+	/**
+	 * 是否包含特定字符，忽略大小写，如果给定两个参数都为<code>null</code>，返回true
+	 * @param str 被检测字符串
+	 * @param testStr 被测试是否包含的字符串
+	 * @return 是否包含
+	 */
+	public static boolean containsIgnoreCase(String str, String testStr){
+		if(null == str){
+			//如果被监测字符串和 
+			return null == testStr;
+		}
+		return str.toLowerCase().contains(testStr.toLowerCase());
 	}
 
 	/**
@@ -236,6 +503,9 @@ public class StrKit {
 	 * @return 字符串
 	 */
 	public static String lowerFirst(String str) {
+		if(isBlank(str)){
+			return str;
+		}
 		return Character.toLowerCase(str.charAt(0)) + str.substring(1);
 	}
 
@@ -247,7 +517,11 @@ public class StrKit {
 	 * @return 切掉后的字符串，若前缀不是 preffix， 返回原字符串
 	 */
 	public static String removePrefix(String str, String prefix) {
-		if (str != null && str.startsWith(prefix)) {
+		if(isEmpty(str) || isEmpty(prefix)){
+			return str;
+		}
+		
+		if (str.startsWith(prefix)) {
 			return str.substring(prefix.length());
 		}
 		return str;
@@ -261,7 +535,11 @@ public class StrKit {
 	 * @return 切掉后的字符串，若前缀不是 prefix， 返回原字符串
 	 */
 	public static String removePrefixIgnoreCase(String str, String prefix) {
-		if (str != null && str.toLowerCase().startsWith(prefix.toLowerCase())) {
+		if(isEmpty(str) || isEmpty(prefix)){
+			return str;
+		}
+		
+		if (str.toLowerCase().startsWith(prefix.toLowerCase())) {
 			return str.substring(prefix.length());
 		}
 		return str;
@@ -275,7 +553,11 @@ public class StrKit {
 	 * @return 切掉后的字符串，若后缀不是 suffix， 返回原字符串
 	 */
 	public static String removeSuffix(String str, String suffix) {
-		if (str != null && str.endsWith(suffix)) {
+		if(isEmpty(str) || isEmpty(suffix)){
+			return str;
+		}
+		
+		if (str.endsWith(suffix)) {
 			return str.substring(0, str.length() - suffix.length());
 		}
 		return str;
@@ -289,8 +571,44 @@ public class StrKit {
 	 * @return 切掉后的字符串，若后缀不是 suffix， 返回原字符串
 	 */
 	public static String removeSuffixIgnoreCase(String str, String suffix) {
-		if (str != null && str.toLowerCase().endsWith(suffix.toLowerCase())) {
+		if(isEmpty(str) || isEmpty(suffix)){
+			return str;
+		}
+		
+		if (str.toLowerCase().endsWith(suffix.toLowerCase())) {
 			return str.substring(0, str.length() - suffix.length());
+		}
+		return str;
+	}
+	
+	/**
+	 * 如果给定字符串不是以prefix开头的，在开头补充 prefix
+	 * @param str 字符串
+	 * @param prefix 前缀
+	 * @return 补充后的字符串
+	 */
+	public static String addPrefixIfNot(String str, String prefix){
+		if(isEmpty(str) || isEmpty(prefix)){
+			return str;
+		}
+		if(false == str.startsWith(prefix)){
+			str = prefix + str;
+		}
+		return str;
+	}
+	
+	/**
+	 * 如果给定字符串不是以suffix结尾的，在尾部补充 suffix
+	 * @param str 字符串
+	 * @param suffix 后缀
+	 * @return 补充后的字符串
+	 */
+	public static String addSuffixIfNot(String str, String suffix){
+		if(isEmpty(str) || isEmpty(suffix)){
+			return str;
+		}
+		if(false == str.endsWith(suffix)){
+			str += suffix;
 		}
 		return str;
 	}
@@ -358,7 +676,7 @@ public class StrKit {
 				sb.append(c);
 			}
 		}
-		list.add(sb.toString());//加入尾串
+		list.add(sb.toString());// 加入尾串
 		return list;
 	}
 
@@ -460,45 +778,47 @@ public class StrKit {
 	 * @return 切割后的字符串
 	 */
 	public static String subSuf(String string, int fromIndex) {
-		if (isBlank(string)) {
+		if (isEmpty(string)) {
 			return null;
 		}
 		return sub(string, fromIndex, string.length());
 	}
-	
+
 	/**
 	 * 给定字符串是否被字符包围
+	 * 
 	 * @param str 字符串
 	 * @param prefix 前缀
 	 * @param suffix 后缀
 	 * @return 是否包围，空串不包围
 	 */
-	public static boolean isSurround(String str, String prefix, String suffix){
-		if(StrKit.isBlank(str)){
+	public static boolean isSurround(String str, String prefix, String suffix) {
+		if (StrKit.isBlank(str)) {
 			return false;
 		}
-		if(str.length() < (prefix.length() + suffix.length())){
+		if (str.length() < (prefix.length() + suffix.length())) {
 			return false;
 		}
-		
+
 		return str.startsWith(prefix) && str.endsWith(suffix);
 	}
-	
+
 	/**
 	 * 给定字符串是否被字符包围
+	 * 
 	 * @param str 字符串
 	 * @param prefix 前缀
 	 * @param suffix 后缀
 	 * @return 是否包围，空串不包围
 	 */
-	public static boolean isSurround(String str, char prefix, char suffix){
-		if(StrKit.isBlank(str)){
+	public static boolean isSurround(String str, char prefix, char suffix) {
+		if (StrKit.isBlank(str)) {
 			return false;
 		}
-		if(str.length() < 2){
+		if (str.length() < 2) {
 			return false;
 		}
-		
+
 		return str.charAt(0) == prefix && str.charAt(str.length() - 1) == suffix;
 	}
 
@@ -537,7 +857,7 @@ public class StrKit {
 		final char[] array = new char[size];
 		str.getChars(0, len, array, 0);
 		int n;
-		for (n = len; n < size - n; n <<= 1) {//n <<= 1相当于n *2
+		for (n = len; n < size - n; n <<= 1) {// n <<= 1相当于n *2
 			System.arraycopy(array, 0, array, n, n);
 		}
 		System.arraycopy(array, 0, array, n, size - n);
@@ -545,21 +865,56 @@ public class StrKit {
 	}
 
 	/**
-	 * 比较两个字符串是否相同，如果为null或者空串则算不同
+	 * 比较两个字符串（大小写敏感）。
 	 * 
-	 * @param str1 字符串1
-	 * @param str2 字符串2
-	 * @return 是否非空相同
+	 * <pre>
+	 * equals(null, null)   = true
+	 * equals(null, &quot;abc&quot;)  = false
+	 * equals(&quot;abc&quot;, null)  = false
+	 * equals(&quot;abc&quot;, &quot;abc&quot;) = true
+	 * equals(&quot;abc&quot;, &quot;ABC&quot;) = false
+	 * </pre>
+	 * 
+	 * @param str1 要比较的字符串1
+	 * @param str2 要比较的字符串2
+	 * 
+	 * @return 如果两个字符串相同，或者都是<code>null</code>，则返回<code>true</code>
 	 */
-	public static boolean equalsNotEmpty(String str1, String str2) {
-		if (isBlank(str1)) {
-			return false;
+	public static boolean equals(String str1, String str2) {
+		if (str1 == null) {
+			return str2 == null;
 		}
+
 		return str1.equals(str2);
 	}
 
 	/**
-	 * 格式化文本
+	 * 比较两个字符串（大小写不敏感）。
+	 * 
+	 * <pre>
+	 * equalsIgnoreCase(null, null)   = true
+	 * equalsIgnoreCase(null, &quot;abc&quot;)  = false
+	 * equalsIgnoreCase(&quot;abc&quot;, null)  = false
+	 * equalsIgnoreCase(&quot;abc&quot;, &quot;abc&quot;) = true
+	 * equalsIgnoreCase(&quot;abc&quot;, &quot;ABC&quot;) = true
+	 * </pre>
+	 * 
+	 * @param str1 要比较的字符串1
+	 * @param str2 要比较的字符串2
+	 * 
+	 * @return 如果两个字符串相同，或者都是<code>null</code>，则返回<code>true</code>
+	 */
+	public static boolean equalsIgnoreCase(String str1, String str2) {
+		if (str1 == null) {
+			return str2 == null;
+		}
+
+		return str1.equalsIgnoreCase(str2);
+	}
+
+	/**
+	 * 格式化文本, {} 表示占位符<br>
+	 * 例如：format("aaa {} ccc", "bbb")   ---->    aaa bbb ccc
 	 * 
 	 * @param template 文本模板，被替换的部分用 {} 表示
 	 * @param values 参数值
@@ -599,7 +954,9 @@ public class StrKit {
 	}
 
 	/**
-	 * 格式化文本
+	 * 格式化文本，使用 {varName} 占位<br>
+	 * map = {a: "aValue", b: "bValue"}
+	 * format("{a} and {b}", map)    ---->    aValue and bValue
 	 * 
 	 * @param template 文本模板，被替换的部分用 {key} 表示
 	 * @param map 参数值对
@@ -615,6 +972,17 @@ public class StrKit {
 		}
 		return template;
 	}
+	
+	/**
+	 * 编码字符串
+	 * 
+	 * @param str 字符串
+	 * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
+	 * @return 编码后的字节码
+	 */
+	public static byte[] bytes(String str, String charset) {
+		return bytes(str, isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset));
+	}
 
 	/**
 	 * 编码字符串
@@ -623,19 +991,26 @@ public class StrKit {
 	 * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
 	 * @return 编码后的字节码
 	 */
-	public static byte[] encode(String str, String charset) {
+	public static byte[] bytes(String str, Charset charset) {
 		if (str == null) {
 			return null;
 		}
 
-		if(isBlank(charset)) {
+		if (null == charset) {
 			return str.getBytes();
 		}
-		try {
-			return str.getBytes(charset);
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(format("Charset [{}] unsupported!", charset));
-		}
+		return str.getBytes(charset);
+	}
+	
+	/**
+	 * 将byte数组转为字符串
+	 * 
+	 * @param bytes byte数组
+	 * @param charset 字符集
+	 * @return 字符串
+	 */
+	public static String str(byte[] bytes, String charset) {
+		return str(bytes, isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset));
 	}
 
 	/**
@@ -645,48 +1020,78 @@ public class StrKit {
 	 * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
 	 * @return 解码后的字符串
 	 */
-	public static String decode(byte[] data, String charset) {
+	public static String str(byte[] data, Charset charset) {
 		if (data == null) {
 			return null;
 		}
 
-		if(isBlank(charset)) {
+		if (null == charset) {
 			return new String(data);
 		}
-		try {
-			return new String(data, charset);
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(format("Charset [{}] unsupported!", charset));
+		return new String(data, charset);
+	}
+	
+	/**
+	 * 将编码的byteBuffer数据转换为字符串
+	 * @param data 数据
+	 * @param charset 字符集，如果为空使用当前系统字符集
+	 * @return 字符串
+	 */
+	public static String str(ByteBuffer data, String charset){
+		if(data == null) {
+			return null;
 		}
+		
+		return str(data, Charset.forName(charset));
+	}
+	
+	/**
+	 * 将编码的byteBuffer数据转换为字符串
+	 * @param data 数据
+	 * @param charset 字符集，如果为空使用当前系统字符集
+	 * @return 字符串
+	 */
+	public static String str(ByteBuffer data, Charset charset){
+		if(null == charset) {
+			charset = Charset.defaultCharset();
+		}
+		return charset.decode(data).toString();
+	}
+	
+	/**
+	 * 字符串转换为byteBuffer
+	 * @param str 字符串
+	 * @param charset 编码
+	 * @return byteBuffer
+	 */
+	public static ByteBuffer byteBuffer(String str, String charset) {
+		return ByteBuffer.wrap(StrKit.bytes(str, charset));
 	}
 
 	/**
-	 * 将多个对象字符化<br>
-	 * 每个对象字符化后直接拼接，无分隔符
+	 * 以 conjunction 为分隔符将多个对象转换为字符串
 	 * 
-	 * @param objs 对象数组
-	 * @return 字符串
+	 * @param conjunction 分隔符
+	 * @param objs 数组
+	 * @return 连接后的字符串
 	 */
-	public static String str(Object... objs) {
+	public static String join(String conjunction, Object... objs) {
 		StringBuilder sb = new StringBuilder();
-		for (Object obj : objs) {
-			sb.append(obj);
+		boolean isFirst = true;
+		for (Object item : objs) {
+			if (isFirst) {
+				isFirst = false;
+			} else {
+				sb.append(conjunction);
+			}
+			sb.append(item);
 		}
 		return sb.toString();
 	}
 	
 	/**
-	 * 将byte数组转为字符串
-	 * @param bytes byte数组
-	 * @param charset 字符集
-	 * @return 字符串
-	 */
-	public static String str(byte[] bytes, String charset) {
-		return new String(bytes, Charset.forName(charset));
-	}
-
-	/**
-	 * 将驼峰式命名的字符串转换为下划线方式。如果转换前的驼峰式命名的字符串为空，则返回空字符串。</br> 例如：HelloWorld->hello_world
+	 * 将驼峰式命名的字符串转换为下划线方式。如果转换前的驼峰式命名的字符串为空，则返回空字符串。</br>
+	 * 例如：HelloWorld->hello_world
 	 *
 	 * @param camelCaseStr 转换前的驼峰式命名的字符串
 	 * @return 转换后下划线大写方式命名的字符串
@@ -720,7 +1125,8 @@ public class StrKit {
 	}
 
 	/**
-	 * 将下划线方式命名的字符串转换为驼峰式。如果转换前的下划线大写方式命名的字符串为空，则返回空字符串。</br> 例如：hello_world->HelloWorld
+	 * 将下划线方式命名的字符串转换为驼峰式。如果转换前的下划线大写方式命名的字符串为空，则返回空字符串。</br>
+	 * 例如：hello_world->HelloWorld
 	 *
 	 * @param name 转换前的下划线大写方式命名的字符串
 	 * @return 转换后的驼峰式命名的字符串
@@ -879,38 +1285,67 @@ public class StrKit {
 		}
 		return sb;
 	}
-	
-	/**
-	 * 获得字符串对应字符集的byte数组<br>
-	 * 调用encode方法
-	 * @param str 字符串
-	 * @param charset 字符集编码
-	 * @return byte数组
-	 */
-	public static byte[] bytes(String str, String charset) {
-		return encode(str, charset);
-	}
-	
+
 	/**
 	 * 获得StringReader
+	 * 
 	 * @param str 字符串
 	 * @return StringReader
 	 */
 	public static StringReader getReader(String str) {
 		return new StringReader(str);
 	}
-	
+
 	/**
 	 * 获得StringWriter
+	 * 
 	 * @return StringWriter
 	 */
 	public static StringWriter getWriter() {
 		return new StringWriter();
 	}
-	
-	
+
+		/**
+	 * 编码字符串
+	 * 
+	 * @param str 字符串
+	 * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
+	 * @return 编码后的字节码
+	 */
+	public static byte[] encode(String str, String charset) {
+		if (str == null) {
+			return null;
+		}
+
+		if(isBlank(charset)) {
+			return str.getBytes();
+		}
+		try {
+			return str.getBytes(charset);
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(format("Charset [{}] unsupported!", charset));
+		}
+	}
+
+	/**
+	 * 解码字节码
+	 * 
+	 * @param data 字符串
+	 * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
+	 * @return 解码后的字符串
+	 */
+	public static String decode(byte[] data, String charset) {
+		if (data == null) {
+			return null;
+		}
+
+		if(isBlank(charset)) {
+			return new String(data);
+		}
+		try {
+			return new String(data, charset);
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(format("Charset [{}] unsupported!", charset));
+		}
+	}
 }
-
-
-
-
