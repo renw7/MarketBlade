@@ -1,10 +1,16 @@
 #Spring-Blade java开发平台
 ## 平台简介
 Spring-Blade是基于多个优秀的开源项目，高度整合封装而成的快速开发平台。（主要用于交流学习）  
-感谢活跃于开源中国的各位前辈：jfinal作者、eova作者、hutool作者、beetl作者、dreamlu大牛等。  
-从c#转java的时候看着你们的代码学习了很多，当中有部分代码使用到了各位的源码，如果不能使用请及时联系我删除！  
-ps:因为喜欢刀锋战士所以取名了SpringBlade，当中有一个类也命名为Blade，但是后来发现已经有了一个高人气的开源作品：Blade，作者是 王爵。
+ps:因为喜欢刀锋战士所以取名了SpringBlade，当中有一个类也命名为Blade。
+但是后来发现已经有了一个高人气的开源作品：Blade，作者是 王爵。
 很尴尬，不过还是需要在这儿声明一下。
+
+## 鸣谢
+1.[JFinal](http://www.oschina.net/p/jfinal)
+2.[eova](http://www.oschina.net/p/eova)
+3.[hutool](http://www.oschina.net/p/hutool)
+4.[beetl](http://www.oschina.net/p/beetl)
+5.[dreamlu](http://www.oschina.net/p/dreamlu)
 
 ## 内置功能
 
