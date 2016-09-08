@@ -79,7 +79,7 @@ public class Db {
 	 * @return
 	 */
 	public int insert(String sqlTemplate, Object modelOrMap){
-		return getSqlManager().executeUpdate(sqlTemplate, modelOrMap);
+		return executeUpdate(sqlTemplate, modelOrMap);
 	}
 	
 	/**
@@ -89,7 +89,7 @@ public class Db {
 	 * @return
 	 */
 	public int update(String sqlTemplate, Object modelOrMap){
-		return getSqlManager().executeUpdate(sqlTemplate, modelOrMap);
+		return executeUpdate(sqlTemplate, modelOrMap);
 	}
 	
 	/**
@@ -99,6 +99,16 @@ public class Db {
 	 * @return
 	 */
 	public int delete(String sqlTemplate, Object modelOrMap){
+		return executeUpdate(sqlTemplate, modelOrMap);
+	}
+	
+	/**
+	 * 执行sql语句
+	 * @param sqlTemplate	sql语句
+	 * @param modelOrMap	实体类或map
+	 * @return
+	 */
+	private int executeUpdate(String sqlTemplate, Object modelOrMap){
 		return getSqlManager().executeUpdate(sqlTemplate, modelOrMap);
 	}
 	
@@ -124,6 +134,21 @@ public class Db {
 	/**
 	 * 获取一条数据
 	 * @param sqlTemplate	sql语句
+	 * @param modelOrMap	实体类或map
+	 * @return
+	 */
+	private Map queryMap(String sqlTemplate, Object modelOrMap){
+		List<Map> list = getSqlManager().execute(sqlTemplate, Map.class, modelOrMap, 1, 1);
+		if(list.size() == 0){
+			return null;
+		} else {
+			return list.get(0);
+		}
+	}	
+	
+	/**
+	 * 获取一条数据
+	 * @param sqlTemplate	sql语句
 	 * @return
 	 */
 	public List<Map> selectList(String sqlTemplate){	
@@ -138,6 +163,17 @@ public class Db {
 	 */
 	public List<Map> selectList(String sqlTemplate, Object modelOrMap){	
 		return queryListMap(sqlTemplate, modelOrMap);
+	}
+	
+	/**
+	 * 获取多条数据
+	 * @param sqlTemplate	sql语句
+	 * @param modelOrMap	实体类或map
+	 * @return
+	 */
+	private List<Map> queryListMap(String sqlTemplate, Object modelOrMap){
+		List<Map> list = getSqlManager().execute(sqlTemplate, Map.class, modelOrMap);
+		return list;
 	}
 	
 	/**
@@ -237,32 +273,6 @@ public class Db {
 		return list;
 	}
 	
-	/**
-	 * 获取map
-	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
-	 * @return
-	 */
-	public Map queryMap(String sqlTemplate, Object modelOrMap){
-		List<Map> list = getSqlManager().execute(sqlTemplate, Map.class, modelOrMap, 1, 1);
-		if(list.size() == 0){
-			return null;
-		} else {
-			return list.get(0);
-		}
-	}	
-	
-	/**
-	 * 获取map集合
-	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
-	 * @return
-	 */
-	public List<Map> queryListMap(String sqlTemplate, Object modelOrMap){
-		List<Map> list = getSqlManager().execute(sqlTemplate, Map.class, modelOrMap);
-		return list;
-	}
-	
 	/** 查询aop返回单条数据
 	 * @param sqlTemplate
 	 * @param modelOrMap
@@ -330,27 +340,6 @@ public class Db {
 	}
 	
 	/************   ↑↑↑   ********     通用     *********   ↑↑↑   ****************/
-	
-	
-	/**
-	 * 新增一条数据
-	 * @param rd		rd
-	 * @return
-	 */
-	public int save(String tableName, Record rd){
-		return save(tableName, "ID", rd);
-	}
-	
-	/**
-	 * 修改一条数据
-	 * @param tableName	表名
-	 * @param pk		主键名
-	 * @param rd		msps
-	 * @return
-	 */
-	public int update(String tableName, Record rd){
-		return update(tableName, "ID", rd);
-	}
 	
 	/**
 	 * 新增一条数据
