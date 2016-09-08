@@ -83,7 +83,7 @@ public abstract class CurdController<M> extends BaseController {
 	protected abstract Class<? extends IMeta> metaFactoryClass();
 
 	/**
-	 * TODO 前端字段混淆map翻转
+	 * 前端字段混淆map翻转
 	 * 
 	 * @return Map<String,String>
 	 */
@@ -275,7 +275,7 @@ public abstract class CurdController<M> extends BaseController {
 	}
 
 	/**
-	 * TODO 根据子类的paraPerfix,switchMap实现主表的自动映射
+	 * 根据子类的paraPerfix,switchMap实现主表的自动映射
 	 * 
 	 * @return M
 	 */
@@ -292,7 +292,7 @@ public abstract class CurdController<M> extends BaseController {
 	}
 
 	/**
-	 * TODO 将返回的model根据switchMap实现自动翻转
+	 * 将返回的model根据switchMap实现自动翻转
 	 * 
 	 * @param model
 	 * @return Object
@@ -306,7 +306,7 @@ public abstract class CurdController<M> extends BaseController {
 	}
 
 	/**
-	 * TODO 翻转bean
+	 * 翻转bean
 	 * 
 	 * @param switchMap
 	 *            翻转map
@@ -331,6 +331,7 @@ public abstract class CurdController<M> extends BaseController {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private Map<String, Object> findOneBySql(String sql, Map<String, Object> map) {
 		Map<String, Object> model = Db.init().selectOne(sql, map);
 		return Func.caseInsensitiveMap(model);

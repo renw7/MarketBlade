@@ -15,7 +15,6 @@
  */
 package com.smallchill.core.plugins.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -108,7 +107,7 @@ public class Db {
 	 * @param sqlTemplate	sql语句
 	 * @return
 	 */
-	public Record selectOne(String sqlTemplate){
+	public Map selectOne(String sqlTemplate){
 		return queryMap(sqlTemplate, Record.create());
 	}
 	
@@ -118,7 +117,7 @@ public class Db {
 	 * @param modelOrMap	实体类或map
 	 * @return
 	 */
-	public Record selectOne(String sqlTemplate, Object modelOrMap){
+	public Map selectOne(String sqlTemplate, Object modelOrMap){
 		return queryMap(sqlTemplate, modelOrMap);
 	}
 	
@@ -127,7 +126,7 @@ public class Db {
 	 * @param sqlTemplate	sql语句
 	 * @return
 	 */
-	public List<Record> selectList(String sqlTemplate){	
+	public List<Map> selectList(String sqlTemplate){	
 		return queryListMap(sqlTemplate, Record.create());
 	}
 	
@@ -137,7 +136,7 @@ public class Db {
 	 * @param modelOrMap	实体类或map
 	 * @return
 	 */
-	public List<Record> selectList(String sqlTemplate, Object modelOrMap){	
+	public List<Map> selectList(String sqlTemplate, Object modelOrMap){	
 		return queryListMap(sqlTemplate, modelOrMap);
 	}
 	
@@ -147,7 +146,7 @@ public class Db {
 	 * @param pkValue	主键值
 	 * @return
 	 */
-	public Record findById(String tableName, String pkValue) {
+	public Map findById(String tableName, String pkValue) {
 		return selectOneBy(tableName, "id = #{id}", Record.create().set("id", pkValue));
 	}
 	
@@ -158,7 +157,7 @@ public class Db {
 	 * @param pkValue	主键值
 	 * @return
 	 */
-	public Record findById(String tableName, String pk, String pkValue) {
+	public Map findById(String tableName, String pk, String pkValue) {
 		return selectOneBy(tableName, pk + " = #{id}", Record.create().set("id", pkValue));
 	}
 	
@@ -169,7 +168,7 @@ public class Db {
 	 * @param modelOrMap 实体类或map
 	 * @return
 	 */
-	public Record selectOneBy(String tableName, String where, Object modelOrMap){
+	public Map selectOneBy(String tableName, String where, Object modelOrMap){
 		String sqlTemplate = Func.format("select * from {} where {} ", tableName, where);
 		return selectOne(sqlTemplate, modelOrMap);
 	}
@@ -181,7 +180,7 @@ public class Db {
 	 * @param modelOrMap 实体类或map
 	 * @return
 	 */
-	public List<Record> selectListBy(String tableName, String where, Object modelOrMap){
+	public List<Map> selectListBy(String tableName, String where, Object modelOrMap){
 		String sqlTemplate = Func.format("select * from {} where {} ", tableName, where);
 		return selectList(sqlTemplate, modelOrMap);
 	}
@@ -244,12 +243,12 @@ public class Db {
 	 * @param modelOrMap	实体类或map
 	 * @return
 	 */
-	public Record queryMap(String sqlTemplate, Object modelOrMap){
+	public Map queryMap(String sqlTemplate, Object modelOrMap){
 		List<Map> list = getSqlManager().execute(sqlTemplate, Map.class, modelOrMap, 1, 1);
 		if(list.size() == 0){
 			return null;
 		} else {
-			return Record.parse(list.get(0));
+			return list.get(0);
 		}
 	}	
 	
@@ -259,13 +258,9 @@ public class Db {
 	 * @param modelOrMap	实体类或map
 	 * @return
 	 */
-	public List<Record> queryListMap(String sqlTemplate, Object modelOrMap){
+	public List<Map> queryListMap(String sqlTemplate, Object modelOrMap){
 		List<Map> list = getSqlManager().execute(sqlTemplate, Map.class, modelOrMap);
-		List<Record> rd = new ArrayList<>();
-		for (Map m : list){
-			rd.add(Record.parse(m));
-		}
-		return rd;
+		return list;
 	}
 	
 	/** 查询aop返回单条数据
@@ -274,7 +269,7 @@ public class Db {
 	 * @param ac
 	 * @return
 	 */
-	public Record selectOne(String sqlTemplate, Map<String, Object> param, AopContext ac) {
+	public Map selectOne(String sqlTemplate, Map<String, Object> param, AopContext ac) {
 		return selectOne(sqlTemplate, param, ac, Cst.me().getDefaultQueryFactory());
 	}
 	
@@ -284,7 +279,7 @@ public class Db {
 	 * @param ac
 	 * @return
 	 */
-	public List<Record> selectList(String sqlTemplate, Map<String, Object> param, AopContext ac) {
+	public List<Map> selectList(String sqlTemplate, Map<String, Object> param, AopContext ac) {
 		return selectList(sqlTemplate, param, ac, Cst.me().getDefaultQueryFactory());
 	}
 	
@@ -295,7 +290,7 @@ public class Db {
 	 * @param intercept
 	 * @return
 	 */
-	public Record selectOne(String sqlTemplate, Map<String, Object> param, AopContext ac, IQuery intercept) {
+	public Map selectOne(String sqlTemplate, Map<String, Object> param, AopContext ac, IQuery intercept) {
 		ac.setSql(sqlTemplate);
 		ac.setCondition("");
 		ac.setParam(param);
@@ -303,7 +298,7 @@ public class Db {
 			intercept.queryBefore(ac);
 			sqlTemplate = (StrKit.notBlank(ac.getWhere())) ? ac.getWhere() : (sqlTemplate + " " + ac.getCondition());
 		}
-		Record rst = selectOne(sqlTemplate, param);
+		Map rst = selectOne(sqlTemplate, param);
 		if (null != intercept) {
 			ac.setObject(rst);
 			intercept.queryAfter(ac);
@@ -318,7 +313,7 @@ public class Db {
 	 * @param intercept
 	 * @return
 	 */
-	public List<Record> selectList(String sqlTemplate, Map<String, Object> param, AopContext ac, IQuery intercept) {
+	public List<Map> selectList(String sqlTemplate, Map<String, Object> param, AopContext ac, IQuery intercept) {
 		ac.setSql(sqlTemplate);
 		ac.setCondition("");
 		ac.setParam(param);
@@ -326,7 +321,7 @@ public class Db {
 			intercept.queryBefore(ac);
 			sqlTemplate = (StrKit.notBlank(ac.getWhere())) ? ac.getWhere() : (sqlTemplate + " " + ac.getCondition());
 		}
-		List<Record> rst = selectList(sqlTemplate, param);
+		List<Map> rst = selectList(sqlTemplate, param);
 		if (null != intercept) {
 			ac.setObject(rst);
 			intercept.queryAfter(ac);

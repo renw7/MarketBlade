@@ -311,10 +311,11 @@ public class CacheController extends BladeController {
 		final String roleId = getParameter("roleId", "0");
 		List<Map<String, Object>> menu = CacheKit.get(MENU_CACHE, "tree_role_" + roleId,
 				new ILoader() {
+					@SuppressWarnings("rawtypes")
 					public Object load() {
 						String table = "TFW_MENU";
 						String pid = "";
-						List<Record> record = Db.init().selectList("select PID from TFW_ROLE where id in (" + roleId + ")"); 
+						List<Map> record = Db.init().selectList("select PID from TFW_ROLE where id in (" + roleId + ")"); 
 						for (Map<String, Object> p : record) {
 							if (!Func.isEmpty(p.get("PID"))) {
 								pid += p.get("PID").toString() + ",";

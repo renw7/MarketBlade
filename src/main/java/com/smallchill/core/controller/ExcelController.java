@@ -25,7 +25,6 @@ import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.DateKit;
@@ -103,7 +102,8 @@ public class ExcelController extends BladeController{
 		}
 		
 		String menu_name = getInfoByCode(code, "NAME");
-		List<Record> dataResult = Db.init().selectList(Func.format(sql, StrKit.removeSuffix(sb.toString(), ",")));
+		@SuppressWarnings("rawtypes")
+		List<Map> dataResult = Db.init().selectList(Func.format(sql, StrKit.removeSuffix(sb.toString(), ",")));
 		ExportParams exportParams = new ExportParams(menu_name + " 数据导出表", "导出人账号：" + ShiroKit.getUser().getLoginName() + "      导出时间：" + DateKit.getTime(), code);
 		exportParams.setColor(HSSFColor.GREY_50_PERCENT.index);
 		exportParams.setAddIndex(true);

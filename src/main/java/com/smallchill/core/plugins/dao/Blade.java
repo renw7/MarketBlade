@@ -16,7 +16,6 @@
 package com.smallchill.core.plugins.dao;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -146,12 +145,12 @@ public class Blade {
 	 * @param columns		字段名
 	 * @return
 	 */
-	public Record findOneColBy(String columns){
+	public Map findOneColBy(String columns){
 		List<Map> list = getSqlManager().execute(getSelectSql(columns) + getFromSql(), Map.class, Record.create(), 1, 1);
 		if(list.size() == 0){
 			return null;
 		} else {
-			return Record.parse(list.get(0));
+			return list.get(0);
 		}
 	}
 	
@@ -162,12 +161,12 @@ public class Blade {
 	 * @param modelOrMap	实体类或map
 	 * @return
 	 */
-	public Record findOneColBy(String columns, String where, Object modelOrMap){
+	public Map findOneColBy(String columns, String where, Object modelOrMap){
 		List<Map> list = getSqlManager().execute(getSelectSql(columns) + getFromSql() + getWhere(where), Map.class, modelOrMap, 1, 1);
 		if (list.size() == 0){
 			return null;
 		} else {
-			return Record.parse(list.get(0));
+			return list.get(0);
 		}
 	}
 	
@@ -177,13 +176,9 @@ public class Blade {
 	 * @param modelOrMap	实体类或map
 	 * @return
 	 */
-	public List<Record> findColBy(String columns){
+	public List<Map> findColBy(String columns){
 		List<Map> list = getSqlManager().execute(getSelectSql(columns) + getFromSql(), Map.class, Record.create());
-		List<Record> maps = new ArrayList<>();
-		for (Map m : list){
-			maps.add(Record.parse(m));
-		}
-		return maps;
+		return list;
 	}
 	
 	/**
@@ -193,13 +188,9 @@ public class Blade {
 	 * @param modelOrMap	实体类或map
 	 * @return
 	 */
-	public List<Record> findColBy(String columns, String where, Object modelOrMap){
+	public List<Map> findColBy(String columns, String where, Object modelOrMap){
 		List<Map> list = getSqlManager().execute(getSelectSql(columns) + getFromSql() + getWhere(where), Map.class, modelOrMap);
-		List<Record> maps = new ArrayList<>();
-		for (Map m : list){
-			maps.add(Record.parse(m));
-		}
-		return maps;
+		return list;
 	}
 
 	/**
@@ -439,7 +430,7 @@ public class Blade {
 		if(Cst.me().isOptimisticLock()){
 			// 1.数据是否还存在
 			String sqlExist = new StringBuffer("select * from ").append(table).append(" where ").append(pk).append(" = #{idValue} ").toString();
-			Record modelOld = Db.init(dbName).selectOne(sqlExist, Record.create().set("idValue", idValue));
+			Map modelOld = Db.init(dbName).selectOne(sqlExist, Record.create().set("idValue", idValue));
 			// 数据已经被删除
 			if (null == modelOld) { 
 				throw new RuntimeException("数据库中此数据不存在，可能数据已经被删除，请刷新数据后在操作");
@@ -447,8 +438,8 @@ public class Blade {
 			// 2.乐观锁控制
 			Record modelForm = Record.parse(model);
 			if (modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase()) != null) { // 是否需要乐观锁控制
-				int versionDB = modelOld.getInt(Const.OPTIMISTIC_LOCK.toLowerCase()); // 数据库中的版本号
-				int versionForm = modelForm.getInt(Const.OPTIMISTIC_LOCK.toLowerCase()); // 表单中的版本号
+				int versionDB = Func.toInt(modelOld.get(Const.OPTIMISTIC_LOCK.toLowerCase())); // 数据库中的版本号
+				int versionForm = Func.toInt(modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase())); // 表单中的版本号
 				if (!(versionForm > versionDB)) {
 					throw new RuntimeException("表单数据版本号和数据库数据版本号不一致，可能数据已经被其他人修改，请重新编辑");
 				}
@@ -481,7 +472,7 @@ public class Blade {
 		if(Cst.me().isOptimisticLock()){
 			// 1.数据是否还存在
 			String sqlExist = new StringBuffer("select * from ").append(table).append(" where ").append(pk).append(" = #{idValue} ").toString();
-			Record modelOld = Db.init(dbName).selectOne(sqlExist, Record.create().set("idValue", idValue));
+			Map modelOld = Db.init(dbName).selectOne(sqlExist, Record.create().set("idValue", idValue));
 			// 数据已经被删除
 			if (null == modelOld) { 
 				throw new RuntimeException("数据库中此数据不存在，可能数据已经被删除，请刷新数据后在操作");
@@ -489,8 +480,8 @@ public class Blade {
 			// 2.乐观锁控制
 			Record modelForm = Record.parse(model);
 			if (modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase()) != null) { // 是否需要乐观锁控制
-				int versionDB = modelOld.getInt(Const.OPTIMISTIC_LOCK.toLowerCase()); // 数据库中的版本号
-				int versionForm = modelForm.getInt(Const.OPTIMISTIC_LOCK.toLowerCase()); // 表单中的版本号
+				int versionDB = Func.toInt(modelOld.get(Const.OPTIMISTIC_LOCK.toLowerCase())); // 数据库中的版本号
+				int versionForm = Func.toInt(modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase())); // 表单中的版本号
 				if (!(versionForm > versionDB)) {
 					throw new RuntimeException("表单数据版本号和数据库数据版本号不一致，可能数据已经被其他人修改，请重新编辑");
 				}

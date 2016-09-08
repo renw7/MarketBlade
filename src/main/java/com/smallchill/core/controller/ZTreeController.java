@@ -45,7 +45,7 @@ public class ZTreeController extends BladeController {
 	}
 	
 	@ResponseBody
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping("/getTreeList")
 	public AjaxResult getTreeList(@RequestParam String type, @RequestParam String source, @RequestParam String where, @RequestParam String intercept, @RequestParam String ext, @RequestParam String val) {	
 		final String sqlSource = getSql(type, source);
@@ -66,7 +66,7 @@ public class ZTreeController extends BladeController {
 		ac.setObject(ext);
 		ac.setTips("ztree");
 		
-		List<Record> list = Db.init().selectList(sqlSource, modelOrMap, ac, _intercept);
+		List<Map> list = Db.init().selectList(sqlSource, modelOrMap, ac, _intercept);
 
 		String key = "id";
 		if(type.indexOf("dict") >= 0){

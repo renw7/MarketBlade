@@ -62,6 +62,7 @@ public class AttachIntercept extends MetaIntercept {
 	 * 
 	 * @param ac
 	 */
+	@SuppressWarnings("unchecked")
 	public void removeBefore(AopContext ac) {
 		Map<String, Object> file = Db.init().findById("TFW_ATTACH", ac.getId().toString());
 		if (Func.isEmpty(file)) {

@@ -74,9 +74,9 @@ public class DefaultShiroFactroy implements IShiro{
 		String roleIn = "0";
 		String roleOut = "0";
 		if (!Func.isEmpty(userRole)) {
-			Record map = Record.parse(userRole);
-			roleIn = map.getStr("ROLEIN");
-			roleOut = map.getStr("ROLEOUT");
+			Record rd = Record.parse(userRole);
+			roleIn = rd.getStr("ROLEIN");
+			roleOut = rd.getStr("ROLEOUT");
 		}
 		
 		final StringBuilder sql = new StringBuilder();

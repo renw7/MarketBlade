@@ -92,6 +92,7 @@ public class KindEditorController extends BladeController {
 		return result;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@ResponseBody
 	@RequestMapping("/initimg")
 	public AjaxResult initimg(@RequestParam String id) { 
@@ -103,11 +104,12 @@ public class KindEditorController extends BladeController {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/initfile")
 	public AjaxResult initfile(@RequestParam String ids) {
 		Db dao = Db.init();
-		List<Record> file = dao.selectList("select ID as \"id\",NAME as \"name\",URL as \"url\" from TFW_ATTACH where ID in (#{join(ids)})", Record.create().set("ids", ids.split(",")));
+		List<Map> file = dao.selectList("select ID as \"id\",NAME as \"name\",URL as \"url\" from TFW_ATTACH where ID in (#{join(ids)})", Record.create().set("ids", ids.split(",")));
 		if (null != file) {
 			return json(file);
 		} else {
@@ -115,6 +117,7 @@ public class KindEditorController extends BladeController {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/renderFile/{id}")
 	public void renderFile(HttpServletRequest request, HttpServletResponse response, @PathVariable String id) {
 		Map<String, Object> file = Db.init().findById("TFW_ATTACH", id);

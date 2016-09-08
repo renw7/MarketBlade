@@ -8,7 +8,7 @@ select t.*,
         		
 data
 ===
-select t.*,
+select t.F_IT_XL,t.F_VC_BT,t.F_IT_LX,t.F_TX_NR,t.F_DT_FBSJ,t.F_DT_CJSJ,t.F_IT_CJR,t.F_IT_TP,t.VERSION version,
 		d.name DIC_F_IT_LX 
 	from 
 		tb_tfw_tzgg t 

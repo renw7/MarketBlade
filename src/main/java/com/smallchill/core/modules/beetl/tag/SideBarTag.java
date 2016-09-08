@@ -39,7 +39,6 @@ public class SideBarTag extends Tag {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void render() {
-		// TODO Auto-generated method stub
 		try {
 			String MENU_CACHE = ConstCache.MENU_CACHE;
 			Map<String, String> param = (Map<String, String>) args[1];
@@ -59,9 +58,9 @@ public class SideBarTag extends Tag {
 			String roleIn = "0";
 			String roleOut = "0";
 			if (!Func.isEmpty(userRole)) {
-				Record map = Record.parse(userRole);
-				roleIn = map.getStr("ROLEIN");
-				roleOut = map.getStr("ROLEOUT");
+				Record rd = Record.parse(userRole);
+				roleIn = rd.getStr("ROLEIN");
+				roleOut = rd.getStr("ROLEOUT");
 			}
 			final StringBuilder sql = new StringBuilder();
 			sql.append("select * from TFW_MENU  ");
@@ -82,11 +81,11 @@ public class SideBarTag extends Tag {
 			
 			for (Map<String, Object> side : sideBar) {
 				TreeNode node = new TreeNode();
-				Record map = Record.parse(side);
-				node.setId(map.getStr("CODE"));
-				node.setParentId(map.getStr("PCODE"));
-				node.setName(map.getStr("NAME"));
-				node.setIcon(map.getStr("ICON"));
+				Record rd = Record.parse(side);
+				node.setId(rd.getStr("CODE"));
+				node.setParentId(rd.getStr("PCODE"));
+				node.setName(rd.getStr("NAME"));
+				node.setIcon(rd.getStr("ICON"));
 				node.setIsParent(false);
 				nodeList.add(node);
 			}
@@ -141,13 +140,12 @@ public class SideBarTag extends Tag {
 			
 			ctx.byteWriter.writeString(sb.toString());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * TODO 加载子菜单
+	 * 加载子菜单
 	 * 
 	 * @param sideBar
 	 *            菜单集合
@@ -165,13 +163,13 @@ public class SideBarTag extends Tag {
 		String Str = "";
 		String subStr = "";
 		for (Map<String, Object> subside : sideBar) {
-			Record map = Record.parse(subside);
-			int _levels = map.getInt("LEVELS");
-			String _code = map.getStr("CODE");
-			String _pCode = map.getStr("PCODE");
-			String _url = map.getStr("URL");
-			String _icon = map.getStr("ICON");
-			String _name = map.getStr("NAME");
+			Record rd = Record.parse(subside);
+			int _levels = rd.getInt("LEVELS");
+			String _code = rd.getStr("CODE");
+			String _pCode = rd.getStr("PCODE");
+			String _url = rd.getStr("URL");
+			String _icon = rd.getStr("ICON");
+			String _name = rd.getStr("NAME");
 			if ((_pCode.equals(pCode) && _levels > levels)) {
 				String href = Func.isEmpty(_url) ? "#" : ctxPath + _url + "";
 				String addtabs = Func.isEmpty(_url) ? "" : "data-addtabs=\"" + _code + "\"";

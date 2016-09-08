@@ -309,6 +309,7 @@ public class UserController extends BaseController implements ConstShiro{
 		return BASE_PATH + "user_extrole.html";
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@ResponseBody
 	@RequestMapping("/menuTreeIn")
 	public AjaxResult menuTreeIn(@RequestParam String userId) {
@@ -328,10 +329,11 @@ public class UserController extends BaseController implements ConstShiro{
 				" where m.status=1 order by m.levels,m.num asc"
 				);
 		
-		List<Record> menu = dao.selectList(sb.toString());
+		List<Map> menu = dao.selectList(sb.toString());
 		return json(menu);
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@ResponseBody
 	@RequestMapping("/menuTreeOut")
 	public AjaxResult menuTreeOut(@RequestParam String userId) {
@@ -351,7 +353,7 @@ public class UserController extends BaseController implements ConstShiro{
 				" where m.status=1 order by m.levels,m.num asc"
 				);
 		
-		List<Record> menu = dao.selectList(sb.toString());
+		List<Map> menu = dao.selectList(sb.toString());
 		return json(menu);
 	}
 	
@@ -413,7 +415,6 @@ public class UserController extends BaseController implements ConstShiro{
 							
 							@Override
 							public void queryBefore(AopContext ac) {
-								// TODO Auto-generated method stub
 								
 							}
 							

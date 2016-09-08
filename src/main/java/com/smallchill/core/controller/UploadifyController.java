@@ -55,6 +55,7 @@ public class UploadifyController extends BladeController {
 		return rd;	
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/renderFile/{id}")
 	public void renderFile(HttpServletRequest request, HttpServletResponse response, @PathVariable String id) {
 		Map<String, Object> file = Db.init().findById("TFW_ATTACH", id);
