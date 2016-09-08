@@ -207,7 +207,7 @@ public class BladeController implements ConstCurd, ConstCache{
 	 * 
 	 * @return Maps
 	 */
-	public Record getMaps() {
+	public Record getRecord() {
 		return paraMapsInject();
 	}
 
@@ -217,7 +217,7 @@ public class BladeController implements ConstCurd, ConstCache{
 	 * @param switchMap 字段混淆Map  map.put("前端字段","数据库字段");
 	 * @return Maps
 	 */
-	public Record getMaps(Map<String, Object> switchMap) {
+	public Record getRecord(Map<String, Object> switchMap) {
 		return paraMapsInject(switchMap);
 	}
 
@@ -227,7 +227,7 @@ public class BladeController implements ConstCurd, ConstCache{
 	 * @param paraPerfix  name前缀
 	 * @return Maps
 	 */
-	public Record getMaps(String paraPerfix) {
+	public Record getRecord(String paraPerfix) {
 		return paraMapsInject(paraPerfix);
 	}
 
@@ -238,7 +238,7 @@ public class BladeController implements ConstCurd, ConstCache{
 	 * @param switchMap 字段混淆Map  map.put("前端字段","数据库字段");
 	 * @return Maps
 	 */
-	public Record getMaps(String paraPerfix, Map<String, Object> switchMap) {
+	public Record getRecord(String paraPerfix, Map<String, Object> switchMap) {
 		return paraMapsInject(switchMap, paraPerfix);
 	}
 	
