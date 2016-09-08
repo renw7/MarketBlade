@@ -188,12 +188,4 @@ public class ShiroUser implements Serializable {
 	public void setSubUsers(Object subUsers) {
 		this.subUsers = subUsers;
 	}
-
-	/**
-	 * 本函数输出将作为默认的<shiro:principal/>输出.
-	 */
-	@Override
-	public String toString() {
-		return loginName;
-	}
 }
