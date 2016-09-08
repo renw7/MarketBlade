@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.smallchill.core.modules.beetl;
+package com.smallchill.core.beetl;
 
 import org.beetl.sql.core.NameConversion;
 import org.beetl.sql.core.annotatoin.Table;

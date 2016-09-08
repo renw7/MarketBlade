@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.smallchill.core.modules.support;
+package com.smallchill.core.toolbox.support;
 
 import java.util.Map;
 

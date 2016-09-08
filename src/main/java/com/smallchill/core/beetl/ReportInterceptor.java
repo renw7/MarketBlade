@@ -1,4 +1,4 @@
-package com.smallchill.core.modules.beetl;
+package com.smallchill.core.beetl;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.smallchill.core.modules.beetl.tag;
+package com.smallchill.core.beetl.tag;
 
 import java.io.IOException;
 import java.util.Map;

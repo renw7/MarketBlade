@@ -10,8 +10,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.smallchill.core.modules.support.Conver;
 import com.smallchill.core.toolbox.kit.BeanKit;
+import com.smallchill.core.toolbox.support.Conver;
 
 /**
  * 扩充了HashMap中的方法

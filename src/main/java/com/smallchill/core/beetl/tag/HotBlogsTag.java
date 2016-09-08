@@ -1,4 +1,4 @@
-package com.smallchill.core.modules.beetl.tag;
+package com.smallchill.core.beetl.tag;
 
 import org.beetl.core.GeneralVarTagBinding;
 

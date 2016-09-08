@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.smallchill.core.modules.support.Conver;
+import com.smallchill.core.toolbox.support.Conver;
 import com.smallchill.core.toolbox.support.FieldValidator;
 
 /**

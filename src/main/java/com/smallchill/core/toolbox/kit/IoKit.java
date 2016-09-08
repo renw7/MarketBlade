@@ -20,7 +20,7 @@ import java.nio.charset.Charset;
 import java.util.Collection;
 
 import com.smallchill.core.exception.ToolBoxException;
-import com.smallchill.core.modules.support.Conver;
+import com.smallchill.core.toolbox.support.Conver;
 import com.smallchill.core.toolbox.support.FastByteArrayOutputStream;
 import com.smallchill.core.toolbox.support.StreamProgress;
 

@@ -41,7 +41,6 @@ import com.smallchill.core.constant.Cst;
 import com.smallchill.core.exception.NoPermissionException;
 import com.smallchill.core.exception.NoUserException;
 import com.smallchill.core.interfaces.IQuery;
-import com.smallchill.core.modules.support.BeanInjector;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Record;
@@ -52,6 +51,7 @@ import com.smallchill.core.toolbox.kit.BeanKit;
 import com.smallchill.core.toolbox.kit.LogKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.log.LogManager;
+import com.smallchill.core.toolbox.support.BeanInjector;
 
 /**
  * @author James Zhan, Chill Zhuang

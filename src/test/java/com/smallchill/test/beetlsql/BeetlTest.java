@@ -11,7 +11,7 @@ import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.db.MySqlStyle;
 import org.junit.Test;
 
-import com.smallchill.core.modules.beetl.ReportInterceptor;
+import com.smallchill.core.beetl.ReportInterceptor;
 import com.smallchill.platform.model.Notice;
 
 public class BeetlTest {

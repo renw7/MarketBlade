@@ -1,4 +1,4 @@
-package com.smallchill.core.modules.support;
+package com.smallchill.core.toolbox.support;
 
 import java.util.HashMap;
 import java.util.Map;

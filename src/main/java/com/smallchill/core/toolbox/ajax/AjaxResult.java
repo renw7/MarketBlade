@@ -4,7 +4,7 @@ import com.smallchill.core.toolbox.kit.JsonKit;
 
 public class AjaxResult {
 
-	// 标记成功失败，默认0:成功,1:失败
+	// 返回状态码   (默认0:成功,1:失败)
 	private int code = 0;
 
 	// 返回的中文消息
@@ -40,7 +40,6 @@ public class AjaxResult {
 		return this;
 	}
 
-	// 添加成功，用于alertSuccess
 	public AjaxResult addSuccess(String message) {
 		this.message = message;
 		this.code = 0;
@@ -48,7 +47,6 @@ public class AjaxResult {
 		return this;
 	}
 
-	// 添加错误，用于alertError
 	public AjaxResult addError(String message) {
 		this.message = message;
 		this.code = 1;
@@ -56,7 +54,6 @@ public class AjaxResult {
 		return this;
 	}
 
-	// 添加错误，用于alertFail
 	public AjaxResult addFail(String message) {
 		this.message = message;
 		this.code = 999;
@@ -64,7 +61,6 @@ public class AjaxResult {
 		return this;
 	}
 
-	// 添加警告，用于alertWarn
 	public AjaxResult addWarn(String message) {
 		this.message = message;
 		this.code = 2;
@@ -72,14 +68,6 @@ public class AjaxResult {
 		return this;
 	}
 
-	/**
-	 * 
-	 * 封装成功时的数据
-	 * 
-	 * @param data
-	 * 
-	 * @return AjaxResult
-	 */
 	public AjaxResult success(Object data) {
 		this.message = "success";
 		this.data = data;

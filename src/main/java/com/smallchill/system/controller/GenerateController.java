@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.core.base.controller.CurdController;
+import com.smallchill.core.beetl.BeetlMaker;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.IMeta;
-import com.smallchill.core.modules.beetl.BeetlMaker;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.ajax.AjaxResult;

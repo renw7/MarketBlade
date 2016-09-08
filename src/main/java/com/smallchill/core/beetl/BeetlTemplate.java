@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.smallchill.core.modules.beetl;
+package com.smallchill.core.beetl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,15 +26,15 @@ import org.beetl.core.GroupTemplate;
 import org.beetl.core.Template;
 import org.beetl.core.resource.StringTemplateResourceLoader;
 
+import com.smallchill.core.beetl.func.BeetlExt;
+import com.smallchill.core.beetl.func.ShiroExt;
+import com.smallchill.core.beetl.tag.DropDownTag;
+import com.smallchill.core.beetl.tag.FootTag;
+import com.smallchill.core.beetl.tag.HotBlogsTag;
+import com.smallchill.core.beetl.tag.SelectTag;
+import com.smallchill.core.beetl.tag.SideBarTag;
 import com.smallchill.core.constant.ConstConfig;
 import com.smallchill.core.constant.Cst;
-import com.smallchill.core.modules.beetl.func.BeetlExt;
-import com.smallchill.core.modules.beetl.func.ShiroExt;
-import com.smallchill.core.modules.beetl.tag.DropDownTag;
-import com.smallchill.core.modules.beetl.tag.FootTag;
-import com.smallchill.core.modules.beetl.tag.HotBlogsTag;
-import com.smallchill.core.modules.beetl.tag.SelectTag;
-import com.smallchill.core.modules.beetl.tag.SideBarTag;
 
 /**
  * @title Beetl模板绑值
