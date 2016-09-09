@@ -345,7 +345,7 @@ public class Func {
 	 * @return
 	 */
 	public static long toLong(Object obj) {
-		return Long.parseLong(obj.toString());
+		return toLong(obj, -1);
 	}
 
 	/**
@@ -360,7 +360,7 @@ public class Func {
 			if (isEmpty(obj)) {
 				return defaultValue;
 			}
-			return toLong(obj);
+			return Long.parseLong(obj.toString());
 		} catch (Exception ex) {
 			return defaultValue;
 		}
