@@ -317,7 +317,7 @@ public class Func {
 	 * @return
 	 */
 	public static int toInt(Object obj) {
-		return Integer.parseInt(obj.toString());
+		return toInt(obj, 0);
 	}
 
 	/**
@@ -332,7 +332,7 @@ public class Func {
 			if (isEmpty(obj)) {
 				return defaultValue;
 			}
-			return toInt(obj);
+			return Integer.parseInt(obj.toString());
 		} catch (Exception ex) {
 			return defaultValue;
 		}

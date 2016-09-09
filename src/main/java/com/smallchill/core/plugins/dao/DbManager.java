@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.beetl.sql.core.SQLManager;
+import org.beetl.sql.core.SQLReady;
 
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.Cst;
@@ -73,13 +74,31 @@ public class DbManager {
 	/************   ↓↓↓   ********     通用     *********   ↓↓↓   ****************/
 	
 	/**
+	 * 直接执行sql语句，sql语句已经是准备好的，采用preparedstatment执行
+	 * @param clazz
+	 * @param p
+	 * @return 返回查询结果
+	 */
+	public <T> List<T> execute(SQLReady p, Class<T> clazz){
+		return getSqlManager().execute(p, clazz);
+	}
+	
+	/** 直接执行sql语句，sql语句已经是准备好的，采用preparedstatment执行
+	 * @param p
+	 * @return 返回更新条数
+	 */
+	public int executeUpdate(SQLReady p){
+		return getSqlManager().executeUpdate(p);
+	}
+	
+	/**
 	 * 根据sql新增数据
 	 * @param sqlTemplate	sql语句
 	 * @param modelOrMap	实体类或map
 	 * @return
 	 */
 	public int insert(String sqlTemplate, Object modelOrMap){
-		return executeUpdate(sqlTemplate, modelOrMap);
+		return getSqlManager().executeUpdate(sqlTemplate, modelOrMap);
 	}
 	
 	/**
@@ -89,7 +108,7 @@ public class DbManager {
 	 * @return
 	 */
 	public int update(String sqlTemplate, Object modelOrMap){
-		return executeUpdate(sqlTemplate, modelOrMap);
+		return getSqlManager().executeUpdate(sqlTemplate, modelOrMap);
 	}
 	
 	/**
@@ -99,16 +118,6 @@ public class DbManager {
 	 * @return
 	 */
 	public int delete(String sqlTemplate, Object modelOrMap){
-		return executeUpdate(sqlTemplate, modelOrMap);
-	}
-	
-	/**
-	 * 执行sql语句
-	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
-	 * @return
-	 */
-	private int executeUpdate(String sqlTemplate, Object modelOrMap){
 		return getSqlManager().executeUpdate(sqlTemplate, modelOrMap);
 	}
 	

@@ -18,6 +18,8 @@ package com.smallchill.core.plugins.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.beetl.sql.core.SQLReady;
+
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.interfaces.IQuery;
 import com.smallchill.core.toolbox.Record;
@@ -45,6 +47,24 @@ public class Db {
 	
 	
 	/************   ↓↓↓   ********     通用     *********   ↓↓↓   ****************/
+	
+	/**
+	 * 直接执行sql语句，sql语句已经是准备好的，采用preparedstatment执行
+	 * @param clazz
+	 * @param p
+	 * @return 返回查询结果
+	 */
+	public static <T> List<T> execute(SQLReady p, Class<T> clazz){
+		return getDbManager().execute(p, clazz);
+	}
+	
+	/** 直接执行sql语句，sql语句已经是准备好的，采用preparedstatment执行
+	 * @param p
+	 * @return 返回更新条数
+	 */
+	public int executeUpdate(SQLReady p){
+		return getDbManager().executeUpdate(p);
+	}
 	
 	/**
 	 * 根据sql新增数据
