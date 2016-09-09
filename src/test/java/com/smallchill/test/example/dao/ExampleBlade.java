@@ -31,7 +31,7 @@ public class ExampleBlade extends BladeController{
 	public void other(){
 		Blade dao = Blade.create(Notice.class);
 		//指定表名、查询条件查询多条数据(完整sql)
-		List<Notice> list = dao.find("select * from tb_tfw_tzgg where f_it_xl = #{xl},f_it_cjr = #{cjr}", Record.create().set("xl", 1).set("cjr", 1));
+		List<Notice> list = dao.find("select * from tb_tfw_tzgg where f_it_xl = #{xl} and f_it_cjr = #{cjr}", Record.create().set("xl", 1).set("cjr", 1));
 		System.out.println(list);
 	}
 	

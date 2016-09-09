@@ -21,7 +21,7 @@ public class ExampleExcel extends BladeController {
 	/**
 	 * excel视图方式
 	 */
-	@RequestMapping("/export1")
+	@RequestMapping("/export")
 	public String exportMerchantProfitQuery(ModelMap modelMap,
 			HttpServletResponse response) {
 		List<ExcelExportEntity> entityList = new ArrayList<ExcelExportEntity>();
