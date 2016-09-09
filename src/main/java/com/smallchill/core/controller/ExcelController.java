@@ -103,7 +103,7 @@ public class ExcelController extends BladeController{
 		
 		String menu_name = getInfoByCode(code, "NAME");
 		@SuppressWarnings("rawtypes")
-		List<Map> dataResult = Db.init().selectList(Func.format(sql, StrKit.removeSuffix(sb.toString(), ",")));
+		List<Map> dataResult = Db.selectList(Func.format(sql, StrKit.removeSuffix(sb.toString(), ",")));
 		ExportParams exportParams = new ExportParams(menu_name + " 数据导出表", "导出人账号：" + ShiroKit.getUser().getLoginName() + "      导出时间：" + DateKit.getTime(), code);
 		exportParams.setColor(HSSFColor.GREY_50_PERCENT.index);
 		exportParams.setAddIndex(true);
@@ -120,7 +120,7 @@ public class ExcelController extends BladeController{
 		List<Map<String, Object>> menu = CacheKit.get("menuCache", "menu_table_all",
 				new ILoader() {
 					public Object load() {
-						return Db.init().selectList("select CODE,PCODE,NAME,URL,SOURCE,PATH,TIPS,ISOPEN from TFW_MENU order by levels asc,num asc");
+						return Db.selectList("select CODE,PCODE,NAME,URL,SOURCE,PATH,TIPS,ISOPEN from TFW_MENU order by levels asc,num asc");
 					}
 				});
 		for (Map<String, Object> _menu : menu) {

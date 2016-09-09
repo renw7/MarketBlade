@@ -42,8 +42,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 
 	@Override
 	public boolean saveAuthority(String ids, String roleId) {
-		Db dao = Db.init();
-		dao.deleteByIds("TFW_RELATION", "ROLEID", roleId);
+		Db.deleteByIds("TFW_RELATION", "ROLEID", roleId);
 		
 		String sql = "";
 		String insertSql = "";
@@ -64,7 +63,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 			insertSql = "insert into TFW_RELATION(menuId,roleId) ";
 		}
 
-		int cnt = dao.update(insertSql + sql, null);
+		int cnt = Db.update(insertSql + sql, null);
 		return cnt > 0;
 	}
 
@@ -81,7 +80,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 		if (Func.isOracle()) {
 			sb.append(" from dual");
 		}
-		Object cnt = Db.init().selectOne(sb.toString(), Record.create().set("id", id)).get("CNT");
+		Object cnt = Db.selectOne(sb.toString(), Record.create().set("id", id)).get("CNT");
 		return Func.toInt(cnt, 0);
 	}
 

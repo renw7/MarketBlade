@@ -500,7 +500,7 @@ public class BeetlExt {
 		Map<String, Object> userRole = CacheKit.get(ConstCache.MENU_CACHE, "roleExt_" + userId,
 				new ILoader() {
 					public Object load() {
-						return Db.init().selectOne("select * from TFW_ROLE_EXT where userId=#{userId}", Record.create().set("userId", userId));
+						return Db.selectOne("select * from TFW_ROLE_EXT where userId=#{userId}", Record.create().set("userId", userId));
 					}
 				});
 
@@ -526,7 +526,7 @@ public class BeetlExt {
 
 		List<Map<String, Object>> btnList = CacheKit.get(ConstCache.MENU_CACHE, "btnList_rightMenu_" + code + "_" + userId, new ILoader() {
 			public Object load() {
-				return Db.init().selectList(sql.toString(), Record.create().set("code", code));
+				return Db.selectList(sql.toString(), Record.create().set("code", code));
 			}
 		});
 

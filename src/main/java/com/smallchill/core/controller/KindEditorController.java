@@ -96,7 +96,7 @@ public class KindEditorController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/initimg")
 	public AjaxResult initimg(@RequestParam String id) { 
-		Map<String, Object> img = Db.init().findById("TFW_ATTACH", id);
+		Map<String, Object> img = Db.findById("TFW_ATTACH", id);
 		if (null != img) {
 			return json(img);
 		} else {
@@ -108,8 +108,7 @@ public class KindEditorController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/initfile")
 	public AjaxResult initfile(@RequestParam String ids) {
-		Db dao = Db.init();
-		List<Map> file = dao.selectList("select ID as \"id\",NAME as \"name\",URL as \"url\" from TFW_ATTACH where ID in (#{join(ids)})", Record.create().set("ids", ids.split(",")));
+		List<Map> file = Db.selectList("select ID as \"id\",NAME as \"name\",URL as \"url\" from TFW_ATTACH where ID in (#{join(ids)})", Record.create().set("ids", ids.split(",")));
 		if (null != file) {
 			return json(file);
 		} else {
@@ -120,7 +119,7 @@ public class KindEditorController extends BladeController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/renderFile/{id}")
 	public void renderFile(HttpServletRequest request, HttpServletResponse response, @PathVariable String id) {
-		Map<String, Object> file = Db.init().findById("TFW_ATTACH", id);
+		Map<String, Object> file = Db.findById("TFW_ATTACH", id);
 		String url = file.get("URL").toString();
 		File f = new File((Cst.me().isRemoteMode() ? "" : PathKit.getWebRootPath()) + url);
 		FileRender.init(request, response, f).render();

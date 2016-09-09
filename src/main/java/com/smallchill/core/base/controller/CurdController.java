@@ -333,13 +333,13 @@ public abstract class CurdController<M> extends BaseController {
 
 	@SuppressWarnings("unchecked")
 	private Map<String, Object> findOneBySql(String sql, Map<String, Object> map) {
-		Map<String, Object> model = Db.init().selectOne(sql, map);
+		Map<String, Object> model = Db.selectOne(sql, map);
 		return Func.caseInsensitiveMap(model);
 	}
 
 	@SuppressWarnings("unchecked")
 	private Map<String, Object> findOneById(String sqlId, Map<String, Object> map) {
-		Map<String, Object> model =  Blade.dao().selectSingle(sqlId, map, Map.class); //Db.init().selectOneBySqlId(sqlId, map);
+		Map<String, Object> model =  Blade.dao().selectSingle(sqlId, map, Map.class); //Db.selectOneBySqlId(sqlId, map);
 		return Func.caseInsensitiveMap(model);
 	}
 

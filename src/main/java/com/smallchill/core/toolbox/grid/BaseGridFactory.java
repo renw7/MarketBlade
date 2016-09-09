@@ -98,7 +98,7 @@ public abstract class BaseGridFactory implements IGrid{
 		if(StrKit.notBlank(slaveName)){
 			list = Db.init(slaveName).paginate(statement + orderBy, Map.class, map, page, rows);			
 		} else {
-			list = Db.init().paginate(statement + orderBy, Map.class, map, page, rows);
+			list = Db.paginate(statement + orderBy, Map.class, map, page, rows);
 		}
 
 		// 查询后拦截

@@ -68,7 +68,7 @@ public class DropDownTag extends Tag {
 			List<Map<String, Object>> dict = CacheKit.get(ConstCache.DICT_CACHE,"dropdown_"+ type + "_" + code, new ILoader() {
 				@Override
 				public Object load() {
-					return Db.init().selectList(sqlstr);
+					return Db.selectList(sqlstr);
 				}
 			});
 

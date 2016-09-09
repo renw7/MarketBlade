@@ -66,7 +66,7 @@ public class DefaultShiroFactroy implements IShiro{
 		Map<String, Object> userRole = CacheKit.get(ConstCache.MENU_CACHE, "role_ext_" + userId, new ILoader() {
 			@Override
 			public Object load() {
-				return Db.init().selectOne("select * from TFW_ROLE_EXT where USERID=#{userId}", Record.create().set("userId", userId));
+				return Db.selectOne("select * from TFW_ROLE_EXT where USERID=#{userId}", Record.create().set("userId", userId));
 			}
 		}); 
 
@@ -92,7 +92,7 @@ public class DefaultShiroFactroy implements IShiro{
 		List<Map<String, Object>> permissions = CacheKit.get(ConstCache.MENU_CACHE, "permissions_" + userId, new ILoader() {
 			@Override
 			public Object load() {
-				return Db.init().selectList(sql.toString());
+				return Db.selectList(sql.toString());
 			}
 		}); 
 		
@@ -103,7 +103,7 @@ public class DefaultShiroFactroy implements IShiro{
 		Map<String, Object> map = CacheKit.get(ConstCache.ROLE_CACHE, "findRoleNameByRoleId" + roleId, new ILoader() {
 			@Override
 			public Object load() {
-				return Db.init().selectOne("select TIPS from tfw_role where id = #{id}", Record.create().set("id", roleId));
+				return Db.selectOne("select TIPS from tfw_role where id = #{id}", Record.create().set("id", roleId));
 			}
 		});
 		return Func.format(map.get("TIPS"));

@@ -58,7 +58,7 @@ public class UploadifyController extends BladeController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/renderFile/{id}")
 	public void renderFile(HttpServletRequest request, HttpServletResponse response, @PathVariable String id) {
-		Map<String, Object> file = Db.init().findById("TFW_ATTACH", id);
+		Map<String, Object> file = Db.findById("TFW_ATTACH", id);
 		String url = file.get("URL").toString();
 		File f = new File((Cst.me().isRemoteMode() ? "" : PathKit.getWebRootPath()) + url);
 		FileRender.init(request, response, f).render();

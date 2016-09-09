@@ -97,7 +97,7 @@ public class SelectTag extends Tag {
 			List<Map<String, Object>> dict = CacheKit.get(CACHE_NAME, "dict_" + type + "_" + code + "_" + ShiroKit.getUser().getId(), new ILoader() {
 				@Override
 				public Object load() {
-					return Db.init().selectList(_sql, _modelOrMap, new AopContext(), _intercept);
+					return Db.selectList(_sql, _modelOrMap, new AopContext(), _intercept);
 				}
 			}); 
 

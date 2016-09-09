@@ -66,7 +66,7 @@ public class ZTreeController extends BladeController {
 		ac.setObject(ext);
 		ac.setTips("ztree");
 		
-		List<Map> list = Db.init().selectList(sqlSource, modelOrMap, ac, _intercept);
+		List<Map> list = Db.selectList(sqlSource, modelOrMap, ac, _intercept);
 
 		String key = "id";
 		if(type.indexOf("dict") >= 0){
@@ -102,7 +102,7 @@ public class ZTreeController extends BladeController {
 		List<Map<String, Object>> list = CacheKit.get(DICT_CACHE, "ztree_list_" + type,
 				new ILoader() {
 					public Object load() {
-						return Db.init().selectList(sqlSource, modelOrMap);
+						return Db.selectList(sqlSource, modelOrMap);
 					}
 				});
 		

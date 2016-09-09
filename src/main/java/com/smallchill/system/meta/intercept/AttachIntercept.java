@@ -64,7 +64,7 @@ public class AttachIntercept extends MetaIntercept {
 	 */
 	@SuppressWarnings("unchecked")
 	public void removeBefore(AopContext ac) {
-		Map<String, Object> file = Db.init().findById("TFW_ATTACH", ac.getId().toString());
+		Map<String, Object> file = Db.findById("TFW_ATTACH", ac.getId().toString());
 		if (Func.isEmpty(file)) {
 			throw new RuntimeException("文件不存在!");
 		} else {

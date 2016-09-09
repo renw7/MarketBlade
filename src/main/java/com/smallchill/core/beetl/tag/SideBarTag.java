@@ -50,7 +50,7 @@ public class SideBarTag extends Tag {
 			Map<String, Object> userRole = CacheKit.get(MENU_CACHE, "role_ext_" + userId, new ILoader() {
 				@Override
 				public Object load() {
-					return Db.init().selectOne("select * from TFW_ROLE_EXT where USERID=#{userId}", Record.create().set("userId", userId));
+					return Db.selectOne("select * from TFW_ROLE_EXT where USERID=#{userId}", Record.create().set("userId", userId));
 				}
 			}); 
 
@@ -75,7 +75,7 @@ public class SideBarTag extends Tag {
 			List<Map<String, Object>> sideBar = CacheKit.get(MENU_CACHE, "sideBar_" + userId, new ILoader() {
 				@Override
 				public Object load() {
-					return Db.init().selectList(sql.toString());
+					return Db.selectList(sql.toString());
 				}
 			}); 
 			

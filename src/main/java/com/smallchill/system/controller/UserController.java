@@ -313,8 +313,7 @@ public class UserController extends BaseController implements ConstShiro{
 	@ResponseBody
 	@RequestMapping("/menuTreeIn")
 	public AjaxResult menuTreeIn(@RequestParam String userId) {
-		Db dao = Db.init();
-		Map<String, Object> roleIn = dao.selectOne("select ROLEIN from tfw_role_ext where userId = #{userId}", Record.create().set("userId",userId));
+		Map<String, Object> roleIn = Db.selectOne("select ROLEIN from tfw_role_ext where userId = #{userId}", Record.create().set("userId",userId));
 		
 		String in = "0";
 		if (!Func.isEmpty(roleIn)) {
@@ -329,7 +328,7 @@ public class UserController extends BaseController implements ConstShiro{
 				" where m.status=1 order by m.levels,m.num asc"
 				);
 		
-		List<Map> menu = dao.selectList(sb.toString());
+		List<Map> menu = Db.selectList(sb.toString());
 		return json(menu);
 	}
 	
@@ -337,8 +336,7 @@ public class UserController extends BaseController implements ConstShiro{
 	@ResponseBody
 	@RequestMapping("/menuTreeOut")
 	public AjaxResult menuTreeOut(@RequestParam String userId) {
-		Db dao = Db.init();
-		Map<String, Object> roleOut = dao.selectOne("select ROLEOUT from tfw_role_ext where userId = #{userId}", Record.create().set("userId",userId));
+		Map<String, Object> roleOut = Db.selectOne("select ROLEOUT from tfw_role_ext where userId = #{userId}", Record.create().set("userId",userId));
 		
 		String out = "0";
 		if (!Func.isEmpty(roleOut)) {
@@ -353,7 +351,7 @@ public class UserController extends BaseController implements ConstShiro{
 				" where m.status=1 order by m.levels,m.num asc"
 				);
 		
-		List<Map> menu = dao.selectList(sb.toString());
+		List<Map> menu = Db.selectList(sb.toString());
 		return json(menu);
 	}
 	
@@ -411,7 +409,7 @@ public class UserController extends BaseController implements ConstShiro{
 		List<Map<String, Object>> dept = CacheKit.get(DEPT_CACHE, "user_tree_all",
 				new ILoader() {
 					public Object load() {
-						return Db.init().selectList("select id \"id\",pId \"pId\",simpleName as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_DEPT order by pId,num asc", Record.create(), new AopContext(), new IQuery() {
+						return Db.selectList("select id \"id\",pId \"pId\",simpleName as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_DEPT order by pId,num asc", Record.create(), new AopContext(), new IQuery() {
 							
 							@Override
 							public void queryBefore(AopContext ac) {

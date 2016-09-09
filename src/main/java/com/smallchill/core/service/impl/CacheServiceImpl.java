@@ -33,7 +33,7 @@ public class CacheServiceImpl implements CacheService{
 		return CacheKit.get(cacheName, key, new ILoader() {
 			@Override
 			public Object load() {
-				return Db.init().selectOne(sql);
+				return Db.selectOne(sql);
 			}
 		});
 	}
@@ -43,7 +43,7 @@ public class CacheServiceImpl implements CacheService{
 		return CacheKit.get(cacheName, key, new ILoader() {
 			@Override
 			public Object load() {
-				return Db.init().selectOne(sql, modelOrMap);
+				return Db.selectOne(sql, modelOrMap);
 			}
 		});
 	}
@@ -73,7 +73,7 @@ public class CacheServiceImpl implements CacheService{
 		return CacheKit.get(cacheName, key, new ILoader() {
 			@Override
 			public Object load() {
-				return Db.init().selectList(sql);
+				return Db.selectList(sql);
 			}
 		});
 	}
@@ -83,7 +83,7 @@ public class CacheServiceImpl implements CacheService{
 		return CacheKit.get(cacheName, key, new ILoader() {
 			@Override
 			public Object load() {
-				return Db.init().selectList(sql, modelOrMap);
+				return Db.selectList(sql, modelOrMap);
 			}
 		});
 	}

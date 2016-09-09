@@ -58,13 +58,13 @@ public class ShiroUser implements Serializable {
 		String subDepts = null;
 		if (Func.isOracle()) {
 			deptSql = "select wm_concat(ID) subDepts from (select ID,PID,SIMPLENAME from TFW_DEPT start with ID in (#{join(deptIds)}) connect by prior ID=PID order by ID) a where a.ID not in (#{join(deptIds)})";
-			subDepts = Db.init().queryStr(deptSql, Record.create().set("deptIds", deptId.toString().split(",")));
+			subDepts = Db.queryStr(deptSql, Record.create().set("deptIds", deptId.toString().split(",")));
 		} else {
 			String[] arr = deptId.toString().split(",");
 			StringBuilder sb = new StringBuilder();
 			for (String deptid : arr) {
 				deptSql = "select queryChildren(#{deptid},'tfw_dept') as subdepts";
-				String str = Db.init().queryStr(deptSql, Record.create().set("deptid", deptid));
+				String str = Db.queryStr(deptSql, Record.create().set("deptid", deptid));
 				sb.append(str).append(",");
 			}
 			subDepts = StrKit.removeSuffix(sb.toString(), ",");
@@ -76,12 +76,12 @@ public class ShiroUser implements Serializable {
 		String subRoles = null;
 		if (Func.isOracle()) {
 			roleSql = "select wm_concat(ID) subRoles from (select ID,PID,NAME from TFW_ROLE start with ID in (#{join(roleIds)}) connect by prior ID=PID order by ID) a where a.ID not in (#{join(roleIds)})";
-			subRoles = Db.init().queryStr(roleSql, Record.create().set("roleIds", roleList));
+			subRoles = Db.queryStr(roleSql, Record.create().set("roleIds", roleList));
 		} else {
 			StringBuilder sb = new StringBuilder();
 			for (String roleid : roleList) {
 				roleSql = "SELECT queryChildren(#{deptid},'tfw_role') as subroles";
-				String str = Db.init().queryStr(roleSql, Record.create().set("deptid", roleid));
+				String str = Db.queryStr(roleSql, Record.create().set("deptid", roleid));
 				sb.append(str).append(",");
 			}
 			subRoles = StrKit.removeSuffix(sb.toString(), ",");
@@ -92,7 +92,7 @@ public class ShiroUser implements Serializable {
 		List<Map<String, Object>> listUser = CacheKit.get(ConstCache.USER_CACHE, "user_all_list", new ILoader() {
 			@Override
 			public Object load() {
-				return Db.init().selectList("SELECT * FROM TFW_USER");
+				return Db.selectList("SELECT * FROM TFW_USER");
 			}
 		});
 		
