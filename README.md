@@ -132,24 +132,24 @@ public class Notice extends BaseModel {
 
  自定义sql查询,返回map
 ```
-	List<Maps> list = Db.init().selectList("select * form news where title = #{title}", Maps.create().set("title", "标题测试"));
+	List<Map> list = Db.selectList("select * form news where title = #{title}", Record.create().set("title", "标题测试"));
 ```
 
- 自定义sql查询,返回String
+ 自定义sql查询,返回String(使用多数据源)
 ```
-	String editor = Db.init().queryStr("select editor form news where newsId = #{newsId}", Maps.create().set("newsId", 123));
+	String editor = Db.init("otherDb").queryStr("select editor form news where newsId = #{newsId}", Record.create().set("newsId", 123));
 ```
 
  根据条件修改
 ```
-	boolean temp = Blade.create(News.class).updateBy("editor = #{editor}", "title = #{title}", Maps.create().set("title", "测试标题").set("editor", "编辑一"));
+	boolean temp = Blade.create(News.class).updateBy("editor = #{editor}", "title = #{title}", Record.create().set("title", "测试标题").set("editor", "编辑一"));
 ```
 
  根据条件删除
 ```
 	String ids = "1,2,3,4,5";
 	String[] idArr = ids.split(",");
-	int cnt = Blade.create(News.class).deleteBy("status in (#{join(ids)})}", Maps.create().set("ids", idArr));
+	int cnt = Blade.create(News.class).deleteBy("status in (#{join(ids)})}", Record.create().set("ids", idArr));
 ```
 
 ## 通用Service
