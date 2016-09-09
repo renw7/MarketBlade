@@ -317,7 +317,7 @@ public class Func {
 	 * @return
 	 */
 	public static int toInt(Object obj) {
-		return toInt(obj, 0);
+		return toInt(obj, -1);
 	}
 
 	/**
