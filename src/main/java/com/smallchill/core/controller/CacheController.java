@@ -316,7 +316,7 @@ public class CacheController extends BladeController {
 						String table = "TFW_MENU";
 						String pid = "";
 						List<Map> record = Db.selectList("select PID from TFW_ROLE where id in (" + roleId + ")"); 
-						for (Map<String, Object> p : record) {
+						for (Map p : record) {
 							if (!Func.isEmpty(p.get("PID"))) {
 								pid += p.get("PID").toString() + ",";
 							}
