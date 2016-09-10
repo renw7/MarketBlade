@@ -15,6 +15,7 @@
  */
 package com.smallchill.core.waf;
 
+import com.smallchill.core.toolbox.support.Singleton;
 import com.smallchill.core.waf.attack.SqlInjection;
 import com.smallchill.core.waf.attack.XSS;
 
@@ -36,8 +37,7 @@ public class WafHelper {
 		if (value == null) {
 			return null;
 		}
-
-		return new XSS().strip(value);
+		return Singleton.create(XSS.class).strip(value);
 	}
 
 	/**
@@ -50,8 +50,7 @@ public class WafHelper {
 		if (value == null) {
 			return null;
 		}
-
-		return new SqlInjection().strip(value);
+		return Singleton.create(SqlInjection.class).strip(value);
 	}
 
 	/**
@@ -64,7 +63,6 @@ public class WafHelper {
 		if (value == null) {
 			return null;
 		}
-
 		return stripXSS(stripSqlInjection(value));
 	}
 

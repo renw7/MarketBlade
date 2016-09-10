@@ -37,14 +37,14 @@ public class WafRequestWrapper extends HttpServletRequestWrapper {
 	private boolean filterSQL = true;
 
 
-	public WafRequestWrapper( HttpServletRequest request, boolean filterXSS, boolean filterSQL ) {
+	public WafRequestWrapper(HttpServletRequest request, boolean filterXSS, boolean filterSQL) {
 		super(request);
 		this.filterXSS = filterXSS;
 		this.filterSQL = filterSQL;
 	}
 
 
-	public WafRequestWrapper( HttpServletRequest request ) {
+	public WafRequestWrapper(HttpServletRequest request) {
 		this(request, true, true);
 	}
 
@@ -56,7 +56,7 @@ public class WafRequestWrapper extends HttpServletRequestWrapper {
 	 * @return
 	 */
 	@Override
-	public String[] getParameterValues( String parameter ) {
+	public String[] getParameterValues(String parameter) {
 		String[] values = super.getParameterValues(parameter);
 		if ( values == null ) {
 			return null;
@@ -83,7 +83,7 @@ public class WafRequestWrapper extends HttpServletRequestWrapper {
 
 	}
 	
-	protected String[] filterEntryString( String[] rawValue ) {
+	protected String[] filterEntryString(String[] rawValue) {
 		for ( int i = 0 ; i < rawValue.length ; i++ ) {
 			rawValue[i] = filterParamString(rawValue[i]);
 		}
@@ -97,7 +97,7 @@ public class WafRequestWrapper extends HttpServletRequestWrapper {
 	 * @return
 	 */
 	@Override
-	public String getParameter( String parameter ) {
+	public String getParameter(String parameter) {
 		return filterParamString(super.getParameter(parameter));
 	}
 
@@ -109,7 +109,7 @@ public class WafRequestWrapper extends HttpServletRequestWrapper {
 	 * @return
 	 */
 	@Override
-	public String getHeader( String name ) {
+	public String getHeader(String name) {
 		return filterParamString(super.getHeader(name));
 	}
 
@@ -136,15 +136,15 @@ public class WafRequestWrapper extends HttpServletRequestWrapper {
 	 * 				待处理内容
 	 * @return
 	 */
-	protected String filterParamString( String rawValue ) {
-		if ( rawValue == null ) {
+	protected String filterParamString(String rawValue) {
+		if (rawValue == null) {
 			return null;
 		}
 		String tmpStr = rawValue;
-		if ( this.filterXSS ) {
+		if (this.filterXSS) {
 			tmpStr = WafHelper.stripXSS(rawValue);
 		}
-		if ( this.filterSQL ) {
+		if (this.filterSQL) {
 			tmpStr = WafHelper.stripSqlInjection(tmpStr);
 		}
 		return tmpStr;
