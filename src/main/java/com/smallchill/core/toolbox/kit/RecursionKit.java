@@ -32,10 +32,10 @@ public class RecursionKit {
 		for (Iterator<Map<String, Object>> it = list.iterator(); it.hasNext();) {
 			Map<String, Object> map = it.next();
 			for (String idStr : idArr) {
-				if (Func.format(map.get(m_pId)) != "0" && idStr.equals(Func.format(map.get(m_pId)))) {
+				if (Func.toStr(map.get(m_pId)) != "0" && idStr.equals(Func.toStr(map.get(m_pId)))) {
 					recursionFn(list, map, linkedList, m_pId, m_id);
 				}
-				if (Func.format(map.get(m_id)).equals(idStr)) {
+				if (Func.toStr(map.get(m_id)).equals(idStr)) {
 					linkedList.add(map);
 				}
 			}
@@ -51,7 +51,7 @@ public class RecursionKit {
 		for (Iterator<Map<String, Object>> it = list.iterator(); it.hasNext();) {
 			Map<String, Object> map = it.next();
 			for (String idStr : idArr) {
-				if (Func.format(map.get(m_pId)) != "0" && idStr.equals(Func.format(map.get(m_pId)))) {
+				if (Func.toStr(map.get(m_pId)) != "0" && idStr.equals(Func.toStr(map.get(m_pId)))) {
 					recursionFn(list, map, linkedList, m_pId, m_id);
 				}
 			}

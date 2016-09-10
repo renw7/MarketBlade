@@ -20,7 +20,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
@@ -109,7 +108,9 @@ public class RoleController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping("/saveAuthority")
-	public AjaxResult saveAuthority(@RequestParam String ids, @RequestParam String roleId) {
+	public AjaxResult saveAuthority() {
+		String ids = getParameter("ids");
+		String roleId = getParameter("roleId");
 		String[] id = ids.split(",");
 		if (id.length <= 1) {
 			CacheKit.removeAll(ROLE_CACHE);
@@ -157,8 +158,8 @@ public class RoleController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(KEY_REMOVE)
-	public AjaxResult remove(@RequestParam String ids) {
-		int cnt = service.deleteByIds(ids);
+	public AjaxResult remove() {
+		int cnt = service.deleteByIds(getParameter("ids"));
 		if (cnt > 0) {
 			CacheKit.removeAll(ROLE_CACHE);
 			CacheKit.removeAll(MENU_CACHE);
@@ -170,8 +171,8 @@ public class RoleController extends BaseController{
 
 	@ResponseBody
 	@RequestMapping("/getPowerById")
-	public AjaxResult getPowerById(@RequestParam String id) {
-		int cnt = service.getParentCnt(id);
+	public AjaxResult getPowerById() {
+		int cnt = service.getParentCnt(getParameter("id"));
 		if (cnt > 0) {
 			return success("success");
 		} else {

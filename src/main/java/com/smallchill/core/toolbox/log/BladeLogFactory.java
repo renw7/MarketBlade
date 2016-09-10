@@ -80,7 +80,7 @@ public class BladeLogFactory implements ILog {
 			log.setMethod(msg);
 			log.setCreatetime(new Date());
 			log.setSucceed((succeed)?"1":"0");
-			log.setUserid(Func.format(user.getId()));
+			log.setUserid(Func.toStr(user.getId()));
 			log.setLogname(logName);
 			boolean temp = Blade.create(OperationLog.class).save(log);
 			return temp;

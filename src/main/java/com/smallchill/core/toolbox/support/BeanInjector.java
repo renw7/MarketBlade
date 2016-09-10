@@ -29,27 +29,10 @@ public class BeanInjector {
 		}
 	}
 
-	public static final <T> T inject(Class<T> beanClass, Map<String, Object> switchMap, HttpServletRequest request) {
-		try {
-			return BeanKit.mapToBeanIgnoreCase(BeanKit.map2Map(request.getParameterMap(), switchMap), beanClass);
-		} catch (Exception e) {
-			throw new RuntimeException(e.getMessage());
-		}
-	}
-
 	public static final <T> T inject(Class<T> beanClass, String recordName, HttpServletRequest request) {
 		try {
 			Map<String, Object> map = injectPara(recordName, request);
 			return BeanKit.mapToBeanIgnoreCase(map, beanClass);
-		} catch (Exception e) {
-			throw new RuntimeException(e.getMessage());
-		}
-	}
-
-	public static final <T> T inject(Class<T> beanClass, Map<String, Object> switchMap, String recordName, HttpServletRequest request) {
-		try {
-			Map<String, Object> map = injectPara(recordName, request);
-			return BeanKit.mapToBeanIgnoreCase(BeanKit.map2Map(map, switchMap), beanClass);
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
 		}
@@ -59,18 +42,9 @@ public class BeanInjector {
 		return Record.parse(request.getParameterMap());
 	}
 
-	public static final Record injectMaps(Map<String, Object> switchMap, HttpServletRequest request) {
-		return Record.parse(BeanKit.map2Map(request.getParameterMap(), switchMap));
-	}
-
 	public static final Record injectMaps(String recordName, HttpServletRequest request) {
 		Map<String, Object> map = injectPara(recordName, request);
 		return Record.parse(map);
-	}
-
-	public static final Record injectMaps(Map<String, Object> switchMap, String recordName, HttpServletRequest request) {
-		Map<String, Object> map = injectPara(recordName, request);
-		return Record.parse(BeanKit.map2Map(map, switchMap));
 	}
 
 	private static final Map<String, Object> injectPara(String recordName, HttpServletRequest request) {

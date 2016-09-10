@@ -78,7 +78,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			if (null != permissions) {
 				for (Map<String, Object> map : permissions) {
 					if (!Func.isEmpty(map.get("URL"))) {
-						urlSet.add(Func.format(map.get("URL")));
+						urlSet.add(Func.toStr(map.get("URL")));
 					}
 				}
 			}

@@ -1,7 +1,7 @@
 #Spring-Blade java开发平台
 ## 平台简介
 Spring-Blade是基于多个优秀的开源项目，高度整合封装而成的快速开发平台。（主要用于交流学习）  
-ps:因为喜欢刀锋战士所以取名了SpringBlade，当中有一个类也命名为Blade。
+PS:因为喜欢刀锋战士所以取名了SpringBlade，当中有一个类也命名为Blade。
 但是后来发现已经有了一个高人气的开源作品：Blade，作者是 王爵。
 很尴尬，不过还是需要在这儿声明一下。
 
@@ -11,6 +11,7 @@ ps:因为喜欢刀锋战士所以取名了SpringBlade，当中有一个类也命
 3.[hutool](http://www.oschina.net/p/hutool)
 4.[beetl](http://www.oschina.net/p/beetl)
 5.[dreamlu](http://www.oschina.net/p/dreamlu)
+6.[kisso](https://git.oschina.net/baomidou/kisso)
 
 ## 内置功能
 
@@ -217,7 +218,7 @@ public class Notice extends BaseModel {
 =======
 
 欢迎提出更好的意见，大家共同进步  
-SpringBlade主要用于交流学习，开源协议署名为smallchill的代码可以随便商用，随便改。  
+SpringBlade主要用于交流学习，开源协议署名为smallchill的代码也可以进行商用。  
 但是如果因为商业用途引起的纠纷和造成的一切后果请自行承担，谢谢。  
 登陆名密码：两个 admin
 

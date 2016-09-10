@@ -324,7 +324,7 @@ public class DateKit {
 		if(Func.isOracle()){
 			return "to_date('"+ value +"','yyyy-mm-dd HH24:MI:SS')";
 		}else{
-			return Func.format(value);
+			return Func.toStr(value);
 		}
 	}
 	

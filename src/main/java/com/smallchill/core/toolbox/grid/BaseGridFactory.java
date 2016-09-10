@@ -94,7 +94,7 @@ public abstract class BaseGridFactory implements IGrid{
 		}
 
 		Object list = null;
-		String orderBy = (Func.isEmpty(map.get(Const.ORDER_BY_STR))) ? " " : (" order by " + Func.format(map.get(Const.ORDER_BY_STR)));
+		String orderBy = (Func.isEmpty(map.get(Const.ORDER_BY_STR))) ? " " : (" order by " + Func.toStr(map.get(Const.ORDER_BY_STR)));
 		if(StrKit.notBlank(slaveName)){
 			list = Db.init(slaveName).paginate(statement + orderBy, Map.class, map, page, rows);			
 		} else {

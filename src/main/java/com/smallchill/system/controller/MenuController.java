@@ -151,8 +151,8 @@ public class MenuController extends BaseController implements ConstShiro{
 	@ResponseBody
 	@RequestMapping(KEY_DEL)
 	@Permission(ADMINISTRATOR)
-	public AjaxResult del(@RequestParam String ids) {
-		boolean temp = service.updateStatus(ids, 2);
+	public AjaxResult del() {
+		boolean temp = service.updateStatus(getParameter("ids"), 2);
 		if (temp) {
 			CacheKit.removeAll(MENU_CACHE);
 			return success(DEL_SUCCESS_MSG);

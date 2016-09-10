@@ -15,10 +15,7 @@
  */
 package com.smallchill.core.beetl.func;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Enumeration;
@@ -34,9 +31,12 @@ import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Record;
 import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.core.toolbox.kit.CharsetKit;
 import com.smallchill.core.toolbox.kit.DateKit;
 import com.smallchill.core.toolbox.kit.DateTimeKit;
 import com.smallchill.core.toolbox.kit.StrKit;
+import com.smallchill.core.toolbox.kit.URLKit;
+import com.smallchill.core.toolbox.support.Conver;
 
 /**
  * beetl注册工具类
@@ -254,19 +254,6 @@ public class BeetlExt {
 	}
 
 	/**
-	 * 格式化字符串 去掉前后空格
-	 * 
-	 * @param str
-	 * @return
-	 */
-	public String format(Object str) {
-		if (null == str) {
-			return null;
-		}
-		return str.toString().trim();
-	}
-
-	/**
 	 * 格式化文本
 	 * 
 	 * @param template
@@ -293,13 +280,26 @@ public class BeetlExt {
 	}
 
 	/**
+	 * 格式化字符串 去掉前后空格
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public String toStr(Object str) {
+		if (null == str) {
+			return null;
+		}
+		return str.toString().trim();
+	}
+
+	/**
 	 * 强转->int
 	 * 
 	 * @param obj
 	 * @return
 	 */
-	public int toInt(Object obj) {
-		return Integer.parseInt(obj.toString());
+	public int toInt(Object value) {
+		return toInt(value, -1);
 	}
 
 	/**
@@ -309,15 +309,8 @@ public class BeetlExt {
 	 * @param defaultValue
 	 * @return
 	 */
-	public int toInt(Object obj, int defaultValue) {
-		try {
-			if (isEmpty(obj)) {
-				return defaultValue;
-			}
-			return toInt(obj);
-		} catch (Exception ex) {
-			return defaultValue;
-		}
+	public int toInt(Object value, int defaultValue) {
+		return Conver.toInt(value, defaultValue);
 	}
 
 	/**
@@ -326,8 +319,8 @@ public class BeetlExt {
 	 * @param obj
 	 * @return
 	 */
-	public long toLong(Object obj) {
-		return Long.parseLong(obj.toString());
+	public long toLong(Object value) {
+		return toLong(value, -1);
 	}
 
 	/**
@@ -337,45 +330,16 @@ public class BeetlExt {
 	 * @param defaultValue
 	 * @return
 	 */
-	public long toLong(Object obj, long defaultValue) {
-		try {
-			if (isEmpty(obj)) {
-				return defaultValue;
-			}
-			return toLong(obj);
-		} catch (Exception ex) {
-			return defaultValue;
-		}
-	}
-
-	/**
-	 * 强转->double
-	 * 
-	 * @param obj
-	 * @return
-	 */
-	public double toDouble(Object obj) {
-		return Double.parseDouble(obj.toString());
+	public long toLong(Object value, long defaultValue) {
+		return Conver.toLong(value, defaultValue);
 	}
 
 	public String encodeUrl(String url) {
-		try {
-			url = isEmpty(url) ? "" : url;
-			url = URLEncoder.encode(url, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return url;
+		return URLKit.encode(url, CharsetKit.UTF_8);
 	}
 
 	public String decodeUrl(String url) {
-		try {
-			url = isEmpty(url) ? "" : url;
-			url = URLDecoder.decode(url, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return url;
+		return URLKit.decode(url, CharsetKit.UTF_8);
 	}
 
 	/**
@@ -507,8 +471,8 @@ public class BeetlExt {
 		String roleIn = "0";
 		String roleOut = "0";
 		if (!Func.isEmpty(userRole)) {
-			roleIn = Func.format(userRole.get("ROLEIN"));
-			roleOut = Func.format(userRole.get("ROLEOUT"));
+			roleIn = Func.toStr(userRole.get("ROLEIN"));
+			roleOut = Func.toStr(userRole.get("ROLEOUT"));
 		}
 		
 		final StringBuilder sql = new StringBuilder();
@@ -533,9 +497,9 @@ public class BeetlExt {
 		StringBuilder rightsb = new StringBuilder();
 		rightsb.append("<ul style=\"width: 200px;\">");
 		for (Map<String, Object> btn : btnList) {
-			rightsb.append("	<li id=\"rightMenu_" + Func.format(btn.get("CODE")).split("_")[1] + "\"> ");
-			rightsb.append("		<i class=\"ace-icon " + Func.format(btn.get("ICON")).split("\\|")[1].replace("bigger-120", "") + "\" style=\"width:15px;\"></i> ");
-			rightsb.append("		<span style=\"font-size:12px; font-family:Verdana;color:#777;padding-left:5px; \">" + Func.format(btn.get("NAME")) + "</span>");
+			rightsb.append("	<li id=\"rightMenu_" + Func.toStr(btn.get("CODE")).split("_")[1] + "\"> ");
+			rightsb.append("		<i class=\"ace-icon " + Func.toStr(btn.get("ICON")).split("\\|")[1].replace("bigger-120", "") + "\" style=\"width:15px;\"></i> ");
+			rightsb.append("		<span style=\"font-size:12px; font-family:Verdana;color:#777;padding-left:5px; \">" + Func.toStr(btn.get("NAME")) + "</span>");
 			rightsb.append("	</li>");
 		}
 		rightsb.append("<span style=\"padding:0px;margin:1px auto;display:block;clean:both;height:1px;border-top:1px dotted #B6C0C9;\"></span>");

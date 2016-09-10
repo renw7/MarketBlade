@@ -1,7 +1,6 @@
 package com.smallchill.test.example.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.plugins.dao.Blade;
@@ -40,24 +39,6 @@ public class ExampleBlade extends BladeController{
 		//自动映射前缀为notice.xx类型的数据
 		//uri : /notice/save?notice.f_vc_bt=123&notice.f_dt_cjsj=2016-02-02&notice.f_it_cjr=1
 		Notice notice = mapping("notice", Notice.class);
-		//根据model新增
-		int id = dao.saveRtId(notice);
-		//新增成功后自动返回id
-		System.out.println(id);
-	}
-	
-	public void saveAndSwitch(){
-		Blade dao = Blade.create(Notice.class);
-		//创建字段转换map,可将前端隐藏起来的数据库字段到后台自动映射为javabean
-		Map<String, Object> switchMap = Record.createHashMap();
-		switchMap.put("bt", "f_vc_bt");
-		switchMap.put("cjsj", "f_dt_cjsj");
-		switchMap.put("cjr", "f_it_cjr");
-		//自动映射前缀为notice.xx类型的数据
-		//uri : /notice/saveAndSwitch?notice.bt=123&notice.cjsj=2016-02-02&notice.cjr=1
-		//使用switchMap后等同为
-		//uri : /notice/saveAndSwitch?notice.f_vc_bt=123&notice.f_dt_cjsj=2016-02-02&notice.f_it_cjr=1
-		Notice notice = mapping("notice", switchMap, Notice.class);
 		//根据model新增
 		int id = dao.saveRtId(notice);
 		//新增成功后自动返回id

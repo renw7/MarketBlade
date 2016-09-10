@@ -75,7 +75,7 @@ public class ZTreeController extends BladeController {
 		String [] arr = val.split(",");
 		for(Map<String, Object> map : list){
 			for(String v : arr){
-				if(Func.format(map.get(key)).equals(v) && !v.equals("0")){
+				if(Func.toStr(map.get(key)).equals(v) && !v.equals("0")){
 					map.put("checked", "true");
 				}
 			}
@@ -114,8 +114,8 @@ public class ZTreeController extends BladeController {
 		String [] arr = val.split(",");
 		for(Map<String, Object> map : list){
 			for(String v : arr){
-				if(Func.format(map.get(key)).equals(v)){
-					name += Func.format(map.get("name")) + ",";
+				if(Func.toStr(map.get(key)).equals(v)){
+					name += Func.toStr(map.get("name")) + ",";
 				}
 			}
 		}

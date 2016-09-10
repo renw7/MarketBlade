@@ -96,12 +96,12 @@ public class ShiroUser implements Serializable {
 			}
 		});
 		
-		String[] subrolestr = Func.format(this.subRoles).split(",");
+		String[] subrolestr = Func.toStr(this.subRoles).split(",");
 		StringBuilder sbUser = new StringBuilder();
 		for (Map<String, Object> map : listUser) {
 			for (String str : subrolestr) {
-				if (Func.format(map.get("ROLEID")).indexOf(str) >= 0 && (("," + sbUser.toString() + ",").indexOf("," + Func.format(map.get("ID")) + ",") == -1)) {
-					Func.builder(sbUser, Func.format(map.get("ID")) + ",");
+				if (Func.toStr(map.get("ROLEID")).indexOf(str) >= 0 && (("," + sbUser.toString() + ",").indexOf("," + Func.toStr(map.get("ID")) + ",") == -1)) {
+					Func.builder(sbUser, Func.toStr(map.get("ID")) + ",");
 				}
 			}
 		}

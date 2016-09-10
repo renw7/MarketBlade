@@ -64,8 +64,8 @@ public class CacheController extends BladeController {
 		String roleIn = "0";
 		String roleOut = "0";
 		if (!Func.isEmpty(userRole)) {
-			roleIn = Func.format(userRole.get("ROLEIN"));
-			roleOut = Func.format(userRole.get("ROLEOUT"));
+			roleIn = Func.toStr(userRole.get("ROLEIN"));
+			roleOut = Func.toStr(userRole.get("ROLEOUT"));
 		}
 		final StringBuilder sql = new StringBuilder();
 		sql.append("select TFW_MENU.* ,(select name from TFW_MENU where code=#{code}) as PNAME  from TFW_MENU");
@@ -109,8 +109,8 @@ public class CacheController extends BladeController {
 		String roleIn = "0";
 		String roleOut = "0";
 		if (!Func.isEmpty(userRole)) {
-			roleIn = Func.format(userRole.get("ROLEIN"));
-			roleOut = Func.format(userRole.get("ROLEOUT"));
+			roleIn = Func.toStr(userRole.get("ROLEIN"));
+			roleOut = Func.toStr(userRole.get("ROLEOUT"));
 		}
 		final StringBuilder sql = new StringBuilder();
 		sql.append("select TFW_MENU.* ,(select name from TFW_MENU where code=#{code}) as PNAME  from TFW_MENU");

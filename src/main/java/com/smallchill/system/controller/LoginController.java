@@ -31,7 +31,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
@@ -74,7 +73,11 @@ public class LoginController extends BaseController implements Const{
 	@Before(LoginValidator.class)
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult login(HttpServletRequest request, HttpServletResponse response, @RequestParam("account") String account, @RequestParam("password") String password, @RequestParam("imgCode") String imgCode) {
+	public AjaxResult login(HttpServletRequest request, HttpServletResponse response) {
+		String account = getParameter("account");
+		String password = getParameter("password");
+		String imgCode = getParameter("imgCode");
+		
 		if (!Captcha.validate(request, response, imgCode)) {
 			return error("验证码错误");
 		}
@@ -136,7 +139,7 @@ public class LoginController extends BaseController implements Const{
 			log.setMethod(msg);
 			log.setCreatetime(new Date());
 			log.setSucceed("1");
-			log.setUserid(Func.format(ShiroKit.getUser().getId()));
+			log.setUserid(Func.toStr(ShiroKit.getUser().getId()));
 			Blade.create(LoginLog.class).save(log);
 		}catch(Exception ex){
 			LogKit.logNothing(ex);

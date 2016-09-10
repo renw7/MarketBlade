@@ -51,14 +51,15 @@
 					beforeClick: zTreeBeforeClick
 				}
 			};
-		$.post("${basePath}/cache/dicTreeList", function(data){
+		var ajax = new $ax("${basePath}/cache/dicTreeList", function(data){
 			if(data.code===0){
 				$.fn.zTree.init($("#zTree"), setting, data.data);
 			}
 			else{
 				layer_alert("数据加载失败", "error");
 			}
-		}, "json");
+		});
+		ajax.start();
 	}
 	
 	function zTreeBeforeClick(treeId, treeNode, clickFlag) {

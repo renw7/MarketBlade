@@ -106,7 +106,7 @@ public class DefaultShiroFactroy implements IShiro{
 				return Db.selectOne("select TIPS from tfw_role where id = #{id}", Record.create().set("id", roleId));
 			}
 		});
-		return Func.format(map.get("TIPS"));
+		return Func.toStr(map.get("TIPS"));
 	}
 
 	public SimpleAuthenticationInfo info(ShiroUser shiroUser, User user, String realmName) {

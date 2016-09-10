@@ -24,7 +24,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
@@ -198,8 +197,8 @@ public class UserController extends BaseController implements ConstShiro{
 	@ResponseBody
 	@RequestMapping(KEY_DEL)
 	@Permission({ ADMINISTRATOR, ADMIN })
-	public AjaxResult del(@RequestParam String ids) {
-		boolean temp = Blade.create(User.class).updateBy("status = #{status}", "id in (#{join(ids)})", Record.create().set("status", 5).set("ids", ids.split(",")));
+	public AjaxResult del() {
+		boolean temp = Blade.create(User.class).updateBy("status = #{status}", "id in (#{join(ids)})", Record.create().set("status", 5).set("ids", getParameter("ids").split(",")));
 		if (temp) {
 			return success(DEL_SUCCESS_MSG);
 		} else {
@@ -210,7 +209,8 @@ public class UserController extends BaseController implements ConstShiro{
 	@ResponseBody
 	@RequestMapping("/reset")
 	@Permission({ ADMINISTRATOR, ADMIN })
-	public AjaxResult reset(@RequestParam String ids) {
+	public AjaxResult reset() {
+		String ids = getParameter("ids");
 		Blade blade = Blade.create(User.class);
 		String [] idArr = ids.split(",");
 		int cnt = 0;
@@ -235,7 +235,8 @@ public class UserController extends BaseController implements ConstShiro{
 	
 	@ResponseBody
 	@RequestMapping("/auditOk")
-	public AjaxResult auditOk(@RequestParam String ids) {
+	public AjaxResult auditOk() {
+		String ids = getParameter("ids");
 		Blade blade = Blade.create(User.class);
 		Record countMap = Record.create().set("ids", ids.split(","));
 		int cnt = blade.count("id in (#{join(ids)}) and (roleId='' or roleId is null)", countMap);
@@ -253,7 +254,8 @@ public class UserController extends BaseController implements ConstShiro{
 	
 	@ResponseBody
 	@RequestMapping("/auditRefuse")
-	public AjaxResult auditRefuse(@RequestParam String ids) {
+	public AjaxResult auditRefuse() {
+		String ids = getParameter("ids");
 		Record updateMap = Record.create().set("status", 4).set("ids", ids.split(","));
 		boolean temp = Blade.create(User.class).updateBy("status = #{status}", "id in (#{join(ids)})", updateMap);
 		if (temp) {
@@ -265,7 +267,8 @@ public class UserController extends BaseController implements ConstShiro{
 	
 	@ResponseBody
 	@RequestMapping("/ban")
-	public AjaxResult ban(@RequestParam String ids) {
+	public AjaxResult ban() {
+		String ids = getParameter("ids");
 		Record updateMap = Record.create().set("ids", ids.split(","));
 		boolean temp = Blade.create(User.class).updateBy("status = (CASE WHEN STATUS=2 THEN 3 ELSE 2 END)", "id in (#{join(ids)})", updateMap);
 		if (temp) {
@@ -277,7 +280,8 @@ public class UserController extends BaseController implements ConstShiro{
 	
 	@ResponseBody
 	@RequestMapping("/restore")
-	public AjaxResult restore(@RequestParam String ids) {
+	public AjaxResult restore() {
+		String ids = getParameter("ids");
 		Record updateMap = Record.create().set("status", 3).set("ids", ids.split(","));
 		boolean temp = Blade.create(User.class).updateBy("status = #{status}", "id in (#{join(ids)})", updateMap);
 		if (temp) {
@@ -289,7 +293,8 @@ public class UserController extends BaseController implements ConstShiro{
 	
 	@ResponseBody
 	@RequestMapping(KEY_REMOVE)
-	public AjaxResult remove(@RequestParam String ids) {
+	public AjaxResult remove() {
+		String ids = getParameter("ids");
 		boolean temp = Blade.create(User.class).deleteByIds(ids) > 0;
 		if (temp) {
 			CacheKit.removeAll(USER_CACHE);
@@ -312,12 +317,13 @@ public class UserController extends BaseController implements ConstShiro{
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@ResponseBody
 	@RequestMapping("/menuTreeIn")
-	public AjaxResult menuTreeIn(@RequestParam String userId) {
+	public AjaxResult menuTreeIn() {
+		String userId = getParameter("userId");
 		Map<String, Object> roleIn = Db.selectOne("select ROLEIN from tfw_role_ext where userId = #{userId}", Record.create().set("userId",userId));
 		
 		String in = "0";
 		if (!Func.isEmpty(roleIn)) {
-			in = Func.format(roleIn.get("ROLEIN"));
+			in = Func.toStr(roleIn.get("ROLEIN"));
 		}
 		
 		StringBuilder sb = Func.builder(
@@ -332,15 +338,16 @@ public class UserController extends BaseController implements ConstShiro{
 		return json(menu);
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/menuTreeOut")
-	public AjaxResult menuTreeOut(@RequestParam String userId) {
-		Map<String, Object> roleOut = Db.selectOne("select ROLEOUT from tfw_role_ext where userId = #{userId}", Record.create().set("userId",userId));
+	public AjaxResult menuTreeOut() {
+		String userId = getParameter("userId");
+		Map roleOut = Db.selectOne("select ROLEOUT from tfw_role_ext where userId = #{userId}", Record.create().set("userId",userId));
 		
 		String out = "0";
 		if (!Func.isEmpty(roleOut)) {
-			out = Func.format(roleOut.get("ROLEOUT"));
+			out = Func.toStr(roleOut.get("ROLEOUT"));
 		}
 		
 		StringBuilder sb = Func.builder(
@@ -390,7 +397,9 @@ public class UserController extends BaseController implements ConstShiro{
 	
 	@ResponseBody
 	@RequestMapping("/saveRole")
-	public AjaxResult saveRole(@RequestParam String id, @RequestParam String roleIds) {
+	public AjaxResult saveRole() {
+		String id = getParameter("id");
+		String roleIds = getParameter("roleIds");
 		Record rd = Record.create();
 		rd.set("roleIds", roleIds).set("id", id.split(","));
 		boolean temp = Blade.create(User.class).updateBy("ROLEID = #{roleIds}", "id in (#{join(id)})", rd);

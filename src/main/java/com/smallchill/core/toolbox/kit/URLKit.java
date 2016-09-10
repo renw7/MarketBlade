@@ -10,8 +10,6 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 import com.smallchill.core.exception.ToolBoxException;
-import com.smallchill.core.toolbox.kit.ClassKit;
-import com.smallchill.core.toolbox.kit.StrKit;
 
 /**
  * 统一资源定位符相关工具类

@@ -25,11 +25,10 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.smallchill.core.annotation.Before;
 import com.smallchill.core.interfaces.Interceptor;
+import com.smallchill.core.toolbox.kit.HttpKit;
 
 
 
@@ -47,7 +46,7 @@ public class BeforeAop {
 
 	@Around("cutBefore()")
 	public Object doBefore(ProceedingJoinPoint point) throws Throwable {
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		HttpServletRequest request = HttpKit.getRequest();
 		MethodSignature ms = (MethodSignature) point.getSignature();
 		Method method = ms.getMethod();
 		Object[] args = point.getArgs();

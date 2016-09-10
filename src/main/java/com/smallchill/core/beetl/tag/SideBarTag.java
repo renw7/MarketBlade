@@ -102,14 +102,14 @@ public class SideBarTag extends Tag {
 					String addtabs = Func.isEmpty(side.get("URL")) ? "" : "data-addtabs=\"" + side.get("CODE") + "\"";
 
 					firstMenu += "<li >";
-					firstMenu += "	<a data-url=\"" + href + "\" " + addtabs + " data-title=\"" + side.get("NAME") + "\" data-icon=\"fa " + side.get("ICON") + "\" class=\"" + getDropDownClass(Func.format(side.get("CODE")),"dropdown-toggle") + " tmsp-pointer\">";
+					firstMenu += "	<a data-url=\"" + href + "\" " + addtabs + " data-title=\"" + side.get("NAME") + "\" data-icon=\"fa " + side.get("ICON") + "\" class=\"" + getDropDownClass(Func.toStr(side.get("CODE")),"dropdown-toggle") + " tmsp-pointer\">";
 					firstMenu += "		<i class=\"menu-icon fa " + side.get("ICON") + "\"></i>";
 					firstMenu += "		<span class=\"menu-text\">" + side.get("NAME") + "</span>";
-					firstMenu += "		<b class=\"arrow " + getDropDownClass(Func.format(side.get("CODE")),"fa fa-angle-down") + "\"></b>";
+					firstMenu += "		<b class=\"arrow " + getDropDownClass(Func.toStr(side.get("CODE")),"fa fa-angle-down") + "\"></b>";
 					firstMenu += "	</a>";
 					firstMenu += "	<b class=\"arrow\"></b>";
 
-					subMenu = this.reloadMenu(sideBar, Func.format(side.get("CODE")), firstMenu, 1, ctxPath);// 寻找子菜单
+					subMenu = this.reloadMenu(sideBar, Func.toStr(side.get("CODE")), firstMenu, 1, ctxPath);// 寻找子菜单
 
 					sb.append(subMenu);
 				}

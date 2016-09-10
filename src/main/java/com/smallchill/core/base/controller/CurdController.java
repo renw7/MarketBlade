@@ -23,7 +23,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -55,7 +54,6 @@ public abstract class CurdController<M> extends BaseController {
 	private Map<String, Object> switchMap;
 	private Map<String, String> renderMap;
 	private Map<String, String> sourceMap;
-	private Map<String, Object> reverseMap;
 
 	@SuppressWarnings("unchecked")
 	private Class<M> getClazz() {
@@ -73,7 +71,6 @@ public abstract class CurdController<M> extends BaseController {
 		this.renderMap = metaFactory.renderMap();
 		this.sourceMap = metaFactory.sourceMap();
 		this.intercept = Singleton.create(metaFactory.intercept());
-		this.reverseMap = reverseMap();
 	}
 
 	public CurdController() {
@@ -138,7 +135,6 @@ public abstract class CurdController<M> extends BaseController {
 			intercept.renderEditBefore(ac);
 		}
 		view.addObject("code", controllerKey);
-		view.addObject("_model", autoReverse(rd));
 		view.addObject("model", JsonKit.toJson(rd));
 		return view;
 	}
@@ -161,7 +157,6 @@ public abstract class CurdController<M> extends BaseController {
 			intercept.renderViewBefore(ac);
 		}
 		view.addObject("code", controllerKey);
-		view.addObject("_model", autoReverse(rd));
 		view.addObject("model", JsonKit.toJson(rd));
 		return view;
 	}
@@ -202,7 +197,8 @@ public abstract class CurdController<M> extends BaseController {
 
 	@ResponseBody
 	@RequestMapping(KEY_REMOVE)
-	public AjaxResult remove(@RequestParam String ids) {
+	public AjaxResult remove() {
+		String ids = getParameter("ids");
 		boolean temp = service.deleteByIds(ctrl, ids, modelClass, intercept);
 		if (temp) {
 			if (null != intercept) {
@@ -219,7 +215,8 @@ public abstract class CurdController<M> extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping(KEY_DEL)
-	public AjaxResult del(@RequestParam String ids) {
+	public AjaxResult del() {
+		String ids = getParameter("ids");
 		boolean temp = service.delByIds(ctrl, ids, modelClass, intercept);
 		if (temp) {
 			if (null != intercept) {
@@ -236,7 +233,8 @@ public abstract class CurdController<M> extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping(KEY_RESTORE)
-	public AjaxResult restore(@RequestParam String ids) {
+	public AjaxResult restore() {
+		String ids = getParameter("ids");
 		boolean temp = service.restoreByIds(ctrl, ids, modelClass, intercept);
 		if (temp) {
 			if (null != intercept) {
@@ -254,16 +252,16 @@ public abstract class CurdController<M> extends BaseController {
 	@ResponseBody
 	@RequestMapping(KEY_LIST)
 	public Object list() {
-		Integer page = getParameterToInt("page");
-		Integer rows = getParameterToInt("rows");
-		String where = getParameter("where");
-		String sidx = getParameter("sidx");
-		String sord = getParameter("sord");
-		String sort = getParameter("sort");
-		String order = getParameter("order");
+		Integer page = getParameterToInt("page", 1);
+		Integer rows = getParameterToInt("rows", 10);
+		String where = getParameter("where", StrKit.EMPTY);
+		String sidx =  getParameter("sidx", StrKit.EMPTY);
+		String sord =  getParameter("sord", StrKit.EMPTY);
+		String sort =  getParameter("sort", StrKit.EMPTY);
+		String order =  getParameter("order", StrKit.EMPTY);
 		if (StrKit.notBlank(sidx)) {
 			sort = sidx + " " + sord
-					+ (StrKit.notBlank(sort) ? ("," + sort) : "");
+					+ (StrKit.notBlank(sort) ? ("," + sort) : StrKit.EMPTY);
 		}
 		if (StrKit.isBlank(sourceMap.get(KEY_INDEX))) {
 			throw new RuntimeException(modelClass.getName() + "没有配置数据源！");
@@ -282,44 +280,10 @@ public abstract class CurdController<M> extends BaseController {
 	protected M autoMapping() {
 		if (Func.isAllEmpty(paraPerfix, switchMap)) {
 			return mapping(modelClass);
-		} else if (Func.isEmpty(paraPerfix) && !Func.isEmpty(switchMap)) {
-			return mapping(switchMap, modelClass);
-		} else if (Func.isEmpty(switchMap) && !Func.isEmpty(paraPerfix)) {
+		}else if (Func.isEmpty(switchMap) && !Func.isEmpty(paraPerfix)) {
 			return mapping(paraPerfix, modelClass);
 		} else {
-			return mapping(paraPerfix, switchMap, modelClass);
-		}
-	}
-
-	/**
-	 * 将返回的model根据switchMap实现自动翻转
-	 * 
-	 * @param model
-	 * @return Object
-	 */
-	protected Map<String, Object> autoReverse(Object model) {
-		if (Func.isEmpty(reverseMap)) {
-			return reverse(model);
-		} else {
-			return reverse(reverseMap, model);
-		}
-	}
-
-	/**
-	 * 翻转bean
-	 * 
-	 * @param switchMap
-	 *            翻转map
-	 * @param model
-	 *            bean
-	 * @return Map<String,Object>
-	 */
-	protected Map<String, Object> reverseBean(Map<String, Object> reverseMap,
-			Object model) {
-		if (Func.isEmpty(reverseMap)) {
-			return reverse(model);
-		} else {
-			return reverse(reverseMap, model);
+			return null;
 		}
 	}
 

@@ -25,13 +25,12 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.smallchill.core.annotation.Permission;
 import com.smallchill.core.exception.NoPermissionException;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.check.PermissionCheckManager;
+import com.smallchill.core.toolbox.kit.HttpKit;
 
 /**
  * AOP 权限自定义检查
@@ -47,12 +46,12 @@ public class PermissionAop {
 
 	@Around("cutPermission()")
 	public Object doPermission(ProceedingJoinPoint point) throws Throwable {
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		HttpServletRequest request = HttpKit.getRequest();
 		MethodSignature ms = (MethodSignature) point.getSignature();
 		Method method = ms.getMethod();
 		Permission permission = method.getAnnotation(Permission.class);
 		Object[] permissions = permission.value();
-		if ((permissions.length == 1 && Func.format(permissions[0]).equals("ALL"))
+		if ((permissions.length == 1 && Func.toStr(permissions[0]).equals("ALL"))
 				|| permissions == null || permissions.length == 0) {
 			//检查全体角色
 			boolean result = PermissionCheckManager.checkAll(request);

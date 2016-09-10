@@ -53,14 +53,16 @@
 					}
 				}
 			};
-		$.post("${basePath}/user/userTreeList", function(data){
-			if(data.code===0){
+		
+		var ajax = new $ax("${basePath}/user/userTreeList", function(data){
+			if(data.code === 0){
 				$.fn.zTree.init($("#zTree"), setting, data.data);
 			}
 			else{
 				layer_alert("数据加载失败", "error");
 			}
-		}, "json");
+		});
+		ajax.start();
 	}
 	
 </script>

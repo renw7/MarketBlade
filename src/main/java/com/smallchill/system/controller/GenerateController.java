@@ -12,7 +12,6 @@ import org.beetl.sql.core.db.TableDesc;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.core.base.controller.CurdController;
@@ -59,7 +58,8 @@ public class GenerateController extends CurdController<Generate> {
 	
 	@ResponseBody
 	@RequestMapping("/code")
-	public AjaxResult gencode(@RequestParam String ids){
+	public AjaxResult gencode(){
+		String ids = getParameter("ids");
 		List<Generate> list = Blade.create(Generate.class).findBy("id in (#{join(ids)})", Record.create().set("ids", ids.split(",")));
 
 		for (Generate gen : list) {

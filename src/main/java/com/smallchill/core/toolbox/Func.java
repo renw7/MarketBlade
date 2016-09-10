@@ -15,12 +15,7 @@
  */
 package com.smallchill.core.toolbox;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -30,15 +25,16 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.smallchill.common.vo.User;
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.constant.ConstConfig;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.core.toolbox.kit.CharsetKit;
 import com.smallchill.core.toolbox.kit.StrKit;
+import com.smallchill.core.toolbox.kit.URLKit;
+import com.smallchill.core.toolbox.support.Conver;
 import com.smallchill.system.model.Dept;
 import com.smallchill.system.model.Dict;
 import com.smallchill.system.model.Parameter;
@@ -272,19 +268,6 @@ public class Func {
 	}
 
 	/**
-	 * 格式化字符串 去掉前后空格
-	 * 
-	 * @param str
-	 * @return
-	 */
-	public static String format(Object str) {
-		if (null == str) {
-			return "";
-		}
-		return str.toString().trim();
-	}
-
-	/**
 	 * 格式化文本
 	 * 
 	 * @param template
@@ -311,13 +294,26 @@ public class Func {
 	}
 
 	/**
+	 * 格式化字符串 去掉前后空格
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static String toStr(Object str) {
+		if (null == str) {
+			return "";
+		}
+		return str.toString().trim();
+	}
+
+	/**
 	 * 强转->int
 	 * 
 	 * @param obj
 	 * @return
 	 */
-	public static int toInt(Object obj) {
-		return toInt(obj, -1);
+	public static int toInt(Object value) {
+		return toInt(value, -1);
 	}
 
 	/**
@@ -327,15 +323,8 @@ public class Func {
 	 * @param defaultValue
 	 * @return
 	 */
-	public static int toInt(Object obj, int defaultValue) {
-		try {
-			if (isEmpty(obj)) {
-				return defaultValue;
-			}
-			return Integer.parseInt(obj.toString());
-		} catch (Exception ex) {
-			return defaultValue;
-		}
+	public static int toInt(Object value, int defaultValue) {
+		return Conver.toInt(value, defaultValue);
 	}
 
 	/**
@@ -344,8 +333,8 @@ public class Func {
 	 * @param obj
 	 * @return
 	 */
-	public static long toLong(Object obj) {
-		return toLong(obj, -1);
+	public static long toLong(Object value) {
+		return toLong(value, -1);
 	}
 
 	/**
@@ -355,45 +344,16 @@ public class Func {
 	 * @param defaultValue
 	 * @return
 	 */
-	public static long toLong(Object obj, long defaultValue) {
-		try {
-			if (isEmpty(obj)) {
-				return defaultValue;
-			}
-			return Long.parseLong(obj.toString());
-		} catch (Exception ex) {
-			return defaultValue;
-		}
-	}
-
-	/**
-	 * 强转->double
-	 * 
-	 * @param obj
-	 * @return
-	 */
-	public static double toDouble(Object obj) {
-		return Double.parseDouble(obj.toString());
+	public static long toLong(Object value, long defaultValue) {
+		return Conver.toLong(value, defaultValue);
 	}
 
 	public static String encodeUrl(String url) {
-		try {
-			url = isEmpty(url) ? "" : url;
-			url = URLEncoder.encode(url, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return url;
+		return URLKit.encode(url, CharsetKit.UTF_8);
 	}
 
 	public static String decodeUrl(String url) {
-		try {
-			url = isEmpty(url) ? "" : url;
-			url = URLDecoder.decode(url, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return url;
+		return URLKit.decode(url, CharsetKit.UTF_8);
 	}
 
 	/**
@@ -451,33 +411,6 @@ public class Func {
 		for (String str : strs) {
 			sb.append(str);
 		}
-	}
-
-	/**
-	 * 功能描述: 生成sql占位符 ?,?,?
-	 * 
-	 * @param size
-	 * @return String
-	 */
-	public static String sqlHolder(int size) {
-		String[] paras = new String[size];
-		Arrays.fill(paras, "?");
-		return StringUtils.join(paras, ',');
-	}
-
-	/**
-	 * 生成sql占位符所需的list
-	 * 
-	 * @param ids
-	 * @return List<Object>
-	 */
-	public static List<Object> listHolder(String ids) {
-		final List<Object> parameters = new ArrayList<Object>();
-		String[] idarr = ids.split(",");
-		for (int i = 0; i < idarr.length; i++) {
-			parameters.add(idarr[i]);
-		}
-		return parameters;
 	}
 
 	/**

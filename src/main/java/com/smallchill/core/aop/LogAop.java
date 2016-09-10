@@ -14,13 +14,12 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.core.annotation.DoLog;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
+import com.smallchill.core.toolbox.kit.HttpKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.log.LogManager;
 
@@ -57,7 +56,7 @@ public class LogAop {
 		Object[] params = point.getArgs();
 		StringBuilder sb = new StringBuilder();
 		Enumeration<String> paraNames = null;
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		HttpServletRequest request = HttpKit.getRequest();
 		if (params != null && params.length > 0) {
 			paraNames = request.getParameterNames();
 			String key;

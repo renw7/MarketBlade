@@ -124,8 +124,8 @@ public class ExcelController extends BladeController{
 					}
 				});
 		for (Map<String, Object> _menu : menu) {
-			if (code.equals(Func.format(_menu.get("CODE")))) {
-				String _info = Func.format(_menu.get(col));
+			if (code.equals(Func.toStr(_menu.get("CODE")))) {
+				String _info = Func.toStr(_menu.get(col));
 				return _info;
 			}
 		}

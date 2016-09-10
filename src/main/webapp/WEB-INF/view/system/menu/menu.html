@@ -59,23 +59,16 @@
 					beforeClick: zTreeBeforeClick
 				}
 			};
-		
-		
-			$.ajax({
-	            type: "post",
-	            url: "${basePath}/cache/menuTreeList",
-	            contentType: "application/json; charset=utf-8",
-	            dataType: "json",
-	            success: function(data) {
-	            	if(data.code===0){
-						$.fn.zTree.init($("#zTree"), setting, data.data);
-					}
-					else{
-						layer_alert("数据加载失败", "error");
-					}
-	            }
-	        });
-
+			
+			var ajax = new $ax("${basePath}/cache/menuTreeList", function(data){
+            	if(data.code === 0){
+					$.fn.zTree.init($("#zTree"), setting, data.data);
+				}
+				else{
+					layer_alert("数据加载失败", "error");
+				}
+			});
+			ajax.start();
 
 	}
 	
