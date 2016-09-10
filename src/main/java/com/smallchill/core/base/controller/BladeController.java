@@ -101,6 +101,10 @@ public class BladeController implements ConstCurd, ConstCache {
 		return Conver.toLong(getRequest().getParameter(name), defaultValue);
 	}
 
+	public String getParameterToEncode(String para) {
+		return URLKit.encode(getRequest().getParameter(para), CharsetKit.UTF_8);
+	}
+
 	public String getParameterToDecode(String para) {
 		return URLKit.decode(getRequest().getParameter(para), CharsetKit.UTF_8);
 	}
