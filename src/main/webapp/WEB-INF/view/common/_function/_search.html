@@ -124,28 +124,28 @@
 		    }
 		    if (type.indexOf("select_") >= 0) {
 		        var code = type.replace("select_", "");
-		        $.post("${basePath}/cache/getSelect", { code: code, num: num }, function (data) {
+		        $.post("${ctxPath}/cache/getSelect", { code: code, num: num }, function (data) {
 		            if (data.code === 0) {
 		                $("#divinput" + num).html(data.data);
 		            }
 		        }, "json");
 		    }
 		    else if (type == "selectDept") {
-		        $.post("${basePath}/cache/getDeptSelect", { num: num }, function (data) {
+		        $.post("${ctxPath}/cache/getDeptSelect", { num: num }, function (data) {
 		            if (data.code === 0) {
 		                $("#divinput" + num).html(data.data);
 		            }
 		        }, "json");
 		    }
 		    else if (type == "selectUser") {
-		        $.post("${basePath}/cache/getUserSelect", { num: num }, function (data) {
+		        $.post("${ctxPath}/cache/getUserSelect", { num: num }, function (data) {
 		            if (data.code === 0) {
 		                $("#divinput" + num).html(data.data);
 		            }
 		        }, "json");
 		    }
 		    else if (type == "selectRole") {
-		        $.post("${basePath}/cache/getRoleSelect", { num: num }, function (data) {
+		        $.post("${ctxPath}/cache/getRoleSelect", { num: num }, function (data) {
 		            if (data.code === 0) {
 		                $("#divinput" + num).html(data.data);
 		            }
@@ -182,7 +182,7 @@
         	    area: ["250", "420px"],
         	    fix: false, //不固定
         	    maxmin: true,
-        	    content: "${basePath}/ztree/open/"+type+"/"+index+"/"+name+"/0/radio/0"
+        	    content: "${ctxPath}/ztree/open/"+type+"/"+index+"/"+name+"/0/radio/0"
         	});
 		}
 		
