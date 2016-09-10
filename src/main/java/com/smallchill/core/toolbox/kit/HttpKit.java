@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.smallchill.core.waf.request.WafRequestWrapper;
+import com.smallchill.core.toolbox.support.WafRequestWrapper;
 
 public class HttpKit {
 

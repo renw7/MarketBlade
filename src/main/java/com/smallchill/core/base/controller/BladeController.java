@@ -52,7 +52,7 @@ import com.smallchill.core.toolbox.kit.URLKit;
 import com.smallchill.core.toolbox.log.LogManager;
 import com.smallchill.core.toolbox.support.BeanInjector;
 import com.smallchill.core.toolbox.support.Conver;
-import com.smallchill.core.waf.request.WafRequestWrapper;
+import com.smallchill.core.toolbox.support.WafRequestWrapper;
 
 /**
  * @author James Zhan, Chill Zhuang

@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.smallchill.core.waf.request;
+package com.smallchill.core.toolbox.support;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-import com.smallchill.core.waf.WafHelper;
+import com.smallchill.core.toolbox.kit.StrKit;
+import com.smallchill.core.toolbox.kit.WafKit;
 
 /**
  * Request请求过滤包装
@@ -137,15 +138,15 @@ public class WafRequestWrapper extends HttpServletRequestWrapper {
 	 * @return
 	 */
 	protected String filterParamString(String rawValue) {
-		if (rawValue == null) {
-			return null;
+		if (StrKit.isBlank(rawValue)) {
+			return StrKit.EMPTY;
 		}
 		String tmpStr = rawValue;
 		if (this.filterXSS) {
-			tmpStr = WafHelper.stripXSS(rawValue);
+			tmpStr = WafKit.stripXSS(rawValue);
 		}
 		if (this.filterSQL) {
-			tmpStr = WafHelper.stripSqlInjection(tmpStr);
+			tmpStr = WafKit.stripSqlInjection(tmpStr);
 		}
 		return tmpStr;
 	}
