@@ -62,7 +62,7 @@ public class Db {
 	 * @param p
 	 * @return 返回更新条数
 	 */
-	public int executeUpdate(SQLReady p){
+	public static int executeUpdate(SQLReady p){
 		return getDbManager().executeUpdate(p);
 	}
 	
