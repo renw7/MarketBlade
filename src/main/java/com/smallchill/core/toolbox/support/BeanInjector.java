@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.smallchill.core.constant.Const;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Record;
+import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.kit.BeanKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 
@@ -38,13 +38,13 @@ public class BeanInjector {
 		}
 	}
 	
-	public static final Record injectMaps(HttpServletRequest request) {
-		return Record.parse(request.getParameterMap());
+	public static final Paras injectMaps(HttpServletRequest request) {
+		return Paras.parse(request.getParameterMap());
 	}
 
-	public static final Record injectMaps(String recordName, HttpServletRequest request) {
+	public static final Paras injectMaps(String recordName, HttpServletRequest request) {
 		Map<String, Object> map = injectPara(recordName, request);
-		return Record.parse(map);
+		return Paras.parse(map);
 	}
 
 	private static final Map<String, Object> injectPara(String recordName, HttpServletRequest request) {

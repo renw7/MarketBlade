@@ -31,7 +31,7 @@ import com.smallchill.core.constant.Const;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.plugins.connection.ConnectionPlugin;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Record;
+import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.support.BladePage;
 
 @SuppressWarnings({"unchecked","rawtypes"})
@@ -146,7 +146,7 @@ public class Blade {
 	 * @return
 	 */
 	public Map findOneColBy(String columns){
-		List<Map> list = getSqlManager().execute(getSelectSql(columns) + getFromSql(), Map.class, Record.create(), 1, 1);
+		List<Map> list = getSqlManager().execute(getSelectSql(columns) + getFromSql(), Map.class, Paras.create(), 1, 1);
 		if(list.size() == 0){
 			return null;
 		} else {
@@ -177,7 +177,7 @@ public class Blade {
 	 * @return
 	 */
 	public List<Map> findColBy(String columns){
-		List<Map> list = getSqlManager().execute(getSelectSql(columns) + getFromSql(), Map.class, Record.create());
+		List<Map> list = getSqlManager().execute(getSelectSql(columns) + getFromSql(), Map.class, Paras.create());
 		return list;
 	}
 	
@@ -249,7 +249,7 @@ public class Blade {
 	 * @return
 	 */
 	public <T> List<T> findTop(int topNum, String sqlTemplate) {
-		List<T> list = (List<T>) getSqlManager().execute(sqlTemplate, this.modelClass, Record.create(), 1, topNum);
+		List<T> list = (List<T>) getSqlManager().execute(sqlTemplate, this.modelClass, Paras.create(), 1, topNum);
 		return list;
 	}
 	
@@ -430,13 +430,13 @@ public class Blade {
 		if(Cst.me().isOptimisticLock()){
 			// 1.数据是否还存在
 			String sqlExist = new StringBuffer("select * from ").append(table).append(" where ").append(pk).append(" = #{idValue} ").toString();
-			Map modelOld = Db.init(dbName).selectOne(sqlExist, Record.create().set("idValue", idValue));
+			Map modelOld = Db.init(dbName).selectOne(sqlExist, Paras.create().set("idValue", idValue));
 			// 数据已经被删除
 			if (null == modelOld) { 
 				throw new RuntimeException("数据库中此数据不存在，可能数据已经被删除，请刷新数据后在操作");
 			}
 			// 2.乐观锁控制
-			Record modelForm = Record.parse(model);
+			Paras modelForm = Paras.parse(model);
 			if (modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase()) != null) { // 是否需要乐观锁控制
 				int versionDB = Func.toInt(modelOld.get(Const.OPTIMISTIC_LOCK.toLowerCase())); // 数据库中的版本号
 				int versionForm = Func.toInt(modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase())); // 表单中的版本号
@@ -472,13 +472,13 @@ public class Blade {
 		if(Cst.me().isOptimisticLock()){
 			// 1.数据是否还存在
 			String sqlExist = new StringBuffer("select * from ").append(table).append(" where ").append(pk).append(" = #{idValue} ").toString();
-			Map modelOld = Db.init(dbName).selectOne(sqlExist, Record.create().set("idValue", idValue));
+			Map modelOld = Db.init(dbName).selectOne(sqlExist, Paras.create().set("idValue", idValue));
 			// 数据已经被删除
 			if (null == modelOld) { 
 				throw new RuntimeException("数据库中此数据不存在，可能数据已经被删除，请刷新数据后在操作");
 			}
 			// 2.乐观锁控制
-			Record modelForm = Record.parse(model);
+			Paras modelForm = Paras.parse(model);
 			if (modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase()) != null) { // 是否需要乐观锁控制
 				int versionDB = Func.toInt(modelOld.get(Const.OPTIMISTIC_LOCK.toLowerCase())); // 数据库中的版本号
 				int versionForm = Func.toInt(modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase())); // 表单中的版本号
@@ -560,7 +560,7 @@ public class Blade {
 	 */
 	public int deleteByIds(String ids) {
 		String sqlTemplate = getDeleteSql(this.table, this.pk);
-		Record paras = Record.create().set("ids", ids.split(","));
+		Paras paras = Paras.create().set("ids", ids.split(","));
 		int result = getSqlManager().executeUpdate(sqlTemplate, paras);
 		return result;
 	}
@@ -573,7 +573,7 @@ public class Blade {
 	 */
 	public int deleteByCols(String col, String ids) {
 		String sqlTemplate = getDeleteSql(this.table, col);
-		Record paras = Record.create().set("ids", ids.split(","));
+		Paras paras = Paras.create().set("ids", ids.split(","));
 		int result = getSqlManager().executeUpdate(sqlTemplate, paras);
 		return result;
 	}
@@ -587,7 +587,7 @@ public class Blade {
 	 */
 	public int deleteTableByCols(String table, String col, String ids) {
 		String sqlTemplate = getDeleteSql(table, col);
-		Record paras = Record.create().set("ids", ids.split(","));
+		Paras paras = Paras.create().set("ids", ids.split(","));
 		int result = getSqlManager().executeUpdate(sqlTemplate, paras);
 		return result;
 	}

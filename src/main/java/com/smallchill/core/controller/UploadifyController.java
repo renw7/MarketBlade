@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.plugins.dao.Db;
-import com.smallchill.core.toolbox.Record;
+import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.file.BladeFile;
 import com.smallchill.core.toolbox.file.FileRender;
 import com.smallchill.core.toolbox.file.UploadFileUtils;
@@ -28,8 +28,8 @@ public class UploadifyController extends BladeController {
 	
 	@ResponseBody
 	@RequestMapping("/upload")
-	public Record upload(@RequestParam("imgFile") MultipartFile file) {
-		Record rd = Record.create();
+	public Paras upload(@RequestParam("imgFile") MultipartFile file) {
+		Paras rd = Paras.create();
 		if (null == file) {
 			rd.set("error", 1);
 			rd.set("message", "请选择要上传的图片");

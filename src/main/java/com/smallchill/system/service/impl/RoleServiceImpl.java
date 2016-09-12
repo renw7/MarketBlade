@@ -21,7 +21,7 @@ import com.smallchill.core.base.service.BaseService;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Record;
+import com.smallchill.core.toolbox.Paras;
 import com.smallchill.system.model.Role;
 import com.smallchill.system.service.RoleService;
 
@@ -32,7 +32,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 	public int findLastNum(String id) {
 		try{
 			Blade blade = Blade.create(Role.class);
-			Role rloe = blade.findFirstBy("pId = #{pId} order by num desc", Record.create().set("pId", id));
+			Role rloe = blade.findFirstBy("pId = #{pId} order by num desc", Paras.create().set("pId", id));
 			return rloe.getNum() + 1;
 		}
 		catch(Exception ex){
@@ -80,7 +80,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 		if (Func.isOracle()) {
 			sb.append(" from dual");
 		}
-		Object cnt = Db.selectOne(sb.toString(), Record.create().set("id", id)).get("CNT");
+		Object cnt = Db.selectOne(sb.toString(), Paras.create().set("id", id)).get("CNT");
 		return Func.toInt(cnt, 0);
 	}
 

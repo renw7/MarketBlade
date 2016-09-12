@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.core.plugins.dao.Blade;
-import com.smallchill.core.toolbox.Record;
+import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
@@ -84,7 +84,7 @@ public class DictController extends BaseController{
 		Dict dict = blade.findById(id);
 		Dict parent = blade.findById(dict.getPid());
 		String pName = (null == parent) ? "" : parent.getName();
-		Record rd = Record.parse(dict);
+		Paras rd = Paras.parse(dict);
 		rd.set("pName", pName);
 		mm.put("model", JsonKit.toJson(rd));
 		mm.put("code", CODE);
@@ -134,7 +134,7 @@ public class DictController extends BaseController{
 	private int findLastNum(String code){
 		try{
 			Blade blade = Blade.create(Dict.class);
-			Dict dict = blade.findFirstBy("code = #{code} order by num desc", Record.create().set("code", code));
+			Dict dict = blade.findFirstBy("code = #{code} order by num desc", Paras.create().set("code", code));
 			return dict.getNum() + 1;
 		}
 		catch(Exception ex){

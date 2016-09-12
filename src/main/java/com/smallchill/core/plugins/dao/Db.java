@@ -22,7 +22,7 @@ import org.beetl.sql.core.SQLReady;
 
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.interfaces.IQuery;
-import com.smallchill.core.toolbox.Record;
+import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.support.BladePage;
 
 @SuppressWarnings("rawtypes")
@@ -156,28 +156,6 @@ public class Db {
 	}
 	
 	/**
-	 * 获取一条数据
-	 * @param tableName	 表名
-	 * @param where		 条件
-	 * @param modelOrMap 实体类或map
-	 * @return
-	 */
-	public static Map selectOneBy(String tableName, String where, Object modelOrMap){
-		return getDbManager().selectOneBy(tableName, where, modelOrMap);
-	}
-	
-	/**
-	 * 获取list map
-	 * @param tableName	 表名
-	 * @param where		 条件
-	 * @param modelOrMap 实体类或map
-	 * @return
-	 */
-	public static List<Map> selectListBy(String tableName, String where, Object modelOrMap){
-		return getDbManager().selectListBy(tableName, where, modelOrMap);
-	}
-	
-	/**
 	 * 获取Integer
 	 * @param sqlTemplate	sql语句
 	 * @param modelOrMap	实体类或map
@@ -265,22 +243,22 @@ public class Db {
 	 * 新增一条数据
 	 * @param tableName	表名
 	 * @param pk		主键名
-	 * @param rd		rd
+	 * @param ps		参数
 	 * @return
 	 */
-	public static int save(String tableName, String pk, Record rd) {
-		return getDbManager().save(tableName, pk, rd);
+	public static int save(String tableName, String pk, Paras ps) {
+		return getDbManager().save(tableName, pk, ps);
 	}
 	
 	/**
 	 * 修改一条数据
 	 * @param tableName	表名
 	 * @param pk		主键名
-	 * @param rd		map
+	 * @param ps		参数
 	 * @return
 	 */
-	public static int update(String tableName, String pk, Record rd) {
-		return getDbManager().update(tableName, pk, rd);
+	public static int update(String tableName, String pk, Paras ps) {
+		return getDbManager().update(tableName, pk, ps);
 	}
 	
 	/**

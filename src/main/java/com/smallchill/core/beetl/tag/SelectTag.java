@@ -30,7 +30,7 @@ import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Record;
+import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.ClassKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
@@ -56,7 +56,7 @@ public class SelectTag extends Tag {
 			String inter = param.get("intercept");
 			String sql = "";
 			
-			Map<String, Object> modelOrMap = Record.createHashMap();
+			Map<String, Object> modelOrMap = Paras.createHashMap();
 			
 			IQuery intercept = Cst.me().getDefaultQueryFactory();
 			

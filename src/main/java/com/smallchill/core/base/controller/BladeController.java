@@ -41,7 +41,7 @@ import com.smallchill.core.exception.NoPermissionException;
 import com.smallchill.core.exception.NoUserException;
 import com.smallchill.core.interfaces.IQuery;
 import com.smallchill.core.shiro.ShiroKit;
-import com.smallchill.core.toolbox.Record;
+import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.file.BladeFile;
 import com.smallchill.core.toolbox.grid.GridManager;
@@ -144,7 +144,7 @@ public class BladeController implements ConstCurd, ConstCache {
 	 * 
 	 * @return Maps
 	 */
-	public Record getRecord() {
+	public Paras getRecord() {
 		return paraMapsInject();
 	}
 
@@ -154,7 +154,7 @@ public class BladeController implements ConstCurd, ConstCache {
 	 * @param paraPerfix  name前缀
 	 * @return Maps
 	 */
-	public Record getRecord(String paraPerfix) {
+	public Paras getRecord(String paraPerfix) {
 		return paraMapsInject(paraPerfix);
 	}
 	
@@ -166,11 +166,11 @@ public class BladeController implements ConstCurd, ConstCache {
 		return (T) BeanInjector.inject(beanClass, paraPerfix, getRequest());
 	}
 	
-	private Record paraMapsInject() {
+	private Paras paraMapsInject() {
 		return BeanInjector.injectMaps(getRequest());
 	}
 
-	private Record paraMapsInject(String paraPerfix) {
+	private Paras paraMapsInject(String paraPerfix) {
 		return BeanInjector.injectMaps(paraPerfix, getRequest());
 	}
 	

@@ -4,7 +4,7 @@ import com.smallchill.common.vo.User;
 import com.smallchill.core.aop.Invocation;
 import com.smallchill.core.intercept.BladeValidator;
 import com.smallchill.core.plugins.dao.Blade;
-import com.smallchill.core.toolbox.Record;
+import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.kit.StrKit;
 
 public class ExampleValidator extends BladeValidator{
@@ -37,7 +37,7 @@ public class ExampleValidator extends BladeValidator{
 		if (StrKit.isBlank(account)) {
 			addError("请输入账号!");
 		}
-		if (Blade.create(User.class).isExist("SELECT * FROM tfw_user WHERE account = #{account} and status=1", Record.create().set("account", account))) {
+		if (Blade.create(User.class).isExist("SELECT * FROM tfw_user WHERE account = #{account} and status=1", Paras.create().set("account", account))) {
 			addError(errorMessage);
 		}
 	}

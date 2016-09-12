@@ -32,7 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.plugins.dao.Db;
-import com.smallchill.core.toolbox.Record;
+import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.file.BladeFile;
 import com.smallchill.core.toolbox.file.FileRender;
@@ -45,8 +45,8 @@ public class KindEditorController extends BladeController {
 	
 	@ResponseBody
 	@RequestMapping("/upload_json")
-	public Record upload_json(@RequestParam("imgFile") MultipartFile file) {
-		Record rd = Record.create();
+	public Paras upload_json(@RequestParam("imgFile") MultipartFile file) {
+		Paras rd = Paras.create();
 		if (null == file) {
 			rd.set("error", 1);
 			rd.set("message", "请选择要上传的图片");
@@ -108,7 +108,7 @@ public class KindEditorController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/initfile")
 	public AjaxResult initfile(@RequestParam String ids) {
-		List<Map> file = Db.selectList("select ID as \"id\",NAME as \"name\",URL as \"url\" from TFW_ATTACH where ID in (#{join(ids)})", Record.create().set("ids", ids.split(",")));
+		List<Map> file = Db.selectList("select ID as \"id\",NAME as \"name\",URL as \"url\" from TFW_ATTACH where ID in (#{join(ids)})", Paras.create().set("ids", ids.split(",")));
 		if (null != file) {
 			return json(file);
 		} else {

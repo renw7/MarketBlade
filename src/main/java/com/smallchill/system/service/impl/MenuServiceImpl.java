@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 
 import com.smallchill.core.base.service.BaseService;
 import com.smallchill.core.plugins.dao.Blade;
-import com.smallchill.core.toolbox.Record;
+import com.smallchill.core.toolbox.Paras;
 import com.smallchill.system.model.Menu;
 import com.smallchill.system.service.MenuService;
 
@@ -30,7 +30,7 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 	public int findLastNum(String code) {
 		try{
 			Blade blade = Blade.create(Menu.class);
-			Menu menu = blade.findFirstBy("pCode = #{pCode} order by num desc", Record.create().set("pCode", code));
+			Menu menu = blade.findFirstBy("pCode = #{pCode} order by num desc", Paras.create().set("pCode", code));
 			return menu.getNum() + 1;
 		}
 		catch(Exception ex){
@@ -42,13 +42,13 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 	public boolean isExistCode(String code) {
 		Blade blade = Blade.create(Menu.class);
 		String sql = "select * from tfw_menu where code = #{code}";
-		boolean temp = blade.isExist(sql, Record.create().set("code", code));
+		boolean temp = blade.isExist(sql, Paras.create().set("code", code));
 		return temp;
 	}
 
 	@Override
 	public boolean updateStatus(String ids, Object status) {
-		Record paras = Record.create().set("status", status).set("ids", ids.split(","));
+		Paras paras = Paras.create().set("status", status).set("ids", ids.split(","));
 		/*SQLManager sql = Blade.dao();
 		int cnt = sql.executeUpdate("update tfw_menu set status=#{status} where id in (#{join(ids)})", paras);
 		return cnt > 0;*/

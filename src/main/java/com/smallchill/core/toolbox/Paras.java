@@ -20,17 +20,17 @@ import com.smallchill.core.toolbox.support.Conver;
  * 
  */
 @SuppressWarnings("serial")
-public class Record extends HashMap<String, Object> {
+public class Paras extends HashMap<String, Object> {
 
 	/**
-	 * 创建Record
-	 * @return Record
+	 * 创建Paras
+	 * @return Paras
 	 */
-	public static Record create() {
-		return new Record();
+	public static Paras create() {
+		return new Paras();
 	}
 
-	private Record(){
+	private Paras(){
 		
 	}
 	
@@ -49,7 +49,7 @@ public class Record extends HashMap<String, Object> {
 	 * @param bean Bean对象
 	 * @return Vo
 	 */
-	public static <T> Record parse(T bean) {
+	public static <T> Paras parse(T bean) {
 		return create().parseBean(bean);
 	}
 
@@ -61,7 +61,7 @@ public class Record extends HashMap<String, Object> {
 	 *            值对象
 	 * @return Vo
 	 */
-	public static <T> Record parse(Map<String, Object> map) {
+	public static <T> Paras parse(Map<String, Object> map) {
 		return create().parseMap(map);
 	}
 
@@ -102,7 +102,7 @@ public class Record extends HashMap<String, Object> {
 	 * @param bean 值对象
 	 * @return 自己
 	 */
-	public <T> Record parseBean(T bean) {
+	public <T> Paras parseBean(T bean) {
 		this.putAll(BeanKit.beanToMap(bean));
 		return this;
 	}
@@ -116,7 +116,7 @@ public class Record extends HashMap<String, Object> {
 	 *            值对象
 	 * @return 自己
 	 */
-	public <T> Record parseMap(Map<String, Object> map) {
+	public <T> Paras parseMap(Map<String, Object> map) {
 		this.putAll(map);
 		return this;
 	}
@@ -125,10 +125,10 @@ public class Record extends HashMap<String, Object> {
 	 * 与给定实体对比并去除相同的部分<br>
 	 * 此方法用于在更新操作时避免所有字段被更新，跳过不需要更新的字段
 	 * version from 2.0.0
-	 * @param Record
+	 * @param Paras
 	 * @param withoutNames 不需要去除的字段名
 	 */
-	public <T extends Record> void removeEqual(T map, String... withoutNames) {
+	public <T extends Paras> void removeEqual(T map, String... withoutNames) {
 		HashSet<String> withoutSet = new HashSet<String>();
 		for (String name : withoutNames) {
 			withoutSet.add(name);
@@ -153,10 +153,22 @@ public class Record extends HashMap<String, Object> {
 	 * @param value 值
 	 * @return 本身
 	 */
-	public Record set(String attr, Object value) {
-		this.put(attr, value);
+	public Paras set(String attr, Object value) {
+		return this.put(attr, value);
+	}
+	
+	/**
+	 * 设置列
+	 * @param attr 属性
+	 * @param value 值
+	 * @return 本身
+	 */
+	@Override
+	public Paras put(String attr, Object value) {
+		super.put(attr, value);
 		return this;
 	}
+	
 	
 	/**
 	 * 设置列，当键或值为null时忽略
@@ -164,7 +176,7 @@ public class Record extends HashMap<String, Object> {
 	 * @param value 值
 	 * @return 本身
 	 */
-	public Record setIgnoreNull(String attr, Object value) {
+	public Paras setIgnoreNull(String attr, Object value) {
 		if(null != attr && null != value) {
 			set(attr, value);
 		}
@@ -282,8 +294,8 @@ public class Record extends HashMap<String, Object> {
 	//-------------------------------------------------------------------- 特定类型值
 	
 	@Override
-	public Record clone() {
-		return (Record) super.clone();
+	public Paras clone() {
+		return (Paras) super.clone();
 	}
 	
 	//-------------------------------------------------------------------- 特定类型值

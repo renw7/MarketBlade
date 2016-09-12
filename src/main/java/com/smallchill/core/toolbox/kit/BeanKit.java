@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 
 import com.smallchill.core.exception.ToolBoxException;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Record;
+import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.support.Conver;
 
 /**
@@ -207,7 +207,7 @@ public class BeanKit {
 		if (bean == null) {
 			return null;
 		}
-		if(bean.getClass().equals(Record.class)){
+		if(bean.getClass().equals(Paras.class)){
 			return (Map<String, Object>) bean;
 		}
 		Map<String, Object> map = new HashMap<String, Object>();

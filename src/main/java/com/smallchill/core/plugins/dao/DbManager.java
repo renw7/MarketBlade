@@ -27,7 +27,7 @@ import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.IQuery;
 import com.smallchill.core.plugins.connection.ConnectionPlugin;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Record;
+import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.support.BladePage;
 
@@ -127,7 +127,7 @@ public class DbManager {
 	 * @return
 	 */
 	public Map selectOne(String sqlTemplate){
-		return queryMap(sqlTemplate, Record.create());
+		return queryMap(sqlTemplate, Paras.create());
 	}
 	
 	/**
@@ -161,7 +161,7 @@ public class DbManager {
 	 * @return
 	 */
 	public List<Map> selectList(String sqlTemplate){	
-		return queryListMap(sqlTemplate, Record.create());
+		return queryListMap(sqlTemplate, Paras.create());
 	}
 	
 	/**
@@ -192,7 +192,7 @@ public class DbManager {
 	 * @return
 	 */
 	public Map findById(String tableName, String pkValue) {
-		return selectOneBy(tableName, "id = #{id}", Record.create().set("id", pkValue));
+		return selectOneBy(tableName, "id = #{id}", Paras.create().set("id", pkValue));
 	}
 	
 	/**
@@ -203,7 +203,7 @@ public class DbManager {
 	 * @return
 	 */
 	public Map findById(String tableName, String pk, String pkValue) {
-		return selectOneBy(tableName, pk + " = #{id}", Record.create().set("id", pkValue));
+		return selectOneBy(tableName, pk + " = #{id}", Paras.create().set("id", pkValue));
 	}
 	
 	/**
@@ -213,21 +213,9 @@ public class DbManager {
 	 * @param modelOrMap 实体类或map
 	 * @return
 	 */
-	public Map selectOneBy(String tableName, String where, Object modelOrMap){
+	private Map selectOneBy(String tableName, String where, Object modelOrMap){
 		String sqlTemplate = Func.format("select * from {} where {} ", tableName, where);
 		return selectOne(sqlTemplate, modelOrMap);
-	}
-	
-	/**
-	 * 获取list map
-	 * @param tableName	 表名
-	 * @param where		 条件
-	 * @param modelOrMap 实体类或map
-	 * @return
-	 */
-	public List<Map> selectListBy(String tableName, String where, Object modelOrMap){
-		String sqlTemplate = Func.format("select * from {} where {} ", tableName, where);
-		return selectList(sqlTemplate, modelOrMap);
 	}
 	
 	/**
@@ -354,37 +342,37 @@ public class DbManager {
 	 * 新增一条数据
 	 * @param tableName	表名
 	 * @param pk		主键名
-	 * @param rd		rd
+	 * @param ps		参数
 	 * @return
 	 */
-	public int save(String tableName, String pk, Record rd) {
+	public int save(String tableName, String pk, Paras ps) {
 		if(Func.isOneEmpty(tableName, pk)){
 			throw new RuntimeException("表名或主键不能为空!");
 		}
 		String mainSql = " insert into {} ({}) values ({})";
 		pk = (String) Func.getValue(pk, "ID");
 		if(Func.isOracle()){
-			String pkValue = rd.getStr(pk);
+			String pkValue = ps.getStr(pk);
 			if(pkValue.indexOf(".nextval") > 0){
 				Map<String, Object> map = selectOne("select " + pkValue + " as PK from dual");
 				Object val = map.get("PK");
-				rd.set(pk, val);
+				ps.set(pk, val);
 			}
 		}
 		StringBuilder fields = new StringBuilder();
 		StringBuilder values = new StringBuilder();
-		for(String key : rd.keySet()){
+		for(String key : ps.keySet()){
 			fields.append(key + ",");
 			values.append("#{" + key + "},");
 		}
 		String sqlTemplate = Func.format(mainSql, tableName, StrKit.removeSuffix(fields.toString(), ","), StrKit.removeSuffix(values.toString(), ","));
-		int cnt = insert(sqlTemplate, rd);
+		int cnt = insert(sqlTemplate, ps);
 		if(cnt > 0 && Func.isMySql()){
-			Object pkValue = rd.get(pk);
+			Object pkValue = ps.get(pk);
 			if(Func.isEmpty(pkValue)){
 				Map<String, Object> map = selectOne(" select LAST_INSERT_ID() as PK ");
 				Object val = map.get("PK");
-				rd.set(pk, val);
+				ps.set(pk, val);
 			}
 		}
 		return cnt;
@@ -394,23 +382,23 @@ public class DbManager {
 	 * 修改一条数据
 	 * @param tableName	表名
 	 * @param pk		主键名
-	 * @param rd		map
+	 * @param ps		参数
 	 * @return
 	 */
-	public int update(String tableName, String pk, Record rd) {
+	public int update(String tableName, String pk, Paras ps) {
 		if(Func.isOneEmpty(tableName, pk)){
 			throw new RuntimeException("表名或主键不能为空!");
 		}
 		pk = (String) Func.getValue(pk, "ID");
 		String mainSql = " update {} set {} where {} = #{" + pk + "}";
 		StringBuilder fields = new StringBuilder();
-		for(String key : rd.keySet()){
+		for(String key : ps.keySet()){
 			if(!key.equals(pk)){
 				fields.append(key + " = #{" + key + "},");
 			}
 		}
 		String sqlTemplate = Func.format(mainSql, tableName, StrKit.removeSuffix(fields.toString(), ","), pk);
-		return update(sqlTemplate, rd);
+		return update(sqlTemplate, ps);
 	}
 	
 	/**
@@ -422,7 +410,7 @@ public class DbManager {
 	 */
 	public int deleteByIds(String table, String col, String ids) {
 		String sqlTemplate = " DELETE FROM " + table + " WHERE " + col + " IN (#{join(ids)}) ";
-		Record paras = Record.create().set("ids", ids.split(","));
+		Paras paras = Paras.create().set("ids", ids.split(","));
 		int result = getSqlManager().executeUpdate(sqlTemplate, paras);
 		return result;
 	}

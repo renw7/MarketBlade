@@ -18,7 +18,7 @@ import com.smallchill.core.interfaces.IQuery;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Record;
+import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.ClassKit;
@@ -50,7 +50,7 @@ public class ZTreeController extends BladeController {
 	public AjaxResult getTreeList(@RequestParam String type, @RequestParam String source, @RequestParam String where, @RequestParam String intercept, @RequestParam String ext, @RequestParam String val) {	
 		final String sqlSource = getSql(type, source);
 		
-		Map<String, Object> params = Record.createHashMap();
+		Map<String, Object> params = Paras.createHashMap();
 		if(!where.equals("0")){
 			params = JsonKit.parse(where, Map.class);
 		}
@@ -92,7 +92,7 @@ public class ZTreeController extends BladeController {
 		
 		final String sqlSource = getSql(type, source);
 		
-		Map<String, Object> params = Record.createHashMap();
+		Map<String, Object> params = Paras.createHashMap();
 		if(StrKit.notBlank(where)){
 			params = JsonKit.parse(where, Map.class);
 		}

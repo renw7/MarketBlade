@@ -34,7 +34,7 @@ import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.service.CurdService;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Record;
+import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.core.toolbox.kit.StrKit;
@@ -120,7 +120,7 @@ public abstract class CurdController<M> extends BaseController {
 	@RequestMapping(KEY_EDIT + "/{id}")
 	public ModelAndView edit(@PathVariable String id) {
 		ModelAndView view = new ModelAndView(renderMap.get(KEY_EDIT));
-		Record rd = Record.create();
+		Paras rd = Paras.create();
 		if (StrKit.isBlank(sourceMap.get(KEY_EDIT))) {
 			M model = Blade.create(modelClass).findById(id);
 			rd.parseBean(model);
@@ -142,7 +142,7 @@ public abstract class CurdController<M> extends BaseController {
 	@RequestMapping(KEY_VIEW + "/{id}")
 	public ModelAndView view(@PathVariable String id) {
 		ModelAndView view = new ModelAndView(renderMap.get(KEY_VIEW));
-		Record rd = Record.create();
+		Paras rd = Paras.create();
 		if (StrKit.isBlank(sourceMap.get(KEY_VIEW))) {
 			M model = Blade.create(modelClass).findById(id);
 			rd.parseBean(model);

@@ -35,7 +35,7 @@ import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Record;
+import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
@@ -136,10 +136,10 @@ public class MenuController extends BaseController implements ConstShiro{
 		boolean temp = service.update(menu);
 		if (temp) {
 			if(Func.equals(menu.getUrl(), "")){
-				service.updateBy("url = ''", "id = #{id}", Record.create().set("id", menu.getId()));
+				service.updateBy("url = ''", "id = #{id}", Paras.create().set("id", menu.getId()));
 			}
 			if(Func.equals(menu.getTips(), "")){
-				service.updateBy("tips = ''", "id = #{id}", Record.create().set("id", menu.getId()));
+				service.updateBy("tips = ''", "id = #{id}", Paras.create().set("id", menu.getId()));
 			}
 			CacheKit.removeAll(MENU_CACHE);
 			return success(UPDATE_SUCCESS_MSG);
@@ -200,7 +200,7 @@ public class MenuController extends BaseController implements ConstShiro{
 		Map<String, Object> userRole = CacheKit.get(MENU_CACHE, "role_ext_" + userId, new ILoader() {
 			@Override
 			public Object load() {
-				return Db.selectOne("select * from TFW_ROLE_EXT where USERID=#{userId}", Record.create().set("userId", userId));
+				return Db.selectOne("select * from TFW_ROLE_EXT where USERID=#{userId}", Paras.create().set("userId", userId));
 			}
 		}); 
 
@@ -208,7 +208,7 @@ public class MenuController extends BaseController implements ConstShiro{
 		String roleIn = "0";
 		String roleOut = "0";
 		if (!Func.isEmpty(userRole)) {
-			Record rd = Record.parse(userRole);
+			Paras rd = Paras.parse(userRole);
 			roleIn = rd.getStr("ROLEIN");
 			roleOut = rd.getStr("ROLEOUT");
 		}

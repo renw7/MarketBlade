@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.core.plugins.dao.Blade;
-import com.smallchill.core.toolbox.Record;
+import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
@@ -83,7 +83,7 @@ public class DeptController extends BaseController{
 		Dept Dept = blade.findById(id);
 		Dept parent = blade.findById(Dept.getPid());
 		String pName = (null == parent) ? "" : parent.getSimplename();
-		Record rd = Record.parse(Dept);
+		Paras rd = Paras.parse(Dept);
 		rd.set("pName", pName);
 		mm.put("model", JsonKit.toJson(rd));
 		mm.put("code", CODE);
@@ -138,7 +138,7 @@ public class DeptController extends BaseController{
 	private int findLastNum(String id){
 		try{
 			Blade blade = Blade.create(Dept.class);
-			Dept dept = blade.findFirstBy("pId = #{pId} order by num desc", Record.create().set("pId", id));
+			Dept dept = blade.findFirstBy("pId = #{pId} order by num desc", Paras.create().set("pId", id));
 			return dept.getNum() + 1;
 		}
 		catch(Exception ex){

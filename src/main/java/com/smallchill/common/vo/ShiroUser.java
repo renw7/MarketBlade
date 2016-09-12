@@ -23,7 +23,7 @@ import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Record;
+import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.CollectionKit;
 import com.smallchill.core.toolbox.kit.StrKit;
@@ -58,13 +58,13 @@ public class ShiroUser implements Serializable {
 		String subDepts = null;
 		if (Func.isOracle()) {
 			deptSql = "select wm_concat(ID) subDepts from (select ID,PID,SIMPLENAME from TFW_DEPT start with ID in (#{join(deptIds)}) connect by prior ID=PID order by ID) a where a.ID not in (#{join(deptIds)})";
-			subDepts = Db.queryStr(deptSql, Record.create().set("deptIds", deptId.toString().split(",")));
+			subDepts = Db.queryStr(deptSql, Paras.create().set("deptIds", deptId.toString().split(",")));
 		} else {
 			String[] arr = deptId.toString().split(",");
 			StringBuilder sb = new StringBuilder();
 			for (String deptid : arr) {
 				deptSql = "select queryChildren(#{deptid},'tfw_dept') as subdepts";
-				String str = Db.queryStr(deptSql, Record.create().set("deptid", deptid));
+				String str = Db.queryStr(deptSql, Paras.create().set("deptid", deptid));
 				sb.append(str).append(",");
 			}
 			subDepts = StrKit.removeSuffix(sb.toString(), ",");
@@ -76,12 +76,12 @@ public class ShiroUser implements Serializable {
 		String subRoles = null;
 		if (Func.isOracle()) {
 			roleSql = "select wm_concat(ID) subRoles from (select ID,PID,NAME from TFW_ROLE start with ID in (#{join(roleIds)}) connect by prior ID=PID order by ID) a where a.ID not in (#{join(roleIds)})";
-			subRoles = Db.queryStr(roleSql, Record.create().set("roleIds", roleList));
+			subRoles = Db.queryStr(roleSql, Paras.create().set("roleIds", roleList));
 		} else {
 			StringBuilder sb = new StringBuilder();
 			for (String roleid : roleList) {
 				roleSql = "SELECT queryChildren(#{deptid},'tfw_role') as subroles";
-				String str = Db.queryStr(roleSql, Record.create().set("deptid", roleid));
+				String str = Db.queryStr(roleSql, Paras.create().set("deptid", roleid));
 				sb.append(str).append(",");
 			}
 			subRoles = StrKit.removeSuffix(sb.toString(), ",");
