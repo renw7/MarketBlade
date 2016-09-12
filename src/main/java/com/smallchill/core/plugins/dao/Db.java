@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.beetl.sql.core.SQLReady;
+import org.beetl.sql.core.SQLResult;
 
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.interfaces.IQuery;
@@ -69,31 +70,31 @@ public class Db {
 	/**
 	 * 根据sql新增数据
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public static int insert(String sqlTemplate, Object modelOrMap){
-		return getDbManager().insert(sqlTemplate, modelOrMap);
+	public static int insert(String sqlTemplate, Object paras){
+		return getDbManager().insert(sqlTemplate, paras);
 	}
 	
 	/**
 	 * 根据sql修改数据
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public static int update(String sqlTemplate, Object modelOrMap){
-		return getDbManager().update(sqlTemplate, modelOrMap);
+	public static int update(String sqlTemplate, Object paras){
+		return getDbManager().update(sqlTemplate, paras);
 	}
 	
 	/**
 	 * 根据sql删除数据
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public static int delete(String sqlTemplate, Object modelOrMap){
-		return getDbManager().delete(sqlTemplate, modelOrMap);
+	public static int delete(String sqlTemplate, Object paras){
+		return getDbManager().delete(sqlTemplate, paras);
 	}
 	
 	/**
@@ -108,11 +109,11 @@ public class Db {
 	/**
 	 * 获取一条数据
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public static Map selectOne(String sqlTemplate, Object modelOrMap){
-		return getDbManager().selectOne(sqlTemplate, modelOrMap);
+	public static Map selectOne(String sqlTemplate, Object paras){
+		return getDbManager().selectOne(sqlTemplate, paras);
 	}
 	
 	/**
@@ -127,11 +128,11 @@ public class Db {
 	/**
 	 * 获取多条数据
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public static List<Map> selectList(String sqlTemplate, Object modelOrMap){	
-		return getDbManager().selectList(sqlTemplate, modelOrMap);
+	public static List<Map> selectList(String sqlTemplate, Object paras){	
+		return getDbManager().selectList(sqlTemplate, paras);
 	}
 	
 	/**
@@ -158,46 +159,46 @@ public class Db {
 	/**
 	 * 获取Integer
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public static Integer queryInt(String sqlTemplate, Object modelOrMap){
-		return getDbManager().queryInt(sqlTemplate, modelOrMap);
+	public static Integer queryInt(String sqlTemplate, Object paras){
+		return getDbManager().queryInt(sqlTemplate, paras);
 	}
 	
 	/**
 	 * 获取Integer集合
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public static List<Integer> queryListInt(String sqlTemplate, Object modelOrMap){
-		return getDbManager().queryListInt(sqlTemplate, modelOrMap);
+	public static List<Integer> queryListInt(String sqlTemplate, Object paras){
+		return getDbManager().queryListInt(sqlTemplate, paras);
 	}
 	
 	/**
 	 * 获取字符串
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public static String queryStr(String sqlTemplate, Object modelOrMap){
-		return getDbManager().queryStr(sqlTemplate, modelOrMap);
+	public static String queryStr(String sqlTemplate, Object paras){
+		return getDbManager().queryStr(sqlTemplate, paras);
 	}
 	
 	/**
 	 * 获取字符串集合
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public static List<String> queryListStr(String sqlTemplate, Object modelOrMap){
-		return getDbManager().queryListStr(sqlTemplate, modelOrMap);
+	public static List<String> queryListStr(String sqlTemplate, Object paras){
+		return getDbManager().queryListStr(sqlTemplate, paras);
 	}
 	
 	/** 查询aop返回单条数据
 	 * @param sqlTemplate
-	 * @param modelOrMap
+	 * @param paras
 	 * @param ac
 	 * @return
 	 */
@@ -207,7 +208,7 @@ public class Db {
 	
 	/**查询aop返回多条数据
 	 * @param sqlTemplate
-	 * @param modelOrMap
+	 * @param paras
 	 * @param ac
 	 * @return
 	 */
@@ -217,7 +218,7 @@ public class Db {
 	
 	/** 查询aop返回单条数据
 	 * @param sqlTemplate
-	 * @param modelOrMap
+	 * @param paras
 	 * @param ac
 	 * @param intercept
 	 * @return
@@ -228,7 +229,7 @@ public class Db {
 	
 	/**查询aop返回多条数据
 	 * @param sqlTemplate
-	 * @param modelOrMap
+	 * @param paras
 	 * @param ac
 	 * @param intercept
 	 * @return
@@ -243,22 +244,22 @@ public class Db {
 	 * 新增一条数据
 	 * @param tableName	表名
 	 * @param pk		主键名
-	 * @param ps		参数
+	 * @param paras		参数
 	 * @return
 	 */
-	public static int save(String tableName, String pk, Paras ps) {
-		return getDbManager().save(tableName, pk, ps);
+	public static int save(String tableName, String pk, Paras paras) {
+		return getDbManager().save(tableName, pk, paras);
 	}
 	
 	/**
 	 * 修改一条数据
 	 * @param tableName	表名
 	 * @param pk		主键名
-	 * @param ps		参数
+	 * @param paras		参数
 	 * @return
 	 */
-	public static int update(String tableName, String pk, Paras ps) {
-		return getDbManager().update(tableName, pk, ps);
+	public static int update(String tableName, String pk, Paras paras) {
+		return getDbManager().update(tableName, pk, paras);
 	}
 	
 	/**
@@ -330,8 +331,8 @@ public class Db {
 	 * @param paras
 	 * @return
 	 */
-	public static boolean isExist(String sqlTemplate, Object modelOrMap) {
-		return getDbManager().isExist(sqlTemplate, modelOrMap);
+	public static boolean isExist(String sqlTemplate, Object paras) {
+		return getDbManager().isExist(sqlTemplate, paras);
 	}
 	
 	/**
@@ -339,7 +340,17 @@ public class Db {
 	 * @param sqlId
 	 * @return
 	 */
-	public static String getSql(String sqlId){
+	public String getSql(String sqlId) {
 		return getDbManager().getSql(sqlId);
+	}
+	
+	/**
+	 * 根据sqlId获取beetlsql的sql语句
+	 * @param sqlId
+	 * @param paras
+	 * @return
+	 */
+	public static SQLResult getSQLResult(String sqlId, Object paras){
+		return getDbManager().getSQLResult(sqlId, paras);
 	}
 }

@@ -21,6 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.SQLReady;
+import org.beetl.sql.core.SQLResult;
 
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.Cst;
@@ -94,31 +95,31 @@ public class DbManager {
 	/**
 	 * 根据sql新增数据
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public int insert(String sqlTemplate, Object modelOrMap){
-		return getSqlManager().executeUpdate(sqlTemplate, modelOrMap);
+	public int insert(String sqlTemplate, Object paras){
+		return getSqlManager().executeUpdate(sqlTemplate, paras);
 	}
 	
 	/**
 	 * 根据sql修改数据
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public int update(String sqlTemplate, Object modelOrMap){
-		return getSqlManager().executeUpdate(sqlTemplate, modelOrMap);
+	public int update(String sqlTemplate, Object paras){
+		return getSqlManager().executeUpdate(sqlTemplate, paras);
 	}
 	
 	/**
 	 * 根据sql删除数据
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public int delete(String sqlTemplate, Object modelOrMap){
-		return getSqlManager().executeUpdate(sqlTemplate, modelOrMap);
+	public int delete(String sqlTemplate, Object paras){
+		return getSqlManager().executeUpdate(sqlTemplate, paras);
 	}
 	
 	/**
@@ -133,21 +134,21 @@ public class DbManager {
 	/**
 	 * 获取一条数据
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public Map selectOne(String sqlTemplate, Object modelOrMap){
-		return queryMap(sqlTemplate, modelOrMap);
+	public Map selectOne(String sqlTemplate, Object paras){
+		return queryMap(sqlTemplate, paras);
 	}
 	
 	/**
 	 * 获取一条数据
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	private Map queryMap(String sqlTemplate, Object modelOrMap){
-		List<Map> list = getSqlManager().execute(sqlTemplate, Map.class, modelOrMap, 1, 1);
+	private Map queryMap(String sqlTemplate, Object paras){
+		List<Map> list = getSqlManager().execute(sqlTemplate, Map.class, paras, 1, 1);
 		if(list.size() == 0){
 			return null;
 		} else {
@@ -167,21 +168,21 @@ public class DbManager {
 	/**
 	 * 获取多条数据
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public List<Map> selectList(String sqlTemplate, Object modelOrMap){	
-		return queryListMap(sqlTemplate, modelOrMap);
+	public List<Map> selectList(String sqlTemplate, Object paras){	
+		return queryListMap(sqlTemplate, paras);
 	}
 	
 	/**
 	 * 获取多条数据
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	private List<Map> queryListMap(String sqlTemplate, Object modelOrMap){
-		List<Map> list = getSqlManager().execute(sqlTemplate, Map.class, modelOrMap);
+	private List<Map> queryListMap(String sqlTemplate, Object paras){
+		List<Map> list = getSqlManager().execute(sqlTemplate, Map.class, paras);
 		return list;
 	}
 	
@@ -210,22 +211,22 @@ public class DbManager {
 	 * 获取一条数据
 	 * @param tableName	 表名
 	 * @param where		 条件
-	 * @param modelOrMap 实体类或map
+	 * @param paras 实体类或map
 	 * @return
 	 */
-	private Map selectOneBy(String tableName, String where, Object modelOrMap){
+	private Map selectOneBy(String tableName, String where, Object paras){
 		String sqlTemplate = Func.format("select * from {} where {} ", tableName, where);
-		return selectOne(sqlTemplate, modelOrMap);
+		return selectOne(sqlTemplate, paras);
 	}
 	
 	/**
 	 * 获取Integer
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public Integer queryInt(String sqlTemplate, Object modelOrMap){
-		List<Integer> list = getSqlManager().execute(sqlTemplate, Integer.class, modelOrMap, 1, 1);
+	public Integer queryInt(String sqlTemplate, Object paras){
+		List<Integer> list = getSqlManager().execute(sqlTemplate, Integer.class, paras, 1, 1);
 		if(list.size() == 0){
 			return 0;
 		} else {
@@ -236,22 +237,22 @@ public class DbManager {
 	/**
 	 * 获取Integer集合
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public List<Integer> queryListInt(String sqlTemplate, Object modelOrMap){
-		List<Integer> list = getSqlManager().execute(sqlTemplate, Integer.class, modelOrMap);
+	public List<Integer> queryListInt(String sqlTemplate, Object paras){
+		List<Integer> list = getSqlManager().execute(sqlTemplate, Integer.class, paras);
 		return list;
 	}
 	
 	/**
 	 * 获取字符串
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public String queryStr(String sqlTemplate, Object modelOrMap){
-		List<String> list = getSqlManager().execute(sqlTemplate, String.class, modelOrMap, 1, 1);
+	public String queryStr(String sqlTemplate, Object paras){
+		List<String> list = getSqlManager().execute(sqlTemplate, String.class, paras, 1, 1);
 		if(list.size() == 0){
 			return "";
 		} else {
@@ -262,17 +263,17 @@ public class DbManager {
 	/**
 	 * 获取字符串集合
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public List<String> queryListStr(String sqlTemplate, Object modelOrMap){
-		List<String> list = getSqlManager().execute(sqlTemplate, String.class, modelOrMap);
+	public List<String> queryListStr(String sqlTemplate, Object paras){
+		List<String> list = getSqlManager().execute(sqlTemplate, String.class, paras);
 		return list;
 	}
 	
 	/** 查询aop返回单条数据
 	 * @param sqlTemplate
-	 * @param modelOrMap
+	 * @param paras
 	 * @param ac
 	 * @return
 	 */
@@ -282,7 +283,7 @@ public class DbManager {
 	
 	/**查询aop返回多条数据
 	 * @param sqlTemplate
-	 * @param modelOrMap
+	 * @param paras
 	 * @param ac
 	 * @return
 	 */
@@ -292,7 +293,7 @@ public class DbManager {
 	
 	/** 查询aop返回单条数据
 	 * @param sqlTemplate
-	 * @param modelOrMap
+	 * @param paras
 	 * @param ac
 	 * @param intercept
 	 * @return
@@ -315,7 +316,7 @@ public class DbManager {
 	
 	/**查询aop返回多条数据
 	 * @param sqlTemplate
-	 * @param modelOrMap
+	 * @param paras
 	 * @param ac
 	 * @param intercept
 	 * @return
@@ -342,37 +343,37 @@ public class DbManager {
 	 * 新增一条数据
 	 * @param tableName	表名
 	 * @param pk		主键名
-	 * @param ps		参数
+	 * @param paras		参数
 	 * @return
 	 */
-	public int save(String tableName, String pk, Paras ps) {
+	public int save(String tableName, String pk, Paras paras) {
 		if(Func.isOneEmpty(tableName, pk)){
 			throw new RuntimeException("表名或主键不能为空!");
 		}
 		String mainSql = " insert into {} ({}) values ({})";
 		pk = (String) Func.getValue(pk, "ID");
 		if(Func.isOracle()){
-			String pkValue = ps.getStr(pk);
+			String pkValue = paras.getStr(pk);
 			if(pkValue.indexOf(".nextval") > 0){
 				Map<String, Object> map = selectOne("select " + pkValue + " as PK from dual");
 				Object val = map.get("PK");
-				ps.set(pk, val);
+				paras.set(pk, val);
 			}
 		}
 		StringBuilder fields = new StringBuilder();
 		StringBuilder values = new StringBuilder();
-		for(String key : ps.keySet()){
+		for(String key : paras.keySet()){
 			fields.append(key + ",");
 			values.append("#{" + key + "},");
 		}
 		String sqlTemplate = Func.format(mainSql, tableName, StrKit.removeSuffix(fields.toString(), ","), StrKit.removeSuffix(values.toString(), ","));
-		int cnt = insert(sqlTemplate, ps);
+		int cnt = insert(sqlTemplate, paras);
 		if(cnt > 0 && Func.isMySql()){
-			Object pkValue = ps.get(pk);
+			Object pkValue = paras.get(pk);
 			if(Func.isEmpty(pkValue)){
 				Map<String, Object> map = selectOne(" select LAST_INSERT_ID() as PK ");
 				Object val = map.get("PK");
-				ps.set(pk, val);
+				paras.set(pk, val);
 			}
 		}
 		return cnt;
@@ -382,23 +383,23 @@ public class DbManager {
 	 * 修改一条数据
 	 * @param tableName	表名
 	 * @param pk		主键名
-	 * @param ps		参数
+	 * @param paras		参数
 	 * @return
 	 */
-	public int update(String tableName, String pk, Paras ps) {
+	public int update(String tableName, String pk, Paras paras) {
 		if(Func.isOneEmpty(tableName, pk)){
 			throw new RuntimeException("表名或主键不能为空!");
 		}
 		pk = (String) Func.getValue(pk, "ID");
 		String mainSql = " update {} set {} where {} = #{" + pk + "}";
 		StringBuilder fields = new StringBuilder();
-		for(String key : ps.keySet()){
+		for(String key : paras.keySet()){
 			if(!key.equals(pk)){
 				fields.append(key + " = #{" + key + "},");
 			}
 		}
 		String sqlTemplate = Func.format(mainSql, tableName, StrKit.removeSuffix(fields.toString(), ","), pk);
-		return update(sqlTemplate, ps);
+		return update(sqlTemplate, paras);
 	}
 	
 	/**
@@ -481,8 +482,8 @@ public class DbManager {
 	 * @param paras
 	 * @return
 	 */
-	public boolean isExist(String sqlTemplate, Object modelOrMap) {
-		int count = getSqlManager().execute(sqlTemplate, Map.class, modelOrMap).size();
+	public boolean isExist(String sqlTemplate, Object paras) {
+		int count = getSqlManager().execute(sqlTemplate, Map.class, paras).size();
 		if (count != 0) {
 			return true;
 		}
@@ -494,7 +495,17 @@ public class DbManager {
 	 * @param sqlId
 	 * @return
 	 */
-	public String getSql(String sqlId){
-		return getSqlManager().getScript(sqlId).getSql();
+	public String getSql(String sqlId) {
+		return getSqlManager().getScript(sqlId).toString();
+	}
+	
+	/**
+	 * 根据sqlId获取beetlsql的sql语句
+	 * @param sqlId
+	 * @param paras
+	 * @return
+	 */
+	public SQLResult getSQLResult(String sqlId, Object paras){
+		return getSqlManager().getSQLResult(sqlId, paras);
 	}
 }

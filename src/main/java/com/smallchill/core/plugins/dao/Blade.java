@@ -158,11 +158,11 @@ public class Blade {
 	 * 获取map
 	 * @param columns		字段名
 	 * @param where			条件
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public Map findOneColBy(String columns, String where, Object modelOrMap){
-		List<Map> list = getSqlManager().execute(getSelectSql(columns) + getFromSql() + getWhere(where), Map.class, modelOrMap, 1, 1);
+	public Map findOneColBy(String columns, String where, Object paras){
+		List<Map> list = getSqlManager().execute(getSelectSql(columns) + getFromSql() + getWhere(where), Map.class, paras, 1, 1);
 		if (list.size() == 0){
 			return null;
 		} else {
@@ -173,7 +173,7 @@ public class Blade {
 	/**
 	 * 获取map集合
 	 * @param columns		字段名
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
 	public List<Map> findColBy(String columns){
@@ -185,11 +185,11 @@ public class Blade {
 	 * 获取map集合
 	 * @param columns		字段名
 	 * @param where			条件
-	 * @param modelOrMap	实体类或map
+	 * @param paras	实体类或map
 	 * @return
 	 */
-	public List<Map> findColBy(String columns, String where, Object modelOrMap){
-		List<Map> list = getSqlManager().execute(getSelectSql(columns) + getFromSql() + getWhere(where), Map.class, modelOrMap);
+	public List<Map> findColBy(String columns, String where, Object paras){
+		List<Map> list = getSqlManager().execute(getSelectSql(columns) + getFromSql() + getWhere(where), Map.class, paras);
 		return list;
 	}
 
@@ -209,11 +209,11 @@ public class Blade {
 	/**
 	 * 根据sql查询多条数据
 	 * @param sqlTemplate sql语句
-	 * @param modelOrMap  实体类或者Map(查询条件)
+	 * @param paras  实体类或者Map(查询条件)
 	 * @return
 	 */
-	public <T> List<T> find(String sqlTemplate, Object modelOrMap) {
-		List<T> list = (List<T>) getSqlManager().execute(sqlTemplate, this.modelClass, modelOrMap);
+	public <T> List<T> find(String sqlTemplate, Object paras) {
+		List<T> list = (List<T>) getSqlManager().execute(sqlTemplate, this.modelClass, paras);
 		return list;
 	}
 
@@ -257,11 +257,11 @@ public class Blade {
 	 * 查询前几条数据
 	 * @param topNum
 	 * @param sqlTemplate
-	 * @param modelOrMap
+	 * @param paras
 	 * @return
 	 */
-	public <T> List<T> findTop(int topNum, String sqlTemplate, Object modelOrMap) {
-		List<T> list = (List<T>) getSqlManager().execute(sqlTemplate, this.modelClass, modelOrMap, 1, topNum);
+	public <T> List<T> findTop(int topNum, String sqlTemplate, Object paras) {
+		List<T> list = (List<T>) getSqlManager().execute(sqlTemplate, this.modelClass, paras, 1, topNum);
 		return list;
 	}
 
@@ -277,11 +277,11 @@ public class Blade {
 	/**
 	 * 根据条件查询数据
 	 * @param where			sql条件
-	 * @param modelOrMap	实体类或者Map(查询条件)
+	 * @param paras	实体类或者Map(查询条件)
 	 * @return
 	 */
-	public <T> List<T> findBy(String where, Object modelOrMap) {
-		List<T> models = (List<T>) getSqlManager().execute(getSelectSql() + getFromSql() + getWhere(where), this.modelClass, modelOrMap);
+	public <T> List<T> findBy(String where, Object paras) {
+		List<T> models = (List<T>) getSqlManager().execute(getSelectSql() + getFromSql() + getWhere(where), this.modelClass, paras);
 		return models;
 	}
 
@@ -289,11 +289,11 @@ public class Blade {
 	 * 根据条件查询数据,指定返回字段
 	 * @param columns		字段
 	 * @param where			sql条件
-	 * @param modelOrMap	实体类或者Map(查询条件)
+	 * @param paras	实体类或者Map(查询条件)
 	 * @return
 	 */
-	public <T> List<T> findBy(String columns, String where, Object modelOrMap) {
-		List<T> models = (List<T>) getSqlManager().execute(getSelectSql(columns) + getFromSql() + getWhere(where), this.modelClass, modelOrMap);
+	public <T> List<T> findBy(String columns, String where, Object paras) {
+		List<T> models = (List<T>) getSqlManager().execute(getSelectSql(columns) + getFromSql() + getWhere(where), this.modelClass, paras);
 		return models;
 	}
 
@@ -309,11 +309,11 @@ public class Blade {
 	/**
 	 * 查询第一条数据
 	 * @param sqlTemplate	sql语句
-	 * @param modelOrMap	实体类或者Map(查询条件)
+	 * @param paras	实体类或者Map(查询条件)
 	 * @return
 	 */
-	public <T> T findFirst(String sqlTemplate, Object modelOrMap) {
-		List<T> list = this.findTop(1, sqlTemplate, modelOrMap);
+	public <T> T findFirst(String sqlTemplate, Object paras) {
+		List<T> list = this.findTop(1, sqlTemplate, paras);
 		if (list.size() == 0){
 			return null;
 		} else {
@@ -324,11 +324,11 @@ public class Blade {
 	/**
 	 * 根据条件查询第一条数据
 	 * @param where		 sql条件
-	 * @param modelOrMap 实体类或者Map(查询条件)
+	 * @param paras 实体类或者Map(查询条件)
 	 * @return
 	 */
-	public <T> T findFirstBy(String where, Object modelOrMap) {
-		List<T> list = this.findTop(1, getSelectSql() + getFromSql() + getWhere(where), modelOrMap);
+	public <T> T findFirstBy(String where, Object paras) {
+		List<T> list = this.findTop(1, getSelectSql() + getFromSql() + getWhere(where), paras);
 		if (list.size() == 0){
 			return null;
 		} else {
@@ -504,11 +504,11 @@ public class Blade {
 	 * 更新条件修改数据
 	 * @param set		 set条件
 	 * @param where		 where条件
-	 * @param modelOrMap 实体类或者Map(查询条件)
+	 * @param paras 实体类或者Map(查询条件)
 	 * @return
 	 */
-	public boolean updateBy(String set, String where, Object modelOrMap) {
-		int n = getSqlManager().executeUpdate(getUpdateSql() + getSet(set) + getWhere(where), modelOrMap);
+	public boolean updateBy(String set, String where, Object paras) {
+		int n = getSqlManager().executeUpdate(getUpdateSql() + getSet(set) + getWhere(where), paras);
 		return n > 0;
 	}
 
@@ -614,22 +614,22 @@ public class Blade {
 	/**
 	 * 查询sql语句查询结果的总数
 	 * @param sqlTemplate sql语句
-	 * @param modelOrMap  实体类或者Map(查询条件)
+	 * @param paras  实体类或者Map(查询条件)
 	 * @return
 	 */
-	public int countBy(String sqlTemplate, Object modelOrMap) {
-		int n = getSqlManager().execute(sqlTemplate, this.modelClass, modelOrMap).size();
+	public int countBy(String sqlTemplate, Object paras) {
+		int n = getSqlManager().execute(sqlTemplate, this.modelClass, paras).size();
 		return n;
 	}
 
 	/**
 	 * 根据where条件查询总数
 	 * @param where		 where条件
-	 * @param modelOrMap 实体类或者Map(查询条件)
+	 * @param paras 实体类或者Map(查询条件)
 	 * @return
 	 */
-	public int count(String where, Object modelOrMap) {
-		int n = getSqlManager().execute(getCountSql() + getWhere(where), this.modelClass, modelOrMap).size();
+	public int count(String where, Object paras) {
+		int n = getSqlManager().execute(getCountSql() + getWhere(where), this.modelClass, paras).size();
 		return n;
 	}
 
@@ -724,8 +724,8 @@ public class Blade {
 	 * @param paras
 	 * @return
 	 */
-	public boolean isExist(String sqlTemplate, Object modelOrMap) {
-		int count = getSqlManager().execute(sqlTemplate, this.modelClass, modelOrMap).size();
+	public boolean isExist(String sqlTemplate, Object paras) {
+		int count = getSqlManager().execute(sqlTemplate, this.modelClass, paras).size();
 		if (count != 0) {
 			return true;
 		}
