@@ -413,48 +413,25 @@ public class Blade {
 	 * @return
 	 */
 	public boolean update(Object model) {
-		SQLManager sql = getSqlManager();
-		String table = sql.getNc().getTableName(this.modelClass);
-		ClassDesc desc = sql.getMetaDataManager().getTable(table).getClassDesc(this.modelClass, sql.getNc());
-		Method getterMethod = (Method) desc.getIdMethods().get(desc.getIdCols().get(0));
-		Object idValue = null;
-		try {
-			idValue = getterMethod.invoke(model);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if(Func.isEmpty(idValue)){
-			throw new RuntimeException("未取到ID的值,无法修改!");
-		}
-		
-		if(Cst.me().isOptimisticLock()){
-			// 1.数据是否还存在
-			String sqlExist = new StringBuffer("select * from ").append(table).append(" where ").append(pk).append(" = #{idValue} ").toString();
-			Map modelOld = Db.init(dbName).selectOne(sqlExist, Paras.create().set("idValue", idValue));
-			// 数据已经被删除
-			if (null == modelOld) { 
-				throw new RuntimeException("数据库中此数据不存在，可能数据已经被删除，请刷新数据后在操作");
-			}
-			// 2.乐观锁控制
-			Paras modelForm = Paras.parse(model);
-			if (modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase()) != null) { // 是否需要乐观锁控制
-				int versionDB = Func.toInt(modelOld.get(Const.OPTIMISTIC_LOCK.toLowerCase())); // 数据库中的版本号
-				int versionForm = Func.toInt(modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase())); // 表单中的版本号
-				if (!(versionForm > versionDB)) {
-					throw new RuntimeException("表单数据版本号和数据库数据版本号不一致，可能数据已经被其他人修改，请重新编辑");
-				}
-			}
-		}
-		
-		return sql.updateTemplateById(model) > 0;
+		return baseUpdate(model, false);
 	}
 
 	/**
 	 * 修改一条数据,为null的字段也更新
-	 * @param model
+	 * @param model 实体类
 	 * @return
 	 */
 	public boolean updateEveryCol(Object model) {
+		return baseUpdate(model, true);
+	}
+	
+	/**
+	 * 修改一条数据
+	 * @param model
+	 * @param flag true代表更新null字段, false代表只更新非空字段
+	 * @return
+	 */
+	private boolean baseUpdate(Object model, boolean flag) {
 		SQLManager sql = getSqlManager();
 		String table = sql.getNc().getTableName(this.modelClass);
 		ClassDesc desc = sql.getMetaDataManager().getTable(table).getClassDesc(this.modelClass, sql.getNc());
@@ -487,8 +464,11 @@ public class Blade {
 				}
 			}
 		}
-		
-		return sql.updateById(model) > 0;
+		if (flag) {
+			return sql.updateById(model) > 0;
+		} else {
+			return sql.updateTemplateById(model) > 0;
+		}
 	}
 
 	/**
