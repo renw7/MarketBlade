@@ -144,7 +144,7 @@ public class BladeController implements ConstCurd, ConstCache {
 	 * 
 	 * @return Maps
 	 */
-	public Paras getRecord() {
+	public Paras getParas() {
 		return paraMapsInject();
 	}
 
@@ -154,7 +154,7 @@ public class BladeController implements ConstCurd, ConstCache {
 	 * @param paraPerfix  name前缀
 	 * @return Maps
 	 */
-	public Paras getRecord(String paraPerfix) {
+	public Paras getParas(String paraPerfix) {
 		return paraMapsInject(paraPerfix);
 	}
 	
