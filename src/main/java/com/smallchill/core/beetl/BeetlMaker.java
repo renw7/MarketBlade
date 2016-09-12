@@ -35,14 +35,14 @@ public abstract class BeetlMaker {
 	 * 生成静态html
 	 * 
 	 * @param ftlPath 模板路径
-	 * @param paramMap 参数
+	 * @param paras 参数
 	 * @param htmlPath  html文件保存路径
 	 */
-	public static void makeHtml(String tlPath, Map<String, Object> paramMap, String htmlPath) {
+	public static void makeHtml(String tlPath, Map<String, Object> paras, String htmlPath) {
 		PrintWriter pw = null;
 		try {
 			pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(htmlPath), "UTF-8"));
-			BeetlTemplate.buildTo(FileKit.readString(tlPath, "UTF-8"), paramMap, pw);
+			BeetlTemplate.buildTo(FileKit.readString(tlPath, "UTF-8"), paras, pw);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -35,6 +35,7 @@ import com.smallchill.core.beetl.tag.SelectTag;
 import com.smallchill.core.beetl.tag.SideBarTag;
 import com.smallchill.core.constant.ConstConfig;
 import com.smallchill.core.constant.Cst;
+import com.smallchill.core.toolbox.Paras;
 
 /**
  * @title Beetl模板绑值
@@ -80,26 +81,26 @@ public class BeetlTemplate {
 		groupTemplate.registerFunctionPackage("shiro", new ShiroExt());
 	}
 	
-	public static String build(String sql, Map<String, Object> param) {
-		Template t = gt.getTemplate(sql);
-		if (null == param) {
-			param = new HashMap<String, Object>();
+	public static String build(String str, Map<String, Object> paras) {
+		Template t = gt.getTemplate(str);
+		if (null == paras) {
+			paras = Paras.create();
 		}
-		param.put("ctxPath", Cst.me().getContextPath());
-		for (String o : param.keySet()) {
-			t.binding(o, param.get(o));
+		paras.put("ctxPath", Cst.me().getContextPath());
+		for (String o : paras.keySet()) {
+			t.binding(o, paras.get(o));
 		}
 		return t.render();
 	}
 
-	public static void buildTo(String sql, Map<String, Object> param, PrintWriter pw) {
-		Template t = gt.getTemplate(sql);
-		if (null == param) {
-			param = new HashMap<String, Object>();
+	public static void buildTo(String str, Map<String, Object> paras, PrintWriter pw) {
+		Template t = gt.getTemplate(str);
+		if (null == paras) {
+			paras = Paras.create();
 		}
-		param.put("ctxPath", Cst.me().getContextPath());
-		for (String o : param.keySet()) {
-			t.binding(o, param.get(o));
+		paras.put("ctxPath", Cst.me().getContextPath());
+		for (String o : paras.keySet()) {
+			t.binding(o, paras.get(o));
 		}
 		t.renderTo(pw);
 	}
