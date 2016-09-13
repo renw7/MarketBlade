@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,12 +33,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.core.constant.Const;
+import com.smallchill.core.constant.ConstCache;
+import com.smallchill.core.constant.ConstCurd;
 import com.smallchill.core.constant.ConstShiro;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.exception.NoPermissionException;
 import com.smallchill.core.exception.NoUserException;
 import com.smallchill.core.interfaces.IQuery;
 import com.smallchill.core.shiro.ShiroKit;
+import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.file.BladeFile;
 import com.smallchill.core.toolbox.grid.GridManager;
@@ -46,17 +50,26 @@ import com.smallchill.core.toolbox.kit.LogKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.kit.URLKit;
 import com.smallchill.core.toolbox.log.LogManager;
+import com.smallchill.core.toolbox.support.BeanInjector;
 import com.smallchill.core.toolbox.support.Conver;
+import com.smallchill.core.toolbox.support.WafRequestWrapper;
 
 /**
  * @author Chill Zhuang
  */
-public class BladeController extends JController{
+public class BladeController implements ConstCurd, ConstCache{
 	
 	private static final Logger log = LoggerFactory.getLogger(BladeController.class);
 	
 	/** ============================     requset    =================================================  */
 
+	@Resource
+	private HttpServletRequest request;
+	
+	protected HttpServletRequest getRequest() {
+		return new WafRequestWrapper(this.request);
+	}
+	
 	public boolean isAjax(){
 		String header = getRequest().getHeader("X-Requested-With");
 		boolean isAjax = "XMLHttpRequest".equalsIgnoreCase(header);
@@ -98,6 +111,51 @@ public class BladeController extends JController{
 
 	public String getContextPath() {
 		return getRequest().getContextPath();
+	}
+	
+	/** ============================     mapping    =================================================  */
+	
+	/**
+	 * 表单值映射为javabean
+	 * 
+	 * @param beanClass
+	 *            javabean.class
+	 * @return T
+	 */
+	public <T> T mapping(Class<T> beanClass) {
+		return (T) BeanInjector.inject(beanClass, getRequest());
+	}
+
+	/**
+	 * 表单值映射为javabean
+	 * 
+	 * @param paraPerfix
+	 *            name前缀
+	 * @param beanClass
+	 *            javabean.class
+	 * @return T
+	 */
+	public <T> T mapping(String paraPerfix, Class<T> beanClass) {
+		return (T) BeanInjector.inject(beanClass, paraPerfix, getRequest());
+	}
+
+	/**
+	 * 表单值映射为Maps
+	 * 
+	 * @return Maps
+	 */
+	public Paras getParas() {
+		return BeanInjector.injectMaps(getRequest());
+	}
+
+	/**
+	 * 表单值映射为Maps
+	 * 
+	 * @param paraPerfix  name前缀
+	 * @return Maps
+	 */
+	public Paras getParas(String paraPerfix) {
+		return BeanInjector.injectMaps(paraPerfix, getRequest());
 	}
 	
 	/**============================     file    =================================================  */
