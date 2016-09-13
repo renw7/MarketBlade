@@ -26,13 +26,11 @@ import org.apache.shiro.util.ByteSource;
 import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.common.vo.User;
 import com.smallchill.core.constant.ConstCache;
-import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.interfaces.IShiro;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
-import com.smallchill.core.toolbox.kit.CacheKit;
 
 public class DefaultShiroFactroy implements IShiro{
 	
@@ -62,14 +60,12 @@ public class DefaultShiroFactroy implements IShiro{
 		return new ShiroUser(user.getId(), user.getDeptid(), user.getAccount(), user.getName(), roleList);
 	}
 
-	public List<Map<String, Object>> findPermissionsByRoleId(final Object userId, String roleId) {
-		Map<String, Object> userRole = CacheKit.get(ConstCache.MENU_CACHE, "role_ext_" + userId, new ILoader() {
-			@Override
-			public Object load() {
-				return Db.selectOne("select * from TFW_ROLE_EXT where USERID=#{userId}", Paras.create().set("userId", userId));
-			}
-		}); 
-
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<Map> findPermissionsByRoleId(final Object userId, String roleId) {
+		Map<String, Object> userRole =  Db.selectOneByCache(ConstCache.MENU_CACHE, 
+															"role_ext_" + userId, 
+															"select * from TFW_ROLE_EXT where USERID=#{userId}", 
+															Paras.create().set("userId", userId));
 
 		String roleIn = "0";
 		String roleOut = "0";
@@ -89,23 +85,17 @@ public class DefaultShiroFactroy implements IShiro{
 		sql.append("	)");
 		sql.append(" order by levels,pCode,num");
 
-		List<Map<String, Object>> permissions = CacheKit.get(ConstCache.MENU_CACHE, "permissions_" + userId, new ILoader() {
-			@Override
-			public Object load() {
-				return Db.selectList(sql.toString());
-			}
-		}); 
+		List<Map> permissions = Db.selectListByCache(ConstCache.MENU_CACHE, "permissions_" + userId, sql.toString(), Paras.create());
 		
 		return permissions;
 	}
 
+	@SuppressWarnings("unchecked")
 	public String findRoleNameByRoleId(final String roleId) {
-		Map<String, Object> map = CacheKit.get(ConstCache.ROLE_CACHE, "findRoleNameByRoleId" + roleId, new ILoader() {
-			@Override
-			public Object load() {
-				return Db.selectOne("select TIPS from tfw_role where id = #{id}", Paras.create().set("id", roleId));
-			}
-		});
+		Map<String, Object> map = Db.selectOneByCache(ConstCache.ROLE_CACHE, 
+														"findRoleNameByRoleId" + roleId, 
+														"select TIPS from tfw_role where id = #{id}", 
+														Paras.create().set("id", roleId));
 		return Func.toStr(map.get("TIPS"));
 	}
 

@@ -65,6 +65,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	/**
 	 * 权限认证
 	 */
+	@SuppressWarnings("rawtypes")
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		IShiro shiroFactory = ShiroManager.me().getDefaultShiroFactory();
@@ -74,7 +75,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		Set<String> urlSet = new HashSet<>();
 		Set<String> roleNameSet = new HashSet<>();
 		for (String roleId : roleList) {
-			List<Map<String, Object>> permissions = shiroFactory.findPermissionsByRoleId(userId, roleId);
+			List<Map> permissions = shiroFactory.findPermissionsByRoleId(userId, roleId);
 			if (null != permissions) {
 				for (Map<String, Object> map : permissions) {
 					if (!Func.isEmpty(map.get("URL"))) {

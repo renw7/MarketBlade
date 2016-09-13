@@ -32,7 +32,8 @@ public interface IShiro {
 
 	ShiroUser shiroUser(User user);
 
-	List<Map<String, Object>> findPermissionsByRoleId(Object userId, String roleId);
+	@SuppressWarnings("rawtypes")
+	List<Map> findPermissionsByRoleId(Object userId, String roleId);
 
 	String findRoleNameByRoleId(String roleId);
 	
