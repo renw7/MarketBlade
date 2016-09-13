@@ -135,12 +135,6 @@ public class MenuController extends BaseController implements ConstShiro{
 		menu.setVersion(getParameterToInt("VERSION", 0) + 1);
 		boolean temp = service.update(menu);
 		if (temp) {
-			if(Func.equals(menu.getUrl(), "")){
-				service.updateBy("url = ''", "id = #{id}", Paras.create().set("id", menu.getId()));
-			}
-			if(Func.equals(menu.getTips(), "")){
-				service.updateBy("tips = ''", "id = #{id}", Paras.create().set("id", menu.getId()));
-			}
 			CacheKit.removeAll(MENU_CACHE);
 			return success(UPDATE_SUCCESS_MSG);
 		} else {

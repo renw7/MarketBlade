@@ -17,8 +17,6 @@ package com.smallchill.core.toolbox.kit;
 
 import java.util.regex.Pattern;
 
-import com.smallchill.core.toolbox.kit.StrKit;
-
 /**
  * Web防火墙工具类
  * <p>
@@ -34,9 +32,9 @@ public class WafKit {
 	 * @return
 	 */
 	public static String stripXSS(String value) {
-		String rlt = StrKit.EMPTY;
+		String rlt = null;
 
-		if (StrKit.notBlank(value)) {
+		if (null != value) {
 			// NOTE: It's highly recommended to use the ESAPI library and uncomment the following line to
 			// avoid encoded attacks.
 			// value = ESAPI.encoder().canonicalize(value);
@@ -100,7 +98,7 @@ public class WafKit {
 	 * @return
 	 */
 	public static String stripSqlInjection(String value) {
-		return (StrKit.isBlank(value)) ? StrKit.EMPTY : value.replaceAll("('.+--)|(--)|(\\|)|(%7C)", "");
+		return (null == value) ? null : value.replaceAll("('.+--)|(--)|(%7C)", ""); //value.replaceAll("('.+--)|(--)|(\\|)|(%7C)", "");
 	}
 
 	/**
@@ -110,7 +108,7 @@ public class WafKit {
 	 * @return
 	 */
 	public static String stripSqlXSS(String value) {
-		return (StrKit.isBlank(value)) ? StrKit.EMPTY : stripXSS(stripSqlInjection(value));
+		return stripXSS(stripSqlInjection(value));
 	}
 
 }

@@ -58,7 +58,7 @@ public class BeanInjector {
 			}
 			value = param.getValue();
 			if (ArrayUtils.isNotEmpty(value) && null != value[0]) {
-				Object o = value[0];
+				Object o = (value[0].toString().equals("")) ? " " : value[0];
 				map.put(StringUtils.removeStart(param.getKey().toLowerCase(), start).toLowerCase(), o);
 
 			} else {

@@ -22,7 +22,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.kit.WafKit;
 
 /**
@@ -122,8 +121,8 @@ public class WafRequestWrapper extends HttpServletRequestWrapper {
 	@Override
 	public Cookie[] getCookies() {
 		Cookie[] existingCookies = super.getCookies();
-		if ( existingCookies != null ) {
-			for ( int i = 0 ; i < existingCookies.length ; ++i ) {
+		if (existingCookies != null) {
+			for (int i = 0 ; i < existingCookies.length ; ++i) {
 				Cookie cookie = existingCookies[i];
 				cookie.setValue(filterParamString(cookie.getValue()));
 			}
@@ -138,8 +137,8 @@ public class WafRequestWrapper extends HttpServletRequestWrapper {
 	 * @return
 	 */
 	protected String filterParamString(String rawValue) {
-		if (StrKit.isBlank(rawValue)) {
-			return StrKit.EMPTY;
+		if (null == rawValue) {
+			return null;
 		}
 		String tmpStr = rawValue;
 		if (this.filterXSS) {
