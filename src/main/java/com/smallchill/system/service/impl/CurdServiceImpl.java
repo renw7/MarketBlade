@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.smallchill.core.service.impl;
+package com.smallchill.system.service.impl;
 
 import org.springframework.stereotype.Service;
 
@@ -21,9 +21,9 @@ import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.meta.MetaIntercept;
 import com.smallchill.core.plugins.dao.Blade;
-import com.smallchill.core.service.CurdService;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.grid.GridManager;
+import com.smallchill.system.service.CurdService;
 
 @Service
 public class CurdServiceImpl implements CurdService {

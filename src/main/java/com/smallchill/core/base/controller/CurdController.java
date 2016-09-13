@@ -32,15 +32,16 @@ import com.smallchill.core.interfaces.IMeta;
 import com.smallchill.core.meta.MetaIntercept;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
-import com.smallchill.core.service.CurdService;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.support.Singleton;
+import com.smallchill.system.service.CurdService;
 
 public abstract class CurdController<M> extends BaseController {
+	
 	@Autowired
 	CurdService service;
 

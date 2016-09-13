@@ -25,10 +25,12 @@ import org.beetl.sql.core.SQLResult;
 
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.Cst;
+import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.interfaces.IQuery;
 import com.smallchill.core.plugins.connection.ConnectionPlugin;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.support.BladePage;
 
@@ -336,6 +338,42 @@ public class DbManager {
 		}
 		return rst;
 	}
+	
+	/**   
+	 * 根据缓存找一条数据
+	 * @param cacheName
+	 * @param key
+	 * @param sqlTemplate
+	 * @param paras
+	 * @return Map
+	*/
+	public Map selectOneByCache(String cacheName, String key, String sqlTemplate, Object paras){
+		final String _sqlTemplate = sqlTemplate;
+		final Object _paras = paras;
+		return CacheKit.get(cacheName, key, new ILoader() {
+			public Object load() {
+				return selectOne(_sqlTemplate, _paras);
+			}
+		});
+	} 
+	
+	/**   
+	 * 根据缓存找多条数据
+	 * @param cacheName
+	 * @param key
+	 * @param sqlTemplate
+	 * @param paras
+	 * @return List<Map>
+	*/
+	public List<Map> selectListByCache(String cacheName, String key, String sqlTemplate, Object paras){
+		final String _sqlTemplate = sqlTemplate;
+		final Object _paras = paras;
+		return CacheKit.get(cacheName, key, new ILoader() {
+			public Object load() {
+				return selectList(_sqlTemplate, _paras);
+			}
+		});
+	} 
 	
 	/************   ↑↑↑   ********     通用     *********   ↑↑↑   ****************/
 	

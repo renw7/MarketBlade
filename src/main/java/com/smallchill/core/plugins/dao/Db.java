@@ -238,6 +238,30 @@ public class Db {
 		return getDbManager().selectList(sqlTemplate, param, ac, intercept);
 	}
 	
+	/**   
+	 * 根据缓存找一条数据
+	 * @param cacheName
+	 * @param key
+	 * @param sqlTemplate
+	 * @param paras
+	 * @return Map
+	*/
+	public static Map selectOneByCache(String cacheName, String key, String sqlTemplate, Object paras){
+		return getDbManager().selectOneByCache(cacheName, key, sqlTemplate, paras);
+	}
+	
+	/**   
+	 * 根据缓存找多条数据
+	 * @param cacheName
+	 * @param key
+	 * @param sqlTemplate
+	 * @param paras
+	 * @return List<Map>
+	*/
+	public static List<Map> selectListByCache(String cacheName, String key, String sqlTemplate, Object paras){
+		return getDbManager().selectListByCache(cacheName, key, sqlTemplate, paras);
+	} 
+	
 	/************   ↑↑↑   ********     通用     *********   ↑↑↑   ****************/
 	
 	/**
