@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
+import com.smallchill.core.annotation.Permission;
 import com.smallchill.core.constant.ConstShiro;
-import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
@@ -96,13 +96,11 @@ public class RoleController extends BaseController{
 		return BASE_PATH + "role_view.html";
 	}
 	
-	@RequestMapping("/authority/{roleId}/{roleName}")
-	public String authority(@PathVariable String roleId, @PathVariable String roleName, ModelMap mm) {
-		if(!ShiroKit.hasAnyRoles(ConstShiro.ADMINISTRATOR + "," + ConstShiro.ADMIN)){
-			return "redirect:/unauth";
-		}
-		mm.put("roleId", roleId);
-		mm.put("roleName", Func.decodeUrl(roleName));
+	@Permission({ConstShiro.ADMINISTRATOR, ConstShiro.ADMIN})
+	@RequestMapping("/authority")
+	public String authority(ModelMap mm) {
+		mm.put("roleId", getParameter("roleId"));
+		mm.put("roleName", getParameterToDecode("roleName"));
 		return BASE_PATH + "role_authority.html";
 	}
 	

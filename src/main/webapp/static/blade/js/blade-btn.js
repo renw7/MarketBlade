@@ -148,7 +148,7 @@ var exwhere;
             $.post(ctx + "/role/getPowerById", { id: ids }, function (data) {
                 if (data.code === 0) {
                     var roleName=rowData.NAME;
-                    _this.open(_this.url + split + ids + split + roleName);
+                    _this.open(_this.url + "?roleId=" + ids + "&roleName=" + roleName);
                 }
                 else{
                 	layer_alert('请先给上级角色分配权限!', "warn");

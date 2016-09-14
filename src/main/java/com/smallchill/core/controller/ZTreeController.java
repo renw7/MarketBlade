@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,8 +28,8 @@ import com.smallchill.core.toolbox.kit.StrKit;
 @RequestMapping("/ztree")
 public class ZTreeController extends BladeController {
 	
-	@RequestMapping("/open/{type}/{index}/{name}/{source}/{check}/{where}/{intercept}/{ext}/{val}")
-	public ModelAndView open(@PathVariable String type, @PathVariable String index, @PathVariable String name, @PathVariable String source, @PathVariable String check, @PathVariable String where, @PathVariable String intercept, @PathVariable String ext, @PathVariable String val){
+	@RequestMapping("/open")
+	public ModelAndView open(@RequestParam String type, @RequestParam String index, @RequestParam String name, @RequestParam String source, @RequestParam String check, @RequestParam String where, @RequestParam String intercept, @RequestParam String ext, @RequestParam String val){
 		ModelAndView view = new ModelAndView("/common/_function/_ztree.html");	
 		view.addObject("type", getTypeName(type, source));
 		view.addObject("index", index);

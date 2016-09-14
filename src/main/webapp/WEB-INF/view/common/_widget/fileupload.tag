@@ -13,13 +13,13 @@
 			<textarea  id="${x.index!}_editor" name="${x.index!}_editor" ></textarea>
 		</div>
 		
-		<script charset="utf-8" src="${basePath}/static/kindeditor/kindeditor.js"></script>
+		<script charset="utf-8" src="${ctxPath}/static/kindeditor/kindeditor.js"></script>
 		<script type="text/javascript">
 			$(function(){
 				KindEditor.ready(function(K) {
 					var editor = K.create('textarea[name="${x.index!}_editor"]', {
-						uploadJson : '${basePath}/kindeditor/upload_${x.blob!'json'}',
-						fileManagerJson : '${basePath}/kindeditor/file_manager_json',
+						uploadJson : '${ctxPath}/kindeditor/upload_${x.blob!'json'}',
+						fileManagerJson : '${ctxPath}/kindeditor/file_manager_json',
 						allowFileManager : false
 					});
 					//----插入文件-----
@@ -54,7 +54,7 @@
 			function _${x.index!}_initFileUpload(ids, type){
 				$.ajax({
 			        type: "post",
-			        url: "${basePath}/kindeditor/initfile",
+			        url: "${ctxPath}/kindeditor/initfile",
 			        dataType: "json",
 			        async: false,
 			        data: {ids : ids},
@@ -64,7 +64,7 @@
 							for(var x = 0; x < file.length; x++){
 								var id = file[x].id;
 								var name = file[x].name;
-								var url = "${basePath}/kindeditor/renderFile/" + id;
+								var url = "${ctxPath}/kindeditor/renderFile/" + id;
 								if(type == "edit"){
 									$("#${x.index!}_file").append(_${x.index!}_getFile(url, id, name));
 								}

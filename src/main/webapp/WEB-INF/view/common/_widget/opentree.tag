@@ -15,7 +15,7 @@
         	    area: ["250", "420px"],
         	    fix: false, //不固定
         	    maxmin: true,
-        	    content: "${basePath}/ztree/open/${x.type!0}/_${x.index!0}/${x.name!0}/${x.source!0}/${x.check!0}/${x.where!0}/${x.intercept!0}/${x.ext!0}/" + val
+        	    content: "${ctxPath}/ztree/open/?type=${x.type!0}&index=_${x.index!0}&name=${x.name!0}&source=${x.source!0}&check=${x.check!0}&where=${x.where!0}&intercept=${x.intercept!0}&ext=${x.ext!0}&val=" + val
         	});
 		});
 		
@@ -27,7 +27,7 @@
 	});
 	
 	function initOpenTree(val){
-		$.post("${basePath}/ztree/getTreeListName",{source:"${x.source!}", type:"${x.type!}", where:"${x.where!}", intercept:"${x.intercept!}", val:val},function(data){
+		$.post("${ctxPath}/ztree/getTreeListName",{source:"${x.source!}", type:"${x.type!}", where:"${x.where!}", intercept:"${x.intercept!}", val:val},function(data){
 			if(data.code === 0){
 				$("#_${x.index!}_INPUT").val(data.data);
 			}
