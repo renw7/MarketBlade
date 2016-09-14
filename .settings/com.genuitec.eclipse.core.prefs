@@ -1,4 +1,0 @@
-eclipse.preferences.version=1
-validator.Checked=src/main,target
-validator.Revalidate=true
-validator.Unchecked=src/main/java
