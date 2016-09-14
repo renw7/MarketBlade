@@ -34,7 +34,7 @@ import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.CharsetKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.kit.URLKit;
-import com.smallchill.core.toolbox.support.Conver;
+import com.smallchill.core.toolbox.support.Convert;
 import com.smallchill.system.model.Dept;
 import com.smallchill.system.model.Dict;
 import com.smallchill.system.model.Parameter;
@@ -324,7 +324,7 @@ public class Func {
 	 * @return
 	 */
 	public static int toInt(Object value, int defaultValue) {
-		return Conver.toInt(value, defaultValue);
+		return Convert.toInt(value, defaultValue);
 	}
 
 	/**
@@ -345,7 +345,7 @@ public class Func {
 	 * @return
 	 */
 	public static long toLong(Object value, long defaultValue) {
-		return Conver.toLong(value, defaultValue);
+		return Convert.toLong(value, defaultValue);
 	}
 
 	public static String encodeUrl(String url) {

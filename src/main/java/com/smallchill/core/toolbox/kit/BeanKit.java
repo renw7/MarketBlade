@@ -11,7 +11,7 @@ import java.util.Map.Entry;
 import com.smallchill.core.exception.ToolBoxException;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
-import com.smallchill.core.toolbox.support.Conver;
+import com.smallchill.core.toolbox.support.Convert;
 
 /**
  * Bean工具类
@@ -185,7 +185,7 @@ public class BeanKit {
 				}
 				
 				try {
-					property.getWriteMethod().invoke(bean, Conver.parse(property.getPropertyType(), value));
+					property.getWriteMethod().invoke(bean, Convert.parse(property.getPropertyType(), value));
 				} catch (Exception e) {
 					throw new ToolBoxException(StrKit.format("Inject [{}] error!", property.getName()), e);
 				}

@@ -51,7 +51,7 @@ import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.kit.URLKit;
 import com.smallchill.core.toolbox.log.LogManager;
 import com.smallchill.core.toolbox.support.BeanInjector;
-import com.smallchill.core.toolbox.support.Conver;
+import com.smallchill.core.toolbox.support.Convert;
 import com.smallchill.core.toolbox.support.WafRequestWrapper;
 
 /**
@@ -86,19 +86,19 @@ public class BladeController implements ConstCurd, ConstCache{
 	}
 
 	public Integer getParameterToInt(String name) {
-		return Conver.toInt(getRequest().getParameter(name));
+		return Convert.toInt(getRequest().getParameter(name));
 	}
 
 	public Integer getParameterToInt(String name, Integer defaultValue) {
-		return Conver.toInt(getRequest().getParameter(name), defaultValue);
+		return Convert.toInt(getRequest().getParameter(name), defaultValue);
 	}
 
 	public Long getParameterToLong(String name) {
-		return Conver.toLong(getRequest().getParameter(name));
+		return Convert.toLong(getRequest().getParameter(name));
 	}
 
 	public Long getParameterToLong(String name, Long defaultValue) {
-		return Conver.toLong(getRequest().getParameter(name), defaultValue);
+		return Convert.toLong(getRequest().getParameter(name), defaultValue);
 	}
 
 	public String getParameterToEncode(String para) {

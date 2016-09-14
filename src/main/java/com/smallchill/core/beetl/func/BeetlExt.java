@@ -36,7 +36,7 @@ import com.smallchill.core.toolbox.kit.DateKit;
 import com.smallchill.core.toolbox.kit.DateTimeKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.kit.URLKit;
-import com.smallchill.core.toolbox.support.Conver;
+import com.smallchill.core.toolbox.support.Convert;
 
 /**
  * beetl注册工具类
@@ -310,7 +310,7 @@ public class BeetlExt {
 	 * @return
 	 */
 	public int toInt(Object value, int defaultValue) {
-		return Conver.toInt(value, defaultValue);
+		return Convert.toInt(value, defaultValue);
 	}
 
 	/**
@@ -331,7 +331,7 @@ public class BeetlExt {
 	 * @return
 	 */
 	public long toLong(Object value, long defaultValue) {
-		return Conver.toLong(value, defaultValue);
+		return Convert.toLong(value, defaultValue);
 	}
 
 	public String encodeUrl(String url) {

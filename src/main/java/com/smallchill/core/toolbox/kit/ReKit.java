@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.smallchill.core.toolbox.support.Conver;
+import com.smallchill.core.toolbox.support.Convert;
 import com.smallchill.core.toolbox.support.FieldValidator;
 
 /**
@@ -364,7 +364,7 @@ public class ReKit {
 	 * @return 整数
 	 */
 	public static Integer getFirstNumber(String StringWithNumber) {
-		return Conver.toInt(get(FieldValidator.NUMBER, StringWithNumber, 0), null);
+		return Convert.toInt(get(FieldValidator.NUMBER, StringWithNumber, 0), null);
 	}
 	
 	/**

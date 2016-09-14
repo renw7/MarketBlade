@@ -20,7 +20,7 @@ import java.nio.charset.Charset;
 import java.util.Collection;
 
 import com.smallchill.core.exception.ToolBoxException;
-import com.smallchill.core.toolbox.support.Conver;
+import com.smallchill.core.toolbox.support.Convert;
 import com.smallchill.core.toolbox.support.FastByteArrayOutputStream;
 import com.smallchill.core.toolbox.support.StreamProgress;
 
@@ -341,7 +341,7 @@ public class IoKit {
 			osw = new OutputStreamWriter(out, charset);
 			for (Object content : contents) {
 				if(content != null) {
-					osw.write(Conver.toStr(content, StrKit.EMPTY));
+					osw.write(Convert.toStr(content, StrKit.EMPTY));
 					osw.flush();
 				}
 			}

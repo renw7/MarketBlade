@@ -18,9 +18,9 @@ import com.smallchill.core.toolbox.kit.StrKit;
  * @author xiaoleilu
  * 
  */
-public class Conver {
+public class Convert {
 	
-	private Conver() {
+	private Convert() {
 		// 静态类不可实例化
 	}
 	

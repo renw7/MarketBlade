@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.smallchill.core.toolbox.kit.BeanKit;
-import com.smallchill.core.toolbox.support.Conver;
+import com.smallchill.core.toolbox.support.Convert;
 
 /**
  * 扩充了HashMap中的方法
@@ -200,7 +200,7 @@ public class Paras extends HashMap<String, Object> {
 	 * @return 字段值
 	 */
 	public String getStr(String attr) {
-		return Conver.toStr(get(attr), "");
+		return Convert.toStr(get(attr), "");
 	}
 	
 	/**
@@ -208,7 +208,7 @@ public class Paras extends HashMap<String, Object> {
 	 * @return 字段值
 	 */
 	public Integer getInt(String attr) {
-		return Conver.toInt(get(attr), 0);
+		return Convert.toInt(get(attr), 0);
 	}
 	
 	/**
@@ -216,7 +216,7 @@ public class Paras extends HashMap<String, Object> {
 	 * @return 字段值
 	 */
 	public Long getLong(String attr) {
-		return Conver.toLong(get(attr), null);
+		return Convert.toLong(get(attr), null);
 	}
 	
 	/**
@@ -224,7 +224,7 @@ public class Paras extends HashMap<String, Object> {
 	 * @return 字段值
 	 */
 	public Float getFloat(String attr) {
-		return Conver.toFloat(get(attr), null);
+		return Convert.toFloat(get(attr), null);
 	}
 	
 	/**
@@ -232,7 +232,7 @@ public class Paras extends HashMap<String, Object> {
 	 * @return 字段值
 	 */
 	public Boolean getBool(String attr) {
-		return Conver.toBool(get(attr), null);
+		return Convert.toBool(get(attr), null);
 	}
 	
 	/**
