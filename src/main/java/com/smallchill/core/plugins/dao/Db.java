@@ -301,12 +301,12 @@ public class Db {
 	/**
 	 * 获取list
 	 * @param model 实体类
-	 * @param start 页号
-	 * @param size	数量
+	 * @param pageNum 页号
+	 * @param pageSize	数量
 	 * @return
 	 */
-	public static <T> List<T> getList(Object model, int start, int size) {
-		return getDbManager().getList(model, start, size);
+	public static <T> List<T> getList(Object model, int pageNum, int pageSize) {
+		return getDbManager().getList(model, pageNum, pageSize);
 	}
 	
 
@@ -315,24 +315,24 @@ public class Db {
 	 * @param sqlTemplate sql语句
 	 * @param clazz	返回类型
 	 * @param paras	参数
-	 * @param start	页号
-	 * @param size	数量
+	 * @param pageNum	页号
+	 * @param pageSize	数量
 	 * @return
 	 */
-	public static <T> List<T> getList(String sqlTemplate, Class<?> clazz, Object paras, int start, int size) {
-		return getDbManager().getList(sqlTemplate, clazz, paras, start, size);
+	public static <T> List<T> getList(String sqlTemplate, Class<?> clazz, Object paras, int pageNum, int pageSize) {
+		return getDbManager().getList(sqlTemplate, clazz, paras, pageNum, pageSize);
 	}
 	
 	/**
 	 * 分页
 	 * @param sqlTemplate sql语句
 	 * @param paras	参数
-	 * @param start	页号
-	 * @param size	数量
+	 * @param pageNum	页号
+	 * @param pageSize	数量
 	 * @return
 	 */
-	public static <T> BladePage<T> paginate(String sqlTemplate, Object paras, int start, int size){
-		return getDbManager().paginate(sqlTemplate, paras, start, size);
+	public static BladePage<Map> paginate(String sqlTemplate, Object paras, int pageNum, int pageSize){
+		return getDbManager().paginate(sqlTemplate, paras, pageNum, pageSize);
 	}
 	
 	/**
@@ -340,12 +340,25 @@ public class Db {
 	 * @param sqlTemplate sql语句
 	 * @param clazz	返回类型
 	 * @param paras	参数
-	 * @param start	页号
-	 * @param size	数量
+	 * @param pageNum	页号
+	 * @param pageSize	数量
 	 * @return
 	 */
-	public static <T> BladePage<T> paginate(String sqlTemplate, Class<?> clazz, Object paras, int start, int size){
-		return getDbManager().paginate(sqlTemplate, clazz, paras, start, size);
+	public static <T> BladePage<T> paginate(String sqlTemplate, Class<?> clazz, Object paras, int pageNum, int pageSize){
+		return getDbManager().paginate(sqlTemplate, clazz, paras, pageNum, pageSize);
+	}
+	
+	/**
+	 * 分页
+	 * @param sqlId sqlId
+	 * @param clazz	返回类型
+	 * @param paras	参数
+	 * @param pageNum	页号
+	 * @param pageSize	数量
+	 * @return
+	 */
+	public static <T> BladePage<T> paginateById(String sqlId, Class<?> clazz, Object paras, int pageNum, int pageSize){
+		return getDbManager().paginateById(sqlId, clazz, paras, pageNum, pageSize);
 	}
 	
 	/**

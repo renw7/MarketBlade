@@ -22,6 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.SQLReady;
 import org.beetl.sql.core.SQLResult;
+import org.beetl.sql.core.engine.PageQuery;
 
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.Cst;
@@ -458,12 +459,12 @@ public class DbManager {
 	/**
 	 * 获取list
 	 * @param model 实体类
-	 * @param start 页号
-	 * @param size	数量
+	 * @param pageNum 页号
+	 * @param pageSize	数量
 	 * @return
 	 */
-	public <T> List<T> getList(Object model, int start, int size) {
-		List<T> all = (List<T>) getSqlManager().template(model, (start - 1) * size + 1, size);
+	public <T> List<T> getList(Object model, int pageNum, int pageSize) {
+		List<T> all = (List<T>) getSqlManager().template(model, (pageNum - 1) * pageSize + 1, pageSize);
 		return all;
 	}
 	
@@ -473,12 +474,12 @@ public class DbManager {
 	 * @param sqlTemplate sql语句
 	 * @param clazz	返回类型
 	 * @param paras	参数
-	 * @param start	页号
-	 * @param size	数量
+	 * @param pageNum	页号
+	 * @param pageSize	数量
 	 * @return
 	 */
-	public <T> List<T> getList(String sqlTemplate, Class<?> clazz, Object paras, int start, int size) {
-		List<T> all = (List<T>) getSqlManager().execute(sqlTemplate, clazz, paras, (start - 1) * size + 1, size);
+	public <T> List<T> getList(String sqlTemplate, Class<?> clazz, Object paras, int pageNum, int pageSize) {
+		List<T> all = (List<T>) getSqlManager().execute(sqlTemplate, clazz, paras, (pageNum - 1) * pageSize + 1, pageSize);
 		return all;
 	}
 	
@@ -486,15 +487,12 @@ public class DbManager {
 	 * 分页
 	 * @param sqlTemplate sql语句
 	 * @param paras	参数
-	 * @param start	页号
-	 * @param size	数量
+	 * @param pageNum	页号
+	 * @param pageSize	数量
 	 * @return
 	 */
-	public <T> BladePage<T> paginate(String sqlTemplate, Object paras, int start, int size){
-		List<T> rows = getList(sqlTemplate, Map.class, paras, start, size);
-		long count = queryInt(" SELECT COUNT(*) CNT FROM (" + sqlTemplate + ") a", paras).longValue();
-		BladePage<T> page = new BladePage<>(rows, start, size, count);
-		return page;
+	public BladePage<Map> paginate(String sqlTemplate, Object paras, int pageNum, int pageSize){
+		return paginate(sqlTemplate, Map.class, paras, pageNum, pageSize);
 	}
 	
 	/**
@@ -502,14 +500,32 @@ public class DbManager {
 	 * @param sqlTemplate sql语句
 	 * @param clazz	返回类型
 	 * @param paras	参数
-	 * @param start	页号
-	 * @param size	数量
+	 * @param pageNum	页号
+	 * @param pageSize	数量
 	 * @return
 	 */
-	public <T> BladePage<T> paginate(String sqlTemplate, Class<?> clazz, Object paras, int start, int size){
-		List<T> rows = getList(sqlTemplate, clazz, paras, start, size);
+	public <T> BladePage<T> paginate(String sqlTemplate, Class<?> clazz, Object paras, int pageNum, int pageSize){
+		List<T> rows = getList(sqlTemplate, clazz, paras, pageNum, pageSize);
 		long count = queryInt(" SELECT COUNT(*) CNT FROM (" + sqlTemplate + ") a", paras).longValue();
-		BladePage<T> page = new BladePage<>(rows, start, size, count);
+		BladePage<T> page = new BladePage<>(rows, pageNum, pageSize, count);
+		return page;
+	}
+	
+	/**
+	 * 分页
+	 * @param sqlId sqlId
+	 * @param clazz	返回类型
+	 * @param paras	参数
+	 * @param pageNum	页号
+	 * @param pageSize	数量
+	 * @return
+	 */
+	public <T> BladePage<T> paginateById(String sqlId, Class<?> clazz, Object paras, int pageNum, int pageSize){
+		PageQuery query = new PageQuery();
+		query.setPageNumber(pageNum);
+		query.setPageSize(pageSize);
+		getSqlManager().pageQuery(sqlId, clazz, query);
+		BladePage<T> page = new BladePage<>(query.getList(), pageNum, pageSize, query.getTotalRow());
 		return page;
 	}
 	
