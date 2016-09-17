@@ -49,9 +49,6 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 	@Override
 	public boolean updateStatus(String ids, Object status) {
 		Paras paras = Paras.create().set("status", status).set("ids", ids.split(","));
-		/*SQLManager sql = Blade.dao();
-		int cnt = sql.executeUpdate("update tfw_menu set status=#{status} where id in (#{join(ids)})", paras);
-		return cnt > 0;*/
 		Blade blade = Blade.create(Menu.class);
 		boolean temp = blade.updateBy("status=#{status}", "id in (#{join(ids)})", paras);
 		return temp;

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.core.plugins.dao.Blade;
+import com.smallchill.core.plugins.dao.Md;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
@@ -40,7 +41,7 @@ public class NoticeController extends BaseController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(KEY_EDIT + "/{id}")
 	public String edit(@PathVariable String id, ModelMap mm) {
-		Map<String, Object> map = Blade.dao().selectSingle(DATA_SOURCE, Paras.create().set("id", id), Map.class);
+		Map<String, Object> map = Md.selectOne(DATA_SOURCE, Paras.create().set("id", id), Map.class);
 		mm.put("model", JsonKit.toJson(map));
 		mm.put("id", id);
 		mm.put("code", CODE);

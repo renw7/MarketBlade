@@ -531,7 +531,7 @@ public class DbManager {
 	 * @return
 	 */
 	public String getSql(String sqlId) {
-		return getSqlManager().getScript(sqlId).toString();
+		return getSqlManager().getScript(sqlId).getSql();
 	}
 	
 	/**

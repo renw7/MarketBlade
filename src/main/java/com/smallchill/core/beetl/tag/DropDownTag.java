@@ -25,7 +25,6 @@ import org.beetl.core.Tag;
 import com.smallchill.common.vo.TreeNode;
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.interfaces.ILoader;
-import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.kit.CacheKit;
@@ -35,7 +34,6 @@ public class DropDownTag extends Tag {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void render() {
-		// TODO Auto-generated method stub
 		try {
 			Map<String, String> param = (Map<String, String>) args[1];
 			List<TreeNode> nodeList = new ArrayList<TreeNode>();
@@ -60,7 +58,7 @@ public class DropDownTag extends Tag {
 				sql = "select ID,(case when PID is null then 0 else PID end) PID,NUM,name as TEXT from  TMSP_ROLE";
 			} else if (type.equals("diy")) {
 				type = type + "_" + param.get("source");
-				sql = Blade.dao().getScript(param.get("source")).getSql(); //.getNamespaceSql(param.get("source"));
+				sql = Db.getSql(param.get("source")); //.getNamespaceSql(param.get("source"));
 			}
  
 			final String sqlstr = sql;
@@ -89,7 +87,6 @@ public class DropDownTag extends Tag {
 
 			ctx.byteWriter.writeString(getDropDownHtml(nodeList, sid, name, value, lev, token, required));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

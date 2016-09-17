@@ -26,7 +26,6 @@ import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.interfaces.IQuery;
-import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
@@ -41,7 +40,6 @@ public class SelectTag extends Tag {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void render() {
-		// TODO Auto-generated method stub
 		try {
 			Map<String, String> param = (Map<String, String>) args[1];
 
@@ -83,7 +81,7 @@ public class SelectTag extends Tag {
 				if(StrKit.notBlank(where)){
 					modelOrMap = JsonKit.parse(where, Map.class);
 				}
-				sql = Blade.dao().getScript(param.get("source")).getSql();
+				sql = Db.getSql(param.get("source"));
 			}
 
 			if(StrKit.notBlank(inter)) {
@@ -133,7 +131,6 @@ public class SelectTag extends Tag {
 
 			ctx.byteWriter.writeString(sb.toString());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

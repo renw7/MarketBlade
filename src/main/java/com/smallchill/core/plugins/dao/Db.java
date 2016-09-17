@@ -364,7 +364,7 @@ public class Db {
 	 * @param sqlId
 	 * @return
 	 */
-	public String getSql(String sqlId) {
+	public static String getSql(String sqlId) {
 		return getDbManager().getSql(sqlId);
 	}
 	

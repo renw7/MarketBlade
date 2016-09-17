@@ -32,6 +32,7 @@ import com.smallchill.core.interfaces.IMeta;
 import com.smallchill.core.meta.MetaIntercept;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
+import com.smallchill.core.plugins.dao.Md;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
@@ -304,7 +305,7 @@ public abstract class CurdController<M> extends BaseController {
 
 	@SuppressWarnings("unchecked")
 	private Map<String, Object> findOneById(String sqlId, Map<String, Object> map) {
-		Map<String, Object> model =  Blade.dao().selectSingle(sqlId, map, Map.class); //Db.selectOneBySqlId(sqlId, map);
+		Map<String, Object> model =  Md.selectOne(sqlId, map, Map.class); //Db.selectOneBySqlId(sqlId, map);
 		return Func.caseInsensitiveMap(model);
 	}
 
