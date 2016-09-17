@@ -115,13 +115,6 @@ public interface IService<M> {
 	 * @return boolean
 	 */
 	public boolean save(M model);
-
-	/**
-	 * 新增一条数据(UUID型主键)
-	 * @param model 实体类
-	 * @return
-	 */
-	/*public boolean saveAssign(M model);*/
 	
 	/**
 	 * 新增返回int型主键 

@@ -319,7 +319,7 @@ public class Db {
 	 * @param pageSize	数量
 	 * @return
 	 */
-	public static <T> List<T> getList(String sqlTemplate, Class<?> clazz, Object paras, int pageNum, int pageSize) {
+	public static <T> List<T> getList(String sqlTemplate, Class<T> clazz, Object paras, int pageNum, int pageSize) {
 		return getDbManager().getList(sqlTemplate, clazz, paras, pageNum, pageSize);
 	}
 	
@@ -344,7 +344,7 @@ public class Db {
 	 * @param pageSize	数量
 	 * @return
 	 */
-	public static <T> BladePage<T> paginate(String sqlTemplate, Class<?> clazz, Object paras, int pageNum, int pageSize){
+	public static <T> BladePage<T> paginate(String sqlTemplate, Class<T> clazz, Object paras, int pageNum, int pageSize){
 		return getDbManager().paginate(sqlTemplate, clazz, paras, pageNum, pageSize);
 	}
 

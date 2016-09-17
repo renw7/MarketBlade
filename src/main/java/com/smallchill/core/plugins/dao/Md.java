@@ -126,7 +126,7 @@ public class Md {
 	 * @param pageSize	数量
 	 * @return
 	 */
-	public static <T> BladePage<T> paginate(String sqlId, Class<?> clazz, Object paras, int pageNum, int pageSize){
+	public static <T> BladePage<T> paginate(String sqlId, Class<T> clazz, Object paras, int pageNum, int pageSize){
 		return getMdManager().paginate(sqlId, clazz, paras, pageNum, pageSize);
 	}
 	

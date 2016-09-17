@@ -344,30 +344,6 @@ public class Blade {
 	public boolean save(Object model) {
 		return getSqlManager().insert(this.modelClass, model, false) > 0;
 	}
-	
-	/**
-	 * 新增一条数据(UUID型主键)
-	 * @param model 实体类
-	 * @return
-	 */
-	/*public boolean saveAssign(Object model) {
-		SQLManager sql = getSqlManager();
-		String table = sql.getNc().getTableName(this.modelClass);
-		ClassDesc desc = sql.getMetaDataManager().getTable(table).getClassDesc(this.modelClass, sql.getNc());
-		Method getterMethod =  desc.getIdMethods().get(desc.getIdNames().get(0));
-		String name = getterMethod.getName();
-		String setterName = name.replaceFirst("get", "set");
-		try{
-			Class target = this.modelClass;
-			Method setterMethod = target.getMethod(setterName, new Class[]{getterMethod.getReturnType()});
-			Object value = UUID.randomUUID().toString().replace("-", "");
-			value = ScalarHandler.convertValueToRequiredType(value, getterMethod.getReturnType());
-			setterMethod.invoke(model, new Object[]{value});
-		}catch(Exception ex){		
-			throw new UnsupportedOperationException("autoAssignKey failure " + ex.getMessage());
-		}
-		return sql.insert(this.modelClass, model, false) > 0;
-	}*/
 
 	/**
 	 * 新增一条数据,返回int型主键值

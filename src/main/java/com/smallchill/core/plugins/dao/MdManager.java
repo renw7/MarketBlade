@@ -153,7 +153,7 @@ public class MdManager {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public <T> BladePage<T> paginate(String sqlId, Class<?> clazz, Object paras, int pageNum, int pageSize){
+	public <T> BladePage<T> paginate(String sqlId, Class<T> clazz, Object paras, int pageNum, int pageSize){
 		PageQuery query = new PageQuery();
 		query.setPageNumber(pageNum);
 		query.setPageSize(pageSize);

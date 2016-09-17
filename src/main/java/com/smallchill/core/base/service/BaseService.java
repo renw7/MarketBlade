@@ -110,11 +110,6 @@ public class BaseService<M> implements IService<M>, ConstCurd {
 		return dao.save(model);
 	}
 
-	/*public boolean saveAssign(M model) {
-		Blade dao = getSqlMananger();
-		return dao.saveAssign(model);
-	}*/
-
 	public int saveRtId(M model) {
 		Blade dao = getSqlMananger();
 		return dao.saveRtId(model);

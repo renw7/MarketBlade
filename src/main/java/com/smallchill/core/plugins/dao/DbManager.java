@@ -477,7 +477,7 @@ public class DbManager {
 	 * @param pageSize	数量
 	 * @return
 	 */
-	public <T> List<T> getList(String sqlTemplate, Class<?> clazz, Object paras, int pageNum, int pageSize) {
+	public <T> List<T> getList(String sqlTemplate, Class<T> clazz, Object paras, int pageNum, int pageSize) {
 		List<T> all = (List<T>) getSqlManager().execute(sqlTemplate, clazz, paras, (pageNum - 1) * pageSize + 1, pageSize);
 		return all;
 	}
@@ -503,7 +503,7 @@ public class DbManager {
 	 * @param pageSize	数量
 	 * @return
 	 */
-	public <T> BladePage<T> paginate(String sqlTemplate, Class<?> clazz, Object paras, int pageNum, int pageSize){
+	public <T> BladePage<T> paginate(String sqlTemplate, Class<T> clazz, Object paras, int pageNum, int pageSize){
 		List<T> rows = getList(sqlTemplate, clazz, paras, pageNum, pageSize);
 		long count = queryInt(" SELECT COUNT(*) CNT FROM (" + sqlTemplate + ") a", paras).longValue();
 		BladePage<T> page = new BladePage<>(rows, pageNum, pageSize, count);
