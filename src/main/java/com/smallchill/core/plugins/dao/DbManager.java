@@ -22,7 +22,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.SQLReady;
 import org.beetl.sql.core.SQLResult;
-import org.beetl.sql.core.engine.PageQuery;
 
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.Cst;
@@ -508,24 +507,6 @@ public class DbManager {
 		List<T> rows = getList(sqlTemplate, clazz, paras, pageNum, pageSize);
 		long count = queryInt(" SELECT COUNT(*) CNT FROM (" + sqlTemplate + ") a", paras).longValue();
 		BladePage<T> page = new BladePage<>(rows, pageNum, pageSize, count);
-		return page;
-	}
-	
-	/**
-	 * 分页
-	 * @param sqlId sqlId
-	 * @param clazz	返回类型
-	 * @param paras	参数
-	 * @param pageNum	页号
-	 * @param pageSize	数量
-	 * @return
-	 */
-	public <T> BladePage<T> paginateById(String sqlId, Class<?> clazz, Object paras, int pageNum, int pageSize){
-		PageQuery query = new PageQuery();
-		query.setPageNumber(pageNum);
-		query.setPageSize(pageSize);
-		getSqlManager().pageQuery(sqlId, clazz, query);
-		BladePage<T> page = new BladePage<>(query.getList(), pageNum, pageSize, query.getTotalRow());
 		return page;
 	}
 	

@@ -347,20 +347,7 @@ public class Db {
 	public static <T> BladePage<T> paginate(String sqlTemplate, Class<?> clazz, Object paras, int pageNum, int pageSize){
 		return getDbManager().paginate(sqlTemplate, clazz, paras, pageNum, pageSize);
 	}
-	
-	/**
-	 * 分页
-	 * @param sqlId sqlId
-	 * @param clazz	返回类型
-	 * @param paras	参数
-	 * @param pageNum	页号
-	 * @param pageSize	数量
-	 * @return
-	 */
-	public static <T> BladePage<T> paginateById(String sqlId, Class<?> clazz, Object paras, int pageNum, int pageSize){
-		return getDbManager().paginateById(sqlId, clazz, paras, pageNum, pageSize);
-	}
-	
+
 	/**
 	 * 是否存在
 	 * 
