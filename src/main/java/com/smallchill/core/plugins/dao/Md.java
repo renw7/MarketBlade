@@ -84,7 +84,7 @@ public class Md {
 	 * @return
 	 */
 	public static String queryStr(String sqlId, Object paras){
-		return getMdManager().selectOne(sqlId, paras, String.class);
+		return getMdManager().queryStr(sqlId, paras);
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class Md {
 	 * @return
 	 */
 	public static Integer queryInt(String sqlId, Object paras){
-		return getMdManager().selectOne(sqlId, paras, Integer.class);
+		return getMdManager().queryInt(sqlId, paras);
 	}
 	
 	/**
@@ -104,7 +104,7 @@ public class Md {
 	 * @return
 	 */
 	public static Long queryLong(String sqlId, Object paras){
-		return getMdManager().selectOne(sqlId, paras, Long.class);
+		return getMdManager().queryLong(sqlId, paras);
 	}
 	
 	/**
@@ -114,7 +114,7 @@ public class Md {
 	 * @return
 	 */
 	public static BigDecimal queryDecimal(String sqlId, Object paras){
-		return getMdManager().selectOne(sqlId, paras, BigDecimal.class);
+		return getMdManager().queryDecimal(sqlId, paras);
 	}
 	
 	/**
