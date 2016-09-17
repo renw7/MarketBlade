@@ -151,6 +151,18 @@ public class Md {
 		return getMdManager().insert(sqlId, paras, keyName);
 	}
 	
+	/**
+	 * 新增
+	 * @param sqlId sqlId
+	 * @param paras 参数
+	 * @param holder 主键holder
+	 * @param keyName 主键名
+	 * @return
+	 */
+	public static int insert(String sqlId, Object paras, KeyHolder holder, String keyName) {
+		return getMdManager().insert(sqlId, paras, holder, keyName);
+	}
+	
 	/**修改
 	 * @param sqlId sqlId
 	 * @param paras 参数
