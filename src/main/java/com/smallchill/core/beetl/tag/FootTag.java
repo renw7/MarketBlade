@@ -13,7 +13,7 @@ public class FootTag extends Tag {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void render() {
-		// TODO Auto-generated method stub
+		
 		try {
 			String company = "smallchill@163.com";
 			String customer = "smallchill";
@@ -68,7 +68,6 @@ public class FootTag extends Tag {
 			sb.append("</a>");*/
 			ctx.byteWriter.writeString(sb.toString());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

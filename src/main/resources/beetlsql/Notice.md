@@ -16,6 +16,30 @@ select t.F_IT_XL,t.F_VC_BT,t.F_IT_LX,t.F_TX_NR,t.F_DT_FBSJ,t.F_DT_CJSJ,t.F_IT_CJ
 		left join tfw_attach a on t.F_IT_TP=a.ID
 where t.F_IT_XL = #{id}
 		
+update
+===
+ update tb_tfw_tzgg 
+  set
+	 @if(!isEmpty(f_it_cjr)){
+		f_it_cjr = #{f_it_cjr},
+	 @} if(!isEmpty(f_it_lx)){
+		f_it_lx = #{f_it_lx},
+	 @} if(!isEmpty(f_it_tp)){
+		f_it_tp = #{f_it_tp},
+	 @} if(!isEmpty(f_tx_nr)){
+		f_tx_nr = #{f_tx_nr},
+	 @} if(!isEmpty(f_vc_bt)){
+		f_vc_bt = #{f_vc_bt},
+	 @} if(!isEmpty(f_dt_cjsj)){
+		f_dt_cjsj = #{f_dt_cjsj},
+	 @} if(!isEmpty(f_dt_fbsj)){
+		f_dt_fbsj = #{f_dt_fbsj},
+	 @} if(!isEmpty(version)){
+		version = #{version}
+	 @}
+ where f_it_xl = #{f_it_xl}
+
+
 diy
 ===
 select NUM as "num",

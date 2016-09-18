@@ -29,7 +29,7 @@ public class OLogController extends CurdController<OperationLog>{
 
 	@Override
 	protected Class<? extends IMeta> metaFactoryClass() {
-		// TODO Auto-generated method stub
+		
 		return OLogFactory.class;
 	}
 

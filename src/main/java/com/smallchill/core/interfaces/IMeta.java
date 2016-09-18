@@ -25,28 +25,28 @@ import com.smallchill.core.meta.MetaIntercept;
 public interface IMeta {
 	
 	/**
-	 * TODO 对应的业务拦截器
+	 * 对应的业务拦截器
 	 * 
 	 * @return String
 	 */
 	Class<? extends MetaIntercept> intercept();
 	
 	/**
-	 * TODO 对应的controllerKey
+	 * 对应的controllerKey
 	 * 
 	 * @return String
 	 */
 	String controllerKey();
 	
 	/**
-	 * TODO 前端字段的表名前缀
+	 * 前端字段的表名前缀
 	 * 
 	 * @return String
 	 */
 	String paraPerfix();
 
 	/**
-	 * TODO 前端字段混淆<br>
+	 * 前端字段混淆<br>
 	 * map.put("前端字段","数据库字段");
 	 * 
 	 * @return Map<String,Object>
@@ -54,7 +54,7 @@ public interface IMeta {
 	Map<String, Object> switchMap();
 
 	/**
-	 * TODO 增改查页面转向<br>
+	 * 增改查页面转向<br>
 	 * Map<String, String> renderMap = new HashMap<>();<br>
 	 * renderMap.put(ConstCurd.KEY_INDEX, "/demo/demo.html");<br>
 	 * renderMap.put(ConstCurd.KEY_ADD, "/demo/demo_add.html");<br>
@@ -66,7 +66,7 @@ public interface IMeta {
 	Map<String, String> renderMap();
 
 	/**
-	 * TODO 列表页的数据源<br>
+	 * 列表页的数据源<br>
 	 * Map<String, String> sourceMap = new HashMap<>();<br>
 	 * sourceMap.put(ConstCurd.KEY_INDEX,"DemoMapper.list");<br>
 	 * sourceMap.put(ConstCurd.KEY_EDIT, "DemoMapper.edit");<br>

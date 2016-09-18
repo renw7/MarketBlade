@@ -48,7 +48,7 @@ public class MySqlConnection implements ConnectionSource {
 
 	@Override
 	public boolean isTransaction() {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
@@ -59,13 +59,13 @@ public class MySqlConnection implements ConnectionSource {
 
 	@Override
 	public void forceBegin(boolean isMaster) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void forceEnd() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

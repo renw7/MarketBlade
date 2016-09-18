@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.beetl.sql.core.db.TableDesc;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,7 +34,7 @@ public class GenerateController extends CurdController<Generate> {
 	
 	@ResponseBody
 	@RequestMapping("/pojo/{table}")
-	public String createPojo(HttpServletResponse response, @PathVariable String table) {
+	public String createPojo(@PathVariable String table) {
 		try {
 			Blade.dao().genPojoCodeToConsole(table);
 			return "[ " + table + " ] pojo生成成功,请查看控制台";
@@ -47,12 +45,34 @@ public class GenerateController extends CurdController<Generate> {
 	
 	@ResponseBody
 	@RequestMapping("/pojo/{slave}/{table}")
-	public String createPojoSlave(HttpServletResponse response, @PathVariable String slave, @PathVariable String table) {
+	public String createPojoSlave(@PathVariable String slave, @PathVariable String table) {
 		try {
 			Blade.dao(slave).genPojoCodeToConsole(table);
 			return "[ " + table + " ] pojo生成成功,请查看控制台";
 		} catch (Exception e) {
 			return "[ " + table + " ] pojo生成失败:" + e.getMessage();
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("/sql/{table}")
+	public String createSql(@PathVariable String table) {
+		try {
+			Blade.dao().genSQLTemplateToConsole(table);
+			return "[ " + table + " ] sql生成成功,请查看控制台";
+		} catch (Exception e) {
+			return "[ " + table + " ] sql生成失败:" + e.getMessage();
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("/sql/{slave}/{table}")
+	public String createSqlSlave(@PathVariable String slave, @PathVariable String table) {
+		try {
+			Blade.dao(slave).genSQLTemplateToConsole(table);
+			return "[ " + table + " ] sql生成成功,请查看控制台";
+		} catch (Exception e) {
+			return "[ " + table + " ] sql生成失败:" + e.getMessage();
 		}
 	}
 	

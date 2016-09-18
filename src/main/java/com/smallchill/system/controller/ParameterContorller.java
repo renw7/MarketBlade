@@ -29,7 +29,7 @@ public class ParameterContorller extends CurdController<Parameter>{
 
 	@Override
 	protected Class<? extends IMeta> metaFactoryClass() {
-		// TODO Auto-generated method stub
+		
 		return ParameterFactory.class;
 	}
 	

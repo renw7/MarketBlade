@@ -130,6 +130,21 @@ public class Md {
 		return getMdManager().paginate(sqlId, clazz, paras, pageNum, pageSize);
 	}
 	
+	
+	/**
+	 * 分页
+	 * @param sqlId sqlId
+	 * @param clazz	返回类型
+	 * @param paras	参数
+	 * @param pageNum	页号
+	 * @param pageSize	数量
+	 * @param orderBy	排序
+	 * @return
+	 */
+	public static <T> BladePage<T> paginate(String sqlId, Class<T> clazz, Object paras, int pageNum, int pageSize, String orderBy){
+		return getMdManager().paginate(sqlId, clazz, paras, pageNum, pageSize, orderBy);
+	}
+	
 	/**
 	 * 新增
 	 * @param sqlId sqlId

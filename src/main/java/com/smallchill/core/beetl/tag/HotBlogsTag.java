@@ -6,7 +6,7 @@ public class HotBlogsTag extends GeneralVarTagBinding{
 
 	@Override
 	public void render() {
-		// TODO Auto-generated method stub
+		
 		//Map<String, Object> paras= (Map<String, Object>) this.args[1];
 		/*List<Notice> notices=Notice.dao.findAll();
 		if(null!=notices){

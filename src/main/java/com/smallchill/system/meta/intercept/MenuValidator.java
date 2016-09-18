@@ -29,7 +29,7 @@ public class MenuValidator extends BladeValidator {
 
 	@Override
 	protected void doValidate(Invocation inv) {
-		// TODO Auto-generated method stub
+		
 		if (inv.getMethod().toString().indexOf("update") == -1) {
 			validateRequired("tfw_menu.pcode", "请输入菜单父编号");
 			validateCode("tfw_menu.code", "菜单编号已存在!");

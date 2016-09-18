@@ -26,7 +26,7 @@ public class UserValidator extends BladeValidator {
 
 	@Override
 	protected void doValidate(Invocation inv) {
-		// TODO Auto-generated method stub
+		
 		if (inv.getMethod().toString().indexOf("update") == -1) {
 			validateAccount("TFW_USER.ACCOUNT", "账号已存在");
 			validateStringExt("TFW_USER.ACCOUNT",  "含有非法字符,请检查");

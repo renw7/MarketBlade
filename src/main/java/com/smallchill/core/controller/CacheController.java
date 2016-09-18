@@ -44,7 +44,7 @@ public class CacheController extends BladeController {
 	}
 
 	/**
-	 * TODO 获取按钮组
+	 * 获取按钮组
 	 */
 	@ResponseBody
 	@RequestMapping("/getBtn")
@@ -89,7 +89,7 @@ public class CacheController extends BladeController {
 	}
 
 	/**
-	 * TODO 获取按钮组
+	 * 获取按钮组
 	 */
 	@ResponseBody
 	@RequestMapping("/getChildBtn")
@@ -133,7 +133,7 @@ public class CacheController extends BladeController {
 	}
 
 	/**
-	 * TODO 根据字典编号获取下拉框
+	 * 根据字典编号获取下拉框
 	 * 
 	 * @param code
 	 *            编号

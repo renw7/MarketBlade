@@ -38,7 +38,6 @@ public class ProxyTest {
 			TestProxyMethodCglib test = (TestProxyMethodCglib) TestProxyFactory.getProxyObj(TestProxyMethodCglib.class.getName());
 			test.testCglib();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -60,13 +59,13 @@ class TestProxyBean implements IProxy, IProxyKit {
 
 	@Override
 	public void test() {
-		// TODO Auto-generated method stub
+		
 		System.out.println("hello~");
 	}
 
 	@Override
 	public void testKit() {
-		// TODO Auto-generated method stub
+		
 		System.out.println("helloKit~");
 	}
 
@@ -92,7 +91,7 @@ class TestProxyHander implements InvocationHandler {
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
-		// TODO Auto-generated method stub
+		
 		System.out.println("hello before~");
 
 		Object result = method.invoke(obj, args);
@@ -121,7 +120,7 @@ class TestProxyMethodInterceptor implements MethodInterceptor {
 	@Override
 	public Object intercept(Object arg0, Method arg1, Object[] arg2,
 			MethodProxy arg3) throws Throwable {
-		// TODO Auto-generated method stub
+		
 		System.out.println("执行方法" + arg1 + "前");
 
 		// 执行源对象的method方法

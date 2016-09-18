@@ -38,10 +38,10 @@ public class NoticeController extends BaseController {
 		return BASE_PATH + "notice_add.html";
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(KEY_EDIT + "/{id}")
 	public String edit(@PathVariable String id, ModelMap mm) {
-		Map<String, Object> map = Md.selectOne(DATA_SOURCE, Paras.create().set("id", id), Map.class);
+		Map map = Md.selectOne(DATA_SOURCE, Paras.create().set("id", id), Map.class);
 		mm.put("model", JsonKit.toJson(map));
 		mm.put("id", id);
 		mm.put("code", CODE);
@@ -86,7 +86,8 @@ public class NoticeController extends BaseController {
 	@RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
 		Notice notice = mapping(PERFIX, Notice.class);
-		boolean temp = Blade.create(Notice.class).update(notice);
+		//boolean temp = Blade.create(Notice.class).update(notice);
+		boolean temp = Md.update("Notice.update", notice) > 0;
 		if (temp) {
 			return success(UPDATE_SUCCESS_MSG);
 		} else {

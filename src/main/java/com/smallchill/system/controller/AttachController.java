@@ -29,7 +29,7 @@ public class AttachController extends CurdController<Attach>{
 
 	@Override
 	protected Class<? extends IMeta> metaFactoryClass() {
-		// TODO Auto-generated method stub
+		
 		return AttachFactory.class;
 	}
 

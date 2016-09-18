@@ -65,7 +65,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	/**
 	 * 权限认证
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "rawtypes" })
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		IShiro shiroFactory = ShiroManager.me().getDefaultShiroFactory();

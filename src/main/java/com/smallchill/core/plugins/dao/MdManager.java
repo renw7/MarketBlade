@@ -142,7 +142,6 @@ public class MdManager {
 		return selectOne(sqlId, paras, BigDecimal.class);
 	}
 	
-	
 	/**
 	 * 分页
 	 * @param sqlId sqlId
@@ -152,11 +151,29 @@ public class MdManager {
 	 * @param pageSize	数量
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public <T> BladePage<T> paginate(String sqlId, Class<T> clazz, Object paras, int pageNum, int pageSize){
+		return paginate(sqlId, clazz, paras, pageNum, pageSize, null);
+	}
+	
+	
+	/**
+	 * 分页
+	 * @param sqlId sqlId
+	 * @param clazz	返回类型
+	 * @param paras	参数
+	 * @param pageNum	页号
+	 * @param pageSize	数量
+	 * @param orderBy	排序
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public <T> BladePage<T> paginate(String sqlId, Class<T> clazz, Object paras, int pageNum, int pageSize, String orderBy){
 		PageQuery query = new PageQuery();
 		query.setPageNumber(pageNum);
 		query.setPageSize(pageSize);
+		if(StrKit.notBlank(orderBy)){
+			query.setOrderBy(orderBy);
+		}
 		getSqlManager().pageQuery(sqlId, clazz, query);
 		BladePage<T> page = new BladePage<>(query.getList(), pageNum, pageSize, query.getTotalRow());
 		return page;
@@ -183,11 +200,8 @@ public class MdManager {
 		if (StrKit.isBlank(keyName))
 			return null;
 		KeyHolder holder = new KeyHolder();
-		int cnt = getSqlManager().insert(sqlId, paras, holder, keyName);
-		if (cnt > 0)
-			return holder;
-		else
-			return null;
+		getSqlManager().insert(sqlId, paras, holder, keyName);
+		return (getSqlManager().insert(sqlId, paras, holder, keyName) > 0) ? holder : null;
 	}
 	
 	/**

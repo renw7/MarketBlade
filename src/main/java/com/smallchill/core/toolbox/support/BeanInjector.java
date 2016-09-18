@@ -16,7 +16,7 @@ import com.smallchill.core.toolbox.kit.BeanKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 
 /**
- * javabean 、 maps映射
+ * javabean 、 paras映射
  *
  */
 public class BeanInjector {
@@ -29,9 +29,9 @@ public class BeanInjector {
 		}
 	}
 
-	public static final <T> T inject(Class<T> beanClass, String recordName, HttpServletRequest request) {
+	public static final <T> T inject(Class<T> beanClass, String paraPerfix, HttpServletRequest request) {
 		try {
-			Map<String, Object> map = injectPara(recordName, request);
+			Map<String, Object> map = injectPara(paraPerfix, request);
 			return BeanKit.mapToBeanIgnoreCase(map, beanClass);
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
@@ -42,15 +42,15 @@ public class BeanInjector {
 		return Paras.parse(request.getParameterMap());
 	}
 
-	public static final Paras injectMaps(String recordName, HttpServletRequest request) {
-		Map<String, Object> map = injectPara(recordName, request);
+	public static final Paras injectMaps(String paraPerfix, HttpServletRequest request) {
+		Map<String, Object> map = injectPara(paraPerfix, request);
 		return Paras.parse(map);
 	}
 
-	private static final Map<String, Object> injectPara(String recordName, HttpServletRequest request) {
+	private static final Map<String, Object> injectPara(String paraPerfix, HttpServletRequest request) {
 		Map<String, String[]> paramMap = request.getParameterMap();
 		Map<String, Object> map = new HashMap<>();
-		String start = recordName.toLowerCase() + ".";
+		String start = paraPerfix.toLowerCase() + ".";
 		String[] value = null;
 		for (Entry<String, String[]> param : paramMap.entrySet()) {
 			if (!param.getKey().toLowerCase().startsWith(start)) {

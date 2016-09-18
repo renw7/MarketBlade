@@ -20,7 +20,7 @@ import com.smallchill.core.meta.MetaIntercept;
 
 public interface CurdService {
 	/**
-	 * TODO 通用新增
+	 * 通用新增
 	 * 
 	 * @param model
 	 *            实体类
@@ -29,7 +29,7 @@ public interface CurdService {
 	public boolean save(BladeController ctrl, Object model, Class<?> modelClass, MetaIntercept intercept);
 
 	/**
-	 * TODO 通用修改(null的不入库)
+	 * 通用修改(null的不入库)
 	 * 
 	 * @param model
 	 *            实体类
@@ -38,7 +38,7 @@ public interface CurdService {
 	public boolean update(BladeController ctrl,Object model, Class<?> modelClass, MetaIntercept intercept);
 
 	/**
-	 * TODO 通用删除多条数据(物理)
+	 * 通用删除多条数据(物理)
 	 * 
 	 * @param ids
 	 *            主键值集合
@@ -47,7 +47,7 @@ public interface CurdService {
 	public boolean deleteByIds(BladeController ctrl,String ids, Class<?> modelClass, MetaIntercept intercept);
 	
 	/**
-	 * TODO 通用删除多条数据(逻辑)
+	 * 通用删除多条数据(逻辑)
 	 * 
 	 * @param ids
 	 *            主键值集合
@@ -56,7 +56,7 @@ public interface CurdService {
 	public boolean delByIds(BladeController ctrl,String ids, Class<?> modelClass, MetaIntercept intercept);
 	
 	/**
-	 * TODO 通用恢复多条数据
+	 * 通用恢复多条数据
 	 * 
 	 * @param ids
 	 *            主键值集合
@@ -65,7 +65,7 @@ public interface CurdService {
 	public boolean restoreByIds(BladeController ctrl,String ids, Class<?> modelClass, MetaIntercept intercept);
 	
 	/**
-	 * TODO 通用分页
+	 * 通用分页
 	 * 
 	 * @param page
 	 *            当前页号

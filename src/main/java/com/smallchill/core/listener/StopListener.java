@@ -34,7 +34,7 @@ public class StopListener implements ApplicationListener<ContextStoppedEvent> {
 	}
 
 	/**
-	 * TODO 插件的停用
+	 * 插件的停用
 	 */
 	private void destroyPlugin() {
 		PluginManager.init().stop();
