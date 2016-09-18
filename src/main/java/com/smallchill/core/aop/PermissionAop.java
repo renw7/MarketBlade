@@ -17,8 +17,6 @@ package com.smallchill.core.aop;
 
 import java.lang.reflect.Method;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -30,7 +28,6 @@ import com.smallchill.core.annotation.Permission;
 import com.smallchill.core.exception.NoPermissionException;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.check.PermissionCheckManager;
-import com.smallchill.core.toolbox.kit.HttpKit;
 
 /**
  * AOP 权限自定义检查
@@ -46,7 +43,6 @@ public class PermissionAop {
 
 	@Around("cutPermission()")
 	public Object doPermission(ProceedingJoinPoint point) throws Throwable {
-		HttpServletRequest request = HttpKit.getRequest();
 		MethodSignature ms = (MethodSignature) point.getSignature();
 		Method method = ms.getMethod();
 		Permission permission = method.getAnnotation(Permission.class);
@@ -54,7 +50,7 @@ public class PermissionAop {
 		if ((permissions.length == 1 && Func.toStr(permissions[0]).equals("ALL"))
 				|| permissions == null || permissions.length == 0) {
 			//检查全体角色
-			boolean result = PermissionCheckManager.checkAll(request);
+			boolean result = PermissionCheckManager.checkAll();
 			if (result) {
 				return point.proceed();
 			} else {
@@ -62,7 +58,7 @@ public class PermissionAop {
 			}
 		} else {
 			//检查指定角色
-			boolean result = PermissionCheckManager.check(permissions, request);
+			boolean result = PermissionCheckManager.check(permissions);
 			if (result) {
 				return point.proceed();
 			} else {

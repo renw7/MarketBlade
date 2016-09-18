@@ -15,8 +15,6 @@
  */
 package com.smallchill.core.toolbox.check;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.ICheck;
 
@@ -47,11 +45,11 @@ public class PermissionCheckManager {
 		this.defaultCheckFactory = defaultCheckFactory;
 	}
 
-	public static boolean check(Object[] permissions, HttpServletRequest request) {
-		return me.defaultCheckFactory.check(permissions, request);
+	public static boolean check(Object[] permissions) {
+		return me.defaultCheckFactory.check(permissions);
 	}
 	
-	public static boolean checkAll(HttpServletRequest request) {
-		return me.defaultCheckFactory.checkAll(request);
+	public static boolean checkAll() {
+		return me.defaultCheckFactory.checkAll();
 	}
 }

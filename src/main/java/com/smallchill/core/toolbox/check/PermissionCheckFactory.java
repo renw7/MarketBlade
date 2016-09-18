@@ -22,6 +22,7 @@ import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.ICheck;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.kit.CollectionKit;
+import com.smallchill.core.toolbox.kit.HttpKit;
 
 /**
  * @title 权限自定义检查
@@ -33,7 +34,7 @@ import com.smallchill.core.toolbox.kit.CollectionKit;
 public class PermissionCheckFactory implements ICheck {
 
 	@Override
-	public boolean check(Object[] permissions, HttpServletRequest request) {
+	public boolean check(Object[] permissions) {
 		ShiroUser user = ShiroKit.getUser();
 		if (null == user) {
 			return false;
@@ -46,7 +47,8 @@ public class PermissionCheckFactory implements ICheck {
 	}
 
 	@Override
-	public boolean checkAll(HttpServletRequest request) {
+	public boolean checkAll() {
+		HttpServletRequest request = HttpKit.getRequest();
 		ShiroUser user = ShiroKit.getUser();
 		if (null == user) {
 			return false;

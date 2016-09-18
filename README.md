@@ -9,8 +9,9 @@ PS:因为喜欢刀锋战士所以取名了SpringBlade，当中有一个类也命
 2.[eova](http://www.oschina.net/p/eova)
 3.[hutool](http://www.oschina.net/p/hutool)
 4.[beetl](http://www.oschina.net/p/beetl)
+4.[beetlsql](http://www.oschina.net/p/beetlsql)
 5.[dreamlu](http://www.oschina.net/p/dreamlu)
-6.[kisso](https://git.oschina.net/baomidou/kisso)
+6.[kisso](http://www.oschina.net/p/kisso)
 
 ## 内置功能
 

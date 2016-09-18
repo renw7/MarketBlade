@@ -15,7 +15,6 @@
  */
 package com.smallchill.core.interfaces;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  *  检查用接口
@@ -24,16 +23,14 @@ public interface ICheck {
 	
 	/**   
 	 * 检查指定角色
-	 * @param request
+	 * @param permissions
 	 * @return boolean
 	*/
-	boolean check(Object[] permissions, HttpServletRequest request);
+	boolean check(Object[] permissions);
 	
 	/**   
 	 * 检查全体角色
-	 * @param permissions
-	 * @param request
 	 * @return boolean
 	*/
-	boolean checkAll(HttpServletRequest request);
+	boolean checkAll();
 }
