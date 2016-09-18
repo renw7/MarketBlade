@@ -79,7 +79,6 @@ public class NoticeController extends BaseController {
 		} else {
 			return error(SAVE_FAIL_MSG);
 		}
-
 	}
 
 	@ResponseBody
