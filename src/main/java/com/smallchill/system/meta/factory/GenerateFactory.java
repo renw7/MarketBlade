@@ -42,7 +42,7 @@ public class GenerateFactory extends MetaManager {
 
 	public Map<String, String> sourceMap() {
 		Map<String, String> sourceMap = new HashMap<>();
-		sourceMap.put(KEY_INDEX, "Generate.sourceList");
+		sourceMap.put(KEY_INDEX, "generate.sourceList");
 		return sourceMap;
 	}
 

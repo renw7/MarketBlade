@@ -19,14 +19,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.beetl.sql.core.SQLReady;
-import org.beetl.sql.core.SQLResult;
 
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.interfaces.IQuery;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.support.BladePage;
 
-@SuppressWarnings("rawtypes")
+/**
+ * beetlsql Dao工具
+ */
 public class Db {
 
 	private static volatile DbManager dbManager = null;
@@ -45,7 +46,6 @@ public class Db {
 		}
 		return dbManager;
 	}
-	
 	
 	/************   ↓↓↓   ********     通用     *********   ↓↓↓   ****************/
 	
@@ -102,6 +102,7 @@ public class Db {
 	 * @param sqlTemplate	sql语句
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public static Map selectOne(String sqlTemplate){
 		return getDbManager().selectOne(sqlTemplate);
 	}
@@ -112,6 +113,7 @@ public class Db {
 	 * @param paras	实体类或map
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public static Map selectOne(String sqlTemplate, Object paras){
 		return getDbManager().selectOne(sqlTemplate, paras);
 	}
@@ -121,6 +123,7 @@ public class Db {
 	 * @param sqlTemplate	sql语句
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public static List<Map> selectList(String sqlTemplate){	
 		return getDbManager().selectList(sqlTemplate);
 	}
@@ -131,6 +134,7 @@ public class Db {
 	 * @param paras	实体类或map
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public static List<Map> selectList(String sqlTemplate, Object paras){	
 		return getDbManager().selectList(sqlTemplate, paras);
 	}
@@ -141,6 +145,7 @@ public class Db {
 	 * @param pkValue	主键值
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public static Map findById(String tableName, String pkValue) {
 		return getDbManager().findById(tableName, pkValue);
 	}
@@ -152,6 +157,7 @@ public class Db {
 	 * @param pkValue	主键值
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public static Map findById(String tableName, String pk, String pkValue) {
 		return getDbManager().findById(tableName, pk, pkValue);
 	}
@@ -202,6 +208,7 @@ public class Db {
 	 * @param ac
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public static Map selectOne(String sqlTemplate, Map<String, Object> param, AopContext ac) {
 		return getDbManager().selectOne(sqlTemplate, param, ac);
 	}
@@ -212,6 +219,7 @@ public class Db {
 	 * @param ac
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public static List<Map> selectList(String sqlTemplate, Map<String, Object> param, AopContext ac) {
 		return getDbManager().selectList(sqlTemplate, param, ac);
 	}
@@ -223,6 +231,7 @@ public class Db {
 	 * @param intercept
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public static Map selectOne(String sqlTemplate, Map<String, Object> param, AopContext ac, IQuery intercept) {
 		return getDbManager().selectOne(sqlTemplate, param, ac, intercept);
 	}
@@ -234,6 +243,7 @@ public class Db {
 	 * @param intercept
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public static List<Map> selectList(String sqlTemplate, Map<String, Object> param, AopContext ac, IQuery intercept) {
 		return getDbManager().selectList(sqlTemplate, param, ac, intercept);
 	}
@@ -246,6 +256,7 @@ public class Db {
 	 * @param paras
 	 * @return Map
 	*/
+	@SuppressWarnings("rawtypes")
 	public static Map selectOneByCache(String cacheName, String key, String sqlTemplate, Object paras){
 		return getDbManager().selectOneByCache(cacheName, key, sqlTemplate, paras);
 	}
@@ -258,6 +269,7 @@ public class Db {
 	 * @param paras
 	 * @return List<Map>
 	*/
+	@SuppressWarnings("rawtypes")
 	public static List<Map> selectListByCache(String cacheName, String key, String sqlTemplate, Object paras){
 		return getDbManager().selectListByCache(cacheName, key, sqlTemplate, paras);
 	} 
@@ -331,6 +343,7 @@ public class Db {
 	 * @param pageSize	数量
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public static BladePage<Map> paginate(String sqlTemplate, Object paras, int pageNum, int pageSize){
 		return getDbManager().paginate(sqlTemplate, paras, pageNum, pageSize);
 	}
@@ -357,24 +370,5 @@ public class Db {
 	 */
 	public static boolean isExist(String sqlTemplate, Object paras) {
 		return getDbManager().isExist(sqlTemplate, paras);
-	}
-	
-	/**
-	 * 根据sqlId获取beetlsql的sql语句
-	 * @param sqlId
-	 * @return
-	 */
-	public static String getSql(String sqlId) {
-		return getDbManager().getSql(sqlId);
-	}
-	
-	/**
-	 * 根据sqlId获取beetlsql的sql语句
-	 * @param sqlId
-	 * @param paras
-	 * @return
-	 */
-	public static SQLResult getSQLResult(String sqlId, Object paras){
-		return getDbManager().getSQLResult(sqlId, paras);
 	}
 }

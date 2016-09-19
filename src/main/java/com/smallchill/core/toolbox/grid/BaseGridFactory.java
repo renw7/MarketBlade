@@ -24,6 +24,7 @@ import com.smallchill.core.constant.Const;
 import com.smallchill.core.interfaces.IGrid;
 import com.smallchill.core.interfaces.IQuery;
 import com.smallchill.core.plugins.dao.Db;
+import com.smallchill.core.plugins.dao.Md;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.core.toolbox.kit.StrKit;
@@ -70,7 +71,7 @@ public abstract class BaseGridFactory implements IGrid{
 	}
 	
 	private Object paginateById(String slaveName, Integer page, Integer rows, String sqlId, String para, String sort, String order, IQuery intercept, BladeController ctrl) {	
-		String sqlTemplate = Db.getSql(sqlId);
+		String sqlTemplate = Md.getSql(sqlId);
 		return paginateBySql(slaveName, page, rows, sqlTemplate, para, sort, order, intercept, ctrl);
 	}
 

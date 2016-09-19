@@ -22,6 +22,7 @@ import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
+import com.smallchill.core.plugins.dao.Md;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
@@ -45,7 +46,7 @@ public class ExcelController extends BladeController{
 		String[] _colname = colnames.replace("[", "").replace("]", "").split(",");
 		List<Map<String, String>> _colmodel = JsonKit.parse(colmodel, ArrayList.class);
 	
-		String xml_source = Db.getSql(source);
+		String xml_source = Md.getSql(source);
 		String menu_source = getInfoByCode(code, "SOURCE");
 
 		String _source = (StrKit.notBlank(menu_source)) ? menu_source : xml_source;

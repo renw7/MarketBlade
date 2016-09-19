@@ -39,6 +39,10 @@ update
 	 @}
  where f_it_xl = #{f_it_xl}
 
+findById
+===
+select * from tb_tfw_tzgg where f_it_xl = #{id}
+
 
 diy
 ===

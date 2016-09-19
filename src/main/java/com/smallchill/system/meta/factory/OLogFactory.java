@@ -48,7 +48,7 @@ public class OLogFactory extends MetaManager {
 
 	public Map<String, String> sourceMap() {
 		Map<String, String> sourceMap = new HashMap<>();
-		sourceMap.put(KEY_INDEX, "OLog.sourceList");
+		sourceMap.put(KEY_INDEX, "olog.sourceList");
 		return sourceMap;
 	}
 

@@ -21,7 +21,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.SQLReady;
-import org.beetl.sql.core.SQLResult;
 
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.Cst;
@@ -523,24 +522,5 @@ public class DbManager {
 			return true;
 		}
 		return false;
-	}
-	
-	/**
-	 * 根据sqlId获取beetlsql的sql语句
-	 * @param sqlId
-	 * @return
-	 */
-	public String getSql(String sqlId) {
-		return getSqlManager().getScript(sqlId).getSql();
-	}
-	
-	/**
-	 * 根据sqlId获取beetlsql的sql语句
-	 * @param sqlId
-	 * @param paras
-	 * @return
-	 */
-	public SQLResult getSQLResult(String sqlId, Object paras){
-		return getSqlManager().getSQLResult(sqlId, paras);
 	}
 }

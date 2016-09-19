@@ -47,7 +47,7 @@ import com.smallchill.system.service.MenuService;
 @Controller
 @RequestMapping("/menu")
 public class MenuController extends BaseController implements ConstShiro{
-	private static String LIST_SOURCE = "Menu.list";
+	private static String LIST_SOURCE = "menu.list";
 	private static String BASE_PATH = "/system/menu/";
 	private static String CODE = "menu";
 	private static String PERFIX = "TFW_MENU";

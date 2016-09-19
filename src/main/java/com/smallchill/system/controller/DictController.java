@@ -33,7 +33,7 @@ import com.smallchill.system.model.Dict;
 @Controller
 @RequestMapping("/dict")
 public class DictController extends BaseController{
-	private static String LIST_SOURCE = "Dict.list";
+	private static String LIST_SOURCE = "dict.list";
 	private static String BASE_PATH = "/system/dict/";
 	private static String CODE = "dict";
 	private static String PERFIX = "tfw_dict";

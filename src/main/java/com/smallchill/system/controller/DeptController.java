@@ -34,7 +34,7 @@ import com.smallchill.system.model.Dept;
 @Controller
 @RequestMapping("/dept")
 public class DeptController extends BaseController{
-	private static String LIST_SOURCE = "Dept.list";
+	private static String LIST_SOURCE = "dept.list";
 	private static String BASE_PATH = "/system/dept/";
 	private static String CODE = "dept";
 	private static String PERFIX = "tfw_dept";

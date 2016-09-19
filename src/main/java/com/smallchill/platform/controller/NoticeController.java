@@ -22,8 +22,8 @@ import com.smallchill.platform.model.Notice;
 public class NoticeController extends BaseController {
 	private static String CODE = "notice";
 	private static String PERFIX = "TB_TFW_TZGG";
-	private static String DATA_SOURCE = "Notice.data";
-	private static String LIST_SOURCE = "Notice.list";
+	private static String DATA_SOURCE = "notice.data";
+	private static String LIST_SOURCE = "notice.list";
 	private static String BASE_PATH = "/platform/notice/";
 	
 	@RequestMapping(KEY_MAIN)
@@ -85,8 +85,13 @@ public class NoticeController extends BaseController {
 	@RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
 		Notice notice = mapping(PERFIX, Notice.class);
-		//boolean temp = Blade.create(Notice.class).update(notice);
-		boolean temp = Md.update("Notice.update", notice) > 0;
+		//1.使用mapper
+		//NoticeMapper mapper = Md.getMapper(NoticeMapper.class);
+		//boolean temp = mapper.updateTemplateById(notice) > 0;
+		//2.使用sql模板
+		//boolean temp = Md.update("notice.update", notice) > 0;
+		//3.使用自动生成api
+		boolean temp = Blade.create(Notice.class).update(notice);
 		if (temp) {
 			return success(UPDATE_SUCCESS_MSG);
 		} else {

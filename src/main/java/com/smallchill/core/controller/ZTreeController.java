@@ -15,6 +15,7 @@ import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.interfaces.IQuery;
 import com.smallchill.core.plugins.dao.Db;
+import com.smallchill.core.plugins.dao.Md;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
@@ -149,7 +150,7 @@ public class ZTreeController extends BladeController {
 		} else if (type.equals("role")) {
 			sql = "select ID as \"id\",0 as \"pId\",NAME as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_ROLE";
 		} else {
-			sql = Db.getSql(source);
+			sql = Md.getSql(source);
 		}
 		return sql;
 	}

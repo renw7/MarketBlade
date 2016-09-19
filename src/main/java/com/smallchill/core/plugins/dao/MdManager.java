@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.beetl.sql.core.SQLManager;
+import org.beetl.sql.core.SQLResult;
 import org.beetl.sql.core.db.KeyHolder;
 import org.beetl.sql.core.engine.PageQuery;
 
@@ -64,6 +65,18 @@ public class MdManager {
 			}
 		}
 		return sql;
+	}
+	
+	
+	/************   ↓↓↓   ********    mapper    *********   ↓↓↓   **************/
+	
+	/**
+	 * 获取Mapper
+	 * @param mapperInterface mapper接口类
+	 * @return
+	 */
+	public <T> T getMapper(Class<T> mapperInterface){
+		return getSqlManager().getMapper(mapperInterface);
 	}
 	
 	
@@ -225,6 +238,15 @@ public class MdManager {
 		return getSqlManager().update(sqlId, paras);
 	}
 	
+	/**批量修改
+	 * @param sqlId sqlId
+	 * @param list 参数
+	 * @return
+	 */
+	public int[] updateBatch(String sqlId, List<?> list){
+		return getSqlManager().updateBatch(sqlId, list);
+	}
+	
 	/**删除
 	 * @param sqlId sqlId
 	 * @param paras 参数
@@ -232,5 +254,24 @@ public class MdManager {
 	 */
 	public int delete(String sqlId, Object paras){
 		return getSqlManager().update(sqlId, paras);
+	}
+	
+	/**
+	 * 根据sqlId获取beetlsql的sql语句
+	 * @param sqlId
+	 * @return
+	 */
+	public String getSql(String sqlId) {
+		return getSqlManager().getScript(sqlId).getSql();
+	}
+	
+	/**
+	 * 根据sqlId获取beetlsql的sql语句
+	 * @param sqlId
+	 * @param paras
+	 * @return
+	 */
+	public SQLResult getSQLResult(String sqlId, Object paras){
+		return getSqlManager().getSQLResult(sqlId, paras);
 	}
 }

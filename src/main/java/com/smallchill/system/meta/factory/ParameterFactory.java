@@ -48,7 +48,7 @@ public class ParameterFactory extends MetaManager {
 
 	public Map<String, String> sourceMap() {
 		Map<String, String> sourceMap = new HashMap<>();
-		sourceMap.put(KEY_INDEX, "Parameter.sourceList");
+		sourceMap.put(KEY_INDEX, "parameter.sourceList");
 		return sourceMap;
 	}
 

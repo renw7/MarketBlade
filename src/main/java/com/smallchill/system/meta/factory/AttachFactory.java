@@ -48,7 +48,7 @@ public class AttachFactory extends MetaManager {
 
 	public Map<String, String> sourceMap() {
 		Map<String, String> sourceMap = new HashMap<>();
-		sourceMap.put(KEY_INDEX, "Attach.sourceList");
+		sourceMap.put(KEY_INDEX, "attach.sourceList");
 		return sourceMap;
 	}
 

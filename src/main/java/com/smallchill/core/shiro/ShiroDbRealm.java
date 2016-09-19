@@ -77,7 +77,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		for (String roleId : roleList) {
 			List<Map> permissions = shiroFactory.findPermissionsByRoleId(userId, roleId);
 			if (null != permissions) {
-				for (Map<String, Object> map : permissions) {
+				for (Map map : permissions) {
 					if (!Func.isEmpty(map.get("URL"))) {
 						urlSet.add(Func.toStr(map.get("URL")));
 					}

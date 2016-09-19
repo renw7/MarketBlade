@@ -38,7 +38,7 @@ import com.smallchill.system.service.RoleService;
 @Controller
 @RequestMapping("/role")
 public class RoleController extends BaseController{
-	private static String LIST_SOURCE = "Role.list";
+	private static String LIST_SOURCE = "role.list";
 	private static String BASE_PATH = "/system/role/";
 	private static String CODE = "role";
 	private static String PERFIX = "tfw_role";

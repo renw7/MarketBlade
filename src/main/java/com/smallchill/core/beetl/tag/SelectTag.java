@@ -27,6 +27,7 @@ import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.interfaces.IQuery;
 import com.smallchill.core.plugins.dao.Db;
+import com.smallchill.core.plugins.dao.Md;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
@@ -81,7 +82,7 @@ public class SelectTag extends Tag {
 				if(StrKit.notBlank(where)){
 					modelOrMap = JsonKit.parse(where, Map.class);
 				}
-				sql = Db.getSql(param.get("source"));
+				sql = Md.getSql(param.get("source"));
 			}
 
 			if(StrKit.notBlank(inter)) {

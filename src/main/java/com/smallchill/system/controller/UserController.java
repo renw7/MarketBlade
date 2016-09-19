@@ -50,7 +50,7 @@ import com.smallchill.system.model.RoleExt;
 @Controller
 @RequestMapping("/user")
 public class UserController extends BaseController implements ConstShiro{
-	private static String LIST_SOURCE = "User.list";
+	private static String LIST_SOURCE = "user.list";
 	private static String BASE_PATH = "/system/user/";
 	private static String CODE = "user";
 	private static String PERFIX = "TFW_USER";

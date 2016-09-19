@@ -34,6 +34,9 @@ import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.support.BladePage;
 
+/**
+ * beetlsql 自动API封装dao工具
+ */
 @SuppressWarnings({"unchecked","rawtypes"})
 public class Blade {
 	private static Map<Class<?>, Blade> pool = new ConcurrentHashMap<Class<?>, Blade>();

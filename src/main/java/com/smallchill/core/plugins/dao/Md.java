@@ -18,10 +18,14 @@ package com.smallchill.core.plugins.dao;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.beetl.sql.core.SQLResult;
 import org.beetl.sql.core.db.KeyHolder;
 
 import com.smallchill.core.toolbox.support.BladePage;
 
+/**
+ * beetlsql  MarkDown模式sql管理工具
+ */
 public class Md {
 
 	private static volatile MdManager mdManager = null;
@@ -39,6 +43,18 @@ public class Md {
 			}
 		}
 		return mdManager;
+	}
+	
+	
+	/************   ↓↓↓   ********    mapper    *********   ↓↓↓   **************/
+	
+	/**
+	 * 获取Mapper
+	 * @param mapperInterface mapper接口类
+	 * @return
+	 */
+	public static <T> T getMapper(Class<T> mapperInterface){
+		return getMdManager().getMapper(mapperInterface);
 	}
 	
 	
@@ -187,6 +203,15 @@ public class Md {
 		return getMdManager().update(sqlId, paras);
 	}
 	
+	/**批量修改
+	 * @param sqlId sqlId
+	 * @param list 参数
+	 * @return
+	 */
+	public static int[] updateBatch(String sqlId, List<?> list){
+		return getMdManager().updateBatch(sqlId, list);
+	}
+	
 	/**删除
 	 * @param sqlId sqlId
 	 * @param paras 参数
@@ -194,6 +219,25 @@ public class Md {
 	 */
 	public static int delete(String sqlId, Object paras){
 		return getMdManager().delete(sqlId, paras);
+	}
+	
+	/**
+	 * 根据sqlId获取beetlsql的sql语句
+	 * @param sqlId
+	 * @return
+	 */
+	public static String getSql(String sqlId) {
+		return getMdManager().getSql(sqlId);
+	}
+	
+	/**
+	 * 根据sqlId获取beetlsql的sql语句
+	 * @param sqlId
+	 * @param paras
+	 * @return
+	 */
+	public static SQLResult getSQLResult(String sqlId, Object paras){
+		return getMdManager().getSQLResult(sqlId, paras);
 	}
 	
 
