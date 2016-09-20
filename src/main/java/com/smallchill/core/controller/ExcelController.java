@@ -90,7 +90,7 @@ public class ExcelController extends BladeController{
 		int cnt = 0;
 		for (Map<String, String> m : _colmodel) {
 			if (cnt > 1) {
-				if(Func.format(m.get("hidden")).equals("true")){
+				if(Func.toStr(m.get("hidden")).equals("true")){
 					cnt++;
 					continue;					
 				}

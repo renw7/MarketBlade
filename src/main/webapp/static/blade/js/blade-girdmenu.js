@@ -52,7 +52,7 @@ $.extend({
 							.jqGrid('getGridParam', 'colModel');
 					var postdata = $(gridtbl)
 							.jqGrid('getGridParam', 'postData');
-					var source = (typeof (export_source) == "undefined") ? (code.replace(/(\w)/,function(v){return v.toUpperCase()}) + ".list") : export_source;
+					var source = (typeof (export_source) == "undefined") ? (code + ".list") : export_source;
 					$.post(ctx + "/excel/preExport", {
 						code : code,
 						colnames : JSON.stringify(colnames),

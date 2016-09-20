@@ -274,7 +274,7 @@ public abstract class BladeValidator extends BladeInterceptor {
 			addError(errorMessage);
 			return;
 		}
-		if (!DateKit.isValidDate(Func.format(value))) {
+		if (!DateKit.isValidDate(Func.toStr(value))) {
 			addError(errorMessage);
 		}
 	}
@@ -290,7 +290,7 @@ public abstract class BladeValidator extends BladeInterceptor {
 			return;
 		}
 		try {
-			Date temp = DateKit.parseTime(Func.format(value));
+			Date temp = DateKit.parseTime(Func.toStr(value));
 			if (temp.before(min) || temp.after(max))
 				addError(errorMessage);
 		} catch (Exception e) {
@@ -306,8 +306,8 @@ public abstract class BladeValidator extends BladeInterceptor {
 		// validateDate(field, Date.valueOf(min), Date.valueOf(max), errorKey,
 		// errorMessage); 为了兼容 64位 JDK
 		try {
-			validateDate(field, DateKit.parseTime(Func.format(min)),
-					DateKit.parseTime(Func.format(max)), errorMessage);
+			validateDate(field, DateKit.parseTime(Func.toStr(min)),
+					DateKit.parseTime(Func.toStr(max)), errorMessage);
 		} catch (Exception e) {
 			addError(errorMessage);
 		}
