@@ -141,6 +141,11 @@ public class Notice extends BaseModel {
 	String editor = Db.init("otherDb").queryStr("select editor form news where newsId = #{newsId}", Paras.create().set("newsId", 123));
 ```
 
+ 根据md文件的sql执行修改
+```
+	int cnt = Md.update("news.update", Paras.create().set("title", "标题测试").set("id", "1"));
+```
+
  根据条件修改
 ```
 	boolean temp = Blade.create(News.class).updateBy("editor = #{editor}", "title = #{title}", Paras.create().set("title", "测试标题").set("editor", "编辑一"));
