@@ -140,6 +140,18 @@ public class Db {
 	}
 	
 	/**
+	 * 获取多条数据
+	 * @param sqlTemplate	sql语句
+	 * @param paras	实体类或map
+	 * @param topNum 排序
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	public static List<Map> selectTop(String sqlTemplate, Object paras, Integer topNum){	
+		return getDbManager().selectTop(sqlTemplate, paras, topNum);
+	}
+	
+	/**
 	 * 根据表名、主键获取一条数据
 	 * @param tableName	表名
 	 * @param pkValue	主键值

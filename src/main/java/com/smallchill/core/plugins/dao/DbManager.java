@@ -180,6 +180,17 @@ public class DbManager {
 	 * 获取多条数据
 	 * @param sqlTemplate	sql语句
 	 * @param paras	实体类或map
+	 * @param topNum 排序
+	 * @return
+	 */
+	public List<Map> selectTop(String sqlTemplate, Object paras, Integer topNum){	
+		return getSqlManager().execute(sqlTemplate, Map.class, paras, topNum, 1);
+	}
+	
+	/**
+	 * 获取多条数据
+	 * @param sqlTemplate	sql语句
+	 * @param paras	实体类或map
 	 * @return
 	 */
 	private List<Map> queryListMap(String sqlTemplate, Object paras){
