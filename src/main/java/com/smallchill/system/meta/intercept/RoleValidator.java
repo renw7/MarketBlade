@@ -37,8 +37,8 @@ public class RoleValidator extends BladeValidator {
 			addError("请选择权限!");
 		} else if(ShiroKit.hasRole(ConstShiro.ADMINISTRATOR)){
 			String[] id = ids.split(",");
-			String roleAuthory = Db.queryStr("select id from tfw_menu where code = #{code}", Paras.create().set("code", "role_authority"));
-			if(!CollectionKit.contains(id, roleAuthory)){
+			String authority = Db.queryStr("select id from tfw_menu where code = #{code}", Paras.create().set("code", "role_authority"));
+			if(!CollectionKit.contains(id, authority)){
 				//超管不包含权限配置则报错
 				addError(errorMessage);
 			}
