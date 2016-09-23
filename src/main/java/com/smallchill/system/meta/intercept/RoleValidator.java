@@ -16,35 +16,32 @@
 package com.smallchill.system.meta.intercept;
 
 import com.smallchill.core.aop.Invocation;
+import com.smallchill.core.constant.ConstShiro;
 import com.smallchill.core.intercept.BladeValidator;
-import com.smallchill.core.plugins.dao.Blade;
+import com.smallchill.core.plugins.dao.Db;
+import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.kit.CollectionKit;
 import com.smallchill.core.toolbox.kit.StrKit;
-import com.smallchill.system.model.Menu;
 
-public class MenuValidator extends BladeValidator {
+public class RoleValidator extends BladeValidator {
 
 	@Override
 	protected void doValidate(Invocation inv) {
-		
-		if (inv.getMethod().toString().indexOf("update") == -1) {
-			validateRequired("tfw_menu.pcode", "请输入菜单父编号");
-			validateCode("tfw_menu.code", "菜单编号已存在!");
-		}
-		validateSql("tfw_menu.source", "含有非法字符,请仔细检查!");
-		
+		validateRole("ids", "超级管理员不能去掉角色管理的权限!");
 	}
 
-	protected void validateCode(String field, String errorMessage) {
-		String code = request.getParameter(field);
-		if (StrKit.isBlank(code)) {
-			addError("请输入菜单编号!");
-		}
-		Blade blade = Blade.create(Menu.class);
-		String sql = "select * from tfw_menu where code = #{code}";
-		boolean temp = blade.isExist(sql, Paras.create().set("code", code));
-		if (temp) {
-			addError(errorMessage);
+	protected void validateRole(String field, String errorMessage) {
+		String ids = request.getParameter(field);
+		if (StrKit.isBlank(ids)) {
+			addError("请选择权限!");
+		} else if(ShiroKit.hasRole(ConstShiro.ADMINISTRATOR)){
+			String[] id = ids.split(",");
+			String roleAuthory = Db.queryStr("select id from tfw_menu where code = #{code}", Paras.create().set("code", "role_authority"));
+			if(!CollectionKit.contains(id, roleAuthory)){
+				//超管不包含权限配置则报错
+				addError(errorMessage);
+			}
 		}
 	}
 

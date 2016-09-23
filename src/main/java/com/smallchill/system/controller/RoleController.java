@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
+import com.smallchill.core.annotation.Before;
 import com.smallchill.core.annotation.Permission;
 import com.smallchill.core.constant.ConstShiro;
 import com.smallchill.core.toolbox.Func;
@@ -32,6 +33,7 @@ import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.system.meta.intercept.RoleIntercept;
+import com.smallchill.system.meta.intercept.RoleValidator;
 import com.smallchill.system.model.Role;
 import com.smallchill.system.service.RoleService;
 
@@ -105,6 +107,7 @@ public class RoleController extends BaseController{
 	}
 	
 	@ResponseBody
+	@Before(RoleValidator.class)
 	@RequestMapping("/saveAuthority")
 	public AjaxResult saveAuthority() {
 		String ids = getParameter("ids");
