@@ -47,13 +47,13 @@ public class WafKit {
 			rlt = scriptPattern.matcher(rlt).replaceAll("");
 
 			// Avoid anything in a src='...' type of expression
-			scriptPattern = Pattern.compile("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", Pattern.CASE_INSENSITIVE
+			/*scriptPattern = Pattern.compile("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", Pattern.CASE_INSENSITIVE
 					| Pattern.MULTILINE | Pattern.DOTALL);
 			rlt = scriptPattern.matcher(rlt).replaceAll("");
 
 			scriptPattern = Pattern.compile("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", Pattern.CASE_INSENSITIVE
 					| Pattern.MULTILINE | Pattern.DOTALL);
-			rlt = scriptPattern.matcher(rlt).replaceAll("");
+			rlt = scriptPattern.matcher(rlt).replaceAll("");*/
 
 			// Remove any lonesome </script> tag
 			scriptPattern = Pattern.compile("</script>", Pattern.CASE_INSENSITIVE);
