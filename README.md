@@ -232,8 +232,7 @@ SpringBlade主要用于交流学习，开源协议署名为smallchill的代码�
 ##1.linux下登陆报未知错误
 发布在linux的小伙伴需要做如下操作：
 `vi /etc/my.cnf`
-在[mysqld]节点下增加
-`lower_case_table_names = 1`
+在[mysqld]节点下增加`lower_case_table_names = 1`
 `:wq`
 `service mysqld restart`
 取消大小写敏感，就可以正常运行了
