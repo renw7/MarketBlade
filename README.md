@@ -229,7 +229,7 @@ SpringBlade主要用于交流学习，开源协议署名为smallchill的代码�
 
 常见问题
 =======
-1.linux下登陆报未知错误
+##1.linux下登陆报未知错误
 发布在linux的小伙伴需要做如下操作：
 `vi /etc/my.cnf`
 在[mysqld]节点下增加
@@ -238,11 +238,11 @@ SpringBlade主要用于交流学习，开源协议署名为smallchill的代码�
 `service mysqld restart`
 取消大小写敏感，就可以正常运行了
 
-2.连接oracle报未知错误
+##2.连接oracle报未知错误
 到resource文件夹下config.properties修改oracle链接，然后到resource/spring/applicationContext.xml找到
 ```
-&lt;property name="dbStyle"&gt;
-    &lt;bean class="org.beetl.sql.core.db.MySqlStyle"&gt;&lt;/bean&gt;
-&lt;/property&gt;
+<property name="dbStyle">
+    <bean class="org.beetl.sql.core.db.MySqlStyle"></bean>
+</property>
 ```
 将`MySqlStyle`改为`OracleStyle`
