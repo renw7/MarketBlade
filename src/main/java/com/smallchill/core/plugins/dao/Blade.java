@@ -429,11 +429,11 @@ public class Blade {
 			// 1.数据是否还存在
 			String sqlExist = new StringBuffer("select * from ").append(table).append(" where ").append(pk).append(" = #{idValue} ").toString();
 			Map modelOld = Db.init(dbName).selectOne(sqlExist, Paras.create().set("idValue", idValue));
-			// 数据已经被删除
+			// 2.数据已经被删除
 			if (null == modelOld) { 
-				throw new RuntimeException("数据库中此数据不存在，可能数据已经被删除，请刷新数据后在操作");
+				throw new RuntimeException("数据库中此数据不存在，可能数据已经被删除，请刷新数据后再操作");
 			}
-			// 2.乐观锁控制
+			// 3.乐观锁控制
 			Paras modelForm = Paras.parse(model);
 			if (modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase()) != null) { // 是否需要乐观锁控制
 				int versionDB = Func.toInt(modelOld.get(Const.OPTIMISTIC_LOCK.toLowerCase()), 0); // 数据库中的版本号
