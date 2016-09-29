@@ -436,8 +436,8 @@ public class Blade {
 			// 2.乐观锁控制
 			Paras modelForm = Paras.parse(model);
 			if (modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase()) != null) { // 是否需要乐观锁控制
-				int versionDB = Func.toInt(modelOld.get(Const.OPTIMISTIC_LOCK.toLowerCase())); // 数据库中的版本号
-				int versionForm = Func.toInt(modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase())); // 表单中的版本号
+				int versionDB = Func.toInt(modelOld.get(Const.OPTIMISTIC_LOCK.toLowerCase()), 0); // 数据库中的版本号
+				int versionForm = Func.toInt(modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase()), 1); // 表单中的版本号
 				if (!(versionForm > versionDB)) {
 					throw new RuntimeException("表单数据版本号和数据库数据版本号不一致，可能数据已经被其他人修改，请重新编辑");
 				}
