@@ -42,7 +42,7 @@
 		<property name="dbStyle">
 			<bean class="org.beetl.sql.core.db.MySqlStyle"></bean>
 		</property>
-		<property name="configLocation" value="classpath:/config/btsql-ext.properties"></property>
+		<property name="configLocation" value="classpath:/config/beetlsql.properties"></property>
 	</bean>
 	
 

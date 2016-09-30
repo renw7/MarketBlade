@@ -46,11 +46,11 @@
             <artifactId>log4j-jcl</artifactId>
             <version>${log4j2.version}</version>
         </dependency>
-        <!-- <dependency>
+        <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
             <version>${log4j2.version}</version>
-        </dependency> -->
+        </dependency>
 		<!-- beetl -->
 		<dependency>
 			<groupId>com.ibeetl</groupId>
@@ -231,7 +231,7 @@
         </profile>
     </profiles>
 	<build>
-        <finalName>springblade</finalName>
+        <finalName>blade</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

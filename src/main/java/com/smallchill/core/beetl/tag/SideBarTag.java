@@ -160,11 +160,11 @@ public class SideBarTag extends Tag {
 	 *            层级
 	 * @return String 返回子菜单HTML集
 	 */
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String reloadMenu(List<Map> sideBar, String pCode, String pStr, int levels, String ctxPath) {
 		String Str = "";
 		String subStr = "";
-		for (Map<String, Object> subside : sideBar) {
+		for (Map subside : sideBar) {
 			Paras rd = Paras.parse(subside);
 			int _levels = rd.getInt("LEVELS");
 			String _code = rd.getStr("CODE");
