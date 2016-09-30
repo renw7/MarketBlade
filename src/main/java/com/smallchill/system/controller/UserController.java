@@ -53,7 +53,7 @@ public class UserController extends BaseController implements ConstShiro{
 	private static String LIST_SOURCE = "user.list";
 	private static String BASE_PATH = "/system/user/";
 	private static String CODE = "user";
-	private static String PERFIX = "TFW_USER";
+	private static String PREFIX = "TFW_USER";
 
 	@RequestMapping("/")
 	@Permission({ ADMINISTRATOR, ADMIN })
@@ -149,7 +149,7 @@ public class UserController extends BaseController implements ConstShiro{
 	@RequestMapping(KEY_SAVE)
 	@Permission({ ADMINISTRATOR, ADMIN })
 	public AjaxResult save() {
-		User user = mapping(PERFIX, User.class);
+		User user = mapping(PREFIX, User.class);
 		String pwd = user.getPassword();
 		String salt = ShiroKit.getRandomSalt(5);
 		String pwdMd5 = ShiroKit.md5(pwd, salt);
@@ -172,8 +172,8 @@ public class UserController extends BaseController implements ConstShiro{
 	@Before(UserValidator.class)
 	@RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
-		User user = mapping(PERFIX, User.class);
-		if(StrKit.notBlank(PERFIX + "PASSWORD")){
+		User user = mapping(PREFIX, User.class);
+		if(StrKit.notBlank(PREFIX + "PASSWORD")){
 			String pwd = user.getPassword();
 			User oldUser = Blade.create(User.class).findById(user.getId());
 			if(!pwd.equals(oldUser.getPassword())){

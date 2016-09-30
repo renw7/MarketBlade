@@ -22,7 +22,7 @@ ${"@"}Controller
 ${"@"}RequestMapping("/${lowerModelName}")
 public class ${modelName}Controller extends BaseController {
 	private static String CODE = "${lowerModelName}";
-	private static String PERFIX = "${tableName}";
+	private static String PREFIX = "${tableName}";
 	private static String LIST_SOURCE = "${modelName}.list";
 	private static String BASE_PATH = "/platform/${lowerModelName}/";
 	
@@ -69,7 +69,7 @@ public class ${modelName}Controller extends BaseController {
 	${"@"}ResponseBody
 	${"@"}RequestMapping(KEY_SAVE)
 	public AjaxResult save() {
-		${modelName} ${lowerModelName} = mapping(PERFIX, ${modelName}.class);
+		${modelName} ${lowerModelName} = mapping(PREFIX, ${modelName}.class);
 		boolean temp = service.save(${lowerModelName});
 		if (temp) {
 			return success(SAVE_SUCCESS_MSG);
@@ -81,7 +81,7 @@ public class ${modelName}Controller extends BaseController {
 	${"@"}ResponseBody
 	${"@"}RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
-		${modelName} ${lowerModelName} = mapping(PERFIX, ${modelName}.class);
+		${modelName} ${lowerModelName} = mapping(PREFIX, ${modelName}.class);
 		boolean temp = service.update(${lowerModelName});
 		if (temp) {
 			return success(UPDATE_SUCCESS_MSG);

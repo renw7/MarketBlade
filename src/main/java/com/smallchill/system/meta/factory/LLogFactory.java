@@ -33,7 +33,7 @@ public class LLogFactory extends MetaManager {
 		return "llog";
 	}
 
-	public String paraPerfix() {
+	public String paraPrefix() {
 		return getTableName(LoginLog.class);
 	}
 

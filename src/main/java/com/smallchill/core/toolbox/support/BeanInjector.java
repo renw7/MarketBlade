@@ -29,9 +29,9 @@ public class BeanInjector {
 		}
 	}
 
-	public static final <T> T inject(Class<T> beanClass, String paraPerfix, HttpServletRequest request) {
+	public static final <T> T inject(Class<T> beanClass, String paraPrefix, HttpServletRequest request) {
 		try {
-			Map<String, Object> map = injectPara(paraPerfix, request);
+			Map<String, Object> map = injectPara(paraPrefix, request);
 			return BeanKit.mapToBeanIgnoreCase(map, beanClass);
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
@@ -42,15 +42,15 @@ public class BeanInjector {
 		return Paras.parse(request.getParameterMap());
 	}
 
-	public static final Paras injectMaps(String paraPerfix, HttpServletRequest request) {
-		Map<String, Object> map = injectPara(paraPerfix, request);
+	public static final Paras injectMaps(String paraPrefix, HttpServletRequest request) {
+		Map<String, Object> map = injectPara(paraPrefix, request);
 		return Paras.parse(map);
 	}
 
-	private static final Map<String, Object> injectPara(String paraPerfix, HttpServletRequest request) {
+	private static final Map<String, Object> injectPara(String paraPrefix, HttpServletRequest request) {
 		Map<String, String[]> paramMap = request.getParameterMap();
 		Map<String, Object> map = new HashMap<>();
-		String start = paraPerfix.toLowerCase() + ".";
+		String start = paraPrefix.toLowerCase() + ".";
 		String[] value = null;
 		for (Entry<String, String[]> param : paramMap.entrySet()) {
 			if (!param.getKey().toLowerCase().startsWith(start)) {

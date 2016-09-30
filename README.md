@@ -92,7 +92,7 @@ public class Notice extends BaseModel {
 	@ResponseBody
 	@RequestMapping(KEY_SAVE)
 	public AjaxResult save() {
-		Notice notice = mapping(PERFIX, Notice.class);
+		Notice notice = mapping(PREFIX, Notice.class);
 		boolean temp = Blade.create(Notice.class).save(notice);
 		if (temp) {
 			return success(SAVE_SUCCESS_MSG);
@@ -107,7 +107,7 @@ public class Notice extends BaseModel {
 	@ResponseBody
 	@RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
-		Notice notice = mapping(PERFIX, Notice.class);
+		Notice notice = mapping(PREFIX, Notice.class);
 		boolean temp = Blade.create(Notice.class).update(notice);
 		if (temp) {
 			return success(UPDATE_SUCCESS_MSG);
@@ -177,7 +177,7 @@ public class Notice extends BaseModel {
 	@ResponseBody
 	@RequestMapping(KEY_SAVE)
 	public AjaxResult save() {
-		Notice notice = mapping(PERFIX, Notice.class);
+		Notice notice = mapping(PREFIX, Notice.class);
 		boolean temp = service.save(notice);
 		if (temp) {
 			return success(SAVE_SUCCESS_MSG);

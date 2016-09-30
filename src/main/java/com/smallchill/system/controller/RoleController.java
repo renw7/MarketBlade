@@ -43,7 +43,7 @@ public class RoleController extends BaseController{
 	private static String LIST_SOURCE = "role.list";
 	private static String BASE_PATH = "/system/role/";
 	private static String CODE = "role";
-	private static String PERFIX = "tfw_role";
+	private static String PREFIX = "tfw_role";
 	
 	@Autowired
 	RoleService service;
@@ -131,7 +131,7 @@ public class RoleController extends BaseController{
 	@ResponseBody
 	@RequestMapping(KEY_SAVE)
 	public AjaxResult save() {
-		Role role = mapping(PERFIX, Role.class);
+		Role role = mapping(PREFIX, Role.class);
 		boolean temp = service.save(role);
 		if (temp) {
 			CacheKit.removeAll(ROLE_CACHE);
@@ -145,7 +145,7 @@ public class RoleController extends BaseController{
 	@ResponseBody
 	@RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
-		Role role = mapping(PERFIX, Role.class);
+		Role role = mapping(PREFIX, Role.class);
 		role.setVersion(getParameterToInt("VERSION", 0) + 1);
 		boolean temp = service.update(role);
 		if (temp) {

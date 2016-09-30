@@ -37,7 +37,7 @@ public class DeptController extends BaseController{
 	private static String LIST_SOURCE = "dept.list";
 	private static String BASE_PATH = "/system/dept/";
 	private static String CODE = "dept";
-	private static String PERFIX = "tfw_dept";
+	private static String PREFIX = "tfw_dept";
 	
 	@RequestMapping("/")
 	public String index(ModelMap mm) {
@@ -93,7 +93,7 @@ public class DeptController extends BaseController{
 	@ResponseBody
 	@RequestMapping(KEY_SAVE)
 	public AjaxResult save() {
-		Dept dept = mapping(PERFIX, Dept.class);
+		Dept dept = mapping(PREFIX, Dept.class);
 		boolean temp = Blade.create(Dept.class).save(dept);
 		if (temp) {
 			CacheKit.removeAll(DEPT_CACHE);
@@ -106,7 +106,7 @@ public class DeptController extends BaseController{
 	@ResponseBody
 	@RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
-		Dept dept = mapping(PERFIX, Dept.class);
+		Dept dept = mapping(PREFIX, Dept.class);
 		dept.setVersion(getParameterToInt("VERSION", 0) + 1);
 		boolean temp =  Blade.create(Dept.class).update(dept);
 		if (temp) {

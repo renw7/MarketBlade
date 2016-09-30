@@ -33,7 +33,7 @@ public class AttachFactory extends MetaManager {
 		return "attach";
 	}
 
-	public String paraPerfix() {
+	public String paraPrefix() {
 		return getTableName(Attach.class);
 	}
 

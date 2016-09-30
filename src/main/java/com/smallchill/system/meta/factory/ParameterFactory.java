@@ -33,7 +33,7 @@ public class ParameterFactory extends MetaManager {
 		return "parameter";
 	}
 
-	public String paraPerfix() {
+	public String paraPrefix() {
 		return getTableName(Parameter.class);
 	}
 

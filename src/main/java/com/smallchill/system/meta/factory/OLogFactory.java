@@ -33,7 +33,7 @@ public class OLogFactory extends MetaManager {
 		return "olog";
 	}
 
-	public String paraPerfix() {
+	public String paraPrefix() {
 		return getTableName(OperationLog.class);
 	}
 

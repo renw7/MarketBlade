@@ -36,7 +36,7 @@ public class DictController extends BaseController{
 	private static String LIST_SOURCE = "dict.list";
 	private static String BASE_PATH = "/system/dict/";
 	private static String CODE = "dict";
-	private static String PERFIX = "tfw_dict";
+	private static String PREFIX = "tfw_dict";
 	
 	@RequestMapping("/")
 	public String index(ModelMap mm) {
@@ -94,7 +94,7 @@ public class DictController extends BaseController{
 	@ResponseBody
 	@RequestMapping(KEY_SAVE)
 	public AjaxResult save() {
-		Dict dict = mapping(PERFIX, Dict.class);
+		Dict dict = mapping(PREFIX, Dict.class);
 		boolean temp = Blade.create(Dict.class).save(dict);
 		if (temp) {
 			CacheKit.removeAll(DICT_CACHE);
@@ -108,7 +108,7 @@ public class DictController extends BaseController{
 	@ResponseBody
 	@RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
-		Dict dict = mapping(PERFIX, Dict.class);
+		Dict dict = mapping(PREFIX, Dict.class);
 		dict.setVersion(getParameterToInt("VERSION", 0) + 1);
 		boolean temp =  Blade.create(Dict.class).update(dict);
 		if (temp) {

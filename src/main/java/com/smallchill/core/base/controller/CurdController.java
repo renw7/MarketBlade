@@ -52,7 +52,7 @@ public abstract class CurdController<M> extends BaseController {
 	private Class<M> modelClass;
 	private IMeta metaFactory;
 	private String controllerKey;
-	private String paraPerfix;
+	private String paraPrefix;
 	private Map<String, Object> switchMap;
 	private Map<String, String> renderMap;
 	private Map<String, String> sourceMap;
@@ -68,7 +68,7 @@ public abstract class CurdController<M> extends BaseController {
 		this.modelClass = getClazz();
 		this.metaFactory = Singleton.create(metaFactoryClass());
 		this.controllerKey = metaFactory.controllerKey();
-		this.paraPerfix = metaFactory.paraPerfix();
+		this.paraPrefix = metaFactory.paraPrefix();
 		this.switchMap = metaFactory.switchMap();
 		this.renderMap = metaFactory.renderMap();
 		this.sourceMap = metaFactory.sourceMap();
@@ -275,15 +275,15 @@ public abstract class CurdController<M> extends BaseController {
 	}
 
 	/**
-	 * 根据子类的paraPerfix,switchMap实现主表的自动映射
+	 * 根据子类的paraPrefix,switchMap实现主表的自动映射
 	 * 
 	 * @return M
 	 */
 	protected M autoMapping() {
-		if (Func.isAllEmpty(paraPerfix, switchMap)) {
+		if (Func.isAllEmpty(paraPrefix, switchMap)) {
 			return mapping(modelClass);
-		}else if (Func.isEmpty(switchMap) && !Func.isEmpty(paraPerfix)) {
-			return mapping(paraPerfix, modelClass);
+		}else if (Func.isEmpty(switchMap) && !Func.isEmpty(paraPrefix)) {
+			return mapping(paraPrefix, modelClass);
 		} else {
 			return null;
 		}

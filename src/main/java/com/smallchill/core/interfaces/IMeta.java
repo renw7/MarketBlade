@@ -43,7 +43,7 @@ public interface IMeta {
 	 * 
 	 * @return String
 	 */
-	String paraPerfix();
+	String paraPrefix();
 
 	/**
 	 * 前端字段混淆<br>

@@ -26,7 +26,7 @@ public abstract class MetaManager extends MetaTool implements IMeta,ConstCurd{
 		return null;
 	}
 
-	public String paraPerfix() {
+	public String paraPrefix() {
 		return null;
 	}
 

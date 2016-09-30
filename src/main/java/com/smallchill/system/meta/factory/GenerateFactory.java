@@ -27,7 +27,7 @@ public class GenerateFactory extends MetaManager {
 		return "generate";
 	}
 
-	public String paraPerfix() {
+	public String paraPrefix() {
 		return getTableName(Generate.class);
 	}
 

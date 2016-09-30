@@ -50,7 +50,7 @@ public class MenuController extends BaseController implements ConstShiro{
 	private static String LIST_SOURCE = "menu.list";
 	private static String BASE_PATH = "/system/menu/";
 	private static String CODE = "menu";
-	private static String PERFIX = "TFW_MENU";
+	private static String PREFIX = "TFW_MENU";
 
 	@Autowired
 	MenuService service;
@@ -115,7 +115,7 @@ public class MenuController extends BaseController implements ConstShiro{
 	@RequestMapping(KEY_SAVE)
 	@Permission(ADMINISTRATOR)
 	public AjaxResult save() {
-		Menu menu = mapping(PERFIX, Menu.class);
+		Menu menu = mapping(PREFIX, Menu.class);
 		menu.setStatus(1);
 		boolean temp = service.save(menu);
 		if (temp) {
@@ -131,7 +131,7 @@ public class MenuController extends BaseController implements ConstShiro{
 	@RequestMapping(KEY_UPDATE)
 	@Permission(ADMINISTRATOR)
 	public AjaxResult update() {
-		Menu menu = mapping(PERFIX, Menu.class);
+		Menu menu = mapping(PREFIX, Menu.class);
 		menu.setVersion(getParameterToInt("VERSION", 0) + 1);
 		boolean temp = service.update(menu);
 		if (temp) {

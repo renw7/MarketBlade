@@ -129,14 +129,14 @@ public class BladeController implements ConstCurd, ConstCache{
 	/**
 	 * 表单值映射为javabean
 	 * 
-	 * @param paraPerfix
+	 * @param paraPrefix
 	 *            name前缀
 	 * @param beanClass
 	 *            javabean.class
 	 * @return T
 	 */
-	public <T> T mapping(String paraPerfix, Class<T> beanClass) {
-		return (T) BeanInjector.inject(beanClass, paraPerfix, getRequest());
+	public <T> T mapping(String paraPrefix, Class<T> beanClass) {
+		return (T) BeanInjector.inject(beanClass, paraPrefix, getRequest());
 	}
 
 	/**
@@ -151,11 +151,11 @@ public class BladeController implements ConstCurd, ConstCache{
 	/**
 	 * 表单值映射为Maps
 	 * 
-	 * @param paraPerfix  name前缀
+	 * @param paraPrefix  name前缀
 	 * @return Maps
 	 */
-	public Paras getParas(String paraPerfix) {
-		return BeanInjector.injectMaps(paraPerfix, getRequest());
+	public Paras getParas(String paraPrefix) {
+		return BeanInjector.injectMaps(paraPrefix, getRequest());
 	}
 	
 	/**============================     file    =================================================  */
