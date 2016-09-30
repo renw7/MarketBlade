@@ -18,8 +18,8 @@ package com.smallchill.core.toolbox.kit;
 
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.smallchill.core.toolbox.Func;
 
@@ -29,7 +29,7 @@ import com.smallchill.core.toolbox.Func;
 public class LogKit {
 
 	private static class Holder {
-		private static Logger log = LoggerFactory.getLogger(LogKit.class);
+		private static Logger log = LogManager.getLogger(LogKit.class);
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class LogKit {
 	 * 对象，以便使内部日志实现与系统保持一致
 	 */
 	public static void synchronizeLog() {
-		Holder.log = LoggerFactory.getLogger(LogKit.class);
+		Holder.log = LogManager.getLogger(LogKit.class);
 	}
 
 	/**

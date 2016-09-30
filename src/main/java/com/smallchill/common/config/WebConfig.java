@@ -31,7 +31,7 @@ public class WebConfig implements IConfig {
 	 * 全局参数设置
 	 */
 	public void globalConstants(Cst me) {
-		Prop prop = PropKit.use("config.properties");
+		Prop prop = PropKit.use("config/config.properties");
 		
 		//设定开发模式
 		me.setDevMode(prop.getBoolean("config.devMode", false));

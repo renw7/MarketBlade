@@ -11,12 +11,28 @@
 		<property name="realm" ref="shiroDbRealm" />
 		<!-- 将缓存管理器，交给安全管理器 -->
 		<property name="cacheManager" ref="shiroEhcacheManager" />
+        <!-- 记住密码管理 -->
+        <property name="rememberMeManager" ref="rememberMeManager"/>
 		<!-- 配置session管理器 -->
 		<!-- <property name="sessionManager" ref="sessionManager" /> -->
 	</bean>
 
 	<!-- 项目自定义的Realm -->
 	<bean id="shiroDbRealm" class="com.smallchill.core.shiro.ShiroDbRealm" />
+
+    <!-- 记住密码Cookie -->
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">  
+        <constructor-arg value="rememberMe"/>
+        <property name="httpOnly" value="true"/>
+        <!-- 7天,采用spring el计算方便修改[细节决定成败]！ -->
+        <property name="maxAge" value="#{7 * 24 * 60 * 60}"/>
+    </bean>
+
+    <!-- rememberMe管理器,cipherKey生成见{@code Base64Test.java} -->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('U3ByaW5nQmxhZGUAAAAAAA==')}"/>
+        <property name="cookie" ref="rememberMeCookie"/>  
+    </bean>
 
 	<!-- Shiro Filter -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -30,10 +46,15 @@
 		<property name="unauthorizedUrl" value="/unauth" />
 		<property name="filterChainDefinitions">
 			<value>
-				/static/** = anon <!-- 不需要认证 -->
+				<!-- 
+					anon  不需要认证
+					authc 需要认证
+					user  验证通过或RememberMe登录的都可以
+				-->
+				/static/** = anon
 				/login = anon
 				/captcha = anon
-				/** = authc <!-- 需要认证 -->
+				/** = user 
 			</value>
 		</property>
 	</bean>

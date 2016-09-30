@@ -63,21 +63,22 @@ public class SideBarTag extends Tag {
 				roleOut = rd.getStr("ROLEOUT");
 			}
 			final StringBuilder sql = new StringBuilder();
+			
 			sql.append("select * from TFW_MENU  ");
 			sql.append(" where ( ");
 			sql.append("	 (status=1)");
 			sql.append("	 and (icon is not null and icon not LIKE '%btn%' and icon not LIKE '%icon%') ");
-			sql.append("	 and (id in (select menuId from TFW_RELATION where roleId in (" + roleId + ")) or id in (" + roleIn + "))");
-			sql.append("	 and id not in(" + roleOut + ")");
+			sql.append("	 and (id in (select menuId from TFW_RELATION where roleId in (#{join(roleId)})) or id in (#{join(roleIn)}))");
+			sql.append("	 and id not in(#{join(roleOut)})");
 			sql.append("	)");
 			sql.append(" order by levels,pCode,num");
-
-			List<Map<String, Object>> sideBar = CacheKit.get(MENU_CACHE, "sideBar_" + userId, new ILoader() {
-				@Override
-				public Object load() {
-					return Db.selectList(sql.toString());
-				}
-			}); 
+			
+			@SuppressWarnings("rawtypes")
+			List<Map> sideBar = Db.selectListByCache(MENU_CACHE, "sideBar_" + userId, sql.toString(),
+					Paras.create()
+					.set("roleId", roleId.toString().split(","))
+					.set("roleIn", roleIn.split(","))
+					.set("roleOut", roleOut.split(",")));
 			
 			for (Map<String, Object> side : sideBar) {
 				TreeNode node = new TreeNode();
@@ -159,7 +160,8 @@ public class SideBarTag extends Tag {
 	 *            层级
 	 * @return String 返回子菜单HTML集
 	 */
-	public String reloadMenu(List<Map<String, Object>> sideBar, String pCode, String pStr, int levels, String ctxPath) {
+	@SuppressWarnings("rawtypes")
+	public String reloadMenu(List<Map> sideBar, String pCode, String pStr, int levels, String ctxPath) {
 		String Str = "";
 		String subStr = "";
 		for (Map<String, Object> subside : sideBar) {

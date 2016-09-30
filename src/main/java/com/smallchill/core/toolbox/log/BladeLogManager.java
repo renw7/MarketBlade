@@ -29,19 +29,19 @@ import com.smallchill.core.toolbox.Paras;
  * @date 2016-1-26上午10:01:06
  * @copyright 2016
  */
-public class LogManager {
-	private final static LogManager me = new LogManager();
+public class BladeLogManager {
+	private final static BladeLogManager me = new BladeLogManager();
 
 	private ILog defaultLogFactory = Cst.me().getDefaultLogFactory();
 
-	public static LogManager me() {
+	public static BladeLogManager me() {
 		return me;
 	}
 
-	private LogManager() {
+	private BladeLogManager() {
 	}
 
-	public LogManager(ILog checkFactory) {
+	public BladeLogManager(ILog checkFactory) {
 		this.defaultLogFactory = checkFactory;
 	}
 	

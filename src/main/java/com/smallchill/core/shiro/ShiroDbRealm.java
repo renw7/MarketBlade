@@ -22,6 +22,8 @@ import java.util.Set;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -32,8 +34,6 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.common.vo.User;
@@ -41,7 +41,7 @@ import com.smallchill.core.interfaces.IShiro;
 import com.smallchill.core.toolbox.Func;
 
 public class ShiroDbRealm extends AuthorizingRealm {
-	private static Logger log = LoggerFactory.getLogger(ShiroDbRealm.class);
+	private static Logger log = LogManager.getLogger(ShiroDbRealm.class);
 	
 	/**
 	 * 登录认证

@@ -19,7 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
 
@@ -38,15 +40,15 @@ public class DefaultShiroFactroy implements IShiro{
 		User user = Blade.create(User.class).findFirstBy("account = #{account}", Paras.create().set("account", account));
 		// 账号不存在
 		if (null == user) {
-			return null;
+			throw new UnknownAccountException();
 		}
 		// 账号未审核
 		if (user.getStatus() == 3 || user.getStatus() == 4) {
-			return null;
+			throw new DisabledAccountException();
 		}
 		// 账号被冻结
 		if (user.getStatus() == 2 || user.getStatus() == 5) {
-			return null;
+			throw new DisabledAccountException();
 		}
 		return user;
 	}
@@ -76,16 +78,19 @@ public class DefaultShiroFactroy implements IShiro{
 		}
 		
 		final StringBuilder sql = new StringBuilder();
+		
 		sql.append("select ID,CODE,URL from TFW_MENU  ");
 		sql.append(" where ( ");
 		sql.append("	 (status=1)");
 		sql.append("	 and (url is not null) ");
-		sql.append("	 and (id in (select menuId from TFW_RELATION where roleId in (" + roleId + ")) or id in (" + roleIn + "))");
-		sql.append("	 and id not in(" + roleOut + ")");
+		sql.append("	 and (id in (select menuId from TFW_RELATION where roleId in (#{join(roleId)})) or id in (#{join(roleIn)}))");
+		sql.append("	 and id not in(#{join(roleOut)})");
 		sql.append("	)");
 		sql.append(" order by levels,pCode,num");
 
-		List<Map> permissions = Db.selectListByCache(ConstCache.MENU_CACHE, "permissions_" + userId, sql.toString(), Paras.create());
+		List<Map> permissions = Db.selectListByCache(ConstCache.MENU_CACHE, "permissions_" + userId, sql.toString(), Paras.create()
+				.set("roleId", roleId.split(",")).set("roleIn", roleIn.split(",")).set("roleOut", roleOut.split(","))
+				);
 		
 		return permissions;
 	}

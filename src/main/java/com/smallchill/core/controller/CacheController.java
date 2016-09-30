@@ -46,6 +46,7 @@ public class CacheController extends BladeController {
 	/**
 	 * 获取按钮组
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@ResponseBody
 	@RequestMapping("/getBtn")
 	public AjaxResult getBtn() {
@@ -54,12 +55,7 @@ public class CacheController extends BladeController {
 		final String userId = user.getId().toString();
 		final String roleId = user.getRoles().toString();
 
-		Map<String, Object> userRole = CacheKit.get(MENU_CACHE, "roleExt_" + userId,
-				new ILoader() {
-					public Object load() {
-						return Db.selectOne("select * from TFW_ROLE_EXT where userId= #{id}", Paras.create().set("id", userId));
-					}
-				});
+		Map<String, Object> userRole = Db.selectOneByCache(MENU_CACHE, "roleExt_" + userId, "select * from TFW_ROLE_EXT where userId= #{id}", Paras.create().set("id", userId));
 
 		String roleIn = "0";
 		String roleOut = "0";
@@ -73,24 +69,28 @@ public class CacheController extends BladeController {
 		sql.append("	 (status=1)");
 		sql.append("	 and (icon is not null and (icon like '%btn%' or icon like '%icon%' ) ) ");
 		sql.append("	 and (pCode=#{code})");
-		sql.append("	 and (id in (select menuId from TFW_RELATION where roleId in ("
-				+ roleId + ")) or id in (" + roleIn + "))");
-		sql.append("	 and id not in(" + roleOut + ")");
+		sql.append("	 and (id in (select menuId from TFW_RELATION where roleId in (#{join(roleId)})) or id in (#{join(roleIn)}))");
+		sql.append("	 and id not in(#{join(roleOut)})");
 		sql.append("	)");
 		sql.append(" order by num");
 
-		List<Map<String, Object>> btnList = CacheKit.get(MENU_CACHE, "btnList_" + code + "_"
-				+ userId, new ILoader() {
-			public Object load() {
-				return Db.selectList(sql.toString(), Paras.create().set("code", code));
-			}
-		});
+
+		List<Map> btnList = Db.selectListByCache(MENU_CACHE, "btnList_" + code + "_" + userId, sql.toString(), 
+				Paras.create()
+				.set("code", code)
+				.set("roleId", roleId.toString().split(","))
+				.set("roleIn", roleIn.split(","))
+				.set("roleOut", roleOut.split(",")));
+		
+		
+		
 		return json(btnList);
 	}
 
 	/**
 	 * 获取按钮组
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@ResponseBody
 	@RequestMapping("/getChildBtn")
 	public AjaxResult getChildBtn() {
@@ -99,12 +99,7 @@ public class CacheController extends BladeController {
 		final String userId = user.getId().toString();
 		final String roleId = user.getRoles().toString();
 
-		Map<String, Object> userRole = CacheKit.get(MENU_CACHE, "roleExt_" + userId,
-				new ILoader() {
-					public Object load() {
-						return Db.selectOne("select * from TFW_ROLE_EXT where userId= #{id}", Paras.create().set("id", userId));
-					}
-				});
+		Map<String, Object> userRole = Db.selectOneByCache(MENU_CACHE, "roleExt_" + userId, "select * from TFW_ROLE_EXT where userId= #{id}", Paras.create().set("id", userId));
 
 		String roleIn = "0";
 		String roleOut = "0";
@@ -118,17 +113,18 @@ public class CacheController extends BladeController {
 		sql.append("	 (status=1)");
 		sql.append("	 and (icon is not null and (icon like '%btn%' or icon like '%icon%' ) ) ");
 		sql.append("	 and (pCode=#{code})");
-		sql.append("	 and (id in (select menuId from TFW_RELATION where roleId in ("
-				+ roleId + ")) or id in (" + roleIn + "))");
-		sql.append("	 and id not in(" + roleOut + ")");
+		sql.append("	 and (id in (select menuId from TFW_RELATION where roleId in (#{join(roleId)})) or id in (#{join(roleIn)}))");
+		sql.append("	 and id not in(#{join(roleOut)})");
 		sql.append("	)");
 		sql.append(" order by num");
 
-		List<Map<String, Object>> btnList = CacheKit.get(MENU_CACHE, "childBtnList_" + code + "_" + userId, new ILoader() {
-			public Object load() {
-				return Db.selectList(sql.toString(), Paras.create().set("code", code));
-			}
-		});
+		List<Map> btnList = Db.selectListByCache(MENU_CACHE, "childBtnList_" + code + "_" + userId, sql.toString(), 
+				Paras.create()
+				.set("code", code)
+				.set("roleId", roleId.toString().split(","))
+				.set("roleIn", roleIn.split(","))
+				.set("roleOut", roleOut.split(",")));
+		
 		return json(btnList);
 	}
 

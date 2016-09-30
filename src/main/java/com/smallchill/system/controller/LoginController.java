@@ -20,14 +20,14 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,13 +44,13 @@ import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.captcha.Captcha;
 import com.smallchill.core.toolbox.kit.LogKit;
-import com.smallchill.core.toolbox.log.LogManager;
+import com.smallchill.core.toolbox.log.BladeLogManager;
 import com.smallchill.system.meta.intercept.LoginValidator;
 
 @Controller
 public class LoginController extends BaseController implements Const{
 
-	private static Logger log = LoggerFactory.getLogger(LoginController.class);
+	private static Logger log = LogManager.getLogger(LoginController.class);
 
 	@RequestMapping("/")
 	public String index() {
@@ -78,30 +78,29 @@ public class LoginController extends BaseController implements Const{
 		String account = getParameter("account");
 		String password = getParameter("password");
 		String imgCode = getParameter("imgCode");
-		
 		if (!Captcha.validate(request, response, imgCode)) {
 			return error("验证码错误");
 		}
 		Subject currentUser = ShiroKit.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(account, password.toCharArray());
-		token.setRememberMe(false);
+		token.setRememberMe(true);
 		try {
 			currentUser.login(token);
 			Session session = ShiroKit.getSession();
-			LogKit.println("sessionID	: {} ", session.getId());
+			LogKit.println("\nsessionID	: {} ", session.getId());
 			LogKit.println("sessionHost	: {}", session.getHost());
 			LogKit.println("sessionTimeOut	: {}", session.getTimeout());
 		} catch (UnknownAccountException e) {
-			log.error("账号不存在：{}", e);
+			log.error("账号不存在!", e);
 			return error("账号不存在");
 		} catch (DisabledAccountException e) {
-			log.error("账号未启用：{}", e);
+			log.error("账号未启用!", e);
 			return error("账号未启用");
 		} catch (IncorrectCredentialsException e) {
-			log.error("密码错误：{}", e);
+			log.error("密码错误!", e);
 			return error("密码错误");
 		} catch (RuntimeException e) {
-			log.error("未知错误,请联系管理员：{}", e);
+			log.error("未知错误,请联系管理员!", e);
 			return error("未知错误,请联系管理员");
 		}
 		doLog(ShiroKit.getSession(), "登录");
@@ -130,7 +129,7 @@ public class LoginController extends BaseController implements Const{
 	}
 
 	public void doLog(Session session, String type){
-		if(!LogManager.isDoLog()){
+		if(!BladeLogManager.isDoLog()){
 			return;
 		}
 		try{

@@ -12,7 +12,7 @@
     http://www.springframework.org/schema/tx/spring-tx-4.3.xsd ">
 
 	<!-- 连接池配置文件 -->
-	<context:property-placeholder location="classpath:config.properties" />
+	<context:property-placeholder location="classpath:config/config.properties" />
 	
 	<!-- base dataSource -->
 	<bean id="baseDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">

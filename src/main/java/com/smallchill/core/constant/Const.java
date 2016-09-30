@@ -11,7 +11,7 @@ public interface Const {
 	/**
 	 * 配置文件
 	 */
-	final static String PropertyFile = "config.properties";
+	final static String PropertyFile = "config/config.properties";
 
 	/**
 	 * 字符编码

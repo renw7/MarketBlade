@@ -22,8 +22,8 @@ import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.smallchill.core.interfaces.ILoader;
 
@@ -34,7 +34,7 @@ public class CacheKit {
 	
 	private static CacheManager cacheManager;
 	private static volatile Object locker = new Object();
-	private static final Logger log = LoggerFactory.getLogger(CacheKit.class);
+	private static final Logger log = LogManager.getLogger(CacheKit.class);
 	
 	private static CacheManager getManager() {
 		if (cacheManager == null) {

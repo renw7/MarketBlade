@@ -49,7 +49,7 @@ import com.smallchill.core.toolbox.kit.CharsetKit;
 import com.smallchill.core.toolbox.kit.LogKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.kit.URLKit;
-import com.smallchill.core.toolbox.log.LogManager;
+import com.smallchill.core.toolbox.log.BladeLogManager;
 import com.smallchill.core.toolbox.support.BeanInjector;
 import com.smallchill.core.toolbox.support.Convert;
 import com.smallchill.core.toolbox.support.WafRequestWrapper;
@@ -359,7 +359,7 @@ public class BladeController implements ConstCurd, ConstCache{
 			try {
 				if(StrKit.notBlank(msg)){
 					ShiroUser user = ShiroKit.getUser();
-					LogManager.doLog(user, msg, "异常日志", request, false);
+					BladeLogManager.doLog(user, msg, "异常日志", request, false);
 				}
 			} catch (Exception logex) {
 				LogKit.logNothing(logex);

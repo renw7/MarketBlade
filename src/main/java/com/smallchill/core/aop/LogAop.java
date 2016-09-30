@@ -6,13 +6,13 @@ import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.smallchill.common.vo.ShiroUser;
@@ -21,7 +21,7 @@ import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.kit.HttpKit;
 import com.smallchill.core.toolbox.kit.StrKit;
-import com.smallchill.core.toolbox.log.LogManager;
+import com.smallchill.core.toolbox.log.BladeLogManager;
 
 /**
  * AOP 日志
@@ -29,7 +29,7 @@ import com.smallchill.core.toolbox.log.LogManager;
 @Aspect
 @Component
 public class LogAop {
-	private static Logger log = LoggerFactory.getLogger(LogAop.class);
+	private static Logger log = LogManager.getLogger(LogAop.class);
 
 	//@Pointcut("within(@org.springframework.stereotype.Controller *)")
 	@Pointcut("execution(* com.smallchill.*..service.*.*(..))")
@@ -38,7 +38,7 @@ public class LogAop {
 
 	@Around("cutService()")
 	public Object recordSysLog(ProceedingJoinPoint point) throws Throwable {
-		if(!LogManager.isDoLog()){
+		if(!BladeLogManager.isDoLog()){
 			return point.proceed();
 		}
 		MethodSignature ms = (MethodSignature) point.getSignature();
@@ -72,7 +72,7 @@ public class LogAop {
 		}
 		try {
 			String msg = Func.format("[类名]:{}  [方法]:{}  [参数]:{}", className, methodName, StrKit.removeSuffix(sb.toString(), "&"));
-			LogManager.doLog(user, msg, getLogName(methodName), request, true);
+			BladeLogManager.doLog(user, msg, getLogName(methodName), request, true);
 			log.info(msg);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,7 +81,7 @@ public class LogAop {
 	}
 
 	private boolean isWriteLog(String method) {
-		String[] pattern = LogManager.logPatten();
+		String[] pattern = BladeLogManager.logPatten();
 		for (String s : pattern) {
 			if (method.indexOf(s) > -1) {
 				return true;
@@ -91,10 +91,10 @@ public class LogAop {
 	}
 	
 	private String getLogName(String method){
-		String[] pattern = LogManager.logPatten();
+		String[] pattern = BladeLogManager.logPatten();
 		for (String s : pattern) {
 			if (method.indexOf(s) > -1) {
-				return LogManager.logMaps().getStr(s);
+				return BladeLogManager.logMaps().getStr(s);
 			}
 		}
 		return "";
