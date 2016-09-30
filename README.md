@@ -12,7 +12,7 @@ PS:因为喜欢刀锋战士所以取名了SpringBlade，当中有一个类也命
 4.[beetlsql](http://www.oschina.net/p/beetlsql)
 5.[dreamlu](http://www.oschina.net/p/dreamlu)
 6.[kisso](http://www.oschina.net/p/kisso)
-6.[spring-shiro-training](https://git.oschina.net/wangzhixuan/spring-shiro-training)
+7.[spring-shiro-training](https://git.oschina.net/wangzhixuan/spring-shiro-training)
 
 ## 内置功能
 
