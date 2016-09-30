@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.smallchill.core.controller;
+package com.smallchill.system.controller;
 
 import java.util.List;
 import java.util.Map;

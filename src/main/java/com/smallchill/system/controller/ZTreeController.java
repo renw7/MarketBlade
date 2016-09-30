@@ -1,4 +1,4 @@
-package com.smallchill.core.controller;
+package com.smallchill.system.controller;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.smallchill.core.controller;
+package com.smallchill.system.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
