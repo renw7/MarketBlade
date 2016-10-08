@@ -17,6 +17,7 @@ package com.smallchill.core.listener;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.stereotype.Component;
 
 import com.smallchill.core.config.BladeConfig;
 import com.smallchill.core.constant.Cst;
@@ -29,6 +30,7 @@ import com.smallchill.core.plugins.connection.ConnectionPlugin;
  * 启动监听器
  * 
  */
+@Component
 public class StartupListener implements ApplicationListener<ContextRefreshedEvent> {
 
 	@Override

@@ -17,6 +17,7 @@ package com.smallchill.core.listener;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextStoppedEvent;
+import org.springframework.stereotype.Component;
 
 import com.smallchill.core.plugins.PluginManager;
 
@@ -24,6 +25,7 @@ import com.smallchill.core.plugins.PluginManager;
  * 关闭监听器
  * 
  */
+@Component
 public class StopListener implements ApplicationListener<ContextStoppedEvent> {
 
 	@Override

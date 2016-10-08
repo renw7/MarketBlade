@@ -44,16 +44,6 @@
 		</property>
 		<property name="configLocation" value="classpath:/config/beetlsql.properties"></property>
 	</bean>
-	
-
-	<!-- 工程启动监听配置 -->
-	<bean id="startupListener" class="com.smallchill.core.listener.StartupListener"></bean>
-	
-	<!-- 工程关闭监听配置 -->
-	<bean id="stopListener" class="com.smallchill.core.listener.StopListener"></bean>
-	
-	<!-- 全局application -->
-	<bean id="springAcaHolder" class="com.smallchill.core.toolbox.support.SpringAcaHolder"></bean>
 
     <!-- blade框架自定义config -->
     <bean id="bladeConfig" class="com.smallchill.core.config.BladeConfig">
