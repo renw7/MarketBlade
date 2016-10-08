@@ -1,4 +1,4 @@
-package com.smallchill.test.other;
+package com.smallchill.test.proxy;
 
 import org.junit.After;
 import org.junit.Before;

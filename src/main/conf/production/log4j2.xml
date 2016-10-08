@@ -3,7 +3,7 @@
     <properties>
         <Property name="logdir">${sys:catalina.base}/logs/springblade</Property>
         <!-- 日志切割的最小单位 -->
-        <property name="EVERY_FILE_SIZE">100M</property>
+        <property name="EVERY_FILE_SIZE">10M</property>
     </properties>
     <appenders>
         <Console name="Console" target="SYSTEM_OUT">

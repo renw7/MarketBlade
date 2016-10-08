@@ -209,27 +209,6 @@
              <url>http://maven.aliyun.com/nexus/content/groups/public</url>
          </repository>
     </repositories>
-    <profiles>
-        <!-- 默认激活 dev 开发环境 -->
-        <!-- production使用 mvn xxx -Pproduction -->
-        <profile>
-            <!-- 本地开发环境 -->
-            <id>development</id>
-            <properties>
-                <profiles.active>dev</profiles.active>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <!-- 生产环境 -->
-            <id>production</id>
-            <properties>
-                <profiles.active>production</profiles.active>
-            </properties>
-        </profile>
-    </profiles>
 	<build>
         <finalName>blade</finalName>
         <resources>
@@ -263,4 +242,25 @@
 		    </plugin>
 		</plugins>
 	</build>
+    <profiles>
+        <!-- 默认激活 dev 开发环境 -->
+        <!-- production使用 mvn xxx -Pproduction -->
+        <profile>
+            <!-- 本地开发环境 -->
+            <id>development</id>
+            <properties>
+                <profiles.active>dev</profiles.active>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <!-- 生产环境 -->
+            <id>production</id>
+            <properties>
+                <profiles.active>production</profiles.active>
+            </properties>
+        </profile>
+    </profiles>
 </project>
