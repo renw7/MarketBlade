@@ -26,11 +26,9 @@ import org.beetl.core.Tag;
 import com.smallchill.common.vo.TreeNode;
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.constant.Cst;
-import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
-import com.smallchill.core.toolbox.kit.CacheKit;
 
 public class SideBarTag extends Tag {
 	
@@ -47,13 +45,7 @@ public class SideBarTag extends Tag {
 			final Object roleId = param.get("roleId");
 			String ctxPath =Cst.me().getContextPath();
 
-			Map<String, Object> userRole = CacheKit.get(MENU_CACHE, "role_ext_" + userId, new ILoader() {
-				@Override
-				public Object load() {
-					return Db.selectOne("select * from TFW_ROLE_EXT where USERID=#{userId}", Paras.create().set("userId", userId));
-				}
-			}); 
-
+			Map<String, Object> userRole = Db.selectOneByCache(MENU_CACHE, "role_ext_" + userId, "select * from TFW_ROLE_EXT where USERID=#{userId}", Paras.create().set("userId", userId));
 
 			String roleIn = "0";
 			String roleOut = "0";
