@@ -445,7 +445,7 @@ public class Func {
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0 ; i < roleIdArr.length; i++){
 			final String roleId = roleIdArr[i];
-			Role role = CacheKit.get(ConstCache.DICT_CACHE, "getRoleName" + "_" + roleId, new ILoader() {
+			Role role = CacheKit.get(ConstCache.ROLE_CACHE, "getRoleName" + "_" + roleId, new ILoader() {
 				@Override
 				public Object load() {
 					return Blade.create(Role.class).findById(roleId);
@@ -457,12 +457,36 @@ public class Func {
 	}
 
 	/**
+	 * 获取对应角色别名
+	 * @param roleId 角色id
+	 * @return
+	 */
+	public static String getRoleAlias(final Object roleIds) {
+		if(isEmpty(roleIds)){
+			return "";
+		}
+		final String [] roleIdArr = roleIds.toString().split(",");
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0 ; i < roleIdArr.length; i++){
+			final String roleId = roleIdArr[i];
+			Role role = CacheKit.get(ConstCache.ROLE_CACHE, "getRoleAlias" + "_" + roleId, new ILoader() {
+				@Override
+				public Object load() {
+					return Blade.create(Role.class).findById(roleId);
+				}
+			});
+			sb.append(role.getTips()).append(",");
+		}
+		return StrKit.removeSuffix(sb.toString(), ",");
+	}
+
+	/**
 	 * 获取对应用户名
 	 * @param userId 用户id
 	 * @return
 	 */
 	public static String getUserName(final Object userId) {
-		User user = CacheKit.get(ConstCache.DICT_CACHE, "getUserName" + "_" + userId, new ILoader() {
+		User user = CacheKit.get(ConstCache.USER_CACHE, "getUserName" + "_" + userId, new ILoader() {
 			@Override
 			public Object load() {
 				return Blade.create(User.class).findById(userId);
@@ -487,7 +511,7 @@ public class Func {
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0 ; i < deptIdArr.length; i++){
 			final String deptId = deptIdArr[i];
-			Dept dept = CacheKit.get(ConstCache.DICT_CACHE, "getDeptName" + "_" + deptId, new ILoader() {
+			Dept dept = CacheKit.get(ConstCache.DEPT_CACHE, "getDeptName" + "_" + deptId, new ILoader() {
 				@Override
 				public Object load() {
 					return Blade.create(Dept.class).findById(deptId);

@@ -36,9 +36,9 @@ import com.smallchill.core.plugins.dao.Md;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
+import com.smallchill.core.toolbox.kit.ClassKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.core.toolbox.kit.StrKit;
-import com.smallchill.core.toolbox.support.Singleton;
 import com.smallchill.system.service.CurdService;
 
 public abstract class CurdController<M> extends BaseController {
@@ -66,13 +66,13 @@ public abstract class CurdController<M> extends BaseController {
 
 	private void init() {
 		this.modelClass = getClazz();
-		this.metaFactory = Singleton.create(metaFactoryClass());
+		this.metaFactory = ClassKit.newInstance(metaFactoryClass());
 		this.controllerKey = metaFactory.controllerKey();
 		this.paraPrefix = metaFactory.paraPrefix();
 		this.switchMap = metaFactory.switchMap();
 		this.renderMap = metaFactory.renderMap();
 		this.sourceMap = metaFactory.sourceMap();
-		this.intercept = Singleton.create(metaFactory.intercept());
+		this.intercept = ClassKit.newInstance(metaFactory.intercept());
 	}
 
 	public CurdController() {

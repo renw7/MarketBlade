@@ -41,7 +41,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 	}
 
 	@Override
-	public boolean saveAuthority(String ids, String roleId) {
+	public boolean authority(String ids, String roleId) {
 		Db.deleteByIds("TFW_RELATION", "ROLEID", roleId);
 		
 		String sql = "";

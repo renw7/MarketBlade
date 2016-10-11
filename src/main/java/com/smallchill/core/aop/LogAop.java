@@ -20,6 +20,7 @@ import com.smallchill.core.annotation.DoLog;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.kit.HttpKit;
+import com.smallchill.core.toolbox.kit.ObjectKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.log.BladeLogManager;
 
@@ -72,7 +73,7 @@ public class LogAop {
 		}
 		try {
 			String msg = Func.format("[类名]:{}  [方法]:{}  [参数]:{}", className, methodName, StrKit.removeSuffix(sb.toString(), "&"));
-			BladeLogManager.doLog(user, msg, getLogName(methodName), request, true);
+			BladeLogManager.doLog(user, msg, (ObjectKit.isNull(doLog) ? getLogName(methodName) : doLog.name()), request, true);
 			log.info(msg);
 		} catch (Exception e) {
 			e.printStackTrace();

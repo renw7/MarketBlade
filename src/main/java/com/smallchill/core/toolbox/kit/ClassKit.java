@@ -93,7 +93,7 @@ public class ClassKit {
 		if (index < 0 || index > params.length - 1) {
 			return null;
 		}
-		Type param = params[0];
+		Type param = params[index];
 		if (param instanceof Class) {
 			return (Class) param;
 		}
@@ -291,6 +291,8 @@ public class ClassKit {
 	 * @return 对象
 	 */
 	public static <T> T newInstance(Class<T> clazz) {
+		if (null == clazz)
+			return null;
 		try {
 			return (T) clazz.newInstance();
 		} catch (Exception e) {

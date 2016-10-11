@@ -15,13 +15,15 @@
  */
 package com.smallchill.system.service;
 
+import com.smallchill.core.annotation.DoLog;
 import com.smallchill.core.base.service.IService;
 import com.smallchill.system.model.Role;
 
 public interface RoleService extends IService<Role> {
 	int findLastNum(String id);
 
-	boolean saveAuthority(String ids, String roleId);
+	@DoLog(name = "设置权限")
+	boolean authority(String ids, String roleId);
 
 	int getParentCnt(String id);
 }
