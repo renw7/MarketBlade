@@ -1,7 +1,7 @@
 	<div class="space-4"></div>
 	
 			<!-- 判断表单是否发生过更改的token -->
-			<input type="hidden" id="form_token" value="1"/>
+			<input type="hidden" id="form_token" value="0"/>
 			<!-- 乐观锁控制 -->
 			<input type="hidden" id="_version" name="VERSION" value="0">
 			
@@ -37,16 +37,16 @@
 							<label class="col-sm-2 control-label no-padding-right" > ${x.name!} </label>			
 							<div class="col-sm-${x.length!3}">
 				@			if(x.type=="text"||x.type=="number"||x.type=="tel"||x.type=="email"||x.type=="url"||x.type=="qq"||x.type=="unionpay"||x.type=="credit"||x.type=="idcard"){
-								<input type="${x.type!'text'}" id="_${x.index!}" name="${table!x.table}.${x.index!}" ${x.required!} ${x.disabled!} value="${x.value!}" placeholder="${placeholder!}" class="form-control" />
+								<input type="${x.type!'text'}" id="_${x.index!}" name="token_${table!x.table}.${x.index!}" ${x.required!} ${x.disabled!} value="${x.value!}" placeholder="${placeholder!}" class="form-control" />
 				@			}
 				@			else if(x.type=="double"){
-								<input type="${x.type!'text'}" id="_${x.index!}" name="${table!x.table}.${x.index!}" ${x.required!} ${x.disabled!} value="${x.value!}" placeholder="${placeholder!}" class="form-control" />
+								<input type="${x.type!'text'}" id="_${x.index!}" name="token_${table!x.table}.${x.index!}" ${x.required!} ${x.disabled!} value="${x.value!}" placeholder="${placeholder!}" class="form-control" />
 				@			}
 				@			else if(func.like(x.type,"hidden")){
 								<input type="${x.type!'hidden'}" id="_${x.index!}" name="${table!x.table}.${x.index!}"  value="${x.value!}" class="form-control" />
 				@			}
 				@			else if(x.type=="textarea"){
-								<textarea id="_${x.index!}" style="height:${x.height!'200px'}" name="${table!x.table}.${x.index!}" ${x.required!} ${x.disabled!} value="${x.value!}" placeholder="${placeholder!}" class="form-control"></textarea>
+								<textarea id="_${x.index!}" style="height:${x.height!'200px'}" name="token_${table!x.table}.${x.index!}" ${x.required!} ${x.disabled!} value="${x.value!}" placeholder="${placeholder!}" class="form-control"></textarea>
 				@			}
 				@			else if(x.type=="image"){
 								<img id="_${x.index!}" data-type="image" data-auto="${x.auto!}" style="padding:2px; border:1px solid #ccc;cursor:pointer;width:${x.width!'168px'};height:${x.height!'110px'};" name="${table!x.table}.${x.index!}" src="${x.src!}"></img>
@@ -115,7 +115,7 @@
 								<span id="_${x.index!}" class="form-control" style="border:0px;">${x.value!}</span>
 				@			}
 				@			else {
-								<input type="text" id="_${x.index!}" name="${table!x.table}.${x.index!}" ${x.required!} ${x.disabled!} value="${x.value!}" placeholder="${placeholder!}" class="form-control" />
+								<input type="text" id="_${x.index!}" name="token_${table!x.table}.${x.index!}" ${x.required!} ${x.disabled!} value="${x.value!}" placeholder="${placeholder!}" class="form-control" />
 				@			}
 							</div>
 				@			if(x.length>=5){

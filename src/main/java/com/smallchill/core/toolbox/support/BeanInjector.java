@@ -6,13 +6,11 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
-
 import com.smallchill.core.constant.Const;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.kit.BeanKit;
+import com.smallchill.core.toolbox.kit.CollectionKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 
 /**
@@ -57,13 +55,15 @@ public class BeanInjector {
 				continue;
 			}
 			value = param.getValue();
-			if (ArrayUtils.isNotEmpty(value) && null != value[0]) {
-				Object o = (value[0].toString().equals("")) ? " " : value[0];
-				map.put(StringUtils.removeStart(param.getKey().toLowerCase(), start).toLowerCase(), o);
-
-			} else {
-				map.put(StringUtils.removeStart(param.getKey().toLowerCase(), start).toLowerCase(), null);
+			Object o = null;
+			if (CollectionKit.isNotEmpty(value)) {
+				if (value.length > 1) {
+					o = CollectionKit.join(value, ",");
+				} else {
+					o = (Func.equals(value[0], "")) ? " " : value[0];					
+				}
 			}
+			map.put(StrKit.removePrefixIgnoreCase(param.getKey(), start).toLowerCase(), o);
 		}
 		String versionL = request.getParameter(Const.OPTIMISTIC_LOCK.toLowerCase());
 		String versionU = request.getParameter(Const.OPTIMISTIC_LOCK);
@@ -74,6 +74,5 @@ public class BeanInjector {
 		}
 		return map;
 	}
-
-
+	
 }

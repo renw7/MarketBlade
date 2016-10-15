@@ -134,6 +134,45 @@ public class Md {
 	}
 	
 	/**
+	 * 获取一条数据
+	 * @param cacheName 缓存名
+	 * @param key   缓存key
+	 * @param sqlId sqlId
+	 * @param paras 参数
+	 * @param clazz 返回类型
+	 * @return
+	 */
+	public static <T> T selectOneByCache(String cacheName, String key, String sqlId, Object paras, Class<T> clazz){
+		return getMdManager().selectOneByCache(cacheName, key, sqlId, paras, clazz);
+	}
+	
+	/**
+	 * 获取一条数据
+	 * @param cacheName 缓存名
+	 * @param key   缓存key
+	 * @param sqlId sqlId
+	 * @param paras 参数
+	 * @param clazz 返回类型
+	 * @return
+	 */
+	public static <T> T selectUniqueByCache(String cacheName, String key, String sqlId, Object paras, Class<T> clazz){
+		return getMdManager().selectUniqueByCache(cacheName, key, sqlId, paras, clazz);
+	}
+	
+	/**
+	 * 获取多条数据
+	 * @param cacheName 缓存名
+	 * @param key   缓存key
+	 * @param sqlId sqlId
+	 * @param paras 参数
+	 * @param clazz 返回类型
+	 * @return
+	 */
+	public static <T> List<T> selectListByCache(String cacheName, String key, String sqlId, Object paras, Class<T> clazz){
+		return getMdManager().selectListByCache(cacheName, key, sqlId, paras, clazz);
+	}
+	
+	/**
 	 * 分页
 	 * @param sqlId sqlId
 	 * @param clazz	返回类型

@@ -25,7 +25,9 @@ import org.beetl.sql.core.SQLResult;
 import org.beetl.sql.core.db.KeyHolder;
 import org.beetl.sql.core.engine.PageQuery;
 
+import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.connection.ConnectionPlugin;
+import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.support.BladePage;
 
@@ -153,6 +155,69 @@ public class MdManager {
 	 */
 	public BigDecimal queryDecimal(String sqlId, Object paras){
 		return selectOne(sqlId, paras, BigDecimal.class);
+	}
+	
+	/**
+	 * 获取一条数据
+	 * @param cacheName 缓存名
+	 * @param key   缓存key
+	 * @param sqlId sqlId
+	 * @param paras 参数
+	 * @param clazz 返回类型
+	 * @return
+	 */
+	public <T> T selectOneByCache(String cacheName, String key, String sqlId, Object paras, Class<T> clazz){
+		final String _sqlId = sqlId;
+		final Object _paras = paras;
+		final Class<T> _clazz = clazz;
+		return CacheKit.get(cacheName, key, new ILoader() {
+			@Override
+			public Object load() {
+				return getSqlManager().selectSingle(_sqlId, _paras, _clazz);
+			}
+		});
+	}
+	
+	/**
+	 * 获取一条数据
+	 * @param cacheName 缓存名
+	 * @param key   缓存key
+	 * @param sqlId sqlId
+	 * @param paras 参数
+	 * @param clazz 返回类型
+	 * @return
+	 */
+	public <T> T selectUniqueByCache(String cacheName, String key, String sqlId, Object paras, Class<T> clazz){
+		final String _sqlId = sqlId;
+		final Object _paras = paras;
+		final Class<T> _clazz = clazz;
+		return CacheKit.get(cacheName, key, new ILoader() {
+			@Override
+			public Object load() {
+				return getSqlManager().selectUnique(_sqlId, _paras, _clazz);
+			}
+		});
+	}
+	
+	/**
+	 * 获取多条数据
+	 * @param cacheName 缓存名
+	 * @param key   缓存key
+	 * @param sqlId sqlId
+	 * @param paras 参数
+	 * @param clazz 返回类型
+	 * @return
+	 */
+	public <T> List<T> selectListByCache(String cacheName, String key, String sqlId, Object paras, Class<T> clazz){
+		final String _sqlId = sqlId;
+		final Object _paras = paras;
+		final Class<T> _clazz = clazz;
+		return CacheKit.get(cacheName, key, new ILoader() {
+			@Override
+			public Object load() {
+				return getSqlManager().select(_sqlId, _clazz, _paras);
+			}
+		});
 	}
 	
 	/**

@@ -294,14 +294,25 @@ public class Func {
 	}
 
 	/**
-	 * 格式化字符串 去掉前后空格
+	 * 强转->string,并去掉多余空格
 	 * 
 	 * @param str
 	 * @return
 	 */
 	public static String toStr(Object str) {
+		return toStr(str, "");
+	}
+	
+	/**
+	 * 强转->string,并去掉多余空格
+	 * 
+	 * @param str
+	 * @param defaultValue
+	 * @return
+	 */
+	public static String toStr(Object str, String defaultValue) {
 		if (null == str) {
-			return "";
+			return defaultValue;
 		}
 		return str.toString().trim();
 	}
