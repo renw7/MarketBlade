@@ -28,7 +28,7 @@ import com.smallchill.core.toolbox.support.BladePage;
  */
 public class Md {
 
-	private static volatile MdManager mdManager = null;
+	private static MdManager mdManager = null;
 
 	public static MdManager init(String name) {
 		return MdManager.init(name);

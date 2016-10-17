@@ -30,7 +30,7 @@ import com.smallchill.core.toolbox.support.BladePage;
  */
 public class Db {
 
-	private static volatile DbManager dbManager = null;
+	private static DbManager dbManager = null;
 
 	public static DbManager init(String name) {
 		return DbManager.init(name);
