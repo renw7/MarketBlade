@@ -18,7 +18,6 @@ package com.smallchill.core.toolbox.log;
 import java.util.Date;
 import java.util.Map;
 
-import com.smallchill.common.vo.OperationLog;
 import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.core.constant.Const;
 import com.smallchill.core.constant.ConstCache;
@@ -30,6 +29,7 @@ import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.system.model.OperationLog;
 
 /**
  * 系统默认日志记录

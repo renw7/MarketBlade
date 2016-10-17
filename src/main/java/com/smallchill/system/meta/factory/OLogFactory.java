@@ -18,10 +18,10 @@ package com.smallchill.system.meta.factory;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.smallchill.common.vo.OperationLog;
 import com.smallchill.core.meta.MetaIntercept;
 import com.smallchill.core.meta.MetaManager;
 import com.smallchill.system.meta.intercept.LogIntercept;
+import com.smallchill.system.model.OperationLog;
 
 public class OLogFactory extends MetaManager {
 

@@ -35,7 +35,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
-import com.smallchill.common.vo.LoginLog;
 import com.smallchill.core.annotation.Before;
 import com.smallchill.core.constant.Const;
 import com.smallchill.core.plugins.dao.Blade;
@@ -46,6 +45,7 @@ import com.smallchill.core.toolbox.captcha.Captcha;
 import com.smallchill.core.toolbox.kit.LogKit;
 import com.smallchill.core.toolbox.log.BladeLogManager;
 import com.smallchill.system.meta.intercept.LoginValidator;
+import com.smallchill.system.model.LoginLog;
 
 @Controller
 public class LoginController extends BaseController implements Const{
