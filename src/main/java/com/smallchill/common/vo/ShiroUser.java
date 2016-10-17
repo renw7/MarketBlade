@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
@@ -47,7 +48,7 @@ public class ShiroUser implements Serializable {
 	public ShiroUser(Object id, Object deptId, String loginName, String name, List<String> roleList) {
 		this.id = id;
 		this.deptId = deptId;
-		this.deptName = Func.getDeptName(deptId);
+		this.deptName = SysCache.getDeptName(deptId);
 		this.loginName = loginName;
 		this.name = name;
 		this.roleList = roleList;

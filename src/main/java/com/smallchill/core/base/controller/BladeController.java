@@ -31,7 +31,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.core.constant.Const;
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.constant.ConstCurd;
@@ -40,7 +39,6 @@ import com.smallchill.core.constant.Cst;
 import com.smallchill.core.exception.NoPermissionException;
 import com.smallchill.core.exception.NoUserException;
 import com.smallchill.core.interfaces.IQuery;
-import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.file.BladeFile;
@@ -358,8 +356,7 @@ public class BladeController implements ConstCurd, ConstCache{
 			}
 			try {
 				if(StrKit.notBlank(msg)){
-					ShiroUser user = ShiroKit.getUser();
-					BladeLogManager.doLog(user, msg, "异常日志", request, false);
+					BladeLogManager.doLog("异常日志", msg, false);
 				}
 			} catch (Exception logex) {
 				LogKit.logNothing(logex);

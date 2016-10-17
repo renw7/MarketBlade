@@ -15,12 +15,12 @@
  */
 package com.smallchill.system.meta.intercept;
 
-import com.smallchill.common.vo.User;
 import com.smallchill.core.aop.Invocation;
 import com.smallchill.core.intercept.BladeValidator;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.kit.StrKit;
+import com.smallchill.system.model.User;
 
 public class UserValidator extends BladeValidator {
 

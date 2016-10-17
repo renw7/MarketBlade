@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.constant.ConstConfig;
 import com.smallchill.core.interfaces.ILoader;
@@ -517,19 +518,19 @@ public class BeetlExt {
 	
 	
 	public String getDictName(final Object code, final Object num) {
-		return Func.getDictName(code, num);
+		return SysCache.getDictName(code, num);
 	}
 
 	public String getRoleName(final Object roleId) {
-		return Func.getRoleName(roleId);
+		return SysCache.getRoleName(roleId);
 	}
 
 	public String getUserName(final Object userId) {
-		return Func.getUserName(userId);
+		return SysCache.getUserName(userId);
 	}
 
 	public String getDeptName(final Object deptId) {
-		return Func.getDeptName(deptId);
+		return SysCache.getDeptName(deptId);
 	}
 	
 	public boolean isOracle() {

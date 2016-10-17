@@ -62,7 +62,7 @@ public class BladeFile {
 		this.file = file;
 		this.fileName = file.getName();
 		this.originalFileName = file.getOriginalFilename();
-		this.uploadPath = Cst.me().getUploadRealPath() + File.separator + DateKit.getDays() + File.separator + this.originalFileName;
+		this.uploadPath = File.separator + Cst.me().getUploadRealPath() + File.separator + DateKit.getDays() + File.separator + this.originalFileName;
 		this.uploadVirtualPath = Cst.me().getUploadCtxPath().replace(Cst.me().getContextPath(), "") + File.separator + DateKit.getDays() + File.separator + this.originalFileName;
 	}
 

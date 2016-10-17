@@ -53,14 +53,15 @@ public class AopContext {
 	private String sql;
 
 	/**
-	 * 追加SQL条件(程序自动生成) 格式: where xxx = xxx
+	 * 追加SQL条件(程序自动生成)
 	 */
 	private String condition;
 
 	/**
-	 * 自定义SQL覆盖默认查询条件 格式: where xxx = xxx
+	 * 自定义SQL覆盖默认查询条件
 	 */
 	private String where;
+	
 	/**
 	 * 自定义SQL参数(map形式)
 	 */

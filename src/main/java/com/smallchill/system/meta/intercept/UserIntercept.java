@@ -18,9 +18,9 @@ package com.smallchill.system.meta.intercept;
 import java.util.List;
 import java.util.Map;
 
+import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.meta.PageIntercept;
-import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.support.BladePage;
 
 public class UserIntercept extends PageIntercept {
@@ -35,10 +35,10 @@ public class UserIntercept extends PageIntercept {
 		BladePage<Map<String, Object>> page = (BladePage<Map<String, Object>>) ac.getObject();
 		List<Map<String, Object>> list = page.getRows();
 		for (Map<String, Object> map : list) {
-			map.put("ROLENAME", Func.getRoleName(map.get("ROLEID")));
-			map.put("STATUSNAME", Func.getDictName(901, map.get("STATUS")));
-			map.put("SEXNAME", Func.getDictName(101, map.get("SEX")));
-			map.put("DEPTNAME", Func.getDeptName(map.get("DEPTID")));
+			map.put("ROLENAME", SysCache.getRoleName(map.get("ROLEID")));
+			map.put("STATUSNAME", SysCache.getDictName(901, map.get("STATUS")));
+			map.put("SEXNAME", SysCache.getDictName(101, map.get("SEX")));
+			map.put("DEPTNAME", SysCache.getDeptName(map.get("DEPTID")));
 		}
 	}
 }

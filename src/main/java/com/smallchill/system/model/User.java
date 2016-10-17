@@ -1,4 +1,4 @@
-package com.smallchill.common.vo;
+package com.smallchill.system.model;
 
 import java.util.Date;
 

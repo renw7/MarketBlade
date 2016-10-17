@@ -26,13 +26,13 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
 
 import com.smallchill.common.vo.ShiroUser;
-import com.smallchill.common.vo.User;
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.interfaces.IShiro;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
+import com.smallchill.system.model.User;
 
 public class DefaultShiroFactroy implements IShiro{
 	

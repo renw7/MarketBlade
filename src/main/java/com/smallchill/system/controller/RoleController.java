@@ -23,10 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
+import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.annotation.Before;
 import com.smallchill.core.annotation.Permission;
 import com.smallchill.core.constant.ConstShiro;
-import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.CacheKit;
@@ -91,7 +91,7 @@ public class RoleController extends BaseController{
 		Role parent = service.findById(role.getPid());
 		String pName = (null == parent) ? "" : parent.getName();
 		Paras rd = Paras.parse(role);
-		rd.set("deptName", Func.getDeptName(role.getDeptid()))
+		rd.set("deptName", SysCache.getDeptName(role.getDeptid()))
 			.set("pName", pName);
 		mm.put("model", JsonKit.toJson(rd));
 		mm.put("code", CODE);

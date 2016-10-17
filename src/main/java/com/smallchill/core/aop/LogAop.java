@@ -5,7 +5,6 @@ import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -67,13 +66,13 @@ public class LogAop {
 				value = request.getParameter(key);
 				Func.builder(sb, key, "=", value, "&");
 			}
-			if (StringUtils.isEmpty(sb)) {
+			if (Func.isEmpty(sb)) {
 				Func.builder(sb, request.getQueryString());
 			}
 		}
 		try {
 			String msg = Func.format("[类名]:{}  [方法]:{}  [参数]:{}", className, methodName, StrKit.removeSuffix(sb.toString(), "&"));
-			BladeLogManager.doLog(user, msg, (ObjectKit.isNull(doLog) ? getLogName(methodName) : doLog.name()), request, true);
+			BladeLogManager.doLog((ObjectKit.isNull(doLog) ? getLogName(methodName) : doLog.name()), msg, true);
 			log.info(msg);
 		} catch (Exception e) {
 			e.printStackTrace();

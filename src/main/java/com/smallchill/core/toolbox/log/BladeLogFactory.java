@@ -18,8 +18,6 @@ package com.smallchill.core.toolbox.log;
 import java.util.Date;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.smallchill.common.vo.OperationLog;
 import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.core.constant.Const;
@@ -28,6 +26,7 @@ import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.interfaces.ILog;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
+import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.kit.CacheKit;
@@ -71,7 +70,8 @@ public class BladeLogFactory implements ILog {
 		return false;
 	}
 	
-	public boolean doLog(ShiroUser user, String msg, String logName, HttpServletRequest request, boolean succeed) {
+	public boolean doLog(String logName, String msg, boolean succeed) {
+		ShiroUser user = ShiroKit.getUser();
 		if (null == user) {
 			return true;
 		}

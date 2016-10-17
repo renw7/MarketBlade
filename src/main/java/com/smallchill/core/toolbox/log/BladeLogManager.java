@@ -15,9 +15,6 @@
  */
 package com.smallchill.core.toolbox.log;
 
-import javax.servlet.http.HttpServletRequest;
-
-import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.ILog;
 import com.smallchill.core.toolbox.Paras;
@@ -65,7 +62,7 @@ public class BladeLogManager {
 		return me.defaultLogFactory.isDoLog();
 	}
 	
-	public static boolean doLog(ShiroUser user, String msg,String logName, HttpServletRequest request, boolean succeed) {
-		return me.defaultLogFactory.doLog(user, msg, logName, request, succeed);
+	public static boolean doLog(String logName, String msg, boolean succeed) {
+		return me.defaultLogFactory.doLog(logName, msg, succeed);
 	}
 }

@@ -19,6 +19,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.meta.MetaIntercept;
@@ -39,8 +40,8 @@ public class AttachIntercept extends MetaIntercept {
 		List<Map<String, Object>> list = page.getRows();
 		for (Map<String, Object> map : list) {
 			map.put("ATTACHURL", Cst.me().getContextPath() + "/kindeditor/renderFile/" + map.get("ID"));
-			map.put("STATUSNAME", Func.getDictName(902, map.get("STATUS")));
-			map.put("CREATERNAME", Func.getUserName(map.get("CREATER")));
+			map.put("STATUSNAME", SysCache.getDictName(902, map.get("STATUS")));
+			map.put("CREATERNAME", SysCache.getUserName(map.get("CREATER")));
 		}
 	}
 
@@ -53,8 +54,8 @@ public class AttachIntercept extends MetaIntercept {
 		Paras rd = (Paras) ac.getObject();
 		rd
 		.set("attachUrl", Cst.me().getContextPath() + "/kindeditor/renderFile/" + rd.get("id"))
-		.set("statusName", Func.getDictName(902, rd.get("status")))
-		.set("createrName", Func.getUserName(rd.get("creater")));
+		.set("statusName", SysCache.getDictName(902, rd.get("status")))
+		.set("createrName", SysCache.getUserName(rd.get("creater")));
 	}
 	
 	/**

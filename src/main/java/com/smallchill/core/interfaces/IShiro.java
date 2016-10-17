@@ -21,7 +21,7 @@ import java.util.Map;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 
 import com.smallchill.common.vo.ShiroUser;
-import com.smallchill.common.vo.User;
+import com.smallchill.system.model.User;
 
 /**
  * 定义shirorealm所需数据的接口

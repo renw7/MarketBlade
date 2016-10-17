@@ -15,11 +15,11 @@
  */
 package com.smallchill.system.meta.intercept;
 
+import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.aop.Invocation;
 import com.smallchill.core.constant.ConstShiro;
 import com.smallchill.core.intercept.BladeValidator;
 import com.smallchill.core.plugins.dao.Db;
-import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.kit.CollectionKit;
 import com.smallchill.core.toolbox.kit.StrKit;
@@ -37,7 +37,7 @@ public class RoleValidator extends BladeValidator {
 			addError("请选择权限!");
 		} 
 		String roleId = request.getParameter(field1);
-		String roleAlias = Func.getRoleAlias(roleId);
+		String roleAlias = SysCache.getRoleAlias(roleId);
 		if(roleAlias.equals(ConstShiro.ADMINISTRATOR)){
 			String[] id = ids.split(",");
 			String authority = Db.queryStr("select id from tfw_menu where code = #{code}", Paras.create().set("code", "role_authority"));

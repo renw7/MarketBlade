@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
-import com.smallchill.common.vo.User;
+import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.annotation.Before;
 import com.smallchill.core.annotation.Permission;
 import com.smallchill.core.aop.AopContext;
@@ -46,6 +46,7 @@ import com.smallchill.system.meta.intercept.PasswordValidator;
 import com.smallchill.system.meta.intercept.UserIntercept;
 import com.smallchill.system.meta.intercept.UserValidator;
 import com.smallchill.system.model.RoleExt;
+import com.smallchill.system.model.User;
 
 @Controller
 @RequestMapping("/user")
@@ -86,7 +87,7 @@ public class UserController extends BaseController implements ConstShiro{
 	public String edit(@PathVariable String id, ModelMap mm) {
 		User user = Blade.create(User.class).findById(id);
 		Paras rd = Paras.parse(user);
-		rd.set("roleName", Func.getRoleName(user.getRoleid()));
+		rd.set("roleName", SysCache.getRoleName(user.getRoleid()));
 		mm.put("user", rd);
 		mm.put("code", CODE);
 		return BASE_PATH + "user_edit.html";
@@ -96,7 +97,7 @@ public class UserController extends BaseController implements ConstShiro{
 	public String editMySelf(@PathVariable String id, ModelMap mm) {
 		User user = Blade.create(User.class).findById(id);
 		Paras rd = Paras.parse(user);
-		rd.set("roleName", Func.getRoleName(user.getRoleid()));
+		rd.set("roleName", SysCache.getRoleName(user.getRoleid()));
 		mm.put("user", rd);
 		mm.put("code", CODE);
 		mm.put("methodName", "editMySelf");
@@ -135,9 +136,9 @@ public class UserController extends BaseController implements ConstShiro{
 	public String view(@PathVariable String id, ModelMap mm) {
 		User user = Blade.create(User.class).findById(id);
 		Paras rd = Paras.parse(user);
-		rd.set("deptName", Func.getDeptName(user.getDeptid()))
-			.set("roleName", Func.getRoleName(user.getRoleid()))
-			.set("sexName", Func.getDictName(101, user.getSex()));
+		rd.set("deptName", SysCache.getDeptName(user.getDeptid()))
+			.set("roleName", SysCache.getRoleName(user.getRoleid()))
+			.set("sexName", SysCache.getDictName(101, user.getSex()));
 		mm.put("user", rd);
 		mm.put("code", CODE);
 		return BASE_PATH + "user_view.html";

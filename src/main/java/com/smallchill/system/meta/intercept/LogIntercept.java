@@ -18,6 +18,7 @@ package com.smallchill.system.meta.intercept;
 import java.util.List;
 import java.util.Map;
 
+import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.meta.MetaIntercept;
@@ -39,7 +40,7 @@ public class LogIntercept extends MetaIntercept {
 		for (Map<String, Object> map : list) {
 			String succeedName = (Func.toInt(map.get("SUCCEED"), 1) == 1) ? "成功" : "失败";
 			map.put("SUCCEEDNAME", succeedName);
-			map.put("USERNAME", Func.getUserName(map.get("USERID")));
+			map.put("USERNAME", SysCache.getUserName(map.get("USERID")));
 		}
 	}
 
@@ -51,7 +52,7 @@ public class LogIntercept extends MetaIntercept {
 	public void renderViewBefore(AopContext ac) {
 		Paras rd = (Paras) ac.getObject();
 		String succeedName = (rd.getInt("succeed") == 1) ? "成功" : "失败";
-		rd.set("succeedName", succeedName).set("userName", Func.getUserName(rd.get("userid")));
+		rd.set("succeedName", succeedName).set("userName", SysCache.getUserName(rd.get("userid")));
 	}
 	
 	

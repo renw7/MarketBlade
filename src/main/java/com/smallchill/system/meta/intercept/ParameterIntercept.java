@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.constant.ConstCache;
@@ -27,7 +28,6 @@ import com.smallchill.core.constant.ConstShiro;
 import com.smallchill.core.meta.MetaIntercept;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.shiro.ShiroKit;
-import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.CacheKit;
@@ -58,7 +58,7 @@ public class ParameterIntercept extends MetaIntercept {
 		BladePage<Map<String, Object>> page = (BladePage<Map<String, Object>>) ac.getObject();
 		List<Map<String, Object>> list = page.getRows();
 		for (Map<String, Object> map : list) {
-			map.put("STATUSNAME", Func.getDictName(901, map.get("STATUS")));
+			map.put("STATUSNAME", SysCache.getDictName(901, map.get("STATUS")));
 		}
 	}
 	

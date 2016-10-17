@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
+import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Md;
-import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.JsonKit;
@@ -51,12 +51,12 @@ public class NoticeController extends BaseController {
 	@RequestMapping(KEY_VIEW + "/{id}")
 	public String view(@PathVariable String id, ModelMap mm) {
 		Notice notice = Blade.create(Notice.class).findById(id);
-		//将javabean转化为rd
-		Paras rd = Paras.parse(notice);
-		//使用Func.getDictName方法从缓存中获取对应字典项的中文值
-		rd.set("dic_f_it_lx", Func.getDictName(102, notice.getF_it_lx()));
+		//将javabean转化为map
+		Paras ps = Paras.parse(notice);
+		//使用SysCache.getDictName方法从缓存中获取对应字典项的中文值
+		ps.set("dic_f_it_lx", SysCache.getDictName(102, notice.getF_it_lx()));
 		//将rd传回前台
-		mm.put("model", JsonKit.toJson(rd));
+		mm.put("model", JsonKit.toJson(ps));
 		mm.put("id", id);
 		mm.put("code", CODE);
 		return BASE_PATH + "notice_view.html";

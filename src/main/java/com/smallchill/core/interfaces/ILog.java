@@ -15,9 +15,6 @@
  */
 package com.smallchill.core.interfaces;
 
-import javax.servlet.http.HttpServletRequest;
-
-import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.core.toolbox.Paras;
 
 /**
@@ -42,10 +39,9 @@ public interface ILog {
 	
 	/**   
 	 * 日志记录
-	 * @param user 当前用户
+	 * @param logName 日志名称
 	 * @param msg  返回消息
-	 * @param request
 	 * @return boolean
 	*/
-	boolean doLog(ShiroUser user, String msg, String logName, HttpServletRequest request, boolean succeed);
+	boolean doLog(String logName, String msg, boolean succeed);
 }
