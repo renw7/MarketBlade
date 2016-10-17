@@ -42,7 +42,7 @@ public class ConfigListener implements ServletContextListener {
 		map.put("realPath", sc.getRealPath("/").replaceFirst("/", ""));
 		map.put("contextPath", sc.getContextPath());
 
-		Properties prop = PropKit.use(Const.PropertyFile).getProperties();
+		Properties prop = PropKit.use(Const.PROPERTY_FILE).getProperties();
 		for (Object name : prop.keySet()) {
 			map.put(name.toString(), prop.get(name).toString());
 		}

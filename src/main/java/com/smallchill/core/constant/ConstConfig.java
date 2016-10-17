@@ -4,16 +4,16 @@ import com.smallchill.core.listener.ConfigListener;
 
 public interface ConstConfig {
 
-	final static String dbType = ConfigListener.map.get("master.dbType");
-	final static String driver = ConfigListener.map.get("master.driver");
-	final static String url = ConfigListener.map.get("master.url");
-	final static String username = ConfigListener.map.get("master.username");
-	final static String password = ConfigListener.map.get("master.password");
-	final static String initialSize = ConfigListener.map.get("druid.initialSize");
-	final static String maxActive = ConfigListener.map.get("druid.maxActive");
-	final static String minIdle = ConfigListener.map.get("druid.minIdle");
-	final static String maxWait = ConfigListener.map.get("druid.maxWait");
+	String DBTYPE = ConfigListener.map.get("master.dbType");
+	String DRIVER = ConfigListener.map.get("master.driver");
+	String URL = ConfigListener.map.get("master.url");
+	String USERNAME = ConfigListener.map.get("master.username");
+	String PASSWORD = ConfigListener.map.get("master.password");
+	String INITIALSIZE = ConfigListener.map.get("druid.initialSize");
+	String MAXACTIVE = ConfigListener.map.get("druid.maxActive");
+	String MINIDLE = ConfigListener.map.get("druid.minIdle");
+	String MAXWAIT = ConfigListener.map.get("druid.maxWait");
 	
-	final static String basePath = ConfigListener.map.get("config.basePath");
+	String BASEPATH = ConfigListener.map.get("config.basePath");
 	
 }

@@ -36,7 +36,7 @@ public class PropKit {
 	 * @see #use(String, String)
 	 */
 	public static Prop use(String fileName) {
-		return use(fileName, Const.Encoding);
+		return use(fileName, Const.ENCODING);
 	}
 	
 	/**
@@ -72,7 +72,7 @@ public class PropKit {
 	 * @see #use(File, String)
 	 */
 	public static Prop use(File file) {
-		return use(file, Const.Encoding);
+		return use(file, Const.ENCODING);
 	}
 	
 	/**

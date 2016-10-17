@@ -331,17 +331,17 @@ public class BladeController implements ConstCurd, ConstCache{
 	@ExceptionHandler(Exception.class)
 	public Object exceptionHandler(Exception ex, HttpServletResponse response, HttpServletRequest request) throws IOException {
 		AjaxResult result = new AjaxResult();
-		String url = Const.error500Path;
+		String url = Const.ERROR_500;
 		String msg = ex.getMessage();
 		Object resultModel = null;
 		try {
 			if (ex.getClass() == HttpRequestMethodNotSupportedException.class) {
-				url = Const.error500Path;// 请求方式不允许抛出的异常,后面可自定义页面
+				url = Const.ERROR_500;// 请求方式不允许抛出的异常,后面可自定义页面
 			} else if (ex.getClass() == NoPermissionException.class) {
-				url = Const.noPermissionPath;// 无权限抛出的异常
+				url = Const.NOPERMISSION_PATH;// 无权限抛出的异常
 				msg = ConstShiro.NO_PERMISSION;
 			} else if (ex.getClass() == NoUserException.class) {
-				url = Const.loginRealPath;// session过期抛出的异常
+				url = Const.LOGIN_REALPATH;// session过期抛出的异常
 				msg = ConstShiro.NO_USER;
 			}
 			if (isAjax()) {

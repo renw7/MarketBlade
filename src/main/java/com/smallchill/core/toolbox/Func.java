@@ -416,11 +416,11 @@ public class Func {
 	}
 	
 	public static boolean isOracle() {
-		return (ConstConfig.dbType.equals("oracle"));
+		return (ConstConfig.DBTYPE.equals("oracle"));
 	}
 
 	public static boolean isMySql() {
-		return (ConstConfig.dbType.equals("mysql"));
+		return (ConstConfig.DBTYPE.equals("mysql"));
 	}
 
 }

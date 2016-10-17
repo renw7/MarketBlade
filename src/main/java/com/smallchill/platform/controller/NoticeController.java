@@ -55,7 +55,7 @@ public class NoticeController extends BaseController {
 		Paras ps = Paras.parse(notice);
 		//使用SysCache.getDictName方法从缓存中获取对应字典项的中文值
 		ps.set("dic_f_it_lx", SysCache.getDictName(102, notice.getF_it_lx()));
-		//将rd传回前台
+		//将结果传回前台
 		mm.put("model", JsonKit.toJson(ps));
 		mm.put("id", id);
 		mm.put("code", CODE);

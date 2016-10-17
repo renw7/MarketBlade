@@ -534,11 +534,11 @@ public class BeetlExt {
 	}
 	
 	public boolean isOracle() {
-		return (ConstConfig.dbType.equals("oracle"));
+		return (ConstConfig.DBTYPE.equals("oracle"));
 	}
 
 	public boolean isMySql() {
-		return (ConstConfig.dbType.equals("mysql"));
+		return (ConstConfig.DBTYPE.equals("mysql"));
 	}
 
 	

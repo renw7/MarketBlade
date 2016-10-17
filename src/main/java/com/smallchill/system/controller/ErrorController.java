@@ -13,25 +13,25 @@ public class ErrorController extends BladeController {
 
 	@RequestMapping("/error400")
 	public ModelAndView error400(){
-		ModelAndView view = new ModelAndView(Const.error400Path);
+		ModelAndView view = new ModelAndView(Const.ERROR_400);
 		return view;
 	}
 	
 	@RequestMapping("/error401")
 	public ModelAndView error401(){
-		ModelAndView view = new ModelAndView(Const.error401Path);
+		ModelAndView view = new ModelAndView(Const.ERROR_401);
 		return view;
 	}
 	
 	@RequestMapping("/error404")
 	public ModelAndView error404(){
-		ModelAndView view = new ModelAndView(Const.error404Path);
+		ModelAndView view = new ModelAndView(Const.ERROR_404);
 		return view;
 	}
 	
 	@RequestMapping("/error500")
 	public ModelAndView error500(){
-		ModelAndView view = new ModelAndView(Const.error500Path);
+		ModelAndView view = new ModelAndView(Const.ERROR_500);
 		return view;
 	}
 }

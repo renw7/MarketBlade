@@ -38,7 +38,7 @@ public class Prop {
 	 * @see #Prop(String, String)
 	 */
 	public Prop(String fileName) {
-		this(fileName, Const.Encoding);
+		this(fileName, Const.ENCODING);
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class Prop {
 	 * @see #Prop(File, String)
 	 */
 	public Prop(File file) {
-		this(file, Const.Encoding);
+		this(file, Const.ENCODING);
 	}
 
 	/**
