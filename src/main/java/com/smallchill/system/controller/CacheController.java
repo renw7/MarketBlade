@@ -142,7 +142,7 @@ public class CacheController extends BladeController {
 	public AjaxResult getSelect() {
 		final String code = getParameter("code");
 		final String num = getParameter("num");
-		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, "dict_common_" + code,
+		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, DICT_SELECT + code,
 				new ILoader() {
 					public Object load() {
 						return Db.selectList("select num as ID,pId as PID,name as TEXT from  TFW_DICT where code=#{code} and num>0", Paras.create().set("code", code));
@@ -163,7 +163,7 @@ public class CacheController extends BladeController {
 	@RequestMapping("/getCombo")
 	public AjaxResult getCombo() {
 		final String code = getParameter("code");
-		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, "dict_combo_" + code,
+		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, DICT_COMBO + code,
 				new ILoader() {
 					public Object load() {
 						return Db.selectList("select num as \"id\",name as \"text\" from  TFW_DICT where code=#{code} and num>0", Paras.create().set("code", code), new AopContext("ztree"));
@@ -177,7 +177,7 @@ public class CacheController extends BladeController {
 	@RequestMapping("/getDeptSelect")
 	public AjaxResult getDeptSelect() {
 		final String num = getParameter("num");
-		List<Map<String, Object>> dept = CacheKit.get(DEPT_CACHE, "dept_all",
+		List<Map<String, Object>> dept = CacheKit.get(DEPT_CACHE, DEPT_ALL_LIST,
 				new ILoader() {
 					public Object load() {
 						return Db.selectList("select ID,PID,simpleName as TEXT from  TFW_DEPT order by pId,num asc", Paras.create(), new AopContext(), Cst.me().getDefaultSelectFactory().deptIntercept());
@@ -198,7 +198,7 @@ public class CacheController extends BladeController {
 	@RequestMapping("/getUserSelect")
 	public AjaxResult getUserSelect() {
 		final String num = getParameter("num");
-		List<Map<String, Object>> dept = CacheKit.get(DEPT_CACHE, "user_all",
+		List<Map<String, Object>> dept = CacheKit.get(DEPT_CACHE, DICT_SELECT_USER,
 				new ILoader() {
 					public Object load() {
 						return Db.selectList("select ID,name TEXT from TFW_USER where status=1 and name is not null order by name ", Paras.create(), new AopContext(), Cst.me().getDefaultSelectFactory().userIntercept());
@@ -219,7 +219,7 @@ public class CacheController extends BladeController {
 	@RequestMapping("/getRoleSelect")
 	public AjaxResult getRoleSelect() {
 		final String num = getParameter("num");
-		List<Map<String, Object>> dept = CacheKit.get(ROLE_CACHE, "role_all",
+		List<Map<String, Object>> dept = CacheKit.get(ROLE_CACHE, ROLE_ALL_LIST,
 				new ILoader() {
 					public Object load() {
 						return Db.selectList("select ID,name TEXT from TFW_Role where  name is not null order by name ", Paras.create(), new AopContext("ztree"));
@@ -239,7 +239,7 @@ public class CacheController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/dicTreeList")
 	public AjaxResult dicTreeList() {
-		List<Map<String, Object>> dic = CacheKit.get(DICT_CACHE, "dict_all",
+		List<Map<String, Object>> dic = CacheKit.get(DICT_CACHE, DICT_TREE_ALL,
 				new ILoader() {
 					public Object load() {
 						return Db.selectList("select code \"code\",id \"id\",pId \"pId\",name \"name\",num \"num\",'false' \"open\" from TFW_DICT order by code asc,num asc", Paras.create());
@@ -252,7 +252,7 @@ public class CacheController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/deptTreeList")
 	public AjaxResult deptTreeList() {
-		List<Map<String, Object>> dept = CacheKit.get(DEPT_CACHE, "dept_tree_all_" + ShiroKit.getUser().getId(),
+		List<Map<String, Object>> dept = CacheKit.get(DEPT_CACHE, DEPT_TREE_ALL + "_" + ShiroKit.getUser().getId(),
 				new ILoader() {
 					public Object load() {
 						return Db.selectList("select id \"id\",pId \"pId\",simpleName as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_DEPT ", Paras.create(), new AopContext("ztree"), Cst.me().getDefaultSelectFactory().deptIntercept());
@@ -265,7 +265,7 @@ public class CacheController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/roleTreeList")
 	public AjaxResult roleTreeList() {
-		List<Map<String, Object>> dept = CacheKit.get(ROLE_CACHE, "role_tree_all_" + ShiroKit.getUser().getId(),
+		List<Map<String, Object>> dept = CacheKit.get(ROLE_CACHE, ROLE_TREE_ALL + "_" + ShiroKit.getUser().getId(),
 				new ILoader() {
 					public Object load() {
 						return Db.selectList("select id \"id\",pId \"pId\",name as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_ROLE ", Paras.create(), new AopContext("ztree"), Cst.me().getDefaultSelectFactory().roleIntercept());
@@ -279,7 +279,7 @@ public class CacheController extends BladeController {
 	@RequestMapping("/getDicById")
 	public AjaxResult getDicById() {
 		final int id = getParameterToInt("id");
-		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, "dict_" + id,
+		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, DICT + id,
 				new ILoader() {
 					public Object load() {
 						return Db.selectList("select CODE from TFW_DICT where id=#{id}",Paras.create().set("id", id), new AopContext("ztree"));
@@ -291,7 +291,7 @@ public class CacheController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/menuTreeList")
 	public AjaxResult menuTreeList() {
-		List<Map<String, Object>> menu = CacheKit.get(MENU_CACHE, "menu_tree_all",
+		List<Map<String, Object>> menu = CacheKit.get(MENU_CACHE, MENU_TREE_ALL,
 				new ILoader() {
 					public Object load() {
 						return Db.selectList("select code \"id\",pCode \"pId\",name \"name\",(case when levels=1 then 'true' else 'false' end) \"open\" from TFW_MENU where status=1 order by levels asc,num asc");
@@ -305,7 +305,7 @@ public class CacheController extends BladeController {
 	@RequestMapping("/menuTreeListByRoleId")
 	public AjaxResult menuTreeListByRoleId() {
 		final String roleId = getParameter("roleId", "0");
-		List<Map<String, Object>> menu = CacheKit.get(MENU_CACHE, "tree_role_" + roleId,
+		List<Map<String, Object>> menu = CacheKit.get(MENU_CACHE, MENU_TREE + roleId,
 				new ILoader() {
 					@SuppressWarnings("rawtypes")
 					public Object load() {
@@ -341,7 +341,7 @@ public class CacheController extends BladeController {
 	public AjaxResult roleTreeListById() {
 		final String Id = getParameter("id");
 		final String roleId = getParameter("roleId", "0");
-		List<Map<String, Object>> menu = CacheKit.get(ROLE_CACHE, "role_tree_" + Id,
+		List<Map<String, Object>> menu = CacheKit.get(ROLE_CACHE, ROLE_TREE + Id,
 				new ILoader() {
 					public Object load() {
 						String sql = "select id \"id\",pId \"pId\",name as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_ROLE order by pId,num asc";

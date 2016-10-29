@@ -21,6 +21,7 @@ import java.util.Map;
 
 import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.constant.ConstCache;
+import com.smallchill.core.constant.ConstCacheKey;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
@@ -90,10 +91,10 @@ public class ShiroUser implements Serializable {
 		this.subRoles = subRoles;
 		
 		// 查找子角色对应账号id集合
-		List<Map<String, Object>> listUser = CacheKit.get(ConstCache.USER_CACHE, "user_all_list", new ILoader() {
+		List<Map<String, Object>> listUser = CacheKit.get(ConstCache.USER_CACHE, ConstCacheKey.USER_ALL_LIST, new ILoader() {
 			@Override
 			public Object load() {
-				return Db.selectList("SELECT * FROM TFW_USER");
+				return Db.selectList("SELECT * FROM TFW_USER where status = 1 and name is not null");
 			}
 		});
 		

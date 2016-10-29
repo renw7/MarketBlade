@@ -66,12 +66,12 @@ public class ExcelController extends BladeController{
 		String orderby = (Func.isOneEmpty(sort, order)) ? (" order by " + sort + " " + order) : "";
 		String sql = "select {} from (" + _source + ") a " + SqlKeyword.getWhere((String) where) + orderby;
 
-		CacheKit.remove(cacheName, "excel_sql_" + code);
-		CacheKit.remove(cacheName, "excel_colname_" + code);
-		CacheKit.remove(cacheName, "excel_colmodel_" + code);
-		CacheKit.put(cacheName, "excel_sql_" + code, sql);
-		CacheKit.put(cacheName, "excel_colname_" + code, _colname);
-		CacheKit.put(cacheName, "excel_colmodel_" + code, _colmodel);
+		CacheKit.remove(cacheName, EXCEL_SQL + code);
+		CacheKit.remove(cacheName, EXCEL_COL_NAME + code);
+		CacheKit.remove(cacheName, EXCEL_COL_MODEL + code);
+		CacheKit.put(cacheName, EXCEL_SQL + code, sql);
+		CacheKit.put(cacheName, EXCEL_COL_NAME + code, _colname);
+		CacheKit.put(cacheName, EXCEL_COL_MODEL + code, _colmodel);
 		
 		return json(code);
 	}
@@ -81,9 +81,9 @@ public class ExcelController extends BladeController{
 	 */
 	@RequestMapping("/export")
 	public String export(ModelMap modelMap, HttpServletResponse response, @RequestParam String code) {
-		String sql = CacheKit.get(cacheName, "excel_sql_" + code);
-		String [] _colname = CacheKit.get(cacheName, "excel_colname_" + code);
-		List<Map<String, String>> _colmodel = CacheKit.get(cacheName, "excel_colmodel_" + code);
+		String sql = CacheKit.get(cacheName, EXCEL_SQL + code);
+		String [] _colname = CacheKit.get(cacheName, EXCEL_COL_NAME + code);
+		List<Map<String, String>> _colmodel = CacheKit.get(cacheName, EXCEL_COL_MODEL + code);
 		
 		List<ExcelExportEntity> entityList = new ArrayList<ExcelExportEntity>();
 		StringBuilder sb = new StringBuilder();
@@ -117,7 +117,7 @@ public class ExcelController extends BladeController{
 	}
 	
 	private String getInfoByCode(String code, String col) {
-		List<Map<String, Object>> menu = CacheKit.get("menuCache", "menu_table_all",
+		List<Map<String, Object>> menu = CacheKit.get(MENU_CACHE, MENU_TABLE_ALL,
 				new ILoader() {
 					public Object load() {
 						return Db.selectList("select CODE,PCODE,NAME,URL,SOURCE,PATH,TIPS,ISOPEN from TFW_MENU order by levels asc,num asc");

@@ -23,6 +23,7 @@ import org.beetl.core.Tag;
 
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.ConstCache;
+import com.smallchill.core.constant.ConstCacheKey;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.interfaces.IQuery;
@@ -93,7 +94,7 @@ public class SelectTag extends Tag {
 			final Map<String, Object> _modelOrMap = modelOrMap;
 			final IQuery _intercept = intercept;
 			
-			List<Map<String, Object>> dict = CacheKit.get(CACHE_NAME, "dict_" + type + "_" + code + "_" + ShiroKit.getUser().getId(), new ILoader() {
+			List<Map<String, Object>> dict = CacheKit.get(CACHE_NAME, ConstCacheKey.DICT + type + "_" + code + "_" + ShiroKit.getUser().getId(), new ILoader() {
 				@Override
 				public Object load() {
 					return Db.selectList(_sql, _modelOrMap, new AopContext(), _intercept);

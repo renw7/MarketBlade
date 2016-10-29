@@ -26,6 +26,7 @@ import java.util.Set;
 
 import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.constant.ConstCache;
+import com.smallchill.core.constant.ConstCacheKey;
 import com.smallchill.core.constant.ConstConfig;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
@@ -462,7 +463,7 @@ public class BeetlExt {
 	 * @return String
 	 */
 	public String getRightMenu(final Object userId, Object roleId,final String code) {
-		Map<String, Object> userRole = CacheKit.get(ConstCache.MENU_CACHE, "roleExt_" + userId,
+		Map<String, Object> userRole = CacheKit.get(ConstCache.MENU_CACHE, ConstCacheKey.ROLE_EXT + userId,
 				new ILoader() {
 					public Object load() {
 						return Db.selectOne("select * from TFW_ROLE_EXT where userId=#{userId}", Paras.create().set("userId", userId));
@@ -489,7 +490,7 @@ public class BeetlExt {
 		sql.append("	)");
 		sql.append(" order by num");
 
-		List<Map<String, Object>> btnList = CacheKit.get(ConstCache.MENU_CACHE, "btnList_rightMenu_" + code + "_" + userId, new ILoader() {
+		List<Map<String, Object>> btnList = CacheKit.get(ConstCache.MENU_CACHE, ConstCacheKey.RIGHT_MENU + code + "_" + userId, new ILoader() {
 			public Object load() {
 				return Db.selectList(sql.toString(), Paras.create().set("code", code));
 			}

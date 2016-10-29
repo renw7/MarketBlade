@@ -24,6 +24,7 @@ import org.beetl.core.Tag;
 
 import com.smallchill.common.vo.TreeNode;
 import com.smallchill.core.constant.ConstCache;
+import com.smallchill.core.constant.ConstCacheKey;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.plugins.dao.Md;
@@ -64,7 +65,7 @@ public class DropDownTag extends Tag {
  
 			final String sqlstr = sql;
 			
-			List<Map<String, Object>> dict = CacheKit.get(ConstCache.DICT_CACHE,"dropdown_"+ type + "_" + code, new ILoader() {
+			List<Map<String, Object>> dict = CacheKit.get(ConstCache.DICT_CACHE, ConstCacheKey.DROPDOWN + type + "_" + code, new ILoader() {
 				@Override
 				public Object load() {
 					return Db.selectList(sqlstr);

@@ -1,6 +1,7 @@
 package com.smallchill.common.tool;
 
 import com.smallchill.core.constant.ConstCache;
+import com.smallchill.core.constant.ConstCacheKey;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.toolbox.Func;
@@ -13,7 +14,7 @@ import com.smallchill.system.model.Parameter;
 import com.smallchill.system.model.Role;
 import com.smallchill.system.model.User;
 
-public class SysCache {
+public class SysCache implements ConstCache, ConstCacheKey{
 	/**
 	 * 获取字典表对应中文
 	 * @param code 字典编号
@@ -21,7 +22,7 @@ public class SysCache {
 	 * @return
 	 */
 	public static String getDictName(final Object code, final Object num) {
-		Dict dict = CacheKit.get(ConstCache.DICT_CACHE, "getDictName_" + code + "_" + num, new ILoader() {
+		Dict dict = CacheKit.get(DICT_CACHE, GET_DICT_NAME + code + "_" + num, new ILoader() {
 			@Override
 			public Object load() {
 				return Blade.create(Dict.class).findFirstBy("code=#{code} and num=#{num}", Paras.create().set("code", code).set("num", num));
@@ -46,7 +47,7 @@ public class SysCache {
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0 ; i < roleIdArr.length; i++){
 			final String roleId = roleIdArr[i];
-			Role role = CacheKit.get(ConstCache.ROLE_CACHE, "getRoleName" + "_" + roleId, new ILoader() {
+			Role role = CacheKit.get(ROLE_CACHE, GET_ROLE_NAME + roleId, new ILoader() {
 				@Override
 				public Object load() {
 					return Blade.create(Role.class).findById(roleId);
@@ -70,7 +71,7 @@ public class SysCache {
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0 ; i < roleIdArr.length; i++){
 			final String roleId = roleIdArr[i];
-			Role role = CacheKit.get(ConstCache.ROLE_CACHE, "getRoleAlias" + "_" + roleId, new ILoader() {
+			Role role = CacheKit.get(ROLE_CACHE, GET_ROLE_ALIAS + roleId, new ILoader() {
 				@Override
 				public Object load() {
 					return Blade.create(Role.class).findById(roleId);
@@ -87,7 +88,7 @@ public class SysCache {
 	 * @return
 	 */
 	public static String getUserName(final Object userId) {
-		User user = CacheKit.get(ConstCache.USER_CACHE, "getUserName" + "_" + userId, new ILoader() {
+		User user = CacheKit.get(USER_CACHE, GET_USER_NAME + userId, new ILoader() {
 			@Override
 			public Object load() {
 				return Blade.create(User.class).findById(userId);
@@ -112,7 +113,7 @@ public class SysCache {
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0 ; i < deptIdArr.length; i++){
 			final String deptId = deptIdArr[i];
-			Dept dept = CacheKit.get(ConstCache.DEPT_CACHE, "getDeptName" + "_" + deptId, new ILoader() {
+			Dept dept = CacheKit.get(DEPT_CACHE, GET_DEPT_NAME + deptId, new ILoader() {
 				@Override
 				public Object load() {
 					return Blade.create(Dept.class).findById(deptId);

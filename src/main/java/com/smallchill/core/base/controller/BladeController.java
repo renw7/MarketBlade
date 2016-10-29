@@ -33,6 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.smallchill.core.constant.Const;
 import com.smallchill.core.constant.ConstCache;
+import com.smallchill.core.constant.ConstCacheKey;
 import com.smallchill.core.constant.ConstCurd;
 import com.smallchill.core.constant.ConstShiro;
 import com.smallchill.core.constant.Cst;
@@ -55,7 +56,7 @@ import com.smallchill.core.toolbox.support.WafRequestWrapper;
 /**
  * @author Chill Zhuang
  */
-public class BladeController implements ConstCurd, ConstCache{
+public class BladeController implements ConstCurd, ConstCache, ConstCacheKey {
 	
 	private static final Logger log = LoggerFactory.getLogger(BladeController.class);
 	

@@ -98,7 +98,7 @@ public class ZTreeController extends BladeController {
 		
 		final Map<String, Object> modelOrMap = params;
 		
-		List<Map<String, Object>> list = CacheKit.get(DICT_CACHE, "ztree_list_" + type,
+		List<Map<String, Object>> list = CacheKit.get(DICT_CACHE, DICT_ZTREE_LIST + type,
 				new ILoader() {
 					public Object load() {
 						return Db.selectList(sqlSource, modelOrMap);

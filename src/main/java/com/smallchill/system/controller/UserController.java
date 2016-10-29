@@ -416,7 +416,7 @@ public class UserController extends BaseController implements ConstShiro{
 	@ResponseBody
 	@RequestMapping("/userTreeList")
 	public AjaxResult userTreeList() {
-		List<Map<String, Object>> dept = CacheKit.get(DEPT_CACHE, "user_tree_all",
+		List<Map<String, Object>> dept = CacheKit.get(DEPT_CACHE, USER_TREE_ALL,
 				new ILoader() {
 					public Object load() {
 						return Db.selectList("select id \"id\",pId \"pId\",simpleName as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_DEPT order by pId,num asc", Paras.create(), new AopContext(), new IQuery() {

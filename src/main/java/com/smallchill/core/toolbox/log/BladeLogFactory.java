@@ -21,6 +21,7 @@ import java.util.Map;
 import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.core.constant.Const;
 import com.smallchill.core.constant.ConstCache;
+import com.smallchill.core.constant.ConstCacheKey;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.interfaces.ILog;
 import com.smallchill.core.plugins.dao.Blade;
@@ -58,7 +59,7 @@ public class BladeLogFactory implements ILog {
 
 	public boolean isDoLog() {
 		@SuppressWarnings("rawtypes")
-		Map map = CacheKit.get(ConstCache.SYS_CACHE, "parameter_log", new ILoader() {
+		Map map = CacheKit.get(ConstCache.SYS_CACHE, ConstCacheKey.PARAMETER_LOG, new ILoader() {
 			@Override
 			public Object load() {
 				return Db.selectOne("select para from tfw_parameter where code = #{code}", Paras.create().set("code", Const.PARA_LOG_CODE));

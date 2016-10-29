@@ -58,7 +58,7 @@ public class LoginController extends BaseController implements Const{
 	}
 	
 	/**
-	 * GET 登录
+	 * 登陆地址
 	 */
 	@GetMapping("/login")
 	public String login() {
@@ -69,7 +69,7 @@ public class LoginController extends BaseController implements Const{
 	}
 
 	/**
-	 * POST 登录
+	 * 登陆请求
 	 */
 	@Before(LoginValidator.class)
 	@ResponseBody
@@ -115,7 +115,7 @@ public class LoginController extends BaseController implements Const{
 		return REDIRECT + "/login";
 	}
 
-	@RequestMapping(value = "/unauth")
+	@RequestMapping("/unauth")
 	public String unauth() {
 		if (ShiroKit.notAuthenticated()) {
 			return REDIRECT + "/login";

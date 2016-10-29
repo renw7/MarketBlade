@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.smallchill.common.base.BaseController;
 import com.smallchill.core.annotation.Before;
 import com.smallchill.core.annotation.Permission;
-import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.constant.ConstShiro;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
@@ -187,11 +186,10 @@ public class MenuController extends BaseController implements ConstShiro{
 	@ResponseBody
 	@RequestMapping("/getMenu")
 	public List<Map<String, Object>> getMenu(){
-		String MENU_CACHE = ConstCache.MENU_CACHE;
 		final Object userId = getParameter("userId");
 		final Object roleId = getParameter("roleId");
 
-		Map<String, Object> userRole = CacheKit.get(MENU_CACHE, "role_ext_" + userId, new ILoader() {
+		Map<String, Object> userRole = CacheKit.get(MENU_CACHE, ROLE_EXT + userId, new ILoader() {
 			@Override
 			public Object load() {
 				return Db.selectOne("select * from TFW_ROLE_EXT where USERID=#{userId}", Paras.create().set("userId", userId));
@@ -216,7 +214,7 @@ public class MenuController extends BaseController implements ConstShiro{
 		sql.append("	)");
 		sql.append(" order by levels,pCode,num");
 
-		List<Map<String, Object>> sideBar = CacheKit.get(MENU_CACHE, "sideBar_" + userId, new ILoader() {
+		List<Map<String, Object>> sideBar = CacheKit.get(MENU_CACHE, SIDEBAR + userId, new ILoader() {
 			@Override
 			public Object load() {
 				return Db.selectList(sql.toString());

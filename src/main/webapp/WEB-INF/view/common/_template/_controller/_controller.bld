@@ -23,7 +23,7 @@ ${"@"}RequestMapping("/${lowerModelName}")
 public class ${modelName}Controller extends BaseController {
 	private static String CODE = "${lowerModelName}";
 	private static String PREFIX = "${tableName}";
-	private static String LIST_SOURCE = "${modelName}.list";
+	private static String LIST_SOURCE = "${lowerModelName}.list";
 	private static String BASE_PATH = "/platform/${lowerModelName}/";
 	
 	${"@"}Autowired

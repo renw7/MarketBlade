@@ -104,7 +104,7 @@ public class GenerateController extends CurdController<Generate> {
 			String serviceimplPath = path + File.separator + "service" + File.separator + "impl" + File.separator + upperModelName + "ServiceImpl.java";
 			
 			//resources
-			String sqlPath = resourcesPath + File.separator + "beetlsql" + File.separator + upperModelName + ".md";
+			String sqlPath = resourcesPath + File.separator + "beetlsql" + File.separator + lowerModelName + ".md";
 			
 			//webapp
 			String indexPath = webappPath + File.separator + "gen" + File.separator + lowerModelName + File.separator + lowerModelName + ".html";
