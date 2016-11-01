@@ -36,7 +36,7 @@ public class DefaultFileProxyFactory implements IFileProxy {
 
 	@Override
 	public String path(File f) {
-		StringBuilder newFileName = new StringBuilder()
+		StringBuilder newFileName = new StringBuilder().append(File.separator)
 		.append(getFileDir(Cst.me().getUploadRealPath()))
 		.append(System.currentTimeMillis())
 		.append(getFileExt(f.getName()));
