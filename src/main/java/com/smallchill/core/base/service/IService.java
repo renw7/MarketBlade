@@ -294,6 +294,13 @@ public interface IService<M> {
 	*/
 	public boolean isExist(String sqlTemplate, Object modelOrMap);
 
+	/**   
+	 * 获取model的主键值
+	 * @param model
+	 * @return Object
+	*/
+	public Object getIdValue(Object model);
+	
 	/**
 	 * 通用新增
 	 * 

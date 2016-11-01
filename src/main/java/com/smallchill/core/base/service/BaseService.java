@@ -225,6 +225,11 @@ public class BaseService<M> implements IService<M>, ConstCurd {
 		return dao.isExist(sqlTemplate, modelOrMap);
 	}
 
+	public Object getIdValue(Object model) {
+		Blade dao = getSqlMananger();
+		return dao.getIdValue(model);
+	}
+
 	public boolean save(M model, AopContext ac) {
 		return save(model, ac, Cst.me().getDefaultCURDFactory());
 	}
@@ -310,6 +315,4 @@ public class BaseService<M> implements IService<M>, ConstCurd {
 		}
 		return (temp && tempAfter);
 	}
-
-
 }

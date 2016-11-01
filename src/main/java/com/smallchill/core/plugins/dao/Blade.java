@@ -411,16 +411,8 @@ public class Blade {
 	 * @return
 	 */
 	private boolean baseUpdate(Object model, boolean flag) {
-		SQLManager sql = getSqlManager();
-		String table = sql.getNc().getTableName(this.modelClass);
-		ClassDesc desc = sql.getMetaDataManager().getTable(table).getClassDesc(this.modelClass, sql.getNc());
-		Method getterMethod = (Method) desc.getIdMethods().get(desc.getIdCols().get(0));
-		Object idValue = null;
-		try {
-			idValue = getterMethod.invoke(model);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Object idValue = this.getIdValue(model);
+		
 		if(Func.isEmpty(idValue)){
 			throw new RuntimeException("未取到ID的值,无法修改!");
 		}
@@ -678,7 +670,6 @@ public class Blade {
 
 	/**
 	 * 是否存在
-	 * 
 	 * @param sqlTemplate
 	 * @param paras
 	 * @return
@@ -689,6 +680,25 @@ public class Blade {
 			return true;
 		}
 		return false;
+	}
+	
+	/**   
+	 * 获取model的主键值
+	 * @param model
+	 * @return Object
+	*/
+	public Object getIdValue(Object model){
+		SQLManager sql = getSqlManager();
+		String table = sql.getNc().getTableName(this.modelClass);
+		ClassDesc desc = sql.getMetaDataManager().getTable(table).getClassDesc(this.modelClass, sql.getNc());
+		Method getterMethod = (Method) desc.getIdMethods().get(desc.getIdCols().get(0));
+		Object idValue = null;
+		try {
+			idValue = getterMethod.invoke(model);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return idValue;
 	}
 	
 	/*************************************************************************************************/
