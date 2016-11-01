@@ -225,11 +225,6 @@ public class BaseService<M> implements IService<M>, ConstCurd {
 		return dao.isExist(sqlTemplate, modelOrMap);
 	}
 
-	public void createPojoToConsole() {
-		Blade dao = getSqlMananger();
-		dao.createPojoToConsole();
-	}
-
 	public boolean save(M model, AopContext ac) {
 		return save(model, ac, Cst.me().getDefaultCURDFactory());
 	}

@@ -294,12 +294,6 @@ public interface IService<M> {
 	*/
 	public boolean isExist(String sqlTemplate, Object modelOrMap);
 
-	/**   
-	 * 将绑定的实体类字段信息输出到控制台
-	*/
-	public void createPojoToConsole();
-	
-
 	/**
 	 * 通用新增
 	 * 

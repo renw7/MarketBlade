@@ -690,29 +690,6 @@ public class Blade {
 		}
 		return false;
 	}
-
-	/**
-	 * 将本类的字段打印到控制台
-	 */
-	public void createPojoToConsole() {
-		try {
-			getSqlManager().genPojoCodeToConsole(this.table);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * 将指定表名的字段打印到控制台
-	 * @param tableName
-	 */
-	public void createPojoToConsole(String tableName) {
-		try {
-			getSqlManager().genPojoCodeToConsole(tableName);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
 	/*************************************************************************************************/
 

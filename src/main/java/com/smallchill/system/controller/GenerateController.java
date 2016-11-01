@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.beetl.sql.core.annotatoin.Table;
 import org.beetl.sql.core.db.TableDesc;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,9 @@ import com.smallchill.core.interfaces.IMeta;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
+import com.smallchill.core.toolbox.kit.ClassKit;
+import com.smallchill.core.toolbox.kit.DateKit;
+import com.smallchill.core.toolbox.kit.LogKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.system.meta.factory.GenerateFactory;
 import com.smallchill.system.model.Generate;
@@ -55,10 +59,14 @@ public class GenerateController extends CurdController<Generate> {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/sql/{table}")
-	public String createSql(@PathVariable String table) {
+	@RequestMapping("/sql/{table:.+}")
+	public String createBuiltInSql(@PathVariable String table) {
 		try {
-			Blade.dao().genSQLTemplateToConsole(table);
+			LogKit.println("\n\n-------------------------------- gen by beetlsql {} --------------------------------\n", DateKit.getTime());
+			LogKit.println("------------ curd ------------\n");
+			Blade.dao().genBuiltInSqlToConsole(ClassKit.newInstance(table).getClass());
+			LogKit.println("\n------------ field ------------\n");
+			Blade.dao().genSQLTemplateToConsole(ClassKit.newInstance(table).getClass().getAnnotation(Table.class).name());
 			return "[ " + table + " ] sql生成成功,请查看控制台";
 		} catch (Exception e) {
 			return "[ " + table + " ] sql生成失败:" + e.getMessage();
@@ -67,14 +75,19 @@ public class GenerateController extends CurdController<Generate> {
 	
 	@ResponseBody
 	@RequestMapping("/sql/{slave}/{table}")
-	public String createSqlSlave(@PathVariable String slave, @PathVariable String table) {
+	public String createBuiltInSqlSlave(@PathVariable String slave, @PathVariable String table) {
 		try {
-			Blade.dao(slave).genSQLTemplateToConsole(table);
+			LogKit.println("\n\n-------------------------------- gen by beetlsql {} --------------------------------\n", DateKit.getTime());
+			LogKit.println("------------ curd ------------\n");
+			Blade.dao(slave).genBuiltInSqlToConsole(ClassKit.newInstance(table).getClass());
+			LogKit.println("\n------------ field ------------\n");
+			Blade.dao(slave).genSQLTemplateToConsole(ClassKit.newInstance(table).getClass().getAnnotation(Table.class).name());
 			return "[ " + table + " ] sql生成成功,请查看控制台";
 		} catch (Exception e) {
 			return "[ " + table + " ] sql生成失败:" + e.getMessage();
 		}
 	}
+	
 	
 	@ResponseBody
 	@RequestMapping("/code")
