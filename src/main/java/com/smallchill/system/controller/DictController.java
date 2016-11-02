@@ -22,12 +22,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
+import com.smallchill.core.annotation.Before;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.core.toolbox.kit.StrKit;
+import com.smallchill.system.meta.intercept.DictValidator;
 import com.smallchill.system.model.Dict;
 
 @Controller
@@ -92,6 +94,7 @@ public class DictController extends BaseController{
 	}
 	
 	@ResponseBody
+	@Before(DictValidator.class)
 	@RequestMapping(KEY_SAVE)
 	public AjaxResult save() {
 		Dict dict = mapping(PREFIX, Dict.class);
@@ -106,10 +109,10 @@ public class DictController extends BaseController{
 	}
 
 	@ResponseBody
+	@Before(DictValidator.class)
 	@RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
 		Dict dict = mapping(PREFIX, Dict.class);
-		dict.setVersion(getParameterToInt("VERSION", 0) + 1);
 		boolean temp =  Blade.create(Dict.class).update(dict);
 		if (temp) {
 			CacheKit.removeAll(DICT_CACHE);
