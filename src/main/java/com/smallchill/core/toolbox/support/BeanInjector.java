@@ -21,7 +21,7 @@ public class BeanInjector {
 
 	public static final <T> T inject(Class<T> beanClass, HttpServletRequest request) {
 		try {
-			return BeanKit.mapToBeanIgnoreCase(request.getParameterMap(), beanClass);
+			return BeanKit.mapToBeanIgnoreCase(getParameterMap(request), beanClass);
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
 		}
@@ -37,7 +37,7 @@ public class BeanInjector {
 	}
 	
 	public static final Paras injectMaps(HttpServletRequest request) {
-		return Paras.parse(request.getParameterMap());
+		return Paras.parse(getParameterMap(request));
 	}
 
 	public static final Paras injectMaps(String paraPrefix, HttpServletRequest request) {
@@ -71,6 +71,25 @@ public class BeanInjector {
 			map.put(Const.OPTIMISTIC_LOCK.toLowerCase(), Func.toInt(versionL) + 1);
 		} else if(StrKit.notBlank(versionU)){
 			map.put(Const.OPTIMISTIC_LOCK.toLowerCase(), Func.toInt(versionU) + 1);
+		}
+		return map;
+	}
+	
+	private static final Map<String, Object> getParameterMap(HttpServletRequest request) {
+		Map<String, String[]> paramMap = request.getParameterMap();
+		Map<String, Object> map = new HashMap<>();
+		String[] value = null;
+		for (Entry<String, String[]> param : paramMap.entrySet()) {
+			value = param.getValue();
+			Object o = null;
+			if (CollectionKit.isNotEmpty(value)) {
+				if (value.length > 1) {
+					o = CollectionKit.join(value, ",");
+				} else {
+					o = (Func.equals(value[0], "")) ? " " : value[0];					
+				}
+			}
+			map.put(param.getKey(), o);
 		}
 		return map;
 	}
