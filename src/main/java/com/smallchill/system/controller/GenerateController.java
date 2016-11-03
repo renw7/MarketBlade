@@ -63,9 +63,11 @@ public class GenerateController extends CurdController<Generate> {
 	public String createBuiltInSql(@PathVariable String table) {
 		try {
 			LogKit.println("\n\n-------------------------------- gen by beetlsql {} --------------------------------\n", DateKit.getTime());
-			LogKit.println("------------ curd ------------\n");
+			LogKit.println("-----↓------- curd -------↓-----\n");
 			Blade.dao().genBuiltInSqlToConsole(ClassKit.newInstance(table).getClass());
-			LogKit.println("\n------------ field ------------\n");
+			LogKit.println("\n-----↓-- updateNotNull --↓-----\n");
+			LogKit.println(Blade.dao().getDbStyle().genUpdateTemplate(ClassKit.newInstance(table).getClass()).getTemplate());
+			LogKit.println("\n-----↓------- field -------↓-----\n");
 			Blade.dao().genSQLTemplateToConsole(ClassKit.newInstance(table).getClass().getAnnotation(Table.class).name());
 			return "[ " + table + " ] sql生成成功,请查看控制台";
 		} catch (Exception e) {
@@ -78,9 +80,11 @@ public class GenerateController extends CurdController<Generate> {
 	public String createBuiltInSqlSlave(@PathVariable String slave, @PathVariable String table) {
 		try {
 			LogKit.println("\n\n-------------------------------- gen by beetlsql {} --------------------------------\n", DateKit.getTime());
-			LogKit.println("------------ curd ------------\n");
+			LogKit.println("-----↓------- curd --------↓-----\n");
 			Blade.dao(slave).genBuiltInSqlToConsole(ClassKit.newInstance(table).getClass());
-			LogKit.println("\n------------ field ------------\n");
+			LogKit.println("\n-----↓-- updateNotNull --↓-----\n");
+			LogKit.println(Blade.dao(slave).getDbStyle().genUpdateTemplate(ClassKit.newInstance(table).getClass()).getTemplate());
+			LogKit.println("\n-----↓------ field -------↓-----\n");
 			Blade.dao(slave).genSQLTemplateToConsole(ClassKit.newInstance(table).getClass().getAnnotation(Table.class).name());
 			return "[ " + table + " ] sql生成成功,请查看控制台";
 		} catch (Exception e) {

@@ -68,7 +68,7 @@ public class BeetlTemplate {
 	public static void registerTemplate(GroupTemplate groupTemplate){
 		Map<String, Object> sharedVars = new HashMap<String, Object>();
 		sharedVars.put("startTime", new Date());
-		sharedVars.put("basePath", ConstConfig.BASEPATH);
+		sharedVars.put("domain", ConstConfig.DOMAIN);
 		groupTemplate.setSharedVars(sharedVars);
 
 		groupTemplate.registerTag("hot", HotBlogsTag.class);

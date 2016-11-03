@@ -21,6 +21,7 @@ import java.util.Map;
 
 import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.aop.AopContext;
+import com.smallchill.core.constant.ConstConfig;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.meta.MetaIntercept;
 import com.smallchill.core.plugins.dao.Db;
@@ -39,7 +40,7 @@ public class AttachIntercept extends MetaIntercept {
 		BladePage<Map<String, Object>> page = (BladePage<Map<String, Object>>) ac.getObject();
 		List<Map<String, Object>> list = page.getRows();
 		for (Map<String, Object> map : list) {
-			map.put("ATTACHURL", Cst.me().getContextPath() + "/kindeditor/renderFile/" + map.get("ID"));
+			map.put("ATTACHURL", ConstConfig.DOMAIN + map.get("URL"));
 			map.put("STATUSNAME", SysCache.getDictName(902, map.get("STATUS")));
 			map.put("CREATERNAME", SysCache.getUserName(map.get("CREATER")));
 		}
@@ -51,11 +52,10 @@ public class AttachIntercept extends MetaIntercept {
 	 * @param ac
 	 */
 	public void renderViewBefore(AopContext ac) {
-		Paras rd = (Paras) ac.getObject();
-		rd
-		.set("attachUrl", Cst.me().getContextPath() + "/kindeditor/renderFile/" + rd.get("id"))
-		.set("statusName", SysCache.getDictName(902, rd.get("status")))
-		.set("createrName", SysCache.getUserName(rd.get("creater")));
+		Paras ps = (Paras) ac.getObject();
+		ps.set("attachUrl", ConstConfig.DOMAIN + ps.get("url"))
+		.set("statusName", SysCache.getDictName(902, ps.get("status")))
+		.set("createrName", SysCache.getUserName(ps.get("creater")));
 	}
 	
 	/**

@@ -20,25 +20,18 @@ import java.io.File;
 public interface IFileProxy {
 	
 	/**
-	 * 返回物理路径
+	 * 返回路径[物理路径][虚拟路径]
 	 * @param file
 	 * @return
 	 */
-	String path(File file);
-	
-	/**
-	 * 返回相对路径
-	 * @param file
-	 * @return
-	 */
-	String virtualPath(File file);
+	String [] path(File file);
 
 	/**
 	 * 文件重命名策略
 	 * @param file
 	 * @return
 	 */
-	File rename(File file);
+	File rename(String path, File f);
 	
 	/**
 	 * 获取入库id

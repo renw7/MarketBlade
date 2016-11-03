@@ -14,6 +14,6 @@ public interface ConstConfig {
 	String MINIDLE = ConfigListener.map.get("druid.minIdle");
 	String MAXWAIT = ConfigListener.map.get("druid.maxWait");
 	
-	String BASEPATH = ConfigListener.map.get("config.basePath");
+	String DOMAIN = ConfigListener.map.get("config.domain");
 	
 }

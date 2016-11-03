@@ -28,30 +28,30 @@ import com.smallchill.system.model.Attach;
 public class DefaultFileProxyFactory implements IFileProxy {
 
 	@Override
-	public File rename(File f) {
-		File dest = new File(path(f));
+	public File rename(String path, File f) {
+		File dest = new File(path);
 		f.renameTo(dest);
 		return dest;
 	}
 
 	@Override
-	public String path(File f) {
-		StringBuilder newFileName = new StringBuilder().append(File.separator)
+	public String [] path(File f) {
+		//避免网络延迟导致时间不同步
+		long time = System.currentTimeMillis();
+		
+		StringBuilder uploadPath = new StringBuilder().append(File.separator)
 		.append(getFileDir(Cst.me().getUploadRealPath()))
-		.append(System.currentTimeMillis())
+		.append(time)
 		.append(getFileExt(f.getName()));
-		return newFileName.toString();
-	}
-
-	@Override
-	public String virtualPath(File f) {
-		StringBuilder newFileName = new StringBuilder()
+		
+		StringBuilder virtualPath = new StringBuilder()
 		.append(getFileDir(Cst.me().getUploadCtxPath()))
-		.append(System.currentTimeMillis())
+		.append(time)
 		.append(getFileExt(f.getName()));
-		return newFileName.toString();
+		
+		return new String [] {uploadPath.toString(), virtualPath.toString()};
 	}
-
+	
 	@Override
 	public Object getFileId(BladeFile bf) {
 		Attach attach = new Attach();
@@ -59,7 +59,7 @@ public class DefaultFileProxyFactory implements IFileProxy {
 		attach.setCreatetime(new Date());
 		attach.setName(bf.getOriginalFileName());
 		attach.setStatus(1);
-		attach.setUrl((Cst.me().isRemoteMode() ? bf.getUploadPath() : bf.getUploadVirtualPath()));
+		attach.setUrl(bf.getUploadVirtualPath());
 		return Blade.create(Attach.class).saveRtStrId(attach);
 	}
 

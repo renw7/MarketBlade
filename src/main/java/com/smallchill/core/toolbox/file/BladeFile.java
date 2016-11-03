@@ -66,11 +66,11 @@ public class BladeFile {
 		this.uploadVirtualPath = Cst.me().getUploadCtxPath().replace(Cst.me().getContextPath(), "") + File.separator + DateKit.getDays() + File.separator + this.originalFileName;
 	}
 
-	public BladeFile(MultipartFile file, String uploadPath) {
+	public BladeFile(MultipartFile file, String uploadPath, String uploadVirtualPath) {
 		this(file);
 		if (null != uploadPath){
 			this.uploadPath = uploadPath;
-			this.uploadVirtualPath = null;
+			this.uploadVirtualPath = uploadVirtualPath;
 		}
 	}
 
@@ -84,13 +84,10 @@ public class BladeFile {
 			File file = new File(uploadPath);
 			
 			if(null != fileFactory){
-				this.uploadPath = fileFactory.path(file);
-				if(Cst.me().isRemoteMode()){
-					this.uploadVirtualPath = null;
-				} else{
-					this.uploadVirtualPath = fileFactory.virtualPath(file).replace(Cst.me().getContextPath(), "");	
-				}
-				file = fileFactory.rename(file);
+				String [] path = fileFactory.path(file);
+				this.uploadPath = path[0];
+				this.uploadVirtualPath = path[1].replace(Cst.me().getContextPath(), "");
+				file = fileFactory.rename(path[0], file);
 			}
 			
 			File dir = file.getParentFile();

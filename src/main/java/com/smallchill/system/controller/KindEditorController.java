@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.smallchill.core.base.controller.BladeController;
+import com.smallchill.core.constant.ConstConfig;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Paras;
@@ -64,10 +65,10 @@ public class KindEditorController extends BladeController {
 		BladeFile bf = getFile(file);
 		bf.transfer();
 		Object fileId = bf.getFileId();	
-		String url = "/kindeditor/renderFile/" + fileId;
+		String url = ConstConfig.DOMAIN + bf.getUploadVirtualPath();
 		rd.set("error", 0);
 		rd.set("title", fileId);
-		rd.set("url", Cst.me().getContextPath() + url);
+		rd.set("url", url);
 		rd.set("name", originalFileName);
 		return rd;	
 	}

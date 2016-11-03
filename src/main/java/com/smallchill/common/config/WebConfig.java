@@ -15,12 +15,12 @@
  */
 package com.smallchill.common.config;
 
-import com.smallchill.common.intercept.DefaultCURDFactory;
-import com.smallchill.common.intercept.DefaultSelectFactory;
 import com.smallchill.common.plugins.GlobalPlugin;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.IConfig;
 import com.smallchill.core.interfaces.IPluginFactroy;
+import com.smallchill.core.shiro.DefaultShiroFactroy;
+import com.smallchill.core.toolbox.grid.JqGridFactory;
 import com.smallchill.core.toolbox.kit.DateKit;
 import com.smallchill.core.toolbox.kit.Prop;
 import com.smallchill.core.toolbox.kit.PropKit;
@@ -37,17 +37,22 @@ public class WebConfig implements IConfig {
 		me.setDevMode(prop.getBoolean("config.devMode", false));
 		
 		//设定文件上传是否为远程模式
-		me.setRemoteMode(false);
+		me.setRemoteMode(prop.getBoolean("config.remoteMode", false));
+		
+		//远程上传地址
+		me.setRemotePath(prop.get("config.remotePath"));
 		
 		//设定文件上传头文件夹
-		me.setUploadPath("/upload");
+		me.setUploadPath(prop.get("config.uploadPath"));
 		
 		//设定文件下载头文件夹
-		me.setDownloadPath("/download");
+		me.setDownloadPath(prop.get("config.downloadPath"));
 		
-		me.setDefaultCURDFactory(new DefaultCURDFactory());
+		//设定grid
+		me.setDefaultGridFactory(new JqGridFactory());
 		
-		me.setDefaultSelectFactory(new DefaultSelectFactory());
+		//设定shiro工厂类
+		me.setDefaultShiroFactory(new DefaultShiroFactroy());
 	}
 
 	/** 

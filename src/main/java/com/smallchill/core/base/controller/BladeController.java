@@ -165,17 +165,18 @@ public class BladeController implements ConstCurd, ConstCache, ConstCacheKey {
 	 * @return
 	 */
 	public BladeFile getFile(MultipartFile file){
-		return getFile(file, null);
+		return getFile(file, null, null);
 	}
 	
 	/**
 	 * 获取BladeFile封装类
 	 * @param file
 	 * @param path
+	 * @param virtualPath
 	 * @return
 	 */
-	public BladeFile getFile(MultipartFile file, String path){
-		return new BladeFile(file, path);
+	public BladeFile getFile(MultipartFile file, String path, String virtualPath){
+		return new BladeFile(file, path, virtualPath);
 	}
 	
 	/**
@@ -184,19 +185,20 @@ public class BladeController implements ConstCurd, ConstCache, ConstCacheKey {
 	 * @return
 	 */
 	public List<BladeFile> getFiles(List<MultipartFile> files){
-		return getFiles(files, null);
+		return getFiles(files, null, null);
 	}
 	
 	/**
 	 * 获取BladeFile封装类
 	 * @param files
 	 * @param path
+	 * @param virtualPath
 	 * @return
 	 */
-	public List<BladeFile> getFiles(List<MultipartFile> files, String path){
+	public List<BladeFile> getFiles(List<MultipartFile> files, String path, String virtualPath){
 		List<BladeFile> list = new ArrayList<>();
 		for (MultipartFile file : files){
-			list.add(new BladeFile(file, path));
+			list.add(new BladeFile(file, path, virtualPath));
 		}
 		return list;
 	}
