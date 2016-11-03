@@ -13,7 +13,11 @@ public interface ConstConfig {
 	String MAXACTIVE = ConfigListener.map.get("druid.maxActive");
 	String MINIDLE = ConfigListener.map.get("druid.minIdle");
 	String MAXWAIT = ConfigListener.map.get("druid.maxWait");
-	
+
 	String DOMAIN = ConfigListener.map.get("config.domain");
+	String REMOTE_MODE = ConfigListener.map.get("config.remoteMode");
+	String REMOTE_PATH = ConfigListener.map.get("config.remotePath");
+	String UPLOAD_PATH = ConfigListener.map.get("config.uploadPath");
+	String DOWNLOAD_PATH = ConfigListener.map.get("config.downloadPath");
 	
 }
