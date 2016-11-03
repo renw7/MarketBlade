@@ -3,9 +3,9 @@
 	var ctx="${ctxPath}";
 	var grid_selector = "#grid-table";
 	var pager_selector = "#grid-pager";
-	var export_source = "userMapper.oraclelist";
+	var export_source = "user.oraclelist";
 	if("${func.isMySql()}" == "true"){
-		export_source = "userMapper.mysqllist";
+		export_source = "user.mysqllist";
 	}
 	
 	$(function(){
