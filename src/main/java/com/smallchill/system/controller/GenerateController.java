@@ -139,6 +139,7 @@ public class GenerateController extends CurdController<Generate> {
 			pathMap.put("editPath", editPath);
 			pathMap.put("viewPath", viewPath);
 			
+			//mkdirs
 			for (Map.Entry<String, String> entry : pathMap.entrySet()) {  
 				File file = new File(entry.getValue());
 				if (file.exists()) {
