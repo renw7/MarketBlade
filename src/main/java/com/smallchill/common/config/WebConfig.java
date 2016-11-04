@@ -47,7 +47,7 @@ public class WebConfig implements IConfig {
 		me.setUploadPath(prop.get("config.uploadPath", "/upload"));
 		
 		//设定文件下载头文件夹
-		me.setDownloadPath(prop.get("config.downloadPath", "download"));
+		me.setDownloadPath(prop.get("config.downloadPath", "/download"));
 		
 		//设定grid工厂类
 		me.setDefaultGridFactory(new JqGridFactory());
