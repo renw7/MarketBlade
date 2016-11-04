@@ -20,6 +20,7 @@ import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.IConfig;
 import com.smallchill.core.interfaces.IPluginFactroy;
 import com.smallchill.core.shiro.DefaultShiroFactroy;
+import com.smallchill.core.toolbox.file.DefaultFileProxyFactory;
 import com.smallchill.core.toolbox.grid.JqGridFactory;
 import com.smallchill.core.toolbox.kit.DateKit;
 import com.smallchill.core.toolbox.kit.Prop;
@@ -40,19 +41,22 @@ public class WebConfig implements IConfig {
 		me.setRemoteMode(prop.getBoolean("config.remoteMode", false));
 		
 		//远程上传地址
-		me.setRemotePath(prop.get("config.remotePath"));
+		me.setRemotePath(prop.get("config.remotePath", ""));
 		
 		//设定文件上传头文件夹
-		me.setUploadPath(prop.get("config.uploadPath"));
+		me.setUploadPath(prop.get("config.uploadPath", "/upload"));
 		
 		//设定文件下载头文件夹
-		me.setDownloadPath(prop.get("config.downloadPath"));
+		me.setDownloadPath(prop.get("config.downloadPath", "download"));
 		
-		//设定grid
+		//设定grid工厂类
 		me.setDefaultGridFactory(new JqGridFactory());
 		
 		//设定shiro工厂类
 		me.setDefaultShiroFactory(new DefaultShiroFactroy());
+		
+		//设定文件代理工厂类
+		me.setDefaultFileProxyFactory(new DefaultFileProxyFactory());
 	}
 
 	/** 
