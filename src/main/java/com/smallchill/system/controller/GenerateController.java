@@ -76,7 +76,7 @@ public class GenerateController extends CurdController<Generate> {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/sql/{slave}/{table}")
+	@RequestMapping("/sql/{slave}/{table:.+}")
 	public String createBuiltInSqlSlave(@PathVariable String slave, @PathVariable String table) {
 		try {
 			LogKit.println("\n\n-------------------------------- gen by beetlsql {} --------------------------------\n", DateKit.getTime());
@@ -164,32 +164,32 @@ public class GenerateController extends CurdController<Generate> {
 			String editTemplatePath = baseTemplatePath + "_view" + File.separator + "_edit.bld";
 			String viewTemplatePath = baseTemplatePath + "_view" + File.separator + "_view.bld";
 			
-			Paras rd = Paras.create();
-			rd.set("realPath", realPath);
-			rd.set("packageName", packageName);
-			rd.set("modelName", upperModelName);
-			rd.set("lowerModelName", lowerModelName);
-			rd.set("tableName", tableName);
-			rd.set("pkName", pkName);
+			Paras ps = Paras.create();
+			ps.set("realPath", realPath);
+			ps.set("packageName", packageName);
+			ps.set("modelName", upperModelName);
+			ps.set("lowerModelName", lowerModelName);
+			ps.set("tableName", tableName);
+			ps.set("pkName", pkName);
 			
 			//java
-			BeetlMaker.makeHtml(controllerTemplatePath, rd, controllerPath);
-			BeetlMaker.makeHtml(modelTemplatePath, rd, modelPath);
-			BeetlMaker.makeHtml(serviceTemplatePath, rd, servicePath);
-			BeetlMaker.makeHtml(serviceimplTemplatePath, rd, serviceimplPath);
+			BeetlMaker.makeHtml(controllerTemplatePath, ps, controllerPath);
+			BeetlMaker.makeHtml(modelTemplatePath, ps, modelPath);
+			BeetlMaker.makeHtml(serviceTemplatePath, ps, servicePath);
+			BeetlMaker.makeHtml(serviceimplTemplatePath, ps, serviceimplPath);
 			
 			//resources
-			BeetlMaker.makeHtml(sqlTemplatePath, rd, sqlPath);
+			BeetlMaker.makeHtml(sqlTemplatePath, ps, sqlPath);
 			
 			//webapp
 			final TableDesc tableDesc = Blade.dao().getMetaDataManager().getTable(tableName);
 			Set<String> cols = tableDesc.getIdNames();
-			rd.set("cols", cols);
+			ps.set("cols", cols);
 			
-			BeetlMaker.makeHtml(indexTemplatePath, rd, indexPath);
-			BeetlMaker.makeHtml(addTemplatePath, rd, addPath);
-			BeetlMaker.makeHtml(editTemplatePath, rd, editPath);
-			BeetlMaker.makeHtml(viewTemplatePath, rd, viewPath);
+			BeetlMaker.makeHtml(indexTemplatePath, ps, indexPath);
+			BeetlMaker.makeHtml(addTemplatePath, ps, addPath);
+			BeetlMaker.makeHtml(editTemplatePath, ps, editPath);
+			BeetlMaker.makeHtml(viewTemplatePath, ps, viewPath);
 			
 		}
 		
