@@ -47,8 +47,8 @@ public class SelectTag extends Tag {
 
 			final String code = param.get("code");
 			String name = param.get("name");
-			int value = Func.toInt(param.get("value"));
-			String token = (value > 0) ? "" : "token_";
+			String value = Func.toStr(param.get("value"));
+			String token = (StrKit.notBlank(value)) ? "" : "token_";
 			String type = param.get("type");
 			String where = param.get("where");
 			String required = param.get("required");
@@ -107,9 +107,9 @@ public class SelectTag extends Tag {
 			sb.append("<option value></option>");
 			
 			for (Map<String, Object> dic : dict) {
-				int id =  Func.toInt(dic.get("ID"));
+				String id =  Func.toStr(dic.get("ID"));
 				String selected = "";
-				if (id == value) {
+				if (Func.equals(id, value)) {
 					selected = "selected";
 				}
 				sb.append("<option " + selected + " value=\"" + id + "\">" + dic.get("TEXT") + "</option>");

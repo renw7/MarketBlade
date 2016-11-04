@@ -51,13 +51,13 @@ public class DropDownTag extends Tag {
 			if (type.equals("dict")) {
 			    code = codes.split("_")[0];
 			    lev = (codes.split("_").length > 1) ? Func.toInt(codes.split("_")[1]) : 99;
-				sql = "select ID,(case when PID is null then 0 else PID end) PID,NUM,name as TEXT from  TMSP_DICT where code=" + code + " and num>0";
+				sql = "select ID,(case when PID is null then 0 else PID end) PID,NUM,name as TEXT from  TFW_DICT where code=" + code + " and num>0";
 			} else if (type.equals("user")) {
-				sql = "select ID,ID NUM,0 as PID,name as TEXT from  TMSP_USER where status=1";
+				sql = "select ID,ID NUM,0 as PID,name as TEXT from  TFW_USER where status=1";
 			} else if (type.equals("dept")) {
-				sql = "select ID,(case when PID is null then 0 else PID end) PID,NUM,SIMPLENAME as TEXT from  TMSP_DEPT WHERE num>0";
+				sql = "select ID,(case when PID is null then 0 else PID end) PID,NUM,SIMPLENAME as TEXT from  TFW_DEPT WHERE num>0";
 			} else if (type.equals("role")) {
-				sql = "select ID,(case when PID is null then 0 else PID end) PID,NUM,name as TEXT from  TMSP_ROLE";
+				sql = "select ID,(case when PID is null then 0 else PID end) PID,NUM,name as TEXT from  TFW_ROLE";
 			} else if (type.equals("diy")) {
 				type = type + "_" + param.get("source");
 				sql = Md.getSql(param.get("source")); //.getNamespaceSql(param.get("source"));
