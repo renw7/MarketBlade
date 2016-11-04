@@ -21,7 +21,7 @@ import com.smallchill.platform.model.Notice;
 @RequestMapping("/notice")
 public class NoticeController extends BaseController {
 	private static String CODE = "notice";
-	private static String PREFIX = "TB_TFW_TZGG";
+	private static String PREFIX = "TB_YW_TZGG";
 	private static String DATA_SOURCE = "notice.data";
 	private static String LIST_SOURCE = "notice.list";
 	private static String BASE_PATH = "/platform/notice/";

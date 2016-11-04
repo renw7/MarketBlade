@@ -9,7 +9,7 @@ import org.beetl.sql.core.annotatoin.Table;
 import com.smallchill.core.annotation.BindID;
 import com.smallchill.core.base.model.BaseModel;
 
-@Table(name = "tb_tfw_tzgg")
+@Table(name = "tb_yw_tzgg")
 @BindID(name = "f_it_xl")
 @SuppressWarnings("serial")
 public class Notice extends BaseModel {

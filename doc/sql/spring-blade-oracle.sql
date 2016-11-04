@@ -117,10 +117,10 @@ NOCACHE
 INSERT INTO "TB_TFW_GZBGNR" VALUES ('111', '269', 'test');
 
 -- ----------------------------
--- Table structure for TB_TFW_TZGG
+-- Table structure for TB_YW_TZGG
 -- ----------------------------
-DROP TABLE "TB_TFW_TZGG";
-CREATE TABLE "TB_TFW_TZGG" (
+DROP TABLE "TB_YW_TZGG";
+CREATE TABLE "TB_YW_TZGG" (
 "F_IT_XL" NUMBER(11) NOT NULL ,
 "F_VC_BT" NVARCHAR2(255) NULL ,
 "F_IT_LX" NUMBER(11) NULL ,
@@ -138,21 +138,21 @@ NOCACHE
 ;
 
 -- ----------------------------
--- Records of TB_TFW_TZGG
+-- Records of TB_YW_TZGG
 -- ----------------------------
-INSERT INTO "TB_TFW_TZGG" VALUES ('1411', '23333', null, null, null, null, null, null, null);
-INSERT INTO "TB_TFW_TZGG" VALUES ('1414', '2333333', '10', '11222', TO_DATE('2016-02-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null);
-INSERT INTO "TB_TFW_TZGG" VALUES ('1412', '23333', '6', '1', TO_DATE('2016-02-15 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null);
-INSERT INTO "TB_TFW_TZGG" VALUES ('1418', 'tom', '1', '1', TO_DATE('2016-02-18 10:58:44', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null);
-INSERT INTO "TB_TFW_TZGG" VALUES ('1430', 'ceshi233333333333', null, null, null, null, null, null, null);
-INSERT INTO "TB_TFW_TZGG" VALUES ('1431', 'ceshi233333333333', null, null, null, null, null, null, null);
-INSERT INTO "TB_TFW_TZGG" VALUES ('123', 'sssssss', '2', null, null, null, null, null, null);
-INSERT INTO "TB_TFW_TZGG" VALUES ('1420', 'ceshi233333333333', null, null, null, null, null, null, null);
-INSERT INTO "TB_TFW_TZGG" VALUES ('1429', 'asdfasdf23312', '10', 'asdfdd1', TO_DATE('2016-01-31 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null);
-INSERT INTO "TB_TFW_TZGG" VALUES ('1409', '23333', null, null, null, null, null, null, null);
-INSERT INTO "TB_TFW_TZGG" VALUES ('1410', '23333', null, null, null, null, null, null, null);
-INSERT INTO "TB_TFW_TZGG" VALUES ('1404', 'asdfasdf23312', '1', 'asdfdd1', TO_DATE('2016-01-31 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null);
-INSERT INTO "TB_TFW_TZGG" VALUES ('1419', 'ceshi', null, null, null, null, null, null, null);
+INSERT INTO "TB_YW_TZGG" VALUES ('1411', '23333', null, null, null, null, null, null, null);
+INSERT INTO "TB_YW_TZGG" VALUES ('1414', '2333333', '10', '11222', TO_DATE('2016-02-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null);
+INSERT INTO "TB_YW_TZGG" VALUES ('1412', '23333', '6', '1', TO_DATE('2016-02-15 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null);
+INSERT INTO "TB_YW_TZGG" VALUES ('1418', 'tom', '1', '1', TO_DATE('2016-02-18 10:58:44', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null);
+INSERT INTO "TB_YW_TZGG" VALUES ('1430', 'ceshi233333333333', null, null, null, null, null, null, null);
+INSERT INTO "TB_YW_TZGG" VALUES ('1431', 'ceshi233333333333', null, null, null, null, null, null, null);
+INSERT INTO "TB_YW_TZGG" VALUES ('123', 'sssssss', '2', null, null, null, null, null, null);
+INSERT INTO "TB_YW_TZGG" VALUES ('1420', 'ceshi233333333333', null, null, null, null, null, null, null);
+INSERT INTO "TB_YW_TZGG" VALUES ('1429', 'asdfasdf23312', '10', 'asdfdd1', TO_DATE('2016-01-31 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null);
+INSERT INTO "TB_YW_TZGG" VALUES ('1409', '23333', null, null, null, null, null, null, null);
+INSERT INTO "TB_YW_TZGG" VALUES ('1410', '23333', null, null, null, null, null, null, null);
+INSERT INTO "TB_YW_TZGG" VALUES ('1404', 'asdfasdf23312', '1', 'asdfdd1', TO_DATE('2016-01-31 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null);
+INSERT INTO "TB_YW_TZGG" VALUES ('1419', 'ceshi', null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for TB_TFW_XWB
@@ -1261,19 +1261,19 @@ ALTER TABLE "TB_TFW_GZBGNR" ADD CHECK ("F_IT_XL" IS NOT NULL);
 ALTER TABLE "TB_TFW_GZBGNR" ADD PRIMARY KEY ("F_IT_XL");
 
 -- ----------------------------
--- Indexes structure for table TB_TFW_TZGG
+-- Indexes structure for table TB_YW_TZGG
 -- ----------------------------
 
 -- ----------------------------
--- Checks structure for table TB_TFW_TZGG
+-- Checks structure for table TB_YW_TZGG
 -- ----------------------------
-ALTER TABLE "TB_TFW_TZGG" ADD CHECK ("F_IT_XL" IS NOT NULL);
-ALTER TABLE "TB_TFW_TZGG" ADD CHECK ("F_IT_XL" IS NOT NULL);
+ALTER TABLE "TB_YW_TZGG" ADD CHECK ("F_IT_XL" IS NOT NULL);
+ALTER TABLE "TB_YW_TZGG" ADD CHECK ("F_IT_XL" IS NOT NULL);
 
 -- ----------------------------
--- Primary Key structure for table TB_TFW_TZGG
+-- Primary Key structure for table TB_YW_TZGG
 -- ----------------------------
-ALTER TABLE "TB_TFW_TZGG" ADD PRIMARY KEY ("F_IT_XL");
+ALTER TABLE "TB_YW_TZGG" ADD PRIMARY KEY ("F_IT_XL");
 
 -- ----------------------------
 -- Indexes structure for table TB_TFW_XWB

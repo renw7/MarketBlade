@@ -16,10 +16,10 @@ Date: 2016-06-25 09:43:05
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for tb_tfw_tzgg
+-- Table structure for tb_yw_tzgg
 -- ----------------------------
-DROP TABLE IF EXISTS `tb_tfw_tzgg`;
-CREATE TABLE `tb_tfw_tzgg` (
+DROP TABLE IF EXISTS `tb_yw_tzgg`;
+CREATE TABLE `tb_yw_tzgg` (
 `F_IT_XL`  int(11) NOT NULL AUTO_INCREMENT ,
 `F_VC_BT`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
 `F_IT_LX`  int(11) NULL DEFAULT NULL ,
@@ -38,10 +38,10 @@ AUTO_INCREMENT=2
 ;
 
 -- ----------------------------
--- Records of tb_tfw_tzgg
+-- Records of tb_yw_tzgg
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_tfw_tzgg` VALUES ('1', 'testdd12222233333331', '10', 'd12121211', '2016-06-09 12:00:00', null, null, null, '1');
+INSERT INTO `tb_yw_tzgg` VALUES ('1', 'testdd12222233333331', '10', 'd12121211', '2016-06-09 12:00:00', null, null, null, '1');
 COMMIT;
 
 -- ----------------------------
@@ -150,7 +150,7 @@ AUTO_INCREMENT=2
 -- Records of tfw_generate
 -- ----------------------------
 BEGIN;
-INSERT INTO `tfw_generate` VALUES ('1', '测试', 'E:\\Workspaces\\git\\bladepro', 'com.smallchill.test', 'Blog', 'tb_tfw_tzgg', 'f_it_xl', null);
+INSERT INTO `tfw_generate` VALUES ('1', '测试', 'E:\\Workspaces\\git\\bladepro', 'com.smallchill.test', 'Blog', 'tb_yw_tzgg', 'f_it_xl', null);
 COMMIT;
 
 -- ----------------------------
@@ -420,9 +420,9 @@ END
 DELIMITER ;
 
 -- ----------------------------
--- Auto increment value for tb_tfw_tzgg
+-- Auto increment value for tb_yw_tzgg
 -- ----------------------------
-ALTER TABLE `tb_tfw_tzgg` AUTO_INCREMENT=2;
+ALTER TABLE `tb_yw_tzgg` AUTO_INCREMENT=2;
 
 -- ----------------------------
 -- Auto increment value for tfw_attach
