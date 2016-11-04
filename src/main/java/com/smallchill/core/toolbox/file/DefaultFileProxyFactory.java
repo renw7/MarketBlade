@@ -28,24 +28,24 @@ import com.smallchill.system.model.Attach;
 public class DefaultFileProxyFactory implements IFileProxy {
 
 	@Override
-	public File rename(String path, File f) {
+	public File rename(File f, String path) {
 		File dest = new File(path);
 		f.renameTo(dest);
 		return dest;
 	}
 
 	@Override
-	public String [] path(File f) {
+	public String [] path(File f, String dir) {
 		//避免网络延迟导致时间不同步
 		long time = System.currentTimeMillis();
 		
 		StringBuilder uploadPath = new StringBuilder().append(File.separator)
-		.append(getFileDir(Cst.me().getUploadRealPath()))
+		.append(getFileDir(dir, Cst.me().getUploadRealPath()))
 		.append(time)
 		.append(getFileExt(f.getName()));
 		
 		StringBuilder virtualPath = new StringBuilder()
-		.append(getFileDir(Cst.me().getUploadCtxPath()))
+		.append(getFileDir(dir, Cst.me().getUploadCtxPath()))
 		.append(time)
 		.append(getFileExt(f.getName()));
 		
@@ -75,10 +75,10 @@ public class DefaultFileProxyFactory implements IFileProxy {
 	 * @param saveDir
 	 * @return
 	 */
-	public static String getFileDir(String saveDir) {
+	public static String getFileDir(String dir, String saveDir) {
 		StringBuilder newFileDir = new StringBuilder();
 		newFileDir.append(saveDir)
-				.append(File.separator).append(DateKit.getDays())
+				.append(File.separator).append(dir).append(File.separator).append(DateKit.getDays())
 				.append(File.separator);
 		return newFileDir.toString();
 	}

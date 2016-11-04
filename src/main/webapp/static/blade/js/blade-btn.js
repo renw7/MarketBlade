@@ -194,8 +194,7 @@ var exwhere;
                 return;
             }
             var url = rowData.ATTACHURL;
-            window.location.href = url;
-            //window.open(url, "附件下载");
+            window.open(url, "附件下载");
             return;
         }
         if (this.alias == "reset") {

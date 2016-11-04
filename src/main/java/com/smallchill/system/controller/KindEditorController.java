@@ -47,30 +47,30 @@ public class KindEditorController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/upload_json")
 	public Paras upload_json(@RequestParam("imgFile") MultipartFile file) {
-		Paras rd = Paras.create();
+		Paras ps = Paras.create();
 		if (null == file) {
-			rd.set("error", 1);
-			rd.set("message", "请选择要上传的图片");
-			return rd;
+			ps.set("error", 1);
+			ps.set("message", "请选择要上传的图片");
+			return ps;
 		}
 		String originalFileName = file.getOriginalFilename();
 		String dir = getParameter("dir", "image");
 		// 测试后缀
 		boolean ok = UploadFileUtils.testExt(dir, originalFileName);
 		if (!ok) {
-			rd.set("error", 1);
-			rd.set("message", "上传文件的类型不允许");
-			return rd;
+			ps.set("error", 1);
+			ps.set("message", "上传文件的类型不允许");
+			return ps;
 		}
-		BladeFile bf = getFile(file);
+		BladeFile bf = getFile(file, dir);
 		bf.transfer();
 		Object fileId = bf.getFileId();	
 		String url = ConstConfig.DOMAIN + bf.getUploadVirtualPath();
-		rd.set("error", 0);
-		rd.set("title", fileId);
-		rd.set("url", url);
-		rd.set("name", originalFileName);
-		return rd;	
+		ps.set("error", 0);
+		ps.set("title", fileId);
+		ps.set("url", url);
+		ps.set("name", originalFileName);
+		return ps;	
 	}
 	
 	@ResponseBody

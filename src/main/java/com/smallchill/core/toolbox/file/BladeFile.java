@@ -35,6 +35,11 @@ public class BladeFile {
 	private MultipartFile file;
 	
 	/**
+	 * 上传分类文件夹
+	 */
+	private String dir;
+	
+	/**
 	 * 上传物理路径
 	 */
 	private String uploadPath;
@@ -58,16 +63,17 @@ public class BladeFile {
 		
 	}
 
-	public BladeFile(MultipartFile file) {
+	public BladeFile(MultipartFile file, String dir) {
+		this.dir = dir;
 		this.file = file;
 		this.fileName = file.getName();
 		this.originalFileName = file.getOriginalFilename();
-		this.uploadPath = File.separator + Cst.me().getUploadRealPath() + File.separator + DateKit.getDays() + File.separator + this.originalFileName;
-		this.uploadVirtualPath = Cst.me().getUploadCtxPath().replace(Cst.me().getContextPath(), "") + File.separator + DateKit.getDays() + File.separator + this.originalFileName;
+		this.uploadPath = File.separator + Cst.me().getUploadRealPath() + File.separator + dir + File.separator + DateKit.getDays() + File.separator + this.originalFileName;
+		this.uploadVirtualPath = Cst.me().getUploadCtxPath().replace(Cst.me().getContextPath(), "") + File.separator + dir + File.separator + DateKit.getDays() + File.separator + this.originalFileName;
 	}
 
-	public BladeFile(MultipartFile file, String uploadPath, String uploadVirtualPath) {
-		this(file);
+	public BladeFile(MultipartFile file, String dir, String uploadPath, String uploadVirtualPath) {
+		this(file, dir);
 		if (null != uploadPath){
 			this.uploadPath = uploadPath;
 			this.uploadVirtualPath = uploadVirtualPath;
@@ -84,15 +90,15 @@ public class BladeFile {
 			File file = new File(uploadPath);
 			
 			if(null != fileFactory){
-				String [] path = fileFactory.path(file);
+				String [] path = fileFactory.path(file, dir);
 				this.uploadPath = path[0];
 				this.uploadVirtualPath = path[1].replace(Cst.me().getContextPath(), "");
-				file = fileFactory.rename(path[0], file);
+				file = fileFactory.rename(file, path[0]);
 			}
 			
-			File dir = file.getParentFile();
-			if (!dir.exists()) {
-				dir.mkdirs();
+			File pfile = file.getParentFile();
+			if (!pfile.exists()) {
+				pfile.mkdirs();
 			}
 			
 			this.file.transferTo(file);

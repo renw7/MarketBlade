@@ -36,12 +36,12 @@ public class FileProxyManager {
 		this.defaultFileProxyFactory = defaultFileProxyFactory;
 	}
 
-	public String [] path(File file) {
-		return defaultFileProxyFactory.path(file);
+	public String [] path(File file, String dir) {
+		return defaultFileProxyFactory.path(file, dir);
 	}
 
-	public File rename(String path, File file) {
-		return defaultFileProxyFactory.rename(path, file);
+	public File rename(File file, String path) {
+		return defaultFileProxyFactory.rename(file, path);
 	}
 
 }
