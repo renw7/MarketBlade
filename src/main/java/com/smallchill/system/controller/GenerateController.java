@@ -100,7 +100,6 @@ public class GenerateController extends CurdController<Generate> {
 		List<Generate> list = Blade.create(Generate.class).findBy("id in (#{join(ids)})", Paras.create().set("ids", ids.split(",")));
 
 		for (Generate gen : list) {
-			boolean flag = false;
 			
 			String realPath = gen.getRealpath() + File.separator + "src" + File.separator + "main";
 			String packageName = gen.getPackagename();
@@ -110,9 +109,9 @@ public class GenerateController extends CurdController<Generate> {
 			
 			String tableName = gen.getTablename();
 			String pkName = gen.getPkname();
-			String path = realPath + File.separator + "java" + File.separator + packageName.replace(StrKit.DOT, File.separator);
-			String resourcesPath = realPath + File.separator + "resources";
-			String webappPath = realPath + File.separator + "webapp" + File.separator + "WEB-INF" + File.separator + "view";
+			String path = File.separator + realPath + File.separator + "java" + File.separator + packageName.replace(StrKit.DOT, File.separator);
+			String resourcesPath = File.separator + realPath + File.separator + "resources";
+			String webappPath = File.separator + realPath + File.separator + "webapp" + File.separator + "WEB-INF" + File.separator + "view";
 			
 			//java
 			String controllerPath = path + File.separator + "controller" + File.separator + upperModelName + "Controller.java";
@@ -143,19 +142,14 @@ public class GenerateController extends CurdController<Generate> {
 			for (Map.Entry<String, String> entry : pathMap.entrySet()) {  
 				File file = new File(entry.getValue());
 				if (file.exists()) {
-					flag = true;
-					break;
+					continue;
 				} else {
 					file.getParentFile().mkdirs();
 				}
 			}
 			
-			if (flag) {
-				continue;
-			}
-			
 			//java
-			String baseTemplatePath = Cst.me().getRealPath() + "WEB-INF"+ File.separator + "view" + File.separator + "common" + File.separator + "_template" + File.separator;
+			String baseTemplatePath = File.separator + Cst.me().getRealPath() + File.separator + "WEB-INF" + File.separator + "view" + File.separator + "common" + File.separator + "_template" + File.separator;
 			String controllerTemplatePath = baseTemplatePath + "_controller" + File.separator + "_controller.bld";
 			String modelTemplatePath = baseTemplatePath + "_model" + File.separator +  "_model.bld";
 			String serviceTemplatePath = baseTemplatePath + "_service" + File.separator + "_service.bld";
@@ -199,6 +193,6 @@ public class GenerateController extends CurdController<Generate> {
 			
 		}
 		
-		return success("生成成功,已经存在的文件将会跳过!");
+		return success("生成成功,已经存在的文件将会覆盖!");
 	}
 }
