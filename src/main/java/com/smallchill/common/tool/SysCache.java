@@ -15,6 +15,7 @@ import com.smallchill.system.model.Role;
 import com.smallchill.system.model.User;
 
 public class SysCache implements ConstCache, ConstCacheKey{
+	
 	/**
 	 * 获取字典表对应中文
 	 * @param code 字典编号

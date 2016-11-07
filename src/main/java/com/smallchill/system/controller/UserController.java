@@ -183,7 +183,6 @@ public class UserController extends BaseController implements ConstShiro{
 				user.setPassword(pwdMd5);
 			}
 		}
-		user.setVersion(getParameterToInt("VERSION", 0) + 1);
 		boolean temp = Blade.create(User.class).update(user);
 		if (temp) {
 			CacheKit.removeAll(DEPT_CACHE);

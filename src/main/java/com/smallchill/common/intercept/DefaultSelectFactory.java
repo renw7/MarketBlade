@@ -9,7 +9,6 @@ public class DefaultSelectFactory extends SelectInterceptor {
 		return new SelectDeptIntercept();
 	}
 	
-	@Override
 	public IQuery roleIntercept() {
 		return new SelectRoleIntercept();
 	}

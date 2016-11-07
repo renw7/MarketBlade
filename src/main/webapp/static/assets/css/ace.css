@@ -59,7 +59,7 @@ body {
   background-color: #ffffff;
   position: relative;
   margin: 0;
-  padding: 0px 13px 0px;/*±¾À´ÊÇ padding: 8px 20px 24px; */
+  padding: 0px 13px 0px;/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ padding: 8px 20px 24px; */
 }
 .page-header {
   margin: 0 0 12px;
@@ -16974,7 +16974,7 @@ img.editable-click:hover {
 .ui-jqgrid tr.ui-row-ltr td,
 .ui-jqgrid tr.ui-row-rtl td {
   border-bottom: 1px solid #E1E1E1;
-  padding: 6px 4px;
+  padding: 4px 4px;
   border-color: #E1E1E1;
 }
 .ui-jqgrid tr.ui-state-highlight.ui-row-ltr td {

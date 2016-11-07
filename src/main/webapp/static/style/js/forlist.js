@@ -19,7 +19,7 @@ jQuery.extend(jQuery.jgrid.defaults, {
         setTimeout(function () {
             updatePagerIcons(table);
             //自适应表格高度 -- 表格初始化后调用
-            autoResize(grid_selector, 223);
+            autoResize(grid_selector, 215);
             $jqGrid = $(grid_selector);
         }, 0);
     }

@@ -7,7 +7,7 @@ var addTabs = function(obj) {
 	if (!$("#" + id)[0]) {
 		// 固定TAB中IFRAME高度,根据需要自己修改
 		// mainHeight = $(document.body).height();
-		mainHeight = $(window).height() - 135;
+		mainHeight = $(window).height() - 110;
 		// 创建新TAB的title
 		title = '<li id="tab_' + id + '" class="li-tab"><a href="#' + id
 				+ '" data-toggle="tab"><i class="' + obj.icon + '"></i>&nbsp;'
@@ -274,7 +274,7 @@ $(function() {
 
 	$(window).resize(
 			function() {
-				$("iframe[data-type=tab_iframe]").attr("height", $(window).height() - 135);
+				$("iframe[data-type=tab_iframe]").attr("height", $(window).height() - 110);
 			});
 
 });

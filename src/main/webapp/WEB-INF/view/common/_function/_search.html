@@ -151,13 +151,31 @@
 		            }
 		        }, "json");
 		    }
-		    else if (type.indexOf("opentree_") >= 0) {
+		    else if (type.indexOf("selectDiy_") >= 0) {
+		    	var source = type.replace("selectDiy_", "");
+		        $.post("${ctxPath}/cache/getDiySelect", { num: num,  source: source}, function (data) {
+		            if (data.code === 0) {
+		                $("#divinput" + num).html(data.data);
+		            }
+		        }, "json");
+		    }
+		    else if (type.indexOf("opentreeDiy_") >= 0) {
+		    	var source = type.replace("opentreeDiy_", "");
 		        var html = "<input type=\"text\"  id=\"inputs" + num + "_INPUT\" class=\"form-control\" style=\"margin-left:-3px;\"/>";
 		        html += "<input type=\"hidden\"  id=\"inputs" + num + "\" />";
                 $("#divinput" + num).html(html);
                 
 		        $("#inputs" + num + "_INPUT").bind("click",function(){
-		        	openTree(type,"inputs" + num,"请选择");
+		        	openTree(type, "inputs" + num, "请选择", source);
+		        });
+		    }
+		    else if (type.indexOf("opentree") >= 0) {
+		        var html = "<input type=\"text\"  id=\"inputs" + num + "_INPUT\" class=\"form-control\" style=\"margin-left:-3px;\"/>";
+		        html += "<input type=\"hidden\"  id=\"inputs" + num + "\" />";
+                $("#divinput" + num).html(html);
+                
+		        $("#inputs" + num + "_INPUT").bind("click",function(){
+		        	openTree(type, "inputs" + num, "请选择", "");
 		        });
 		    }
 		    else if (type == "date") {
@@ -175,14 +193,14 @@
 		    $("#divinput" + num).html("<input type=\"text\"  id=\"inputs" + num + "\" class=\"form-control\" style=\"margin-left:-3px;\"/>");
 		}
 		
-		function openTree(type,index,name){
+		function openTree(type,index,name,source){
 			layer.open({
         	    type: 2,
         	    title:"树形选择",
         	    area: ["250", "420px"],
         	    fix: false, //不固定
         	    maxmin: true,
-        	    content: "${ctxPath}/ztree/open/"+type+"/"+index+"/"+name+"/0/radio/0"
+        	    content: "${ctxPath}/ztree/open/?type="+type+"&index="+index+"&name="+name+"&check=radio"+"&source="+source
         	});
 		}
 		

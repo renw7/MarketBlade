@@ -28,11 +28,13 @@ import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
+import com.smallchill.core.plugins.dao.Md;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 
 @Controller
@@ -55,7 +57,7 @@ public class CacheController extends BladeController {
 		final String userId = user.getId().toString();
 		final String roleId = user.getRoles().toString();
 
-		Map<String, Object> userRole = Db.selectOneByCache(MENU_CACHE, "roleExt_" + userId, "select * from TFW_ROLE_EXT where userId= #{id}", Paras.create().set("id", userId));
+		Map<String, Object> userRole = Db.selectOneByCache(ROLE_CACHE, ROLE_EXT + userId, "select * from TFW_ROLE_EXT where userId= #{id}", Paras.create().set("id", userId));
 
 		String roleIn = "0";
 		String roleOut = "0";
@@ -75,7 +77,7 @@ public class CacheController extends BladeController {
 		sql.append(" order by num");
 
 
-		List<Map> btnList = Db.selectListByCache(MENU_CACHE, "btnList_" + code + "_" + userId, sql.toString(), 
+		List<Map> btnList = Db.selectListByCache(MENU_CACHE, BTN_LIST + code + "_" + userId, sql.toString(), 
 				Paras.create()
 				.set("code", code)
 				.set("roleId", roleId.toString().split(","))
@@ -99,7 +101,7 @@ public class CacheController extends BladeController {
 		final String userId = user.getId().toString();
 		final String roleId = user.getRoles().toString();
 
-		Map<String, Object> userRole = Db.selectOneByCache(MENU_CACHE, "roleExt_" + userId, "select * from TFW_ROLE_EXT where userId= #{id}", Paras.create().set("id", userId));
+		Map<String, Object> userRole = Db.selectOneByCache(ROLE_CACHE, ROLE_EXT + userId, "select * from TFW_ROLE_EXT where userId= #{id}", Paras.create().set("id", userId));
 
 		String roleIn = "0";
 		String roleOut = "0";
@@ -118,7 +120,7 @@ public class CacheController extends BladeController {
 		sql.append("	)");
 		sql.append(" order by num");
 
-		List<Map> btnList = Db.selectListByCache(MENU_CACHE, "childBtnList_" + code + "_" + userId, sql.toString(), 
+		List<Map> btnList = Db.selectListByCache(MENU_CACHE, BTN_CHILD_LIST + code + "_" + userId, sql.toString(), 
 				Paras.create()
 				.set("code", code)
 				.set("roleId", roleId.toString().split(","))
@@ -137,22 +139,20 @@ public class CacheController extends BladeController {
 	 *            分组
 	 * @return String
 	 */
+	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/getSelect")
 	public AjaxResult getSelect() {
 		final String code = getParameter("code");
 		final String num = getParameter("num");
-		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, DICT_SELECT + code,
-				new ILoader() {
-					public Object load() {
-						return Db.selectList("select num as ID,pId as PID,name as TEXT from  TFW_DICT where code=#{code} and num>0", Paras.create().set("code", code));
-					}
-				});
+
+		List<Map> dict = Db.selectListByCache(DICT_CACHE, DICT_SELECT + code, "select num as ID,pId as PID,name as TEXT from  TFW_DICT where code=#{code} and num>0", Paras.create().set("code", code));
+		
 		StringBuilder sb = new StringBuilder();
 		sb.append("<select class=\"form-control\" style=\"margin-left:-3px;cursor:pointer;\" id=\"inputs"
 				+ num + "\">");
 		sb.append("<option value></option>");
-		for (Map<String, Object> dic : dict) {
+		for (Map dic : dict) {
 			sb.append("<option value=\"" + dic.get("ID") + "\">" + dic.get("TEXT") + "</option>");
 		}
 		sb.append("</select>");
@@ -163,13 +163,14 @@ public class CacheController extends BladeController {
 	@RequestMapping("/getCombo")
 	public AjaxResult getCombo() {
 		final String code = getParameter("code");
+		
 		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, DICT_COMBO + code,
 				new ILoader() {
 					public Object load() {
-						return Db.selectList("select num as \"id\",name as \"text\" from  TFW_DICT where code=#{code} and num>0", Paras.create().set("code", code), new AopContext("ztree"));
+						return Db.selectList("select num as \"id\",name as \"text\" from  TFW_DICT where code=#{code} and num>0", Paras.create().set("code", code), new AopContext());
 					}
 				});
-
+		
 		return json(dict);
 	}
 
@@ -198,7 +199,7 @@ public class CacheController extends BladeController {
 	@RequestMapping("/getUserSelect")
 	public AjaxResult getUserSelect() {
 		final String num = getParameter("num");
-		List<Map<String, Object>> dept = CacheKit.get(DEPT_CACHE, DICT_SELECT_USER,
+		List<Map<String, Object>> user = CacheKit.get(USER_CACHE, USER_SELECT_ALL,
 				new ILoader() {
 					public Object load() {
 						return Db.selectList("select ID,name TEXT from TFW_USER where status=1 and name is not null order by name ", Paras.create(), new AopContext(), Cst.me().getDefaultSelectFactory().userIntercept());
@@ -208,8 +209,8 @@ public class CacheController extends BladeController {
 		sb.append("<select class=\"form-control\" style=\"margin-left:-3px;cursor:pointer;\" id=\"inputs"
 				+ num + "\">");
 		sb.append("<option value></option>");
-		for (Map<String, Object> _dept : dept) {
-			sb.append("<option value=\"" + _dept.get("ID") + "\">" + _dept.get("TEXT") + "</option>");
+		for (Map<String, Object> _user : user) {
+			sb.append("<option value=\"" + _user.get("ID") + "\">" + _user.get("TEXT") + "</option>");
 		}
 		sb.append("</select>");
 		return json(sb.toString());
@@ -219,18 +220,45 @@ public class CacheController extends BladeController {
 	@RequestMapping("/getRoleSelect")
 	public AjaxResult getRoleSelect() {
 		final String num = getParameter("num");
-		List<Map<String, Object>> dept = CacheKit.get(ROLE_CACHE, ROLE_ALL_LIST,
+		List<Map<String, Object>> role = CacheKit.get(ROLE_CACHE, ROLE_ALL_LIST,
 				new ILoader() {
 					public Object load() {
-						return Db.selectList("select ID,name TEXT from TFW_Role where  name is not null order by name ", Paras.create(), new AopContext("ztree"));
+						return Db.selectList("select ID,name TEXT from TFW_Role where  name is not null order by name ", Paras.create(), new AopContext(), Cst.me().getDefaultSelectFactory().roleIntercept());
 					}
 				});
 		StringBuilder sb = new StringBuilder();
 		sb.append("<select class=\"form-control\" style=\"margin-left:-3px;cursor:pointer;\" id=\"inputs"
 				+ num + "\">");
 		sb.append("<option value></option>");
-		for (Map<String, Object> _dept : dept) {
-			sb.append("<option value=\"" + _dept.get("ID") + "\">" + _dept.get("TEXT") + "</option>");
+		for (Map<String, Object> _role : role) {
+			sb.append("<option value=\"" + _role.get("ID") + "\">" + _role.get("TEXT") + "</option>");
+		}
+		sb.append("</select>");
+		return json(sb.toString());
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getDiySelect")
+	public AjaxResult getDiySelect() {
+		final String num = getParameter("num");
+		final String source = getParameter("source");
+		String where = getParameter("where");
+		Map<String, Object> param = Paras.createHashMap();
+		if (StrKit.notBlank(where)) {
+			param = JsonKit.parse(where);
+		}
+		final Map<String, Object> map = param;
+		List<Map<String, Object>> diy = CacheKit.get(DIY_CACHE, DIY_SELECT + source,
+				new ILoader() {
+					public Object load() {
+						return Db.selectList(Md.getSql(source), map, new AopContext());
+					}
+				});
+		StringBuilder sb = new StringBuilder();
+		sb.append("<select class=\"form-control\" style=\"margin-left:-3px;cursor:pointer;\" id=\"inputs" + num + "\">");
+		sb.append("<option value></option>");
+		for (Map<String, Object> _diy : diy) {
+			sb.append("<option value=\"" + _diy.get("ID") + "\">" + _diy.get("TEXT") + "</option>");
 		}
 		sb.append("</select>");
 		return json(sb.toString());
@@ -282,7 +310,7 @@ public class CacheController extends BladeController {
 		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, DICT + id,
 				new ILoader() {
 					public Object load() {
-						return Db.selectList("select CODE from TFW_DICT where id=#{id}",Paras.create().set("id", id), new AopContext("ztree"));
+						return Db.selectList("select CODE from TFW_DICT where id=#{id}",Paras.create().set("id", id), new AopContext());
 					}
 				});
 		return json(dict);

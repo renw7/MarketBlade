@@ -28,10 +28,10 @@ public class FootTag extends Tag {
 			
 			sb.append("<div class=\"footer\">");
 			sb.append("	<div class=\"footer-inner\">");
-			sb.append("		<div class=\"footer-content\" style=\"padding-top:12px;\">");
-			sb.append("			<span class=\"bigger-120\">技术支持 :</span>");
-			sb.append("			<span class=\"bigger-120\" id=\"support_tonbusoft\">" + company + "</span>");
-			sb.append("			<span class=\"bigger-120\"  style=\"padding-left:15px;\">");
+			sb.append("		<div class=\"footer-content\" style=\"height:30px;\">");
+			sb.append("			<span class=\"bigger-110\">技术支持 :</span>");
+			sb.append("			<span class=\"bigger-110\" id=\"support_tonbusoft\">" + company + "</span>");
+			sb.append("			<span class=\"bigger-110\"  style=\"padding-left:15px;\">");
 			sb.append("				© " + year);
 			sb.append("			</span>");
 			sb.append("		</div>");

@@ -4,9 +4,9 @@ public interface ConstCacheKey {
 
 	//-----------------------------menu---------------------------------------
 	
-	String SIDEBAR = "sideBar_";
+	String SIDEBAR = "sidebar_";
 	
-	String RIGHT_MENU = "rightMenu_";
+	String RIGHT_MENU = "rightmenu_";
 	
 	String DROPDOWN = "dropdown_";
 	
@@ -15,6 +15,10 @@ public interface ConstCacheKey {
 	String MENU_TREE = "menu_tree_";
 	
 	String MENU_TABLE_ALL = "menu_table_all";
+	
+	String BTN_LIST = "btn_list_";
+	
+	String BTN_CHILD_LIST = "btn_child_list_";
 	
 	//-----------------------------dept---------------------------------------
 	
@@ -35,8 +39,6 @@ public interface ConstCacheKey {
 	String DICT_SELECT = "dict_select_";
 	
 	String DICT_COMBO = "dict_combo_";
-	
-	String DICT_SELECT_USER = "dict_select_user_all";
 	
 	String DICT_ZTREE_LIST = "ztree_list_";
 	
@@ -62,6 +64,8 @@ public interface ConstCacheKey {
 	
 	String USER_TREE_ALL = "user_tree_all";
 	
+	String USER_SELECT_ALL = "select_user_all";
+	
 	//-----------------------------system---------------------------------------
 	
 	String PARAMETER_LOG = "parameter_log";
@@ -71,5 +75,9 @@ public interface ConstCacheKey {
 	String EXCEL_COL_NAME = "excel_colname_";
 	
 	String EXCEL_COL_MODEL = "excel_colmodel_";
+	
+	//-----------------------------diy---------------------------------------
+	
+	String DIY_SELECT = "diy_select_";
 	
 }

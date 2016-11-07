@@ -131,7 +131,6 @@ public class MenuController extends BaseController implements ConstShiro{
 	@Permission(ADMINISTRATOR)
 	public AjaxResult update() {
 		Menu menu = mapping(PREFIX, Menu.class);
-		menu.setVersion(getParameterToInt("VERSION", 0) + 1);
 		boolean temp = service.update(menu);
 		if (temp) {
 			CacheKit.removeAll(MENU_CACHE);
@@ -183,16 +182,17 @@ public class MenuController extends BaseController implements ConstShiro{
 	
 	
 	
+	@SuppressWarnings("rawtypes")
 	@ResponseBody
 	@RequestMapping("/getMenu")
-	public List<Map<String, Object>> getMenu(){
+	public List<Map> getMenu(){
 		final Object userId = getParameter("userId");
 		final Object roleId = getParameter("roleId");
 
 		Map<String, Object> userRole = CacheKit.get(MENU_CACHE, ROLE_EXT + userId, new ILoader() {
 			@Override
 			public Object load() {
-				return Db.selectOne("select * from TFW_ROLE_EXT where USERID=#{userId}", Paras.create().set("userId", userId));
+				return Db.selectOne("select * from TFW_ROLE_EXT where USERID = #{userId}", Paras.create().set("userId", userId));
 			}
 		}); 
 
@@ -209,17 +209,16 @@ public class MenuController extends BaseController implements ConstShiro{
 		sql.append(" where ( ");
 		sql.append("	 (status=1)");
 		sql.append("	 and (icon is not null and icon not LIKE '%btn%' and icon not LIKE '%icon%' ) ");
-		sql.append("	 and (id in (select menuId from TFW_RELATION where roleId in (" + roleId + ")) or id in (" + roleIn + "))");
-		sql.append("	 and id not in(" + roleOut + ")");
+		sql.append("	 and (id in (select menuId from TFW_RELATION where roleId in (#{join(roleId)})) or id in (#{join(roleIn)}))");
+		sql.append("	 and id not in(#{join(roleOut)})");
 		sql.append("	)");
 		sql.append(" order by levels,pCode,num");
 
-		List<Map<String, Object>> sideBar = CacheKit.get(MENU_CACHE, SIDEBAR + userId, new ILoader() {
-			@Override
-			public Object load() {
-				return Db.selectList(sql.toString());
-			}
-		}); 
+		List<Map> sideBar = Db.selectListByCache(MENU_CACHE, SIDEBAR + userId, sql.toString(),
+				Paras.create()
+				.set("roleId", roleId.toString().split(","))
+				.set("roleIn", roleIn.split(","))
+				.set("roleOut", roleOut.split(",")));
 		return sideBar;
 	}
 

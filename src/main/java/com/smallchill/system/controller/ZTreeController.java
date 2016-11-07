@@ -29,17 +29,17 @@ import com.smallchill.core.toolbox.kit.StrKit;
 public class ZTreeController extends BladeController {
 	
 	@RequestMapping("/open")
-	public ModelAndView open(@RequestParam String type, @RequestParam String index, @RequestParam String name, @RequestParam String source, @RequestParam String check, @RequestParam String where, @RequestParam String intercept, @RequestParam String ext, @RequestParam String val){
+	public ModelAndView open(){
 		ModelAndView view = new ModelAndView("/common/_function/_ztree.html");	
-		view.addObject("type", getTypeName(type, source));
-		view.addObject("index", index);
-		view.addObject("name", name);
-		view.addObject("source", source);
-		view.addObject("check", check);
-		view.addObject("where", where);
-		view.addObject("intercept", intercept);
-		view.addObject("ext", ext);
-		view.addObject("val", val);
+		view.addObject("type", getTypeName(getParameter("type"), getParameter("source")));
+		view.addObject("index", getParameter("index"));
+		view.addObject("name", getParameter("name"));
+		view.addObject("source", getParameter("source"));
+		view.addObject("check", getParameter("check"));
+		view.addObject("where", getParameter("where"));
+		view.addObject("intercept", getParameter("intercept"));
+		view.addObject("ext", getParameter("ext"));
+		view.addObject("val", getParameter("val"));
 		return view;
 	}
 	
@@ -50,7 +50,7 @@ public class ZTreeController extends BladeController {
 		final String sqlSource = getSql(type, source);
 		
 		Map<String, Object> params = Paras.createHashMap();
-		if(!where.equals("0")){
+		if(!where.equals("0") && StrKit.notBlank(where)){
 			params = JsonKit.parse(where, Map.class);
 		}
 		
@@ -118,6 +118,16 @@ public class ZTreeController extends BladeController {
 				}
 			}
 		}
+		//数据库设计导致自定义数据源的时候不知道是字典表还是其他表,所以需要再找一次id,后期可能会重新设计字典表结构
+		if (StrKit.isBlank(name)) {
+			for(Map<String, Object> map : list){
+				for(String v : arr){
+					if(Func.toStr(map.get("num")).equals(v)){
+						name += Func.toStr(map.get("name")) + ",";
+					}
+				}
+			}
+		}
 		name = StrKit.removeSuffix(name, ",");
 		
 		return json(name);
@@ -144,7 +154,7 @@ public class ZTreeController extends BladeController {
 			String code = type.replace("dict_", "");
 			sql = "select NUM as \"num\",ID as \"id\",PID as \"pId\",NAME as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_DICT where code=" + code;
 		} else if (type.equals("user")) {
-			sql = "select ID as \"id\",0 as \"pId\",NAME as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_USER where status=1";
+			sql = "select ID as \"id\",0 as \"pId\",NAME as \"name\",'true' as \"open\" from  TFW_USER where status=1";
 		} else if (type.equals("dept")) {
 			sql = "select ID as \"id\",PID as \"pId\",SIMPLENAME as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_DEPT";
 		} else if (type.equals("role")) {

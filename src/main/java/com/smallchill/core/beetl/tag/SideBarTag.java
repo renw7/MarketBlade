@@ -25,6 +25,7 @@ import org.beetl.core.Tag;
 
 import com.smallchill.common.vo.TreeNode;
 import com.smallchill.core.constant.ConstCache;
+import com.smallchill.core.constant.ConstCacheKey;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
@@ -38,14 +39,13 @@ public class SideBarTag extends Tag {
 	@SuppressWarnings("unchecked")
 	public void render() {
 		try {
-			String MENU_CACHE = ConstCache.MENU_CACHE;
 			Map<String, String> param = (Map<String, String>) args[1];
 
 			final Object userId = param.get("userId");
 			final Object roleId = param.get("roleId");
 			String ctxPath =Cst.me().getContextPath();
 
-			Map<String, Object> userRole = Db.selectOneByCache(MENU_CACHE, "role_ext_" + userId, "select * from TFW_ROLE_EXT where USERID=#{userId}", Paras.create().set("userId", userId));
+			Map<String, Object> userRole = Db.selectOneByCache(ConstCache.ROLE_CACHE, ConstCacheKey.ROLE_EXT + userId, "select * from TFW_ROLE_EXT where USERID=#{userId}", Paras.create().set("userId", userId));
 
 			String roleIn = "0";
 			String roleOut = "0";
@@ -66,7 +66,7 @@ public class SideBarTag extends Tag {
 			sql.append(" order by levels,pCode,num");
 			
 			@SuppressWarnings("rawtypes")
-			List<Map> sideBar = Db.selectListByCache(MENU_CACHE, "sideBar_" + userId, sql.toString(),
+			List<Map> sideBar = Db.selectListByCache(ConstCache.MENU_CACHE, ConstCacheKey.SIDEBAR + userId, sql.toString(),
 					Paras.create()
 					.set("roleId", roleId.toString().split(","))
 					.set("roleIn", roleIn.split(","))
@@ -113,7 +113,7 @@ public class SideBarTag extends Tag {
 			sb.append(" $(function(){");
 			sb.append("  setTimeout(function(){");
 			sb.append("  var $supporter = $(\"#support_tonbusoft\");");
-			sb.append("  $supporter.addClass('bigger-120');");
+			sb.append("  $supporter.addClass('bigger-110');");
 			sb.append("  var name = $supporter.html();");
 			sb.append("  var index = layer;");
 			sb.append("  if(index == undefined){");
