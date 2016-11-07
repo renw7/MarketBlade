@@ -120,9 +120,10 @@ public class ZTreeController extends BladeController {
 		}
 		//数据库设计导致自定义数据源的时候不知道是字典表还是其他表,所以需要再找一次id,后期可能会重新设计字典表结构
 		if (StrKit.isBlank(name)) {
+			key = (key.equals("num")) ? "id" : "num";
 			for(Map<String, Object> map : list){
 				for(String v : arr){
-					if(Func.toStr(map.get("num")).equals(v)){
+					if(Func.toStr(map.get(key)).equals(v)){
 						name += Func.toStr(map.get("name")) + ",";
 					}
 				}
@@ -150,7 +151,7 @@ public class ZTreeController extends BladeController {
 	
 	private String getSql(String type, String source){
 		String sql = "";
-		if (type.indexOf("dict") >= 0) {
+		if (type.indexOf("dict_") >= 0) {
 			String code = type.replace("dict_", "");
 			sql = "select NUM as \"num\",ID as \"id\",PID as \"pId\",NAME as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_DICT where code=" + code;
 		} else if (type.equals("user")) {

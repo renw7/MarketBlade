@@ -7,7 +7,7 @@
 		@ var _col=[
 		@			  {name:"字典编号",index:"code", type:"text",newline:true,length:8,required:"required"},
 		@			  {name:"字典序号",index:"num", type:"text",newline:true,length:3,required:"required"},
-		@			  {name:"字典父序列",index:"pid",type:"selectDiy",source:"dict.diy",newline:false,length:3},
+		@			  {name:"上级字典",index:"pid",type:"opentreeDiy",source:"dict.diy",check:"radio",newline:false,length:3},
 		@			  {name:"字典名称",index:"name", type:"text",newline:true,length:8,required:"required"},
 		@			  {name:"备注",index:"tips", type:"text",newline:true,length:8}
 		@		   ];

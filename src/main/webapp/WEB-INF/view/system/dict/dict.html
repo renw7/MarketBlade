@@ -18,7 +18,7 @@
 	
 	function initGrid(){
 		var grid_url = ctx+"/${code}/list";//查询列表接口
-		var _colnames=[ "序列","字典编号", "字典序号","字典父名称", "字典名称","备注"];
+		var _colnames=[ "序列","字典编号", "字典序号","上级字典", "字典名称","备注"];
 		var _colmodel=[   {name:"ID",index:"ID", width:80,hidden:true},
 						  {name:"CODE",index:"CODE", width:100},
 						  {name:"NUM",index:"NUM", width:80,align:"right"},
