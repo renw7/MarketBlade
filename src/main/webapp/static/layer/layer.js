@@ -288,7 +288,7 @@ Class.pt.creat = function(){
   
   //建立容器
   that.vessel(conType, function(html, titleHTML, moveElem){
-  	//2016-11-07 zhuangqian 修复chrome下由于遮罩未加载完毕就点击按钮导致需要点击两次才关闭的问题
+    //2016-11-07 zhuangqian 修复chrome下由于遮罩未加载完毕就点击按钮导致需要点击两次才关闭的问题
   	setTimeout(function(){
   		body.append(html[0]);
   	},150); 
@@ -530,12 +530,13 @@ Class.pt.move = function(){
     //拖拽移动
     if(dict.moveStart){
       var X = e.clientX - dict.offset[0]
-      ,Y = e.clientY - dict.offset[1];
+      ,Y = e.clientY - dict.offset[1]
+      ,fixed = layero.css('position') === 'fixed';
       
       e.preventDefault();
       
-      dict.stX = config.fixed ? 0 : win.scrollLeft();
-      dict.stY = config.fixed ? 0 : win.scrollTop();
+      dict.stX = fixed ? 0 : win.scrollLeft();
+      dict.stY = fixed ? 0 : win.scrollTop();
 
       //控制元素不被拖出窗口外
       if(!config.moveOut){
@@ -743,24 +744,27 @@ layer.iframeSrc = function(index, url){
 };
 
 //设定层的样式
-layer.style = function(index, options){
+layer.style = function(index, options, limit){
   var layero = $('#'+ doms[0] + index)
   ,contElem = layero.find('.layui-layer-content')
   ,type = layero.attr('type')
   ,titHeight = layero.find(doms[1]).outerHeight() || 0
-  ,btnHeight = layero.find('.'+doms[6]).outerHeight() || 0;
+  ,btnHeight = layero.find('.'+doms[6]).outerHeight() || 0
+  ,minLeft = layero.attr('minLeft');
   
   if(type === ready.type[3] || type === ready.type[4]){
     return;
   }
   
-  if(parseFloat(options.width) <= 260){
-    options.width = 260;
-  };
-  
-  if(parseFloat(options.height) - titHeight - btnHeight <= 64){
-    options.height = 64 + titHeight + btnHeight;
-  };
+  if(!limit){
+    if(parseFloat(options.width) <= 260){
+      options.width = 260;
+    };
+    
+    if(parseFloat(options.height) - titHeight - btnHeight <= 64){
+      options.height = 64 + titHeight + btnHeight;
+    };
+  }
   
   layero.css(options);
   if(type === ready.type[2]){
@@ -778,9 +782,11 @@ layer.style = function(index, options){
 
 //最小化
 layer.min = function(index, options){
-  var layero = $('#'+ doms[0] + index);
-  var titHeight = layero.find(doms[1]).outerHeight() || 0;
-  var left = layero.attr('minLeft') || (261*ready.minIndex)+'px';
+  var layero = $('#'+ doms[0] + index)
+  ,titHeight = layero.find(doms[1]).outerHeight() || 0
+  ,left = layero.attr('minLeft') || (181*ready.minIndex)+'px'
+  ,position = layero.css('position');
+  
   ready.record(layero);
   
   if(ready.minLeft[0]){
@@ -788,7 +794,7 @@ layer.min = function(index, options){
     ready.minLeft.shift();
   }
   
-  layero.attr('position', layero.css('position'));
+  layero.attr('position', position);
   
   layer.style(index, {
     width: 180
@@ -797,7 +803,7 @@ layer.min = function(index, options){
     ,top: win.height() - titHeight
     ,position: 'fixed'
     ,overflow: 'hidden'
-  });
+  }, true);
 
   layero.find('.layui-layer-min').hide();
   layero.attr('type') === 'page' && layero.find(doms[4]).hide();
