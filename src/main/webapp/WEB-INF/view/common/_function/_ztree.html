@@ -14,11 +14,9 @@
 			var ids = "";
 			var names = "";
 			for (var i=0, l=nodes.length; i<l; i++) {
-				@ if(func.like(type,"dict_")){
-					ids += "," + nodes[i].num;
-				@ } else {
-					ids += "," + nodes[i].id;
-				@ }
+				@ var key = (func.like(type,"dict_"))?"num":"id";
+				@ key = ((isEmpty(treeId) || treeId == "0") ? key : treeId);
+				ids += "," + nodes[i].${key};
 				names += "," + nodes[i].name;
 			}
 			ids = ids.substring(1);
