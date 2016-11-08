@@ -6,8 +6,7 @@ import java.io.InputStreamReader;
 public class BaseTest {
 	public String getType() {
 		try {
-			BufferedReader strin = new BufferedReader(new InputStreamReader(
-					System.in));
+			BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("please input something...");
 			String str = strin.readLine();
 			return str;
