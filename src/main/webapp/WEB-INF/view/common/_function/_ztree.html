@@ -65,7 +65,7 @@
 		
 		
 		
-		$.post("${ctxPath}/ztree/getTreeList",{source:"${source!}", type:"${type!}", where:"${where!}", intercept:"${x.intercept!}", ext:"${x.ext!}", val:"${val!}"},function(data){
+		$.post("${ctxPath}/ztree/getTreeList",{source:"${source!}", type:"${type!}", where:"${where!}", intercept:"${intercept!}", treeId:"${treeId!}", ext:"${ext!}", val:"${val!}"},function(data){
 			if(data.code===0){
 				$.fn.zTree.init($("#zTree"), setting, data.data);
 				/* var val = "${val!0}";

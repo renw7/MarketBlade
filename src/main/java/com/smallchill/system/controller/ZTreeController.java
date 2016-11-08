@@ -39,6 +39,7 @@ public class ZTreeController extends BladeController {
 		view.addObject("where", getParameter("where"));
 		view.addObject("intercept", getParameter("intercept"));
 		view.addObject("ext", getParameter("ext"));
+		view.addObject("treeId", getParameter("treeId"));
 		view.addObject("val", getParameter("val"));
 		return view;
 	}
@@ -46,7 +47,7 @@ public class ZTreeController extends BladeController {
 	@ResponseBody
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping("/getTreeList")
-	public AjaxResult getTreeList(@RequestParam String type, @RequestParam String source, @RequestParam String where, @RequestParam String intercept, @RequestParam String ext, @RequestParam String val) {	
+	public AjaxResult getTreeList(@RequestParam String type, @RequestParam String source, @RequestParam String where, @RequestParam String intercept, @RequestParam String ext, @RequestParam String val, @RequestParam String treeId) {	
 		final String sqlSource = getSql(type, source);
 		
 		Map<String, Object> params = Paras.createHashMap();
@@ -67,10 +68,8 @@ public class ZTreeController extends BladeController {
 		
 		List<Map> list = Db.selectList(sqlSource, modelOrMap, ac, _intercept);
 
-		String key = "id";
-		if(type.indexOf("dict") >= 0){
-			key = "num";
-		}
+		String key = (StrKit.notBlank(treeId) && !Func.equals(treeId, "0")) ? treeId : ((type.indexOf("dict") >= 0) ? "num" : "id");
+
 		String [] arr = val.split(",");
 		for(Map<String, Object> map : list){
 			for(String v : arr){
@@ -86,7 +85,7 @@ public class ZTreeController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/getTreeListName")
 	@SuppressWarnings("unchecked")
-	public AjaxResult getTreeListName(@RequestParam String type, @RequestParam String source, @RequestParam String where, @RequestParam String val){
+	public AjaxResult getTreeListName(@RequestParam String type, @RequestParam String source, @RequestParam String where, @RequestParam String val, @RequestParam String treeId){
 		type = getTypeName(type, source);
 		
 		final String sqlSource = getSql(type, source);
@@ -106,10 +105,9 @@ public class ZTreeController extends BladeController {
 				});
 		
 		String name = "";
-		String key = "id";
-		if(type.indexOf("dict") >= 0){
-			key = "num";
-		}
+		
+		String key = (StrKit.notBlank(treeId) && !Func.equals(treeId, "0")) ? treeId : ((type.indexOf("dict") >= 0) ? "num" : "id");
+
 		String [] arr = val.split(",");
 		for(Map<String, Object> map : list){
 			for(String v : arr){
@@ -118,17 +116,7 @@ public class ZTreeController extends BladeController {
 				}
 			}
 		}
-		//数据库设计导致自定义数据源的时候不知道是字典表还是其他表,所以需要再找一次id,后期可能会重新设计字典表结构
-		if (StrKit.isBlank(name)) {
-			key = (key.equals("num")) ? "id" : "num";
-			for(Map<String, Object> map : list){
-				for(String v : arr){
-					if(Func.toStr(map.get(key)).equals(v)){
-						name += Func.toStr(map.get("name")) + ",";
-					}
-				}
-			}
-		}
+
 		name = StrKit.removeSuffix(name, ",");
 		
 		return json(name);

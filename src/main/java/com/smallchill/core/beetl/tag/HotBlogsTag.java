@@ -7,14 +7,15 @@ public class HotBlogsTag extends GeneralVarTagBinding{
 	@Override
 	public void render() {
 		
-		//Map<String, Object> paras= (Map<String, Object>) this.args[1];
-		/*List<Notice> notices=Notice.dao.findAll();
+		/*Map<String, Object> paras= (Map<String, Object>) this.args[1];
+		List<Notice> notices= Blade.create(Notice.class).findAll();
 		if(null!=notices){
 			for(Notice notice:notices){
 				this.binds(notice);
 				this.doBodyRender();
 			}
 		}*/
+		
 	}
 
 }

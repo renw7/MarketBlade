@@ -9,10 +9,10 @@ PS:因为喜欢刀锋战士所以取名了SpringBlade，当中有一个类也命
 2.[eova](http://www.oschina.net/p/eova)
 3.[hutool](http://www.oschina.net/p/hutool)
 4.[beetl](http://www.oschina.net/p/beetl)
-4.[beetlsql](http://www.oschina.net/p/beetlsql)
-5.[dreamlu](http://www.oschina.net/p/dreamlu)
-6.[kisso](http://www.oschina.net/p/kisso)
-7.[spring-shiro-training](https://git.oschina.net/wangzhixuan/spring-shiro-training)
+5.[beetlsql](http://www.oschina.net/p/beetlsql)
+6.[dreamlu](http://www.oschina.net/p/dreamlu)
+7.[kisso](http://www.oschina.net/p/kisso)
+8.[spring-shiro-training](https://git.oschina.net/wangzhixuan/spring-shiro-training)
 
 ## 内置功能
 
@@ -211,7 +211,7 @@ public class Notice extends BaseModel {
 				BladePage<Map<String, Object>> page = (BladePage<Map<String, Object>>) ac.getObject();
 				List<Map<String, Object>> list = page.getRows();
 				for (Map<String, Object> map : list) {
-					map.put("createrName", Func.getDictName(102, map.get("creater")));
+					map.put("createrName", SysCache.getDictName(102, map.get("creater")));
 				}
 			}
 		});

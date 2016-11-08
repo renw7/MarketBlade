@@ -402,21 +402,12 @@ public class BeetlExt {
 	}
 	
 	/**
-	 * 获取YYYY-MM-DD HH:mm:ss格式
+	 * 获取YYYY-MM-DD格式
 	 * 
 	 * @return
 	 */
-	public String getTime(Date date) {
-		return DateKit.getTime(date);
-	}
-	
-	/**
-	 * 格式化日期
-	 * 
-	 * @return
-	 */
-	public Date parseTime(String date) {
-		return DateKit.parseTime(date);
+	public String getDay() {
+		return DateKit.getDay();
 	}
 
 	/**
@@ -424,37 +415,19 @@ public class BeetlExt {
 	 * 
 	 * @return
 	 */
-	public Date parse(String date, String pattern) {
-		return DateKit.parse(date, pattern);
-	}
-
-	/**
-	 * 格式化日期
-	 * 
-	 * @return
-	 */
-	public String format(String pattern) {
+	public String formatTime(String pattern) {
 		return DateKit.format(new Date(), pattern);
 	}
-	
+
 	/**
 	 * 格式化日期
 	 * 
 	 * @return
 	 */
-	public String format(Date date, String pattern) {
-		return DateKit.format(date, pattern);
+	public String formatTime(String dateStr, String pattern) {
+		return DateKit.format(DateTimeKit.parse(dateStr).toDate(), pattern);
 	}
 	
-	/**   
-	 * 自行判断日期型字符串进行转换
-	 * @param dateStr
-	 * @return Date
-	*/
-	public static Date parse(String dateStr) {
-		return DateTimeKit.parse(dateStr).toDate();
-	}
-
 	/**
 	 * 获取grid右键菜单
 	 * 
@@ -462,7 +435,8 @@ public class BeetlExt {
 	 * @param code
 	 * @return String
 	 */
-	public String getRightMenu(final Object userId, Object roleId,final String code) {
+	@SuppressWarnings("rawtypes")
+	public String getRightMenu(final Object userId, Object roleId, final String code, boolean isExport) {
 		Map<String, Object> userRole = CacheKit.get(ConstCache.MENU_CACHE, ConstCacheKey.ROLE_EXT + userId,
 				new ILoader() {
 					public Object load() {
@@ -484,21 +458,19 @@ public class BeetlExt {
 		sql.append("	 and (icon is not null and (icon like '%btn%' or icon like '%icon%' ) ) ");
 		sql.append("	 and (url like '%add%' or url like '%edit%' or url like '%remove%'  or url like '%del%' or url like '%view%' ) ");
 		sql.append("	 and (pCode=#{code})");
-		sql.append("	 and (id in (select menuId from TFW_RELATION where roleId in ("
-				+ roleId + ")) or id in (" + roleIn + "))");
-		sql.append("	 and id not in(" + roleOut + ")");
+		sql.append("	 and (id in (select menuId from TFW_RELATION where roleId in (#{join(roleId)})) or id in (#{join(roleIn)}))");
+		sql.append("	 and id not in(#{join(roleOut)})");
 		sql.append("	)");
 		sql.append(" order by num");
 
-		List<Map<String, Object>> btnList = CacheKit.get(ConstCache.MENU_CACHE, ConstCacheKey.RIGHT_MENU + code + "_" + userId, new ILoader() {
-			public Object load() {
-				return Db.selectList(sql.toString(), Paras.create().set("code", code));
-			}
-		});
+		List<Map> btnList = Db.selectListByCache(ConstCache.MENU_CACHE, ConstCacheKey.RIGHT_MENU + code + "_" + userId, sql.toString(), Paras.create().set("code", code)
+						.set("roleId", roleId.toString().split(","))
+						.set("roleIn", roleIn.split(","))
+						.set("roleOut", roleOut.split(",")));
 
 		StringBuilder rightsb = new StringBuilder();
 		rightsb.append("<ul style=\"width: 200px;\">");
-		for (Map<String, Object> btn : btnList) {
+		for (Map btn : btnList) {
 			rightsb.append("	<li id=\"rightMenu_" + Func.toStr(btn.get("CODE")).split("_")[1] + "\"> ");
 			rightsb.append("		<i class=\"ace-icon " + Func.toStr(btn.get("ICON")).split("\\|")[1].replace("bigger-120", "") + "\" style=\"width:15px;\"></i> ");
 			rightsb.append("		<span style=\"font-size:12px; font-family:Verdana;color:#777;padding-left:5px; \">" + Func.toStr(btn.get("NAME")) + "</span>");
@@ -509,10 +481,12 @@ public class BeetlExt {
 		rightsb.append("		<i class=\"ace-icon fa fa-refresh\" style=\"width:15px;\"></i> ");
 		rightsb.append("		<span style=\"font-size:12px; font-family:Verdana;color:#777;padding-left:5px;  \">刷新</span>");
 		rightsb.append("	</li>");
-		rightsb.append("	<li id=\"rightMenu_excel\"> ");
-		rightsb.append("		<i class=\"ace-icon fa fa-file-excel-o\" style=\"width:15px;\"></i> ");
-		rightsb.append("		<span style=\"font-size:12px; font-family:Verdana;color:#777;padding-left:5px; \">导出 excel</span>");
-		rightsb.append("	</li>");
+		if (isExport) {
+			rightsb.append("	<li id=\"rightMenu_excel\"> ");
+			rightsb.append("		<i class=\"ace-icon fa fa-file-excel-o\" style=\"width:15px;\"></i> ");
+			rightsb.append("		<span style=\"font-size:12px; font-family:Verdana;color:#777;padding-left:5px; \">导出 excel</span>");
+			rightsb.append("	</li>");
+		}
 		rightsb.append("</ul>");
 		return rightsb.toString();
 	}
