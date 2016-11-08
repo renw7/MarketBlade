@@ -41,6 +41,8 @@ var layer = {
     layer.path = ready.config.path || layer.path;
     typeof options.extend === 'string' && (options.extend = [options.extend]);
     
+    if(ready.config.path) layer.ready();
+    
     if(!options.extend) return this;
     
     isLayui 
@@ -81,7 +83,7 @@ var layer = {
   },
   
   ready: function(callback){
-    var cssname = 'skinlayercss', ver = '117';
+    var cssname = 'skinlayercss', ver = '1172';
     isLayui ? layui.addcss('modules/layer/default/layer.css?v='+layer.v+ver, callback, cssname)
     : layer.link('skin/default/layer.css?v='+layer.v+ver, callback, cssname);
     return this;
@@ -1142,13 +1144,22 @@ layer.photos = function(options, loop, key){
     dict.index = layer.open($.extend({
       type: 1,
       area: function(){
-         var imgarea = [img.width, img.height];
-         var winarea = [$(window).width() - 50, $(window).height() - 50];
-         if(!options.full && imgarea[0] > winarea[0]){
-           imgarea[0] = winarea[0];
-           imgarea[1] = imgarea[0]*img.height/img.width;
-         }
-         return [imgarea[0]+'px', imgarea[1]+'px']; 
+        var imgarea = [img.width, img.height];
+        var winarea = [$(window).width() - 100, $(window).height() - 100];
+        
+        //如果 实际图片的宽或者高比 屏幕大（那么进行缩放）
+        if(!options.full && (imgarea[0]>winarea[0]||imgarea[1]>winarea[1])){
+          var wh = [imgarea[0]/winarea[0],imgarea[1]/winarea[1]];//取宽度缩放比例、高度缩放比例
+          if(wh[0] > wh[1]){//取缩放比例最大的进行缩放
+            imgarea[0] = imgarea[0]/wh[0];
+            imgarea[1] = imgarea[1]/wh[0];
+          } else if(wh[0] < wh[1]){
+            imgarea[0] = imgarea[0]/wh[1];
+            imgarea[1] = imgarea[1]/wh[1];
+          }
+        }
+        
+        return [imgarea[0]+'px', imgarea[1]+'px']; 
       }(),
       title: false,
       shade: 0.9,
@@ -1212,7 +1223,7 @@ window.layui && layui.define ? (
     exports('layer', layer);
   })
 ) : (
-  typeof define === 'function' ? define('jquery', function(){ //requirejs加载
+  typeof define === 'function' ? define(['jquery'], function(){ //requirejs加载
     ready.run(window.jQuery);
     return layer;
   }) : function(){ //普通script标签加载
