@@ -21,8 +21,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.beetl.sql.core.SQLManager;
+import org.beetl.sql.core.SQLSource;
 import org.beetl.sql.core.annotatoin.Table;
 import org.beetl.sql.core.db.ClassDesc;
+import org.beetl.sql.core.db.DBStyle;
 import org.beetl.sql.core.db.KeyHolder;
 
 import com.smallchill.core.annotation.BindID;
@@ -32,6 +34,7 @@ import com.smallchill.core.constant.Cst;
 import com.smallchill.core.plugins.connection.ConnectionPlugin;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.kit.LogKit;
 import com.smallchill.core.toolbox.support.BladePage;
 
 /**
@@ -128,7 +131,7 @@ public class Blade {
 		if (null != BindID) {
 			this.pk = BindID.name();
 		} else {
-			throw new RuntimeException("未给 " + this.modelClass.getName() + " 绑定主键! ");
+			this.pk = "id";
 		}
 	}
 	
@@ -699,6 +702,31 @@ public class Blade {
 			e.printStackTrace();
 		}
 		return idValue;
+	}
+	
+	/**   
+	 * 将增删改查语句打印到控制台
+	*/
+	public void genBuiltInSqlToConsole() {
+		StringBuilder sb = new StringBuilder();
+		Class cls = this.modelClass;
+		DBStyle dbStyle = getSqlManager().getDbStyle();
+		SQLSource tempSource =  dbStyle.genSelectById(cls);
+		sb.append(tempSource.getTemplate());
+		sb.append("\n\r");
+		
+		tempSource = dbStyle.genUpdateById(cls);
+		sb.append(tempSource.getTemplate());
+		sb.append("\n\r");
+		tempSource = dbStyle.genDeleteById(cls);
+		sb.append(tempSource.getTemplate());
+		sb.append("\n\r");
+		
+		tempSource = dbStyle.genInsert(cls);
+		sb.append(tempSource.getTemplate());
+		sb.append("\n\r");
+		
+		LogKit.println(sb.toString());
 	}
 	
 	/*************************************************************************************************/

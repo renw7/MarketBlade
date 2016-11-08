@@ -64,7 +64,7 @@ public class GenerateController extends CurdController<Generate> {
 		try {
 			LogKit.println("\n\n-------------------------------- gen by beetlsql {} --------------------------------\n", DateKit.getTime());
 			LogKit.println("-----↓------- curd -------↓-----\n");
-			Blade.dao().genBuiltInSqlToConsole(ClassKit.newInstance(table).getClass());
+			Blade.create(ClassKit.newInstance(table).getClass()).genBuiltInSqlToConsole();
 			LogKit.println("\n-----↓-- updateNotNull --↓-----\n");
 			LogKit.println(Blade.dao().getDbStyle().genUpdateTemplate(ClassKit.newInstance(table).getClass()).getTemplate());
 			LogKit.println("\n-----↓------- field -------↓-----\n");
@@ -81,7 +81,7 @@ public class GenerateController extends CurdController<Generate> {
 		try {
 			LogKit.println("\n\n-------------------------------- gen by beetlsql {} --------------------------------\n", DateKit.getTime());
 			LogKit.println("-----↓------- curd --------↓-----\n");
-			Blade.dao(slave).genBuiltInSqlToConsole(ClassKit.newInstance(table).getClass());
+			Blade.create(ClassKit.newInstance(table).getClass()).genBuiltInSqlToConsole();
 			LogKit.println("\n-----↓-- updateNotNull --↓-----\n");
 			LogKit.println(Blade.dao(slave).getDbStyle().genUpdateTemplate(ClassKit.newInstance(table).getClass()).getTemplate());
 			LogKit.println("\n-----↓------ field -------↓-----\n");
@@ -120,7 +120,7 @@ public class GenerateController extends CurdController<Generate> {
 			String serviceimplPath = path + File.separator + "service" + File.separator + "impl" + File.separator + upperModelName + "ServiceImpl.java";
 			
 			//resources
-			String sqlPath = resourcesPath + File.separator + "beetlsql" + File.separator + lowerModelName + ".md";
+			String sqlPath = resourcesPath + File.separator + "beetlsql" + File.separator + "gen" + File.separator + lowerModelName + ".md";
 			
 			//webapp
 			String indexPath = webappPath + File.separator + "gen" + File.separator + lowerModelName + File.separator + lowerModelName + ".html";
@@ -184,7 +184,7 @@ public class GenerateController extends CurdController<Generate> {
 			
 			//webapp
 			final TableDesc tableDesc = Blade.dao().getMetaDataManager().getTable(tableName);
-			Set<String> cols = tableDesc.getIdNames();
+			Set<String> cols = tableDesc.getCols();
 			ps.set("cols", cols);
 			
 			BeetlMaker.makeHtml(indexTemplatePath, ps, indexPath);

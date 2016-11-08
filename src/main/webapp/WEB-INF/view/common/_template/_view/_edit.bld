@@ -4,7 +4,7 @@
  -->
 ${"@"}layout("/common/_curd/_container.html"){
 
-	<form data-url="${"$"}{basePath}/${"$"}{code}/update" method="post" class="form-horizontal" role="form">
+	<form data-url="${"$"}{ctxPath}/${"$"}{code}/update" method="post" class="form-horizontal" role="form">
 		<!-- 表单 -->
 		${"@"} var _table="${tableName}";
 		${"@"} var _key="${pkName}";

@@ -38,7 +38,7 @@ public class ${modelName}Controller extends BaseController {
 	${"@"}RequestMapping(KEY_ADD)
 	public String add(ModelMap mm) {
 		mm.put("code", CODE);
-		return BASE_PATH + "${lowerModelName}_view.html";
+		return BASE_PATH + "${lowerModelName}_add.html";
 	}
 
 	${"@"}RequestMapping(KEY_EDIT + "/{id}")
@@ -47,7 +47,7 @@ public class ${modelName}Controller extends BaseController {
 		mm.put("model", JsonKit.toJson(${lowerModelName}));
 		mm.put("id", id);
 		mm.put("code", CODE);
-		return BASE_PATH + "${lowerModelName}_view.html";
+		return BASE_PATH + "${lowerModelName}_edit.html";
 	}
 
 	${"@"}RequestMapping(KEY_VIEW + "/{id}")
