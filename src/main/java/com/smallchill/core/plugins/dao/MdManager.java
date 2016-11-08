@@ -25,6 +25,7 @@ import org.beetl.sql.core.SQLResult;
 import org.beetl.sql.core.db.KeyHolder;
 import org.beetl.sql.core.engine.PageQuery;
 
+import com.smallchill.core.beetl.BeetlTemplate;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.connection.ConnectionPlugin;
 import com.smallchill.core.toolbox.kit.CacheKit;
@@ -328,6 +329,16 @@ public class MdManager {
 	 */
 	public String getSql(String sqlId) {
 		return getSqlManager().getScript(sqlId).getSql();
+	}
+	
+	/**
+	 * 根据sqlId获取beetlsql的sql语句
+	 * @param sqlId
+	 * @param paras
+	 * @return
+	 */
+	public String getSql(String sqlId, Map<String, Object> paras) {
+		return BeetlTemplate.build(getSql(sqlId), paras);
 	}
 	
 	/**

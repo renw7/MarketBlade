@@ -34,7 +34,6 @@ import com.smallchill.core.beetl.tag.HotBlogsTag;
 import com.smallchill.core.beetl.tag.SelectTag;
 import com.smallchill.core.beetl.tag.SideBarTag;
 import com.smallchill.core.constant.ConstConfig;
-import com.smallchill.core.constant.Cst;
 import com.smallchill.core.toolbox.Paras;
 
 /**
@@ -86,7 +85,6 @@ public class BeetlTemplate {
 		if (null == paras) {
 			paras = Paras.create();
 		}
-		paras.put("ctxPath", Cst.me().getContextPath());
 		for (String o : paras.keySet()) {
 			t.binding(o, paras.get(o));
 		}
@@ -98,7 +96,6 @@ public class BeetlTemplate {
 		if (null == paras) {
 			paras = Paras.create();
 		}
-		paras.put("ctxPath", Cst.me().getContextPath());
 		for (String o : paras.keySet()) {
 			t.binding(o, paras.get(o));
 		}

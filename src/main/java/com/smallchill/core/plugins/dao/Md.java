@@ -17,6 +17,7 @@ package com.smallchill.core.plugins.dao;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import org.beetl.sql.core.SQLResult;
 import org.beetl.sql.core.db.KeyHolder;
@@ -267,6 +268,16 @@ public class Md {
 	 */
 	public static String getSql(String sqlId) {
 		return getMdManager().getSql(sqlId);
+	}
+	
+	/**
+	 * 根据sqlId获取beetlsql的sql语句
+	 * @param sqlId
+	 * @param paras
+	 * @return
+	 */
+	public static String getSql(String sqlId, Map<String, Object> paras) {
+		return getMdManager().getSql(sqlId, paras);
 	}
 	
 	/**
