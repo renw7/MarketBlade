@@ -29,6 +29,8 @@
 	function initOpenTree(val){
 		$.post("${ctxPath}/ztree/getTreeListName",{source:"${x.source!}", type:"${x.type!}", where:"${x.where!}", intercept:"${x.intercept!}", treeId:"${x.treeId!}", val:val},function(data){
 			if(data.code === 0){
+				var _name = $("#_${x.index!}").attr("name").replace("token_", "");
+				$("#_${x.index!}").attr("name", _name);
 				$("#_${x.index!}_INPUT").val(data.data);
 			}
 		}, "json");

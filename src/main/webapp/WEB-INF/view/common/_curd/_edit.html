@@ -114,6 +114,9 @@
 				@			else if(x.type=="span"){
 								<span id="_${x.index!}" class="form-control" style="border:0px;">${x.value!}</span>
 				@			}
+				@			else if(x.type=="password"){
+								<input type="password" id="_${x.index!}" name="${table!x.table}.${x.index!}" ${x.required!} ${x.disabled!} value="${x.value!}" placeholder="${placeholder!}" class="form-control" />
+				@			}
 				@			else {
 								<input type="text" id="_${x.index!}" name="token_${table!x.table}.${x.index!}" ${x.required!} ${x.disabled!} value="${x.value!}" placeholder="${placeholder!}" class="form-control" />
 				@			}
@@ -156,7 +159,7 @@
 					else if(_model[x] != null && $x.attr("data-type") == "imgupload"){
 						var id = _model[x];
 						$x.val(id);
-						initImgUpload(id, "edit");
+						initImgUpload(id);
 					}
 					else if(_model[x] != null && $x.attr("data-type") == "fileupload"){
 						var ids = _model[x];

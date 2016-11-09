@@ -98,6 +98,9 @@
 				@			else if(x.type=="span"){
 								<span class="form-control" style="border:0px;">${x.value!}</span>
 				@			}
+				@			else if(x.type=="password"){
+								<input type="password" id="_${x.index!}" name="${table!x.table}.${x.index!}" ${x.required!} ${x.disabled!} value="${x.value!}" placeholder="${placeholder!}" class="form-control" />
+				@			}
 				@			else {
 								<input type="text" id="_${x.index!}" name="${table!x.table}.${x.index!}" ${x.required!} ${x.disabled!} value="${x.value!}" placeholder="${placeholder!}" class="form-control" />
 				@			}

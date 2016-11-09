@@ -26,7 +26,7 @@ var addTabs = function(obj) {
 		} else { // 没有内容，使用IFRAME打开链接
 			content = '<div role="tabpanel" class="tab-pane iframe-tab" id="'
 					+ id
-					+ '"><iframe data-type="tab_iframe" id="iframe_'
+					+ '"><iframe onload="onIframeLoad(this)" data-type="tab_iframe" id="iframe_'
 					+ id
 					+ '" src="'
 					+ obj.url
@@ -70,6 +70,10 @@ var addTabs = function(obj) {
 	$("#" + id).addClass("active");
 	$("a[data-addtabs=" + obj.id + "]").closest("li").addClass("active");
 };
+
+var onIframeLoad = function(obj) {
+	//document.getElementById(obj.id).contentWindow.closeLoading();
+}
 
 var closeTab = function(id) {
 	// 如果关闭的是当前激活的TAB，激活他的前一个TAB

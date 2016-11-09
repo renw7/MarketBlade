@@ -1,4 +1,4 @@
-		<div class="form-group">
+		<div class="form-group" style="display:${display!'block'}">
 			<div class="col-sm-10" id="_${x.index!}_BTN">
 				<label class="control-label no-padding-right" id="${x.index!}_upload" style="cursor:pointer;"><i class="fa fa-cloud-upload"></i>&nbsp;选择图片</label>&nbsp;&nbsp;
 				<label class="control-label no-padding-right" id="${x.index!}_delete" style="cursor:pointer;"><i class="fa fa-times"></i>&nbsp;删除图片</label>
@@ -66,10 +66,7 @@
 			
 			
 			
-			function initImgUpload(id, type){
-				if(type == "view"){
-					$("#_${x.index!}_BTN").css("display", "none");
-				}
+			function initImgUpload(id){
 				$.post("${ctxPath}/kindeditor/initimg", {id : id}, function(data){
 					if(data.code === 0){
 						$("#_${x.index!}_IMG").attr("src", "${ctxPath}"+ data.data.URL);
