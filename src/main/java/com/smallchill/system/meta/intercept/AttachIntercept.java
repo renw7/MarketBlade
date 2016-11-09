@@ -15,17 +15,13 @@
  */
 package com.smallchill.system.meta.intercept;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.ConstConfig;
-import com.smallchill.core.constant.Cst;
 import com.smallchill.core.meta.MetaIntercept;
-import com.smallchill.core.plugins.dao.Db;
-import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.support.BladePage;
 
@@ -63,9 +59,8 @@ public class AttachIntercept extends MetaIntercept {
 	 * 
 	 * @param ac
 	 */
-	@SuppressWarnings("unchecked")
 	public void removeBefore(AopContext ac) {
-		Map<String, Object> file = Db.findById("TFW_ATTACH", ac.getId().toString());
+		/*Map<String, Object> file = Db.findById("TFW_ATTACH", ac.getId().toString());
 		if (Func.isEmpty(file)) {
 			throw new RuntimeException("文件不存在!");
 		} else {
@@ -75,7 +70,7 @@ public class AttachIntercept extends MetaIntercept {
 				throw new RuntimeException("文件不存在!");
 			}
 			f.delete();
-		}
+		}*/
 	}
 	
 }

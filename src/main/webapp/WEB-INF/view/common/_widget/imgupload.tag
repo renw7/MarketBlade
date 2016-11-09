@@ -27,7 +27,7 @@
 				$("#${x.index!}_delete").bind("click",function() {
 					var _name = $("#_${x.index!}").attr("name").replace("token_", "");
 					$("#_${x.index!}").attr("name", _name);
-					$("#_${x.index!}").val("");
+					$("#_${x.index!}").val("0");
 					$("#_${x.index!}_IMG").attr("src","${ctxPath}/static/blade/img/img.jpg");
 					$("#form_token").val(1);
 				});
@@ -43,10 +43,14 @@
 		            K("#${x.index!}_upload").click(function () {
 		                editor.loadPlugin('image', function () {
 		                    editor.plugin.imageDialog({
-		                        clickFn: function (url,title) {
+		                        clickFn: function (url, title) {
+		                        	var value = title;
+		                        	if ("${x.returnType!'id'}" == "url") {
+		                        		value = url;
+		                        	}
 		        					var _name = $("#_${x.index!}").attr("name").replace("token_", "");
 		        					$("#_${x.index!}").attr("name", _name);
-		                        	$("#_${x.index!}").val(title);//返回附件表中id
+		                        	$("#_${x.index!}").val(value);//返回附件表中id
 		                            $("#_${x.index!}_IMG").attr("src",url);
 		                            $("#form_token").val(1);
 		                            editor.hideDialog();
@@ -63,17 +67,17 @@
 			
 			
 			function initImgUpload(id, type){
+				if(type == "view"){
+					$("#_${x.index!}_BTN").css("display", "none");
+				}
 				$.post("${ctxPath}/kindeditor/initimg", {id : id}, function(data){
 					if(data.code === 0){
-						if(type == "view"){
-							$("#_${x.index!}_BTN").css("display", "none");
-						}
 						$("#_${x.index!}_IMG").attr("src", "${ctxPath}"+ data.data.URL);
 					}
 					else{
-						layer.alert("加载图片失败", {
+						/* layer.alert("加载图片失败", {
 							icon : 7
-						});
+						}); */
 					}
 					
 				}, "json");
