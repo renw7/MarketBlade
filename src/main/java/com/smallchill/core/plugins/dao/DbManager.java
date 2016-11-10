@@ -29,9 +29,9 @@ import com.smallchill.core.interfaces.IQuery;
 import com.smallchill.core.plugins.connection.ConnectionPlugin;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.grid.BladePage;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.StrKit;
-import com.smallchill.core.toolbox.support.BladePage;
 
 @SuppressWarnings({"unchecked","rawtypes"})
 public class DbManager {

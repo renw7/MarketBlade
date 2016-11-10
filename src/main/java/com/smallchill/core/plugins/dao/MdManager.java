@@ -28,9 +28,9 @@ import org.beetl.sql.core.engine.PageQuery;
 import com.smallchill.core.beetl.BeetlTemplate;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.connection.ConnectionPlugin;
+import com.smallchill.core.toolbox.grid.BladePage;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.StrKit;
-import com.smallchill.core.toolbox.support.BladePage;
 
 public class MdManager {
 	private static Map<String, MdManager> pool = new ConcurrentHashMap<String, MdManager>();

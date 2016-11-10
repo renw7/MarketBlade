@@ -24,8 +24,8 @@ import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.meta.MetaIntercept;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.grid.BladePage;
 import com.smallchill.core.toolbox.kit.CacheKit;
-import com.smallchill.core.toolbox.support.BladePage;
 
 public class LogIntercept extends MetaIntercept {
 	/**

@@ -34,8 +34,8 @@ import com.smallchill.core.constant.Cst;
 import com.smallchill.core.plugins.connection.ConnectionPlugin;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.grid.BladePage;
 import com.smallchill.core.toolbox.kit.LogKit;
-import com.smallchill.core.toolbox.support.BladePage;
 
 /**
  * beetlsql 自动API封装dao工具

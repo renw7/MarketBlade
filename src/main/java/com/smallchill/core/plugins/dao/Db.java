@@ -23,7 +23,7 @@ import org.beetl.sql.core.SQLReady;
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.interfaces.IQuery;
 import com.smallchill.core.toolbox.Paras;
-import com.smallchill.core.toolbox.support.BladePage;
+import com.smallchill.core.toolbox.grid.BladePage;
 
 /**
  * beetlsql Dao工具

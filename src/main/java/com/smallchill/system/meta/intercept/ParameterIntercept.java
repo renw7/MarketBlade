@@ -30,8 +30,8 @@ import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
+import com.smallchill.core.toolbox.grid.BladePage;
 import com.smallchill.core.toolbox.kit.CacheKit;
-import com.smallchill.core.toolbox.support.BladePage;
 import com.smallchill.system.model.Parameter;
 
 public class ParameterIntercept extends MetaIntercept {

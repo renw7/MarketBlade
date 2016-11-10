@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -19,13 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.druid.util.Base64;
 import com.smallchill.core.constant.Cst;
-import com.smallchill.core.plugins.dao.Blade;
-import com.smallchill.core.shiro.ShiroKit;
-import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.kit.DateKit;
 import com.smallchill.core.toolbox.kit.PathKit;
 import com.smallchill.core.toolbox.kit.StrKit;
-import com.smallchill.system.model.Attach;
 
 public class UploadFileUtils {
 
@@ -257,16 +252,6 @@ public class UploadFileUtils {
 			e.printStackTrace();
 		}
 		return contentPath.replace(Cst.me().getContextPath(), "");
-	}
-
-	public static Object getFileId(String url, String name) {
-		Attach attach = new Attach();
-		attach.setCreater(Func.toInt(ShiroKit.getUser().getId(), 0));
-		attach.setCreatetime(new Date());
-		attach.setName(name);
-		attach.setStatus(1);
-		attach.setUrl(url);
-		return Blade.create(Attach.class).saveRtStrId(attach);
 	}
 
 }

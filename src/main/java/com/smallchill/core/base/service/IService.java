@@ -19,7 +19,7 @@ import java.util.List;
 
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.interfaces.ICURD;
-import com.smallchill.core.toolbox.support.BladePage;
+import com.smallchill.core.toolbox.grid.BladePage;
 
 public interface IService<M> {
 

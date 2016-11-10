@@ -23,7 +23,7 @@ import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.ConstConfig;
 import com.smallchill.core.meta.MetaIntercept;
 import com.smallchill.core.toolbox.Paras;
-import com.smallchill.core.toolbox.support.BladePage;
+import com.smallchill.core.toolbox.grid.BladePage;
 
 public class AttachIntercept extends MetaIntercept {
 	/**

@@ -20,7 +20,6 @@ import java.util.Map;
 
 import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.interfaces.IQuery;
-import com.smallchill.core.toolbox.support.BladePage;
 
 @SuppressWarnings("unchecked")
 public class LigerGridFactory extends BaseGridFactory {

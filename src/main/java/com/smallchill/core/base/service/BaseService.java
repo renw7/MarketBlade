@@ -22,8 +22,8 @@ import com.smallchill.core.constant.ConstCurd;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.ICURD;
 import com.smallchill.core.plugins.dao.Blade;
+import com.smallchill.core.toolbox.grid.BladePage;
 import com.smallchill.core.toolbox.kit.ClassKit;
-import com.smallchill.core.toolbox.support.BladePage;
 
 @SuppressWarnings({ "unchecked" })
 public class BaseService<M> implements IService<M>, ConstCurd {

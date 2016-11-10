@@ -21,7 +21,7 @@ import java.util.Map;
 import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.meta.PageIntercept;
-import com.smallchill.core.toolbox.support.BladePage;
+import com.smallchill.core.toolbox.grid.BladePage;
 
 public class UserIntercept extends PageIntercept {
 

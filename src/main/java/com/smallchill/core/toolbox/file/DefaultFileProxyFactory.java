@@ -24,7 +24,6 @@ import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.kit.DateKit;
-import com.smallchill.core.toolbox.support.ImgCompress;
 import com.smallchill.system.model.Attach;
 
 public class DefaultFileProxyFactory implements IFileProxy {

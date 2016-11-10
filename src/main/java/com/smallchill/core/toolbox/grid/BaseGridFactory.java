@@ -28,7 +28,6 @@ import com.smallchill.core.plugins.dao.Md;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.core.toolbox.kit.StrKit;
-import com.smallchill.core.toolbox.support.SqlKeyword;
 
 /**
  * @title grid工厂基类,封装通用分页方法

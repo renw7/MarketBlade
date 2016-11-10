@@ -22,7 +22,7 @@ import java.util.Map;
 import org.beetl.sql.core.SQLResult;
 import org.beetl.sql.core.db.KeyHolder;
 
-import com.smallchill.core.toolbox.support.BladePage;
+import com.smallchill.core.toolbox.grid.BladePage;
 
 /**
  * beetlsql  MarkDown模式sql管理工具
