@@ -35,7 +35,7 @@ public class UploadFileUtils {
 	private static String[] fileTypes = new String[] { "gif", "jpg", "jpeg", "png", "bmp" };
 
 	static {
-		extMap.put("image", ".gif,.jpg,.jpeg,.png,.bmp");
+		extMap.put("image", ".gif,.jpg,.jpeg,.png,.bmp,.JPG,.JPEG,.PNG");
 		extMap.put("flash", ".swf,.flv");
 		extMap.put("media", ".swf,.flv,.mp3,.mp4,.wav,.wma,.wmv,.mid,.avi,.mpg,.asf,.rm,.rmvb");
 		extMap.put("file", ".doc,.docx,.xls,.xlsx,.ppt,.htm,.html,.txt,.zip,.rar,.gz,.bz2");

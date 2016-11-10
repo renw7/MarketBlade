@@ -41,4 +41,9 @@ public interface IFileProxy {
 	 */
 	Object getFileId(BladeFile bf);
 	
+	/**   
+	 * 图片压缩
+	*/
+	void compress(String path);
+	
 }

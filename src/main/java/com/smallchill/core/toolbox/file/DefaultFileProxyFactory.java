@@ -16,6 +16,7 @@
 package com.smallchill.core.toolbox.file;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
 import com.smallchill.core.constant.Cst;
@@ -23,6 +24,7 @@ import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.kit.DateKit;
+import com.smallchill.core.toolbox.support.ImgCompress;
 import com.smallchill.system.model.Attach;
 
 public class DefaultFileProxyFactory implements IFileProxy {
@@ -81,6 +83,22 @@ public class DefaultFileProxyFactory implements IFileProxy {
 				.append(File.separator).append(dir).append(File.separator).append(DateKit.getDays())
 				.append(File.separator);
 		return newFileDir.toString();
+	}
+
+
+	/**
+	 * 图片压缩
+	 * @param path 文件地址
+	 * @return
+	 */
+	public void compress(String path) {
+		ImgCompress img;
+		try {
+			img = new ImgCompress(path);
+			img.resizeFix();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
