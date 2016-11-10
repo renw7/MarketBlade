@@ -35,16 +35,14 @@
 	}
 	
 	
-	function btnCallBack(id){
-		if (id == "generate_gencode") {
+	function btnCallBack(btn){
+		if (btn.id == "generate_gencode") {
 			var ids = getGridXls().join(",");
 	        var rows = getGridXls().length;
 	        if (rows == 0) {
                 layer_alert("请选择一条数据!", "warn");
                 return;
             }
-            var _this = this;
-            var url= _this.url;
             layer.confirm("是否确定生成代码？", {
                 icon: 3,
                 btn: ['确定', '取消'] //按钮

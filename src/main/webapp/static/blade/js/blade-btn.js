@@ -439,7 +439,7 @@ var exwhere;
                     _this.all[this.id].itemClick();
                 	$(this).blur();
                 	if (typeof btnCallBack === 'function') {
-						btnCallBack(_this.all[this.id].id);
+						btnCallBack(_this.all[this.id]);
 					}
                 });
 
@@ -469,7 +469,7 @@ var exwhere;
 	                        _this.all[this.id].childItemClick();
 	                    	$(this).blur();
 	                    	if (typeof btnCallBack === 'function') {
-	    						btnCallBack(_this.all[this.id].id);
+	    						btnCallBack(_this.all[this.id]);
 	    					}
 	                    });
 	                }

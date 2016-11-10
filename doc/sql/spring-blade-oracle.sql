@@ -889,10 +889,10 @@ NOCACHE
 -- ----------------------------
 -- Records of TFW_ROLE
 -- ----------------------------
-INSERT INTO "TFW_ROLE" VALUES ('1', '1', null, '超级管理员', '1', 'administrator', '0');
+INSERT INTO "TFW_ROLE" VALUES ('1', '1', '0', '超级管理员', '1', 'administrator', '0');
 INSERT INTO "TFW_ROLE" VALUES ('2', '1', '1', '管理员', '7', 'admin', '1');
 INSERT INTO "TFW_ROLE" VALUES ('3', '2', '1', '管理员1', '10', 'admin', '1');
-INSERT INTO "TFW_ROLE" VALUES ('4', '2', null, '测试', '10', 'test', '0');
+INSERT INTO "TFW_ROLE" VALUES ('4', '2', '0', '测试', '10', 'test', '0');
 INSERT INTO "TFW_ROLE" VALUES ('5', '1', '4', '测试1', '3', 'test', '1');
 INSERT INTO "TFW_ROLE" VALUES ('8', '1', '3', '管理员2', '6', 'user', '0');
 INSERT INTO "TFW_ROLE" VALUES ('6', '2', '4', '测试2', '10', 'test', '0');

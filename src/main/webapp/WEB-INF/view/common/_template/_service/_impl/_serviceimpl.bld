@@ -17,6 +17,13 @@ ${"@"}Service
 public class ${modelName}ServiceImpl extends BaseService<${modelName}> implements ${modelName}Service{
 
 	${"@"}Override
+	public boolean updateStatus(String ids, Object status) {
+		Paras paras = Paras.create().set("status", status).set("ids", ids.split(","));
+		boolean temp = updateBy("status = #{status}", "id in (#{join(ids)})", paras);
+		return temp;
+	}
+
+	${"@"}Override
 	${"@"}SuppressWarnings("unchecked")
 	public Map<String, Object> findOne(Object id) {
 		return Md.selectUnique("${lowerModelName}.findOne", Paras.create().set("id", id), Map.class);
