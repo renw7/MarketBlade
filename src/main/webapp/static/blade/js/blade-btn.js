@@ -94,7 +94,7 @@ var exwhere;
             this.open(url + split + ids, ids);
             return;
         }
-        if (this.alias == "remove") {
+        if (this.alias == "remove" || this.alias == "del") {
             if (rows == 0) {
                 layer_alert('请选择一条数据!', "warn");
                 return;

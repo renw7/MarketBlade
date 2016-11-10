@@ -341,7 +341,7 @@ public class CacheController extends BladeController {
 						String pid = "";
 						List<Map> record = Db.selectList("select PID from TFW_ROLE where id in (" + roleId + ")"); 
 						for (Map p : record) {
-							if (!Func.isEmpty(p.get("PID"))) {
+							if (!Func.isEmpty(p.get("PID")) && Func.toInt(p.get("PID")) > 0) {
 								pid += p.get("PID").toString() + ",";
 							}
 						}

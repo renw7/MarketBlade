@@ -1,3 +1,7 @@
 list
 ===
 select * from ${tableName}
+
+findOne
+===
+select * from ${tableName} where ${pkName} = #{id}

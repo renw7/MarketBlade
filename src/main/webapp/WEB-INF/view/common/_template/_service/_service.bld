@@ -1,5 +1,7 @@
 package ${packageName}.service;
 
+import java.util.Map;
+
 import com.smallchill.core.base.service.IService;
 import ${packageName}.model.${modelName};
 
@@ -8,5 +10,7 @@ import ${packageName}.model.${modelName};
  * ${func.getTime()}
  */
 public interface ${modelName}Service extends IService<${modelName}>{
+	
+	Map<String, Object> findOne(Object id);
 
 }

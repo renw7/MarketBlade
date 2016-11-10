@@ -73,7 +73,8 @@ public class ZTreeController extends BladeController {
 		String [] arr = val.split(",");
 		for(Map<String, Object> map : list){
 			for(String v : arr){
-				if(Func.toStr(map.get(key)).equals(v) && !v.equals("0")){
+				//if(Func.toStr(map.get(key)).equals(v) && !v.equals("0")){
+				if(Func.toStr(map.get(key)).equals(v)){
 					map.put("checked", "true");
 				}
 			}
@@ -97,7 +98,7 @@ public class ZTreeController extends BladeController {
 		
 		final Map<String, Object> modelOrMap = params;
 		
-		List<Map<String, Object>> list = CacheKit.get(DICT_CACHE, DICT_ZTREE_LIST + type,
+		List<Map<String, Object>> list = CacheKit.get(getCacheName(type), DICT_ZTREE_LIST + type,
 				new ILoader() {
 					public Object load() {
 						return Db.selectList(sqlSource, modelOrMap);
@@ -147,11 +148,25 @@ public class ZTreeController extends BladeController {
 		} else if (type.equals("dept")) {
 			sql = "select ID as \"id\",PID as \"pId\",SIMPLENAME as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_DEPT";
 		} else if (type.equals("role")) {
-			sql = "select ID as \"id\",0 as \"pId\",NAME as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_ROLE";
+			sql = "select ID as \"id\",PID as \"pId\",NAME as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_ROLE";
 		} else {
 			sql = Md.getSql(source);
 		}
 		return sql;
+	}
+	
+	private String getCacheName(String type){
+		String cacheName = DICT_CACHE;
+		if (type.equals("user")) {
+			cacheName = USER_CACHE;
+		} else if (type.equals("dept")) {
+			cacheName = DEPT_CACHE;
+		} else if (type.equals("role")) {
+			cacheName = ROLE_CACHE;
+		} else {
+			cacheName = DIY_CACHE;
+		}
+		return cacheName;
 	}
 	
 	private IQuery getIntercept(String type) {

@@ -132,6 +132,10 @@ public class RoleController extends BaseController{
 	@RequestMapping(KEY_SAVE)
 	public AjaxResult save() {
 		Role role = mapping(PREFIX, Role.class);
+		Object pid = role.getPid();
+		if (null == pid) {
+			role.setPid(0);
+		}
 		boolean temp = service.save(role);
 		if (temp) {
 			CacheKit.removeAll(ROLE_CACHE);
