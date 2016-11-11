@@ -41,7 +41,7 @@ public class BladeLogManager {
 	public BladeLogManager(ILog checkFactory) {
 		this.defaultLogFactory = checkFactory;
 	}
-	
+
 	public ILog getDefaultLogFactory() {
 		return defaultLogFactory;
 	}
@@ -53,16 +53,17 @@ public class BladeLogManager {
 	public static String[] logPatten() {
 		return me.defaultLogFactory.logPatten();
 	}
-	
-	public static Paras logMaps(){
+
+	public static Paras logMaps() {
 		return me.defaultLogFactory.logMaps();
 	}
-	
-	public static boolean isDoLog(){
+
+	public static boolean isDoLog() {
 		return me.defaultLogFactory.isDoLog();
 	}
-	
-	public static boolean doLog(String logName, String msg, boolean succeed) {
-		return me.defaultLogFactory.doLog(logName, msg, succeed);
+
+	public static void doLog(String logName, String msg, boolean succeed) {
+		if (isDoLog())
+			me.defaultLogFactory.doLog(logName, msg, succeed);
 	}
 }

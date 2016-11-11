@@ -45,6 +45,7 @@ public class ConnectionPlugin implements IPlugin{
 		try {
 			for(String key : BladeConfig.getPool().keySet()){
 				SQLManager sm = BladeConfig.getPool().get(key);
+				sm.getSqlLoader().setCharset("UTF-8");
 				pool.put(key, sm);
 			}
 			if(!pool.containsKey(MASTER)){

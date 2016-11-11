@@ -39,10 +39,22 @@ public abstract class BeetlMaker {
 	 * @param htmlPath  html文件保存路径
 	 */
 	public static void makeHtml(String tlPath, Map<String, Object> paras, String htmlPath) {
+		makeHtml(tlPath, paras, htmlPath, "UTF-8");
+	}
+	
+	/**
+	 * 生成静态html
+	 * 
+	 * @param ftlPath 模板路径
+	 * @param paras 参数
+	 * @param htmlPath  html文件保存路径
+	 * @param charsetName  编码
+	 */
+	public static void makeHtml(String tlPath, Map<String, Object> paras, String htmlPath, String charsetName) {
 		PrintWriter pw = null;
 		try {
-			pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(htmlPath), "UTF-8"));
-			BeetlTemplate.buildTo(FileKit.readString(tlPath, "UTF-8"), paras, pw);
+			pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(htmlPath), charsetName));
+			BeetlTemplate.buildTo(FileKit.readString(tlPath, charsetName), paras, pw);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
