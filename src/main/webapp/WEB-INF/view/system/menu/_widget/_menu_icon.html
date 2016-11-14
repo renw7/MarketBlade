@@ -55,11 +55,13 @@
 	    else if (this.value == "重置密码") {
 	        _icon = "btn btn-xs btn-white | fa fa-key  bigger-120";
 	        _url = _name + "/reset";
+	        _code = _name.split("/")[1] + "_reset";
 	        _alias = "reset";
 	    }
 	    else if (this.value == "冻结") {
 	        _icon = "btn btn-xs btn-white | fa fa-ban  bigger-120";
 	        _url = _name + "/ban";
+	        _code = _name.split("/")[1] + "_frozen";
 	        _alias = "frozen";
 	    }
 	    else if (this.value == "审核") {

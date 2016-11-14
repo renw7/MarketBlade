@@ -388,6 +388,14 @@ public class Blade {
 	public boolean saveAndSetKey(Object model){
 		return getSqlManager().insert(this.modelClass, model, true) > 0;
 	}
+	
+	/**   
+	 * 批量新增
+	 * @param list void
+	*/
+	public void saveBatch(List<?> list){
+		getSqlManager().insertBatch(this.modelClass, list);
+	}
 
 	/**
 	 * 修改一条数据,只更新非空字段

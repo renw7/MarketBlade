@@ -135,6 +135,12 @@ public interface IService<M> {
 	 * @param model
 	 */
 	public boolean saveAndSetKey(M model);
+	
+	/**   
+	 * 批量插入
+	 * @param list void
+	*/
+	public void saveBatch(List<?> list);
 
 	/**
 	 * 通用修改(null的不入库) 

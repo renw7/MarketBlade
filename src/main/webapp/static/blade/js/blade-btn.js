@@ -1,10 +1,8 @@
 var btnjsons;
 var toolbar;
-var curkeyword;
-var curkeyword1;
 var exwhere;
 (function () {
-    var tmsp_btn = function (btnjson) {
+    var blade_btn = function (btnjson) {
         this.id = btnjson.CODE;
         this.name = btnjson.NAME;
         this.pname = btnjson.PNAME;
@@ -17,31 +15,31 @@ var exwhere;
     };
 
     //用于额外加载一些控件
-    tmsp_btn.prototype.initOther = function(){
+    blade_btn.prototype.initOther = function(){
         if( typeof initZtree === 'function' ){
         	initZtree();
         }
     }
     
-    tmsp_btn.prototype.isEmpty = function (str) {
+    blade_btn.prototype.isEmpty = function (str) {
         if (str == "" || str == null || str == "null" || str == "undefined" || str == undefined) {
             return "";
         }
         return str;
     };
 
-    tmsp_btn.prototype.open=function(tmsp_url,tmsp_id,tmsp_open){
-    	var width=(this.area!="")?(this.area.split('*')[0]):"800";
-    	var height=(this.area!="")?(this.area.split('*')[1]):"520";
-    	var iframe_width=window.top.$(window).width();
-    	var iframe_height=window.top.$(window).height();
-    	var flag=(parseInt(width)>=iframe_width||parseInt(height)>=iframe_height)?true:false;width+="px";height+="px";
-    	if(this.isopen=="1"||this.isEmpty(tmsp_open)=="1"){
-    		tmsp_id="btn_"+this.id+((this.isEmpty(tmsp_id)=="")?"":("_"+tmsp_id));
+    blade_btn.prototype.open = function(blade_url, blade_id, blade_open){
+    	var width = (this.area!="") ? (this.area.split('*')[0]) : "800";
+    	var height = (this.area!="") ? (this.area.split('*')[1]) : "520";
+    	var iframe_width = window.top.$(window).width();
+    	var iframe_height = window.top.$(window).height();
+    	var flag = (parseInt(width) >= iframe_width || parseInt(height) >= iframe_height) ? true : false; width += "px";height += "px";
+    	if(this.isopen == "1" || this.isEmpty(blade_open) == "1"){
+    		blade_id = "btn_" + this.id + ((this.isEmpty(blade_id) == "") ? "" : ("_" + blade_id));
     		window.top.addTabs({
-                id:tmsp_id,
-                title:this.pname+"→"+this.name,
-                url: tmsp_url,
+                id: blade_id,
+                title: this.pname + "→" + this.name,
+                url: blade_url,
                 icon: this.li,
                 close: true
             });
@@ -49,11 +47,11 @@ var exwhere;
     	else{
         	var index=layer.open({
         	    type: 2,
-        	    title:this.pname+"→"+this.name,
-        	    area: [width,height],
+        	    title: this.pname + "→" + this.name,
+        	    area: [width, height],
         	    fix: false, //不固定
         	    maxmin: true,
-        	    content: tmsp_url
+        	    content: blade_url
         	});
         	if(flag){
         		layer.full(index);
@@ -61,7 +59,7 @@ var exwhere;
     	}
     };
     
-    tmsp_btn.prototype.itemClick = function () {
+    blade_btn.prototype.itemClick = function () {
         var ids = getGridXls().join(",");
         var rows = getGridXls().length;
         var rowData=getRowData();
@@ -100,7 +98,7 @@ var exwhere;
                 return;
             }
             var _this = this;
-            var url= _this.url;
+            var url = _this.url;
             layer.confirm('是否确定删除？', {
                 icon: 3,
                 btn: ['确定', '取消'] //按钮
@@ -144,7 +142,7 @@ var exwhere;
                 layer_alert('只能选择一条数据!', "warn");
                 return;
             }
-            var _this=this;
+            var _this = this;
             $.post(ctx + "/role/getPowerById", { id: ids }, function (data) {
                 if (data.code === 0) {
                     var roleName=rowData.NAME;
@@ -180,7 +178,7 @@ var exwhere;
                 layer_alert('请先分配角色!', "warn");
                 return;
             }
-            var Name=rowData.NAME;
+            var Name = rowData.NAME;
         	this.open(this.url + split + ids + split + Name,"","1");
             return;
         }
@@ -202,7 +200,7 @@ var exwhere;
                 layer_alert('请选择一条数据!', "warn");
                 return;
             }
-            var url=this.url;
+            var url = this.url;
             layer.confirm('是否将密码重置为 111111？', {
                 icon: 3,
                 btn: ['确定', '取消'] //按钮
@@ -226,7 +224,7 @@ var exwhere;
                 layer_alert('请选择一条数据!', "warn");
                 return;
             }
-            var url=this.url;
+            var url = this.url;
             layer.confirm('是否将选中账号冻结？', {
                 icon: 3,
                 btn: ['确定', '取消'] //按钮
@@ -256,18 +254,18 @@ var exwhere;
 
         //带子按钮区域
         if (this.alias == "audit" || this.alias == "recycle") {
-        	var code=this.id;
-            if (stage.all[code]==undefined) {
+        	var code = this.id;
+            if (stage.all[code] == undefined) {
                 $.post(ctx + "/cache/getChildBtn", { code: code }, function (data) {
                     if (data.code === 0) {
                         btnjsons = data.data;
-                        var _btn_child_stage=new btn_child_stage();
+                        var _btn_child_stage = new btn_child_stage();
                         for (var i = 0; i < btnjsons.length; i++) {
                             if (btnjsons[i].name == '') continue;
-                            var btn_child = new tmsp_btn(btnjsons[i]);
+                            var btn_child = new blade_btn(btnjsons[i]);
                             _btn_child_stage.btn.register(btn_child);
                         }
-                        stage.register(code,_btn_child_stage);
+                        stage.register(code, _btn_child_stage);
                         stage.all[code].btn.bind(toolbar);
                     }
                 }, "json");
@@ -275,14 +273,14 @@ var exwhere;
             else {
             	stage.all[code].btn.bind(toolbar);
             }
-            exwhere=this.url.replace(ctx,"");//修复未发布在tomcat根目录下带有项目路径导致不能搜索的问题 
+            exwhere = this.url.replace(ctx, "");//修复未发布在tomcat根目录下带有项目路径导致不能搜索的问题 
             searchGrid();
             return;
 
         }
     };
 
-    tmsp_btn.prototype.childItemClick = function () {
+    blade_btn.prototype.childItemClick = function () {
         var ids = getGridXls().join(",");
         var rows = getGridXls().length;
         var split = "/";
@@ -308,7 +306,7 @@ var exwhere;
               layer_alert('请选择一条数据!', "warn");
               return;
           }
-          var url=this.url;
+          var url = this.url;
           layer.confirm('是否审核通过？', {
               icon: 3,
               btn: ['确定', '取消'] //按钮
@@ -333,7 +331,7 @@ var exwhere;
                 layer_alert('请选择一条数据!', "warn");
                 return;
             }
-            var url=this.url;
+            var url = this.url;
             layer.confirm('是否审核拒绝？', {
                 icon: 3,
                 btn: ['确定', '取消'] //按钮
@@ -359,7 +357,7 @@ var exwhere;
                 return;
             }
             var _this = this;
-            var url=this.url;
+            var url = this.url;
             layer.confirm('是否还原', {
                 icon: 3,
                 btn: ['确定', '取消'] //按钮
@@ -386,7 +384,7 @@ var exwhere;
                 return;
             }
             var _this = this;
-            var url=this.url;
+            var url = this.url;
             layer.confirm('是否删除？删除后不可恢复', {
                 icon: 3,
                 btn: ['确定', '取消'] //按钮
@@ -412,7 +410,7 @@ var exwhere;
     
     var stage = {
         all: {},
-        register: function (id,_btn_child_stage) {
+        register: function (id, _btn_child_stage) {
             this.all[id] = _btn_child_stage;
         }
     };
@@ -447,7 +445,7 @@ var exwhere;
         }
     };
 
-	var btn_child_stage=function(){
+	var btn_child_stage = function(){
 	    this.btn = {
 	            all: {},
 	            count: 0,
@@ -477,14 +475,14 @@ var exwhere;
 	        };
 	};
     
-    window.tmsp_btn = tmsp_btn;
+    window.blade_btn = blade_btn;
     window.stage = stage;
     window.btn_stage = btn_stage;
     window.btn_child_stage = btn_child_stage;
 } ());
 
 
-// 根据模块code生成  每个工具条上面的 btn
+// 根据模块code生成每个工具条上面的 btn
 function initMenuBtn(obj, code) {
     $.post(ctx + "/cache/getBtn", { code: code }, function (data) {
         if (data.code === 0) {
@@ -492,7 +490,7 @@ function initMenuBtn(obj, code) {
             btnjsons = data.data;
             for (var i = 0; i < btnjsons.length; i++) {
                 if (btnjsons[i].name == '') continue;
-                var btn_parent = new tmsp_btn(btnjsons[i]);
+                var btn_parent = new blade_btn(btnjsons[i]);
                 btn_stage.register(btn_parent);
             }
             btn_stage.bind(toolbar);
@@ -501,50 +499,4 @@ function initMenuBtn(obj, code) {
     		doOther();
         }
     }, "json");
-    
-    
-	/*$.ajax({
-        type: "post",
-        url: ctx + "/cache/getBtn",
-        dataType: "json",
-        async: false,
-        data: {code : code},
-        success: function(data) {
-        	if (data.code === 0) {
-                toolbar = obj;
-                btnjsons = data.data;
-                for (var i = 0; i < btnjsons.length; i++) {
-                    if (btnjsons[i].name == '') continue;
-                    var btn_parent = new tmsp_btn(btnjsons[i]);
-                    btn_stage.register(btn_parent);
-                }
-                btn_stage.bind(toolbar);
-            }
-        	if( typeof doOther === 'function' ){
-        		doOther();
-            }
-        }
-    });*/
-    
-    
 }
-
-//keyword为额外传入的变量
-function initMenuBtns(obj, code, keyword, keyword1) {
-    $.post(ctx + "/cache/getBtn", { code: code }, function (data) {
-        if (data.code === 0) {
-            toolbar = obj;
-            btnjsons = data.data;
-            curkeyword = keyword;
-            curkeyword1 = keyword1;
-            for (var i = 0; i < btnjsons.length; i++) {
-                if (btnjsons[i].name == '') continue;
-                var btn_parent = new tmsp_btn(btnjsons[i]);
-                btn_stage.register(btn_parent);
-            }
-        }
-    	if( typeof doOther === 'function' ){
-    		doOther();
-        }
-    }, "json");
-} 

@@ -124,6 +124,11 @@ public class BaseService<M> implements IService<M>, ConstCurd {
 		Blade dao = getSqlMananger();
 		return dao.saveAndSetKey(model);
 	}
+
+	public void saveBatch(List<?> list) {
+		Blade dao = getSqlMananger();
+		dao.saveBatch(list);
+	}
 	
 	public boolean update(M model) {
 		Blade dao = getSqlMananger();
