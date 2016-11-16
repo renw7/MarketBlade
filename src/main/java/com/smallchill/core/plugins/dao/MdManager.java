@@ -250,6 +250,7 @@ public class MdManager {
 		PageQuery query = new PageQuery();
 		query.setPageNumber(pageNum);
 		query.setPageSize(pageSize);
+		query.setParas(paras);
 		if(StrKit.notBlank(orderBy)){
 			query.setOrderBy(orderBy);
 		}

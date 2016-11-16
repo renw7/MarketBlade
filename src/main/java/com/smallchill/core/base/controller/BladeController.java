@@ -69,10 +69,15 @@ public class BladeController implements ConstCurd, ConstCache, ConstCacheKey {
 		return new WafRequestWrapper(this.request);
 	}
 	
-	public boolean isAjax(){
+	public boolean isAjax() {
 		String header = getRequest().getHeader("X-Requested-With");
 		boolean isAjax = "XMLHttpRequest".equalsIgnoreCase(header);
 		return isAjax;
+	}
+	
+	public boolean isPost() {
+		String method = getRequest().getMethod();
+		return StrKit.equalsIgnoreCase("POST", method);
 	}
 
 	public String getParameter(String name) {
@@ -368,7 +373,7 @@ public class BladeController implements ConstCurd, ConstCache, ConstCacheKey {
 				url = Const.LOGIN_REALPATH;// session过期抛出的异常
 				msg = ConstShiro.NO_USER;
 			}
-			if (isAjax()) {
+			if (isAjax() || isPost()) {
 				result.addFail(msg);
 				resultModel = result;
 			} else {

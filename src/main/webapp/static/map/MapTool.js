@@ -7,8 +7,8 @@ function initMap() {
 function setCenterZoom(markerArr) {
     map = new BMap.Map('map');
     window.map = map; //将map变量存储在全局
-    var p0 = markerArr[0].point.split("|")[0];//获得第一个点的经纬度
-    var p1 = markerArr[0].point.split("|")[1];
+    var p0 = markerArr[0].point.split(",")[0];//获得第一个点的经纬度
+    var p1 = markerArr[0].point.split(",")[1];
     var poi = new BMap.Point(p0, p1);//设置地图中心点
     map.centerAndZoom(poi, 17);//设置地图的缩放层级
     map.enableScrollWheelZoom();
@@ -28,13 +28,13 @@ function addMarker(markerArr) {
     for (var i = 0; i < markerArr.length; i++) {
 
         var json = markerArr[i];
-        var p0 = json.point.split("|")[0];
-        var p1 = json.point.split("|")[1];
+        var p0 = json.point.split(",")[0];
+        var p1 = json.point.split(",")[1];
         var point = new BMap.Point(p0, p1);
         var iconImg = createIcon(json.icon);
         var marker = new BMap.Marker(point, { icon: iconImg });
 
-        //var label = new BMap.Label(json.content.split("|")[0], { offset: new BMap.Size(15, -20) });
+        //var label = new BMap.Label(json.content.split(",")[0], { offset: new BMap.Size(15, -20) });
 
         //var result = BMapLib.GeoUtils.isPointInRect(marker.point, map.getBounds());
         //if (result == true) {
@@ -83,7 +83,7 @@ function createIcon1(json) {
 
 
         var arrow = this._arrow = document.createElement("div");
-        arrow.style.background = "url(plugins/map/label.png) no-repeat";
+        arrow.style.background = "url(../../static/map/label.png) no-repeat";
         arrow.style.position = "absolute";
         arrow.style.width = "11px";
         arrow.style.height = "9px";
@@ -133,7 +133,7 @@ function createIcon1(json) {
 }
 
 function ComplexCustomOverlay(json) {
-    this._point = new BMap.Point(json.point.split("|")[0], json.point.split("|")[1]);
+    this._point = new BMap.Point(json.point.split(",")[0], json.point.split(",")[1]);
     this._IconStatus = json.IconStatus;
     this._json = json;
     this._IconInfo = json.IconInfo;
@@ -145,8 +145,8 @@ function AddPolyline(markerArr, strokeColor) {
     var polylinePointsArray = [];
     for (var i = 0; i < markerArr.length; i++) {
         var P = markerArr[i].point;
-        var p0 = P.split("|")[0];
-        var p1 = P.split("|")[1];
+        var p0 = P.split(",")[0];
+        var p1 = P.split(",")[1];
         polylinePointsArray[i] = new BMap.Point(p0, p1);
     }
     polyline = new BMap.Polyline(polylinePointsArray, { strokeColor: strokeColor, strokeWeight: 3, strokeOpacity: 0.5 });
