@@ -10,8 +10,8 @@ ${"@"}layout("/common/_curd/_container.html"){
 		${"@"} var _key="${pkName}";
 		${"@"} var _col=[
 					@trim(){ 
-						@ for (col in cols) {						
-		${"@"}			  {name:"${col}", index:"${col}", type:"text",newline:true,length:8,required:"required"},
+						@ for (attr in attrs) {						
+		${"@"}			  {name:"${attr.comment!attr.name}", index:"${attr.name}", type:"text",newline:true,length:8,required:"required"},
 						@}
 					@}
 		

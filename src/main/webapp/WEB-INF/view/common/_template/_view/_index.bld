@@ -17,14 +17,14 @@ ${"@"}layout("/common/_curd/_container.html"){
 	function initGrid(){
 		var grid_url = ctx + "/${"$"}{code}/list";
 		var _colnames = [@trim(){
-					@ for (col in cols) {						
-						"${col}", 
+					@ for (attr in attrs) {						
+						"${attr.comment!attr.name}", 
 					@}  
 				@}
 ];
 		var _colmodel = [@trim(){						
-                    @ for (col in cols) {						
-						{name:"${col}", index:"${col}", width:100},
+                    @ for (attr in attrs) {						
+						{name:"${attr.name}", index:"${attr.name}", width:100},
 					@}  
 				@}
 ];
@@ -48,8 +48,8 @@ ${"@"}layout("/common/_curd/_container.html"){
 			<!-- 配置 查询 -->
 			${"@"} var _col=[
 			@trim(){ 
-				@ for (col in cols) {						
-			${"@"}		{name:"${col}", index:"${col}", type:"text"},
+				@ for (attr in attrs) {						
+			${"@"}		{name:"${attr.name}", index:"${attr.name}", type:"text"},
 				@}
 			@}
 							

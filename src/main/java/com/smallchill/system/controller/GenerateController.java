@@ -183,23 +183,18 @@ public class GenerateController extends CurdController<Generate> {
 			BeetlMaker.makeHtml(controllerTemplatePath, ps, controllerPath);
 			BeetlMaker.makeHtml(serviceTemplatePath, ps, servicePath);
 			BeetlMaker.makeHtml(serviceimplTemplatePath, ps, serviceimplPath);
+			setParasAttr(tableName, ps);
+			BeetlMaker.makeHtml(modelTemplatePath, ps, modelPath);
 			
 			//resources
 			BeetlMaker.makeHtml(sqlTemplatePath, ps, sqlPath);
 			
 			//webapp
-			final TableDesc tableDesc = Blade.dao().getMetaDataManager().getTable(tableName);
-			Set<String> cols = tableDesc.getCols();
-			ps.set("cols", cols);
-			
 			BeetlMaker.makeHtml(indexTemplatePath, ps, indexPath);
 			BeetlMaker.makeHtml(addTemplatePath, ps, addPath);
 			BeetlMaker.makeHtml(editTemplatePath, ps, editPath);
 			BeetlMaker.makeHtml(viewTemplatePath, ps, viewPath);
 			
-			//model
-			setParasAttr(tableName, ps);
-			BeetlMaker.makeHtml(modelTemplatePath, ps, modelPath);
 			
 		}
 		
@@ -214,7 +209,7 @@ public class GenerateController extends CurdController<Generate> {
 		List<Map<String, Object>> attrs = new ArrayList<>();
 		boolean tempDouble = false;
 		boolean tempDate = false;
-		for(String col:cols){
+		for(String col : cols){
 			
 			ColDesc desc = tableDesc.getColDesc(col);
 			Map<String, Object> attr = Paras.createHashMap();

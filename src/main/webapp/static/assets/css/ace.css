@@ -5364,13 +5364,9 @@ body.mob-safari .sidebar.sidebar-fixed {
 }
 .footer .footer-inner .footer-content {
   position: absolute;
-  left: 12px;
-  right: 12px;
-/*   bottom: 4px;
-  padding: 8px;
-  line-height: 36px;
-  border-top: 3px double #E5E5E5; */
-    bottom: 3px;
+  left: 5px;
+  right: 5px;
+  bottom: 3px;
   padding: 4px;
   line-height: 25px;
   border-top: 3px double #E5E5E5;
