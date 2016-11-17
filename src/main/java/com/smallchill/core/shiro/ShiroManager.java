@@ -21,13 +21,13 @@ import com.smallchill.core.interfaces.IShiro;
 public class ShiroManager {
 	private static ShiroManager me = new ShiroManager();
 	private IShiro defaultShiroFactory = Cst.me().getDefaultShiroFactory();
-	
+
 	public static ShiroManager me() {
 		return me;
 	}
-	
-	private ShiroManager(){
-		
+
+	private ShiroManager() {
+
 	}
 
 	public IShiro getDefaultShiroFactory() {
@@ -37,6 +37,4 @@ public class ShiroManager {
 	public void setDefaultShiroFactory(IShiro defaultShiroFactory) {
 		this.defaultShiroFactory = defaultShiroFactory;
 	}
-
-
 }

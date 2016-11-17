@@ -1,13 +1,19 @@
 package com.smallchill.system.controller;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.annotatoin.Table;
+import org.beetl.sql.core.db.ColDesc;
 import org.beetl.sql.core.db.TableDesc;
+import org.beetl.sql.ext.gen.JavaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -175,7 +181,6 @@ public class GenerateController extends CurdController<Generate> {
 			
 			//java
 			BeetlMaker.makeHtml(controllerTemplatePath, ps, controllerPath);
-			BeetlMaker.makeHtml(modelTemplatePath, ps, modelPath);
 			BeetlMaker.makeHtml(serviceTemplatePath, ps, servicePath);
 			BeetlMaker.makeHtml(serviceimplTemplatePath, ps, serviceimplPath);
 			
@@ -192,8 +197,105 @@ public class GenerateController extends CurdController<Generate> {
 			BeetlMaker.makeHtml(editTemplatePath, ps, editPath);
 			BeetlMaker.makeHtml(viewTemplatePath, ps, viewPath);
 			
+			//model
+			setParasAttr(tableName, ps);
+			BeetlMaker.makeHtml(modelTemplatePath, ps, modelPath);
+			
 		}
 		
 		return success("生成成功,已经存在的文件将会覆盖!");
+	}
+	
+
+	private void setParasAttr(String table, Paras ps) {
+		SQLManager sm = Blade.dao();
+		final TableDesc  tableDesc = sm.getMetaDataManager().getTable(table);
+		Set<String> cols = tableDesc.getCols();
+		List<Map<String, Object>> attrs = new ArrayList<>();
+		boolean tempDouble = false;
+		boolean tempDate = false;
+		for(String col:cols){
+			
+			ColDesc desc = tableDesc.getColDesc(col);
+			Map<String, Object> attr = Paras.createHashMap();
+			attr.put("comment", desc.remark);
+			String attrName = sm.getNc().getPropertyName(null, desc.colName);
+			attr.put("name", attrName);
+			attr.put("methodName", getMethodName(attrName));
+			
+			attr.put("type", desc.remark);
+			
+			String type = JavaType.getType(desc.sqlType, desc.size, desc.digit);
+			if(type.equals("Double")){
+				type = "BigDecimal";
+				tempDouble = true;
+			}		
+			if(type.equals("Timestamp")){
+				type ="Date";
+				tempDate = true;
+			}
+			
+			attr.put("type", type);
+			attr.put("desc", desc);
+			attrs.add(attr);
+		}
+		
+		// 主键总是拍在前面，int类型也排在前面，剩下的按照字母顺序排
+		Collections.sort(attrs,new Comparator<Map<String, Object>>() {
+
+			@Override
+			public int compare(Map<String, Object> o1, Map<String, Object> o2) {
+				ColDesc desc1  = (ColDesc) o1.get("desc");
+				ColDesc desc2  = (ColDesc) o2.get("desc");
+				int score1 = score(desc1);
+				int score2 = score(desc2);
+				if(score1 == score2){
+					return desc1.colName.compareTo(desc2.colName);
+				}else{
+					return score2 - score1;
+				}
+			}
+			
+			private int score(ColDesc desc){
+				if(tableDesc.getIdNames().contains(desc.colName)) {
+					return 99;
+				}else if(JavaType.isInteger(desc.sqlType)) {
+					return 9;
+				}else if(JavaType.isDateType(desc.sqlType)) {
+					return -9;
+				}else{
+					return 0;
+				}
+			}
+			
+		});
+
+		String srcHead = "";
+		String CR = System.getProperty("line.separator");
+		if(tempDate) {
+			srcHead += "import java.util.Date;" + CR;
+		}
+		if(tempDouble) {
+			srcHead += "import java.math.BigDecimal;" + CR;
+		}
+		
+		ps.set("attrs", attrs);
+		ps.set("imports", srcHead);
+	}
+	
+	private String getMethodName(String name) {
+		char ch1 = name.charAt(0);
+		char ch2 = name.charAt(1);
+		if(Character.isLowerCase(ch1) && Character.isUpperCase(ch2)) {
+			//aUname---> getaUname();
+			return name;
+		} else if(Character.isUpperCase(ch1) && Character.isUpperCase(ch2)) {
+			//ULR --> getURL();
+			return name ;
+		} else {
+			//general  name --> getName()
+			char upper = Character.toUpperCase(ch1);
+			return upper + name.substring(1);
+		}
 	}
 }

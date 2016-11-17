@@ -1,9 +1,13 @@
 package com.smallchill.common.tool;
 
+import java.util.List;
+import java.util.Map;
+
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.constant.ConstCacheKey;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Blade;
+import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.kit.CacheKit;
@@ -26,13 +30,44 @@ public class SysCache implements ConstCache, ConstCacheKey{
 		Dict dict = CacheKit.get(DICT_CACHE, GET_DICT_NAME + code + "_" + num, new ILoader() {
 			@Override
 			public Object load() {
-				return Blade.create(Dict.class).findFirstBy("code=#{code} and num=#{num}", Paras.create().set("code", code).set("num", num));
+				return Blade.create(Dict.class).findFirstBy("code = #{code} and num = #{num}", Paras.create().set("code", code).set("num", num));
 			}
 		});
 		if(null == dict){
 			return "";
 		}
 		return dict.getName();
+	}
+	
+	/**
+	 * 获取字典表
+	 * @param code 字典编号
+	 * @return
+	 */
+	public static List<Dict> getDict(final Object code) {
+		List<Dict> list = CacheKit.get(DICT_CACHE, GET_DICT + code, new ILoader() {
+			@Override
+			public Object load() {
+				return Blade.create(Dict.class).findBy("code = #{code} and num > 0", Paras.create().set("code", code));
+			}
+		});
+		return list;
+	}
+	
+	/**
+	 * 获取字典表
+	 * @param code 字典编号
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	public static List<Map> getSimpleDict(final Object code) {
+		List<Map> list = CacheKit.get(DICT_CACHE, GET_DICT + "simple_" + code, new ILoader() {
+			@Override
+			public Object load() {
+				return Db.selectList("select num, name, tips from tfw_dict where code = #{code} and num > 0", Paras.create().set("code", code)); 
+			}
+		});
+		return list;
 	}
 
 	/**

@@ -26,7 +26,7 @@ var addTabs = function(obj) {
 		} else { // 没有内容，使用IFRAME打开链接
 			content = '<div role="tabpanel" class="tab-pane iframe-tab" id="'
 					+ id
-					+ '"><iframe onload="onIframeLoad(this)" data-type="tab_iframe" id="iframe_'
+					+ '"><iframe onload="onIframeLoad(this)" class="layui-layer-load" data-type="tab_iframe" id="iframe_'
 					+ id
 					+ '" src="'
 					+ obj.url
@@ -72,7 +72,7 @@ var addTabs = function(obj) {
 };
 
 var onIframeLoad = function(obj) {
-	//document.getElementById(obj.id).contentWindow.closeLoading();
+	obj.className='';
 }
 
 var closeTab = function(id) {

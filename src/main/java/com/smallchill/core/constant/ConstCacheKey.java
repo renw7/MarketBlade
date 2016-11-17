@@ -20,6 +20,8 @@ public interface ConstCacheKey {
 	
 	String BTN_CHILD_LIST = "btn_child_list_";
 	
+	String PERMISSIONS = "permissions_";
+	
 	//-----------------------------dept---------------------------------------
 	
 	String GET_DEPT_NAME = "get_dept_name_";
@@ -32,7 +34,11 @@ public interface ConstCacheKey {
 	
 	String GET_DICT_NAME = "get_dict_name_";
 	
+	String GET_DICT = "get_dict_";
+	
 	String DICT = "dict_";
+	
+	String DICT_CODE = "dict_code_";
 	
 	String DICT_TREE_ALL = "dict_tree_all";
 	
@@ -45,6 +51,8 @@ public interface ConstCacheKey {
 	//-----------------------------role---------------------------------------
 	
 	String GET_ROLE_NAME = "get_role_name_";
+	
+	String GET_ROLE_NAME_BY_ID = "get_role_name_by_id_";
 	
 	String GET_ROLE_ALIAS = "get_role_alias_";
 	

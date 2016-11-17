@@ -49,6 +49,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		log.info("Shiro登录认证启动");
+		
 		IShiro shiroFactory = ShiroManager.me().getDefaultShiroFactory();
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		

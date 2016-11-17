@@ -90,6 +90,7 @@
 			<tx:method name="save*" propagation="REQUIRED" rollback-for="RuntimeException" />
 			<tx:method name="add*" propagation="REQUIRED" rollback-for="RuntimeException" />
 			<tx:method name="create*" propagation="REQUIRED" rollback-for="RuntimeException" />
+			<tx:method name="change*" propagation="REQUIRED" rollback-for="RuntimeException" />
 			<tx:method name="eidt*" propagation="REQUIRED" rollback-for="RuntimeException" />
 			<tx:method name="remove*" propagation="REQUIRED" rollback-for="RuntimeException" />
 			<tx:method name="update*" propagation="REQUIRED" rollback-for="RuntimeException" />

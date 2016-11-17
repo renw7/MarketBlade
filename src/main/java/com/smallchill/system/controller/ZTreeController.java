@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.smallchill.common.base.BaseController;
 import com.smallchill.core.aop.AopContext;
-import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.interfaces.IQuery;
@@ -26,7 +26,7 @@ import com.smallchill.core.toolbox.kit.StrKit;
 
 @Controller
 @RequestMapping("/ztree")
-public class ZTreeController extends BladeController {
+public class ZTreeController extends BaseController {
 	
 	@RequestMapping("/open")
 	public ModelAndView open(){

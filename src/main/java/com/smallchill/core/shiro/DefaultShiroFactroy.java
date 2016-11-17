@@ -27,6 +27,7 @@ import org.apache.shiro.util.ByteSource;
 
 import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.core.constant.ConstCache;
+import com.smallchill.core.constant.ConstCacheKey;
 import com.smallchill.core.interfaces.IShiro;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
@@ -64,8 +65,8 @@ public class DefaultShiroFactroy implements IShiro{
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<Map> findPermissionsByRoleId(final Object userId, String roleId) {
-		Map<String, Object> userRole =  Db.selectOneByCache(ConstCache.MENU_CACHE, 
-															"role_ext_" + userId, 
+		Map<String, Object> userRole =  Db.selectOneByCache(ConstCache.ROLE_CACHE, 
+															ConstCacheKey.ROLE_EXT + userId, 
 															"select * from TFW_ROLE_EXT where USERID=#{userId}", 
 															Paras.create().set("userId", userId));
 
@@ -88,9 +89,8 @@ public class DefaultShiroFactroy implements IShiro{
 		sql.append("	)");
 		sql.append(" order by levels,pCode,num");
 
-		List<Map> permissions = Db.selectListByCache(ConstCache.MENU_CACHE, "permissions_" + userId, sql.toString(), Paras.create()
-				.set("roleId", roleId.split(",")).set("roleIn", roleIn.split(",")).set("roleOut", roleOut.split(","))
-				);
+		List<Map> permissions = Db.selectListByCache(ConstCache.MENU_CACHE, ConstCacheKey.PERMISSIONS + userId, sql.toString(), Paras.create()
+				.set("roleId", roleId.split(",")).set("roleIn", roleIn.split(",")).set("roleOut", roleOut.split(",")));
 		
 		return permissions;
 	}
@@ -98,7 +98,7 @@ public class DefaultShiroFactroy implements IShiro{
 	@SuppressWarnings("unchecked")
 	public String findRoleNameByRoleId(final String roleId) {
 		Map<String, Object> map = Db.selectOneByCache(ConstCache.ROLE_CACHE, 
-														"findRoleNameByRoleId" + roleId, 
+														ConstCacheKey.GET_ROLE_NAME_BY_ID + roleId, 
 														"select TIPS from tfw_role where id = #{id}", 
 														Paras.create().set("id", roleId));
 		return Func.toStr(map.get("TIPS"));

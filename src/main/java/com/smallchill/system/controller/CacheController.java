@@ -22,9 +22,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.smallchill.common.base.BaseController;
 import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.core.aop.AopContext;
-import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
@@ -39,7 +39,7 @@ import com.smallchill.core.toolbox.kit.StrKit;
 
 @Controller
 @RequestMapping("/cache")
-public class CacheController extends BladeController {
+public class CacheController extends BaseController {
 
 	public void index() {
 
@@ -307,7 +307,7 @@ public class CacheController extends BladeController {
 	@RequestMapping("/getDicById")
 	public AjaxResult getDicById() {
 		final int id = getParameterToInt("id");
-		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, DICT + id,
+		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, DICT_CODE + id,
 				new ILoader() {
 					public Object load() {
 						return Db.selectList("select CODE from TFW_DICT where id=#{id}",Paras.create().set("id", id), new AopContext());

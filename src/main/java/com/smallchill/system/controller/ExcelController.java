@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.smallchill.core.base.controller.BladeController;
+import com.smallchill.common.base.BaseController;
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
@@ -34,7 +34,7 @@ import com.smallchill.core.toolbox.kit.StrKit;
 
 @Controller
 @RequestMapping("/excel")
-public class ExcelController extends BladeController{
+public class ExcelController extends BaseController{
 
 	private static String cacheName = ConstCache.FILE_CACHE;
 	

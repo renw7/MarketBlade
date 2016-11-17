@@ -17,6 +17,8 @@ package com.smallchill.core.toolbox.file;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -180,4 +182,70 @@ public class BladeFile {
 		this.originalFileName = originalFileName;
 	}
 
+	
+	/**
+	 * 获取BladeFile封装类
+	 * @param file
+	 * @return
+	 */
+	public static BladeFile getFile(MultipartFile file){
+		return getFile(file, "image", null, null);
+	}
+	
+	/**
+	 * 获取BladeFile封装类
+	 * @param file
+	 * @param dir
+	 * @return
+	 */
+	public static BladeFile getFile(MultipartFile file, String dir){
+		return getFile(file, dir, null, null);
+	}
+	
+	/**
+	 * 获取BladeFile封装类
+	 * @param file
+	 * @param dir
+	 * @param path
+	 * @param virtualPath
+	 * @return
+	 */
+	public static BladeFile getFile(MultipartFile file, String dir, String path, String virtualPath){
+		return new BladeFile(file, dir, path, virtualPath);
+	}
+	
+	/**
+	 * 获取BladeFile封装类
+	 * @param files
+	 * @return
+	 */
+	public static List<BladeFile> getFiles(List<MultipartFile> files){
+		return getFiles(files, "image", null, null);
+	}
+	
+	/**
+	 * 获取BladeFile封装类
+	 * @param files
+	 * @param dir
+	 * @return
+	 */
+	public static List<BladeFile> getFiles(List<MultipartFile> files, String dir){
+		return getFiles(files, dir, null, null);
+	}
+	
+	/**
+	 * 获取BladeFile封装类
+	 * @param files
+	 * @param path
+	 * @param virtualPath
+	 * @return
+	 */
+	public static List<BladeFile> getFiles(List<MultipartFile> files, String dir, String path, String virtualPath){
+		List<BladeFile> list = new ArrayList<>();
+		for (MultipartFile file : files){
+			list.add(new BladeFile(file, dir, path, virtualPath));
+		}
+		return list;
+	}
+	
 }

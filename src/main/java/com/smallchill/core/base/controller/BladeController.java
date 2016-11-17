@@ -16,7 +16,6 @@
 package com.smallchill.core.base.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -32,9 +31,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.smallchill.core.constant.Const;
-import com.smallchill.core.constant.ConstCache;
-import com.smallchill.core.constant.ConstCacheKey;
-import com.smallchill.core.constant.ConstCurd;
 import com.smallchill.core.constant.ConstShiro;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.exception.NoPermissionException;
@@ -56,7 +52,7 @@ import com.smallchill.core.toolbox.support.WafRequestWrapper;
 /**
  * @author Chill Zhuang
  */
-public class BladeController implements ConstCurd, ConstCache, ConstCacheKey {
+public class BladeController {
 	
 	private static final Logger log = LoggerFactory.getLogger(BladeController.class);
 	
@@ -170,7 +166,7 @@ public class BladeController implements ConstCurd, ConstCache, ConstCacheKey {
 	 * @return
 	 */
 	public BladeFile getFile(MultipartFile file){
-		return getFile(file, "image", null, null);
+		return BladeFile.getFile(file);
 	}
 	
 	/**
@@ -180,7 +176,7 @@ public class BladeController implements ConstCurd, ConstCache, ConstCacheKey {
 	 * @return
 	 */
 	public BladeFile getFile(MultipartFile file, String dir){
-		return getFile(file, dir, null, null);
+		return BladeFile.getFile(file, dir);
 	}
 	
 	/**
@@ -192,7 +188,7 @@ public class BladeController implements ConstCurd, ConstCache, ConstCacheKey {
 	 * @return
 	 */
 	public BladeFile getFile(MultipartFile file, String dir, String path, String virtualPath){
-		return new BladeFile(file, dir, path, virtualPath);
+		return BladeFile.getFile(file, dir, path, virtualPath);
 	}
 	
 	/**
@@ -201,7 +197,7 @@ public class BladeController implements ConstCurd, ConstCache, ConstCacheKey {
 	 * @return
 	 */
 	public List<BladeFile> getFiles(List<MultipartFile> files){
-		return getFiles(files, "image", null, null);
+		return BladeFile.getFiles(files);
 	}
 	
 	/**
@@ -211,7 +207,7 @@ public class BladeController implements ConstCurd, ConstCache, ConstCacheKey {
 	 * @return
 	 */
 	public List<BladeFile> getFiles(List<MultipartFile> files, String dir){
-		return getFiles(files, dir, null, null);
+		return BladeFile.getFiles(files, dir);
 	}
 	
 	/**
@@ -222,11 +218,7 @@ public class BladeController implements ConstCurd, ConstCache, ConstCacheKey {
 	 * @return
 	 */
 	public List<BladeFile> getFiles(List<MultipartFile> files, String dir, String path, String virtualPath){
-		List<BladeFile> list = new ArrayList<>();
-		for (MultipartFile file : files){
-			list.add(new BladeFile(file, dir, path, virtualPath));
-		}
-		return list;
+		return BladeFile.getFiles(files, dir, path, virtualPath);
 	}
 
 
