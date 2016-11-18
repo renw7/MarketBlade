@@ -20,17 +20,17 @@ ${"@"}layout("/common/_curd/_container.html"){
 					@ for (attr in attrs) {		
 						@if (isEmpty(attr.comment)) {
 						"${attr.name}", 
-						@} else {
+						@ } else {
 						"${attr.comment}", 
-						@}
-					@}  
-				@}
+						@ }
+					@ }  
+				@ }
 ];
 		var _colmodel = [@trim(){						
                     @ for (attr in attrs) {						
 						{name:"${attr.name}", index:"${attr.name}", width:100},
-					@}  
-				@}
+					@ }  
+				@ }
 ];
 		
 		jQuery(grid_selector).jqGrid({
@@ -55,11 +55,11 @@ ${"@"}layout("/common/_curd/_container.html"){
 				@ for (attr in attrs) {		
 				@ if(isEmpty(attr.comment))	{
 			${"@"}		{name:"${attr.name}", index:"${attr.name}", type:"text"},
-				@} else {
+				@ } else {
 			${"@"}		{name:"${attr.comment}", index:"${attr.name}", type:"text"},
-				@}			
-				@}
-			@}
+				@ }			
+				@ }
+			@ }
 							
 			${"@"}];
 			${"@"} include("/common/_function/_search.html",{"col":_col}){}

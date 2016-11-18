@@ -17,17 +17,9 @@ ${"@"}layout("/common/_curd/_container.html"){
 							@ if(pkName == attr.name) {
 							@	continue;
 							@ }
-							@ var newline = true;
-							@ if(attrLP.odd) {
-							@	newline = false;
-							@ }
-							@ var length = 3;
-							@ if(attrLP.last && newline == true) {
-							@	length = 8;
-							@ }
-		${"@"}			  {name:"${_attrName}", index:"${attr.name}", type:"text",newline:${newline},length:${length},required:"required"},
-						@}
-					@}
+		${"@"}			  {name:"${_attrName}", index:"${attr.name}", type:"text", newline:true, length:8, required:"required"},
+						@ }
+					@ }
 		
 		${"@"}		   ];
 		${"@"} include("/common/_curd/_add.html", {"col":_col, "table":_table}){}
