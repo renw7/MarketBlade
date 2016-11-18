@@ -89,7 +89,8 @@ public class SysCache implements ConstCache, ConstCacheKey{
 					return Blade.create(Role.class).findById(roleId);
 				}
 			});
-			sb.append(role.getName()).append(",");
+			if (null != role)
+				sb.append(role.getName()).append(",");
 		}
 		return StrKit.removeSuffix(sb.toString(), ",");
 	}
@@ -113,7 +114,8 @@ public class SysCache implements ConstCache, ConstCacheKey{
 					return Blade.create(Role.class).findById(roleId);
 				}
 			});
-			sb.append(role.getTips()).append(",");
+			if (null != role)
+				sb.append(role.getTips()).append(",");
 		}
 		return StrKit.removeSuffix(sb.toString(), ",");
 	}
@@ -155,7 +157,8 @@ public class SysCache implements ConstCache, ConstCacheKey{
 					return Blade.create(Dept.class).findById(deptId);
 				}
 			});
-			sb.append(dept.getSimplename()).append(",");
+			if (null != dept)
+				sb.append(dept.getSimplename()).append(",");
 		}
 		return StrKit.removeSuffix(sb.toString(), ",");
 	}
