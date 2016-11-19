@@ -23,7 +23,6 @@ import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.SQLReady;
 
 import com.smallchill.core.aop.AopContext;
-import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.interfaces.IQuery;
 import com.smallchill.core.plugins.connection.ConnectionPlugin;
@@ -281,26 +280,6 @@ public class DbManager {
 	public List<String> queryListStr(String sqlTemplate, Object paras){
 		List<String> list = getSqlManager().execute(sqlTemplate, String.class, paras);
 		return list;
-	}
-	
-	/** 查询aop返回单条数据
-	 * @param sqlTemplate
-	 * @param paras
-	 * @param ac
-	 * @return
-	 */
-	public Map selectOne(String sqlTemplate, Map<String, Object> param, AopContext ac) {
-		return selectOne(sqlTemplate, param, ac, Cst.me().getDefaultQueryFactory());
-	}
-	
-	/**查询aop返回多条数据
-	 * @param sqlTemplate
-	 * @param paras
-	 * @param ac
-	 * @return
-	 */
-	public List<Map> selectList(String sqlTemplate, Map<String, Object> param, AopContext ac) {
-		return selectList(sqlTemplate, param, ac, Cst.me().getDefaultQueryFactory());
 	}
 	
 	/** 查询aop返回单条数据

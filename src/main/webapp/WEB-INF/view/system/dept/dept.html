@@ -63,17 +63,18 @@
 	}
 	
 	function zTreeBeforeClick(treeId, treeNode, clickFlag) {
-	    var id=treeNode.id;
-	    if(id==""){
-		    exwhere="";
-		    searchGrid();
-		    return;
-	    }
-	    else{
-		    exwhere="{\"pId_equal\":\""+id+"\",\"or_id_equal\":\""+id+"\"}";
-		    searchGrid();
-	    }
-
+		@ if(shiro.hasRole("administrator")) {
+		    var id=treeNode.id;
+		    if(id==""){
+			    exwhere="";
+			    searchGrid();
+			    return;
+		    }
+		    else{
+			    exwhere="{\"pId_equal\":\""+id+"\",\"or_id_equal\":\""+id+"\"}";
+			    searchGrid();
+		    }
+		@ }
 	};
 	
 </script>

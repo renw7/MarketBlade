@@ -42,6 +42,7 @@ public class ShiroUser implements Serializable {
 	private String name;// 姓名
 	private List<String> roleList;// 角色集
 	private String roles;// 角色集
+	private Object superDepts;// 上级部门集合
 	private Object subDepts;// 子部门集合
 	private Object subRoles;// 子角色集合
 	private Object subUsers;// 子账号集合
@@ -55,18 +56,36 @@ public class ShiroUser implements Serializable {
 		this.roleList = roleList;
 		this.roles = CollectionKit.join(roleList.toArray(), ",");
 		
-		// 递归查找子部门id集合
-		String deptSql;
-		String subDepts = null;
+		// 递归查找上级部门id集合
+		String superDeptSql;
+		String superDepts = null;
 		if (Func.isOracle()) {
-			deptSql = "select wm_concat(ID) subDepts from (select ID,PID,SIMPLENAME from TFW_DEPT start with ID in (#{join(deptIds)}) connect by prior ID=PID order by ID) a where a.ID not in (#{join(deptIds)})";
-			subDepts = Db.queryStr(deptSql, Paras.create().set("deptIds", deptId.toString().split(",")));
+			superDeptSql = "select wm_concat(ID) subDepts from (select ID,PID,SIMPLENAME from TFW_DEPT start with ID in (#{join(deptIds)}) connect by prior PID=ID order by ID) a where a.ID not in (#{join(deptIds)})";
+			superDepts = Db.queryStr(superDeptSql, Paras.create().set("deptIds", deptId.toString().split(",")));
 		} else {
 			String[] arr = deptId.toString().split(",");
 			StringBuilder sb = new StringBuilder();
 			for (String deptid : arr) {
-				deptSql = "select queryChildren(#{deptid},'tfw_dept') as subdepts";
-				String str = Db.queryStr(deptSql, Paras.create().set("deptid", deptid));
+				superDeptSql = "select queryParent(#{deptid},'tfw_dept') as superdepts";
+				String str = Db.queryStr(superDeptSql, Paras.create().set("deptid", deptid));
+				sb.append(str).append(",");
+			}
+			superDepts = StrKit.removeSuffix(sb.toString(), ",");
+		}
+		this.superDepts = superDepts;
+		
+		// 递归查找子部门id集合
+		String subDeptSql;
+		String subDepts = null;
+		if (Func.isOracle()) {
+			subDeptSql = "select wm_concat(ID) subDepts from (select ID,PID,SIMPLENAME from TFW_DEPT start with ID in (#{join(deptIds)}) connect by prior ID=PID order by ID) a where a.ID not in (#{join(deptIds)})";
+			subDepts = Db.queryStr(subDeptSql, Paras.create().set("deptIds", deptId.toString().split(",")));
+		} else {
+			String[] arr = deptId.toString().split(",");
+			StringBuilder sb = new StringBuilder();
+			for (String deptid : arr) {
+				subDeptSql = "select queryChildren(#{deptid},'tfw_dept') as subdepts";
+				String str = Db.queryStr(subDeptSql, Paras.create().set("deptid", deptid));
 				sb.append(str).append(",");
 			}
 			subDepts = StrKit.removeSuffix(sb.toString(), ",");
@@ -165,6 +184,14 @@ public class ShiroUser implements Serializable {
 
 	public void setDeptName(String deptName) {
 		this.deptName = deptName;
+	}
+
+	public Object getSuperDepts() {
+		return superDepts;
+	}
+
+	public void setSuperDepts(Object superDepts) {
+		this.superDepts = superDepts;
 	}
 
 	public Object getSubDepts() {

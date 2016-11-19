@@ -218,28 +218,6 @@ public class Db {
 	 * @param sqlTemplate
 	 * @param paras
 	 * @param ac
-	 * @return
-	 */
-	@SuppressWarnings("rawtypes")
-	public static Map selectOne(String sqlTemplate, Map<String, Object> param, AopContext ac) {
-		return getDbManager().selectOne(sqlTemplate, param, ac);
-	}
-	
-	/**查询aop返回多条数据
-	 * @param sqlTemplate
-	 * @param paras
-	 * @param ac
-	 * @return
-	 */
-	@SuppressWarnings("rawtypes")
-	public static List<Map> selectList(String sqlTemplate, Map<String, Object> param, AopContext ac) {
-		return getDbManager().selectList(sqlTemplate, param, ac);
-	}
-	
-	/** 查询aop返回单条数据
-	 * @param sqlTemplate
-	 * @param paras
-	 * @param ac
 	 * @param intercept
 	 * @return
 	 */

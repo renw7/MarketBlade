@@ -15,6 +15,7 @@
  */
 package com.smallchill.common.config;
 
+import com.smallchill.common.intercept.DefaultSelectFactory;
 import com.smallchill.common.plugins.GlobalPlugin;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.IConfig;
@@ -48,9 +49,12 @@ public class WebConfig implements IConfig {
 		
 		//设定文件下载头文件夹
 		me.setDownloadPath(prop.get("config.downloadPath", "/download"));
-		
+
 		//设定grid工厂类
 		me.setDefaultGridFactory(new JqGridFactory());
+		
+		//设定select工厂类
+		me.setDefaultSelectFactory(new DefaultSelectFactory());
 		
 		//设定shiro工厂类
 		me.setDefaultShiroFactory(new DefaultShiroFactroy());

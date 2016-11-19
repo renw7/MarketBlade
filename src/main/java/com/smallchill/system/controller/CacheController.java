@@ -167,7 +167,7 @@ public class CacheController extends BaseController {
 		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, DICT_COMBO + code,
 				new ILoader() {
 					public Object load() {
-						return Db.selectList("select num as \"id\",name as \"text\" from  TFW_DICT where code=#{code} and num>0", Paras.create().set("code", code), new AopContext());
+						return Db.selectList("select num as \"id\",name as \"text\" from  TFW_DICT where code=#{code} and num>0", Paras.create().set("code", code));
 					}
 				});
 		
@@ -251,7 +251,7 @@ public class CacheController extends BaseController {
 		List<Map<String, Object>> diy = CacheKit.get(DIY_CACHE, DIY_SELECT + source,
 				new ILoader() {
 					public Object load() {
-						return Db.selectList(Md.getSql(source), map, new AopContext());
+						return Db.selectList(Md.getSql(source), map);
 					}
 				});
 		StringBuilder sb = new StringBuilder();
@@ -310,7 +310,7 @@ public class CacheController extends BaseController {
 		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, DICT_CODE + id,
 				new ILoader() {
 					public Object load() {
-						return Db.selectList("select CODE from TFW_DICT where id=#{id}",Paras.create().set("id", id), new AopContext());
+						return Db.selectList("select CODE from TFW_DICT where id=#{id}",Paras.create().set("id", id));
 					}
 				});
 		return json(dict);

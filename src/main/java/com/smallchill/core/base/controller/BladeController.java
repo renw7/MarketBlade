@@ -32,7 +32,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.smallchill.core.constant.Const;
 import com.smallchill.core.constant.ConstShiro;
-import com.smallchill.core.constant.Cst;
 import com.smallchill.core.exception.NoPermissionException;
 import com.smallchill.core.exception.NoUserException;
 import com.smallchill.core.interfaces.IQuery;
@@ -314,7 +313,7 @@ public class BladeController {
 	 * @return
 	 */
 	protected Object paginate(String source){
-		return basepage(null, source, Cst.me().getDefaultPageFactory());
+		return basepage(null, source, null);
 	}
 	
 	/**
@@ -332,7 +331,7 @@ public class BladeController {
 	 * @return
 	 */
 	protected Object paginate(String slaveName, String source){
-		return basepage(slaveName, source, Cst.me().getDefaultPageFactory());
+		return basepage(slaveName, source, null);
 	}
 	
 	/**

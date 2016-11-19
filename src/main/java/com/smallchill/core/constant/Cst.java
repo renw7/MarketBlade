@@ -121,11 +121,6 @@ public class Cst {
 	private ICURD defaultCURDFactory = new CURDInterceptor();
 	
 	/**
-	 * 默认分页工厂类
-	 */
-	private IQuery defaultPageFactory = new QueryInterceptor();
-	
-	/**
 	 * 默认查询工厂类
 	 */
 	private IQuery defaultQueryFactory = new QueryInterceptor();
@@ -279,14 +274,6 @@ public class Cst {
 
 	public void setDefaultCURDFactory(ICURD defaultCURDFactory) {
 		this.defaultCURDFactory = defaultCURDFactory;
-	}
-
-	public IQuery getDefaultPageFactory() {
-		return defaultPageFactory;
-	}
-
-	public void setDefaultPageFactory(IQuery defaultPageFactory) {
-		this.defaultPageFactory = defaultPageFactory;
 	}
 
 	public IQuery getDefaultQueryFactory() {

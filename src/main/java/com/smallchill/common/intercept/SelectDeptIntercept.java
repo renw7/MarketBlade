@@ -10,7 +10,7 @@ public class SelectDeptIntercept extends QueryInterceptor {
 
 	public void queryBefore(AopContext ac) {
 		if (ShiroKit.lacksRole(ConstShiro.ADMINISTRATOR)) {
-			String depts = ShiroKit.getUser().getDeptId() + "," + ShiroKit.getUser().getSubDepts();
+			String depts = ShiroKit.getUser().getSuperDepts() + "," + ShiroKit.getUser().getDeptId() + "," + ShiroKit.getUser().getSubDepts();
 			String condition = "where id in (" + StrKit.removeSuffix(depts, ",") + ")";
 			ac.setCondition(condition);
 		}
