@@ -18,11 +18,7 @@ package com.smallchill.core.toolbox.grid;
 import java.util.List;
 
 /**
- * @title EasyGrid封装bean
- * @author zhuangqian
- * @email smallchill@163.com
- * @date 2016-1-18下午4:07:50
- * @copyright 2016
+ * EasyGrid封装bean
  */
 public class EasyGrid<E> {
 	/** 总记录  **/

@@ -22,11 +22,7 @@ import com.smallchill.core.toolbox.kit.ClassKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 
 /**
- * @title 单例对象创建
- * @author zhuangqian
- * @email smallchill@163.com
- * @date 2016-1-18上午11:13:59
- * @copyright 2016
+ * 单例对象集合
  */
 public class Singleton {
 	private static Map<Class<?>, Object> pool = new ConcurrentHashMap<Class<?>, Object>();

@@ -23,11 +23,7 @@ import java.util.Map;
 import com.smallchill.core.toolbox.kit.FileKit;
 
 /**
- * @title Beetl静态化生成
- * @author zhuangqian
- * @email smallchill@163.com
- * @date 2015-11-6下午5:17:55
- * @copyright 2015
+ * Beetl静态化生成工具类
  */
 public abstract class BeetlMaker {
 

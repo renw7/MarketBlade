@@ -25,11 +25,7 @@ import com.smallchill.core.toolbox.kit.CollectionKit;
 import com.smallchill.core.toolbox.kit.HttpKit;
 
 /**
- * @title 权限自定义检查
- * @author zhuangqian
- * @email smallchill@163.com
- * @date 2016-1-26上午8:48:52
- * @copyright 2016
+ * 权限自定义检查
  */
 public class PermissionCheckFactory implements ICheck {
 

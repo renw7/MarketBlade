@@ -15,7 +15,6 @@ import com.smallchill.core.toolbox.kit.StrKit;
 
 /**
  * javabean 、 paras映射
- *
  */
 public class BeanInjector {
 

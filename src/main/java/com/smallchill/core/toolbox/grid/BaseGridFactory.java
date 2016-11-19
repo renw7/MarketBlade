@@ -30,11 +30,7 @@ import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 
 /**
- * @title grid工厂基类,封装通用分页方法
- * @author zhuangqian
- * @email smallchill@163.com
- * @date 2016-1-23上午9:41:48
- * @copyright 2016
+ * grid工厂基类,封装通用分页方法
  */
 public abstract class BaseGridFactory implements IGrid{
 

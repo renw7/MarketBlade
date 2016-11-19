@@ -37,11 +37,7 @@ import com.smallchill.core.constant.ConstConfig;
 import com.smallchill.core.toolbox.Paras;
 
 /**
- * @title Beetl模板绑值
- * @author zhuangqian
- * @email smallchill@163.com
- * @date 2015-11-17上午9:02:38
- * @copyright 2015
+ * Beetl模板绑值
  */
 public class BeetlTemplate {
 	private static GroupTemplate gt;

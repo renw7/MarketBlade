@@ -24,11 +24,7 @@ import org.beetl.sql.core.SQLManager;
 import com.smallchill.core.interfaces.IConfig;
 
 /**
- * @title blade配置
- * @author zhuangqian
- * @email smallchill@163.com
- * @date 2016-1-26上午9:40:18
- * @copyright 2016
+ * blade配置
  */
 public class BladeConfig {
 

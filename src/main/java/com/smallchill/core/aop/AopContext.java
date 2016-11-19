@@ -23,7 +23,6 @@ import com.smallchill.core.base.controller.BladeController;
 
 /**
  * 业务拦截器上下文
- * 
  */
 public class AopContext {
 

@@ -18,11 +18,7 @@ package com.smallchill.core.toolbox.grid;
 import java.util.List;
 
 /**
- * @title LigerGrid封装bean
- * @author zhuangqian
- * @email smallchill@163.com
- * @date 2016-1-18下午4:08:06
- * @copyright 2016
+ * LigerGrid封装bean
  */
 public final class LigerGrid<E> {
 	/** 当前页号   **/

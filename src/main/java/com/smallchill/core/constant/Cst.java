@@ -33,6 +33,9 @@ import com.smallchill.core.toolbox.file.IFileProxy;
 import com.smallchill.core.toolbox.grid.JqGridFactory;
 import com.smallchill.core.toolbox.log.BladeLogFactory;
 
+/**
+ * Blade系统配置类
+ */
 public class Cst {
 
 	/**

@@ -23,7 +23,6 @@ import com.smallchill.core.plugins.PluginManager;
 
 /**
  * 关闭监听器
- * 
  */
 @Component
 public class StopListener implements ApplicationListener<ContextStoppedEvent> {

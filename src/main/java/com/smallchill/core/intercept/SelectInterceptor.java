@@ -18,7 +18,6 @@ package com.smallchill.core.intercept;
 import com.smallchill.core.interfaces.IQuery;
 import com.smallchill.core.interfaces.ISelect;
 
-
 /**
  * select查询拦截器工厂类
  */

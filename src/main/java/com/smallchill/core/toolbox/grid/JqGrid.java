@@ -18,11 +18,7 @@ package com.smallchill.core.toolbox.grid;
 import java.util.List;
 
 /**
- * @title JqGrid封装bean
- * @author zhuangqian
- * @email smallchill@163.com
- * @date 2016-1-18下午4:07:57
- * @copyright 2016
+ * JqGrid封装bean
  */
 public class JqGrid<E> {
 	/** 返回结果集  **/

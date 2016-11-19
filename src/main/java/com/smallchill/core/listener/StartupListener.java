@@ -28,7 +28,6 @@ import com.smallchill.core.plugins.connection.ConnectionPlugin;
 
 /**
  * 启动监听器
- * 
  */
 @Component
 public class StartupListener implements ApplicationListener<ContextRefreshedEvent> {

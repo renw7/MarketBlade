@@ -20,11 +20,7 @@ import com.smallchill.core.interfaces.ILog;
 import com.smallchill.core.toolbox.Paras;
 
 /**
- * @title 日志工厂
- * @author zhuangqian
- * @email smallchill@163.com
- * @date 2016-1-26上午10:01:06
- * @copyright 2016
+ * 日志工厂
  */
 public class BladeLogManager {
 	private final static BladeLogManager me = new BladeLogManager();

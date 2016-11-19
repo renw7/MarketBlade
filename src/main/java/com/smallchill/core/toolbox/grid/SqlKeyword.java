@@ -9,7 +9,6 @@ import com.smallchill.core.toolbox.kit.StrKit;
 
 /**
  * 定义常用的 sql关键字
- * 
  */
 public class SqlKeyword {
 	private static final String EQUAL = "_equal";

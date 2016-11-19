@@ -9,11 +9,7 @@ import com.smallchill.core.constant.Cst;
 import com.smallchill.core.toolbox.kit.DateKit;
 
 /**
- * @title 重写beetlsql输出的sql语句格式
- * @author zhuangqian
- * @email smallchill@163.com
- * @date 2016-1-28下午5:01:02
- * @copyright 2016
+ * 重写beetlsql输出的sql语句格式
  */
 public class ReportInterceptor extends DebugInterceptor {
 	

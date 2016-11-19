@@ -34,7 +34,6 @@ import com.smallchill.system.model.OperationLog;
 
 /**
  * 系统默认日志记录
- * 
  */
 public class BladeLogFactory implements ILog {
 

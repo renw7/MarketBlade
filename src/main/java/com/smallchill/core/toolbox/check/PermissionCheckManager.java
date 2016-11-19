@@ -19,11 +19,7 @@ import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.ICheck;
 
 /**
- * @title 权限检查工厂
- * @author zhuangqian
- * @email smallchill@163.com
- * @date 2016-1-26上午8:49:06
- * @copyright 2016
+ * 权限检查工厂
  */
 public class PermissionCheckManager {
 	private final static PermissionCheckManager me = new PermissionCheckManager();

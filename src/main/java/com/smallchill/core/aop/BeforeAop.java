@@ -30,8 +30,6 @@ import com.smallchill.core.annotation.Before;
 import com.smallchill.core.interfaces.Interceptor;
 import com.smallchill.core.toolbox.kit.HttpKit;
 
-
-
 /**
  * before拦截
  */

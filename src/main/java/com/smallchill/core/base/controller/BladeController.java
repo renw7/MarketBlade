@@ -49,7 +49,7 @@ import com.smallchill.core.toolbox.support.Convert;
 import com.smallchill.core.toolbox.support.WafRequestWrapper;
 
 /**
- * @author Chill Zhuang
+ * Blade控制器封装类
  */
 public class BladeController {
 	

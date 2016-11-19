@@ -17,8 +17,6 @@ package com.smallchill.core.interfaces;
 
 import com.smallchill.core.constant.Cst;
 
-
-
 /**
  *  Blade配置型接口
  */

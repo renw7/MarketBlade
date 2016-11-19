@@ -19,11 +19,7 @@ import org.beetl.sql.core.NameConversion;
 import org.beetl.sql.core.annotatoin.Table;
 
 /**
- * @title 适用于oracle字段全部小写的NameConversion
- * @author zhuangqian
- * @email smallchill@163.com
- * @date 2015-12-25下午2:20:14
- * @copyright 2015
+ * 适用于oracle字段全部小写的NameConversion
  */
 public class LowerNameConversion extends NameConversion {
 

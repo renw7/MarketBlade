@@ -1,6 +1,5 @@
 package com.smallchill.core.interfaces;
 
-
 /**
  * select aop
  */

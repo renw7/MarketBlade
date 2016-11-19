@@ -23,15 +23,11 @@ import com.smallchill.core.interfaces.IRender;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 
 /**
- * @title 业务curd拦截器<br>
- *        可以在增删改查前后进行操作<br>
- *        (适用于后端校验、多表操作等)<br>
- *        已自带事务回滚机制,无需自行设置<br>
- *        如果出错直接抛异常即可回滚<br>
- * @author zhuangqian
- * @email smallchill@163.com
- * @date 2016-1-22下午1:54:21
- * @copyright 2016
+ * 业务curd拦截器<br>
+ * 可以在增删改查前后进行操作<br>
+ * (适用于后端校验、多表操作等)<br>
+ * 已自带事务回滚机制,无需自行设置<br>
+ * 如果出错直接抛异常即可回滚<br>
  */
 public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 
