@@ -86,7 +86,7 @@
 						}
 						else if(_model[x] != null && $x.attr("data-type") == "fileupload"){
 							var ids = _model[x];
-							initFileUpload(ids, "view");
+							eval("_" + x + "_initFileUpload('" + ids + "', 'view')"); 
 							$x.val(ids);
 						}
 						else if($x.is("span")){

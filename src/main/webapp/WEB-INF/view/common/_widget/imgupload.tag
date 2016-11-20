@@ -69,7 +69,7 @@
 			function initImgUpload(id){
 				$.post("${ctxPath}/kindeditor/initimg", {id : id}, function(data){
 					if(data.code === 0){
-						$("#_${x.index!}_IMG").attr("src", "${ctxPath}"+ data.data.URL);
+						$("#_${x.index!}_IMG").attr("src", data.data.URL);
 					}
 					else{
 						/* layer.alert("加载图片失败", {

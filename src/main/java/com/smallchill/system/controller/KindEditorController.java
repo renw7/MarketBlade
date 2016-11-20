@@ -99,18 +99,24 @@ public class KindEditorController extends BladeController {
 	public AjaxResult initimg(@RequestParam String id) { 
 		Map<String, Object> img = Db.findById("TFW_ATTACH", id);
 		if (null != img) {
+			String url = ConstConfig.DOMAIN + img.get("URL");
+			img.put("URL", url);
 			return json(img);
 		} else {
 			return fail("获取图片失败！");
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@ResponseBody
 	@RequestMapping("/initfile")
 	public AjaxResult initfile(@RequestParam String ids) {
 		List<Map> file = Db.selectList("select ID as \"id\",NAME as \"name\",URL as \"url\" from TFW_ATTACH where ID in (#{join(ids)})", Paras.create().set("ids", ids.split(",")));
 		if (null != file) {
+			for (Map<String, Object> m : file) {
+				String url = ConstConfig.DOMAIN + m.get("url");
+				m.put("url", url);
+			}
 			return json(file);
 		} else {
 			return fail("获取附件失败！");

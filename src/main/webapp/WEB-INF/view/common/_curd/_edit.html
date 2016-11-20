@@ -164,7 +164,7 @@
 					else if(_model[x] != null && $x.attr("data-type") == "fileupload"){
 						var ids = _model[x];
 						$x.val(ids);
-						initFileUpload(ids, "edit");
+						eval("_" + x + "_initFileUpload('" + ids + "', 'edit')"); 
 					}
 					else if(_model[x] != null && $x.attr("data-type") == "opentree"){
 						var ids = _model[x];

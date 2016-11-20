@@ -64,7 +64,7 @@
 							for(var x = 0; x < file.length; x++){
 								var id = file[x].id;
 								var name = file[x].name;
-								var url = "${ctxPath}/kindeditor/renderFile/" + id;
+								var url = file[x].url;
 								if(type == "edit"){
 									$("#${x.index!}_file").append(_${x.index!}_getFile(url, id, name));
 								}
