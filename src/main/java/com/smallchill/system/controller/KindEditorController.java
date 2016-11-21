@@ -113,7 +113,7 @@ public class KindEditorController extends BladeController {
 	public AjaxResult initfile(@RequestParam String ids) {
 		List<Map> file = Db.selectList("select ID as \"id\",NAME as \"name\",URL as \"url\" from TFW_ATTACH where ID in (#{join(ids)})", Paras.create().set("ids", ids.split(",")));
 		if (null != file) {
-			for (Map<String, Object> m : file) {
+			for (Map m : file) {
 				String url = ConstConfig.DOMAIN + m.get("url");
 				m.put("url", url);
 			}

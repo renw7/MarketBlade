@@ -23,6 +23,7 @@ import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.SQLReady;
 
 import com.smallchill.core.aop.AopContext;
+import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.interfaces.IQuery;
 import com.smallchill.core.plugins.connection.ConnectionPlugin;
@@ -286,6 +287,26 @@ public class DbManager {
 	 * @param sqlTemplate
 	 * @param paras
 	 * @param ac
+	 * @return
+	 */
+	public Map selectOne(String sqlTemplate, Map<String, Object> param, AopContext ac) {
+		return selectOne(sqlTemplate, param, ac, Cst.me().getDefaultQueryFactory());
+	}
+	
+	/**查询aop返回多条数据
+	 * @param sqlTemplate
+	 * @param paras
+	 * @param ac
+	 * @return
+	 */
+	public List<Map> selectList(String sqlTemplate, Map<String, Object> param, AopContext ac) {
+		return selectList(sqlTemplate, param, ac, Cst.me().getDefaultQueryFactory());
+	}
+	
+	/** 查询aop返回单条数据
+	 * @param sqlTemplate
+	 * @param paras
+	 * @param ac
 	 * @param intercept
 	 * @return
 	 */
@@ -377,7 +398,7 @@ public class DbManager {
 		if(Func.isOneEmpty(tableName, pk)){
 			throw new RuntimeException("表名或主键不能为空!");
 		}
-		String mainSql = " insert into {} ({}) values ({})";
+		String mainSql = "insert into {} ({}) values ({})";
 		pk = (String) Func.getValue(pk, "ID");
 		if(Func.isOracle()){
 			String pkValue = paras.getStr(pk);
@@ -398,7 +419,7 @@ public class DbManager {
 		if(cnt > 0 && Func.isMySql()){
 			Object pkValue = paras.get(pk);
 			if(Func.isEmpty(pkValue)){
-				Map<String, Object> map = selectOne(" select LAST_INSERT_ID() as PK ");
+				Map<String, Object> map = selectOne("select LAST_INSERT_ID() as PK");
 				Object val = map.get("PK");
 				paras.set(pk, val);
 			}
@@ -418,7 +439,7 @@ public class DbManager {
 			throw new RuntimeException("表名或主键不能为空!");
 		}
 		pk = (String) Func.getValue(pk, "ID");
-		String mainSql = " update {} set {} where {} = #{" + pk + "}";
+		String mainSql = "update {} set {} where {} = #{" + pk + "}";
 		StringBuilder fields = new StringBuilder();
 		for(String key : paras.keySet()){
 			if(!key.equals(pk)){
@@ -437,7 +458,7 @@ public class DbManager {
 	 * @return
 	 */
 	public int deleteByIds(String table, String col, String ids) {
-		String sqlTemplate = " DELETE FROM " + table + " WHERE " + col + " IN (#{join(ids)}) ";
+		String sqlTemplate = "DELETE FROM " + table + " WHERE " + col + " IN (#{join(ids)})";
 		Paras paras = Paras.create().set("ids", ids.split(","));
 		int result = getSqlManager().executeUpdate(sqlTemplate, paras);
 		return result;
@@ -494,7 +515,7 @@ public class DbManager {
 	 */
 	public <T> BladePage<T> paginate(String sqlTemplate, Class<T> clazz, Object paras, int pageNum, int pageSize){
 		List<T> rows = getList(sqlTemplate, clazz, paras, pageNum, pageSize);
-		long count = queryInt(" SELECT COUNT(*) CNT FROM (" + sqlTemplate + ") a", paras).longValue();
+		long count = queryInt("SELECT COUNT(*) CNT FROM (" + sqlTemplate + ") a", paras).longValue();
 		BladePage<T> page = new BladePage<>(rows, pageNum, pageSize, count);
 		return page;
 	}
