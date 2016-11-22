@@ -111,7 +111,7 @@ public class GenerateController extends CurdController<Generate> {
 			String packageName = gen.getPackagename();
 			String modelName = gen.getModelname();
 			String upperModelName = StrKit.upperFirst(modelName);
-			String lowerModelName = StrKit.upperFirst(modelName);
+			String lowerModelName = StrKit.lowerFirst(modelName);
 			
 			String tableName = gen.getTablename();
 			String pkName = gen.getPkname();
