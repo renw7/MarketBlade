@@ -110,8 +110,8 @@ public class GenerateController extends CurdController<Generate> {
 			String realPath = gen.getRealpath() + File.separator + "src" + File.separator + "main";
 			String packageName = gen.getPackagename();
 			String modelName = gen.getModelname();
-			String upperModelName = StrKit.firstCharToUpperCase(modelName);
-			String lowerModelName = StrKit.firstCharToLowerCase(modelName);
+			String upperModelName = StrKit.upperFirst(modelName);
+			String lowerModelName = StrKit.upperFirst(modelName);
 			
 			String tableName = gen.getTablename();
 			String pkName = gen.getPkname();

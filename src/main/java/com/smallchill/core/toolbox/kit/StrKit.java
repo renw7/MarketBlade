@@ -2,7 +2,6 @@ package com.smallchill.core.toolbox.kit;
 
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -10,6 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import com.smallchill.core.toolbox.support.StrFormatter;
+
 
 /**
  * 字符串工具类
@@ -19,13 +21,27 @@ import java.util.Map.Entry;
  */
 public class StrKit {
 
+	public static final char C_SPACE = ' ';
+	public static final char C_TAB = '	';
+	public static final char C_DOT = '.';
+	public static final char C_SLASH = '/';
+	public static final char C_BACKSLASH = '\\';
+	public static final char C_CR = '\r';
+	public static final char C_LF = '\n';
+	public static final char C_UNDERLINE = '_';
+	public static final char C_COMMA = ',';
+	public static final char C_DELIM_START = '{';
+	public static final char C_DELIM_END = '}';
+	
 	public static final String SPACE = " ";
+	public static final String TAB = "	";
 	public static final String DOT = ".";
 	public static final String SLASH = "/";
 	public static final String BACKSLASH = "\\";
 	public static final String EMPTY = "";
+	public static final String CR = "\r";
+	public static final String LF = "\n";
 	public static final String CRLF = "\r\n";
-	public static final String NEWLINE = "\n";
 	public static final String UNDERLINE = "_";
 	public static final String COMMA = ",";
 
@@ -36,33 +52,6 @@ public class StrKit {
 	public static final String HTML_GT = "&gt;";
 
 	public static final String EMPTY_JSON = "{}";
-
-
-	/**
-	 * 首字母变小写
-	 */
-	public static String firstCharToLowerCase(String str) {
-		char firstChar = str.charAt(0);
-		if (firstChar >= 'A' && firstChar <= 'Z') {
-			char[] arr = str.toCharArray();
-			arr[0] += ('a' - 'A');
-			return new String(arr);
-		}
-		return str;
-	}
-	
-	/**
-	 * 首字母变大写
-	 */
-	public static String firstCharToUpperCase(String str) {
-		char firstChar = str.charAt(0);
-		if (firstChar >= 'a' && firstChar <= 'z') {
-			char[] arr = str.toCharArray();
-			arr[0] -= ('a' - 'A');
-			return new String(arr);
-		}
-		return str;
-	}
 
 	// ------------------------------------------------------------------------ Blank
 	/**
@@ -76,15 +65,18 @@ public class StrKit {
 	 */
 	public static boolean isBlank(String str) {
 		int length;
+
 		if ((str == null) || ((length = str.length()) == 0)) {
 			return true;
 		}
+
 		for (int i = 0; i < length; i++) {
 			// 只要有一个非空字符即为非空字符串
 			if (false == Character.isWhitespace(str.charAt(i))) {
 				return false;
 			}
 		}
+
 		return true;
 	}
 
@@ -111,6 +103,7 @@ public class StrKit {
 		if (CollectionKit.isEmpty(strs)) {
 			return true;
 		}
+
 		for (String str : strs) {
 			if (isBlank(str)) {
 				return true;
@@ -129,6 +122,7 @@ public class StrKit {
 		if (CollectionKit.isEmpty(strs)) {
 			return true;
 		}
+
 		for (String str : strs) {
 			if (notBlank(str)) {
 				return false;
@@ -422,7 +416,7 @@ public class StrKit {
 	 */
 	public static String getGeneralField(String getOrSetMethodName) {
 		if (getOrSetMethodName.startsWith("get") || getOrSetMethodName.startsWith("set")) {
-			return cutPreAndLowerFirst(getOrSetMethodName, 3);
+			return removePreAndLowerFirst(getOrSetMethodName, 3);
 		}
 		return null;
 	}
@@ -456,7 +450,7 @@ public class StrKit {
 	 * @param preLength 去掉的长度
 	 * @return 处理后的字符串，不符合规范返回null
 	 */
-	public static String cutPreAndLowerFirst(String str, int preLength) {
+	public static String removePreAndLowerFirst(String str, int preLength) {
 		if (str == null) {
 			return null;
 		}
@@ -466,8 +460,21 @@ public class StrKit {
 				return first + str.substring(preLength + 1);
 			}
 			return String.valueOf(first);
+		}else{
+			return str;
 		}
-		return null;
+	}
+	
+	/**
+	 * 去掉首部指定长度的字符串并将剩余字符串首字母小写<br/>
+	 * 例如：str=setName, prefix=set -> return name
+	 * 
+	 * @param str 被处理的字符串
+	 * @param prefix 前缀
+	 * @return 处理后的字符串，不符合规范返回null
+	 */
+	public static String removePreAndLowerFirst(String str, String prefix) {
+		return lowerFirst(removePrefix(str, prefix));
 	}
 
 	/**
@@ -492,7 +499,10 @@ public class StrKit {
 	 * @return 字符串
 	 */
 	public static String upperFirst(String str) {
-		return Character.toUpperCase(str.charAt(0)) + str.substring(1);
+		if(StrKit.isBlank(str)){
+			return str;
+		}
+		return Character.toUpperCase(str.charAt(0)) + subSuf(str, 1);
 	}
 
 	/**
@@ -506,7 +516,7 @@ public class StrKit {
 		if(isBlank(str)){
 			return str;
 		}
-		return Character.toLowerCase(str.charAt(0)) + str.substring(1);
+		return Character.toLowerCase(str.charAt(0)) + subSuf(str, 1);
 	}
 
 	/**
@@ -522,7 +532,7 @@ public class StrKit {
 		}
 		
 		if (str.startsWith(prefix)) {
-			return str.substring(prefix.length());
+			return subSuf(str, prefix.length());//截取后半段
 		}
 		return str;
 	}
@@ -540,7 +550,7 @@ public class StrKit {
 		}
 		
 		if (str.toLowerCase().startsWith(prefix.toLowerCase())) {
-			return str.substring(prefix.length());
+			return subSuf(str, prefix.length());//截取后半段
 		}
 		return str;
 	}
@@ -558,9 +568,20 @@ public class StrKit {
 		}
 		
 		if (str.endsWith(suffix)) {
-			return str.substring(0, str.length() - suffix.length());
+			return subPre(str, str.length() - suffix.length());//截取前半段
 		}
 		return str;
+	}
+	
+	/**
+	 * 去掉指定后缀，并小写首字母
+	 * 
+	 * @param str 字符串
+	 * @param suffix 后缀
+	 * @return 切掉后的字符串，若后缀不是 suffix， 返回原字符串
+	 */
+	public static String removeSufAndLowerFirst(String str, String suffix) {
+		return lowerFirst(removeSuffix(str, suffix));
 	}
 
 	/**
@@ -576,7 +597,7 @@ public class StrKit {
 		}
 		
 		if (str.toLowerCase().endsWith(suffix.toLowerCase())) {
-			return str.substring(0, str.length() - suffix.length());
+			return subPre(str, str.length() - suffix.length());
 		}
 		return str;
 	}
@@ -736,30 +757,35 @@ public class StrKit {
 	 */
 	public static String sub(String string, int fromIndex, int toIndex) {
 		int len = string.length();
+
 		if (fromIndex < 0) {
 			fromIndex = len + fromIndex;
-			if(fromIndex < 0 ) { 
+			if(fromIndex < 0 ){
 				fromIndex = 0;
 			}
-		} else if(fromIndex >= len) {
-			fromIndex = len -1;
+		}else if(fromIndex > len){
+			fromIndex = len;
 		}
+
 		if (toIndex < 0) {
 			toIndex = len + toIndex;
-			if(toIndex < 0) {
+			if(toIndex < 0){
 				toIndex = len;
 			}
-		} else if(toIndex > len) {
+		}else if(toIndex > len){
 			toIndex = len;
 		}
+
 		if (toIndex < fromIndex) {
 			int tmp = fromIndex;
 			fromIndex = toIndex;
 			toIndex = tmp;
 		}
+
 		if (fromIndex == toIndex) {
 			return EMPTY;
 		}
+
 		char[] strArray = string.toCharArray();
 		char[] newStrArray = Arrays.copyOfRange(strArray, fromIndex, toIndex);
 		return new String(newStrArray);
@@ -920,43 +946,22 @@ public class StrKit {
 
 	/**
 	 * 格式化文本, {} 表示占位符<br>
-	 * 例如：format("aaa {} ccc", "bbb")   ---->    aaa bbb ccc
+	 * 此方法只是简单将占位符 {} 按照顺序替换为参数<br>
+	 * 如果想输出 {} 使用 \\转义 { 即可，如果想输出 {} 之前的 \ 使用双转义符 \\\\ 即可<br>
+	 * 例：<br>
+	 * 		通常使用：format("this is {} for {}", "a", "b") -> this is a for b<br>
+	 * 		转义{}： 	format("this is \\{} for {}", "a", "b") -> this is \{} for a<br>
+	 * 		转义\：		format("this is \\\\{} for {}", "a", "b") -> this is \a for b<br>
 	 * 
 	 * @param template 文本模板，被替换的部分用 {} 表示
-	 * @param values 参数值
+	 * @param params 参数值
 	 * @return 格式化后的文本
 	 */
-	public static String format(String template, Object... values) {
-		if (CollectionKit.isEmpty(values) || isBlank(template)) {
+	public static String format(String template, Object... params) {
+		if (CollectionKit.isEmpty(params) || isBlank(template)) {
 			return template;
 		}
-
-		final StringBuilder sb = new StringBuilder();
-		final int length = template.length();
-
-		int valueIndex = 0;
-		char currentChar;
-		for (int i = 0; i < length; i++) {
-			if (valueIndex >= values.length) {
-				sb.append(sub(template, i, length));
-				break;
-			}
-
-			currentChar = template.charAt(i);
-			if (currentChar == '{') {
-				final char nextChar = template.charAt(++i);
-				if (nextChar == '}') {
-					sb.append(values[valueIndex++]);
-				} else {
-					sb.append('{').append(nextChar);
-				}
-			} else {
-				sb.append(currentChar);
-			}
-
-		}
-
-		return sb.toString();
+		return StrFormatter.format(template, params);
 	}
 
 	/**
@@ -974,7 +979,7 @@ public class StrKit {
 		}
 
 		for (Entry<?, ?> entry : map.entrySet()) {
-			template = template.replace("{" + entry.getKey() + "}", entry.getValue().toString());
+			template = template.replace("{" + entry.getKey() + "}", utf8Str(entry.getValue()));
 		}
 		return template;
 	}
@@ -1006,6 +1011,58 @@ public class StrKit {
 			return str.getBytes();
 		}
 		return str.getBytes(charset);
+	}
+	
+	/**
+	 * 将对象转为字符串<br>
+	 * 1、Byte数组和ByteBuffer会被转换为对应字符串的数组
+	 * 2、对象数组会调用Arrays.toString方法
+	 * 
+	 * @param obj 对象
+	 * @return 字符串
+	 */
+	public static String utf8Str(Object obj){
+		return str(obj, CharsetKit.CHARSET_UTF_8);
+	}
+	
+	/**
+	 * 将对象转为字符串<br>
+	 * 1、Byte数组和ByteBuffer会被转换为对应字符串的数组
+	 * 2、对象数组会调用Arrays.toString方法
+	 * 
+	 * @param obj 对象
+	 * @param charsetName 字符集
+	 * @return 字符串
+	 */
+	public static String str(Object obj, String charsetName){
+		return str(obj, Charset.forName(charsetName));
+	}
+	
+	/**
+	 * 将对象转为字符串<br>
+	 * 1、Byte数组和ByteBuffer会被转换为对应字符串的数组
+	 * 2、对象数组会调用Arrays.toString方法
+	 * 
+	 * @param obj 对象
+	 * @param charset 字符集
+	 * @return 字符串
+	 */
+	public static String str(Object obj, Charset charset){
+		if(null == obj){
+			return null;
+		}
+		
+		if(obj instanceof String) {
+			return (String)obj;
+		}else if(obj instanceof byte[] || obj instanceof Byte[]){
+			return str((Byte[])obj, charset);
+		}else if(obj instanceof ByteBuffer){
+			return str((ByteBuffer)obj, charset);
+		}else if(CollectionKit.isArray(obj)){
+			return CollectionKit.toString(obj);
+		}
+		
+		return obj.toString();
 	}
 	
 	/**
@@ -1222,7 +1279,7 @@ public class StrKit {
 	}
 
 	/**
-	 * 补充字符串以满足最小长度 StrUtil.padPre("1", 3, '0');//"001"
+	 * 补充字符串以满足最小长度 StrKit.padPre("1", 3, '0');//"001"
 	 * 
 	 * @param str 字符串
 	 * @param minLength 最小长度
@@ -1242,7 +1299,7 @@ public class StrKit {
 	}
 
 	/**
-	 * 补充字符串以满足最小长度 StrUtil.padEnd("1", 3, '0');//"100"
+	 * 补充字符串以满足最小长度 StrKit.padEnd("1", 3, '0');//"100"
 	 * 
 	 * @param str 字符串
 	 * @param minLength 最小长度
@@ -1311,47 +1368,48 @@ public class StrKit {
 		return new StringWriter();
 	}
 
-		/**
-	 * 编码字符串
-	 * 
-	 * @param str 字符串
-	 * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
-	 * @return 编码后的字节码
-	 */
-	public static byte[] encode(String str, String charset) {
-		if (str == null) {
-			return null;
-		}
-
-		if(isBlank(charset)) {
-			return str.getBytes();
-		}
-		try {
-			return str.getBytes(charset);
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(format("Charset [{}] unsupported!", charset));
-		}
-	}
-
 	/**
-	 * 解码字节码
-	 * 
-	 * @param data 字符串
-	 * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
-	 * @return 解码后的字符串
+	 * 统计指定内容中包含指定字符串的数量
+	 * @param content 内容
+	 * @param strForSearch 被统计的字符串
+	 * @return 包含数量
 	 */
-	public static String decode(byte[] data, String charset) {
-		if (data == null) {
+	public static int count(String content, String strForSearch){
+		int contentLength = content.length();
+		if(null == content || null == strForSearch || strForSearch.length() > contentLength){
+			return 0;
+		}
+		
+		return contentLength - content.replace(strForSearch, EMPTY).length();
+	}
+	
+	/**
+	 * 统计指定内容中包含指定字符的数量
+	 * @param content 内容
+	 * @param charForSearch 被统计的字符
+	 * @return 包含数量
+	 */
+	public static int count(String content, char charForSearch){
+		int count = 0;
+		int contentLength = content.length();
+		for (int i = 0; i < contentLength; i++) {
+			if(charForSearch == content.charAt(i)){
+				count ++;
+			}
+		}
+		return count;
+	}
+	
+	/**
+	 * 获得字符串对应byte数组
+	 * @param str 字符串
+	 * @param charset 编码，如果为<code>null</code>使用系统默认编码
+	 * @return bytes
+	 */
+	public static byte[] getBytes(String str, Charset charset){
+		if(null == str){
 			return null;
 		}
-
-		if(isBlank(charset)) {
-			return new String(data);
-		}
-		try {
-			return new String(data, charset);
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(format("Charset [{}] unsupported!", charset));
-		}
+		return null == charset ? str.getBytes() : str.getBytes(charset);
 	}
 }

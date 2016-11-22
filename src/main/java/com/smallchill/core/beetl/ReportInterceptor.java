@@ -22,13 +22,11 @@ public class ReportInterceptor extends DebugInterceptor {
 		}
 
 		StringBuilder sb = new StringBuilder();
-		String lineSeparator = System.getProperty("line.separator", "\n");
-		sb.append(
-				"\nBlade beetlsql --------------------- " + DateKit.getTime() + " --------------------------------\n")
-				.append("SQLID	: " + ctx.getSqlId().replaceAll("\\s+", " ")).append(lineSeparator)
-				.append("SQL	: " + ctx.getSql().replaceAll("\\s+", " ")).append(lineSeparator)
+		sb.append("\nBlade beetlsql --------------------- " + DateKit.getTime() + " --------------------------------\n")
+				.append("SQLID	: " + ctx.getSqlId().replaceAll("\\s+", " ")).append("\n")
+				.append("SQL	: " + ctx.getSql().replaceAll("\\s+", " ")).append("\n")
 				.append("参数	: " + formatParas(ctx.getParas()))
-				.append(lineSeparator);
+				.append("\n");
 
 		RuntimeException ex = new RuntimeException();
 		StackTraceElement[] traces = ex.getStackTrace();
@@ -41,7 +39,7 @@ public class ReportInterceptor extends DebugInterceptor {
 				String className = tr.getClassName();
 				String mehodName = tr.getMethodName();
 				int line = tr.getLineNumber();
-				sb.append("位置	: " + className + "." + mehodName + "(" + tr.getFileName() + ":" + line + ")").append(lineSeparator);
+				sb.append("位置	: " + className + "." + mehodName + "(" + tr.getFileName() + ":" + line + ")").append("\n");
 				break;
 			}
 		}
@@ -56,10 +54,8 @@ public class ReportInterceptor extends DebugInterceptor {
 		long time = System.currentTimeMillis();
 		long start = (Long) ctx.get("debug.time");
 		
-		String lineSeparator = System.getProperty("line.separator", "\n");
-		
 		StringBuilder sb = (StringBuilder) ctx.get("debug.sb");
-		sb.append("时间	: " + (time - start) + "ms").append(lineSeparator);
+		sb.append("时间	: " + (time - start) + "ms").append("\n");
 
 		if (ctx.isUpdate()) {
 			sb.append("更新	: [");

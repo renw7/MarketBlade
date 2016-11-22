@@ -49,13 +49,16 @@ public class DateTime extends Date{
 		return DateTimeKit.formatDateTime(this);
 	}
 	
+	public String toString(String format) {
+		return DateTimeKit.format(this, format);
+	}
+	
 	/**
 	 * @return 输出精确到毫秒的标准日期形式
 	 */
 	public String toMsStr() {
 		return DateTimeKit.format(this, DateTimeKit.NORM_DATETIME_MS_PATTERN);
 	}
-	
 	
 	/**   
 	 * @return java.util.Date

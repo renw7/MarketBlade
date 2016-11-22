@@ -6,40 +6,26 @@ import java.util.Arrays;
 /**
  * 类似于swift的元组，用于多值返回
  * 
- * @author Looly, chill
+ * @author Looly
  * 
  */
 @SuppressWarnings("serial")
 public class Tuple implements Cloneable, Serializable {
 
-	private Object[] values;
-	private int length;
-
-	public Tuple(Object... values) {
-		this.values = values;
-		this.length = values.length;
+	private Object[] members;
+	
+	public Tuple(Object... members) {
+		this.members = members;
 	}
-
-	public int length() {
-		return length;
-	}
-
+	
 	@SuppressWarnings("unchecked")
-	public <T> T get(int index) {
-		return (T) values[index];
+	public <T> T get(int index){
+		return (T) members[index];
 	}
-
+	
 	@Override
 	public String toString() {
-		return Arrays.toString(values);
+		return Arrays.toString(members);
 	}
-
-	@Override
-	public Tuple clone() {
-		try {
-			return (Tuple) super.clone();
-		} catch (CloneNotSupportedException e) {
-			throw new RuntimeException(e);
-		}
-	}
+	
 }

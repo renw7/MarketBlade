@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.smallchill.core.toolbox.kit.BeanKit;
+import com.smallchill.core.toolbox.kit.CollectionKit;
+import com.smallchill.core.toolbox.support.BasicTypeGetter;
 import com.smallchill.core.toolbox.support.Convert;
 
 /**
@@ -20,7 +22,7 @@ import com.smallchill.core.toolbox.support.Convert;
  * 
  */
 @SuppressWarnings("serial")
-public class Paras extends HashMap<String, Object> {
+public class Paras extends HashMap<String, Object>  implements BasicTypeGetter<String>{
 
 	/**
 	 * 创建Paras
@@ -73,7 +75,18 @@ public class Paras extends HashMap<String, Object> {
 	 * @return Bean
 	 */
 	public <T> T toBean(T bean) {
-		BeanKit.fillBeanWithMap(this, bean);
+		return toBean(bean, false);
+	}
+	
+	/**
+	 * 转换为Bean对象
+	 * @param <T>
+	 * @param bean Bean
+	 * @param isToCamelCase 是否转换为驼峰模式
+	 * @return Bean
+	 */
+	public <T> T toBean(T bean, boolean isToCamelCase) {
+		BeanKit.fillBeanWithMap(this, bean, isToCamelCase);
 		return bean;
 	}
 	
@@ -125,16 +138,12 @@ public class Paras extends HashMap<String, Object> {
 	 * 与给定实体对比并去除相同的部分<br>
 	 * 此方法用于在更新操作时避免所有字段被更新，跳过不需要更新的字段
 	 * version from 2.0.0
-	 * @param Paras
+	 * @param dict
 	 * @param withoutNames 不需要去除的字段名
 	 */
-	public <T extends Paras> void removeEqual(T map, String... withoutNames) {
-		HashSet<String> withoutSet = new HashSet<String>();
-		for (String name : withoutNames) {
-			withoutSet.add(name);
-		}
-		
-		for(Entry<String, Object> entry : map.entrySet()) {
+	public <T extends Paras> void removeEqual(T paras, String... withoutNames) {
+		HashSet<String> withoutSet = CollectionKit.newHashSet(withoutNames);
+		for(Entry<String, Object> entry : paras.entrySet()) {
 			if(withoutSet.contains(entry.getKey())) {
 				continue;
 			}
@@ -157,18 +166,6 @@ public class Paras extends HashMap<String, Object> {
 		return this.put(attr, value);
 	}
 	
-	/**
-	 * 设置列
-	 * @param attr 属性
-	 * @param value 值
-	 * @return 本身
-	 */
-	@Override
-	public Paras put(String attr, Object value) {
-		super.put(attr, value);
-		return this;
-	}
-	
 	
 	/**
 	 * 设置列，当键或值为null时忽略
@@ -184,6 +181,18 @@ public class Paras extends HashMap<String, Object> {
 	}
 	
 	/**
+	 * 设置列
+	 * @param attr 属性
+	 * @param value 值
+	 * @return 本身
+	 */
+	@Override
+	public Paras put(String attr, Object value) {
+		super.put(attr, value);
+		return this;
+	}
+	
+	/**
 	 * 获得特定类型值
 	 * @param attr 字段名
 	 * @param defaultValue 默认值
@@ -195,101 +204,91 @@ public class Paras extends HashMap<String, Object> {
 		return (T)(result != null ? result : defaultValue);
 	}
 	
-	/**
-	 * @param attr 字段名
-	 * @return 字段值
-	 */
+	@Override
+	public Object getObj(String key) {
+		return super.get(key);
+	}
+	
+	@Override
 	public String getStr(String attr) {
 		return Convert.toStr(get(attr), "");
 	}
-	
-	/**
-	 * @param attr 字段名
-	 * @return 字段值
-	 */
+
+	@Override
 	public Integer getInt(String attr) {
-		return Convert.toInt(get(attr), 0);
+		return Convert.toInt(get(attr), null);
 	}
 	
-	/**
-	 * @param attr 字段名
-	 * @return 字段值
-	 */
+	@Override
 	public Long getLong(String attr) {
 		return Convert.toLong(get(attr), null);
 	}
 	
-	/**
-	 * @param attr 字段名
-	 * @return 字段值
-	 */
+	@Override
 	public Float getFloat(String attr) {
 		return Convert.toFloat(get(attr), null);
 	}
 	
-	/**
-	 * @param attr 字段名
-	 * @return 字段值
-	 */
+	@Override
+	public Short getShort(String attr) {
+		return Convert.toShort(get(attr), null);
+	}
+
+	@Override
+	public Character getChar(String attr) {
+		return Convert.toChar(get(attr), null);
+	}
+
+	@Override
+	public Double getDouble(String attr) {
+		return Convert.toDouble(get(attr), null);
+	}
+
+	@Override
+	public Byte getByte(String attr) {
+		return Convert.toByte(get(attr), null);
+	}
+	
+	@Override
 	public Boolean getBool(String attr) {
 		return Convert.toBool(get(attr), null);
 	}
 	
-	/**
-	 * @param attr 字段名
-	 * @return 字段值
-	 */
+	@Override
+	public BigDecimal getBigDecimal(String attr) {
+		return Convert.toBigDecimal(get(attr));
+	}
+	
+	@Override
+	public BigInteger getBigInteger(String attr) {
+		return Convert.toBigInteger(get(attr));
+	}
+	
+	@Override
+	public <E extends Enum<E>> E getEnum(Class<E> clazz, String key) {
+		return Convert.toEnum(clazz, get(key));
+	}
+	
 	public byte[] getBytes(String attr) {
 		return get(attr, null);
 	}
 	
-	/**
-	 * @param attr 字段名
-	 * @return 字段值
-	 */
 	public Date getDate(String attr) {
 		return get(attr, null);
 	}
 	
-	/**
-	 * @param attr 字段名
-	 * @return 字段值
-	 */
 	public Time getTime(String attr) {
 		return get(attr, null);
 	}
 	
-	/**
-	 * @param attr 字段名
-	 * @return 字段值
-	 */
 	public Timestamp getTimestamp(String attr) {
 		return get(attr, null);
 	}
 	
-	/**
-	 * @param attr 字段名
-	 * @return 字段值
-	 */
 	public Number getNumber(String attr) {
 		return get(attr, null);
 	}
 	
-	/**
-	 * @param attr 字段名
-	 * @return 字段值
-	 */
-	public BigDecimal getBigDecimal(String attr) {
-		return get(attr, null);
-	}
-	
-	/**
-	 * @param attr 字段名
-	 * @return 字段值
-	 */
-	public BigInteger getBigInteger(String attr) {
-		return get(attr, null);
-	}
 	
 	//-------------------------------------------------------------------- 特定类型值
 	
