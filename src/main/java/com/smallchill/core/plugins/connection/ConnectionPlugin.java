@@ -16,8 +16,10 @@
 package com.smallchill.core.plugins.connection;
 
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.beetl.sql.core.IDAutoGen;
 import org.beetl.sql.core.SQLManager;
 
 import com.smallchill.core.config.BladeConfig;
@@ -45,7 +47,14 @@ public class ConnectionPlugin implements IPlugin{
 		try {
 			for(String key : BladeConfig.getPool().keySet()){
 				SQLManager sm = BladeConfig.getPool().get(key);
+				//配置文件读取字符
 				sm.getSqlLoader().setCharset("UTF-8");
+				//增加自定义@AssignID注解的值, 使用方式: @Assign("uuid")
+				sm.addIdAutonGen("uuid", new IDAutoGen<String>() {
+					public String nextID(String arg0) {
+						return UUID.randomUUID().toString();
+					}
+				});
 				pool.put(key, sm);
 			}
 			if(!pool.containsKey(MASTER)){
