@@ -60,6 +60,12 @@
 		                <value>DisableCircularReferenceDetect</value>
 		            </list>
         		</property>
+        		<property name="serializerFeatures">
+	        		<list>
+	        			<!-- 空字段也返回, 不需要的可以注释掉 -->
+		                <value>WriteMapNullValue</value>
+		            </list>
+        		</property>
         		<property name="dateFormat" value="yyyy-MM-dd HH:mm:ss"></property>
         	</bean>
         </property>

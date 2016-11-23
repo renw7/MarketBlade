@@ -9,30 +9,20 @@ var addTabs = function(obj) {
 		// mainHeight = $(document.body).height();
 		mainHeight = $(window).height() - 110;
 		// 创建新TAB的title
-		title = '<li id="tab_' + id + '" class="li-tab"><a href="#' + id
-				+ '" data-toggle="tab"><i class="' + obj.icon + '"></i>&nbsp;'
-				+ obj.title + '';
+		title = '<li id="tab_' + id + '" class="li-tab"><a href="#' + id + '" data-toggle="tab"><i class="' + obj.icon + '"></i>&nbsp;' + obj.title + '';
 
 		// 是否允许关闭
 		if (obj.close) {
-			title += '&nbsp;&nbsp; <i aria-controls="' + id
-					+ '" class="close-tab fa fa-times-circle"></i>';
+			title += '&nbsp;&nbsp; <i aria-controls="' + id + '" class="close-tab fa fa-times-circle"></i>';
 		}
 		title += '</a></li>';
 		// 是否指定TAB内容
 		if (obj.content) {
-			content = '<div role="tabpanel" class="tab-pane iframe-tab" id="'
-					+ id + '">' + obj.content + '</div>';
+			content = '<div role="tabpanel" class="tab-pane iframe-tab" id="' + id + '">' + obj.content + '</div>';
 		} else { // 没有内容，使用IFRAME打开链接
-			content = '<div role="tabpanel" class="tab-pane iframe-tab" id="'
-					+ id
-					+ '"><iframe onload="onIframeLoad(this)" class="layui-layer-load" data-type="tab_iframe" id="iframe_'
-					+ id
-					+ '" src="'
-					+ obj.url
-					+ '" width="100%" height="'
-					+ mainHeight
-					+ '" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="yes" allowtransparency="yes"></iframe></div>';
+			content = '<div role="tabpanel" class="tab-pane iframe-tab" id="' + id + '">' +
+							'<iframe onload="onIframeLoad(this)" class="layui-layer-load" data-type="tab_iframe" id="iframe_' + id + '" src="' + obj.url + '" width="100%" height="' + mainHeight + '" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="yes" allowtransparency="yes"></iframe>' +
+					  '</div>';
 		}
 
 		var left = parseInt($("#blade_tab").css("left")) - tabWidth() - 1;
@@ -246,13 +236,10 @@ var middleWidth = function() {
 
 var initMain = function(id, url) {
 	var mainHeight = $(window).height() - 110;
-	var content = '<div role="tabpanel" class="tab-pane iframe-tab home-tab" id="'
-		+ id
-		+ '"><iframe  class="layui-layer-load" data-type="tab_iframe" id="iframe_'
-		+ id
-		+ '" src="' + url + '" width="100%" height="'
-		+ mainHeight
-		+ '" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="yes" allowtransparency="yes"></iframe></div>';
+	var content = '<div role="tabpanel" class="tab-pane iframe-tab home-tab" id="' + id + '">' +
+						'<iframe  class="layui-layer-load" data-type="tab_iframe" id="iframe_' + id + '" src="' + url + '" width="100%" height="' + mainHeight + '" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="yes" allowtransparency="yes"></iframe>' +
+				  '</div>';
+	
 	$(".tab-content").append(content);
 	$("#tab_" + id).addClass('active');
 	$("#" + id).addClass("active");
