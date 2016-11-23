@@ -39,6 +39,11 @@ public interface Const {
 	String INDEX_REALPATH = "/index.html";
 	
 	/**
+	 * 主页面地址(路径)
+	 */
+	String INDEX_MAIN_REALPATH = "/main.html";
+	
+	/**
 	 * 400页面地址
 	 */
 	String ERROR_400 = "/error/400.html";

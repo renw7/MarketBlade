@@ -35,12 +35,12 @@ var addTabs = function(obj) {
 					+ '" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="yes" allowtransparency="yes"></iframe></div>';
 		}
 
-		var left = parseInt($("#tmsp_tab").css("left")) - tabWidth() - 1;
+		var left = parseInt($("#blade_tab").css("left")) - tabWidth() - 1;
 		// 加入TABS
 		$(".nav-tabs").append(title);
 		$(".tab-content").append(content);
 		if (tabWidth() > middleWidth()) {
-			$("#tmsp_tab").animate({
+			$("#blade_tab").animate({
 				left : left
 			});
 		}
@@ -50,7 +50,7 @@ var addTabs = function(obj) {
 		var prevLeft = parseInt($("#sidebar_container").css("width"));
 		var prevRight = $("#btn_backward").offset().left;
 		var prevTab = $("#tab_" + id).offset().left;
-		var tabItems = $("#tmsp_tab li");
+		var tabItems = $("#blade_tab li");
 		var _width = 0;
 		if (prevTab < prevLeft || prevTab > prevRight) {
 			for (var i = 0, l = tabItems.length; i < l; i++) {
@@ -59,7 +59,7 @@ var addTabs = function(obj) {
 				}
 				_width += tabItems[i].offsetWidth;
 			}
-			$("#tmsp_tab").animate({
+			$("#blade_tab").animate({
 				left : -_width - 1
 			});
 		}
@@ -68,7 +68,7 @@ var addTabs = function(obj) {
 	// 激活TAB
 	$("#tab_" + id).addClass('active');
 	$("#" + id).addClass("active");
-	$("a[data-addtabs=" + obj.id + "]").closest("li").addClass("active");
+	$("a[data-addtabs=" + id + "]").closest("li").addClass("active");
 };
 
 var onIframeLoad = function(obj) {
@@ -77,7 +77,7 @@ var onIframeLoad = function(obj) {
 
 var closeTab = function(id) {
 	// 如果关闭的是当前激活的TAB，激活他的前一个TAB
-	if ($("#tmsp_tab li.active").attr("id") == "tab_" + id) {
+	if ($("#blade_tab li.active").attr("id") == "tab_" + id) {
 		$(".active").removeClass("active");
 		$("#tab_" + id).prev().addClass('active');
 		$("#" + id).prev().addClass('active');
@@ -103,29 +103,29 @@ var autoClose = function(id, pid) {
 
 var closeAll = function() {
 	$(".li-tab").remove();
-	$(".iframe-tab").remove();
+	$(".iframe-tab").not(".home-tab").remove();
 	$(".active").removeClass("active");
 	$("#home").addClass("active");
 	$("#welcome_tab").addClass("active");
 	$("#sidebar_home").addClass("active");
-	$("#tmsp_tab").animate({
+	$("#blade_tab").animate({
 		left : -1
 	});
 };
 
 var closeOther = function() {
 	$(".li-tab").not('.active').remove();
-	$(".iframe-tab").not('.active').remove();
-	$("#tmsp_tab").animate({
+	$(".iframe-tab").not(".home-tab").not('.active').remove();
+	$("#blade_tab").animate({
 		left : -1
 	});
 };
 
 var closeThis = function() {
-	var $tab = $("#tmsp_tab .active").prev();
-	var $content = $("#tmsp_tab_content .active").prev();
-	$("#tmsp_tab .active").not("#welcome_tab").remove();
-	$("#tmsp_tab_content .active").not("#home").remove();
+	var $tab = $("#blade_tab .active").prev();
+	var $content = $("#blade_tab_content .active").prev();
+	$("#blade_tab .active").not("#welcome_tab").remove();
+	$("#blade_tab_content .active").not("#home").remove();
 	$(".active").not("#home").not("#welcome_tab").not("#sidebar_home").removeClass("active");
 	$tab.addClass('active');
 	$content.addClass('active');
@@ -136,37 +136,37 @@ var closeThis = function() {
 
 var tab_backward = function() {
 	var middle = middleWidth();
-	var left = parseInt($("#tmsp_tab").css("left"));
+	var left = parseInt($("#blade_tab").css("left"));
 	var len = (tabWidth() - left);
 	var _left = (middle + left);
 	if (len < middle) {
-		$("#tmsp_tab").animate({
+		$("#blade_tab").animate({
 			left : -1
 		});
 	} else {
 		_left = (_left > 0) ? -1 : _left;
-		$("#tmsp_tab").animate({
+		$("#blade_tab").animate({
 			left : _left
 		});
 	}
 };
 
 var tab_forward = function() {
-	var left = parseInt($("#tmsp_tab").css("left"));
+	var left = parseInt($("#blade_tab").css("left"));
 	var middle = middleWidth();
 	var _width = 0;
 	if ((tabAllWidth() + left) > middle) {
-		var tabItems = $("#tmsp_tab li");
+		var tabItems = $("#blade_tab li");
 		for (var i = 0, l = tabItems.length; i < l; i++) {
 			if ((_width + tabItems[i].offsetWidth) < middle) {
 				_width += tabItems[i].offsetWidth;
 			}
 		}
-		$("#tmsp_tab").animate({
+		$("#blade_tab").animate({
 			left : -_width + left
 		});
 	} else {
-		$("#tmsp_tab").animate({
+		$("#blade_tab").animate({
 			left : -1
 		});
 	}
@@ -175,8 +175,8 @@ var tab_forward = function() {
 var showTab = function() {
 	var prevLeft = parseInt($("#sidebar_container").css("width"));
 	var prevRight = $("#btn_backward").offset().left;
-	var prevTab = $("#tmsp_tab .active").offset().left;
-	var tabItems = $("#tmsp_tab li");
+	var prevTab = $("#blade_tab .active").offset().left;
+	var tabItems = $("#blade_tab li");
 	var _width = 0;
 	if (prevTab < prevLeft || prevTab > prevRight) {
 		for (var i = 0, l = tabItems.length; i < l; i++) {
@@ -185,14 +185,14 @@ var showTab = function() {
 			}
 			_width += tabItems[i].offsetWidth;
 		}
-		$("#tmsp_tab").animate({
+		$("#blade_tab").animate({
 			left : -_width - 1
 		});
 	}
 };
 
 var reloadTab = function() {
-	var id = $("#tmsp_tab_content .active iframe").attr("id");
+	var id = $("#blade_tab_content .active iframe").attr("id");
 	if (id == undefined) {
 		window.top.location.reload(true);
 		return;
@@ -208,8 +208,8 @@ var reloadTabById = function(id) {
 
 var tabWidth = function() {
 	var tabWidth = 0;
-	var left = parseInt($("#tmsp_tab").css("left"));
-	var tabItems = $("#tmsp_tab li");
+	var left = parseInt($("#blade_tab").css("left"));
+	var tabItems = $("#blade_tab li");
 	for (var i = 0; i < tabItems.length; i++) {
 		tabWidth += tabItems[i].offsetWidth;
 	}
@@ -217,9 +217,9 @@ var tabWidth = function() {
 };
 
 var tabMiddleWidth = function() {
-	var tabItems = $("#tmsp_tab li");
+	var tabItems = $("#blade_tab li");
 	var tabWidth = 0;
-	var left = parseInt($("#tmsp_tab").css("left"));
+	var left = parseInt($("#blade_tab").css("left"));
 	for (var i = 0, l = tabItems.length; i < l; i++) {
 		if ((tabWidth + tabItems[i].offsetWidth) < middle) {
 			tabWidth += tabItems[i].offsetWidth;
@@ -230,7 +230,7 @@ var tabMiddleWidth = function() {
 
 var tabAllWidth = function() {
 	var tabWidth = 0;
-	var tabItems = $("#tmsp_tab li");
+	var tabItems = $("#blade_tab li");
 	for (var i = 0; i < tabItems.length; i++) {
 		tabWidth += tabItems[i].offsetWidth;
 	}
@@ -244,7 +244,23 @@ var middleWidth = function() {
 	return middleWidth;
 };
 
+var initMain = function(id, url) {
+	var mainHeight = $(window).height() - 110;
+	var content = '<div role="tabpanel" class="tab-pane iframe-tab home-tab" id="'
+		+ id
+		+ '"><iframe  class="layui-layer-load" data-type="tab_iframe" id="iframe_'
+		+ id
+		+ '" src="' + url + '" width="100%" height="'
+		+ mainHeight
+		+ '" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="yes" allowtransparency="yes"></iframe></div>';
+	$(".tab-content").append(content);
+	$("#tab_" + id).addClass('active');
+	$("#" + id).addClass("active");
+	$("a[data-addtabs=" + id + "]").closest("li").addClass("active");
+}
+
 $(function() {
+	
 	$("[data-addtabs]").on("click", function() {
 		addTabs({
 			id : $(this).attr("data-addtabs"),

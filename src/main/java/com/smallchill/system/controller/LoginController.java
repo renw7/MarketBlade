@@ -57,6 +57,11 @@ public class LoginController extends BaseController implements Const{
 		return INDEX_REALPATH;
 	}
 	
+	@RequestMapping("/main")
+	public String main() {
+		return INDEX_MAIN_REALPATH;
+	}
+	
 	/**
 	 * 登陆地址
 	 */
