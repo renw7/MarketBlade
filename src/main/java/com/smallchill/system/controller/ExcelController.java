@@ -34,10 +34,10 @@ import com.smallchill.core.toolbox.kit.StrKit;
 
 @Controller
 @RequestMapping("/excel")
-public class ExcelController extends BaseController{
+public class ExcelController extends BaseController {
 
 	private static String cacheName = ConstCache.FILE_CACHE;
-	
+
 	@ResponseBody
 	@RequestMapping("/preExport")
 	@SuppressWarnings("unchecked")
@@ -45,17 +45,17 @@ public class ExcelController extends BaseController{
 		Map<String, Object> _postdata = JsonKit.parse(postdata, HashMap.class);
 		String[] _colname = colnames.replace("[", "").replace("]", "").split(",");
 		List<Map<String, String>> _colmodel = JsonKit.parse(colmodel, ArrayList.class);
-	
-		String xml_source = Md.getSql(source);
+
+		String md_source = Md.getSql(source);
 		String menu_source = getInfoByCode(code, "SOURCE");
 
-		String _source = (StrKit.notBlank(menu_source)) ? menu_source : xml_source;
+		String _source = (StrKit.notBlank(menu_source)) ? menu_source : md_source;
 
 		if (StrKit.isBlank(_source)) {
 			return error("未找到与该模块匹配的数据源！");
 		}
-		
-		Object where = _postdata.get("where");
+
+		String where = Func.toStr(_postdata.get("where"));
 		Object sidx = _postdata.get("sidx");
 		Object sord = _postdata.get("sord");
 		Object sort = _postdata.get("sort");
@@ -64,11 +64,11 @@ public class ExcelController extends BaseController{
 			sort = sidx + " " + sord + (Func.isEmpty(sort) ? ("," + sort) : "");
 		}
 		String orderby = (Func.isOneEmpty(sort, order)) ? (" order by " + sort + " " + order) : "";
-		Map<String, Object> para = JsonKit.parse(Func.isEmpty(Func.decodeUrl((String)where)) ? null : Func.decodeUrl((String)where), HashMap.class);
+		Map<String, Object> para = JsonKit.parse(Func.isEmpty(Func.decodeUrl(where)) ? null : Func.decodeUrl(where), HashMap.class);
 		if (Func.isEmpty(para)) {
 			para = new HashMap<>();
 		}
-		String sql = "select {} from (" + _source + ") a " + SqlKeyword.getWhere((String) where) + orderby;
+		String sql = "select {} from (" + _source + ") a " + SqlKeyword.getWhere(where) + orderby;
 
 		CacheKit.remove(cacheName, EXCEL_SQL + code);
 		CacheKit.remove(cacheName, EXCEL_SQL_PARA + code);
@@ -78,10 +78,10 @@ public class ExcelController extends BaseController{
 		CacheKit.put(cacheName, EXCEL_SQL_PARA + code, para);
 		CacheKit.put(cacheName, EXCEL_COL_NAME + code, _colname);
 		CacheKit.put(cacheName, EXCEL_COL_MODEL + code, _colmodel);
-		
+
 		return json(code);
 	}
-	
+
 	/**
 	 * excel视图方式
 	 */
@@ -89,25 +89,25 @@ public class ExcelController extends BaseController{
 	public String export(ModelMap modelMap, HttpServletResponse response, @RequestParam String code) {
 		String sql = CacheKit.get(cacheName, EXCEL_SQL + code);
 		Map<String, Object> para = CacheKit.get(cacheName, EXCEL_SQL_PARA + code);
-		String [] _colname = CacheKit.get(cacheName, EXCEL_COL_NAME + code);
+		String[] _colname = CacheKit.get(cacheName, EXCEL_COL_NAME + code);
 		List<Map<String, String>> _colmodel = CacheKit.get(cacheName, EXCEL_COL_MODEL + code);
-		
+
 		List<ExcelExportEntity> entityList = new ArrayList<ExcelExportEntity>();
 		StringBuilder sb = new StringBuilder();
 		int cnt = 0;
 		for (Map<String, String> m : _colmodel) {
 			if (cnt > 1) {
-				if(Func.toStr(m.get("hidden")).equals("true")){
+				if (Func.toStr(m.get("hidden")).equals("true")) {
 					cnt++;
-					continue;					
+					continue;
 				}
 				String name = m.get("name");
-				entityList.add(new ExcelExportEntity(_colname[cnt], name, Func.toInt(m.get("widthOrg"),70)/4));
+				entityList.add(new ExcelExportEntity(_colname[cnt], name, Func.toInt(m.get("widthOrg"), 70) / 4));
 				sb.append(name).append(",");
 			}
 			cnt++;
 		}
-		
+
 		String menu_name = getInfoByCode(code, "NAME");
 		@SuppressWarnings("rawtypes")
 		List<Map> dataResult = Db.selectList(Func.format(sql, StrKit.removeSuffix(sb.toString(), ",")), para);
@@ -122,10 +122,9 @@ public class ExcelController extends BaseController{
 		modelMap.put(NormalExcelConstants.PARAMS, exportParams);
 		return MapExcelConstants.JEECG_MAP_EXCEL_VIEW;
 	}
-	
+
 	private String getInfoByCode(String code, String col) {
-		List<Map<String, Object>> menu = CacheKit.get(MENU_CACHE, MENU_TABLE_ALL,
-				new ILoader() {
+		List<Map<String, Object>> menu = CacheKit.get(MENU_CACHE, MENU_TABLE_ALL, new ILoader() {
 					public Object load() {
 						return Db.selectList("select CODE,PCODE,NAME,URL,SOURCE,PATH,TIPS,ISOPEN from TFW_MENU order by levels asc,num asc");
 					}
@@ -138,6 +137,5 @@ public class ExcelController extends BaseController{
 		}
 		return "";
 	}
-	
-	
+
 }
