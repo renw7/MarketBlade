@@ -15,24 +15,23 @@
 					allowFileManager : true,
 					readonlyMode : ${readOnly!false},
 					afterFocus:function(){
-						var _name = $("#_${x.index!}").attr("name").replace("token_", "");
-						$("#_${x.index!}").attr("name", _name);
+						var _name = $("#${id}").attr("name").replace("token_", "");
+						$("#${id}").attr("name", _name);
 						$("#form_token").val(1);
 					},
 					afterCreate : function() {
 						var self = this;
 						$("#btn_save").bind("click",function(){
-							$("#_${x.index!}").val(editor.html());
+							$("#${id}").val(editor.html());
 						});
 					}
 				};
-			var editor = K.create('textarea[name="token_${table!x.table}.${x.index!}"]', options);
+			@ var token = "token_";
+			@ if (value != ""){
+			@ 	token = "";	
+			@}
+			var editor = K.create('textarea[name="${token}${name}"]', options);
 		});
 	</script>	
-	@ var val = x.value!'';
-	@ var token = "token_";
-	@ if (val != ""){
-	@ 	token = "";	
-	@}
-	<textarea  id="_${x.index!}" name="${token}${table!x.table}.${x.index!}" ${x.required!}   class="form-control" cols="100" rows="8" style="visibility:hidden;width:100%;height:${x.height!'200px'};">${x.value!}</textarea>
+	<textarea id="${id}" name="${token}${name}" ${required} class="form-control" cols="100" rows="8" style="visibility:hidden;width:100%;height:${height!'200px'};">${value!}</textarea>
 

@@ -5,7 +5,7 @@
 		@ var _table="tfw_dept";
 		@ var _col=[
 		@			  {name:"排序",index:"num",type:"text",newline:true,length:3,required:"required"},
-		@			  {name:"上级部门",index:"pid", type:"selectDept",value:pId!,newline:false,length:3},
+		@			  {name:"上级部门",index:"pid", type:"opentreeDiy",source:"dept.diy",treeId:"id",check:"radio",newline:false,length:3},
 		@			  {name:"部门简称",index:"simplename", type:"text",newline:true,length:3,required:"required"},
 		@			  {name:"部门全称",index:"fullname", type:"text",newline:false,length:3,required:"required"},
 		@			  {name:"备注",index:"tips", type:"text",newline:true,length:8}
@@ -22,6 +22,8 @@
 		$(function(){
 			if("${pId!}"!=""&&"${num!}"!=""){
 				$("#_num").val("${num!}");
+				$("#_pid").val("${pId!}");
+				initOpenTree("${pId!0}");
 				$("#_simplename").focus();
 			}
 			$("#btn_save").bind("click",function(){

@@ -30,19 +30,19 @@
 								<img id="_${x.index!}"  data-type="image" data-auto="${x.auto!}" style="padding:2px; border:1px solid #ccc;cursor:pointer;width:${x.width!'168px'};height:${x.height!'110px'};" name="${table!x.table}.${x.index!}" src="${x.src!}"></img>
 				@			}
 				@			else if(x.type=="kindeditor"){
-								<blade:kindeditor x="${x}" readOnly="true" />
+								<blade:kindeditor readOnly="true" value="${x.value!}" id="_${x.index}" name="${table!x.table}.${x.index!}" height="${x.height!'200px'}" required="${x.required!}" />
 				@			}
 				@			else if(x.type=="checkbox"){
-								<blade:checkbox x="${x}" disabled="disabled"/>
+								<blade:checkbox id="_${x.index!}" name="${table!x.table}.${x.index!}" checked="${x.checked!}" disabled="disabled" />
 				@			}
 				@			else if(x.type=="checkbox2"){
-								<blade:checkbox2 x="${x}" disabled="disabled"/>
+								<blade:checkbox2 id="_${x.index!}" name="${table!x.table}.${x.index!}" checked="${x.checked!}" disabled="disabled" />
 				@			}
 				@			else if(x.type=="imgupload"){
-								<blade:imgupload x="${x}" />
+								<blade:imgupload id="_${x.index!}" name="${table!x.table}.${x.index!}" auto="${x.auto!}"  display="none"/>
 				@			}
 				@			else if(x.type=="fileupload"){
-								<blade:fileupload x="${x}"  display="none"/>
+								<blade:fileupload  id="_${x.index!}" name="${table!x.table}.${x.index!}" display="none"/>
 				@			}
 				@			else if(x.type=="hidden"){
 								<input type="hidden" id="_${x.index!}" name="${table!}.${x.index!}"  value="${x.value!}" />
@@ -96,9 +96,9 @@
 							}
 							$x.html(_x);
 						}
-						else if(_model[x]!=null && $("#" + x + "_chb").attr("type")=="checkbox"){
+						else if(_model[x]!=null && $("#_" + x + "_chb").attr("type")=="checkbox"){
 							if(_model[x]=="1"){
-								$("#"+x+"_chb").attr("checked", "checked");
+								$("#_"+x+"_chb").attr("checked", "checked");
 							}
 							else{
 								$x.removeAttr("checked");

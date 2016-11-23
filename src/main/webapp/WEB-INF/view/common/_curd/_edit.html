@@ -64,7 +64,7 @@
 								<blade:dropdown code="${num}" name="${table!x.table}.${x.index!}" value="${x.value!0}" type="dict" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
 				@			}
 				@			else if(x.type=="kindeditor"){
-								<blade:kindeditor x="${x}" />
+								<blade:kindeditor value="${x.value!}" id="_${x.index}" name="${table!x.table}.${x.index!}" height="${x.height!'200px'}" required="${x.required!}" />
 				@			}
 				@			else if(x.type=="selectDiy"){
 								<blade:select  name="${table!x.table}.${x.index!}" value="${x.value!0}" type="diy" source="${x.source!}" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
@@ -91,22 +91,22 @@
 								<blade:dropdown  name="${table!x.table}.${x.index!}" value="${x.value!0}" type="user" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
 				@			}
 				@			else if(x.type=="checkbox"){
-								<blade:checkbox x="${x}" />
+								<blade:checkbox id="_${x.index!}" name="${table!x.table}.${x.index!}" checked="${x.checked!}" disabled="${x.disabled!}" />
 				@			}
 				@			else if(x.type=="checkbox2"){
-								<blade:checkbox2 x="${x}" />
+								<blade:checkbox2 id="_${x.index!}" name="${table!x.table}.${x.index!}" checked="${x.checked!}" disabled="${x.disabled!}" />
 				@			}
 				@			else if(x.type=="date"){
-								<blade:date x="${x}" />
+								<blade:date id="_${x.index!}" name="${table!x.table}.${x.index!}" value="${x.value!}" required="${x.required!}" disabled="${x.disabled!}" placeholder="请选择日期"/>
 				@			}
 				@			else if(x.type=="laydate"){
-								<blade:laydate x="${x}"/>
+								<blade:laydate id="_${x.index!}" name="${table!x.table}.${x.index!}" value="${x.value!}" required="${x.required!}" disabled="${x.disabled!}" placeholder="请选择日期"/>
 				@			}
 				@			else if(x.type=="imgupload"){
-								<blade:imgupload x="${x}" />
+								<blade:imgupload id="_${x.index!}" name="${table!x.table}.${x.index!}" auto="${x.auto!}" />
 				@			}
 				@			else if(x.type=="fileupload"){
-								<blade:fileupload x="${x}"  display="block"/>
+								<blade:fileupload  id="_${x.index!}" name="${table!x.table}.${x.index!}"/>
 				@			}
 				@			else if(func.like(x.type,"opentree")){
 								<blade:opentree x="${x}" />
@@ -171,13 +171,13 @@
 						$x.val(ids);
 						initOpenTree(ids);
 					}
-					else if(_model[x] != null && $("#" + x + "_chb").attr("type") == "checkbox"){
+					else if(_model[x] != null && $("#_" + x + "_chb").attr("type") == "checkbox"){
 						if(_model[x] == "1"){
-							$("#"+x+"_chb").attr("checked","checked");
+							$("#_"+x+"_chb").attr("checked","checked");
 							$x.val(_model[x]);
 						}
 						else{
-							$("#"+x+"_chb").removeAttr("checked");
+							$("#_"+x+"_chb").removeAttr("checked");
 						}
 					}
 					else if($x.is("span")){
