@@ -64,12 +64,18 @@ public class ExcelController extends BaseController{
 			sort = sidx + " " + sord + (Func.isEmpty(sort) ? ("," + sort) : "");
 		}
 		String orderby = (Func.isOneEmpty(sort, order)) ? (" order by " + sort + " " + order) : "";
+		Map<String, Object> para = JsonKit.parse(Func.isEmpty(Func.decodeUrl((String)where)) ? null : Func.decodeUrl((String)where), HashMap.class);
+		if (Func.isEmpty(para)) {
+			para = new HashMap<>();
+		}
 		String sql = "select {} from (" + _source + ") a " + SqlKeyword.getWhere((String) where) + orderby;
 
 		CacheKit.remove(cacheName, EXCEL_SQL + code);
+		CacheKit.remove(cacheName, EXCEL_SQL_PARA + code);
 		CacheKit.remove(cacheName, EXCEL_COL_NAME + code);
 		CacheKit.remove(cacheName, EXCEL_COL_MODEL + code);
 		CacheKit.put(cacheName, EXCEL_SQL + code, sql);
+		CacheKit.put(cacheName, EXCEL_SQL_PARA + code, para);
 		CacheKit.put(cacheName, EXCEL_COL_NAME + code, _colname);
 		CacheKit.put(cacheName, EXCEL_COL_MODEL + code, _colmodel);
 		
@@ -82,6 +88,7 @@ public class ExcelController extends BaseController{
 	@RequestMapping("/export")
 	public String export(ModelMap modelMap, HttpServletResponse response, @RequestParam String code) {
 		String sql = CacheKit.get(cacheName, EXCEL_SQL + code);
+		Map<String, Object> para = CacheKit.get(cacheName, EXCEL_SQL_PARA + code);
 		String [] _colname = CacheKit.get(cacheName, EXCEL_COL_NAME + code);
 		List<Map<String, String>> _colmodel = CacheKit.get(cacheName, EXCEL_COL_MODEL + code);
 		
@@ -103,7 +110,7 @@ public class ExcelController extends BaseController{
 		
 		String menu_name = getInfoByCode(code, "NAME");
 		@SuppressWarnings("rawtypes")
-		List<Map> dataResult = Db.selectList(Func.format(sql, StrKit.removeSuffix(sb.toString(), ",")));
+		List<Map> dataResult = Db.selectList(Func.format(sql, StrKit.removeSuffix(sb.toString(), ",")), para);
 		ExportParams exportParams = new ExportParams(menu_name + " 数据导出表", "导出人账号：" + ShiroKit.getUser().getLoginName() + "      导出时间：" + DateKit.getTime(), code);
 		exportParams.setColor(HSSFColor.GREY_50_PERCENT.index);
 		exportParams.setAddIndex(true);

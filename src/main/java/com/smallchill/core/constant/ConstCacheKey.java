@@ -80,6 +80,8 @@ public interface ConstCacheKey {
 	
 	String EXCEL_SQL = "excel_sql_";
 	
+	String EXCEL_SQL_PARA = "excel_sql_para_";
+	
 	String EXCEL_COL_NAME = "excel_colname_";
 	
 	String EXCEL_COL_MODEL = "excel_colmodel_";
