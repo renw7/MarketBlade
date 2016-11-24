@@ -21,11 +21,6 @@
 	
 	<!-- 注册sqlmanager(主库) -->
 	<bean id="sqlManager" class="org.beetl.sql.ext.spring4.SqlManagerFactoryBean">
-		<property name="sqlLoader">
-			<bean class="org.beetl.sql.core.ClasspathLoader">
-				<property name="sqlRoot" value="/beetlsql"></property>
-			</bean>
-		</property>
 		<property name="nc">
 			<bean class="org.beetl.sql.core.DefaultNameConversion"></bean>
 		</property>
@@ -41,6 +36,14 @@
 		</property>
 		<property name="dbStyle">
 			<bean class="org.beetl.sql.core.db.MySqlStyle"></bean>
+		</property>
+		<property name="sqlLoader">
+			<bean class="org.beetl.sql.core.ClasspathLoader">
+				<property name="sqlRoot" value="/beetlsql"></property>
+				<property name="dbs">
+					<bean class="org.beetl.sql.core.db.MySqlStyle"></bean>
+				</property>
+			</bean>
 		</property>
 		<property name="configLocation" value="classpath:/config/beetlsql.properties"></property>
 	</bean>
