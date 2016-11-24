@@ -112,7 +112,11 @@ var closeOther = function() {
 };
 
 var closeThis = function() {
-	var $tab = $("#blade_tab .active").prev();
+	var $thisTab = $("#blade_tab .active");
+	if($thisTab[0].id == "welcome_tab") {
+		return;		
+	}
+	var $tab = $thisTab.prev();
 	var $content = $("#blade_tab_content .active").prev();
 	$("#blade_tab .active").not("#welcome_tab").remove();
 	$("#blade_tab_content .active").not("#home").remove();
