@@ -52,7 +52,7 @@ public class DefaultFileProxyFactory implements IFileProxy {
 		.append(time)
 		.append(getFileExt(f.getName()));
 		
-		return new String [] {uploadPath.toString(), virtualPath.toString()};
+		return new String [] {UploadFileUtils.formatUrl(uploadPath.toString()), UploadFileUtils.formatUrl(virtualPath.toString())};
 	}
 	
 	@Override

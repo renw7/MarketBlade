@@ -202,7 +202,9 @@ public class UploadFileUtils {
 		}
 	}
 
-	
+	public static String formatUrl(String url) {
+		return url.replaceAll("\\\\", "/");
+	}
 	
 	public static String uploadBase64(String nr, String addr) {
 		String contentPath = "";

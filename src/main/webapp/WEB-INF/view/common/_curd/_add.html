@@ -81,10 +81,10 @@
 								<blade:checkbox2 id="_${x.index!}" name="${table!x.table}.${x.index!}" checked="${x.checked!}" disabled="${x.disabled!}" />
 				@			}
 				@			else if(x.type=="date"){
-								<blade:date id="_${x.index!}" name="${table!x.table}.${x.index!}" value="${x.value!}" required="${x.required!}" disabled="${x.disabled!}" placeholder="请选择日期" />
+								<blade:date id="_${x.index!}" name="${table!x.table}.${x.index!}" value="${x.value!}" format="${x.format!}" required="${x.required!}" disabled="${x.disabled!}" placeholder="请选择日期" />
 				@			}
 				@			else if(x.type=="laydate"){
-								<blade:laydate id="_${x.index!}" name="${table!x.table}.${x.index!}" value="${x.value!}" required="${x.required!}" disabled="${x.disabled!}" placeholder="请选择日期"/>
+								<blade:laydate id="_${x.index!}" name="${table!x.table}.${x.index!}" value="${x.value!}" format="${x.format!}" required="${x.required!}" disabled="${x.disabled!}" placeholder="请选择日期"/>
 				@			}
 				@			else if(x.type=="imgupload"){
 								<blade:imgupload id="_${x.index!}" name="${table!x.table}.${x.index!}" auto="${x.auto!}" />

@@ -70,15 +70,15 @@ public class BladeFile {
 		this.file = file;
 		this.fileName = file.getName();
 		this.originalFileName = file.getOriginalFilename();
-		this.uploadPath = File.separator + Cst.me().getUploadRealPath() + File.separator + dir + File.separator + DateKit.getDays() + File.separator + this.originalFileName;
-		this.uploadVirtualPath = Cst.me().getUploadCtxPath().replace(Cst.me().getContextPath(), "") + File.separator + dir + File.separator + DateKit.getDays() + File.separator + this.originalFileName;
+		this.uploadPath = UploadFileUtils.formatUrl(File.separator + Cst.me().getUploadRealPath() + File.separator + dir + File.separator + DateKit.getDays() + File.separator + this.originalFileName);
+		this.uploadVirtualPath = UploadFileUtils.formatUrl(Cst.me().getUploadCtxPath().replace(Cst.me().getContextPath(), "") + File.separator + dir + File.separator + DateKit.getDays() + File.separator + this.originalFileName);
 	}
 
 	public BladeFile(MultipartFile file, String dir, String uploadPath, String uploadVirtualPath) {
 		this(file, dir);
 		if (null != uploadPath){
-			this.uploadPath = uploadPath;
-			this.uploadVirtualPath = uploadVirtualPath;
+			this.uploadPath = UploadFileUtils.formatUrl(uploadPath);
+			this.uploadVirtualPath = UploadFileUtils.formatUrl(uploadVirtualPath);
 		}
 	}
 

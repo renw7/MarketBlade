@@ -1,10 +1,10 @@
 	<script src="${ctxPath}/static/laydate/laydate.js"></script>	
 	<script type="text/javascript"> 
 		$(function(){
-			var _elem="${id}";
+			var _elem = "${id}";
 			laydate({
 			    elem: '#'+_elem,
-			    format: '${x.format!'YYYY-MM-DD hh:mm:ss'}', // 分隔符可以任意定义，该例子表示只显示年月日
+			    format: '${format!'YYYY-MM-DD hh:mm:ss'}', // 分隔符可以任意定义，该例子表示只显示年月日
 			    //festival: true, //显示节日
 			    choose: function(datas){ //选择日期完毕的回调
 			      /*   alert('得到：'+datas); */
