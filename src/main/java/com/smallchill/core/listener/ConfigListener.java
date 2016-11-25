@@ -24,27 +24,33 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import com.smallchill.core.constant.Const;
+import com.smallchill.core.toolbox.Func;
+import com.smallchill.core.toolbox.kit.ObjectKit;
 import com.smallchill.core.toolbox.kit.PropKit;
 
 public class ConfigListener implements ServletContextListener {
 
-	public static final Map<String, String> map = new HashMap<String, String>();
+	private static Map<String, String> conf = new HashMap<String, String>();
 
+	public static Map<String, String> getConf() {
+		return ObjectKit.clone(conf);
+	}
+	
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
-		map.clear();
+		conf.clear();
 	}
 
 	@Override
 	public void contextInitialized(ServletContextEvent evt) {
 		ServletContext sc = evt.getServletContext();
 		// 项目路径
-		map.put("realPath", sc.getRealPath("/").replaceFirst("/", ""));
-		map.put("contextPath", sc.getContextPath());
+		conf.put("realPath", sc.getRealPath("/").replaceFirst("/", ""));
+		conf.put("contextPath", sc.getContextPath());
 
 		Properties prop = PropKit.use(Const.PROPERTY_FILE).getProperties();
 		for (Object name : prop.keySet()) {
-			map.put(name.toString(), prop.get(name).toString());
+			conf.put(name.toString(), Func.toStr(prop.get(name)));
 		}
 	}
 

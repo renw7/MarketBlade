@@ -71,12 +71,12 @@ public class Cst {
 	/**
 	 * 项目物理路径
 	 */
-	private String realPath = ConfigListener.map.get("realPath");
+	private String realPath = ConfigListener.getConf().get("realPath");
 
 	/**
 	 * 项目相对路径
 	 */
-	private String contextPath = ConfigListener.map.get("contextPath");
+	private String contextPath = ConfigListener.getConf().get("contextPath");
 
 	/**
 	 * 密码允许错误次数
