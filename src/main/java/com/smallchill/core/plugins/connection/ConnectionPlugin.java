@@ -47,8 +47,6 @@ public class ConnectionPlugin implements IPlugin{
 		try {
 			for(String key : BladeConfig.getPool().keySet()){
 				SQLManager sm = BladeConfig.getPool().get(key);
-				//配置文件读取字符
-				sm.getSqlLoader().setCharset("UTF-8");
 				//增加自定义@AssignID注解的值, 使用方式: @Assign("uuid")
 				sm.addIdAutonGen("uuid", new IDAutoGen<String>() {
 					public String nextID(String arg0) {

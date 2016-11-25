@@ -47,7 +47,8 @@ public class Convert {
 
 			if (Date.class.isAssignableFrom(clazz)) {
 				// 判断标准日期
-				return DateTimeKit.parse(valueStr);
+				// ----2016-11-24---zhuangqian----需要加toDate(),不然beetlsql转换date类型的时候会报错-
+				return DateTimeKit.parse(valueStr).toDate();
 			} else if (clazz == BigInteger.class) {
 				// 数学计算数字
 				return new BigInteger(valueStr);
