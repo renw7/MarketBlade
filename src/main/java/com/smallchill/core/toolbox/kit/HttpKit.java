@@ -29,7 +29,6 @@ import com.smallchill.core.toolbox.support.WafRequestWrapper;
 public class HttpKit {
 	private static PoolingHttpClientConnectionManager cm;
 	private static String EMPTY_STR = "";
-	private static String UTF_8 = "UTF-8";
 
 	private static void init() {
 		if (cm == null) {
@@ -85,7 +84,7 @@ public class HttpKit {
 	public static String post(String url, Map<String, Object> params) throws UnsupportedEncodingException {
 		HttpPost httpPost = new HttpPost(url);
 		ArrayList<NameValuePair> pairs = covertParams2NVPS(params);
-		httpPost.setEntity(new UrlEncodedFormEntity(pairs, UTF_8));
+		httpPost.setEntity(new UrlEncodedFormEntity(pairs, CharsetKit.UTF_8));
 		return getResult(httpPost);
 	}
 
@@ -97,7 +96,7 @@ public class HttpKit {
 		}
 
 		ArrayList<NameValuePair> pairs = covertParams2NVPS(params);
-		httpPost.setEntity(new UrlEncodedFormEntity(pairs, UTF_8));
+		httpPost.setEntity(new UrlEncodedFormEntity(pairs, CharsetKit.UTF_8));
 
 		return getResult(httpPost);
 	}

@@ -12,6 +12,7 @@ import org.beetl.sql.core.db.MySqlStyle;
 import org.junit.Test;
 
 import com.smallchill.core.beetl.ReportInterceptor;
+import com.smallchill.core.toolbox.kit.CharsetKit;
 
 @SuppressWarnings("rawtypes")
 public class BeetlTest {
@@ -29,7 +30,7 @@ public class BeetlTest {
 		MySqlConnection cs = new MySqlConnection();
 		SQLLoader loader = new ClasspathLoader("/beetlsql");
 		SQLManager sql = new SQLManager(style, loader, cs, new DefaultNameConversion(), new Interceptor[] { new ReportInterceptor() });
-		sql.getSqlLoader().setCharset("UTF-8");
+		sql.getSqlLoader().setCharset(CharsetKit.UTF_8);
 		sql.getSqlLoader().setAutoCheck(true);
 		return sql;
 	}

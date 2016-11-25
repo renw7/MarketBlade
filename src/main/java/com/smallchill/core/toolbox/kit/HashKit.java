@@ -46,7 +46,7 @@ public class HashKit {
 		try {
 			StringBuilder result = new StringBuilder();
 			MessageDigest md = MessageDigest.getInstance(algorithm);
-			byte[] bytes = md.digest(srcStr.getBytes("utf-8"));
+			byte[] bytes = md.digest(srcStr.getBytes(CharsetKit.UTF_8));
 			for (byte b : bytes) {
 				String hex = Integer.toHexString(b&0xFF);
 				if (hex.length() == 1)

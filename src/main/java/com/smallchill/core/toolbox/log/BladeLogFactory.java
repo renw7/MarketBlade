@@ -38,7 +38,7 @@ import com.smallchill.system.model.OperationLog;
 public class BladeLogFactory implements ILog {
 
 	public String[] logPatten() {
-		String[] patten = { "login", "logout", "grant", "save", "update", "remove", "del", "delete", "restore" };
+		String[] patten = { "login", "logout", "grant", "save", "update", "remove", "del", "delete", "restore", "change" };
 		return patten;
 	}
 
@@ -52,7 +52,8 @@ public class BladeLogFactory implements ILog {
 				.set("remove", "删除")
 				.set("del", "删除")
 				.set("delete", "删除")
-				.set("restore", "还原");
+				.set("restore", "还原")
+				.set("restore", "变更");
 		return rd;
 	}
 
@@ -79,7 +80,7 @@ public class BladeLogFactory implements ILog {
 			OperationLog log = new OperationLog();
 			log.setMethod(msg);
 			log.setCreatetime(new Date());
-			log.setSucceed((succeed)?"1":"0");
+			log.setSucceed((succeed) ? "1" : "0");
 			log.setUserid(Func.toStr(user.getId()));
 			log.setLogname(logName);
 			boolean temp = Blade.create(OperationLog.class).save(log);

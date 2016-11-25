@@ -20,6 +20,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.Map;
 
+import com.smallchill.core.toolbox.kit.CharsetKit;
 import com.smallchill.core.toolbox.kit.FileKit;
 
 /**
@@ -35,7 +36,7 @@ public abstract class BeetlMaker {
 	 * @param htmlPath  html文件保存路径
 	 */
 	public static void makeHtml(String tlPath, Map<String, Object> paras, String htmlPath) {
-		makeHtml(tlPath, paras, htmlPath, "UTF-8");
+		makeHtml(tlPath, paras, htmlPath, CharsetKit.UTF_8);
 	}
 	
 	/**
