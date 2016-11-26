@@ -59,6 +59,7 @@ var exwhere;
     	}
     };
     
+    //一级按钮点击事件
     blade_btn.prototype.itemClick = function () {
         var ids = getGridXls().join(",");
         var rows = getGridXls().length;
@@ -274,12 +275,14 @@ var exwhere;
             	stage.all[code].btn.bind(toolbar);
             }
             exwhere = this.url.replace(ctx, "");//修复未发布在tomcat根目录下带有项目路径导致不能搜索的问题 
+            isAutoPage = false;//自动跳转到第一页
             searchGrid();
             return;
 
         }
     };
 
+    //二级按钮点击事件
     blade_btn.prototype.childItemClick = function () {
         var ids = getGridXls().join(",");
         var rows = getGridXls().length;
@@ -406,16 +409,8 @@ var exwhere;
             return;
         }
     };
-
     
-    var stage = {
-        all: {},
-        register: function (id, _btn_child_stage) {
-            this.all[id] = _btn_child_stage;
-        }
-    };
-    
-    
+    //一级按钮缓存区
     var btn_stage = {
         all: {},
         count: 0,
@@ -445,6 +440,15 @@ var exwhere;
         }
     };
 
+    //二级按钮缓存区
+    var stage = {
+        all: {},
+        register: function (id, _btn_child_stage) {
+            this.all[id] = _btn_child_stage;
+        }
+    };
+
+    //二级按钮实例
 	var btn_child_stage = function(){
 	    this.btn = {
 	            all: {},
