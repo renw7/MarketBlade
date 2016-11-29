@@ -33,5 +33,5 @@
 			var editor = K.create('textarea[name="${token}${name}"]', options);
 		});
 	</script>	
-	<textarea id="${id}" name="${token}${name}" ${required} class="form-control" cols="100" rows="8" style="visibility:hidden;width:100%;height:${height!'200px'};">${value!}</textarea>
+	<textarea id="${id}" name="${token}${name}" ${required!} class="form-control" cols="100" rows="8" style="visibility:hidden;width:100%;height:${height!'200px'};">${value!}</textarea>
 

@@ -44,6 +44,14 @@
 		<property name="successUrl" value="/" />
 		<!-- 没有权限跳转的url -->
 		<property name="unauthorizedUrl" value="/unauth" />
+		<!-- 作用于rest无状态的api过滤器 -->
+		<!-- <property name="filters">    
+           <map>    
+               <entry key="rest" >
+               		<bean id="restShiroFilter" class="com.smallchill.core.shiro.RestAuthorizationFilter"></bean>  
+               </entry>  
+           </map>    
+        </property>  -->
 		<property name="filterChainDefinitions">
 			<value>
 				<!-- 

@@ -33,24 +33,26 @@
 
 
 	<!-- 配置grid -->
-	<div class="row">
+	<div class="row">	
 		<div class="col-xs-12 tb-grid">
 			<!-- 配置查询 -->
 			@ var _col=[
 			@			  {name:"通知标题",index:"F_VC_BT", type:"text"},
-			@		      {name:"公告类型",index:"F_IT_LX_equal",type:"opentree_102"},
-			@//		      {name:"公告类型",index:"F_IT_LX_equal",type:"opentreeDiy_notice.diy"},//自定义数据源用法
-			@			  {name:"发布时间(大于)",index:"F_DT_FBSJ_dategt", type:"date"},
-			@			  {name:"发布时间(小于)",index:"F_DT_FBSJ_datelt", type:"date"}
+			@		      {name:"公告内容",index:"F_TX_NR",type:"text"},
+			@		      {name:"公告类型",index:"F_IT_LX_equal",type:"opentree_102",check:"radio"},
+			@//		      {name:"公告类型",index:"F_IT_LX_equal",type:"opentreeDiy", source:"notice.diy"},//_search_multi.html自定义数据源用法
+			@//		      {name:"公告类型",index:"F_IT_LX_equal",type:"opentreeDiy_notice.diy"},//_search.html自定义数据源用法
+			@		      {name:"创建人",index:"F_IT_CJR",type:"selectUser"},
+			@			  {name:"发布时间(大于)",index:"F_DT_FBSJ_gt", type:"date"},
+			@			  {name:"发布时间(小于)",index:"F_DT_FBSJ_lt", type:"date"}
 			@		   ];
-			@ include("/common/_function/_search.html",{"col":_col}){}
+			@ include("/common/_function/_search_multi.html",{"col":_col}){}
 			<!-- 按钮组 -->
 			<div class="welljq well-sm" id="btns"></div>
 			<!-- grid -->
 			<table id="grid-table"></table>
 			<!-- 分页 -->
 			<div id="grid-pager"></div>
-
 		</div>
 	</div>
 	

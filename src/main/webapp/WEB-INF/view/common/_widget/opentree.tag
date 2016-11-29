@@ -1,7 +1,8 @@
 
 
 <input type="text" id="_${x.index!}_INPUT" ${x.required!} placeholder="${placeholder!}" class="form-control" />
-<input type="hidden" id="_${x.index!}" data-type="opentree" name="token_${table!x.table}.${x.index!}" value="${x.value!}" />
+@ var prefix = (isEmpty(table) && isEmpty(x.table)) ? "" : (isEmpty(table) ? x.table : table) + ".";
+<input type="hidden" id="_${x.index!}" data-type="opentree" name="token_${prefix}${x.index!}" value="${x.value!}" class="form-control" />
 
 
 <script type="text/javascript">

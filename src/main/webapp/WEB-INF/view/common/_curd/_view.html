@@ -23,38 +23,38 @@
 				@	}
 							<label class="col-sm-2 control-label no-padding-right" > ${x.name!} </label>			
 							<div class="col-sm-${x.length!3}">
-				@			if(x.type=="textarea"){
+				@			if(x.type == "textarea") {
 								<textarea id="_${x.index!}" style="height:${x.height!'200px'}" name="${table!}.${x.index!}" disabled value="${x.value!}" placeholder="${placeholder!}" class="form-control"></textarea>
 				@			}
-				@			else if(x.type=="image"){
+				@			else if(x.type == "image") {
 								<img id="_${x.index!}"  data-type="image" data-auto="${x.auto!}" style="padding:2px; border:1px solid #ccc;cursor:pointer;width:${x.width!'168px'};height:${x.height!'110px'};" name="${table!x.table}.${x.index!}" src="${x.src!}"></img>
 				@			}
-				@			else if(x.type=="kindeditor"){
+				@			else if(x.type == "kindeditor") {
 								<blade:kindeditor readOnly="true" value="${x.value!}" id="_${x.index}" name="${table!x.table}.${x.index!}" height="${x.height!'200px'}" required="${x.required!}" />
 				@			}
-				@			else if(x.type=="checkbox"){
+				@			else if(x.type == "checkbox") {
 								<blade:checkbox id="_${x.index!}" name="${table!x.table}.${x.index!}" checked="${x.checked!}" disabled="disabled" />
 				@			}
-				@			else if(x.type=="checkbox2"){
+				@			else if(x.type == "checkbox2") {
 								<blade:checkbox2 id="_${x.index!}" name="${table!x.table}.${x.index!}" checked="${x.checked!}" disabled="disabled" />
 				@			}
-				@			else if(x.type=="imgupload"){
+				@			else if(x.type == "imgupload") {
 								<blade:imgupload id="_${x.index!}" name="${table!x.table}.${x.index!}" auto="${x.auto!}"  display="none"/>
 				@			}
-				@			else if(x.type=="fileupload"){
+				@			else if(x.type == "fileupload") {
 								<blade:fileupload  id="_${x.index!}" name="${table!x.table}.${x.index!}" display="none"/>
 				@			}
-				@			else if(x.type=="hidden"){
+				@			else if(x.type == "hidden") {
 								<input type="hidden" id="_${x.index!}" name="${table!}.${x.index!}"  value="${x.value!}" />
 				@			}
-				@			else if(x.type=="span"){
+				@			else if(x.type == "span") {
 								<span id="_${x.index!}" class="form-control" style="border:0px;">${x.value!}</span>
 				@			}
 				@			else{
 								<input type="text" id="_${x.index!}" name="${table!}.${x.index!}" disabled value="${x.value!}" placeholder="${placeholder!}" class="form-control" />
 				@			}
 							</div>
-				@			if(x.length>=5){
+				@			if(x.length >= 5) {
 						</div>
 				@			}
 				@ 	if(!x.newline){

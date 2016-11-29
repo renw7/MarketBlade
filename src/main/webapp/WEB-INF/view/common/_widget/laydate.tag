@@ -22,4 +22,4 @@
 	@ if (value != ""){
 	@ 	token = "";	
 	@ }
-	<input type="text" id="${id}" name="${token}${name}" class="form-control" ${required} ${disabled}  value="${value}" placeholder="${placeholder}"  />
+	<input type="text" id="${id}" name="${token}${name}" class="form-control" ${required!} ${disabled!}  value="${value!}" placeholder="${placeholder!}"  />

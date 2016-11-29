@@ -102,7 +102,11 @@ public class SelectTag extends Tag {
 			}); 
 
 			StringBuilder sb = new StringBuilder();
-			String sid = "_" + name.split("\\.")[1];
+			String [] arr = name.split("\\.");
+			if (arr.length == 2) {
+				name = arr[1];
+			}
+			String sid = "_" + name;
 			sb.append("<select onchange=\"" +sid + "_selectChanged('" + sid + "')\" " + required + " class=\"form-control\" id=\"" + sid + "\"  name=\"" + token + name + "\">");
 			sb.append("<option value></option>");
 			
