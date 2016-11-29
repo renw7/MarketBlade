@@ -90,16 +90,12 @@ public class SqlKeyword {
 
 	public static String getKeyWord(String key, String value) {
 		String _keyWord = keyWord.get(key);
-		/*if (key.equals(DATE_GT) || key.equals(DATE_LT)) {
+		if (key.equals(DATE_GT) || key.equals(DATE_LT)) {
 			if (Func.isOracle()) {
 				value = "to_date(#{" + value + "},'yyyy-mm-dd hh24:mi:ss')" + (key.equals(DATE_LT) ? "-1" : "");
-			} else if (Func.isMySql() && key.equals(DATE_GT)) {
-				value = "date_sub(#{" + value + "},interval +1 day)";
-			} else if (Func.isMySql() && key.equals(DATE_LT)) {
-				value = "date_sub(#{" + value + "},interval -1 day)";
 			}
 			return _keyWord.replace("?", value);
-		}*/
+		}
 		if(key.indexOf("like") > 0){
 			return _keyWord.replace("?", " CONCAT(CONCAT('%', #{" + value + "}),'%')  ");
 		}

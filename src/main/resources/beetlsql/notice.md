@@ -1,10 +1,8 @@
 list
 ===
-select t.*,
-		d.name DIC_F_IT_LX 
-	from 
-		tb_yw_tzgg t 
-		left join (select num,name from tfw_dict where code=102)d on t.f_it_lx=d.num
+select t.*, d.name DIC_F_IT_LX,u.name DIC_F_IT_CJR  from  tb_yw_tzgg t 
+left join (select num,name from tfw_dict where code=102)d on t.f_it_lx=d.num
+left join (select * from tfw_user where status = 1) u on t.f_it_cjr = u.id
         		
 data
 ===

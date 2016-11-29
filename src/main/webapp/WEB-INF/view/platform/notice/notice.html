@@ -10,10 +10,12 @@
 	
 	function initGrid(){
 		var grid_url = ctx+"/${code}/list";//查询列表接口
-		var _colnames=[ "序列","通知标题", "公告类型","发布时间"];
+		var _colnames=[ "序列","通知标题", "公告类型","创建人", "创建时间", "发布时间"];
 		var _colmodel=[   {name:"F_IT_XL",index:"F_IT_XL", width:80,hidden:true},
 						  {name:"F_VC_BT",index:"F_VC_BT", width:100},
 						  {name:"DIC_F_IT_LX",index:"F_IT_LX", width:80},
+						  {name:"DIC_F_IT_CJR",index:"F_IT_CJR", width:80},
+						  {name:"F_DT_CJSJ",index:"F_DT_CJSJ", width:80},
 						  {name:"F_DT_FBSJ",index:"F_DT_FBSJ", width:80}
 						];
 		
