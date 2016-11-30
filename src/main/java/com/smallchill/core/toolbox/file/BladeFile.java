@@ -19,11 +19,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.smallchill.core.constant.ConstConfig;
 import com.smallchill.core.constant.Cst;
+import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.kit.DateKit;
+import com.smallchill.core.toolbox.kit.StrKit;
 
 public class BladeFile {
 	/**
@@ -248,4 +252,45 @@ public class BladeFile {
 		return list;
 	}
 	
+	/**   
+	 * 为虚拟路径添加配置的域名前缀
+	 * @param map  对象
+	 * @param name 路径字段名
+	*/
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static void addDomain(Map map, String name) {
+		if (null == map) {
+			return;
+		}
+		String url = Func.toStr(map.get(name));
+		// map为引用传递, 防止每次附加到缓存
+		if (url.indexOf(ConstConfig.DOMAIN) >= 0 || StrKit.isBlank(url)) {
+			return;
+		} else {
+			url = ConstConfig.DOMAIN + url;
+			map.put(name, url);
+		}
+	}
+
+	/**   
+	 * 为虚拟路径添加配置的域名前缀
+	 * @param list 对象
+	 * @param name 路径字段名
+	*/
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static void addDomain(List<Map> list, String name) {
+		for (Map m : list) {
+			if (null == m) {
+				continue;
+			}
+			String url = Func.toStr(m.get(name));
+			// map为引用传递, 防止每次附加到缓存
+			if (url.indexOf(ConstConfig.DOMAIN) >= 0 || StrKit.isBlank(url)) {
+				break;
+			} else {
+				url = ConstConfig.DOMAIN + url;
+				m.put(name, url);
+			}
+		}
+	}
 }
