@@ -4,13 +4,12 @@
     position:absolute;
     right: 5px;
     top: 5px;
-   /*  padding-left: 25px; */
     z-index: 100;
     cursor: pointer;
     color: #94A6B0;
 }
 
-.tmsp-pointer{
+.blade-pointer{
 	cursor:pointer;
 }
 
