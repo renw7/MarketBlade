@@ -63,7 +63,7 @@ public class SelectTag extends Tag {
 			String CACHE_NAME = ConstCache.DICT_CACHE;
 			
 			if (type.equals("dict")) {
-				sql = "select num as ID,pId as PID,name as TEXT from  TFW_DICT where code=" + code + " and num>0";
+				sql = "select num as ID,pId as PID,name as TEXT from  TFW_DICT where code=" + code + " and num > 0 order by num asc";
 				intercept = Cst.me().getDefaultSelectFactory().dictIntercept();
 			} else if (type.equals("user")) {
 				CACHE_NAME = ConstCache.USER_CACHE;

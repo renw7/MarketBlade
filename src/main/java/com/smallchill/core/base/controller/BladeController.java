@@ -22,8 +22,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -53,7 +53,7 @@ import com.smallchill.core.toolbox.support.WafRequestWrapper;
  */
 public class BladeController {
 	
-	private static final Logger log = LoggerFactory.getLogger(BladeController.class);
+	private static Logger LOGGER = LogManager.getLogger(BladeController.class);
 	
 	/** ============================     requset    =================================================  */
 
@@ -383,10 +383,10 @@ public class BladeController {
 			}
 			return resultModel;
 		} catch (Exception exception) {
-			log.error(exception.getMessage(), exception);
+			LOGGER.error(exception.getMessage(), exception);
 			return resultModel;
 		} finally {
-			log.error(msg, ex);
+			LOGGER.error(msg, ex);
 		}
 	}
 

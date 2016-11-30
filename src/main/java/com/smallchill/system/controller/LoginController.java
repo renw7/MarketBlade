@@ -50,16 +50,11 @@ import com.smallchill.system.model.LoginLog;
 @Controller
 public class LoginController extends BaseController implements Const{
 
-	private static Logger log = LogManager.getLogger(LoginController.class);
+	private static Logger LOGGER = LogManager.getLogger(LoginController.class);
 
 	@RequestMapping("/")
 	public String index() {
 		return INDEX_REALPATH;
-	}
-	
-	@RequestMapping("/main")
-	public String main() {
-		return INDEX_MAIN_REALPATH;
 	}
 	
 	/**
@@ -96,16 +91,16 @@ public class LoginController extends BaseController implements Const{
 			LogKit.println("sessionHost	: {}", session.getHost());
 			LogKit.println("sessionTimeOut	: {}", session.getTimeout());
 		} catch (UnknownAccountException e) {
-			log.error("账号不存在!", e);
+			LOGGER.error("账号不存在!", e);
 			return error("账号不存在");
 		} catch (DisabledAccountException e) {
-			log.error("账号未启用!", e);
+			LOGGER.error("账号未启用!", e);
 			return error("账号未启用");
 		} catch (IncorrectCredentialsException e) {
-			log.error("密码错误!", e);
+			LOGGER.error("密码错误!", e);
 			return error("密码错误");
 		} catch (RuntimeException e) {
-			log.error("未知错误,请联系管理员!", e);
+			LOGGER.error("未知错误,请联系管理员!", e);
 			return error("未知错误,请联系管理员");
 		}
 		doLog(ShiroKit.getSession(), "登录");

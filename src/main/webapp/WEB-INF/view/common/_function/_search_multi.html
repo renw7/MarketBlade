@@ -36,7 +36,6 @@
 				@ }
 			</div>
 		@ }
-		<input id="res" name="res" type="reset" style="display:none;" /> 
 		<button class="btn btn-sx btn-white" type="button"  style="margin-left: 10px;margin-top: 5px;float: right;" id="gotoReset">重置</button>
 		@ if((col.~size + 1) > ((12/x.length!3)-1)){
 		<button class="btn btn-sx btn-white" type="button"  style="margin-left: 10px;margin-top: 5px;float: right;" id="gotoOpenSerch">更多条件</button>
@@ -67,7 +66,12 @@
 			if (typeof (_filter) != "undefined") {
 				filter = _filter;
 			}
-			$("input[name='res']").click();
+			
+			$.each($(".form-control"), function(i, n) {
+				$(this).val("");
+			});
+			
+	        btn_stage.bind(toolbar);
 			$jqGrid.jqGrid('setGridParam', {
 				datatype : "json",
 				postData : {
@@ -78,14 +82,18 @@
 		});
 
 		$("#gotoSearch").bind("click", function() {
-			closeSearch();
+			$.each($("._search_hidden"), function(i, n){
+				  $(this).css("display", "none");
+			});
+			$("#gotoOpenSerch").text("更多条件");
+			
 			var filter = "";
 			if (typeof (_filter) != "undefined") {
 				filter = _filter;
 			}
-			var where = (BladeTool.isEmpty(filter)) ? "{" : filter.replace("}", "");
-
+			var where = (BladeTool.isEmpty(filter)) ? "{" : filter.replace("}", ",");
 			var hasWhere = false;
+			
 			$.each($(".form-control"), function(i, n) {
 				var key = $(this).attr("name");
 				var value = $(this).val();
@@ -96,6 +104,7 @@
 					where += "\"" + key + "\":\"" + value + "\"" + ",";
 				}
 			});
+			
 			if (!hasWhere && BladeTool.isEmpty(filter)) {
 				where = "";
 			}
@@ -117,16 +126,6 @@
 				page : 1
 			}).trigger("reloadGrid");
 		});
-
-		$("#gotoReset").bind("click", function() {
-			reloadGrid();
-		});
 		
-		function closeSearch() {
-			$.each($("._search_hidden"), function(i, n){
-				  $(this).css("display", "none");
-			});
-			$("#gotoOpenSerch").text("更多条件");
-		}
 	});
 </script>

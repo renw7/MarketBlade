@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.beetl.sql.core.OnConnection;
 import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.SQLReady;
 
@@ -534,4 +535,14 @@ public class DbManager {
 		}
 		return false;
 	}
+	
+	/**   
+	 * 存储过程调用
+	 * @param call
+	 * @return T
+	*/
+	public <T> T executeCall(OnConnection<T> call) {
+		return getSqlManager().executeOnConnection(call);
+	}
+	
 }

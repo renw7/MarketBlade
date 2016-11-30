@@ -3,6 +3,8 @@
 	var ctx="${ctxPath}";
 	var grid_selector = "#grid-table";
 	var pager_selector = "#grid-pager";
+	var _filter = "";//如果点了搜索按钮想让过滤条件失效,则将定义放入initGrid()中
+	
 	$(function(){
 		initGrid();
 		initMenuBtn("btns","${code}");
@@ -19,6 +21,11 @@
 						  {name:"F_DT_FBSJ",index:"F_DT_FBSJ", width:80}
 						];
 		
+		@ if (shiro.lacksRole('administrator')) {
+			_filter = '{"F_IT_CJR_equal":"${shiro.getUser().id}"}';//过滤,只看到自己发布,若是管理员则看到全部
+		@ }
+		
+		
 		jQuery(grid_selector).jqGrid({
 			url:grid_url,
 		    shrinkToFit:true,//适用于较少字段,响应式
@@ -26,7 +33,7 @@
 			colModel:_colmodel, 
 			jsonReader:{id:"F_IT_XL"},
 			pager : pager_selector,
-			postData: {sort: "F_IT_XL", order: "desc"}
+			postData: {where: _filter, sort: "F_IT_XL", order: "desc"}
 		});
 
 	}

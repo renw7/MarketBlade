@@ -39,8 +39,8 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.smallchill.core.toolbox.support.IMultiOutputStream;
 import com.smallchill.core.toolbox.support.ImagePosition;
@@ -50,7 +50,7 @@ public final class ImageKit {
 	/**
 	 * Logger for this class
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(ImageKit.class);
+	private static Logger LOGGER = LogManager.getLogger(ImageKit.class);
 	
 	/** 默认输出图片类型 */
 	public static final String DEFAULT_IMG_TYPE = "JPEG";

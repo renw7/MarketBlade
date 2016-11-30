@@ -18,6 +18,7 @@ package com.smallchill.core.plugins.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.beetl.sql.core.OnConnection;
 import org.beetl.sql.core.SQLReady;
 
 import com.smallchill.core.aop.AopContext;
@@ -360,5 +361,14 @@ public class Db {
 	 */
 	public static boolean isExist(String sqlTemplate, Object paras) {
 		return getDbManager().isExist(sqlTemplate, paras);
+	}
+	
+	/**   
+	 * 存储过程调用
+	 * @param call
+	 * @return T
+	*/
+	public static <T> T executeCall(OnConnection<T> call) {
+		return getDbManager().executeCall(call);
 	}
 }

@@ -29,8 +29,8 @@ var exwhere;
     };
 
     blade_btn.prototype.open = function(blade_url, blade_id, blade_open){
-    	var width = (this.area!="") ? (this.area.split('*')[0]) : "800";
-    	var height = (this.area!="") ? (this.area.split('*')[1]) : "520";
+    	var width = (this.area != "") ? (this.area.split('*')[0]) : "800";
+    	var height = (this.area != "") ? (this.area.split('*')[1]) : "520";
     	var iframe_width = window.top.$(window).width();
     	var iframe_height = window.top.$(window).height();
     	var flag = (parseInt(width) >= iframe_width || parseInt(height) >= iframe_height) ? true : false; width += "px";height += "px";
@@ -45,7 +45,7 @@ var exwhere;
             });
     	}
     	else{
-        	var index=layer.open({
+        	var index = layer.open({
         	    type: 2,
         	    title: this.pname + "→" + this.name,
         	    area: [width, height],
@@ -243,12 +243,6 @@ var exwhere;
             }, function () {
                 //layer.msg('已取消');
             });
-            return;
-        }
-
-
-        if (this.alias == "import") {
-        	$('#importExcel').click();
             return;
         }
 
