@@ -18,8 +18,8 @@
 			 });
 		});	
 	</script>	
-	@ var token = "token_";
-	@ if (value != ""){
-	@ 	token = "";	
+	@ var _token = token!'';
+	@ if (!isEmpty(value)){
+	@ 	_token = "";	
 	@ }
-	<input type="text" id="${id}" name="${token}${name}" class="form-control" ${required!} ${disabled!}  value="${value!}" placeholder="${placeholder!}"  />
+	<input type="text" id="${id}" name="${_token}${name}" class="form-control" ${required!} ${disabled!}  value="${value!}" placeholder="${placeholder!}"  />

@@ -9,7 +9,6 @@
 			var options={
 					cssPath : '${ctxPath}/static/kindeditor/plugins/code/prettify.css',
 					uploadJson : '${ctxPath}/kindeditor/upload_json',
-					//uploadJson : '${ctxPath}/image/upload_blob',
 					fileManagerJson : '${ctxPath}/kindeditor/file_manager_json',
 					items: ['source', '|', 'fontname', 'fontsize', '|', 'forecolor', 'bold', 'italic', 'underline', '|', 'justifyleft', 'justifycenter', 'justifyright', '|', 'image', 'multiimage', '|', 'plainpaste', 'wordpaste', '|','fullscreen'],
 					allowFileManager : true,
@@ -26,12 +25,12 @@
 						});
 					}
 				};
-			@ var token = "token_";
-			@ if (value != ""){
-			@ 	token = "";	
-			@}
-			var editor = K.create('textarea[name="${token}${name}"]', options);
+			@ var _token = token!'';
+			@ if (!isEmpty(value)){
+			@ 	_token = "";	
+			@ }
+			var editor = K.create('textarea[name="${_token}${name}"]', options);
 		});
 	</script>	
-	<textarea id="${id}" name="${token}${name}" ${required!} class="form-control" cols="100" rows="8" style="visibility:hidden;width:100%;height:${height!'200px'};">${value!}</textarea>
+	<textarea id="${id}" name="${_token}${name}" ${required!} class="form-control" cols="100" rows="8" style="visibility:hidden;width:100%;height:${height!'200px'};">${value!}</textarea>
 

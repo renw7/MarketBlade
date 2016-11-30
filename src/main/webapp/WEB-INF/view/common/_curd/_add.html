@@ -37,7 +37,7 @@
 				@			}
 				@			else if(func.like(x.type,"select_")) {
 				@                var num = strutil.replace(x.type, "select_", "");
-								<blade:select code="${num}" name="${table!x.table}.${x.index!}" value="${x.value!0}" type="dict" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
+								<blade:select code="${num}" name="${table!x.table}.${x.index!}" value="${x.value!}" type="dict" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
 				@			}
 				@			else if(func.like(x.type,"combo_")) {
 				@                var num = strutil.replace(x.type, "combo_", "");
@@ -45,34 +45,34 @@
 				@			}
 				@			else if(func.like(x.type, "dropdown_")) {
 				@                var num = strutil.replace(x.type, "dropdown_", "");
-								<blade:dropdown code="${num}" name="${table!x.table}.${x.index!}" value="${x.value!0}" type="dict" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
+								<blade:dropdown code="${num}" name="${table!x.table}.${x.index!}" value="${x.value!}" type="dict" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
 				@			}
 				@			else if(x.type == "kindeditor") {
 								<blade:kindeditor value="${x.value!}" id="_${x.index}" name="${table!x.table}.${x.index!}" height="${x.height!'200px'}" required="${x.required!}" />
 				@			}
 				@			else if(x.type == "selectDiy") {
-								<blade:select  name="${table!x.table}.${x.index!}" value="${x.value!0}" type="diy" source="${x.source!}" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
+								<blade:select  name="${table!x.table}.${x.index!}" value="${x.value!}" type="diy" source="${x.source!}" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
 				@			}
 				@			else if(x.type == "dropdownDiy") {
-								<blade:dropdown  name="${table!x.table}.${x.index!}" value="${x.value!0}" type="diy" source="${x.source!}" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
+								<blade:dropdown  name="${table!x.table}.${x.index!}" value="${x.value!}" type="diy" source="${x.source!}" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
 				@			}
 				@			else if(x.type == "selectDept") {
-								<blade:select  name="${table!x.table}.${x.index!}" value="${x.value!0}" type="dept" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
+								<blade:select  name="${table!x.table}.${x.index!}" value="${x.value!}" type="dept" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
 				@			}
 				@			else if(x.type == "dropdownDept") {
-								<blade:dropdown  name="${table!x.table}.${x.index!}" value="${x.value!0}" type="dept" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
+								<blade:dropdown  name="${table!x.table}.${x.index!}" value="${x.value!}" type="dept" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
 				@			}
 				@			else if(x.type == "selectRole") {
-								<blade:select  name="${table!x.table}.${x.index!}" value="${x.value!0}" type="role" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
+								<blade:select  name="${table!x.table}.${x.index!}" value="${x.value!}" type="role" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
 				@			}
 				@			else if(x.type == "dropdownRole") {
-								<blade:dropdown  name="${table!x.table}.${x.index!}" value="${x.value!0}" type="role" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
+								<blade:dropdown  name="${table!x.table}.${x.index!}" value="${x.value!}" type="role" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
 				@			}
 				@			else if(x.type == "selectUser") {
-								<blade:select  name="${table!x.table}.${x.index!}" value="${x.value!0}" type="user" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
+								<blade:select  name="${table!x.table}.${x.index!}" value="${x.value!}" type="user" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
 				@			}
 				@			else if(x.type == "dropdownUser") {
-								<blade:dropdown  name="${table!x.table}.${x.index!}" value="${x.value!0}" type="user" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
+								<blade:dropdown  name="${table!x.table}.${x.index!}" value="${x.value!}" type="user" tail="${x.tail!}" intercept="${x.intercept!}" required="${x.required!}"/>
 				@			}
 				@			else if(x.type == "checkbox") {
 								<blade:checkbox id="_${x.index!}" name="${table!x.table}.${x.index!}" checked="${x.checked!}" disabled="${x.disabled!}" />

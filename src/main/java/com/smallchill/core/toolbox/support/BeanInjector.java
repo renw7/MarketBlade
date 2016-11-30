@@ -59,7 +59,7 @@ public class BeanInjector {
 				if (value.length > 1) {
 					o = CollectionKit.join(value, ",");
 				} else {
-					o = (Func.equals(value[0], "")) ? " " : value[0];					
+					o = (Func.equals(value[0], "")) ? "" : value[0];					
 				}
 			}
 			map.put(StrKit.removePrefixIgnoreCase(param.getKey(), start).toLowerCase(), o);
@@ -85,7 +85,7 @@ public class BeanInjector {
 				if (value.length > 1) {
 					o = CollectionKit.join(value, ",");
 				} else {
-					o = (Func.equals(value[0], "")) ? " " : value[0];					
+					o = value[0];					
 				}
 			}
 			map.put(param.getKey(), o);

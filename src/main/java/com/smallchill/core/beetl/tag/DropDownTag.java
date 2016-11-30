@@ -42,7 +42,7 @@ public class DropDownTag extends Tag {
 			String codes = param.get("code");
 			String name = param.get("name");
 			Object value = param.get("value");
-			String token = (value.toString().equals("0")) ? "token_" : "";
+			String token = (value.toString().equals("0")) ? Func.toStr(param.get("token")) : "";
 			String type = param.get("type");
 			String required = param.get("required");
 			int lev = 99;
@@ -51,7 +51,7 @@ public class DropDownTag extends Tag {
 			if (type.equals("dict")) {
 			    code = codes.split("_")[0];
 			    lev = (codes.split("_").length > 1) ? Func.toInt(codes.split("_")[1]) : 99;
-				sql = "select ID,(case when PID is null then 0 else PID end) PID,NUM,name as TEXT from  TFW_DICT where code=" + code + " and num>0";
+				sql = "select ID,(case when PID is null then 0 else PID end) PID,NUM,name as TEXT from  TFW_DICT where code=" + code + " and num > 0 order by num asc";
 			} else if (type.equals("user")) {
 				sql = "select ID,ID NUM,0 as PID,name as TEXT from  TFW_USER where status=1";
 			} else if (type.equals("dept")) {

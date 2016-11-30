@@ -48,7 +48,7 @@ public class SelectTag extends Tag {
 			final String code = param.get("code");
 			String name = param.get("name");
 			String value = Func.toStr(param.get("value"));
-			String token = (StrKit.notBlank(value)) ? "" : "token_";
+			String token = (StrKit.notBlank(value)) ? "" : Func.toStr(param.get("token"));
 			String type = param.get("type");
 			String where = param.get("where");
 			String required = param.get("required");
