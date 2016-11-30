@@ -4,7 +4,7 @@
 			<!-- 乐观锁控制 -->
 			<input type="hidden" id="_version" name="VERSION" value="0">
 			
-			@i f(isEmpty(keys)) {
+			@ if(isEmpty(keys)) {
 				<input type="hidden" id="_${key!'id'}" name="${table!}.${key!'id'}" value=""/>
 			@ } else {
 				@for(k in keys) {
