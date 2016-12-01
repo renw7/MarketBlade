@@ -233,7 +233,7 @@ var exwhere;
                 $.post(url, { ids: ids }, function (data) {
                     if (data.code === 0) {
                         layer_alert(data.message, "success");
-                        reloadGrid();
+                        searchGrid();
                     }
                     else {
                     	layer_post(data);
@@ -269,8 +269,7 @@ var exwhere;
             	stage.all[code].btn.bind(toolbar);
             }
             exwhere = this.url.replace(BladeApp.ctxPath, "");//修复未发布在tomcat根目录下带有项目路径导致不能搜索的问题 
-            isAutoPage = false;//自动跳转到第一页
-            searchGrid();
+            reloadGrid();
             return;
 
         }

@@ -45,6 +45,7 @@
 </form>
 </div>
 <script type="text/javascript">
+	var isAutoPage = true;
 	$(function() {
 		$("#gotoOpenSerch").bind("click", function() {
 			var textValue = $(this).text();
@@ -118,12 +119,14 @@
 				where = BladeTool.format(exwhere);
 			}
 			where = BladeTool.isEmpty(where) ? "" : encodeURI(where);
-			$jqGrid.jqGrid('setGridParam', {
+			isAutoPage = (BladeTool.isEmpty(where) ? true : false);
+			var pageNum = $jqGrid.getGridParam('page');
+			$jqGrid.jqGrid("setGridParam", {
 				datatype : "json",
 				postData : {
 					where : where
 				},
-				page : 1
+				page: (isAutoPage) ? pageNum : 1
 			}).trigger("reloadGrid");
 		});
 		
