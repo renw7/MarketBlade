@@ -1,24 +1,22 @@
 	<div class="space-4"></div>
-	
 			<!-- 判断表单是否发生过更改的token -->
 			<input type="hidden" id="form_token" value="0"/>
 			<!-- 乐观锁控制 -->
 			<input type="hidden" id="_version" name="VERSION" value="0">
 			
-			@if(isEmpty(keys)){
+			@ if(isEmpty(keys)) {
 				<input type="hidden" id="_${key!'id'}" name="${table!}.${key!'id'}" value=""/>
-			@}
-			@else{
-				@for(k in keys){
+			@ } else {
+				@for(k in keys) {
 					<input type="hidden" id="${k.table!}_${k.key!'id'}" name="${k.table!}.${k.key!'id'}" value=""/>
 				@}
-			@}
-			@for(x in col){
-			 @ if(!isEmpty(x.title)){
+			@ }
+			@ for(x in col){
+			 @ if(!isEmpty(x.title)) {
 					<div class="page-header-form">
 						<h2>
 							${x.title!}
-						@if(!isEmpty(x.small)){
+						@if(!isEmpty(x.small)) {
 							<small>
 								<i class="ace-icon fa fa-angle-double-right">
 									${x.small!}
@@ -28,7 +26,7 @@
 						</h2>
 					
 					</div>
-			 @ }else{
+			 @ } else {
 				@	var display = (func.like(x.type,"hidden")) ? "none" : "block";
 				@   var placeholder = (!isEmpty(x.placeholder)) ? x.placeholder : ("暂无"+x.name);
 				@	if(x.newline){

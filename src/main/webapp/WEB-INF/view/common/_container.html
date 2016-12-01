@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html >
+<html>
 	<head>
 		<meta charset="utf-8" />
-		<title>${title!'curd'}</title>
+		<title>${title!'blade'}</title>
 		<link rel="shortcut icon" href="${ctxPath}/static/style/images/favicon.ico" type="image/x-icon" />
-		<meta name="renderer" content="webkit" /><!-- 360浏览器默认选择webkit内核 -->
-		<meta name="description" content="Common form elements and layouts" />
+		<!-- 360浏览器默认选择webkit内核 -->
+		<meta name="renderer" content="webkit" />
+		<meta name="description" content="blade framework" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 		<!-- bootstrap & fontawesome -->
 		<link rel="stylesheet" href="${ctxPath}/static/assets/css/bootstrap.css" />
@@ -28,19 +29,17 @@
 	</head>
 	<body class="no-skin">
 		<div class="main-container" id="main-container">
-			<!-- /section:basics/sidebar -->
 			<div class="main-content">
 				<div class="main-content-inner">
-					<!-- /section:basics/content.breadcrumbs -->
 					<div class="page-content">
 						<div class="row">
 							<div class="col-xs-12">
 								${layoutContent}
 							</div>
 						</div>
-					</div><!-- /.page-content -->
+					</div>
 				</div>
-			</div><!-- /.main-content -->
-		</div><!-- /.main-container -->
+			</div>
+		</div>
 	</body>
 </html>

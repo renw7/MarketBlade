@@ -95,7 +95,7 @@ public class SideBarTag extends Tag {
 					String addtabs = Func.isEmpty(side.get("URL")) ? "" : "data-addtabs=\"" + side.get("CODE") + "\"";
 
 					firstMenu += "<li >";
-					firstMenu += "	<a data-url=\"" + href + "\" " + addtabs + " data-title=\"" + side.get("NAME") + "\" data-icon=\"fa " + side.get("ICON") + "\" class=\"" + getDropDownClass(Func.toStr(side.get("CODE")),"dropdown-toggle") + " tmsp-pointer\">";
+					firstMenu += "	<a data-url=\"" + href + "\" " + addtabs + " data-title=\"" + side.get("NAME") + "\" data-icon=\"fa " + side.get("ICON") + "\" class=\"" + getDropDownClass(Func.toStr(side.get("CODE")),"dropdown-toggle") + " blade-pointer\">";
 					firstMenu += "		<i class=\"menu-icon fa " + side.get("ICON") + "\"></i>";
 					firstMenu += "		<span class=\"menu-text\">" + side.get("NAME") + "</span>";
 					firstMenu += "		<b class=\"arrow " + getDropDownClass(Func.toStr(side.get("CODE")),"fa fa-angle-down") + "\"></b>";
@@ -169,7 +169,7 @@ public class SideBarTag extends Tag {
 				String addtabs = Func.isEmpty(_url) ? "" : "data-addtabs=\"" + _code + "\"";
 
 				Str += "<li>";
-				Str += "	<a data-url=\"" + href + "\" " + addtabs + " data-title=\"" + _name + "\" data-icon=\"fa " + _icon + "\" class=\"" + getDropDownClass(_code, "dropdown-toggle") + " tmsp-pointer\">";
+				Str += "	<a data-url=\"" + href + "\" " + addtabs + " data-title=\"" + _name + "\" data-icon=\"fa " + _icon + "\" class=\"" + getDropDownClass(_code, "dropdown-toggle") + " blade-pointer\">";
 				Str += "		<i class=\"menu-icon fa " + _icon + "\"></i>";
 				Str += _name;
 				Str += "		<b class=\"arrow " + getDropDownClass(_code,"fa fa-angle-down") + "\"></b>";

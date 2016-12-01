@@ -1,21 +1,20 @@
 	<div class="space-4"></div>
-		<!-- #section:elements.form -->
-			@for(x in col){		
-			 @ if(!isEmpty(x.title)){
+			@ for(x in col) {		
+			 @ if(!isEmpty(x.title)) {
 					<div class="page-header-form">
 						<h2>
 							${x.title!}
-						@if(!isEmpty(x.small)){
+						@ if(!isEmpty(x.small)) {
 							<small>
 								<i class="ace-icon fa fa-angle-double-right">
 									${x.small!}
 								</i>
 							</small>
-						@}
+						@ }
 						</h2>
 					
 					</div>	
-			 @ }else{
+			 @ } else {
 				@	var display = (func.like(x.type,"hidden")) ? "none" : "block";
 				@   var placeholder = (!isEmpty(x.placeholder)) ? x.placeholder : ("暂无"+x.name);
 				@	if(x.newline!false){
