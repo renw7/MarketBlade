@@ -65,12 +65,15 @@ public class DefaultFileProxyFactory implements IFileProxy {
 		attach.setUrl(bf.getUploadVirtualPath());
 		return Blade.create(Attach.class).saveRtStrId(attach);
 	}
-
+	
 	/**
 	 * 获取文件后缀
 	 */
 	public static String getFileExt(String fileName) {
-		return fileName.substring(fileName.lastIndexOf('.'), fileName.length());
+		if (fileName.indexOf(".") == -1)
+			return ".jpg";
+		else 
+			return fileName.substring(fileName.lastIndexOf('.'), fileName.length());
 	}
 
 	/**

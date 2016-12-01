@@ -34,7 +34,7 @@
 				@	if(x.newline){
 						<div class="form-group" style="display:${display!}">
 				@	}
-				@			var token = (isEmpty(x.token)) ? "token_" : "";
+				@			var token = (x.token!true) ? "token_" : "";
 							<label class="col-sm-2 control-label no-padding-right" > ${x.name!} </label>			
 							<div class="col-sm-${x.length!3}">
 				@			if(x.type == "text" || x.type == "number" || x.type == "tel" || x.type == "email" || x.type == "url" || x.type == "qq" || x.type == "unionpay" || x.type == "credit" || x.type == "idcard") {

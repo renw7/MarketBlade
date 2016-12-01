@@ -69,7 +69,7 @@ public class BladeFile {
 		
 	}
 
-	public BladeFile(MultipartFile file, String dir) {
+	private BladeFile(MultipartFile file, String dir) {
 		this.dir = dir;
 		this.file = file;
 		this.fileName = file.getName();
@@ -78,7 +78,7 @@ public class BladeFile {
 		this.uploadVirtualPath = UploadFileUtils.formatUrl(Cst.me().getUploadCtxPath().replace(Cst.me().getContextPath(), "") + File.separator + dir + File.separator + DateKit.getDays() + File.separator + this.originalFileName);
 	}
 
-	public BladeFile(MultipartFile file, String dir, String uploadPath, String uploadVirtualPath) {
+	private BladeFile(MultipartFile file, String dir, String uploadPath, String uploadVirtualPath) {
 		this(file, dir);
 		if (null != uploadPath){
 			this.uploadPath = UploadFileUtils.formatUrl(uploadPath);
