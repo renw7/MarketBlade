@@ -3,6 +3,7 @@
 Spring-Blade是基于多个优秀的开源项目，高度整合封装而成的快速开发平台。
 PS:因为喜欢刀锋战士所以取名了SpringBlade，当中有一个类也命名为Blade。
 但是后来发现已经有了一个高人气的开源作品：Blade，作者是 王爵。感觉很巧合，所以在这儿声明一下。
+特别感谢下[如梦技术](http://git.oschina.net/dreamlu), 分享产出了很多优质项目, 让我进步很大！
 
 ## 鸣谢
 1.[JFinal](http://www.oschina.net/p/jfinal)
