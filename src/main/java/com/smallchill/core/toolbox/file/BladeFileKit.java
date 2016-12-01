@@ -22,7 +22,7 @@ import com.smallchill.core.toolbox.kit.DateKit;
 import com.smallchill.core.toolbox.kit.PathKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 
-public class UploadFileUtils {
+public class BladeFileKit {
 
 	// 定义允许上传的文件扩展名
 	private static HashMap<String, String> extMap = new HashMap<String, String>();
@@ -49,7 +49,7 @@ public class UploadFileUtils {
 	}
 	
 	/**
-	 * 测试文件后缀 只让指定后缀的文件上次，像jsp,war,sh等危险的后缀禁止
+	 * 测试文件后缀 只让指定后缀的文件上传，像jsp,war,sh等危险的后缀禁止
 	 * 
 	 * @return
 	 */

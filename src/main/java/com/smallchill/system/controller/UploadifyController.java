@@ -19,7 +19,7 @@ import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.file.BladeFile;
 import com.smallchill.core.toolbox.file.FileRender;
-import com.smallchill.core.toolbox.file.UploadFileUtils;
+import com.smallchill.core.toolbox.file.BladeFileKit;
 import com.smallchill.core.toolbox.kit.PathKit;
 
 @Controller
@@ -38,7 +38,7 @@ public class UploadifyController extends BladeController {
 		String originalFileName = file.getOriginalFilename();
 		String dir = getParameter("dir", "image");
 		// 测试后缀
-		boolean ok = UploadFileUtils.testExt(dir, originalFileName);
+		boolean ok = BladeFileKit.testExt(dir, originalFileName);
 		if (!ok) {
 			rd.set("error", 1);
 			rd.set("message", "上传文件的类型不允许");

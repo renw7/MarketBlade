@@ -168,7 +168,7 @@ public class Func {
 			return true;
 		}
 		if (o instanceof String) {
-			if (o.toString().trim().equals("")) {
+			if (o.toString().equals("")) {
 				return true;
 			}
 		} else if (o instanceof List) {

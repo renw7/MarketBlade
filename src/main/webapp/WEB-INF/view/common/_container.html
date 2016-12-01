@@ -26,6 +26,11 @@
 		<!-- blade通用工具类 -->
 		<script src="${ctxPath}/static/blade/js/blade-toolbox.js" type="text/javascript" ></script>
 		<script src="${ctxPath}/static/blade/js/blade-ajax.js" type="text/javascript" ></script>	
+	    <script type="text/javascript">
+			$(function(){
+				BladeApp.addCtx("${ctxPath}");
+			});
+		</script>
 	</head>
 	<body class="no-skin">
 		<div class="main-container" id="main-container">

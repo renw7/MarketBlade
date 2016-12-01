@@ -20,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Date;
 
+import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.shiro.ShiroKit;
@@ -52,13 +53,15 @@ public class DefaultFileProxyFactory implements IFileProxy {
 		.append(time)
 		.append(getFileExt(f.getName()));
 		
-		return new String [] {UploadFileUtils.formatUrl(uploadPath.toString()), UploadFileUtils.formatUrl(virtualPath.toString())};
+		return new String [] {BladeFileKit.formatUrl(uploadPath.toString()), BladeFileKit.formatUrl(virtualPath.toString())};
 	}
 	
 	@Override
 	public Object getFileId(BladeFile bf) {
 		Attach attach = new Attach();
-		attach.setCreater(Func.toInt(ShiroKit.getUser().getId(), 0));
+		ShiroUser user = ShiroKit.getUser();
+		Object creater = (null == user) ? 0 : user.getId();
+		attach.setCreater(Func.toInt(creater));
 		attach.setCreatetime(new Date());
 		attach.setName(bf.getOriginalFileName());
 		attach.setStatus(1);

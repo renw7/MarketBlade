@@ -37,7 +37,7 @@ import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.file.BladeFile;
 import com.smallchill.core.toolbox.file.FileRender;
-import com.smallchill.core.toolbox.file.UploadFileUtils;
+import com.smallchill.core.toolbox.file.BladeFileKit;
 import com.smallchill.core.toolbox.kit.PathKit;
 
 @Controller
@@ -56,7 +56,7 @@ public class KindEditorController extends BladeController {
 		String originalFileName = file.getOriginalFilename();
 		String dir = getParameter("dir", "image");
 		// 测试后缀
-		boolean ok = UploadFileUtils.testExt(dir, originalFileName);
+		boolean ok = BladeFileKit.testExt(dir, originalFileName);
 		if (!ok) {
 			ps.set("error", 1);
 			ps.set("message", "上传文件的类型不允许");
@@ -89,7 +89,7 @@ public class KindEditorController extends BladeController {
 		}
 		String order = getParameter("order", "name");
 
-		Map<String, Object> result = UploadFileUtils.listFiles(dir, path, order);
+		Map<String, Object> result = BladeFileKit.listFiles(dir, path, order);
 		return result;
 	}
 	

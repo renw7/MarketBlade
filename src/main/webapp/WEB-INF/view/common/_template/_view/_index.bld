@@ -5,7 +5,6 @@
 ${"@"}layout("/common/_container.html"){
 
 <script type="text/javascript">
-	var ctx = "${"$"}{ctxPath}";
 	var grid_selector = "#grid-table";
 	var pager_selector = "#grid-pager";
 	
@@ -15,7 +14,7 @@ ${"@"}layout("/common/_container.html"){
 	});
 	
 	function initGrid(){
-		var grid_url = ctx + "/${"$"}{code}/list";
+		var grid_url = "${"$"}{ctxPath}/${"$"}{code}/list";
 		var _colnames = [@trim(){
 					@ for (attr in attrs) {		
 						@if (isEmpty(attr.comment)) {

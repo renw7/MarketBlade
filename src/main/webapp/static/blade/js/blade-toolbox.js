@@ -1,5 +1,15 @@
 	
-	/********************** 公共工具类 ***************/
+	/****************** 基本信息 ***************/
+	var BladeApp = {
+		ctxPath : "",
+		addCtx: function (ctx) {
+			if (this.ctxPath == "") {
+				this.ctxPath = ctx;
+			}
+	    }
+	};
+
+	/****************** 公共工具类 ***************/
 	var BladeTool = {
 	    isNotEmpty: function(val) {
 	        return ! this.isEmpty(val);
