@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.smallchill.core.exception.ToolBoxException;
-import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.support.Convert;
 
 /**
@@ -250,7 +249,7 @@ public class BeanKit {
 			for (PropertyDescriptor property : propertyDescriptors) {
 				propertyName = property.getName();
 				value = valueProvider.value(propertyName);
-				if (Func.isEmpty(value)) {
+				if (null == value) {
 					// 此处取得的值为空时跳过，包括null和""
 					continue;
 				}

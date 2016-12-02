@@ -60,7 +60,7 @@ public class Convert {
 				return valueStr.getBytes();
 			}
 			// 未找到可转换的类型，返回原值
-			return value;
+			return (StrKit.isBlank(valueStr)) ? null : value;
 		}
 	}
 
@@ -79,12 +79,14 @@ public class Convert {
 
 		if (clazz.isAssignableFrom(String.class)) {
 			// ----2016-12-01---zhuangqian----防止beetlsql对空字符串不检测导致无法入库的问题----
-			if (StrKit.isBlank(valueStr.trim()))
+			if (StrKit.isBlank(valueStr))
 				return " ";
 			else
 				return valueStr;
 		}
 
+		if (StrKit.isBlank(valueStr)) return null;
+		
 		BasicType basicType = null;
 		try {
 			basicType = BasicType.valueOf(clazz.getSimpleName().toUpperCase());
