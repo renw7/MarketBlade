@@ -94,6 +94,15 @@ public class DbManager {
 		return getSqlManager().executeUpdate(p);
 	}
 	
+	/**   
+	 * 存储过程调用
+	 * @param call
+	 * @return T
+	*/
+	public <T> T executeCall(OnConnection<T> call) {
+		return getSqlManager().executeOnConnection(call);
+	}
+	
 	/**
 	 * 根据sql新增数据
 	 * @param sqlTemplate	sql语句
@@ -534,15 +543,6 @@ public class DbManager {
 			return true;
 		}
 		return false;
-	}
-	
-	/**   
-	 * 存储过程调用
-	 * @param call
-	 * @return T
-	*/
-	public <T> T executeCall(OnConnection<T> call) {
-		return getSqlManager().executeOnConnection(call);
 	}
 	
 }

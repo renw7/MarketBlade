@@ -68,6 +68,15 @@ public class Db {
 		return getDbManager().executeUpdate(p);
 	}
 	
+	/**   
+	 * 存储过程调用
+	 * @param call
+	 * @return T
+	*/
+	public static <T> T executeCall(OnConnection<T> call) {
+		return getDbManager().executeCall(call);
+	}
+	
 	/**
 	 * 根据sql新增数据
 	 * @param sqlTemplate	sql语句
@@ -361,14 +370,5 @@ public class Db {
 	 */
 	public static boolean isExist(String sqlTemplate, Object paras) {
 		return getDbManager().isExist(sqlTemplate, paras);
-	}
-	
-	/**   
-	 * 存储过程调用
-	 * @param call
-	 * @return T
-	*/
-	public static <T> T executeCall(OnConnection<T> call) {
-		return getDbManager().executeCall(call);
 	}
 }
