@@ -24,10 +24,10 @@ import com.smallchill.core.interfaces.IQuery;
 @SuppressWarnings("unchecked")
 public class LigerGridFactory extends BaseGridFactory {
 
-	public LigerGrid<Map<String, Object>> paginate(String slaveName, Integer page, Integer rows,
+	public LigerGrid<Map<String, Object>> paginate(String dbName, Integer page, Integer rows,
 			String source, String para, String sort, String order,
 			IQuery intercept, BladeController ctrl) {
-		BladePage<Map<String, Object>> list = (BladePage<Map<String, Object>>) super.basePaginate(slaveName, page, rows, source, para, sort, order, intercept, ctrl);
+		BladePage<Map<String, Object>> list = (BladePage<Map<String, Object>>) super.basePaginate(dbName, page, rows, source, para, sort, order, intercept, ctrl);
 		
 		int _pageNum = (int) list.getPage();
 		int _pageSize = (int) list.getPageSize();

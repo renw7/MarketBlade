@@ -292,7 +292,14 @@ public class BladeController {
 	
 	/** ============================     paginate    =================================================  */
 	
-	private Object basepage(String slaveName, String source, IQuery intercept){
+	/**   
+	 * 分页
+	 * @param dbName 数据库别名
+	 * @param source 数据源
+	 * @param intercept 分页拦截器
+	 * @return Object
+	*/
+	private Object basepage(String dbName, String source, IQuery intercept){
 		Integer page = getParameterToInt("page", 1);
 		Integer rows = getParameterToInt("rows", 10);
 		String where = getParameter("where", StrKit.EMPTY);
@@ -304,44 +311,52 @@ public class BladeController {
 			sort = sidx + " " + sord
 					+ (StrKit.notBlank(sort) ? ("," + sort) : StrKit.EMPTY);
 		}
-		Object grid = GridManager.paginate(slaveName, page, rows, source, where, sort, order, intercept, this);
+		Object grid = GridManager.paginate(dbName, page, rows, source, where, sort, order, intercept, this);
 		return grid;
 	}
 	
-	/**
-	 * @param 数据源
-	 * @return
-	 */
+
+	/**   
+	 * 分页
+	 * @param source 数据源
+	 * @return Object
+	*/
 	protected Object paginate(String source){
 		return basepage(null, source, null);
 	}
 	
-	/**
-	 * @param 数据源
-	 * @param 自定义拦截器
-	 * @return
-	 */
+
+	/**   
+	 * 分页
+	 * @param source 数据源
+	 * @param intercept 分页拦截器
+	 * @return Object
+	*/
 	protected Object paginate(String source, IQuery intercept){
 		return basepage(null, source, intercept);
 	}
 	
-	/**
-	 * @param 数据库别名
-	 * @param 数据源
-	 * @return
-	 */
-	protected Object paginate(String slaveName, String source){
-		return basepage(slaveName, source, null);
+
+	/**   
+	 * 分页
+	 * @param dbName 数据库别名
+	 * @param source 数据源
+	 * @return Object
+	*/
+	protected Object paginate(String dbName, String source){
+		return basepage(dbName, source, null);
 	}
 	
-	/**
-	 * @param 数据库别名
-	 * @param 数据源
-	 * @param 自定义拦截器
-	 * @return
-	 */
-	protected Object paginate(String slaveName, String source, IQuery intercept){
-		return basepage(slaveName, source, intercept);
+
+	/**   
+	 * 分页
+	 * @param dbName 数据库别名
+	 * @param source 数据源
+	 * @param intercept 分页拦截器
+	 * @return Object
+	*/
+	protected Object paginate(String dbName, String source, IQuery intercept){
+		return basepage(dbName, source, intercept);
 	}
 	
 	

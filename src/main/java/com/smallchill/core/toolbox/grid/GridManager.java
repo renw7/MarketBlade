@@ -35,8 +35,8 @@ public class GridManager {
 		this.defaultGridFactory = defaultGridFactory;
 	}
 	
-	public static Object paginate(String slaveName, Integer page, Integer rows, String source, String para, String sort, String order, IQuery intercept, BladeController ctrl) {
-		return me.defaultGridFactory.paginate(slaveName, page, rows, source, para, sort, order, intercept, ctrl);
+	public static Object paginate(String dbName, Integer page, Integer rows, String source, String para, String sort, String order, IQuery intercept, BladeController ctrl) {
+		return me.defaultGridFactory.paginate(dbName, page, rows, source, para, sort, order, intercept, ctrl);
 	}
 
 }

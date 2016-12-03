@@ -24,7 +24,7 @@ public interface IGrid {
 	/**
 	 * 封装grid返回数据类型
 	 * 
-	 * @param slaveName
+	 * @param dbName
 	 *            数据库别名
 	 * @param page
 	 *            当前页号
@@ -44,5 +44,5 @@ public interface IGrid {
 	 *            控制器
 	 * @return String
 	 */
-	Object paginate(String slaveName, Integer page, Integer rows, String source, String para, String sort, String order, IQuery intercept, BladeController ctrl);
+	Object paginate(String dbName, Integer page, Integer rows, String source, String para, String sort, String order, IQuery intercept, BladeController ctrl);
 }

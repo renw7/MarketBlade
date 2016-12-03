@@ -38,7 +38,7 @@ public abstract class BaseGridFactory implements IGrid{
 	/**
 	 * 封装grid返回数据类型
 	 * 
-	 * @param slaveName
+	 * @param dbName
 	 *            数据库别名
 	 * @param page
 	 *            当前页号
@@ -58,20 +58,20 @@ public abstract class BaseGridFactory implements IGrid{
 	 *            控制器
 	 * @return Object
 	 */
-	protected Object basePaginate(String slaveName, Integer page, Integer rows, String source, String para, String sort, String order, IQuery intercept, BladeController ctrl) {
+	protected Object basePaginate(String dbName, Integer page, Integer rows, String source, String para, String sort, String order, IQuery intercept, BladeController ctrl) {
 		if (source.toLowerCase().indexOf("select") == -1) {
-			return paginateById(slaveName, page, rows, source, para, sort, order, intercept, ctrl);
+			return paginateById(dbName, page, rows, source, para, sort, order, intercept, ctrl);
 		} else {
-			return paginateBySql(slaveName, page, rows, source, para, sort, order, intercept, ctrl);
+			return paginateBySql(dbName, page, rows, source, para, sort, order, intercept, ctrl);
 		}
 	}
 	
-	private Object paginateById(String slaveName, Integer page, Integer rows, String sqlId, String para, String sort, String order, IQuery intercept, BladeController ctrl) {	
+	private Object paginateById(String dbName, Integer page, Integer rows, String sqlId, String para, String sort, String order, IQuery intercept, BladeController ctrl) {	
 		String sqlTemplate = Md.getSql(sqlId);
-		return paginateBySql(slaveName, page, rows, sqlTemplate, para, sort, order, intercept, ctrl);
+		return paginateBySql(dbName, page, rows, sqlTemplate, para, sort, order, intercept, ctrl);
 	}
 
-	private Object paginateBySql(String slaveName, Integer page, Integer rows, String sqlTemplate, String para, String sort, String order, IQuery intercept, BladeController ctrl) {
+	private Object paginateBySql(String dbName, Integer page, Integer rows, String sqlTemplate, String para, String sort, String order, IQuery intercept, BladeController ctrl) {
 		String sqlex = SqlKeyword.getWhere(para);
 		Map<String, Object> map = getSqlMap(para, sort, order);	
 		String statement = "select * from (" + sqlTemplate + ") blade_statement";
@@ -91,8 +91,8 @@ public abstract class BaseGridFactory implements IGrid{
 
 		Object list = null;
 		String orderBy = (Func.isEmpty(map.get(Const.ORDER_BY_STR))) ? " " : (" order by " + Func.toStr(map.get(Const.ORDER_BY_STR)));
-		if(StrKit.notBlank(slaveName)){
-			list = Db.init(slaveName).paginate(statement + orderBy, Map.class, map, page, rows);			
+		if(StrKit.notBlank(dbName)){
+			list = Db.init(dbName).paginate(statement + orderBy, Map.class, map, page, rows);			
 		} else {
 			list = Db.paginate(statement + orderBy, Map.class, map, page, rows);
 		}
