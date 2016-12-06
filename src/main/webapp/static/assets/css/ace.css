@@ -55,6 +55,12 @@ body {
 .sidebar + .main-content {
   margin-left: 190px;
 }
+
+.sidebar-colexp {
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
 .page-content {
   background-color: #ffffff;
   position: relative;

@@ -72,6 +72,12 @@
 			//var minimized = this.$sidebar.hasClass('menu-min');
 			this.minimized = !this.minimized;
 			
+			if (this.minimized) { //collapse
+				$("#sidebar").removeClass("sidebar-colexp");
+			} else { //expand
+				$("#sidebar").addClass("sidebar-colexp");
+			}
+			
 			try {
 				//toggle_btn can also be a param to indicate saving to cookie or not?! if toggle_btn === false, it won't be saved
 				ace.settings.sidebar_collapsed(sidebar, this.minimized, !(toggle_btn === false || save === false));//@ ace-extra.js
