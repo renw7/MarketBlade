@@ -100,6 +100,14 @@ public class BladeController {
 		return Convert.toLong(getRequest().getParameter(name), defaultValue);
 	}
 
+	public Float getParameterToFloat(String name) {
+		return Convert.toFloat(getRequest().getParameter(name));
+	}
+
+	public Float getParameterToFloat(String name, Float defaultValue) {
+		return Convert.toFloat(getRequest().getParameter(name), defaultValue);
+	}
+	
 	public String getParameterToEncode(String para) {
 		return URLKit.encode(getRequest().getParameter(para), CharsetKit.UTF_8);
 	}
