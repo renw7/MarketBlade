@@ -53,6 +53,7 @@ PS:因为喜欢刀锋战士所以取名了SpringBlade，当中有一个类也命
 * 树结构控件：jQuery zTree
 * 弹出层：Layer
 * 日期控件： LayDate
+* 图表控件：echarts
 
 ## 后台界面
 ![后台界面](http://git.oschina.net/uploads/images/2016/0706/091736_144317b3_474499.png "后台界面")
