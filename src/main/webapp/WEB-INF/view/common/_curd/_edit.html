@@ -54,9 +54,9 @@
 				@                var num = strutil.replace(x.type, "select_", "");
 								<blade:select code="${num}" name="${table!x.table}.${x.index!}" value="${x.value!}" type="dict" tail="${x.tail!}" token="${token}" intercept="${x.intercept!}" required="${x.required!}"/>
 				@			}
-				@			else if(func.like(x.type, "combo_")) {
+				@			else if(func.like(x.type,"combo_")) {
 				@                var num = strutil.replace(x.type, "combo_", "");
-								<blade:combo x="${x}" num="${num}" placeholder="${placeholder}"/>
+								<blade:combo id="${x.index!}" code="${num}" name="${table!x.table}.${x.index!}" value="${x.value!0}" type="dict" required="${x.required!}" placeholder="${placeholder}"/>
 				@			}
 				@			else if(func.like(x.type, "dropdown_")) {
 				@                var num = strutil.replace(x.type, "dropdown_", "");
@@ -67,6 +67,9 @@
 				@			}
 				@			else if(x.type == "selectDiy") {
 								<blade:select  name="${table!x.table}.${x.index!}" value="${x.value!}" type="diy" source="${x.source!}" tail="${x.tail!}" token="${token}" intercept="${x.intercept!}" required="${x.required!}"/>
+				@			}
+				@			else if(x.type == "comboDiy") {
+								<blade:combo id="${x.index!}"  name="${table!x.table}.${x.index!}" value="${x.value!0}" type="diy" source="${x.source!}" required="${x.required!}" placeholder="${placeholder}"/>
 				@			}
 				@			else if(x.type == "dropdownDiy") {
 								<blade:dropdown  name="${table!x.table}.${x.index!}" value="${x.value!}" type="diy" source="${x.source!}" tail="${x.tail!}" token="${token}" intercept="${x.intercept!}" required="${x.required!}"/>

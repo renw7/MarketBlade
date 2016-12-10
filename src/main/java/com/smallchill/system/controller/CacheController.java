@@ -162,16 +162,32 @@ public class CacheController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/getCombo")
 	public AjaxResult getCombo() {
-		final String code = getParameter("code");
-		
-		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, DICT_COMBO + code,
-				new ILoader() {
-					public Object load() {
-						return Db.selectList("select num as \"id\",name as \"text\" from  TFW_DICT where code=#{code} and num>0", Paras.create().set("code", code));
-					}
-				});
-		
-		return json(dict);
+		String type = getParameter("type");
+		if (StrKit.equalsIgnoreCase(type, "diy")) {
+			final String source = getParameter("source");
+			String where = getParameter("where");
+			Map<String, Object> param = Paras.createHashMap();
+			if (StrKit.notBlank(where)) {
+				param = JsonKit.parse(where);
+			}
+			final Map<String, Object> map = param;
+			List<Map<String, Object>> diy = CacheKit.get(DIY_CACHE, DICT_COMBO + type + source,
+					new ILoader() {
+						public Object load() {
+							return Db.selectList(Md.getSql(source), map);
+						}
+					});
+			return json(diy);
+		} else {
+			final String code = getParameter("code");
+			List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, DICT_COMBO + type + code,
+					new ILoader() {
+						public Object load() {
+							return Db.selectList("select num as \"id\",name as \"text\" from  TFW_DICT where code=#{code} and num>0", Paras.create().set("code", code));
+						}
+					});
+			return json(dict);
+		}
 	}
 
 	@ResponseBody
