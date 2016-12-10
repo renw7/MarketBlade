@@ -40,6 +40,7 @@
 		<property name="sqlLoader">
 			<bean class="org.beetl.sql.core.ClasspathLoader">
 				<property name="sqlRoot" value="/beetlsql"></property>
+				<property name="charset" value="UTF-8"></property>
 				<property name="dbs">
 					<bean class="org.beetl.sql.core.db.MySqlStyle"></bean>
 				</property>
