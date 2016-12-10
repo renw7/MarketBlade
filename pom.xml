@@ -7,7 +7,7 @@
 	<packaging>war</packaging>
 	<version>1.0</version>
 	<name>springblade</name>
-	<description>集成了spring+springMVC+beetlsql+shiro</description>
+	<description>集成了spring + springMVC + beetlsql + beetl + shiro</description>
 	<url>http://maven.apache.org</url>
 
 	<properties>
