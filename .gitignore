@@ -18,7 +18,7 @@ Thumbs.db
 
 # idea #
 .idea
-blade.iml
+*.iml
 
 # Package Files #
 *.jar

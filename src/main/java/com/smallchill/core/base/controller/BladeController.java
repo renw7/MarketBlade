@@ -52,8 +52,8 @@ import com.smallchill.core.toolbox.support.WafRequestWrapper;
  * Blade控制器封装类
  */
 public class BladeController {
-	
-	private static Logger LOGGER = LogManager.getLogger(BladeController.class);
+
+	protected Logger LOGGER = LogManager.getLogger(this.getClass());
 	
 	/** ============================     requset    =================================================  */
 

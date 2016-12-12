@@ -50,8 +50,6 @@ import com.smallchill.system.model.LoginLog;
 @Controller
 public class LoginController extends BaseController implements Const{
 
-	private static Logger LOGGER = LogManager.getLogger(LoginController.class);
-
 	@RequestMapping("/")
 	public String index() {
 		return INDEX_REALPATH;
