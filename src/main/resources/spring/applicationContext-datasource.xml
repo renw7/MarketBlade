@@ -57,12 +57,21 @@
 		<property name="filters" value="mergeStat" />
 	</bean>
 
+	<!-- 主数据源 -->
 	<bean id="dataSource"  parent="baseDataSource" init-method="init">
 		<property name="driverClassName" value="${master.driver}" />
 		<property name="url" value="${master.url}" />
 		<property name="username" value="${master.username}" />
 		<property name="password" value="${master.password}" />
 	</bean>
+
+	<!-- 多数据源 -->
+	<!--<bean id="otherSource"  parent="baseDataSource" init-method="init">
+		<property name="driverClassName" value="${other.driver}" />
+		<property name="url" value="${other.url}" />
+		<property name="username" value="${other.username}" />
+		<property name="password" value="${other.password}" />
+	</bean>-->
 
 	
 	<!-- 配置 Annotation 驱动，扫描@Transactional注解的类定义事务  -->

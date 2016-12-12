@@ -2,6 +2,7 @@ package com.smallchill.platform.model;
 
 import java.util.Date;
 
+import com.smallchill.core.annotation.DbName;
 import org.beetl.sql.core.annotatoin.AutoID;
 import org.beetl.sql.core.annotatoin.SeqID;
 import org.beetl.sql.core.annotatoin.Table;
@@ -11,6 +12,7 @@ import com.smallchill.core.base.model.BaseModel;
 
 @Table(name = "tb_yw_tzgg")
 @BindID(name = "f_it_xl")
+//@DbName(name = "other") //多数据源配置注解
 @SuppressWarnings("serial")
 public class Notice extends BaseModel {
 	private String f_it_xl;
@@ -23,8 +25,8 @@ public class Notice extends BaseModel {
 	private Date f_dt_fbsj;
 	private Integer version;
 
-	@AutoID
-	@SeqID(name = "SEQ_NOTICE")
+	@AutoID //mysql自增使用
+	@SeqID(name = "SEQ_NOTICE") //oracle sequence序列使用
 	public String getF_it_xl() {
 		return f_it_xl;
 	}

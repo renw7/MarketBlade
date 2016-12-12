@@ -49,6 +49,36 @@
 		<property name="configLocation" value="classpath:/config/beetlsql.properties"></property>
 	</bean>
 
+	<!-- 注册sqlmanager(其他库) -->
+	<!--<bean id="otherSqlManager" class="org.beetl.sql.ext.spring4.SqlManagerFactoryBean">
+		<property name="nc">
+			<bean class="org.beetl.sql.core.DefaultNameConversion"></bean>
+		</property>
+		<property name="interceptors">
+			<list>
+				<bean class="com.smallchill.core.beetl.ReportInterceptor"></bean>
+			</list>
+		</property>
+		<property name="cs">
+			<bean class="org.beetl.sql.ext.spring4.BeetlSqlDataSource">
+				<property name="masterSource" ref="otherSource"></property>
+			</bean>
+		</property>
+		<property name="dbStyle">
+			<bean class="org.beetl.sql.core.db.MySqlStyle"></bean>
+		</property>
+		<property name="sqlLoader">
+			<bean class="org.beetl.sql.core.ClasspathLoader">
+				<property name="sqlRoot" value="/beetlsql"></property>
+				<property name="charset" value="UTF-8"></property>
+				<property name="dbs">
+					<bean class="org.beetl.sql.core.db.MySqlStyle"></bean>
+				</property>
+			</bean>
+		</property>
+		<property name="configLocation" value="classpath:/config/beetlsql.properties"></property>
+	</bean>-->
+
     <!-- blade框架自定义config -->
     <bean id="bladeConfig" class="com.smallchill.core.config.BladeConfig">
     	<!-- 注入自定义config -->
@@ -58,7 +88,8 @@
 		<!-- 注入sqlManagerMap -->
 		<property name="sqlManager">
 			<map>
-				<entry key="master" value-ref="sqlManager" /> 
+				<entry key="master" value-ref="sqlManager" />
+				<!--<entry key="other" value-ref="otherSqlManager" />-->
 			</map>
 		</property>
 	</bean>
