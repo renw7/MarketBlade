@@ -269,7 +269,8 @@ var exwhere;
             	stage.all[code].btn.bind(toolbar);
             }
             exwhere = this.url.replace(BladeApp.ctxPath, "");//修复未发布在tomcat根目录下带有项目路径导致不能搜索的问题 
-            reloadGrid();
+            isAutoPage = false;//自动跳转到第一页
+            searchGrid();
             return;
 
         }
