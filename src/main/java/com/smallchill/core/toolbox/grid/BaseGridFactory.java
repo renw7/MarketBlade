@@ -72,29 +72,35 @@ public abstract class BaseGridFactory implements IGrid{
 	}
 
 	private Object paginateBySql(String dbName, Integer page, Integer rows, String sqlTemplate, String para, String sort, String order, IQuery intercept, BladeController ctrl) {
+		String statement = "select * from (" + sqlTemplate + ") blade_statement";
 		String sqlex = SqlKeyword.getWhere(para);
 		Map<String, Object> map = getSqlMap(para, sort, order);	
-		String statement = "select * from (" + sqlTemplate + ") blade_statement";
+		String orderBy = (Func.isEmpty(map.get(Const.ORDER_BY_STR))) ? " " : (" order by " + Func.toStr(map.get(Const.ORDER_BY_STR)));
+		String sqlCount = "";
 		
 		// 查询前拦截
 		AopContext ac = null;
 		if (null != intercept) {
 			ac = new AopContext(ctrl);
-			ac.setSql(statement + sqlex);
+			ac.setSql(sqlTemplate);
+			ac.setSqlEx(sqlex);
 			ac.setCondition("");
+			ac.setSqlStatement("");
+			ac.setSqlCount("");
 			ac.setParam(map);
 			intercept.queryBefore(ac);
-			statement = statement + (StrKit.isBlank(ac.getWhere()) ? (sqlex + ac.getCondition()) : ac.getWhere());
+			sqlCount = ac.getSqlCount();
+			statement = (StrKit.isBlank(ac.getSqlStatement()) ? (statement + (StrKit.isBlank(ac.getWhere()) ? (sqlex + ac.getCondition()) : ac.getWhere()) + orderBy) : ac.getSqlStatement());
 		} else {
-			statement = statement + sqlex;
+			statement = statement + sqlex + orderBy;
 		}
 
 		Object list = null;
-		String orderBy = (Func.isEmpty(map.get(Const.ORDER_BY_STR))) ? " " : (" order by " + Func.toStr(map.get(Const.ORDER_BY_STR)));
+		
 		if(StrKit.notBlank(dbName)){
-			list = Db.init(dbName).paginate(statement + orderBy, Map.class, map, page, rows);			
+			list = Db.init(dbName).paginate(statement, sqlCount, map, page, rows);			
 		} else {
-			list = Db.paginate(statement + orderBy, Map.class, map, page, rows);
+			list = Db.paginate(statement, sqlCount, map, page, rows);
 		}
 
 		// 查询后拦截

@@ -52,6 +52,11 @@ public class AopContext {
 	private String sql;
 
 	/**
+	 * 从前端grid传过来的参数
+	 */
+	private String sqlEx;
+
+	/**
 	 * 追加SQL条件(程序自动生成)
 	 */
 	private String condition;
@@ -60,6 +65,16 @@ public class AopContext {
 	 * 自定义SQL覆盖默认查询条件
 	 */
 	private String where;
+
+	/**
+	 * 自定义列表的sql
+	 */
+	private String sqlStatement;
+	
+	/**
+	 * 自定义分页数的sql
+	 */
+	private String sqlCount;
 	
 	/**
 	 * 自定义SQL参数(map形式)
@@ -113,7 +128,7 @@ public class AopContext {
 	public void setView(ModelAndView view) {
 		this.view = view;
 	}
-	
+
 	public Object getId() {
 		return id;
 	}
@@ -138,6 +153,14 @@ public class AopContext {
 		this.sql = sql;
 	}
 
+	public String getSqlEx() {
+		return sqlEx;
+	}
+
+	public void setSqlEx(String sqlEx) {
+		this.sqlEx = sqlEx;
+	}
+
 	public String getCondition() {
 		return condition;
 	}
@@ -152,6 +175,22 @@ public class AopContext {
 
 	public void setWhere(String where) {
 		this.where = where;
+	}
+
+	public String getSqlStatement() {
+		return sqlStatement;
+	}
+
+	public void setSqlStatement(String sqlStatement) {
+		this.sqlStatement = sqlStatement;
+	}
+
+	public String getSqlCount() {
+		return sqlCount;
+	}
+
+	public void setSqlCount(String sqlCount) {
+		this.sqlCount = sqlCount;
 	}
 
 	public Map<String, Object> getParam() {
@@ -169,5 +208,6 @@ public class AopContext {
 	public void setTips(String tips) {
 		this.tips = tips;
 	}
+
 
 }

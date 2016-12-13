@@ -524,8 +524,36 @@ public class DbManager {
 	 * @return
 	 */
 	public <T> BladePage<T> paginate(String sqlTemplate, Class<T> clazz, Object paras, int pageNum, int pageSize){
+		return paginate(sqlTemplate, "", clazz, paras, pageNum, pageSize);
+	}
+	
+	/**
+	 * 分页
+	 * @param sqlTemplate sql语句
+	 * @param sqlCount count语句
+	 * @param clazz	返回类型
+	 * @param paras	参数
+	 * @param pageNum	页号
+	 * @param pageSize	数量
+	 * @return
+	 */
+	public <T> BladePage<Map> paginate(String sqlTemplate, String sqlCount, Object paras, int pageNum, int pageSize){
+		return paginate(sqlTemplate, sqlCount, Map.class, paras, pageNum, pageSize);
+	}
+	
+	/**
+	 * 分页
+	 * @param sqlTemplate sql语句
+	 * @param sqlCount count语句
+	 * @param clazz	返回类型
+	 * @param paras	参数
+	 * @param pageNum	页号
+	 * @param pageSize	数量
+	 * @return
+	 */
+	public <T> BladePage<T> paginate(String sqlTemplate, String sqlCount, Class<T> clazz, Object paras, int pageNum, int pageSize){
 		List<T> rows = getList(sqlTemplate, clazz, paras, pageNum, pageSize);
-		long count = queryInt("SELECT COUNT(*) CNT FROM (" + sqlTemplate + ") a", paras).longValue();
+		long count = queryInt((StrKit.isBlank(sqlCount) ? "SELECT COUNT(*) CNT FROM (" + sqlTemplate + ") a" : sqlCount), paras).longValue();
 		BladePage<T> page = new BladePage<>(rows, pageNum, pageSize, count);
 		return page;
 	}

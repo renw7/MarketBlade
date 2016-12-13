@@ -362,6 +362,35 @@ public class Db {
 	}
 
 	/**
+	 * 分页
+	 * @param sqlTemplate sql语句
+	 * @param sqlCount count语句
+	 * @param clazz	返回类型
+	 * @param paras	参数
+	 * @param pageNum	页号
+	 * @param pageSize	数量
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	public static BladePage<Map> paginate(String sqlTemplate, String sqlCount, Object paras, int pageNum, int pageSize){
+		return getDbManager().paginate(sqlTemplate, sqlCount, paras, pageNum, pageSize);
+	}
+	
+	/**
+	 * 分页
+	 * @param sqlTemplate sql语句
+	 * @param sqlCount count语句
+	 * @param clazz	返回类型
+	 * @param paras	参数
+	 * @param pageNum	页号
+	 * @param pageSize	数量
+	 * @return
+	 */
+	public static <T> BladePage<T> paginate(String sqlTemplate, String sqlCount, Class<T> clazz, Object paras, int pageNum, int pageSize){
+		return getDbManager().paginate(sqlTemplate, sqlCount, clazz, paras, pageNum, pageSize);
+	}
+	
+	/**
 	 * 是否存在
 	 * 
 	 * @param sqlTemplate
