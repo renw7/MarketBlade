@@ -85,6 +85,7 @@ public abstract class BaseGridFactory implements IGrid{
 			ac.setSql(sqlTemplate);
 			ac.setSqlEx(sqlex);
 			ac.setCondition("");
+			ac.setOrderBy(orderBy);
 			ac.setSqlStatement("");
 			ac.setSqlCount("");
 			ac.setParam(map);

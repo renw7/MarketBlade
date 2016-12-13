@@ -67,6 +67,11 @@ public class AopContext {
 	private String where;
 
 	/**
+	 * 从前端grid传过来的排序方式
+	 */
+	private String orderBy;
+
+	/**
 	 * 自定义列表的sql
 	 */
 	private String sqlStatement;
@@ -175,6 +180,14 @@ public class AopContext {
 
 	public void setWhere(String where) {
 		this.where = where;
+	}
+
+	public String getOrderBy() {
+		return orderBy;
+	}
+
+	public void setOrderBy(String orderBy) {
+		this.orderBy = orderBy;
 	}
 
 	public String getSqlStatement() {

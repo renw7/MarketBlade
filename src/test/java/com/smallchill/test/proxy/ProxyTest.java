@@ -23,14 +23,6 @@ public class ProxyTest {
 
 		test.test();
 	}
-
-	@Test
-	public void testKit() {
-		TestProxyBean testBean = new TestProxyBean();
-		IProxyKit test = ClassKit.newProxyInstance(testBean.getClass(),
-				new TestProxyHander(testBean));
-		test.testKit();
-	}
 	
 	@Test
 	public void testCglib(){
