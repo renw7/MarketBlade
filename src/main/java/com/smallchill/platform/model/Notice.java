@@ -2,7 +2,6 @@ package com.smallchill.platform.model;
 
 import java.util.Date;
 
-import com.smallchill.core.annotation.DbName;
 import org.beetl.sql.core.annotatoin.AutoID;
 import org.beetl.sql.core.annotatoin.SeqID;
 import org.beetl.sql.core.annotatoin.Table;
