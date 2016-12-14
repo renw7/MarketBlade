@@ -235,6 +235,8 @@ SpringBlade交流群：`477853168`  主要给大家交流学习, 本人工作比
 
 SpringBlade不搞捐赠, 不打广告, 只做最单纯的开源项目
 
+如果需要非maven版,请点击[SpringBlade](http://git.oschina.net/smallc/SpringBlade_General)
+
 常见问题
 =======
 ##1.linux下登陆报未知错误
