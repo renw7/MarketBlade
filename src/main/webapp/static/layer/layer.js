@@ -897,8 +897,11 @@ layer.close = function(index){
   $('#layui-layer-moves, #layui-layer-shade' + index).remove();
   layer.ie == 6 && ready.reselect();
   ready.rescollbar(index);
-  typeof ready.end[index] === 'function' && ready.end[index]();
-  delete ready.end[index]; 
+
+  //修复end里如果再执行close出现死循环的问题
+  //typeof ready.end[index] === 'function' && ready.end[index]();
+  //delete ready.end[index];
+
   if(layero.attr('minLeft')){
     ready.minIndex--;
     ready.minLeft.push(layero.attr('minLeft'));
