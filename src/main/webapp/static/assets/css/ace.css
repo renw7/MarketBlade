@@ -6118,7 +6118,8 @@ fieldset[disabled] .btn-light.active {
 }
 .btn.btn-white {
   text-shadow: none !important;
-  background-color: #FFF !important;
+  /*---zhuangqian---增加背景色------*/
+  background-color: #fafafa !important;
 }
 .btn.btn-white.no-hover:hover,
 .btn.btn-white.no-hover:active {
@@ -9897,7 +9898,8 @@ input.ace + .lbl.padding-0::before {
 .form-group input[type="search"],
 .form-group input[type="tel"],
 .form-group input[type="color"] {
-  background: #FFF;
+  /*---zhuangqian---增加背景色------*/
+  background: #fdfdfd;
 }
 .form-group.has-success input,
 .form-group.has-success select,

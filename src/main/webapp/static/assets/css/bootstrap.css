@@ -3238,6 +3238,8 @@ tbody.collapse.in {
   cursor: not-allowed;
 }
 .open > .dropdown-menu {
+  /*---zhuangqian---增加背景色------*/
+  background-color: #fafafa;
   display: block;
 }
 .open > a {
