@@ -23,9 +23,9 @@ public class ReportInterceptor extends DebugInterceptor {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("\nBlade beetlsql --------------------- " + DateKit.getTime() + " --------------------------------\n")
-				.append("索引	: " + ctx.getSqlId().replaceAll("\\s+", " ")).append("\n")
-				.append("语句	: " + ctx.getSql().replaceAll("\\s+", " ")).append("\n")
-				.append("参数	: " + formatParas(ctx.getParas()))
+				.append("索引: " + ctx.getSqlId().replaceAll("\\s+", " ")).append("\n")
+				.append("语句: " + ctx.getSql().replaceAll("\\s+", " ")).append("\n")
+				.append("参数: " + formatParas(ctx.getParas()))
 				.append("\n");
 
 		RuntimeException ex = new RuntimeException();
@@ -39,7 +39,7 @@ public class ReportInterceptor extends DebugInterceptor {
 				String className = tr.getClassName();
 				String mehodName = tr.getMethodName();
 				int line = tr.getLineNumber();
-				sb.append("位置	: " + className + "." + mehodName + "(" + tr.getFileName() + ":" + line + ")").append("\n");
+				sb.append("位置: " + className + "." + mehodName + "(" + tr.getFileName() + ":" + line + ")").append("\n");
 				break;
 			}
 		}
@@ -55,10 +55,10 @@ public class ReportInterceptor extends DebugInterceptor {
 		long start = (Long) ctx.get("debug.time");
 		
 		StringBuilder sb = (StringBuilder) ctx.get("debug.sb");
-		sb.append("时间	: " + (time - start) + "ms").append("\n");
+		sb.append("时间: " + (time - start) + "ms").append("\n");
 
 		if (ctx.isUpdate()) {
-			sb.append("更新	: [");
+			sb.append("更新: [");
 			if (ctx.getResult().getClass().isArray()) {
 				int[] ret = (int[]) ctx.getResult();
 				for (int i = 0; i < ret.length; i++) {
@@ -72,7 +72,7 @@ public class ReportInterceptor extends DebugInterceptor {
 			}
 			sb.append("]");
 		} else {
-			sb.append("返回	: ").append(ctx.getResult()).append("");
+			sb.append("返回: ").append(ctx.getResult()).append("");
 		}
 		sb.append("\n").append("-----------------------------------------------------------------------------------------");
 		println(sb.toString());
