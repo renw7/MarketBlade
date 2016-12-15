@@ -3474,6 +3474,8 @@ tbody.collapse.in {
   padding-right: 0;
 }
 .input-group .form-control {
+  /*---zhuangqian---增加背景色------*/
+  background-color: #fcfcfc;
   position: relative;
   z-index: 2;
   float: left;

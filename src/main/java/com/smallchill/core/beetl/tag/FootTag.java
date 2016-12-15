@@ -28,7 +28,7 @@ public class FootTag extends Tag {
 			
 			sb.append("<div class=\"footer\">");
 			sb.append("	<div class=\"footer-inner\">");
-			sb.append("		<div class=\"footer-content\" style=\"height:30px;background-color:white;\">");
+			sb.append("		<div class=\"footer-content\" style=\"height:30px;background-color:#fbfbfb;\">");
 			sb.append("			<span class=\"bigger-110\">技术支持 :</span>");
 			sb.append("			<span class=\"bigger-110\" id=\"support_tonbusoft\">" + company + "</span>");
 			sb.append("			<span class=\"bigger-110\"  style=\"padding-left:15px;\">");

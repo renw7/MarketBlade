@@ -20,7 +20,8 @@ body {
   max-width: inherit;
   bottom: 0;
   top: 0;
-  background-color: #FFF;
+  /*---zhuangqian---增加背景色------*/
+  background-color: #fbfbfb;
 }
 .main-container.container,
 .rtl .main-container.container {
@@ -9899,7 +9900,7 @@ input.ace + .lbl.padding-0::before {
 .form-group input[type="tel"],
 .form-group input[type="color"] {
   /*---zhuangqian---增加背景色------*/
-  background: #fdfdfd;
+  background: #fcfcfc;
 }
 .form-group.has-success input,
 .form-group.has-success select,
@@ -10326,7 +10327,8 @@ input.ace + .lbl.padding-0::before {
   border-color: #c5d0dc;
   border-top: 2px solid #4c8fbd;
   border-bottom-color: transparent;
-  background-color: #FFF;
+  /*---zhuangqian---增加背景色------*/
+  background-color: #fcfcfc;
   z-index: 1;
   line-height: 18px;
   margin-top: -1px;
