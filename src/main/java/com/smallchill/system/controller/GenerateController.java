@@ -180,20 +180,20 @@ public class GenerateController extends CurdController<Generate> {
 			ps.set("pkName", pkName);
 			
 			//java
-			BeetlMaker.makeHtml(controllerTemplatePath, ps, controllerPath);
-			BeetlMaker.makeHtml(serviceTemplatePath, ps, servicePath);
-			BeetlMaker.makeHtml(serviceimplTemplatePath, ps, serviceimplPath);
+			BeetlMaker.makeFile(controllerTemplatePath, ps, controllerPath);
+			BeetlMaker.makeFile(serviceTemplatePath, ps, servicePath);
+			BeetlMaker.makeFile(serviceimplTemplatePath, ps, serviceimplPath);
 			setParasAttr(tableName, ps);
-			BeetlMaker.makeHtml(modelTemplatePath, ps, modelPath);
+			BeetlMaker.makeFile(modelTemplatePath, ps, modelPath);
 			
 			//resources
-			BeetlMaker.makeHtml(sqlTemplatePath, ps, sqlPath);
+			BeetlMaker.makeFile(sqlTemplatePath, ps, sqlPath);
 			
 			//webapp
-			BeetlMaker.makeHtml(indexTemplatePath, ps, indexPath);
-			BeetlMaker.makeHtml(addTemplatePath, ps, addPath);
-			BeetlMaker.makeHtml(editTemplatePath, ps, editPath);
-			BeetlMaker.makeHtml(viewTemplatePath, ps, viewPath);
+			BeetlMaker.makeFile(indexTemplatePath, ps, indexPath);
+			BeetlMaker.makeFile(addTemplatePath, ps, addPath);
+			BeetlMaker.makeFile(editTemplatePath, ps, editPath);
+			BeetlMaker.makeFile(viewTemplatePath, ps, viewPath);
 			
 			
 		}

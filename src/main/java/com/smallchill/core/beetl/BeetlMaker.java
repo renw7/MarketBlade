@@ -26,31 +26,31 @@ import com.smallchill.core.toolbox.kit.FileKit;
 /**
  * Beetl静态化生成工具类
  */
-public abstract class BeetlMaker {
+public class BeetlMaker {
 
 	/**
-	 * 生成静态html
+	 * 生成文件
 	 * 
-	 * @param ftlPath 模板路径
+	 * @param tlPath 模板路径
 	 * @param paras 参数
-	 * @param htmlPath  html文件保存路径
+	 * @param filePath  文件保存路径
 	 */
-	public static void makeHtml(String tlPath, Map<String, Object> paras, String htmlPath) {
-		makeHtml(tlPath, paras, htmlPath, CharsetKit.UTF_8);
+	public static void makeFile(String tlPath, Map<String, Object> paras, String filePath) {
+		makeFile(tlPath, paras, filePath, CharsetKit.UTF_8);
 	}
 	
 	/**
-	 * 生成静态html
+	 * 生成文件
 	 * 
-	 * @param ftlPath 模板路径
+	 * @param tlPath 模板路径
 	 * @param paras 参数
-	 * @param htmlPath  html文件保存路径
+	 * @param filePath  文件保存路径
 	 * @param charsetName  编码
 	 */
-	public static void makeHtml(String tlPath, Map<String, Object> paras, String htmlPath, String charsetName) {
+	public static void makeFile(String tlPath, Map<String, Object> paras, String filePath, String charsetName) {
 		PrintWriter pw = null;
 		try {
-			pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(htmlPath), charsetName));
+			pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(filePath), charsetName));
 			BeetlTemplate.buildTo(FileKit.readString(tlPath, charsetName), paras, pw);
 		} catch (Exception e) {
 			e.printStackTrace();
