@@ -62,7 +62,8 @@ body {
 }
 
 .page-content {
-  background-color: #ffffff;
+  /*---zhuangqian---增加背景色------*/
+  background-color: #fbfbfb;
   position: relative;
   margin: 0;
   padding: 0px 13px 0px;/* padding: 8px 20px 24px; */
@@ -10980,6 +10981,8 @@ td .lbl:only-child {
   padding: 10px;
 }
 .widget-main.padding-8 {
+  /*---zhuangqian---增加背景色------*/
+  background-color: #fafafa;
   padding: 8px;
 }
 .widget-main.padding-6 {
