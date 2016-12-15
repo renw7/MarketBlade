@@ -23,8 +23,8 @@ public class ReportInterceptor extends DebugInterceptor {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("\nBlade beetlsql --------------------- " + DateKit.getTime() + " --------------------------------\n")
-				.append("SQLID	: " + ctx.getSqlId().replaceAll("\\s+", " ")).append("\n")
-				.append("SQL	: " + ctx.getSql().replaceAll("\\s+", " ")).append("\n")
+				.append("索引	: " + ctx.getSqlId().replaceAll("\\s+", " ")).append("\n")
+				.append("语句	: " + ctx.getSql().replaceAll("\\s+", " ")).append("\n")
 				.append("参数	: " + formatParas(ctx.getParas()))
 				.append("\n");
 
