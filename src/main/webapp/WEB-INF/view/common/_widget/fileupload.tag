@@ -86,13 +86,13 @@
 			
 			function ${id}_getFile(url, id, name){
 				var html = [];
-				html.push('<div class="alert alert-block alert-success" id="${id}_file_' + id + '">');
+				html.push('<div class="alert alert-block alert-info" id="${id}_file_' + id + '">');
 				html.push("	<button type=\"button\" class=\"close\" onclick=\"${id}_deleteFile(" + id + ",'" + name + "')\">");
 				html.push('		<i class="ace-icon fa fa-times"></i>');
 				html.push('	</button>');
-				html.push('	<i class="ace-icon fa fa-cloud-download green"></i>');
-				html.push('	<strong class="green">');
-				html.push('		<a class="green" href="'+url+'" target="_blank">' + name + '</a>');
+				html.push('	<i class="ace-icon fa fa-cloud-download"></i>');
+				html.push('	<strong class="info">');
+				html.push('		<a class="info" href="'+url+'" target="_blank">' + name + '</a>');
 				html.push('	</strong>');
 				html.push('</div>');
 				return html.join('');
@@ -100,10 +100,10 @@
 			
 			function ${id}_getViewFile(url, id, name){
 				var html = [];
-				html.push('<div class="alert alert-block alert-success" id="${id}_file_' + id + '">');
-				html.push('	<i class="ace-icon fa fa-cloud-download green"></i>');
-				html.push('	<strong class="green">');
-				html.push('		<a class="green" href="'+url+'" target="_blank">' + name + '</a>');
+				html.push('<div class="alert alert-block alert-info" id="${id}_file_' + id + '">');
+				html.push('	<i class="ace-icon fa fa-cloud-download"></i>');
+				html.push('	<strong class="info">');
+				html.push('		<a class="info" href="'+url+'" target="_blank">' + name + '</a>');
 				html.push('	</strong>');
 				html.push('</div>');
 				return html.join('');
