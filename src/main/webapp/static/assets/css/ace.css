@@ -8763,7 +8763,7 @@ input[type="tel"],
 input[type="color"] {
   border-radius: 0 !important;
   color: #858585;
-  background-color: #ffffff;
+  background-color: #fcfcfc;
   border: 1px solid #d5d5d5;
   padding: 5px 4px 6px;
   font-size: 14px;
@@ -8836,7 +8836,7 @@ select {
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
   color: #858585;
-  background-color: #ffffff;
+  background-color: #fcfcfc;
   border: 1px solid #d5d5d5;
 }
 .form-control:focus,
@@ -16946,7 +16946,7 @@ img.editable-click:hover {
   border-left: 1px solid #E1E1E1;
 }
 .ui-jqgrid .ui-jqgrid-hdiv {
-  background-color: #eff3f8;
+  background-color: #eeeeee;
   border: 1px solid #D3D3D3;
   border-width: 1px 0 0 1px;
   line-height: 15px;
@@ -17010,7 +17010,7 @@ img.editable-click:hover {
   height: 35px;
   padding-top: 3px !important;
   padding-bottom: 5px !important;
-  background-color: #eff3f8 !important;
+  background-color: #eeeeee !important;
   border-bottom: 1px solid #E1E1E1 !important;
   border-top: 1px solid #E1E1E1 !important;
 }
