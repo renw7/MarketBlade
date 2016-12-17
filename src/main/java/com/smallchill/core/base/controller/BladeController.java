@@ -80,8 +80,7 @@ public class BladeController {
 	}
 
 	public String getParameter(String name, String defaultValue) {
-		String result = getRequest().getParameter(name);
-		return StrKit.notBlank(result) ? result : defaultValue;
+		return Convert.toStr(getRequest().getParameter(name), defaultValue);
 	}
 
 	public Integer getParameterToInt(String name) {
@@ -118,6 +117,10 @@ public class BladeController {
 
 	public String getContextPath() {
 		return getRequest().getContextPath();
+	}
+
+	public String redirect(String url) {
+		return StrKit.format("redirect:{}", url);
 	}
 	
 	/** ============================     mapping    =================================================  */
