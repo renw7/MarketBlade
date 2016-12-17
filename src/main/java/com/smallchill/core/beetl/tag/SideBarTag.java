@@ -43,7 +43,7 @@ public class SideBarTag extends Tag {
 
 			final Object userId = param.get("userId");
 			final Object roleId = param.get("roleId");
-			String ctxPath =Cst.me().getContextPath();
+			String ctxPath = Cst.me().getContextPath();
 
 			Map<String, Object> userRole = Db.selectOneByCache(ConstCache.ROLE_CACHE, ConstCacheKey.ROLE_EXT + userId, "select * from TFW_ROLE_EXT where USERID=#{userId}", Paras.create().set("userId", userId));
 

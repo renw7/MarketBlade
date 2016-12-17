@@ -72,6 +72,6 @@ ${"@"}layout("/common/_container.html"){
 	</div>
 	
 	<!-- 引入所需的js -->
-	${"@"}include("/common/_listscript.html"){}
+	${"@"}include("/common/_listscript.html", {isExport : false}) {}
 	
 ${"@"}}	

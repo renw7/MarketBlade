@@ -53,7 +53,7 @@ $.extend({
 					var postdata = $(gridtbl)
 							.jqGrid('getGridParam', 'postData');
 					var source = (typeof (export_source) == "undefined") ? (code + ".list") : export_source;
-					$.post(ctx + "/excel/preExport", {
+					$.post(BladeApp.ctxPath + "/excel/preExport", {
 						code : code,
 						colnames : JSON.stringify(colnames),
 						colmodel : JSON.stringify(colmodel),
@@ -61,7 +61,7 @@ $.extend({
 						source : source
 					}, function(data) {
 						if (data.code === 0) {
-							window.top.location.href = ctx + "/excel/export?code=" + data.data;
+							window.top.location.href = BladeApp.ctxPath + "/excel/export?code=" + data.data;
 						} else {
 							layer.alert(data.message, {
 								icon : 2,
@@ -73,8 +73,7 @@ $.extend({
 			}
 		};
 
-		$('<div class="contextMenu" id="myMenu1"></div>').hide().appendTo(
-				'body'); // 在页面增加div
+		$('<div class="contextMenu" id="myMenu1"></div>').hide().appendTo('body'); // 在页面增加div
 
 		$("#myMenu1").html(rightMenuHtml);
 
