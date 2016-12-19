@@ -36,6 +36,13 @@ public class Convert {
 	 */
 	public static Object parse(Class<?> clazz, Object value) {
 		try {
+			if (clazz.isAssignableFrom(String.class)) {
+				// ----2016-12-19---zhuangqian----防止beetlsql对空字符串不检测导致无法入库的问题----
+				if (StrKit.isBlank(String.valueOf(value)))
+					return " ";
+				else
+					return String.valueOf(value);
+			}
 			return clazz.cast(value);
 		} catch (ClassCastException e) {
 			String valueStr = String.valueOf(value);
@@ -75,14 +82,6 @@ public class Convert {
 	public static Object parseBasic(Class<?> clazz, String valueStr) {
 		if (null == clazz || null == valueStr) {
 			return null;
-		}
-
-		if (clazz.isAssignableFrom(String.class)) {
-			// ----2016-12-01---zhuangqian----防止beetlsql对空字符串不检测导致无法入库的问题----
-			if (StrKit.isBlank(valueStr))
-				return " ";
-			else
-				return valueStr;
 		}
 
 		if (StrKit.isBlank(valueStr)) return null;

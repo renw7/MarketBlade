@@ -21,6 +21,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.smallchill.core.toolbox.kit.StrKit;
+import com.smallchill.core.toolbox.support.Convert;
 import org.beetl.core.Tag;
 
 import com.smallchill.common.vo.TreeNode;
@@ -91,8 +93,8 @@ public class SideBarTag extends Tag {
 				if (Func.toInt(side.get("LEVELS")) == 1) {
 					String firstMenu = "";
 					String subMenu = "";
-					String href = Func.isEmpty(side.get("URL")) ? "#" : ctxPath + side.get("URL") + "";
-					String addtabs = Func.isEmpty(side.get("URL")) ? "" : "data-addtabs=\"" + side.get("CODE") + "\"";
+					String href = StrKit.isBlank(Convert.toStr(side.get("URL"), "").trim()) ? "#" : ctxPath + side.get("URL") + "";
+					String addtabs = StrKit.isBlank(Convert.toStr(side.get("URL"), "").trim()) ? "" : "data-addtabs=\"" + side.get("CODE") + "\"";
 
 					firstMenu += "<li >";
 					firstMenu += "	<a data-url=\"" + href + "\" " + addtabs + " data-title=\"" + side.get("NAME") + "\" data-icon=\"fa " + side.get("ICON") + "\" class=\"" + getDropDownClass(Func.toStr(side.get("CODE")),"dropdown-toggle") + " blade-pointer\">";
@@ -144,12 +146,12 @@ public class SideBarTag extends Tag {
 	 *            菜单集合
 	 * @param pCode
 	 *            父编号
-	 * @param menuCode
-	 *            选中菜单编号
 	 * @param pStr
 	 *            父HTML
 	 * @param levels
 	 *            层级
+	 * @param ctxPath
+	 *            ctxPath
 	 * @return String 返回子菜单HTML集
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -165,8 +167,8 @@ public class SideBarTag extends Tag {
 			String _icon = rd.getStr("ICON");
 			String _name = rd.getStr("NAME");
 			if ((_pCode.equals(pCode) && _levels > levels)) {
-				String href = Func.isEmpty(_url) ? "#" : ctxPath + _url + "";
-				String addtabs = Func.isEmpty(_url) ? "" : "data-addtabs=\"" + _code + "\"";
+				String href = StrKit.isBlank(_url.trim()) ? "#" : ctxPath + _url + "";
+				String addtabs = StrKit.isBlank(_url.trim()) ? "" : "data-addtabs=\"" + _code + "\"";
 
 				Str += "<li>";
 				Str += "	<a data-url=\"" + href + "\" " + addtabs + " data-title=\"" + _name + "\" data-icon=\"fa " + _icon + "\" class=\"" + getDropDownClass(_code, "dropdown-toggle") + " blade-pointer\">";
