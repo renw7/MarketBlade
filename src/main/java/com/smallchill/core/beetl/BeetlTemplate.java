@@ -26,6 +26,7 @@ import org.beetl.core.GroupTemplate;
 import org.beetl.core.Template;
 import org.beetl.core.resource.StringTemplateResourceLoader;
 
+import com.smallchill.core.beetl.func.AceExt;
 import com.smallchill.core.beetl.func.BeetlExt;
 import com.smallchill.core.beetl.func.ShiroExt;
 import com.smallchill.core.beetl.tag.DropDownTag;
@@ -72,6 +73,7 @@ public class BeetlTemplate {
 		groupTemplate.registerTag("dropdown", DropDownTag.class);
 		groupTemplate.registerTag("foot", FootTag.class);
 
+		groupTemplate.registerFunctionPackage("ace", new AceExt());
 		groupTemplate.registerFunctionPackage("func", new BeetlExt());
 		groupTemplate.registerFunctionPackage("shiro", new ShiroExt());
 	}

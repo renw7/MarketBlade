@@ -245,9 +245,8 @@ public class MdManager {
 	 * @param orderBy	排序
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public <T> BladePage<T> paginate(String sqlId, Class<T> clazz, Object paras, int pageNum, int pageSize, String orderBy){
-		PageQuery query = new PageQuery();
+		PageQuery<T> query = new PageQuery<T>();
 		query.setPageNumber(pageNum);
 		query.setPageSize(pageSize);
 		query.setParas(paras);

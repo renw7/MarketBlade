@@ -11133,6 +11133,15 @@ td .lbl:only-child {
   border-color: #495d71;
   background: #495d71;
 }
+
+.widget-color-blade {
+  border-color: #495d71;
+}
+.widget-color-blade > .widget-header {
+  border-color: #495d71;
+  background: #495d71;
+}
+
 .widget-color-grey {
   border-color: #9e9e9e;
 }

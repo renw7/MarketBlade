@@ -86,6 +86,8 @@ public interface ConstCacheKey {
 	
 	String EXCEL_COL_MODEL = "excel_colmodel_";
 	
+	String ACE_THEME = "ace_theme_";
+	
 	//-----------------------------diy---------------------------------------
 	
 	String DIY_SELECT = "diy_select_";

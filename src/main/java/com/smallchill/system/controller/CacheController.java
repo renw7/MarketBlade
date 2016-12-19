@@ -15,6 +15,7 @@
  */
 package com.smallchill.system.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.smallchill.common.base.BaseController;
 import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.core.aop.AopContext;
+import com.smallchill.core.constant.ConstCache;
+import com.smallchill.core.constant.ConstCacheKey;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
@@ -400,4 +403,20 @@ public class CacheController extends BaseController {
 
 		return json(menu);
 	}
+	
+	@ResponseBody
+	@RequestMapping("/theme")
+	public AjaxResult theme() {
+		Map<String, String> theme = CacheKit.get(ConstCache.FILE_CACHE, ConstCacheKey.ACE_THEME + ShiroKit.getUser().getId() , new ILoader() {
+			public Object load() {
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("ace", "ace-dark.css");
+				return map;
+			}
+		});
+		String currentTheme = theme.get("ace");
+		theme.put("ace", (StrKit.equals(currentTheme, "ace-dark.css") ? "ace-white.css" : "ace-dark.css"));
+		return success("success");
+	}
+	
 }

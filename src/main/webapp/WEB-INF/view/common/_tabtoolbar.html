@@ -28,47 +28,54 @@
 				</a>
 				<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-lighter dropdown-caret dropdown-close">
 					<li>
+						<a href="javascript:switchTheme();">
+							<i class="light-black ace-icon fa fa-paint-brush" style="width:15px;"></i>
+							<span style="color:#576373">主题切换</span>
+						</a>
+					</li>
+					<li class="divider"></li>
+					<li>
 						<a href="javascript:openPerson();">
-							<i class="light-grey ace-icon fa fa-user" style="width:15px;"></i>
-							<span style="color:#999C9E">个人信息编辑</span>
+							<i class="light-black ace-icon fa fa-user" style="width:15px;"></i>
+							<span style="color:#576373">个人信息编辑</span>
 						</a>
 					</li>
 					<li>
 						<a href="javascript:editPassword();">
-							<i class="light-grey ace-icon fa fa-lock" style="width:15px;"></i>
-							<span style="color:#999C9E">个人密码修改</span>
+							<i class="light-black ace-icon fa fa-lock" style="width:15px;"></i>
+							<span style="color:#576373">个人密码修改</span>
 						</a>
 					</li>
 					<li class="divider"></li>
 					<li>
 						<a href="javascript:showTab();">
-							<i class="light-grey ace-icon fa fa-location-arrow" style="width:15px;"></i>
-							<span style="color:#999C9E">定位当前选项卡</span>
+							<i class="light-black ace-icon fa fa-location-arrow" style="width:15px;"></i>
+							<span style="color:#576373">定位当前选项卡</span>
 						</a>
 					</li>
 					<li>
 						<a href="javascript:reloadTab();">
-							<i class="light-grey ace-icon fa fa-refresh" style="width:15px;"></i>
-							<span style="color:#999C9E">刷新当前选项卡</span>
+							<i class="light-black ace-icon fa fa-refresh" style="width:15px;"></i>
+							<span style="color:#576373">刷新当前选项卡</span>
 						</a>
 					</li>
 					<li class="divider"></li>
 					<li>
 						<a href="javascript:closeThis();">
-							<i class="light-grey ace-icon fa fa-times" style="width:15px;"></i>
-							<span style="color:#999C9E">关闭当前选项卡</span>
+							<i class="light-black ace-icon fa fa-times" style="width:15px;"></i>
+							<span style="color:#576373">关闭当前选项卡</span>
 						</a>
 					</li>
 					<li>
 						<a href="javascript:closeOther();">
-							<i class="light-grey ace-icon fa fa-times-circle-o" style="width:15px;"></i>
-							<span style="color:#999C9E">关闭其他选项卡</span>
+							<i class="light-black ace-icon fa fa-times-circle-o" style="width:15px;"></i>
+							<span style="color:#576373">关闭其他选项卡</span>
 						</a>
 					</li>
 					<li>
 						<a href="javascript:closeAll();">
-							<i class="light-grey ace-icon fa fa-times-circle" style="width:15px;"></i>
-							<span style="color:#999C9E">关闭全部选项卡</span>
+							<i class="light-black ace-icon fa fa-times-circle" style="width:15px;"></i>
+							<span style="color:#576373">关闭全部选项卡</span>
 						</a>
 					</li>
 				</ul>
@@ -91,6 +98,18 @@
 
 	   var searchGrid = function(){};
 	
+	   var switchTheme = function(){  
+           layer.confirm("是否切换主题？", {
+               icon: 3,
+               btn: ['确定', '取消'] //按钮
+           }, function () {
+	   			var ajax = new $ax("${ctxPath}/cache/theme", function(data){
+					window.location.href="${ctxPath}/";
+				});
+				ajax.start();
+           }, function () {});
+		};
+	   
 	   var openPerson = function(){
 			layer.open({
 		   	    type: 2,
