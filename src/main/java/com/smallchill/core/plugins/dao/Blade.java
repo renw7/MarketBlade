@@ -179,7 +179,6 @@ public class Blade {
 	/**
 	 * 获取map集合
 	 * @param columns		字段名
-	 * @param paras	实体类或map
 	 * @return
 	 */
 	public List<Map> findColBy(String columns){
@@ -225,7 +224,6 @@ public class Blade {
 
 	/**
 	 * 查询第一条数据
-	 * @param topNum 
 	 * @param model
 	 * @return
 	 */
