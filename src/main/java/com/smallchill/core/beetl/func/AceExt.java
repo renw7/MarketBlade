@@ -34,7 +34,7 @@ public class AceExt {
 		if (null == ShiroKit.getUser()) {
 			return "ace-dark.css";
 		}
-		Map<String, String> theme = CacheKit.get(ConstCache.FILE_CACHE, ConstCacheKey.ACE_THEME + ShiroKit.getUser().getId(), new ILoader() {
+		Map<String, String> theme = CacheKit.get(ConstCache.SYS_CACHE, ConstCacheKey.ACE_THEME + ShiroKit.getUser().getId(), new ILoader() {
 			public Object load() {
 				Map<String, String> map = new HashMap<String, String>();
 				map.put("ace", "ace-dark.css");
