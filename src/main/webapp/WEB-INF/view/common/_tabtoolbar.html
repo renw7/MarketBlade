@@ -104,7 +104,11 @@
                btn: ['确定', '取消'] //按钮
            }, function () {
 	   			var ajax = new $ax("${ctxPath}/cache/theme", function(data){
-					window.location.href="${ctxPath}/";
+	   			    if (data.code === 0) {
+                        window.location.href="${ctxPath}/";
+					} else {
+                        window.location.href="${ctxPath}/login";
+					}
 				});
 				ajax.start();
            }, function () {});

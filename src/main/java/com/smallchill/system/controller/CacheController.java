@@ -135,11 +135,7 @@ public class CacheController extends BaseController {
 
 	/**
 	 * 根据字典编号获取下拉框
-	 * 
-	 * @param code
-	 *            编号
-	 * @param num
-	 *            分组
+	 *
 	 * @return String
 	 */
 	@SuppressWarnings("rawtypes")
@@ -407,6 +403,9 @@ public class CacheController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/theme")
 	public AjaxResult theme() {
+		if (null == ShiroKit.getUser()) {
+			return error("error");
+		}
 		Map<String, String> theme = CacheKit.get(ConstCache.FILE_CACHE, ConstCacheKey.ACE_THEME + ShiroKit.getUser().getId() , new ILoader() {
 			public Object load() {
 				Map<String, String> map = new HashMap<String, String>();

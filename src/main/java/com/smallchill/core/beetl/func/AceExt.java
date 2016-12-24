@@ -31,6 +31,9 @@ import com.smallchill.core.toolbox.kit.CacheKit;
 public class AceExt {
 
 	public String theme() {
+		if (null == ShiroKit.getUser()) {
+			return "ace-dark.css";
+		}
 		Map<String, String> theme = CacheKit.get(ConstCache.FILE_CACHE, ConstCacheKey.ACE_THEME + ShiroKit.getUser().getId(), new ILoader() {
 			public Object load() {
 				Map<String, String> map = new HashMap<String, String>();
