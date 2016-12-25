@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.smallchill.core.toolbox.support.Convert;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -57,8 +58,8 @@ public class CacheController extends BaseController {
 	public AjaxResult getBtn() {
 		final String code = getParameter("code");
 		ShiroUser user = ShiroKit.getUser();
-		final String userId = user.getId().toString();
-		final String roleId = user.getRoles().toString();
+		final String userId = Func.toStr(user.getId());
+		final String roleId = Func.toStr(user.getRoles());
 
 		Map<String, Object> userRole = Db.selectOneByCache(ROLE_CACHE, ROLE_EXT + userId, "select * from TFW_ROLE_EXT where userId= #{id}", Paras.create().set("id", userId));
 
@@ -83,7 +84,7 @@ public class CacheController extends BaseController {
 		List<Map> btnList = Db.selectListByCache(MENU_CACHE, BTN_LIST + code + "_" + userId, sql.toString(), 
 				Paras.create()
 				.set("code", code)
-				.set("roleId", roleId.toString().split(","))
+				.set("roleId", roleId.split(","))
 				.set("roleIn", roleIn.split(","))
 				.set("roleOut", roleOut.split(",")));
 		
@@ -101,8 +102,8 @@ public class CacheController extends BaseController {
 	public AjaxResult getChildBtn() {
 		final String code = getParameter("code");
 		ShiroUser user = ShiroKit.getUser();
-		final String userId = user.getId().toString();
-		final String roleId = user.getRoles().toString();
+		final String userId = Func.toStr(user.getId());
+		final String roleId = Func.toStr(user.getRoles());
 
 		Map<String, Object> userRole = Db.selectOneByCache(ROLE_CACHE, ROLE_EXT + userId, "select * from TFW_ROLE_EXT where userId= #{id}", Paras.create().set("id", userId));
 
@@ -126,7 +127,7 @@ public class CacheController extends BaseController {
 		List<Map> btnList = Db.selectListByCache(MENU_CACHE, BTN_CHILD_LIST + code + "_" + userId, sql.toString(), 
 				Paras.create()
 				.set("code", code)
-				.set("roleId", roleId.toString().split(","))
+				.set("roleId", roleId.split(","))
 				.set("roleIn", roleIn.split(","))
 				.set("roleOut", roleOut.split(",")));
 		
@@ -325,7 +326,7 @@ public class CacheController extends BaseController {
 		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, DICT_CODE + id,
 				new ILoader() {
 					public Object load() {
-						return Db.selectList("select CODE from TFW_DICT where id=#{id}",Paras.create().set("id", id));
+						return Db.selectList("select CODE from TFW_DICT where id=#{id}", Paras.create().set("id", id));
 					}
 				});
 		return json(dict);
@@ -354,25 +355,22 @@ public class CacheController extends BaseController {
 					public Object load() {
 						String table = "TFW_MENU";
 						String pid = "";
-						List<Map> record = Db.selectList("select PID from TFW_ROLE where id in (" + roleId + ")"); 
-						for (Map p : record) {
+						List<Map> pids = Db.selectList("select PID from TFW_ROLE where id in (#{join(roleId)})", Paras.create().set("roleId", roleId.split(",")));
+						for (Map p : pids) {
 							if (!Func.isEmpty(p.get("PID")) && Func.toInt(p.get("PID")) > 0) {
 								pid += p.get("PID").toString() + ",";
 							}
 						}
 						if (!Func.isEmpty(pid)) {
 							pid = StrKit.removeSuffix(pid, ",");
-							table = "(select * from TFW_MENU where id in( select MENUID from TFW_RELATION where roleId in ("
-									+ pid + ") ))";
+							table = "(select * from TFW_MENU where id in( select MENUID from TFW_RELATION where roleId in (#{join(pid)}) ))";
 						}
 						StringBuilder sb = new StringBuilder();
 						sb.append("select m.id \"id\",(select id from TFW_MENU  where code=m.pCode) \"pId\",name \"name\",(case when m.levels=1 then 'true' else 'false' end) \"open\",(case when r.menuId is not null then 'true' else 'false' end) \"checked\"");
 						sb.append(" from ");
 						sb.append(table);
-						sb.append(" m left join (select MENUID from TFW_RELATION where roleId in ("
-								+ roleId
-								+ ") GROUP BY MENUID) r on m.id=r.menuId where m.status=1 order by m.levels,m.num asc");
-						return Db.selectList(sb.toString());
+						sb.append(" m left join (select MENUID from TFW_RELATION where roleId in (#{join(roleId)}) GROUP BY MENUID) r on m.id=r.menuId where m.status=1 order by m.levels,m.num asc");
+						return Db.selectList(sb.toString(), Paras.create().set("roleId", roleId.split(",")).set("pid", pid.split(",")));
 					}
 				});
 
@@ -390,10 +388,10 @@ public class CacheController extends BaseController {
 						String sql = "select id \"id\",pId \"pId\",name as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  TFW_ROLE order by pId,num asc";
 						if (Id.indexOf(",") == -1) {
 							sql = "select r.id \"id\",pId \"pId\",name as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\",(case when (r1.ID=0 or r1.ID is null) then 'false' else 'true' end) \"checked\" from  TFW_ROLE r left join (select ID  from TFW_ROLE where ID in ("
-									+ roleId
+									+ "#{join(roleId)}"
 									+ ")) r1 on r.ID=r1.ID order by pId,num asc";
 						}
-						return Db.selectList(sql);
+						return Db.selectList(sql, Paras.create().set("roleId", roleId.split(",")));
 					}
 				});
 
@@ -406,7 +404,7 @@ public class CacheController extends BaseController {
 		if (null == ShiroKit.getUser()) {
 			return error("error");
 		}
-		Map<String, String> theme = CacheKit.get(ConstCache.SYS_CACHE, ConstCacheKey.ACE_THEME + ShiroKit.getUser().getId() , new ILoader() {
+		Map<String, String> theme = CacheKit.get(SYS_CACHE, ACE_THEME + ShiroKit.getUser().getId() , new ILoader() {
 			public Object load() {
 				Map<String, String> map = new HashMap<String, String>();
 				map.put("ace", "ace-dark.css");
