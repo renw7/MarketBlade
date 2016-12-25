@@ -15,20 +15,9 @@
  */
 package com.smallchill.system.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.smallchill.core.toolbox.support.Convert;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.smallchill.common.base.BaseController;
 import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.core.aop.AopContext;
-import com.smallchill.core.constant.ConstCache;
-import com.smallchill.core.constant.ConstCacheKey;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
@@ -40,6 +29,13 @@ import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.core.toolbox.kit.StrKit;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/cache")
