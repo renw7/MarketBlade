@@ -70,7 +70,7 @@ public class GenerateController extends CurdController<Generate> {
 		try {
 			LogKit.println("\n\n-------------------------------- gen by beetlsql {} --------------------------------\n", DateKit.getTime());
 			LogKit.println("-----↓------- curd -------↓-----\n");
-			Blade.create(ClassKit.newInstance(table).getClass()).genBuiltInSqlToConsole();
+			Blade.dao().genBuiltInSqlToConsole(ClassKit.newInstance(table).getClass());
 			LogKit.println("\n-----↓-- updateNotNull --↓-----\n");
 			LogKit.println(Blade.dao().getDbStyle().genUpdateTemplate(ClassKit.newInstance(table).getClass()).getTemplate());
 			LogKit.println("\n-----↓------- field -------↓-----\n");
@@ -87,7 +87,7 @@ public class GenerateController extends CurdController<Generate> {
 		try {
 			LogKit.println("\n\n-------------------------------- gen by beetlsql {} --------------------------------\n", DateKit.getTime());
 			LogKit.println("-----↓------- curd --------↓-----\n");
-			Blade.create(ClassKit.newInstance(table).getClass()).genBuiltInSqlToConsole();
+			Blade.dao(slave).genBuiltInSqlToConsole(ClassKit.newInstance(table).getClass());
 			LogKit.println("\n-----↓-- updateNotNull --↓-----\n");
 			LogKit.println(Blade.dao(slave).getDbStyle().genUpdateTemplate(ClassKit.newInstance(table).getClass()).getTemplate());
 			LogKit.println("\n-----↓------ field -------↓-----\n");

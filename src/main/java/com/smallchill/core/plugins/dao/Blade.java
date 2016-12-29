@@ -15,18 +15,6 @@
  */
 package com.smallchill.core.plugins.dao;
 
-import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.beetl.sql.core.SQLManager;
-import org.beetl.sql.core.SQLSource;
-import org.beetl.sql.core.annotatoin.Table;
-import org.beetl.sql.core.db.ClassDesc;
-import org.beetl.sql.core.db.DBStyle;
-import org.beetl.sql.core.db.KeyHolder;
-
 import com.smallchill.core.annotation.BindID;
 import com.smallchill.core.annotation.DbName;
 import com.smallchill.core.constant.Const;
@@ -35,7 +23,15 @@ import com.smallchill.core.plugins.connection.ConnectionPlugin;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.grid.BladePage;
-import com.smallchill.core.toolbox.kit.LogKit;
+import org.beetl.sql.core.SQLManager;
+import org.beetl.sql.core.annotatoin.Table;
+import org.beetl.sql.core.db.ClassDesc;
+import org.beetl.sql.core.db.KeyHolder;
+
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * beetlsql 自动API封装dao工具
@@ -708,31 +704,6 @@ public class Blade {
 			e.printStackTrace();
 		}
 		return idValue;
-	}
-	
-	/**   
-	 * 将增删改查语句打印到控制台
-	*/
-	public void genBuiltInSqlToConsole() {
-		StringBuilder sb = new StringBuilder();
-		Class cls = this.modelClass;
-		DBStyle dbStyle = getSqlManager().getDbStyle();
-		SQLSource tempSource =  dbStyle.genSelectById(cls);
-		sb.append(tempSource.getTemplate());
-		sb.append("\n\r");
-		
-		tempSource = dbStyle.genUpdateById(cls);
-		sb.append(tempSource.getTemplate());
-		sb.append("\n\r");
-		tempSource = dbStyle.genDeleteById(cls);
-		sb.append(tempSource.getTemplate());
-		sb.append("\n\r");
-		
-		tempSource = dbStyle.genInsert(cls);
-		sb.append(tempSource.getTemplate());
-		sb.append("\n\r");
-		
-		LogKit.println(sb.toString());
 	}
 	
 	/*************************************************************************************************/
