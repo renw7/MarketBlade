@@ -15,17 +15,6 @@
  */
 package com.smallchill.system.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.smallchill.common.base.BaseController;
 import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.annotation.Before;
@@ -41,12 +30,23 @@ import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.core.toolbox.kit.CollectionKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.system.meta.intercept.PasswordValidator;
 import com.smallchill.system.meta.intercept.UserIntercept;
 import com.smallchill.system.meta.intercept.UserValidator;
 import com.smallchill.system.model.RoleExt;
 import com.smallchill.system.model.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -320,21 +320,21 @@ public class UserController extends BaseController implements ConstShiro{
 	public AjaxResult menuTreeIn() {
 		String userId = getParameter("userId");
 		Map<String, Object> roleIn = Db.selectOne("select ROLEIN from tfw_role_ext where userId = #{userId}", Paras.create().set("userId",userId));
-		
-		String in = "0";
+		List<String> ids = Db.queryListStr("select MENUID from tfw_relation where ROLEID in (#{join(roles)})", Paras.create().set("roles", ShiroKit.getUser().getRoleList()));
+		String inId = "0";
 		if (!Func.isEmpty(roleIn)) {
-			in = Func.toStr(roleIn.get("ROLEIN"));
+			inId = Func.toStr(roleIn.get("ROLEIN"));
 		}
-		
+		Object[] all = CollectionKit.addAll(ids.toArray(), inId.split(","));
 		StringBuilder sb = Func.builder(
 				"select m.id \"id\",(select id from tfw_menu  where code=m.pCode) \"pId\",name \"name\",(case when m.levels=1 then 'true' else 'false' end) \"open\",(case when r.id is not null then 'true' else 'false' end) \"checked\"",
 				" from tfw_menu m",
-				" left join (select id from tfw_menu where id in (" + in + ")) r",
+				" left join (select id from tfw_menu where id in (#{join(inId)})) r",
 				" on m.id=r.id",
-				" where m.status=1 order by m.levels,m.num asc"
+				" where m.status=1 and m.id in (#{join(all)}) order by m.levels,m.num asc"
 				);
 		
-		List<Map> menu = Db.selectList(sb.toString());
+		List<Map> menu = Db.selectList(sb.toString(), Paras.create().set("inId", inId.split(",")).set("all", all));
 		return json(menu);
 	}
 	
@@ -344,21 +344,21 @@ public class UserController extends BaseController implements ConstShiro{
 	public AjaxResult menuTreeOut() {
 		String userId = getParameter("userId");
 		Map roleOut = Db.selectOne("select ROLEOUT from tfw_role_ext where userId = #{userId}", Paras.create().set("userId",userId));
-		
-		String out = "0";
+		List<String> ids = Db.queryListStr("select MENUID from tfw_relation where ROLEID in (#{join(roles)})", Paras.create().set("roles", ShiroKit.getUser().getRoleList()));
+		String outId = "0";
 		if (!Func.isEmpty(roleOut)) {
-			out = Func.toStr(roleOut.get("ROLEOUT"));
+			outId = Func.toStr(roleOut.get("ROLEOUT"));
 		}
-		
+		Object[] all = CollectionKit.addAll(ids.toArray(), outId.split(","));
 		StringBuilder sb = Func.builder(
 				"select m.id \"id\",(select id from tfw_menu  where code=m.pCode) \"pId\",name \"name\",(case when m.levels=1 then 'true' else 'false' end) \"open\",(case when r.id is not null then 'true' else 'false' end) \"checked\"",
 				" from tfw_menu m",
-				" left join (select id from tfw_menu where id in (" + out + ")) r",
+				" left join (select id from tfw_menu where id in (#{join(outId)})) r",
 				" on m.id=r.id",
-				" where m.status=1 order by m.levels,m.num asc"
+				" where m.status=1 and m.id in (#{join(all)}) order by m.levels,m.num asc"
 				);
 		
-		List<Map> menu = Db.selectList(sb.toString());
+		List<Map> menu = Db.selectList(sb.toString(), Paras.create().set("outId", outId.split(",")).set("all", all));
 		return json(menu);
 	}
 	
