@@ -441,9 +441,9 @@ public class Blade {
 			}
 		}
 		if (flag) {
-			return sql.updateById(model) > 0;
+			return getSqlManager().updateById(model) > 0;
 		} else {
-			return sql.updateTemplateById(model) > 0;
+			return getSqlManager().updateTemplateById(model) > 0;
 		}
 	}
 
