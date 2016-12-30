@@ -38,6 +38,7 @@ import com.smallchill.core.interfaces.IQuery;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.file.BladeFile;
+import com.smallchill.core.toolbox.file.BladeFileKit;
 import com.smallchill.core.toolbox.grid.GridManager;
 import com.smallchill.core.toolbox.kit.CharsetKit;
 import com.smallchill.core.toolbox.kit.LogKit;
@@ -176,7 +177,7 @@ public class BladeController {
 	 * @return
 	 */
 	public BladeFile getFile(MultipartFile file){
-		return BladeFile.getFile(file);
+		return BladeFileKit.getFile(file);
 	}
 	
 	/**
@@ -186,7 +187,7 @@ public class BladeController {
 	 * @return
 	 */
 	public BladeFile getFile(MultipartFile file, String dir){
-		return BladeFile.getFile(file, dir);
+		return BladeFileKit.getFile(file, dir);
 	}
 	
 	/**
@@ -198,7 +199,7 @@ public class BladeController {
 	 * @return
 	 */
 	public BladeFile getFile(MultipartFile file, String dir, String path, String virtualPath){
-		return BladeFile.getFile(file, dir, path, virtualPath);
+		return BladeFileKit.getFile(file, dir, path, virtualPath);
 	}
 	
 	/**
@@ -207,7 +208,7 @@ public class BladeController {
 	 * @return
 	 */
 	public List<BladeFile> getFiles(List<MultipartFile> files){
-		return BladeFile.getFiles(files);
+		return BladeFileKit.getFiles(files);
 	}
 	
 	/**
@@ -217,7 +218,7 @@ public class BladeController {
 	 * @return
 	 */
 	public List<BladeFile> getFiles(List<MultipartFile> files, String dir){
-		return BladeFile.getFiles(files, dir);
+		return BladeFileKit.getFiles(files, dir);
 	}
 	
 	/**
@@ -228,7 +229,7 @@ public class BladeController {
 	 * @return
 	 */
 	public List<BladeFile> getFiles(List<MultipartFile> files, String dir, String path, String virtualPath){
-		return BladeFile.getFiles(files, dir, path, virtualPath);
+		return BladeFileKit.getFiles(files, dir, path, virtualPath);
 	}
 
 

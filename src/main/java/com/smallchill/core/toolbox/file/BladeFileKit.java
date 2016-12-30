@@ -17,7 +17,9 @@ import javax.imageio.stream.FileImageOutputStream;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.druid.util.Base64;
+import com.smallchill.core.constant.ConstConfig;
 import com.smallchill.core.constant.Cst;
+import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.kit.DateKit;
 import com.smallchill.core.toolbox.kit.PathKit;
 import com.smallchill.core.toolbox.kit.StrKit;
@@ -254,6 +256,116 @@ public class BladeFileKit {
 			e.printStackTrace();
 		}
 		return contentPath.replace(Cst.me().getContextPath(), "");
+	}
+	
+	
+	/********************************BladeFile封装********************************************************/
+	
+	/**
+	 * 获取BladeFile封装类
+	 * @param file
+	 * @return
+	 */
+	public static BladeFile getFile(MultipartFile file){
+		return getFile(file, "image", null, null);
+	}
+	
+	/**
+	 * 获取BladeFile封装类
+	 * @param file
+	 * @param dir
+	 * @return
+	 */
+	public static BladeFile getFile(MultipartFile file, String dir){
+		return getFile(file, dir, null, null);
+	}
+	
+	/**
+	 * 获取BladeFile封装类
+	 * @param file
+	 * @param dir
+	 * @param path
+	 * @param virtualPath
+	 * @return
+	 */
+	public static BladeFile getFile(MultipartFile file, String dir, String path, String virtualPath){
+		return new BladeFile(file, dir, path, virtualPath);
+	}
+	
+	/**
+	 * 获取BladeFile封装类
+	 * @param files
+	 * @return
+	 */
+	public static List<BladeFile> getFiles(List<MultipartFile> files){
+		return getFiles(files, "image", null, null);
+	}
+	
+	/**
+	 * 获取BladeFile封装类
+	 * @param files
+	 * @param dir
+	 * @return
+	 */
+	public static List<BladeFile> getFiles(List<MultipartFile> files, String dir){
+		return getFiles(files, dir, null, null);
+	}
+	
+	/**
+	 * 获取BladeFile封装类
+	 * @param files
+	 * @param path
+	 * @param virtualPath
+	 * @return
+	 */
+	public static List<BladeFile> getFiles(List<MultipartFile> files, String dir, String path, String virtualPath){
+		List<BladeFile> list = new ArrayList<>();
+		for (MultipartFile file : files){
+			list.add(new BladeFile(file, dir, path, virtualPath));
+		}
+		return list;
+	}
+	
+	/**   
+	 * 为虚拟路径添加配置的域名前缀
+	 * @param map  对象
+	 * @param name 路径字段名
+	*/
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static void addDomain(Map map, String name) {
+		if (null == map) {
+			return;
+		}
+		String url = Func.toStr(map.get(name));
+		// map为引用传递, 防止每次附加到缓存
+		if (url.indexOf(ConstConfig.DOMAIN) >= 0 || StrKit.isBlank(url)) {
+			return;
+		} else {
+			url = ConstConfig.DOMAIN + url;
+			map.put(name, url);
+		}
+	}
+
+	/**   
+	 * 为虚拟路径添加配置的域名前缀
+	 * @param list 对象
+	 * @param name 路径字段名
+	*/
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static void addDomain(List<Map> list, String name) {
+		for (Map m : list) {
+			if (null == m) {
+				continue;
+			}
+			String url = Func.toStr(m.get(name));
+			// map为引用传递, 防止每次附加到缓存
+			if (url.indexOf(ConstConfig.DOMAIN) >= 0 || StrKit.isBlank(url)) {
+				break;
+			} else {
+				url = ConstConfig.DOMAIN + url;
+				m.put(name, url);
+			}
+		}
 	}
 
 }
