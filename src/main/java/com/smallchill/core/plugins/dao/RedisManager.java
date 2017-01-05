@@ -21,6 +21,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.smallchill.core.plugins.connection.ConnectionPlugin;
 import com.smallchill.core.toolbox.redis.Cache;
 
+/**
+ * Redis操作工具类
+ */
 public class RedisManager {
 	private static Map<String, Cache> pool = new ConcurrentHashMap<String, Cache>();
 	

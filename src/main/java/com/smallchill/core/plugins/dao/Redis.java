@@ -21,6 +21,9 @@ import java.util.Set;
 
 import com.smallchill.core.toolbox.redis.Cache;
 
+/**
+ * Redis操作工具类
+ */
 public class Redis {
 	private static Cache redisCache = null;
 
