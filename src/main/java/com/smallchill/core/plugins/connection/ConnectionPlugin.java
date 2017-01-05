@@ -15,23 +15,21 @@
  */
 package com.smallchill.core.plugins.connection;
 
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.beetl.sql.core.IDAutoGen;
-import org.beetl.sql.core.SQLManager;
-
-import redis.clients.jedis.JedisCluster;
-import redis.clients.jedis.JedisPool;
-
 import com.smallchill.core.config.BladeConfig;
 import com.smallchill.core.interfaces.IPlugin;
 import com.smallchill.core.toolbox.redis.IJedis;
+import com.smallchill.core.toolbox.redis.IKeyNamingPolicy;
 import com.smallchill.core.toolbox.redis.RedisCluster;
 import com.smallchill.core.toolbox.redis.RedisSingle;
-import com.smallchill.core.toolbox.redis.IKeyNamingPolicy;
-import com.smallchill.core.toolbox.redis.serializer.RedisSerializer;
+import com.smallchill.core.toolbox.redis.serializer.JdkSerializer;
+import org.beetl.sql.core.IDAutoGen;
+import org.beetl.sql.core.SQLManager;
+import redis.clients.jedis.JedisCluster;
+import redis.clients.jedis.JedisPool;
+
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ConnectionPlugin implements IPlugin{
 
@@ -77,14 +75,14 @@ public class ConnectionPlugin implements IPlugin{
 			for(String key : BladeConfig.getJedisPool().keySet()){
 				JedisPool jedisPool = BladeConfig.getJedisPool().get(key);
 				//创建redis单机操作类
-				RedisSingle rs = new RedisSingle(key, jedisPool, RedisSerializer.me, IKeyNamingPolicy.defaultKeyNamingPolicy);
+				RedisSingle rs = new RedisSingle(key, jedisPool, JdkSerializer.me, IKeyNamingPolicy.defaultKeyNamingPolicy);
 				redisCachePool.put(key, rs);
 			}
 			//注入redisCluster
 			for(String key : BladeConfig.getJedisCluster().keySet()){
 				JedisCluster jedisCluster = BladeConfig.getJedisCluster().get(key);
 				//创建redis集群操作类
-				RedisCluster rc = new RedisCluster(key, jedisCluster, RedisSerializer.me, IKeyNamingPolicy.defaultKeyNamingPolicy);
+				RedisCluster rc = new RedisCluster(key, jedisCluster, JdkSerializer.me, IKeyNamingPolicy.defaultKeyNamingPolicy);
 				redisCachePool.put(key, rc);
 			}
 			if(!redisCachePool.containsKey(MASTER) && redisCachePool.size() > 0){
