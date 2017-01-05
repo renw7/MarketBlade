@@ -21,6 +21,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.beetl.sql.core.SQLManager;
 
+import redis.clients.jedis.JedisPool;
+
 import com.smallchill.core.interfaces.IConfig;
 
 /**
@@ -28,7 +30,8 @@ import com.smallchill.core.interfaces.IConfig;
  */
 public class BladeConfig {
 
-	private static Map<String, SQLManager> pool = new ConcurrentHashMap<String, SQLManager>();
+	private static Map<String, SQLManager> sqlManagerPool = new ConcurrentHashMap<String, SQLManager>();
+	private static Map<String, JedisPool> jedisPool = new ConcurrentHashMap<String, JedisPool>();
 	
 	private BladeConfig(){}
 	
@@ -41,11 +44,18 @@ public class BladeConfig {
 		return conf;
 	}
 
-	public static Map<String, SQLManager> getPool(){
-		if(null == pool){
+	public static Map<String, SQLManager> getSqlManagerPool(){
+		if(null == sqlManagerPool){
 			throw new RuntimeException("sqlManagerMap未注入,请在applicationContext.xml中定义sqlManagerMap!");
 		}
-		return pool;
+		return sqlManagerPool;
+	} 
+	
+	public static Map<String, JedisPool> getJedisPool(){
+		if(null == jedisPool){
+			throw new RuntimeException("jedisPoolMap未注入,请在applicationContext.xml中定义jedisPoolMap!");
+		}
+		return jedisPool;
 	} 
 	
 	/**
@@ -61,7 +71,15 @@ public class BladeConfig {
 	 * @param map
 	 */
 	public void setSqlManager(Map<String, SQLManager> map){
-		pool.putAll(map);
+		sqlManagerPool.putAll(map);
+	}
+	
+	/**
+	 * 注入jedisPoolMap
+	 * @param map
+	 */
+	public void setJedisPoolMap(Map<String, JedisPool> map){
+		jedisPool.putAll(map);
 	}
 	
 }

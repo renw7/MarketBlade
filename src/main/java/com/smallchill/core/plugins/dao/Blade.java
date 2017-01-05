@@ -77,7 +77,7 @@ public class Blade {
 	 * @return
 	 */
 	public static SQLManager dao(String name) {
-		return ConnectionPlugin.init().getPool().get(name);
+		return ConnectionPlugin.init().getSqlManagerPool().get(name);
 	}
 
 	/**

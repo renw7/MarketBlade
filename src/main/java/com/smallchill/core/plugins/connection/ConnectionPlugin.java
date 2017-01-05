@@ -22,17 +22,27 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.beetl.sql.core.IDAutoGen;
 import org.beetl.sql.core.SQLManager;
 
+import redis.clients.jedis.JedisPool;
+
 import com.smallchill.core.config.BladeConfig;
 import com.smallchill.core.interfaces.IPlugin;
+import com.smallchill.core.toolbox.redis.Cache;
+import com.smallchill.core.toolbox.redis.IKeyNamingPolicy;
+import com.smallchill.core.toolbox.redis.serializer.FstSerializer;
 
 public class ConnectionPlugin implements IPlugin{
 
-	private static Map<String, SQLManager> pool = new ConcurrentHashMap<String, SQLManager>();
+	private static Map<String, SQLManager> sqlManagerPool = new ConcurrentHashMap<String, SQLManager>();
+	private static Map<String, Cache> redisCachePool = new ConcurrentHashMap<String, Cache>();
 	
 	public String MASTER = "master";
 	
-	public Map<String, SQLManager> getPool(){
-		return pool;
+	public Map<String, SQLManager> getSqlManagerPool(){
+		return sqlManagerPool;
+	}
+	
+	public Map<String, Cache> getRedisCachePool(){
+		return redisCachePool;
 	}
 	
 	private ConnectionPlugin() { }
@@ -45,26 +55,40 @@ public class ConnectionPlugin implements IPlugin{
 	
 	public void start() {
 		try {
-			for(String key : BladeConfig.getPool().keySet()){
-				SQLManager sm = BladeConfig.getPool().get(key);
+			//注入sqlmanager
+			for(String key : BladeConfig.getSqlManagerPool().keySet()){
+				SQLManager sm = BladeConfig.getSqlManagerPool().get(key);
 				//增加自定义@AssignID注解的值, 使用方式: @Assign("uuid")
 				sm.addIdAutonGen("uuid", new IDAutoGen<String>() {
 					public String nextID(String arg0) {
 						return UUID.randomUUID().toString();
 					}
 				});
-				pool.put(key, sm);
+				sqlManagerPool.put(key, sm);
 			}
-			if(!pool.containsKey(MASTER)){
+			if(!sqlManagerPool.containsKey(MASTER)){
 				throw new RuntimeException("BladeConfig必须注入key值为master的sqlManager!");
 			}
+			
+			//注入redis
+			for(String key : BladeConfig.getJedisPool().keySet()){
+				JedisPool jedisPool = BladeConfig.getJedisPool().get(key);
+				//创建redis通用cache操作类
+				Cache rc = new Cache(key, jedisPool, FstSerializer.me, IKeyNamingPolicy.defaultKeyNamingPolicy);
+				redisCachePool.put(key, rc);
+			}
+			if(!redisCachePool.containsKey(MASTER) && redisCachePool.size() > 0){
+				throw new RuntimeException("BladeConfig必须注入key值为master的jedisPool!");
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void stop() {
-		pool.clear();
+		sqlManagerPool.clear();
+		redisCachePool.clear();
 	}
 
 }

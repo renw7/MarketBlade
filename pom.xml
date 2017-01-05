@@ -62,6 +62,18 @@
 			<artifactId>beetlsql</artifactId>
 			<version>${beetlsql.version}</version>
 		</dependency>
+		<!-- redis -->
+		<dependency>
+		    <groupId>redis.clients</groupId>
+		    <artifactId>jedis</artifactId>
+		    <version>2.9.0</version>
+		</dependency>
+		<!-- fst -->
+		<dependency>
+		    <groupId>de.ruedigermoeller</groupId>
+		    <artifactId>fst</artifactId>
+		    <version>2.48</version>
+		</dependency>
 		<!--web -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -179,7 +191,7 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.2.22</version>
 		</dependency>
-
+		
 		<!-- easypoi -->
 		<dependency>
 			<groupId>org.jeecg</groupId>

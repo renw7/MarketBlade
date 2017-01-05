@@ -59,7 +59,7 @@ public class DbManager {
 	}
 	
 	private DbManager(String dbName) {
-		this.sql = ConnectionPlugin.init().getPool().get(dbName);
+		this.sql = ConnectionPlugin.init().getSqlManagerPool().get(dbName);
 	}
 
 	private DbManager() {}
@@ -67,7 +67,7 @@ public class DbManager {
 	private SQLManager getSqlManager() {
 		if (null == sql) {
 			synchronized (DbManager.class) {
-				sql = ConnectionPlugin.init().getPool().get(ConnectionPlugin.init().MASTER);
+				sql = ConnectionPlugin.init().getSqlManagerPool().get(ConnectionPlugin.init().MASTER);
 			}
 		}
 		return sql;
