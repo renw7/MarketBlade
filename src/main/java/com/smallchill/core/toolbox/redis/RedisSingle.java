@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.smallchill.core.interfaces.ICallBack;
 import com.smallchill.core.toolbox.redis.serializer.ISerializer;
 
 import redis.clients.jedis.Jedis;
@@ -788,6 +789,15 @@ public class RedisSingle implements IJedis{
 			return jedis.zscore(keyToBytes(key), valueToBytes(member));
 		}
 		finally {close(jedis);}
+	}
+
+	public void close() {
+		jedisPool.close();
+	}
+
+	public <T> T call(ICallBack call) {
+		Jedis jedis = getJedis();
+		return call.call(jedis);
 	}
 	
 	// ---------

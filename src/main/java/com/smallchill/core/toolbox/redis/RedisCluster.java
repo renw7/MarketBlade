@@ -26,8 +26,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
+import redis.clients.jedis.JedisPool;
 
+import com.smallchill.core.interfaces.ICallBack;
+import com.smallchill.core.toolbox.kit.LogKit;
 import com.smallchill.core.toolbox.redis.serializer.ISerializer;
 
 /**
@@ -96,7 +100,16 @@ public class RedisCluster implements IJedis{
 	}
 
 	public Set<String> keys(String pattern) {
-		return null;
+		Set<String> keys = new HashSet<>();
+		JedisCluster jedis = getJedis();
+		Map<String, JedisPool> clusterNodes = jedis.getClusterNodes();
+		for (JedisPool jedisPool : clusterNodes.values()) {
+			Jedis resource = jedisPool.getResource();
+			Set<String> key = resource.keys(pattern);
+			keys.addAll(key);
+			resource.close();
+		}
+		return keys;
 	}
 	
 	public String mset(Object... keysValues) {
@@ -743,6 +756,20 @@ public class RedisCluster implements IJedis{
 		}
 		finally {close(jedis);}
 	}
+
+	
+	public void close() {
+		try {
+			jedisCluster.close();
+		} catch (IOException e) {
+			LogKit.error(e.getMessage(), e);
+		}
+	}
+
+	public <T> T call(ICallBack call) {
+		JedisCluster jedis = getJedis();
+		return call.call(jedis);
+	}
 	
 	// ---------
 	
@@ -833,13 +860,7 @@ public class RedisCluster implements IJedis{
 	
 	public void close(JedisCluster jedis) {
 		if (threadLocalJedis.get() == null && jedis != null)
-		try {
-			jedis.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
 			removeThreadLocalJedis();
-		}
 	}
 	
 	public JedisCluster getThreadLocalJedis() {

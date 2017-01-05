@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.smallchill.core.interfaces.ICallBack;
+
 /**
  * Redis 单机、集群统一接口
  */
@@ -581,5 +583,15 @@ public interface IJedis {
 	 * 如果 member 元素不是有序集 key 的成员，或 key 不存在，返回 nil 。
 	 */
 	public Double zscore(Object key, Object member);
+	
+	/**
+	 * 回调接口
+	 */
+	public <T> T call(ICallBack call);
+	
+	/**
+	 * 关闭连接
+	 */
+	public void close();
 	
 }

@@ -17,13 +17,16 @@ package com.smallchill.core.plugins.connection;
 
 import com.smallchill.core.config.BladeConfig;
 import com.smallchill.core.interfaces.IPlugin;
+import com.smallchill.core.toolbox.kit.LogKit;
 import com.smallchill.core.toolbox.redis.IJedis;
 import com.smallchill.core.toolbox.redis.IKeyNamingPolicy;
 import com.smallchill.core.toolbox.redis.RedisCluster;
 import com.smallchill.core.toolbox.redis.RedisSingle;
 import com.smallchill.core.toolbox.redis.serializer.JdkSerializer;
+
 import org.beetl.sql.core.IDAutoGen;
 import org.beetl.sql.core.SQLManager;
+
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPool;
 
@@ -95,8 +98,12 @@ public class ConnectionPlugin implements IPlugin{
 	}
 
 	public void stop() {
-		sqlManagerPool.clear();
+		for (IJedis jedis : redisCachePool.values()) {
+			jedis.close();
+		}
 		redisCachePool.clear();
+		sqlManagerPool.clear();
+		LogKit.println("ConnectionPlugin关闭成功");
 	}
 
 }
