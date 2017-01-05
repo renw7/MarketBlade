@@ -797,7 +797,9 @@ public class RedisSingle implements IJedis{
 
 	public <T> T call(ICallBack call) {
 		Jedis jedis = getJedis();
-		return call.call(jedis);
+		T val = call.call(jedis);
+		close(jedis);
+		return val;
 	}
 	
 	// ---------
@@ -888,7 +890,7 @@ public class RedisSingle implements IJedis{
 	}
 	
 	public void close(Jedis jedis) {
-		if (threadLocalJedis.get() == null && jedis != null)
+		if (jedis != null)
 			jedis.close(); removeThreadLocalJedis();
 	}
 	
@@ -901,7 +903,11 @@ public class RedisSingle implements IJedis{
 	}
 	
 	public void removeThreadLocalJedis() {
-		threadLocalJedis.remove();
+		try {
+			threadLocalJedis.remove();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
 

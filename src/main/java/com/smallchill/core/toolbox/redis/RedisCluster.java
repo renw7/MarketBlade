@@ -768,7 +768,9 @@ public class RedisCluster implements IJedis{
 
 	public <T> T call(ICallBack call) {
 		JedisCluster jedis = getJedis();
-		return call.call(jedis);
+		T val = call.call(jedis);
+		close(jedis);
+		return val;
 	}
 	
 	// ---------
@@ -859,7 +861,7 @@ public class RedisCluster implements IJedis{
 	}
 	
 	public void close(JedisCluster jedis) {
-		if (threadLocalJedis.get() == null && jedis != null)
+		if (jedis != null)
 			removeThreadLocalJedis();
 	}
 	
@@ -872,7 +874,11 @@ public class RedisCluster implements IJedis{
 	}
 	
 	public void removeThreadLocalJedis() {
-		threadLocalJedis.remove();
+		try {
+			threadLocalJedis.remove();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
 
