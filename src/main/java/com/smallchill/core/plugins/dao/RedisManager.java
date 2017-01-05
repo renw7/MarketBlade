@@ -19,20 +19,20 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.smallchill.core.plugins.connection.ConnectionPlugin;
-import com.smallchill.core.toolbox.redis.Cache;
+import com.smallchill.core.toolbox.redis.RedisCache;
 
 /**
  * Redis操作工具类
  */
 public class RedisManager {
-	private static Map<String, Cache> pool = new ConcurrentHashMap<String, Cache>();
+	private static Map<String, RedisCache> pool = new ConcurrentHashMap<String, RedisCache>();
 	
-	public static Cache init() {
+	public static RedisCache init() {
 		return init(ConnectionPlugin.init().MASTER);
 	}
 
-	public static Cache init(String name) {
-		Cache rc = pool.get(name);
+	public static RedisCache init(String name) {
+		RedisCache rc = pool.get(name);
 		if (null == rc) {
 			synchronized (RedisManager.class) {
 				rc = pool.get(name);

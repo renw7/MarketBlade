@@ -37,7 +37,7 @@ import redis.clients.jedis.JedisPool;
  * 即可快速掌握使用方法
  * Redis 命令参考: http://redisdoc.com/
  */
-public class Cache {
+public class RedisCache {
 	
 	protected String name;
 	protected JedisPool jedisPool;
@@ -46,11 +46,11 @@ public class Cache {
 	
 	protected final ThreadLocal<Jedis> threadLocalJedis = new ThreadLocal<Jedis>();
 	
-	protected Cache() {
+	protected RedisCache() {
 		
 	}
 	
-	public Cache(String name, JedisPool jedisPool, ISerializer serializer, IKeyNamingPolicy keyNamingPolicy) {
+	public RedisCache(String name, JedisPool jedisPool, ISerializer serializer, IKeyNamingPolicy keyNamingPolicy) {
 		this.name = name;
 		this.jedisPool = jedisPool;
 		this.serializer = serializer;

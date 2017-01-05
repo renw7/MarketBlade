@@ -19,20 +19,19 @@ package com.smallchill.core.toolbox.redis.serializer;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
-import org.nustaq.serialization.FSTObjectInput;
-import org.nustaq.serialization.FSTObjectOutput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import redis.clients.util.SafeEncoder;
 
 import com.smallchill.core.toolbox.kit.LogKit;
 
 /**
- * FstSerializer.
+ * RedisSerializer.
  */
-public class FstSerializer implements ISerializer {
+public class RedisSerializer implements ISerializer {
 	
-	public static final ISerializer me = new FstSerializer();
+	public static final ISerializer me = new RedisSerializer();
 	
 	public byte[] keyToBytes(String key) {
 		return SafeEncoder.encode(key);
@@ -51,40 +50,57 @@ public class FstSerializer implements ISerializer {
     }
 	
 	public byte[] valueToBytes(Object value) {
-		FSTObjectOutput fstOut = null;
+		ByteArrayOutputStream byteOut = null;
+		ObjectOutputStream ObjOut = null;
 		try {
-			ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
-			fstOut = new FSTObjectOutput(bytesOut);
-			fstOut.writeObject(value);
-			fstOut.flush();
-			return bytesOut.toByteArray();
+			byteOut = new ByteArrayOutputStream();
+			ObjOut = new ObjectOutputStream(byteOut);
+			ObjOut.writeObject(value);
+			ObjOut.flush();
+			return byteOut.toByteArray();
 		}
-		catch (Exception e) {
+		catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 		finally {
-			if(fstOut != null)
-				try {fstOut.close();} catch (IOException e) {LogKit.error(e.getMessage(), e);}
+			try {
+				if (null != ObjOut) {
+					ObjOut.close();
+				}
+			}
+			catch (IOException e) {
+				ObjOut = null; LogKit.error(e.getMessage(), e);
+			}
 		}
 	}
 	
 	public Object valueFromBytes(byte[] bytes) {
-		if(bytes == null || bytes.length == 0)
-			return null;
-		
-		FSTObjectInput fstInput = null;
+		if(bytes == null || bytes.length == 0) {
+			return null;			
+		}
+		ObjectInputStream ObjIn = null;
+		Object retVal = null;
 		try {
-			fstInput = new FSTObjectInput(new ByteArrayInputStream(bytes));
-			return fstInput.readObject();
+			ByteArrayInputStream byteIn = new ByteArrayInputStream(bytes);
+			ObjIn = new ObjectInputStream(byteIn);
+			retVal = ObjIn.readObject();
+			return retVal;
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 		finally {
-			if(fstInput != null)
-				try {fstInput.close();} catch (IOException e) {LogKit.error(e.getMessage(), e);}
+			try {
+				if(null != ObjIn) {
+					ObjIn.close();
+				}
+			}
+			catch (IOException e) {
+				ObjIn = null; LogKit.error(e.getMessage(), e);
+			}
 		}
 	}
+	
 }
 
 

@@ -26,14 +26,14 @@ import redis.clients.jedis.JedisPool;
 
 import com.smallchill.core.config.BladeConfig;
 import com.smallchill.core.interfaces.IPlugin;
-import com.smallchill.core.toolbox.redis.Cache;
+import com.smallchill.core.toolbox.redis.RedisCache;
 import com.smallchill.core.toolbox.redis.IKeyNamingPolicy;
-import com.smallchill.core.toolbox.redis.serializer.FstSerializer;
+import com.smallchill.core.toolbox.redis.serializer.RedisSerializer;
 
 public class ConnectionPlugin implements IPlugin{
 
 	private static Map<String, SQLManager> sqlManagerPool = new ConcurrentHashMap<String, SQLManager>();
-	private static Map<String, Cache> redisCachePool = new ConcurrentHashMap<String, Cache>();
+	private static Map<String, RedisCache> redisCachePool = new ConcurrentHashMap<String, RedisCache>();
 	
 	public String MASTER = "master";
 	
@@ -41,7 +41,7 @@ public class ConnectionPlugin implements IPlugin{
 		return sqlManagerPool;
 	}
 	
-	public Map<String, Cache> getRedisCachePool(){
+	public Map<String, RedisCache> getRedisCachePool(){
 		return redisCachePool;
 	}
 	
@@ -74,7 +74,7 @@ public class ConnectionPlugin implements IPlugin{
 			for(String key : BladeConfig.getJedisPool().keySet()){
 				JedisPool jedisPool = BladeConfig.getJedisPool().get(key);
 				//创建redis通用cache操作类
-				Cache rc = new Cache(key, jedisPool, FstSerializer.me, IKeyNamingPolicy.defaultKeyNamingPolicy);
+				RedisCache rc = new RedisCache(key, jedisPool, RedisSerializer.me, IKeyNamingPolicy.defaultKeyNamingPolicy);
 				redisCachePool.put(key, rc);
 			}
 			if(!redisCachePool.containsKey(MASTER) && redisCachePool.size() > 0){
