@@ -21,6 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.beetl.sql.core.SQLManager;
 
+import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPool;
 
 import com.smallchill.core.interfaces.IConfig;
@@ -32,6 +33,7 @@ public class BladeConfig {
 
 	private static Map<String, SQLManager> sqlManagerPool = new ConcurrentHashMap<String, SQLManager>();
 	private static Map<String, JedisPool> jedisPool = new ConcurrentHashMap<String, JedisPool>();
+	private static Map<String, JedisCluster> jedisCluster = new ConcurrentHashMap<String, JedisCluster>();
 	
 	private BladeConfig(){}
 	
@@ -52,10 +54,11 @@ public class BladeConfig {
 	} 
 	
 	public static Map<String, JedisPool> getJedisPool(){
-		if(null == jedisPool){
-			throw new RuntimeException("jedisPoolMap未注入,请在applicationContext.xml中定义jedisPoolMap!");
-		}
 		return jedisPool;
+	} 
+	
+	public static Map<String, JedisCluster> getJedisCluster(){
+		return jedisCluster;
 	} 
 	
 	/**
@@ -78,8 +81,16 @@ public class BladeConfig {
 	 * 注入jedisPoolMap
 	 * @param map
 	 */
-	public void setJedisPoolMap(Map<String, JedisPool> map){
+	public void setJedisPool(Map<String, JedisPool> map){
 		jedisPool.putAll(map);
+	}
+	
+	/**
+	 * 注入jedisClusterMap
+	 * @param map
+	 */
+	public void setJedisCluster(Map<String, JedisCluster> map){
+		jedisCluster.putAll(map);
 	}
 	
 }

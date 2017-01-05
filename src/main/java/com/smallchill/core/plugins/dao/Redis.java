@@ -19,27 +19,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.smallchill.core.toolbox.redis.RedisCache;
+import com.smallchill.core.toolbox.redis.IJedis;
 
 /**
  * Redis操作工具类
  */
 public class Redis {
-	private static RedisCache redisCache = null;
+	private static IJedis jedis = null;
 
-	public static RedisCache init(String name) {
+	public static IJedis init(String name) {
 		return RedisManager.init(name);
 	}
 
 	private Redis() {}
 	
-	private static RedisCache getRedisCache() {
-		if (null == redisCache) {
+	private static IJedis getRedisCache() {
+		if (null == jedis) {
 			synchronized (Redis.class) {
-				redisCache = RedisManager.init();
+				jedis = RedisManager.init();
 			}
 		}
-		return redisCache;
+		return jedis;
 	}
 	
 	

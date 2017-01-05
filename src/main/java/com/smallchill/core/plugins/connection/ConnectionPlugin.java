@@ -22,18 +22,21 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.beetl.sql.core.IDAutoGen;
 import org.beetl.sql.core.SQLManager;
 
+import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPool;
 
 import com.smallchill.core.config.BladeConfig;
 import com.smallchill.core.interfaces.IPlugin;
-import com.smallchill.core.toolbox.redis.RedisCache;
+import com.smallchill.core.toolbox.redis.IJedis;
+import com.smallchill.core.toolbox.redis.RedisCluster;
+import com.smallchill.core.toolbox.redis.RedisSingle;
 import com.smallchill.core.toolbox.redis.IKeyNamingPolicy;
 import com.smallchill.core.toolbox.redis.serializer.RedisSerializer;
 
 public class ConnectionPlugin implements IPlugin{
 
 	private static Map<String, SQLManager> sqlManagerPool = new ConcurrentHashMap<String, SQLManager>();
-	private static Map<String, RedisCache> redisCachePool = new ConcurrentHashMap<String, RedisCache>();
+	private static Map<String, IJedis> redisCachePool = new ConcurrentHashMap<String, IJedis>();
 	
 	public String MASTER = "master";
 	
@@ -41,7 +44,7 @@ public class ConnectionPlugin implements IPlugin{
 		return sqlManagerPool;
 	}
 	
-	public Map<String, RedisCache> getRedisCachePool(){
+	public Map<String, IJedis> getRedisCachePool(){
 		return redisCachePool;
 	}
 	
@@ -70,11 +73,18 @@ public class ConnectionPlugin implements IPlugin{
 				throw new RuntimeException("BladeConfig必须注入key值为master的sqlManager!");
 			}
 			
-			//注入redis
+			//注入redisSingle
 			for(String key : BladeConfig.getJedisPool().keySet()){
 				JedisPool jedisPool = BladeConfig.getJedisPool().get(key);
-				//创建redis通用cache操作类
-				RedisCache rc = new RedisCache(key, jedisPool, RedisSerializer.me, IKeyNamingPolicy.defaultKeyNamingPolicy);
+				//创建redis单机操作类
+				RedisSingle rs = new RedisSingle(key, jedisPool, RedisSerializer.me, IKeyNamingPolicy.defaultKeyNamingPolicy);
+				redisCachePool.put(key, rs);
+			}
+			//注入redisCluster
+			for(String key : BladeConfig.getJedisCluster().keySet()){
+				JedisCluster jedisCluster = BladeConfig.getJedisCluster().get(key);
+				//创建redis集群操作类
+				RedisCluster rc = new RedisCluster(key, jedisCluster, RedisSerializer.me, IKeyNamingPolicy.defaultKeyNamingPolicy);
 				redisCachePool.put(key, rc);
 			}
 			if(!redisCachePool.containsKey(MASTER) && redisCachePool.size() > 0){

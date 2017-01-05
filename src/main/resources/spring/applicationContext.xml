@@ -79,6 +79,55 @@
 		<property name="configLocation" value="classpath:/config/beetlsql.properties"></property>
 	</bean>-->
 
+
+	<!-- 配置redis单机版 -->  
+	<!-- <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">  
+	    <property name="maxTotal" value="${redis.pool.maxTotal}"/> 
+	    <property name="maxIdle" value="${redis.pool.maxIdle}" />   
+	    <property name="maxWaitMillis" value="${redis.pool.maxWaitMillis}" /> 
+	    <property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />   
+	    <property name="testOnReturn" value="${redis.pool.testOnReturn}" />   
+	</bean>  
+	
+	<bean id="jedisPool" class="redis.clients.jedis.JedisPool" destroy-method="destroy">  
+        <constructor-arg ref="jedisPoolConfig" />    
+        <constructor-arg value="${redis.ip}" />    
+        <constructor-arg type="int" value="${redis.port}" />    
+	</bean> --> 
+
+	<!-- 配置redis集群版 -->
+	<!-- <bean id="jedisCluster" class="redis.clients.jedis.JedisCluster">
+		<constructor-arg>
+			<set>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="127.0.0.1"/>
+					<constructor-arg name="port" value="7001"/>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="127.0.0.1"/>
+					<constructor-arg name="port" value="7002"/>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="127.0.0.1"/>
+					<constructor-arg name="port" value="7003"/>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="127.0.0.1"/>
+					<constructor-arg name="port" value="7004"/>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="127.0.0.1"/>
+					<constructor-arg name="port" value="7005"/>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="127.0.0.1"/>
+					<constructor-arg name="port" value="7006"/>
+				</bean>
+			</set>
+		</constructor-arg>
+	</bean> -->
+
+
     <!-- blade框架自定义config -->
     <bean id="bladeConfig" class="com.smallchill.core.config.BladeConfig">
     	<!-- 注入自定义config -->
@@ -92,6 +141,16 @@
 				<!--<entry key="other" value-ref="otherSqlManager" />-->
 			</map>
 		</property>
+		<!-- <property name="jedisPool">
+			<map>
+				<entry key="master" value-ref="jedisPool" />
+			</map>
+		</property>
+		<property name="jedisCluster">
+			<map>
+				<entry key="master" value-ref="jedisCluster" />
+			</map>
+		</property> -->
 	</bean>
 
 </beans>
