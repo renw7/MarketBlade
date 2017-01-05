@@ -33,7 +33,7 @@ public class Redis {
 
 	private Redis() {}
 	
-	private static IJedis getRedisCache() {
+	private static IJedis getJedis() {
 		if (null == jedis) {
 			synchronized (Redis.class) {
 				jedis = RedisManager.init();
@@ -49,7 +49,7 @@ public class Redis {
 	 * 对于某个原本带有生存时间（TTL）的键来说， 当 SET 命令成功在这个键上执行时， 这个键原有的 TTL 将被清除。
 	 */
 	public static String set(Object key, Object value) {
-		return getRedisCache().set(key, value);
+		return getJedis().set(key, value);
 	}
 	
 	/**
@@ -57,7 +57,7 @@ public class Redis {
 	 * 如果 key 已经存在， SETEX 命令将覆写旧值。
 	 */
 	public static String setex(Object key, int seconds, Object value) {
-		return getRedisCache().setex(key, seconds, value);
+		return getJedis().setex(key, seconds, value);
 	}
 	
 	/**
@@ -65,7 +65,7 @@ public class Redis {
 	 * 如果 key 不存在那么返回特殊值 nil 。
 	 */
 	public static <T> T get(Object key) {
-		return getRedisCache().get(key);
+		return getJedis().get(key);
 	}
 	
 	/**
@@ -73,7 +73,7 @@ public class Redis {
 	 * 不存在的 key 会被忽略。
 	 */
 	public static Long del(Object key) {
-		return getRedisCache().del(key);
+		return getJedis().del(key);
 	}
 	
 	/**
@@ -81,7 +81,7 @@ public class Redis {
 	 * 不存在的 key 会被忽略。
 	 */
 	public static Long del(Object... keys) {
-		return getRedisCache().del(keys);
+		return getJedis().del(keys);
 	}
 	
 	/**
@@ -93,7 +93,7 @@ public class Redis {
 	 * 特殊符号用 \ 隔开
 	 */
 	public static Set<String> keys(String pattern) {
-		return getRedisCache().keys(pattern);
+		return getJedis().keys(pattern);
 	}
 	
 	/**
@@ -108,7 +108,7 @@ public class Redis {
 	 * </pre>
 	 */
 	public static String mset(Object... keysValues) {
-		return getRedisCache().mset(keysValues);
+		return getJedis().mset(keysValues);
 	}
 	
 	/**
@@ -117,7 +117,7 @@ public class Redis {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static List mget(Object... keys) {
-		return getRedisCache().mget(keys);
+		return getJedis().mget(keys);
 	}
 	
 	/**
@@ -128,7 +128,7 @@ public class Redis {
 	 * 关于递增(increment) / 递减(decrement)操作的更多信息，请参见 INCR 命令。
 	 */
 	public static Long decr(Object key) {
-		return getRedisCache().decr(key);
+		return getJedis().decr(key);
 	}
 	
 	/**
@@ -139,7 +139,7 @@ public class Redis {
 	 * 关于更多递增(increment) / 递减(decrement)操作的更多信息，请参见 INCR 命令。
 	 */
 	public static Long decrBy(Object key, long longValue) {
-		return getRedisCache().decrBy(key, longValue);
+		return getJedis().decrBy(key, longValue);
 	}
 	
 	/**
@@ -149,7 +149,7 @@ public class Redis {
 	 * 本操作的值限制在 64 位(bit)有符号数字表示之内。
 	 */
 	public static Long incr(Object key) {
-		return getRedisCache().incr(key);
+		return getJedis().incr(key);
 	}
 	
 	/**
@@ -160,21 +160,21 @@ public class Redis {
 	 * 关于递增(increment) / 递减(decrement)操作的更多信息，参见 INCR 命令。 
 	 */
 	public static Long incrBy(Object key, long longValue) {
-		return getRedisCache().incrBy(key, longValue);
+		return getJedis().incrBy(key, longValue);
 	}
 	
 	/**
 	 * 检查给定 key 是否存在。
 	 */
 	public static boolean exists(Object key) {
-		return getRedisCache().exists(key);
+		return getJedis().exists(key);
 	}
 	
 	/**
 	 * 从当前数据库中随机返回(不删除)一个 key 。
 	 */
 	public static String randomKey() {
-		return getRedisCache().randomKey();
+		return getJedis().randomKey();
 	}
 	
 	/**
@@ -183,7 +183,7 @@ public class Redis {
 	 * 当 newkey 已经存在时， RENAME 命令将覆盖旧值。
 	 */
 	public static String rename(Object oldkey, Object newkey) {
-		return getRedisCache().rename(oldkey, newkey);
+		return getJedis().rename(oldkey, newkey);
 	}
 	
 	/**
@@ -192,14 +192,14 @@ public class Redis {
 	 * 因此，也可以利用这一特性，将 MOVE 当作锁(locking)原语(primitive)。
 	 */
 	public static Long move(Object key, int dbIndex) {
-		return getRedisCache().move(key, dbIndex);
+		return getJedis().move(key, dbIndex);
 	}
 	
 	/**
 	 * 将 key 原子性地从当前实例传送到目标实例的指定数据库上，一旦传送成功， key 保证会出现在目标实例上，而当前实例上的 key 会被删除。
 	 */
 	public static String migrate(String host, int port, Object key, int destinationDb, int timeout) {
-		return getRedisCache().migrate(host, port, key, destinationDb, timeout);
+		return getJedis().migrate(host, port, key, destinationDb, timeout);
 	}
 	
 	/**
@@ -212,7 +212,7 @@ public class Redis {
 	 * 3：自行获取 Jedis 对象进行操作
 	 */
 	public static String select(int databaseIndex) {
-		return getRedisCache().select(databaseIndex);
+		return getJedis().select(databaseIndex);
 	}
 	
 	/**
@@ -220,28 +220,28 @@ public class Redis {
 	 * 在 Redis 中，带有生存时间的 key 被称为『易失的』(volatile)。
 	 */
 	public static Long expire(Object key, int seconds) {
-		return getRedisCache().expire(key, seconds);
+		return getJedis().expire(key, seconds);
 	}
 	
 	/**
 	 * EXPIREAT 的作用和 EXPIRE 类似，都用于为 key 设置生存时间。不同在于 EXPIREAT 命令接受的时间参数是 UNIX 时间戳(unix timestamp)。
 	 */
 	public static Long expireAt(Object key, long unixTime) {
-		return getRedisCache().expireAt(key, unixTime);
+		return getJedis().expireAt(key, unixTime);
 	}
 	
 	/**
 	 * 这个命令和 EXPIRE 命令的作用类似，但是它以毫秒为单位设置 key 的生存时间，而不像 EXPIRE 命令那样，以秒为单位。
 	 */
 	public static Long pexpire(Object key, long milliseconds) {
-		return getRedisCache().pexpire(key, milliseconds);
+		return getJedis().pexpire(key, milliseconds);
 	}
 	
 	/**
 	 * 这个命令和 EXPIREAT 命令类似，但它以毫秒为单位设置 key 的过期 unix 时间戳，而不是像 EXPIREAT 那样，以秒为单位。
 	 */
 	public static Long pexpireAt(Object key, long millisecondsTimestamp) {
-		return getRedisCache().pexpireAt(key, millisecondsTimestamp);
+		return getJedis().pexpireAt(key, millisecondsTimestamp);
 	}
 	
 	/**
@@ -249,49 +249,49 @@ public class Redis {
 	 * 当 key 存在但不是字符串类型时，返回一个错误。
 	 */
 	public static <T> T getSet(Object key, Object value) {
-		return getRedisCache().getSet(key, value);
+		return getJedis().getSet(key, value);
 	}
 	
 	/**
 	 * 移除给定 key 的生存时间，将这个 key 从『易失的』(带生存时间 key )转换成『持久的』(一个不带生存时间、永不过期的 key )。
 	 */
 	public static Long persist(Object key) {
-		return getRedisCache().persist(key);
+		return getJedis().persist(key);
 	}
 	
 	/**
 	 * 返回 key 所储存的值的类型。
 	 */
 	public static String type(Object key) {
-		return getRedisCache().type(key);
+		return getJedis().type(key);
 	}
 	
 	/**
 	 * 以秒为单位，返回给定 key 的剩余生存时间(TTL, time to live)。
 	 */
 	public static Long ttl(Object key) {
-		return getRedisCache().ttl(key);
+		return getJedis().ttl(key);
 	}
 	
 	/**
 	 * 这个命令类似于 TTL 命令，但它以毫秒为单位返回 key 的剩余生存时间，而不是像 TTL 命令那样，以秒为单位。
 	 */
 	public static Long pttl(Object key) {
-		return getRedisCache().pttl(key);
+		return getJedis().pttl(key);
 	}
 	
 	/**
 	 * 对象被引用的数量
 	 */
 	public static Long objectRefcount(Object key) {
-		return getRedisCache().objectRefcount(key);
+		return getJedis().objectRefcount(key);
 	}
 	
 	/**
 	 * 对象没有被访问的空闲时间
 	 */
 	public static Long objectIdletime(Object key) {
-		return getRedisCache().objectIdletime(key);
+		return getJedis().objectIdletime(key);
 	}
 	
 	/**
@@ -300,7 +300,7 @@ public class Redis {
 	 * 如果域 field 已经存在于哈希表中，旧值将被覆盖。
 	 */
 	public static Long hset(Object key, Object field, Object value) {
-		return getRedisCache().hset(key, field, value);
+		return getJedis().hset(key, field, value);
 	}
 	
 	/**
@@ -309,14 +309,14 @@ public class Redis {
 	 * 如果 key 不存在，一个空哈希表被创建并执行 HMSET 操作。
 	 */
 	public static String hmset(Object key, Map<Object, Object> hash) {
-		return getRedisCache().hmset(key, hash);
+		return getJedis().hmset(key, hash);
 	}
 	
 	/**
 	 * 返回哈希表 key 中给定域 field 的值。
 	 */
 	public static <T> T hget(Object key, Object field) {
-		return getRedisCache().hget(key, field);
+		return getJedis().hget(key, field);
 	}
 	
 	/**
@@ -326,21 +326,21 @@ public class Redis {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static List hmget(Object key, Object... fields) {
-		return getRedisCache().hmget(key, fields);
+		return getJedis().hmget(key, fields);
 	}
 	
 	/**
 	 * 删除哈希表 key 中的一个或多个指定域，不存在的域将被忽略。
 	 */
 	public static Long hdel(Object key, Object... fields) {
-		return getRedisCache().hdel(key, fields);
+		return getJedis().hdel(key, fields);
 	}
 	
 	/**
 	 * 查看哈希表 key 中，给定域 field 是否存在。
 	 */
 	public static boolean hexists(Object key, Object field) {
-		return getRedisCache().hexists(key, field);
+		return getJedis().hexists(key, field);
 	}
 	
 	/**
@@ -349,7 +349,7 @@ public class Redis {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static Map hgetAll(Object key) {
-		return getRedisCache().hgetAll(key);
+		return getJedis().hgetAll(key);
 	}
 	
 	/**
@@ -357,7 +357,7 @@ public class Redis {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static List hvals(Object key) {
-		return getRedisCache().hvals(key);
+		return getJedis().hvals(key);
 	}
 	
 	/**
@@ -365,14 +365,14 @@ public class Redis {
 	 * 底层实现此方法取名为 hfields 更为合适，在此仅为与底层保持一致
 	 */
 	public static Set<Object> hkeys(Object key) {
-		return getRedisCache().hkeys(key);
+		return getJedis().hkeys(key);
 	}
 	
 	/**
 	 * 返回哈希表 key 中域的数量。 
 	 */
 	public static Long hlen(Object key) {
-		return getRedisCache().hlen(key);
+		return getJedis().hlen(key);
 	}
 	
 	/**
@@ -384,7 +384,7 @@ public class Redis {
 	 * 本操作的值被限制在 64 位(bit)有符号数字表示之内。
 	 */
 	public static Long hincrBy(Object key, Object field, long value) {
-		return getRedisCache().hincrBy(key, field, value);
+		return getJedis().hincrBy(key, field, value);
 	}
 	
 	/**
@@ -397,7 +397,7 @@ public class Redis {
 	 * HINCRBYFLOAT 命令的详细功能和 INCRBYFLOAT 命令类似，请查看 INCRBYFLOAT 命令获取更多相关信息。
 	 */
 	public static Double hincrByFloat(Object key, Object field, double value) {
-		return getRedisCache().hincrByFloat(key, field, value);
+		return getJedis().hincrByFloat(key, field, value);
 	}
 	
 	/**
@@ -408,14 +408,14 @@ public class Redis {
 	 * 如果 key 不是列表类型，返回一个错误。
 	 */
 	public static <T> T lindex(Object key, long index) {
-		return getRedisCache().lindex(key, index);
+		return getJedis().lindex(key, index);
 	}
 	
 	/**
 	 * 获取记数器的值
 	 */
 	public static Long getCounter(Object key) {
-		return getRedisCache().getCounter(key);
+		return getJedis().getCounter(key);
 	}
 	
 	/**
@@ -424,14 +424,14 @@ public class Redis {
 	 * 如果 key 不是列表类型，返回一个错误。
 	 */
 	public static Long llen(Object key) {
-		return getRedisCache().llen(key);
+		return getJedis().llen(key);
 	}
 	
 	/**
 	 * 移除并返回列表 key 的头元素。
 	 */
 	public static <T> T lpop(Object key) {
-		return getRedisCache().lpop(key);
+		return getJedis().lpop(key);
 	}
 	
 	/**
@@ -443,7 +443,7 @@ public class Redis {
 	 * 当 key 存在但不是列表类型时，返回一个错误。
 	 */
 	public static Long lpush(Object key, Object... values) {
-		return getRedisCache().lpush(key, values);
+		return getJedis().lpush(key, values);
 	}
 	
 	/**
@@ -452,7 +452,7 @@ public class Redis {
 	 * 关于列表下标的更多信息，请参考 LINDEX 命令。
 	 */
 	public static String lset(Object key, long index, Object value) {
-		return getRedisCache().lset(key, index, value);
+		return getJedis().lset(key, index, value);
 	}
 	
 	/**
@@ -463,7 +463,7 @@ public class Redis {
 	 * count = 0 : 移除表中所有与 value 相等的值。
 	 */
 	public static Long lrem(Object key, long count, Object value) {
-		return getRedisCache().lrem(key, count, value);
+		return getJedis().lrem(key, count, value);
 	}
 	
 	/**
@@ -478,7 +478,7 @@ public class Redis {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static List lrange(Object key, long start, long end) {
-		return getRedisCache().lrange(key, start, end);
+		return getJedis().lrange(key, start, end);
 	}
 	
 	/**
@@ -489,14 +489,14 @@ public class Redis {
 	 * 当 key 不是列表类型时，返回一个错误。
 	 */
 	public static String ltrim(Object key, long start, long end) {
-		return getRedisCache().ltrim(key, start, end);
+		return getJedis().ltrim(key, start, end);
 	}
 	
 	/**
 	 * 移除并返回列表 key 的尾元素。
 	 */
 	public static <T> T rpop(Object key) {
-		return getRedisCache().rpop(key);
+		return getJedis().rpop(key);
 	}
 	
 	/**
@@ -505,7 +505,7 @@ public class Redis {
 	 * 将 source 弹出的元素插入到列表 destination ，作为 destination 列表的的头元素。
 	 */
 	public static <T> T rpoplpush(Object srcKey, Object dstKey) {
-		return getRedisCache().rpoplpush(srcKey, dstKey);
+		return getJedis().rpoplpush(srcKey, dstKey);
 	}
 	
 	/**
@@ -517,7 +517,7 @@ public class Redis {
 	 * 当 key 存在但不是列表类型时，返回一个错误。
 	 */
 	public static Long rpush(Object key, Object... values) {
-		return getRedisCache().rpush(key, values);
+		return getJedis().rpush(key, values);
 	}
 	
 	/**
@@ -527,7 +527,7 @@ public class Redis {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static List blpop(Object... keys) {
-		return getRedisCache().blpop(keys);
+		return getJedis().blpop(keys);
 	}
 	
 	/**
@@ -537,7 +537,7 @@ public class Redis {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static List blpop(int timeout, Object... keys) {
-		return getRedisCache().blpop(timeout, keys);
+		return getJedis().blpop(timeout, keys);
 	}
 	
 	/**
@@ -548,7 +548,7 @@ public class Redis {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static List brpop(Object... keys) {
-		return getRedisCache().brpop(keys);
+		return getJedis().brpop(keys);
 	}
 	
 	/**
@@ -559,7 +559,7 @@ public class Redis {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static List brpop(int timeout, Object... keys) {
-		return getRedisCache().brpop(timeout, keys);
+		return getJedis().brpop(timeout, keys);
 	}
 	
 	/**
@@ -567,7 +567,7 @@ public class Redis {
 	 * 通常用于测试与服务器的连接是否仍然生效，或者用于测量延迟值。
 	 */
 	public static String ping() {
-		return getRedisCache().ping();
+		return getJedis().ping();
 	}
 	
 	/**
@@ -576,14 +576,14 @@ public class Redis {
 	 * 当 key 不是集合类型时，返回一个错误。
 	 */
 	public static Long sadd(Object key, Object... members) {
-		return getRedisCache().sadd(key, members);
+		return getJedis().sadd(key, members);
 	}
 	
 	/**
 	 * 返回集合 key 的基数(集合中元素的数量)。
 	 */
 	public static Long scard(Object key) {
-		return getRedisCache().scard(key);
+		return getJedis().scard(key);
 	}
 	
 	/**
@@ -591,7 +591,7 @@ public class Redis {
 	 * 如果只想获取一个随机元素，但不想该元素从集合中被移除的话，可以使用 SRANDMEMBER 命令。
 	 */
 	public static <T> T spop(Object key) {
-		return getRedisCache().spop(key);
+		return getJedis().spop(key);
 	}
 	
 	/**
@@ -600,14 +600,14 @@ public class Redis {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static Set smembers(Object key) {
-		return getRedisCache().smembers(key);
+		return getJedis().smembers(key);
 	}
 	
 	/**
 	 * 判断 member 元素是否集合 key 的成员。
 	 */
 	public static boolean sismember(Object key, Object member) {
-		return getRedisCache().sismember(key, member);
+		return getJedis().sismember(key, member);
 	}
 	
 	/**
@@ -615,14 +615,14 @@ public class Redis {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static Set sinter(Object... keys) {
-		return getRedisCache().sinter(keys);
+		return getJedis().sinter(keys);
 	}
 	
 	/**
 	 * 返回集合中的一个随机元素。
 	 */
 	public static <T> T srandmember(Object key) {
-		return getRedisCache().srandmember(key);
+		return getJedis().srandmember(key);
 	}
 	
 	/**
@@ -635,14 +635,14 @@ public class Redis {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static List srandmember(Object key, int count) {
-		return getRedisCache().srandmember(key, count);
+		return getJedis().srandmember(key, count);
 	}
 	
 	/**
 	 * 移除集合 key 中的一个或多个 member 元素，不存在的 member 元素会被忽略。
 	 */
 	public static Long srem(Object key, Object... members) {
-		return getRedisCache().srem(key, members);
+		return getJedis().srem(key, members);
 	}
 	
 	/**
@@ -651,7 +651,7 @@ public class Redis {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static Set sunion(Object... keys) {
-		return getRedisCache().sunion(keys);
+		return getJedis().sunion(keys);
 	}
 	
 	/**
@@ -660,7 +660,7 @@ public class Redis {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static Set sdiff(Object... keys) {
-		return getRedisCache().sdiff(keys);
+		return getJedis().sdiff(keys);
 	}
 	
 	/**
@@ -669,18 +669,18 @@ public class Redis {
 	 * 并通过重新插入这个 member 元素，来保证该 member 在正确的位置上。
 	 */
 	public static Long zadd(Object key, double score, Object member) {
-		return getRedisCache().zadd(key, score, member);
+		return getJedis().zadd(key, score, member);
 	}
 	
 	public static Long zadd(Object key, Map<Object, Double> scoreMembers) {
-		return getRedisCache().zadd(key, scoreMembers);
+		return getJedis().zadd(key, scoreMembers);
 	}
 	
 	/**
 	 * 返回有序集 key 的基数。
 	 */
 	public static Long zcard(Object key) {
-		return getRedisCache().zcard(key);
+		return getJedis().zcard(key);
 	}
 	
 	/**
@@ -688,14 +688,14 @@ public class Redis {
 	 * 关于参数 min 和 max 的详细使用方法，请参考 ZRANGEBYSCORE 命令。
 	 */
 	public static Long zcount(Object key, double min, double max) {
-		return getRedisCache().zcount(key, min, max);
+		return getJedis().zcount(key, min, max);
 	}
 	
 	/**
 	 * 为有序集 key 的成员 member 的 score 值加上增量 increment 。
 	 */
 	public static Double zincrby(Object key, double score, Object member) {
-		return getRedisCache().zincrby(key, score, member);
+		return getJedis().zincrby(key, score, member);
 	}
 	
 	/**
@@ -706,7 +706,7 @@ public class Redis {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static Set zrange(Object key, long start, long end) {
-		return getRedisCache().zrange(key, start, end);
+		return getJedis().zrange(key, start, end);
 	}
 	
 	/**
@@ -717,7 +717,7 @@ public class Redis {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static Set zrevrange(Object key, long start, long end) {
-		return getRedisCache().zrevrange(key, start, end);
+		return getJedis().zrevrange(key, start, end);
 	}
 	
 	/**
@@ -726,7 +726,7 @@ public class Redis {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static Set zrangeByScore(Object key, double min, double max) {
-		return getRedisCache().zrangeByScore(key, min, max);
+		return getJedis().zrangeByScore(key, min, max);
 	}
 	
 	/**
@@ -735,7 +735,7 @@ public class Redis {
 	 * 使用 ZREVRANK 命令可以获得成员按 score 值递减(从大到小)排列的排名。
 	 */
 	public static Long zrank(Object key, Object member) {
-		return getRedisCache().zrank(key, member);
+		return getJedis().zrank(key, member);
 	}
 	
 	/**
@@ -744,7 +744,7 @@ public class Redis {
 	 * 使用 ZRANK 命令可以获得成员按 score 值递增(从小到大)排列的排名。
 	 */
 	public static Long zrevrank(Object key, Object member) {
-		return getRedisCache().zrevrank(key, member);
+		return getJedis().zrevrank(key, member);
 	}
 	
 	/**
@@ -752,7 +752,7 @@ public class Redis {
 	 * 当 key 存在但不是有序集类型时，返回一个错误。
 	 */
 	public static Long zrem(Object key, Object... members) {
-		return getRedisCache().zrem(key, members);
+		return getJedis().zrem(key, members);
 	}
 	
 	/**
@@ -760,7 +760,7 @@ public class Redis {
 	 * 如果 member 元素不是有序集 key 的成员，或 key 不存在，返回 nil 。
 	 */
 	public static Double zscore(Object key, Object member) {
-		return getRedisCache().zscore(key, member);
+		return getJedis().zscore(key, member);
 	}
 	
 }

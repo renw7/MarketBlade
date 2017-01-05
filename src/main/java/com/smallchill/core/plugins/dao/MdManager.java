@@ -32,6 +32,9 @@ import com.smallchill.core.toolbox.grid.BladePage;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 
+/**
+ * beetlsql  MarkDown模式sql管理工具
+ */
 public class MdManager {
 	private static Map<String, MdManager> pool = new ConcurrentHashMap<String, MdManager>();
 	
