@@ -91,13 +91,13 @@
     </bean>
 
 
-	<!-- 引入dapplicationContext配置文件 -->
+	<!-- 引入applicationContext配置文件 -->
 	<import resource="applicationContext.xml" />
 	
-	<!-- 引入dapplicationContext-shiro配置文件 -->
+	<!-- 引入applicationContext-shiro配置文件 -->
 	<import resource="applicationContext-shiro.xml" />
 	
-	<!-- 引入dapplicationContext-datasource配置文件 -->
+	<!-- 引入applicationContext-datasource配置文件 -->
 	<import resource="applicationContext-datasource.xml" />
 	
 	<!-- 引入applicationContext-task配置文件 -->

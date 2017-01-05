@@ -345,6 +345,27 @@ public class BladeFileKit {
 			map.put(name, url);
 		}
 	}
+	
+	/**   
+	 * 为虚拟路径添加配置的域名前缀
+	 * @param map  对象
+	 * @param name 路径字段名
+	 * @param defaultUrl 默认路径
+	*/
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static void addDomain(Map map, String name, String defaultUrl) {
+		if (null == map) {
+			return;
+		}
+		String url = Func.toStr(map.get(name));
+		// map为引用传递, 防止每次附加到缓存
+		if (url.indexOf(ConstConfig.DOMAIN) >= 0) {
+			return;
+		} else {
+			url = ConstConfig.DOMAIN + (StrKit.isBlank(url) ? defaultUrl : url);
+			map.put(name, url);
+		}
+	}
 
 	/**   
 	 * 为虚拟路径添加配置的域名前缀
@@ -363,6 +384,29 @@ public class BladeFileKit {
 				break;
 			} else {
 				url = ConstConfig.DOMAIN + url;
+				m.put(name, url);
+			}
+		}
+	}
+	
+	/**   
+	 * 为虚拟路径添加配置的域名前缀
+	 * @param list 对象
+	 * @param name 路径字段名
+	 * @param defaultUrl 默认路径
+	*/
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static void addDomain(List<Map> list, String name, String defaultUrl) {
+		for (Map m : list) {
+			if (null == m) {
+				continue;
+			}
+			String url = Func.toStr(m.get(name));
+			// map为引用传递, 防止每次附加到缓存
+			if (url.indexOf(ConstConfig.DOMAIN) >= 0) {
+				break;
+			} else {
+				url = ConstConfig.DOMAIN + (StrKit.isBlank(url) ? defaultUrl : url);
 				m.put(name, url);
 			}
 		}
