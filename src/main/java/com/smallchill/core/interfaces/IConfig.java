@@ -43,4 +43,9 @@ public interface IConfig {
 	*/
 	void afterBladeStart();
 	
+	/**   
+	 * 程序关闭之后执行
+	*/
+	void afterBladeStop();
+	
 }

@@ -86,4 +86,11 @@ public class WebConfig implements IConfig {
 		System.out.println(DateKit.getMsTime() + "	after blade start, you can do something~~~~~~~~~~~~~~~~");
 	}
 
+	/** 
+	 * 工程关闭执行逻辑
+	 */
+	public void afterBladeStop() {
+		
+	}
+
 }
