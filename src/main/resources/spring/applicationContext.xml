@@ -90,9 +90,9 @@
 	</bean>  
 	
 	<bean id="jedisPool" class="redis.clients.jedis.JedisPool" destroy-method="destroy">  
-        <constructor-arg ref="jedisPoolConfig" />    
-        <constructor-arg value="${redis.ip}" />    
-        <constructor-arg type="int" value="${redis.port}" />    
+        <constructor-arg index="0" ref="jedisPoolConfig"/>    
+        <constructor-arg index="1" value="${redis.ip}" type="java.lang.String"/>    
+        <constructor-arg index="2" value="${redis.port}" type="int"/>    
 	</bean> --> 
 
 	<!-- 配置redis集群版 -->
