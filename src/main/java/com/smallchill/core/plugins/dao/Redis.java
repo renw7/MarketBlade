@@ -763,4 +763,25 @@ public class Redis {
 		return getJedis().zscore(key, member);
 	}
 	
+	/**   
+	 * 更新数据库
+	*/
+	public static String flushDB() {
+		return getJedis().flushDB();
+	}
+	
+	/**   
+	 * 获取数据库
+	*/
+	public static Long getDB() {
+		return getJedis().getDB();
+	}
+	
+	/**   
+	 * 获取数据库大小
+	*/
+	public static Long dbSize() {
+		return getJedis().dbSize();
+	}
+	
 }
