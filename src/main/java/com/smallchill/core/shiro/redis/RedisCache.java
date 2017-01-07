@@ -48,7 +48,7 @@ public class RedisCache<K, V> implements Cache<K, V>, Serializable {
 	
 	private String keyPrefix;
 
-	private String name = "shiro_redis_cache";
+	private String name = "redis_cache";
 
 	
 	public RedisCache(String shiroName, String keyPrefix, final String name) {
@@ -67,11 +67,11 @@ public class RedisCache<K, V> implements Cache<K, V>, Serializable {
 	}
 
 	private final byte[] getPrefixToBytes() {
-		return SafeEncoder.encode(getKeyPrefix());
+		return SafeEncoder.encode(getName().concat("_").concat(getKeyPrefix()));
 	}
 
 	private final byte[] getKeyPattern() {
-		return SafeEncoder.encode(getKeyPrefix() + "*");
+		return SafeEncoder.encode(getName().concat("_").concat(getKeyPrefix()) + "*");
 	}
 
 	@Override
