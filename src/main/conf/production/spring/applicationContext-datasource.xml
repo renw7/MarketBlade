@@ -12,7 +12,13 @@
     http://www.springframework.org/schema/tx/spring-tx-4.3.xsd ">
 
 	<!-- 连接池配置文件 -->
-	<context:property-placeholder location="classpath:config/config.properties" />
+	<bean id="propertyConfigurer" class="com.smallchill.core.config.EncryptablePropertyPlaceholder">    
+       <property name="locations">    
+           <list>    
+               <value>classpath:config/config.properties</value>    
+           </list>    
+       </property>    
+   </bean>  
 	
 	<!-- base dataSource -->
 	<bean id="baseDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
@@ -59,10 +65,10 @@
 
 	<!-- 主数据源 -->
 	<bean id="dataSource"  parent="baseDataSource" init-method="init">
-		<property name="driverClassName" value="${master.driver}" />
-		<property name="url" value="${master.url}" />
-		<property name="username" value="${master.username}" />
-		<property name="password" value="${master.password}" />
+		<property name="driverClassName" value="${encrypt.master.driver}" />
+		<property name="url" value="${encrypt.master.url}" />
+		<property name="username" value="${encrypt.master.username}" />
+		<property name="password" value="${encrypt.master.password}" />
 	</bean>
 
 	<!-- 多数据源 -->
