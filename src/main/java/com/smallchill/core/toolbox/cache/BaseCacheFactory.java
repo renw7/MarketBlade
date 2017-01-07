@@ -19,7 +19,7 @@ import com.smallchill.core.interfaces.ICache;
 import com.smallchill.core.interfaces.ILoader;
 
 /**
- * 缓存工程基类
+ * 缓存工厂基类
  */
 public abstract class BaseCacheFactory implements ICache {
 
