@@ -35,7 +35,7 @@ import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.system.model.User;
 
-public class DefaultShiroFactroy implements IShiro{
+public class DefaultShiroFactory implements IShiro{
 	
 	public User user(String account) {
 		User user = Blade.create(User.class).findFirstBy("account = #{account}", Paras.create().set("account", account));

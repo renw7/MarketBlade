@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2016, James Zhan 詹波 (jfinal@126.com).
+ * Copyright (c) 2015-2017, Chill Zhuang 庄骞 (smallchill@163.com).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,99 +18,46 @@ package com.smallchill.core.toolbox.kit;
 
 import java.util.List;
 
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
+import com.smallchill.core.constant.Cst;
+import com.smallchill.core.interfaces.ICache;
 import com.smallchill.core.interfaces.ILoader;
 
 /**
- * CacheKit. Useful tool box for EhCache.
+ * 缓存工具类
  */
 public class CacheKit {
 	
-	private static CacheManager cacheManager;
-	private static volatile Object locker = new Object();
-	private static final Logger log = LogManager.getLogger(CacheKit.class);
-	
-	private static CacheManager getManager() {
-		if (cacheManager == null) {
-			synchronized (CacheKit.class) {
-				if (cacheManager == null) {
-					cacheManager = CacheManager.create();
-				}
-			}
-		}
-		return cacheManager;
-	}
-	
-	static Cache getOrAddCache(String cacheName) {
-		CacheManager cacheManager = getManager();
-		Cache cache = cacheManager.getCache(cacheName);
-		if (cache == null) {
-			synchronized(locker) {
-				cache = cacheManager.getCache(cacheName);
-				if (cache == null) {
-					log.warn("Could not find cache config [" + cacheName + "], using default.");
-					cacheManager.addCacheIfAbsent(cacheName);
-					cache = cacheManager.getCache(cacheName);
-					log.debug("Cache [" + cacheName + "] started.");
-				}
-			}
-		}
-		return cache;
-	}
-	
+	private static ICache defaultGridFactory = Cst.me().getDefaultCacheFactory();
+
 	public static void put(String cacheName, Object key, Object value) {
-		getOrAddCache(cacheName).put(new Element(key, value));
+		defaultGridFactory.put(cacheName, key, value);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static <T> T get(String cacheName, Object key) {
-		Element element = getOrAddCache(cacheName).get(key);
-		return element != null ? (T)element.getObjectValue() : null;
+		return defaultGridFactory.get(cacheName, key);
 	}
 	
 	@SuppressWarnings("rawtypes")
 	public static List getKeys(String cacheName) {
-		return getOrAddCache(cacheName).getKeys();
+		return defaultGridFactory.getKeys(cacheName);
 	}
 	
 	public static void remove(String cacheName, Object key) {
-		getOrAddCache(cacheName).remove(key);
+		defaultGridFactory.remove(cacheName, key);
 	}
 	
 	public static void removeAll(String cacheName) {
-		getOrAddCache(cacheName).removeAll();
+		defaultGridFactory.removeAll(cacheName);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static <T> T get(String cacheName, Object key, ILoader iLoader) {
-		Object data = get(cacheName, key);
-		if (data == null) {
-			data = iLoader.load();
-			put(cacheName, key, data);
-		}
-		return (T)data;
+		return defaultGridFactory.get(cacheName, key, iLoader);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static <T> T get(String cacheName, Object key, Class<? extends ILoader> iLoaderClass) {
-		Object data = get(cacheName, key);
-		if (data == null) {
-			try {
-				ILoader dataLoader = iLoaderClass.newInstance();
-				data = dataLoader.load();
-				put(cacheName, key, data);
-			} catch (Exception e) {
-				throw new RuntimeException(e);
-			}
-		}
-		return (T)data;
+		return defaultGridFactory.get(cacheName, key, iLoaderClass);
 	}
+	
 }
 
 

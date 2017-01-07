@@ -20,7 +20,7 @@ import com.smallchill.common.plugins.GlobalPlugin;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.IConfig;
 import com.smallchill.core.interfaces.IPluginFactroy;
-import com.smallchill.core.shiro.DefaultShiroFactroy;
+import com.smallchill.core.shiro.DefaultShiroFactory;
 import com.smallchill.core.toolbox.file.DefaultFileProxyFactory;
 import com.smallchill.core.toolbox.grid.JqGridFactory;
 import com.smallchill.core.toolbox.kit.DateKit;
@@ -57,7 +57,7 @@ public class WebConfig implements IConfig {
 		me.setDefaultSelectFactory(new DefaultSelectFactory());
 		
 		//设定shiro工厂类
-		me.setDefaultShiroFactory(new DefaultShiroFactroy());
+		me.setDefaultShiroFactory(new DefaultShiroFactory());
 		
 		//设定文件代理工厂类
 		me.setDefaultFileProxyFactory(new DefaultFileProxyFactory());

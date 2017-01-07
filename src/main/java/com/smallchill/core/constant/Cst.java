@@ -19,6 +19,7 @@ import com.smallchill.core.intercept.CURDInterceptor;
 import com.smallchill.core.intercept.QueryInterceptor;
 import com.smallchill.core.intercept.SelectInterceptor;
 import com.smallchill.core.interfaces.ICURD;
+import com.smallchill.core.interfaces.ICache;
 import com.smallchill.core.interfaces.ICheck;
 import com.smallchill.core.interfaces.IGrid;
 import com.smallchill.core.interfaces.ILog;
@@ -26,7 +27,8 @@ import com.smallchill.core.interfaces.IQuery;
 import com.smallchill.core.interfaces.ISelect;
 import com.smallchill.core.interfaces.IShiro;
 import com.smallchill.core.listener.ConfigListener;
-import com.smallchill.core.shiro.DefaultShiroFactroy;
+import com.smallchill.core.shiro.DefaultShiroFactory;
+import com.smallchill.core.toolbox.cache.EhCacheFactory;
 import com.smallchill.core.toolbox.check.PermissionCheckFactory;
 import com.smallchill.core.toolbox.file.DefaultFileProxyFactory;
 import com.smallchill.core.toolbox.file.IFileProxy;
@@ -111,7 +113,12 @@ public class Cst {
 	/**
 	 * 默认shirorealm工厂类
 	 */
-	private IShiro defaultShiroFactory = new DefaultShiroFactroy();
+	private IShiro defaultShiroFactory = new DefaultShiroFactory();
+
+	/**
+	 * 默认缓存工厂类
+	 */
+	private ICache defaultCacheFactory = new EhCacheFactory();
 	
 	/**
 	 * 默认文件上传转换工厂类
@@ -261,6 +268,14 @@ public class Cst {
 
 	public void setDefaultShiroFactory(IShiro defaultShiroFactory) {
 		this.defaultShiroFactory = defaultShiroFactory;
+	}
+
+	public ICache getDefaultCacheFactory() {
+		return defaultCacheFactory;
+	}
+
+	public void setDefaultCacheFactory(ICache defaultCacheFactory) {
+		this.defaultCacheFactory = defaultCacheFactory;
 	}
 
 	public IFileProxy getDefaultFileProxyFactory() {
