@@ -150,8 +150,5 @@
 			</map>
 		</property> -->
 	</bean>
-	
-	<!-- 引入applicationContext-task配置文件 -->
-	<import resource="applicationContext-task.xml" />
 
 </beans>
