@@ -68,7 +68,7 @@ public class RedisCacheManager implements CacheManager, Initializable, Destroyab
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public <K, V> Cache<K, V> getCache(String name) throws CacheException {
         Cache cache = caches.get(name);  
-        if (cache == null) {  
+        if (null == cache) {  
         	cache = new RedisCache<K, V>(getRedisName(), getKeyPrefix(), name);  
             caches.put(name, cache);  
         }  

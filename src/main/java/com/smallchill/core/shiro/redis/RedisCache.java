@@ -57,7 +57,7 @@ public class RedisCache<K, V> implements Cache<K, V>, Serializable {
 		this.name = name;
 	}
 
-	private final byte[] getKeyToBytes(K key) {
+	private final byte[] toBytes(Object key) {
 		if (key instanceof byte[]) {
 			return (byte[]) key;
 		}
@@ -67,11 +67,7 @@ public class RedisCache<K, V> implements Cache<K, V>, Serializable {
 	}
 
 	private final byte[] getPrefixToBytes() {
-		return SafeEncoder.encode(getName().concat("_").concat(getKeyPrefix()));
-	}
-
-	private final byte[] getKeyPattern() {
-		return SafeEncoder.encode(getName().concat("_").concat(getKeyPrefix()) + "*");
+		return SafeEncoder.encode(getKeyPrefix());
 	}
 
 	@Override
@@ -84,7 +80,7 @@ public class RedisCache<K, V> implements Cache<K, V>, Serializable {
 			if (key == null) {
 				return null;
 			} else {
-				V value = jedis.get(getKeyToBytes(key));
+				V value = jedis.hget(toBytes(getName()), toBytes(key));
 				if (value == null) {
 					if (LOGGER.isDebugEnabled()) {
 						LOGGER.debug("缓存主键: [" + key + "] 对应的值为空");
@@ -110,7 +106,7 @@ public class RedisCache<K, V> implements Cache<K, V>, Serializable {
 		IJedis jedis = initJedis();
 		try {
 			V previous = get(key);
-			jedis.set(getKeyToBytes(key), value);
+			jedis.hset(toBytes(getName()), toBytes(key), value);
 			return previous;
 		} catch (Throwable t) {
 			throw new CacheException(t);
@@ -125,10 +121,10 @@ public class RedisCache<K, V> implements Cache<K, V>, Serializable {
 		IJedis jedis = initJedis();
 		try {
 			V previous = get(key);
-			long statusCode = jedis.del(getKeyToBytes(key));
+			long statusCode = jedis.hdel(toBytes(getName()), toBytes(key));
 			if (statusCode > 0) {
 				if (LOGGER.isInfoEnabled()) {
-					LOGGER.info("缓存主键 [{}] 删除成功", key);
+					LOGGER.info("从缓存名[{}] 缓存主键 [{}] 中删除缓存成功", getName(), key);
 				}
 			}
 			return previous;
@@ -171,10 +167,10 @@ public class RedisCache<K, V> implements Cache<K, V>, Serializable {
 	public Set<K> keys() {
 		IJedis jedis = initJedis();
 		try {
-			Set<byte[]> keySet = jedis.keys(getKeyPattern());
+			Set<Object> keySet = jedis.hkeys(toBytes(getName()));
 			if (!CollectionUtils.isEmpty(keySet)) {
 				Set<K> keys = new LinkedHashSet<K>();
-				for (byte[] key : keySet) {
+				for (Object key : keySet) {
 					keys.add((K) key);
 				}
 				return keys;
@@ -239,5 +235,5 @@ public class RedisCache<K, V> implements Cache<K, V>, Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 } 
