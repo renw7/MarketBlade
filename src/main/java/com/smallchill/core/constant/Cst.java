@@ -28,7 +28,7 @@ import com.smallchill.core.interfaces.ISelect;
 import com.smallchill.core.interfaces.IShiro;
 import com.smallchill.core.listener.ConfigListener;
 import com.smallchill.core.shiro.DefaultShiroFactory;
-import com.smallchill.core.toolbox.cache.EhCacheFactory;
+import com.smallchill.core.toolbox.cache.EhcacheFactory;
 import com.smallchill.core.toolbox.check.PermissionCheckFactory;
 import com.smallchill.core.toolbox.file.DefaultFileProxyFactory;
 import com.smallchill.core.toolbox.file.IFileProxy;
@@ -118,7 +118,7 @@ public class Cst {
 	/**
 	 * 默认缓存工厂类
 	 */
-	private ICache defaultCacheFactory = new EhCacheFactory();
+	private ICache defaultCacheFactory = new EhcacheFactory();
 	
 	/**
 	 * 默认文件上传转换工厂类

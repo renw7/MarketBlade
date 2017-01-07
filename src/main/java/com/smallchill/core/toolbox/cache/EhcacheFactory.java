@@ -1,3 +1,18 @@
+/**
+ * Copyright (c) 2015-2017, Chill Zhuang 庄骞 (smallchill@163.com).
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.smallchill.core.toolbox.cache;
 
 import java.util.List;
@@ -9,18 +24,16 @@ import net.sf.ehcache.Element;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.smallchill.core.interfaces.ICache;
-import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.toolbox.kit.CacheKit;
 
 /**
  * Ehcache缓存工厂
  */
-public class EhCacheFactory implements ICache{
+public class EhcacheFactory extends BaseCacheFactory {
 	
 	private static CacheManager cacheManager;
 	private static volatile Object locker = new Object();
-	private static final Logger log = LogManager.getLogger(CacheKit.class);
+	private static final Logger log = LogManager.getLogger(EhcacheFactory.class);
 	
 	private static CacheManager getCacheManager() {
 		if (cacheManager == null) {
@@ -71,31 +84,6 @@ public class EhCacheFactory implements ICache{
 	
 	public void removeAll(String cacheName) {
 		getOrAddCache(cacheName).removeAll();
-	}
-	
-	@SuppressWarnings("unchecked")
-	public <T> T get(String cacheName, Object key, ILoader iLoader) {
-		Object data = get(cacheName, key);
-		if (data == null) {
-			data = iLoader.load();
-			put(cacheName, key, data);
-		}
-		return (T) data;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public <T> T get(String cacheName, Object key, Class<? extends ILoader> iLoaderClass) {
-		Object data = get(cacheName, key);
-		if (data == null) {
-			try {
-				ILoader dataLoader = iLoaderClass.newInstance();
-				data = dataLoader.load();
-				put(cacheName, key, data);
-			} catch (Exception e) {
-				throw new RuntimeException(e);
-			}
-		}
-		return (T) data;
 	}
 
 }
