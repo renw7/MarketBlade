@@ -104,6 +104,14 @@ public class RedisSingle implements IJedis{
 		finally {close(jedis);}
 	}
 
+	public Set<byte[]> keys(byte[] pattern) {
+		Jedis jedis = getJedis();
+		try {
+			return jedis.keys(pattern);
+		}
+		finally {close(jedis);}
+	}
+
 	public String mset(Object... keysValues) {
 		if (keysValues.length % 2 != 0)
 			throw new IllegalArgumentException("wrong number of arguments for met, keysValues length can not be odd");
@@ -791,6 +799,30 @@ public class RedisSingle implements IJedis{
 		finally {close(jedis);}
 	}
 
+	public String flushDB() {
+		Jedis jedis = getJedis();
+		try {
+			return jedis.flushDB();
+		}
+		finally {close(jedis);}
+	}
+
+	public Long getDB() {
+		Jedis jedis = getJedis();
+		try {
+			return jedis.getDB();
+		}
+		finally {close(jedis);}
+	}
+
+	public Long dbSize() {
+		Jedis jedis = getJedis();
+		try {
+			return jedis.dbSize();
+		}
+		finally {close(jedis);}
+	}
+	
 	public void close() {
 		jedisPool.close();
 	}
@@ -805,6 +837,9 @@ public class RedisSingle implements IJedis{
 	// ---------
 	
 	protected byte[] keyToBytes(Object key) {
+		if (key instanceof byte[]) {
+			return (byte[]) key;
+		}
 		String keyStr = keyNamingPolicy.getKeyName(key);
 		return serializer.keyToBytes(keyStr);
 	}

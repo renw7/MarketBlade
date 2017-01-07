@@ -41,14 +41,25 @@ public class JdkSerializer implements ISerializer {
 	}
 	
 	public byte[] fieldToBytes(Object field) {
-		return valueToBytes(field);
+		return serialize(field);
 	}
 	
     public Object fieldFromBytes(byte[] bytes) {
-    	return valueFromBytes(bytes);
+    	return deserialize(bytes);
     }
-	
+    
 	public byte[] valueToBytes(Object value) {
+		return serialize(value);
+	}
+	
+	public Object valueFromBytes(byte[] bytes) {
+		return deserialize(bytes);
+	}
+	
+    public byte[] serialize(Object value) {
+		if (value instanceof byte[]) {
+			return (byte[]) value;
+		}
 		ObjectOutputStream objectOut = null;
 		try {
 			ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
@@ -64,9 +75,9 @@ public class JdkSerializer implements ISerializer {
 			if(objectOut != null)
 				try {objectOut.close();} catch (Exception e) {LogKit.error(e.getMessage(), e);}
 		}
-	}
-	
-	public Object valueFromBytes(byte[] bytes) {
+    }
+    
+    public Object deserialize(byte[] bytes) {
 		if(bytes == null || bytes.length == 0)
 			return null;
 		
@@ -83,6 +94,25 @@ public class JdkSerializer implements ISerializer {
 			if (objectInput != null)
 				try {objectInput.close();} catch (Exception e) {LogKit.error(e.getMessage(), e);}
 		}
+    }
+
+	public byte[] clone(final byte[] array) {
+		if (array == null) {
+			return null;
+		}
+		return array.clone();
+	}
+
+	public byte[] mergeBytes(final byte[] array1, final byte... array2) {
+		if (array1 == null) {
+			return clone(array2);
+		} else if (array2 == null) {
+			return clone(array1);
+		}
+		final byte[] joinedArray = new byte[array1.length + array2.length];
+		System.arraycopy(array1, 0, joinedArray, 0, array1.length);
+		System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
+		return joinedArray;
 	}
 }
 

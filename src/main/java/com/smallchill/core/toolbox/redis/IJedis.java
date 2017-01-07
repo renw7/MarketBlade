@@ -68,6 +68,16 @@ public interface IJedis {
 	public Set<String> keys(String pattern);
 	
 	/**
+	 * 查找所有符合给定模式 pattern 的 key 。
+	 * KEYS * 匹配数据库中所有 key 。
+	 * KEYS h?llo 匹配 hello ， hallo 和 hxllo 等。
+	 * KEYS h*llo 匹配 hllo 和 heeeeello 等。
+	 * KEYS h[ae]llo 匹配 hello 和 hallo ，但不匹配 hillo 。
+	 * 特殊符号用 \ 隔开
+	 */
+	public Set<byte[]> keys(byte[] pattern);
+	
+	/**
 	 * 同时设置一个或多个 key-value 对。
 	 * 如果某个给定 key 已经存在，那么 MSET 会用新值覆盖原来的旧值，如果这不是你所希望的效果，请考虑使用 MSETNX 命令：它只会在所有给定 key 都不存在的情况下进行设置操作。
 	 * MSET 是一个原子性(atomic)操作，所有给定 key 都会在同一时间内被设置，某些给定 key 被更新而另一些给定 key 没有改变的情况，不可能发生。
@@ -583,6 +593,21 @@ public interface IJedis {
 	 * 如果 member 元素不是有序集 key 的成员，或 key 不存在，返回 nil 。
 	 */
 	public Double zscore(Object key, Object member);
+	
+	/**   
+	 * 更新数据库
+	*/
+	public String flushDB();
+	
+	/**   
+	 * 获取数据库
+	*/
+	public Long getDB();
+	
+	/**   
+	 * 获取数据库大小
+	*/
+	public Long dbSize();
 	
 	/**
 	 * 回调接口

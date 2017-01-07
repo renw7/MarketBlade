@@ -111,6 +111,19 @@ public class RedisCluster implements IJedis{
 		}
 		return keys;
 	}
+
+	public Set<byte[]> keys(byte[] pattern) {
+		Set<byte[]> keys = new HashSet<>();
+		JedisCluster jedis = getJedis();
+		Map<String, JedisPool> clusterNodes = jedis.getClusterNodes();
+		for (JedisPool jedisPool : clusterNodes.values()) {
+			Jedis resource = jedisPool.getResource();
+			Set<byte[]> key = resource.keys(pattern);
+			keys.addAll(key);
+			resource.close();
+		}
+		return keys;
+	}
 	
 	public String mset(Object... keysValues) {
 		if (keysValues.length % 2 != 0)
@@ -757,6 +770,33 @@ public class RedisCluster implements IJedis{
 		finally {close(jedis);}
 	}
 
+	@SuppressWarnings("deprecation")
+	public String flushDB() {
+		JedisCluster jedis = getJedis();
+		try {
+			return jedis.flushDB();
+		}
+		finally {close(jedis);}
+	}	
+	
+	@SuppressWarnings("deprecation")
+	public Long getDB() {
+		JedisCluster jedis = getJedis();
+		try {
+			return jedis.getDB();
+		}
+		finally {close(jedis);}
+	}
+
+
+	@SuppressWarnings("deprecation")
+	public Long dbSize() {
+		JedisCluster jedis = getJedis();
+		try {
+			return jedis.dbSize();
+		}
+		finally {close(jedis);}
+	}
 	
 	public void close() {
 		try {

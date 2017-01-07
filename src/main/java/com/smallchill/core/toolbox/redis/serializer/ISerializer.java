@@ -29,6 +29,11 @@ public interface ISerializer {
     
 	byte[] valueToBytes(Object value);
     Object valueFromBytes(byte[] bytes);
+    
+    public byte[] serialize(Object value);
+    public Object deserialize(byte[] bytes);
+    
+    byte[] mergeBytes(final byte[] array1, final byte... array2);
 }
 
 

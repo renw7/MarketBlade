@@ -88,9 +88,6 @@ public class ConnectionPlugin implements IPlugin{
 				RedisCluster rc = new RedisCluster(key, jedisCluster, JdkSerializer.me, IKeyNamingPolicy.defaultKeyNamingPolicy);
 				redisCachePool.put(key, rc);
 			}
-			if(!redisCachePool.containsKey(MASTER) && redisCachePool.size() > 0){
-				throw new RuntimeException("BladeConfig必须注入key值为master的jedisPool!");
-			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

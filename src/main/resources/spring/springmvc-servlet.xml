@@ -90,7 +90,6 @@
         <property name="maxInMemorySize" value="40960" /> 
     </bean>
 
-
 	<!-- 引入applicationContext配置文件 -->
 	<import resource="applicationContext.xml" />
 	
@@ -99,9 +98,5 @@
 	
 	<!-- 引入applicationContext-datasource配置文件 -->
 	<import resource="applicationContext-datasource.xml" />
-	
-	<!-- 引入applicationContext-task配置文件 -->
-	<!-- <import resource="applicationContext-task.xml" /> -->
-
 
 </beans>
