@@ -29,11 +29,9 @@ import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.util.CollectionUtils;
 
-import redis.clients.util.SafeEncoder;
-
 import com.smallchill.core.plugins.dao.Redis;
 import com.smallchill.core.toolbox.redis.IJedis;
-import com.smallchill.core.toolbox.redis.serializer.JdkSerializer;
+import com.smallchill.core.toolbox.redis.IKeyNamingPolicy;
 
 /**
  * 缓存接口实现类
@@ -43,6 +41,8 @@ public class RedisCache<K, V> implements Cache<K, V>, Serializable {
 	private static final long serialVersionUID = 4521785299624111291L;
 
 	private static Logger LOGGER = LogManager.getLogger(RedisCache.class);
+	
+	private IJedis jedis;
 
 	private String shiroName;
 	
@@ -57,19 +57,6 @@ public class RedisCache<K, V> implements Cache<K, V>, Serializable {
 		this.name = name;
 	}
 
-	private final byte[] toBytes(Object key) {
-		if (key instanceof byte[]) {
-			return (byte[]) key;
-		}
-		final byte[] preBytes = getPrefixToBytes();
-		byte[] keyBytes = JdkSerializer.me.serialize(key);
-		return JdkSerializer.me.mergeBytes(preBytes, keyBytes);
-	}
-
-	private final byte[] getPrefixToBytes() {
-		return SafeEncoder.encode(getKeyPrefix());
-	}
-
 	@Override
 	public V get(K key) throws CacheException {
 		if (LOGGER.isDebugEnabled()) {
@@ -80,7 +67,7 @@ public class RedisCache<K, V> implements Cache<K, V>, Serializable {
 			if (key == null) {
 				return null;
 			} else {
-				V value = jedis.hget(toBytes(getName()), toBytes(key));
+				V value = jedis.hget(getName(), key);
 				if (value == null) {
 					if (LOGGER.isDebugEnabled()) {
 						LOGGER.debug("缓存主键: [" + key + "] 对应的值为空");
@@ -106,7 +93,7 @@ public class RedisCache<K, V> implements Cache<K, V>, Serializable {
 		IJedis jedis = initJedis();
 		try {
 			V previous = get(key);
-			jedis.hset(toBytes(getName()), toBytes(key), value);
+			jedis.hset(getName(), key, value);
 			return previous;
 		} catch (Throwable t) {
 			throw new CacheException(t);
@@ -121,7 +108,7 @@ public class RedisCache<K, V> implements Cache<K, V>, Serializable {
 		IJedis jedis = initJedis();
 		try {
 			V previous = get(key);
-			long statusCode = jedis.hdel(toBytes(getName()), toBytes(key));
+			long statusCode = jedis.hdel(getName(), key);
 			if (statusCode > 0) {
 				if (LOGGER.isInfoEnabled()) {
 					LOGGER.info("从缓存名[{}] 缓存主键 [{}] 中删除缓存成功", getName(), key);
@@ -167,7 +154,7 @@ public class RedisCache<K, V> implements Cache<K, V>, Serializable {
 	public Set<K> keys() {
 		IJedis jedis = initJedis();
 		try {
-			Set<Object> keySet = jedis.hkeys(toBytes(getName()));
+			Set<Object> keySet = jedis.hkeys(getName());
 			if (!CollectionUtils.isEmpty(keySet)) {
 				Set<K> keys = new LinkedHashSet<K>();
 				for (Object key : keySet) {
@@ -204,7 +191,20 @@ public class RedisCache<K, V> implements Cache<K, V>, Serializable {
 	}
 	
 	public IJedis initJedis() {
-		return Redis.init(getShiroName());
+		if (null == this.jedis) {
+			synchronized (RedisCache.class) {
+				if (null == this.jedis) {
+					IJedis jedis = Redis.init(getShiroName());	
+					jedis.setKeyNamingPolicy(new IKeyNamingPolicy() {
+								public String getKeyName(Object key) {
+									return getKeyPrefix().concat(key.toString());
+								}
+							});
+					this.jedis = jedis;
+				}
+			}
+		}
+		return jedis;
 	}
 
 	@Override

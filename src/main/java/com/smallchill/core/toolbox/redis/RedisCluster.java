@@ -813,6 +813,10 @@ public class RedisCluster implements IJedis{
 		return val;
 	}
 	
+	public void setKeyNamingPolicy(IKeyNamingPolicy keyNamingPolicy) {
+		this.keyNamingPolicy = keyNamingPolicy;	
+	}
+	
 	// ---------
 	
 	protected byte[] keyToBytes(Object key) {
@@ -920,6 +924,7 @@ public class RedisCluster implements IJedis{
 			e.printStackTrace();
 		}
 	}
+
 }
 
 

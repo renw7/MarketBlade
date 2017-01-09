@@ -69,8 +69,12 @@ public class RedisCacheManager implements CacheManager, Initializable, Destroyab
 	public <K, V> Cache<K, V> getCache(String name) throws CacheException {
         Cache cache = caches.get(name);  
         if (null == cache) {  
-        	cache = new RedisCache<K, V>(getRedisName(), getKeyPrefix(), name);  
-            caches.put(name, cache);  
+        	synchronized (RedisCacheManager.class) {
+        		if (null == cache) {  
+                	cache = new RedisCache<K, V>(getRedisName(), getKeyPrefix(), name);  
+                    caches.put(name, cache);  
+        		}
+        	}
         }  
         return cache; 
 	}

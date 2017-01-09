@@ -834,6 +834,10 @@ public class RedisSingle implements IJedis{
 		close(jedis);
 		return val;
 	}
+
+	public void setKeyNamingPolicy(IKeyNamingPolicy keyNamingPolicy) {
+		this.keyNamingPolicy = keyNamingPolicy;	
+	}
 	
 	// ---------
 	
@@ -945,6 +949,7 @@ public class RedisSingle implements IJedis{
 			e.printStackTrace();
 		}
 	}
+	
 }
 
 

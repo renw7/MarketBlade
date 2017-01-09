@@ -619,4 +619,9 @@ public interface IJedis {
 	 */
 	public void close();
 	
+	/**   
+	 * 设置全局性的key命名策略
+	*/
+	public void setKeyNamingPolicy(IKeyNamingPolicy keyNamingPolicy);
+	
 }
