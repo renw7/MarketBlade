@@ -825,6 +825,7 @@ public class RedisSingle implements IJedis{
 	
 	public void close() {
 		jedisPool.close();
+		jedisPool.destroy();
 	}
 
 	public <T> T call(ICallBack call) {
