@@ -25,20 +25,6 @@ import com.smallchill.core.toolbox.redis.IKeyNamingPolicy;
 /**
  * Redis操作工具类
  */
-/**
- * @title Redis
- * @author zhuangqian
- * @email smallchill@163.com
- * @date 2017-1-9上午8:54:53
- * @copyright 2017
- */
-/**
- * @title Redis
- * @author zhuangqian
- * @email smallchill@163.com
- * @date 2017-1-9上午8:54:56
- * @copyright 2017
- */
 public class Redis {
 	private static IJedis jedis = null;
 
