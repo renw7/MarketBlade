@@ -1,4 +1,4 @@
-package com.smallchill.platform.model;
+package com.smallchill.modules.platform.model;
 
 import java.util.Date;
 

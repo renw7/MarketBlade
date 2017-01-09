@@ -1,4 +1,4 @@
-package com.smallchill.platform.mapper;
+package com.smallchill.modules.platform.mapper;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.beetl.sql.core.annotatoin.Sql;
 import org.beetl.sql.core.annotatoin.SqlStatementType;
 import org.beetl.sql.core.mapper.BaseMapper;
 
-import com.smallchill.platform.model.Notice;
+import com.smallchill.modules.platform.model.Notice;
 
 public interface NoticeMapper extends BaseMapper<Notice>{
 
