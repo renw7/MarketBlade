@@ -24,8 +24,6 @@ import net.sf.ehcache.Element;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.smallchill.core.toolbox.kit.CacheKit;
-
 /**
  * Ehcache缓存工厂
  */
@@ -37,7 +35,7 @@ public class EhcacheFactory extends BaseCacheFactory {
 	
 	private static CacheManager getCacheManager() {
 		if (cacheManager == null) {
-			synchronized (CacheKit.class) {
+			synchronized (EhcacheFactory.class) {
 				if (cacheManager == null) {
 					cacheManager = CacheManager.create();
 				}
@@ -53,10 +51,10 @@ public class EhcacheFactory extends BaseCacheFactory {
 			synchronized(locker) {
 				cache = cacheManager.getCache(cacheName);
 				if (cache == null) {
-					log.warn("Could not find cache config [" + cacheName + "], using default.");
+					log.warn("无法找到缓存 [" + cacheName + "]的配置, 使用默认配置.");
 					cacheManager.addCacheIfAbsent(cacheName);
 					cache = cacheManager.getCache(cacheName);
-					log.debug("Cache [" + cacheName + "] started.");
+					log.debug("缓存 [" + cacheName + "] 启动.");
 				}
 			}
 		}
