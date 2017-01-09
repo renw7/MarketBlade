@@ -204,7 +204,7 @@ public class RedisCache<K, V> implements Cache<K, V>, Serializable {
 				}
 			}
 		}
-		return jedis;
+		return this.jedis;
 	}
 
 	@Override
