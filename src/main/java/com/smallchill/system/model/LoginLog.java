@@ -9,7 +9,7 @@ import org.beetl.sql.core.annotatoin.Table;
 import com.smallchill.core.annotation.BindID;
 import com.smallchill.core.base.model.BaseModel;
 
-@Table(name = "tfw_login_log")
+@Table(name = "blade_login_log")
 @BindID(name = "id")
 @SuppressWarnings("serial")
 public class LoginLog extends BaseModel {

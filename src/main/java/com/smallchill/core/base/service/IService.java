@@ -209,7 +209,31 @@ public interface IService<M> {
 	 * @param ids 键值集合
 	 * @return int 删除条数
 	*/
-	public int deleteTableByCols(String table, String col, String ids);
+	public int deleteTableByCols(String table, String col, String ids);	
+	
+	/**
+	 * 根据多个id集合删除数据
+	 * @param ids id集合(1,2,3)
+	 * @return
+	 */
+	public int deleteByStrIds(String ids);
+
+	/**
+	 * 根据字段及值删除数据
+	 * @param col	字段名
+	 * @param ids	字段值集合(1,2,3)
+	 * @return
+	 */
+	public int deleteByStrCols(String col, String ids);
+
+	/**
+	 * 根据表名、字段名、值删除数据
+	 * @param table	表名
+	 * @param col	字段名
+	 * @param ids	字段值集合(1,2,3)
+	 * @return
+	 */
+	public int deleteTableByStrCols(String table, String col, String ids);
 	
 	/**   
 	 * 根据sql模板删除

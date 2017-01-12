@@ -389,6 +389,58 @@ public class Convert {
 		}
 		return ints;
 	}
+	
+	
+	/**
+	 * 转换为Integer数组<br>
+	 * 
+	 * @param split 被转换的值
+	 * @return 结果
+	 */
+	public static Integer[] toIntArray(String str) {
+		return toIntArray(",", str);
+	}
+	
+	/**
+	 * 转换为Integer数组<br>
+	 * 
+	 * @param split 分隔符
+	 * @param split 被转换的值
+	 * @return 结果
+	 */
+	public static Integer[] toIntArray(String split, String str) {
+		if (StrKit.isEmpty(str)) {
+			return new Integer[] {};
+		}
+		String[] arr = str.split(split);
+		final Integer[] ints = new Integer[arr.length];
+		for (int i = 0; i < arr.length; i++) {
+			final Integer v = toInt(arr[i], 0);
+			ints[i] = v;
+		}
+		return ints;
+	}
+	
+	/**
+	 * 转换为String数组<br>
+	 * 
+	 * @param split 被转换的值
+	 * @return 结果
+	 */
+	public static String[] toStrArray(String str) {
+		return toStrArray("", str);
+	}
+	
+	/**
+	 * 转换为String数组<br>
+	 * 
+	 * @param split 分隔符
+	 * @param split 被转换的值
+	 * @return 结果
+	 */
+	public static String[] toStrArray(String split, String str) {
+		return str.split(split);
+	}
 
 	/**
 	 * 转换为long<br>

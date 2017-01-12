@@ -22,7 +22,7 @@ import org.beetl.sql.core.annotatoin.Table;
 import com.smallchill.core.annotation.BindID;
 import com.smallchill.core.base.model.BaseModel;
 
-@Table(name = "tfw_parameter")
+@Table(name = "blade_parameter")
 @BindID(name = "id")
 @SuppressWarnings("serial")
 //参数表

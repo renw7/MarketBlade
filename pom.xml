@@ -142,6 +142,13 @@
 			<version>5.1.40</version>
 		</dependency>
 
+		<!-- postgresql -->
+		<dependency>
+		    <groupId>org.postgresql</groupId>
+		    <artifactId>postgresql</artifactId>
+		    <version>9.4.1212.jre7</version>
+		</dependency>
+
 		<!-- oracle -->
 		<!-- <dependency>
 			<groupId>com.oracle</groupId>

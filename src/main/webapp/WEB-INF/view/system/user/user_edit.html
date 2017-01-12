@@ -4,31 +4,31 @@
 		<div class="space-4"></div>
 		<!-- #section:elements.form -->
 		<div class="form-group">
-			<input type="hidden" name="TFW_USER.ID" value="${user.id!}"/>
+			<input type="hidden" name="BLADE_USER.ID" value="${user.id!}"/>
 			<!-- 乐观锁控制 -->
 			<input type="hidden" id="_VERSION" name="VERSION" value="${user.version!}">
 			<label class="col-sm-2 control-label no-padding-right" > 账户 </label>
 
 			<div class="col-sm-3">
-				<input type="text" name="TFW_USER.ACCOUNT" disabled value="${user.account!}" placeholder="请输入账户" class="form-control" />
+				<input type="text" name="BLADE_USER.ACCOUNT" disabled value="${user.account!}" placeholder="请输入账户" class="form-control" />
 			</div>
 			
 			<label class="col-sm-2 control-label no-padding-right" > 姓名 </label>
 			<div class="col-sm-3">
-				<input type="text" name="TFW_USER.NAME" value="${user.name!}" placeholder="请输入姓名" class="form-control" />
+				<input type="text" name="BLADE_USER.NAME" value="${user.name!}" placeholder="请输入姓名" class="form-control" />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-right" > 性别 </label>
 			<div class="col-sm-3">
-				<blade:select type="dict" code="101" name="TFW_USER.SEX" value="${user.sex!0}" />
+				<blade:select type="dict" code="101" name="BLADE_USER.SEX" value="${user.sex!0}" />
 			</div>
 			
 			<label class="col-sm-2 control-label no-padding-right" > 出生日期 </label>
 
 			<div class="col-sm-3">
-				<input type="text" id="birthday" name="TFW_USER.BIRTHDAY" value="${user.birthday!}" placeholder="请选择日期" class="form-control" />
+				<input type="text" id="birthday" name="BLADE_USER.BIRTHDAY" value="${user.birthday!}" placeholder="请选择日期" class="form-control" />
 			</div>
 		</div>
 
@@ -38,7 +38,7 @@
 			<label class="col-sm-2 control-label no-padding-right" > 密码 </label>
 
 			<div class="col-sm-3">
-				<input type="password" name="TFW_USER.PASSWORD"  value="${user.password!}" placeholder="请输入密码" class="form-control" />
+				<input type="password" name="BLADE_USER.PASSWORD"  value="${user.password!}" placeholder="请输入密码" class="form-control" />
 			</div>
 			
 			<label class="col-sm-2 control-label no-padding-right" > 确认密码 </label>
@@ -51,16 +51,16 @@
 		<div class="form-group" style="display:${visiable!'block'};">
 			<label class="col-sm-2 control-label no-padding-right" > 角色 </label>
 			<div class="col-sm-3">
-				<input type="text" name="TFW_USER.ROLEID" disabled value="${user.roleName!}" placeholder="暂无角色" class="form-control" />
+				<input type="text" name="BLADE_USER.ROLEID" disabled value="${user.roleName!}" placeholder="暂无角色" class="form-control" />
 			</div>
 			
 			<label class="col-sm-2 control-label no-padding-right" > 部门</label>
 
 			<div class="col-sm-3">
 				@if(shiro.hasAnyRoles("administrator, admin")){
-					<blade:select type="dept"  name="TFW_USER.DEPTID" value="${user.deptid!0}" />
+					<blade:select type="dept"  name="BLADE_USER.DEPTID" value="${user.deptid!0}" />
 				@} else {
-					<input type="text" name="TFW_USER.DEPTID" disabled value="${shiro.getUser().deptName}" placeholder="暂无部门" class="form-control" />
+					<input type="text" name="BLADE_USER.DEPTID" disabled value="${shiro.getUser().deptName}" placeholder="暂无部门" class="form-control" />
 				@}
 			</div>
 		</div>
@@ -69,12 +69,12 @@
 			<label class="col-sm-2 control-label no-padding-right" > 邮箱 </label>
 
 			<div class="col-sm-3">
-				<input type="text"   name="TFW_USER.EMAIL" value="${user.email!}" placeholder="请输入邮箱" class="form-control" />
+				<input type="text"   name="BLADE_USER.EMAIL" value="${user.email!}" placeholder="请输入邮箱" class="form-control" />
 			</div>
 			
 			<label class="col-sm-2 control-label no-padding-right" > 电话 </label>
 			<div class="col-sm-3">
-				<input type="text" name="TFW_USER.PHONE" value="${user.phone!}" placeholder="请输入电话" class="form-control" />
+				<input type="text" name="BLADE_USER.PHONE" value="${user.phone!}" placeholder="请输入电话" class="form-control" />
 			</div>
 		</div>
 		

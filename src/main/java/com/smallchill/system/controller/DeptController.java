@@ -27,7 +27,6 @@ import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
-import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.system.meta.intercept.DeptIntercept;
 import com.smallchill.system.model.Dept;
 
@@ -37,7 +36,7 @@ public class DeptController extends BaseController{
 	private static String LIST_SOURCE = "dept.list";
 	private static String BASE_PATH = "/system/dept/";
 	private static String CODE = "dept";
-	private static String PREFIX = "tfw_dept";
+	private static String PREFIX = "blade_dept";
 	
 	@RequestMapping("/")
 	public String index(ModelMap mm) {
@@ -60,8 +59,8 @@ public class DeptController extends BaseController{
 	}
 	
 	@RequestMapping(KEY_ADD + "/{id}")
-	public String add(@PathVariable String id, ModelMap mm) {
-		if (StrKit.notBlank(id)) {
+	public String add(@PathVariable Integer id, ModelMap mm) {
+		if (null != id) {
 			mm.put("pId", id);
 			mm.put("num", findLastNum(id));
 		}
@@ -70,7 +69,7 @@ public class DeptController extends BaseController{
 	}
 	
 	@RequestMapping(KEY_EDIT + "/{id}")
-	public String edit(@PathVariable String id, ModelMap mm) {
+	public String edit(@PathVariable Integer id, ModelMap mm) {
 		Dept Dept = Blade.create(Dept.class).findById(id);
 		mm.put("model", JsonKit.toJson(Dept));
 		mm.put("code", CODE);
@@ -78,13 +77,13 @@ public class DeptController extends BaseController{
 	}
 
 	@RequestMapping(KEY_VIEW + "/{id}")
-	public String view(@PathVariable String id, ModelMap mm) {
+	public String view(@PathVariable Integer id, ModelMap mm) {
 		Blade blade = Blade.create(Dept.class);
 		Dept Dept = blade.findById(id);
 		Dept parent = blade.findById(Dept.getPid());
-		String pName = (null == parent) ? "" : parent.getSimplename();
+		String pname = (null == parent) ? "" : parent.getSimplename();
 		Paras rd = Paras.parse(Dept);
-		rd.set("pName", pName);
+		rd.set("pname", pname);
 		mm.put("model", JsonKit.toJson(rd));
 		mm.put("code", CODE);
 		return BASE_PATH + "dept_view.html";
@@ -134,7 +133,7 @@ public class DeptController extends BaseController{
 	
 	
 	
-	private int findLastNum(String id){
+	private int findLastNum(Integer id){
 		try{
 			Blade blade = Blade.create(Dept.class);
 			Dept dept = blade.findFirstBy("pId = #{pId} order by num desc", Paras.create().set("pId", id));

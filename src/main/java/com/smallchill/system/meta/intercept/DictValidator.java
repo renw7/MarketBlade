@@ -30,18 +30,18 @@ public class DictValidator extends BladeValidator {
 	}
 
 	protected void validateDict(String errorMessage) {
-		String num = request.getParameter("tfw_dict.num");
+		String num = request.getParameter("blade_dict.num");
 		if (StrKit.notBlank(num)) {
 			String code = "";
-			String id = request.getParameter("tfw_dict.id");
+			String id = request.getParameter("blade_dict.id");
 			if (StrKit.notBlank(id)) {
 				Dict dict = Blade.create(Dict.class).findById(id);
 				code = dict.getCode();
 			} else {
-				code = request.getParameter("tfw_dict.code");
+				code = request.getParameter("blade_dict.code");
 			}
 			
-			boolean temp = Blade.create(Dict.class).isExist("select * from tfw_dict where code = #{code} and num = #{num}", Paras.create().set("code", code).set("num", num));
+			boolean temp = Blade.create(Dict.class).isExist("select * from blade_dict where code = #{code} and num = #{num}", Paras.create().set("code", code).set("num", num));
 			
 			if (temp) {
 				addError(errorMessage);

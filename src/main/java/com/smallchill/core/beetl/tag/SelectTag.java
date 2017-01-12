@@ -63,19 +63,19 @@ public class SelectTag extends Tag {
 			String CACHE_NAME = ConstCache.DICT_CACHE;
 			
 			if (type.equals("dict")) {
-				sql = "select num as ID,pId as PID,name as TEXT from  TFW_DICT where code=" + code + " and num > 0 order by num asc";
+				sql = "select num as ID,pId as PID,name as TEXT from  BLADE_DICT where code='" + code + "' and num > 0 order by num asc";
 				intercept = Cst.me().getDefaultSelectFactory().dictIntercept();
 			} else if (type.equals("user")) {
 				CACHE_NAME = ConstCache.USER_CACHE;
-				sql = "select ID,name as TEXT from  TFW_USER where status=1";
+				sql = "select ID,name as TEXT from  BLADE_USER where status=1";
 				intercept = Cst.me().getDefaultSelectFactory().userIntercept();
 			} else if (type.equals("dept")) {
 				CACHE_NAME = ConstCache.DEPT_CACHE;
-				sql = "select ID,PID,SIMPLENAME as TEXT from  TFW_DEPT";
+				sql = "select ID,PID,SIMPLENAME as TEXT from  BLADE_DEPT";
 				intercept = Cst.me().getDefaultSelectFactory().deptIntercept();
 			} else if (type.equals("role")) {
 				CACHE_NAME = ConstCache.ROLE_CACHE;
-				sql = "select ID,name as TEXT from  TFW_ROLE";
+				sql = "select ID,name as TEXT from  BLADE_ROLE";
 				intercept = Cst.me().getDefaultSelectFactory().roleIntercept();
 			} else if (type.equals("diy")) {
 				CACHE_NAME = ConstCache.DIY_CACHE;

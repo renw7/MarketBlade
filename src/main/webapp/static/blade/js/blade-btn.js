@@ -3,15 +3,15 @@ var toolbar;
 var exwhere;
 (function () {
     var blade_btn = function (btnjson) {
-        this.id = btnjson.CODE;
-        this.name = btnjson.NAME;
-        this.pname = btnjson.PNAME;
-        this.alias = btnjson.ALIAS;
-        this.url = this.isEmpty(BladeApp.ctxPath) + btnjson.URL;
-        this.div = this.isEmpty(btnjson.ICON.split('|')[0]);
-        this.li = this.isEmpty(btnjson.ICON.split('|')[1]);
-        this.area=this.isEmpty(btnjson.TIPS);
-        this.isopen=this.isEmpty(btnjson.ISOPEN);
+        this.id = btnjson.code;
+        this.name = btnjson.name;
+        this.pname = btnjson.pname;
+        this.alias = btnjson.alias;
+        this.url = this.isEmpty(BladeApp.ctxPath) + btnjson.url;
+        this.div = this.isEmpty(btnjson.icon.split('|')[0]);
+        this.li = this.isEmpty(btnjson.icon.split('|')[1]);
+        this.area=this.isEmpty(btnjson.tips);
+        this.isopen=this.isEmpty(btnjson.isopen);
     };
 
     //用于额外加载一些控件
@@ -63,7 +63,7 @@ var exwhere;
     blade_btn.prototype.itemClick = function () {
         var ids = getGridXls().join(",");
         var rows = getGridXls().length;
-        var rowData=getRowData();
+        var rowData = getRowData();
         var split = "/";
     	if (this.alias == "add") {
         	this.open(this.url);
@@ -146,7 +146,7 @@ var exwhere;
             var _this = this;
             $.post(BladeApp.ctxPath + "/role/getPowerById", { id: ids }, function (data) {
                 if (data.code === 0) {
-                    var roleName=rowData.NAME;
+                    var roleName = rowData.name;
                     _this.open(_this.url + "?roleId=" + ids + "&roleName=" + roleName);
                 }
                 else{
@@ -160,8 +160,8 @@ var exwhere;
                 layer_alert('请选择一条数据!', "warn");
                 return;
             }
-            var name = rowData.NAME;
-            var roleID = (rowData.ROLEID == "") ? "0" : rowData.ROLEID;
+            var name = rowData.name;
+            var roleID = (rowData.roleid == "") ? "0" : rowData.roleid;
         	this.open(this.url + split + ids + split + name + split + roleID);
             return;
         }
@@ -174,12 +174,12 @@ var exwhere;
                 layer_alert('只能选择一条数据!', "warn");
                 return;
             }
-            var roleID=rowData.ROLEID;
+            var roleID=rowData.roleid;
             if(roleID==""){
                 layer_alert('请先分配角色!', "warn");
                 return;
             }
-            var Name = rowData.NAME;
+            var Name = rowData.name;
         	this.open(this.url + split + ids + split + Name,"","1");
             return;
         }
@@ -192,7 +192,7 @@ var exwhere;
                 layer_alert('只能选择一条数据!', "warn");
                 return;
             }
-            var url = rowData.ATTACHURL;
+            var url = rowData.attachurl;
             window.open(url, "附件下载");
             return;
         }

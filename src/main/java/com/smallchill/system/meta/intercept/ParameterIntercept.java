@@ -58,7 +58,7 @@ public class ParameterIntercept extends MetaIntercept {
 		BladePage<Map<String, Object>> page = (BladePage<Map<String, Object>>) ac.getObject();
 		List<Map<String, Object>> list = page.getRows();
 		for (Map<String, Object> map : list) {
-			map.put("STATUSNAME", SysCache.getDictName(901, map.get("STATUS")));
+			map.put("statusname", SysCache.getDictName(901, map.get("status")));
 		}
 	}
 	
@@ -69,7 +69,7 @@ public class ParameterIntercept extends MetaIntercept {
 	 */
 	public void saveBefore(AopContext ac) {
 		BladeController ctrl = ac.getCtrl();
-		String code = ctrl.getParameter("tfw_parameter.code");
+		String code = ctrl.getParameter("blade_parameter.code");
 		int cnt = Blade.create(Parameter.class).count("code = #{code}", Paras.create().set("code", code));
 		if(cnt > 0){
 			throw new RuntimeException("参数编号已存在!");

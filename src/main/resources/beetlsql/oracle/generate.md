@@ -1,7 +1,7 @@
 sourceList
 ===
-select * from tfw_generate
+select * from blade_generate
 
 list
 ===
-select * from tfw_generate
+select * from blade_generate

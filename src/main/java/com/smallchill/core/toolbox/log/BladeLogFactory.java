@@ -62,7 +62,7 @@ public class BladeLogFactory implements ILog {
 		Map map = CacheKit.get(ConstCache.SYS_CACHE, ConstCacheKey.PARAMETER_LOG, new ILoader() {
 			@Override
 			public Object load() {
-				return Db.selectOne("select para from tfw_parameter where code = #{code}", Paras.create().set("code", Const.PARA_LOG_CODE));
+				return Db.selectOne("select para from blade_parameter where code = #{code}", Paras.create().set("code", Const.PARA_LOG_CODE));
 			}
 		}); 
 		if(map.get("para").equals("1")){

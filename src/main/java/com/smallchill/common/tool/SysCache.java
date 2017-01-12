@@ -12,6 +12,7 @@ import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.StrKit;
+import com.smallchill.core.toolbox.support.Convert;
 import com.smallchill.system.model.Dept;
 import com.smallchill.system.model.Dict;
 import com.smallchill.system.model.Parameter;
@@ -30,7 +31,7 @@ public class SysCache implements ConstCache, ConstCacheKey{
 		Dict dict = CacheKit.get(DICT_CACHE, GET_DICT_NAME + code + "_" + num, new ILoader() {
 			@Override
 			public Object load() {
-				return Blade.create(Dict.class).findFirstBy("code = #{code} and num = #{num}", Paras.create().set("code", code).set("num", num));
+				return Blade.create(Dict.class).findFirstBy("code = #{code} and num = #{num}", Paras.create().set("code", Convert.toStr(code)).set("num", num));
 			}
 		});
 		if(null == dict){
@@ -48,7 +49,7 @@ public class SysCache implements ConstCache, ConstCacheKey{
 		List<Dict> list = CacheKit.get(DICT_CACHE, GET_DICT + code, new ILoader() {
 			@Override
 			public Object load() {
-				return Blade.create(Dict.class).findBy("code = #{code} and num > 0", Paras.create().set("code", code));
+				return Blade.create(Dict.class).findBy("code = #{code} and num > 0", Paras.create().set("code", Convert.toStr(code)));
 			}
 		});
 		return list;
@@ -64,7 +65,7 @@ public class SysCache implements ConstCache, ConstCacheKey{
 		List<Map> list = CacheKit.get(DICT_CACHE, GET_DICT + "simple_" + code, new ILoader() {
 			@Override
 			public Object load() {
-				return Db.selectList("select num, name, tips from tfw_dict where code = #{code} and num > 0", Paras.create().set("code", code)); 
+				return Db.selectList("select num, name, tips from blade_dict where code = #{code} and num > 0", Paras.create().set("code", Convert.toStr(code))); 
 			}
 		});
 		return list;
@@ -79,10 +80,10 @@ public class SysCache implements ConstCache, ConstCacheKey{
 		if(Func.isEmpty(roleIds)){
 			return "";
 		}
-		final String [] roleIdArr = roleIds.toString().split(",");
+		final Integer[] roleIdArr = Convert.toIntArray(roleIds.toString());
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0 ; i < roleIdArr.length; i++){
-			final String roleId = roleIdArr[i];
+			final Integer roleId = roleIdArr[i];
 			Role role = CacheKit.get(ROLE_CACHE, GET_ROLE_NAME + roleId, new ILoader() {
 				@Override
 				public Object load() {
@@ -104,10 +105,10 @@ public class SysCache implements ConstCache, ConstCacheKey{
 		if(Func.isEmpty(roleIds)){
 			return "";
 		}
-		final String [] roleIdArr = roleIds.toString().split(",");
+		final Integer[] roleIdArr = Convert.toIntArray(roleIds.toString());
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0 ; i < roleIdArr.length; i++){
-			final String roleId = roleIdArr[i];
+			final Integer roleId = roleIdArr[i];
 			Role role = CacheKit.get(ROLE_CACHE, GET_ROLE_ALIAS + roleId, new ILoader() {
 				@Override
 				public Object load() {
@@ -129,7 +130,7 @@ public class SysCache implements ConstCache, ConstCacheKey{
 		User user = CacheKit.get(USER_CACHE, GET_USER_NAME + userId, new ILoader() {
 			@Override
 			public Object load() {
-				return Blade.create(User.class).findById(userId);
+				return Blade.create(User.class).findById(Convert.toInt(userId));
 			}
 		});
 		if(null == user){
@@ -147,10 +148,10 @@ public class SysCache implements ConstCache, ConstCacheKey{
 		if(Func.isEmpty(deptIds)){
 			return "";
 		}
-		final String [] deptIdArr = deptIds.toString().split(",");
+		final Integer[] deptIdArr = Convert.toIntArray(deptIds.toString());
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0 ; i < deptIdArr.length; i++){
-			final String deptId = deptIdArr[i];
+			final Integer deptId = deptIdArr[i];
 			Dept dept = CacheKit.get(DEPT_CACHE, GET_DEPT_NAME + deptId, new ILoader() {
 				@Override
 				public Object load() {
@@ -168,8 +169,8 @@ public class SysCache implements ConstCache, ConstCacheKey{
 	 * @param code 参数编号
 	 * @return String
 	*/
-	public static String getParamByCode(String code){
-		Parameter param = Blade.create(Parameter.class).findFirstBy("code = #{code} and status = 1", Paras.create().set("code", code));
+	public static String getParamByCode(Object code){
+		Parameter param = Blade.create(Parameter.class).findFirstBy("code = #{code} and status = 1", Paras.create().set("code", Convert.toInt(code)));
 		return param.getPara();
 	}
 }

@@ -423,4 +423,8 @@ public class Func {
 		return (ConstConfig.DBTYPE.equals("mysql"));
 	}
 
+	public static boolean isPostgresql() {
+		return (ConstConfig.DBTYPE.equals("postgresql"));
+	}
+
 }

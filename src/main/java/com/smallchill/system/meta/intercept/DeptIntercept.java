@@ -4,6 +4,7 @@ import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.ConstShiro;
 import com.smallchill.core.meta.PageIntercept;
 import com.smallchill.core.shiro.ShiroKit;
+import com.smallchill.core.toolbox.support.Convert;
 
 public class DeptIntercept extends PageIntercept {
 
@@ -12,7 +13,7 @@ public class DeptIntercept extends PageIntercept {
 			String depts = ShiroKit.getUser().getDeptId() + "," + ShiroKit.getUser().getSubDepts();
 			String condition = "and id in (#{join(ids)})";
 			ac.setCondition(condition);
-			ac.getParam().put("ids", depts.split(","));
+			ac.getParam().put("ids", Convert.toIntArray(depts));
 		}
 	}
 

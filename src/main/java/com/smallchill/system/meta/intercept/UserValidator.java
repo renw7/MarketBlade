@@ -28,21 +28,21 @@ public class UserValidator extends BladeValidator {
 	protected void doValidate(Invocation inv) {
 		
 		if (inv.getMethod().toString().indexOf("update") == -1) {
-			validateAccount("TFW_USER.ACCOUNT", "账号已存在");
-			validateStringExt("TFW_USER.ACCOUNT",  "含有非法字符,请检查");
-			validateRequired("TFW_USER.ACCOUNT",  "请输入账号");
-			validateString("TFW_USER.ACCOUNT", 5, 11,  "请输入5~11位的账号");
+			validateAccount("BLADE_USER.ACCOUNT", "账号已存在");
+			validateStringExt("BLADE_USER.ACCOUNT",  "含有非法字符,请检查");
+			validateRequired("BLADE_USER.ACCOUNT",  "请输入账号");
+			validateString("BLADE_USER.ACCOUNT", 5, 11,  "请输入5~11位的账号");
 		}
-		validateStringExt("TFW_USER.NAME",  "含有非法字符,请检查");
-		validateRequired("TFW_USER.NAME",  "请输入姓名");
+		validateStringExt("BLADE_USER.NAME",  "含有非法字符,请检查");
+		validateRequired("BLADE_USER.NAME",  "请输入姓名");
 		
-		validateRequired("TFW_USER.BIRTHDAY",  "请选择出生日期");
-		validateDate("TFW_USER.BIRTHDAY",  "请输入正确的日期格式");
+		validateRequired("BLADE_USER.BIRTHDAY",  "请选择出生日期");
+		validateDate("BLADE_USER.BIRTHDAY",  "请输入正确的日期格式");
 		
-		validateRequired("TFW_USER.PASSWORD",  "请输入密码");
+		validateRequired("BLADE_USER.PASSWORD",  "请输入密码");
 		
 		validateRequired("password",  "请输入确认密码");
-		validateTwoEqual("TFW_USER.PASSWORD", "password",  "两次密码不相同");
+		validateTwoEqual("BLADE_USER.PASSWORD", "password",  "两次密码不相同");
 	}
 
 	protected void validateAccount(String field, String errorMessage) {
@@ -50,7 +50,7 @@ public class UserValidator extends BladeValidator {
 		if (StrKit.isBlank(account)) {
 			addError("请输入账号!");
 		}
-		if (Blade.create(User.class).isExist("SELECT * FROM tfw_user WHERE account = #{account} and status=1", Paras.create().set("account", account))) {
+		if (Blade.create(User.class).isExist("SELECT * FROM blade_user WHERE account = #{account} and status=1", Paras.create().set("account", account))) {
 			addError(errorMessage);
 		}
 	}

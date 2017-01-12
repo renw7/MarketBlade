@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.beetl.sql.core.kit.CaseInsensitiveHashMap;
+
 import com.smallchill.core.toolbox.kit.BeanKit;
 import com.smallchill.core.toolbox.kit.CollectionKit;
 import com.smallchill.core.toolbox.support.BasicTypeGetter;
@@ -21,8 +23,8 @@ import com.smallchill.core.toolbox.support.Convert;
  * @author loolly, chill
  * 
  */
-@SuppressWarnings("serial")
-public class Paras extends HashMap<String, Object>  implements BasicTypeGetter<String>{
+@SuppressWarnings({ "serial", "unchecked" })
+public class Paras extends CaseInsensitiveHashMap<String, Object> implements BasicTypeGetter<String>{
 
 	/**
 	 * 创建Paras
@@ -116,7 +118,9 @@ public class Paras extends HashMap<String, Object>  implements BasicTypeGetter<S
 	 * @return 自己
 	 */
 	public <T> Paras parseBean(T bean) {
-		this.putAll(BeanKit.beanToMap(bean));
+		if (null != bean) {
+			this.putAll(BeanKit.beanToMap(bean));
+		}
 		return this;
 	}
 	
@@ -130,7 +134,9 @@ public class Paras extends HashMap<String, Object>  implements BasicTypeGetter<S
 	 * @return 自己
 	 */
 	public <T> Paras parseMap(Map<String, Object> map) {
-		this.putAll(map);
+		if (null != map) {
+			this.putAll(map);
+		}
 		return this;
 	}
 
@@ -198,7 +204,6 @@ public class Paras extends HashMap<String, Object>  implements BasicTypeGetter<S
 	 * @param defaultValue 默认值
 	 * @return 字段值
 	 */
-	@SuppressWarnings("unchecked")
 	public <T> T get(String attr, T defaultValue) {
 		final Object result = get(attr);
 		return (T)(result != null ? result : defaultValue);

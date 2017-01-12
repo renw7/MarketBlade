@@ -12,12 +12,12 @@
 	function initGrid(){
 		var grid_url = ctx+"/${code}/list/";//查询列表接口
 		var _colnames=[ "序列","日志名称", "方法参数","操作人","操作时间","是否成功"];
-		var _colmodel=[   {name:"ID",index:"ID", width:80,hidden:true},
-						  {name:"LOGNAME",index:"LOGNAME", width:120},
-						  {name:"METHOD",index:"METHOD", width:400},
-						  {name:"USERNAME",index:"USERID", width:60},
-						  {name:"CREATETIME",index:"CREATETIME", width:120,align:"center"},
-						  {name:"SUCCEEDNAME",index:"SUCCEED", width:50,align:"center"}
+		var _colmodel=[   {name:"id",index:"id", width:80,hidden:true},
+						  {name:"logname",index:"logname", width:120},
+						  {name:"method",index:"method", width:400},
+						  {name:"username",index:"userid", width:60},
+						  {name:"createtime",index:"createtime", width:120,align:"center"},
+						  {name:"succeedname",index:"succeed", width:50,align:"center"}
 						];
 		
 		jQuery(grid_selector).jqGrid({
@@ -25,7 +25,7 @@
 		    shrinkToFit:true,//适用于较少字段,响应式
 			colNames:_colnames,
 			colModel:_colmodel, 
-			jsonReader:{id:"ID"},
+			jsonReader:{id:"id"},
 			pager : pager_selector,
 			postData: {sort: "id", order: "desc"}
 		});
@@ -41,9 +41,9 @@
 		<div class="col-xs-12 tb-grid">
 			<!-- 配置查询 -->
 			@ var _col=[
-			@			  {name:"日志名称",index:"LOGNAME", type:"text"},
-			@		      {name:"方法参数",index:"METHOD",type:"text"},
-			@			  {name:"操作人",index:"USERID", type:"selectUser"}
+			@			  {name:"日志名称",index:"logname", type:"text"},
+			@		      {name:"方法参数",index:"method",type:"text"},
+			@			  {name:"操作人",index:"toint_userid_equal", type:"selectUser"}
 			@		   ];
 			@ include("/common/_function/_search.html",{"col":_col}){}
 			<!-- 按钮组 -->

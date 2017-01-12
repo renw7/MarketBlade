@@ -174,6 +174,21 @@ public class BaseService<M> implements IService<M>, ConstCurd {
 		Blade dao = getSqlMananger();
 		return dao.deleteTableByCols(table, col, ids);
 	}
+	
+	public int deleteByStrIds(String ids) {
+		Blade dao = getSqlMananger();
+		return dao.deleteByStrIds(ids);
+	}
+
+	public int deleteByStrCols(String col, String ids) {
+		Blade dao = getSqlMananger();
+		return dao.deleteByStrCols(col, ids);
+	}
+
+	public int deleteTableByStrCols(String table, String col, String ids) {
+		Blade dao = getSqlMananger();
+		return dao.deleteTableByStrCols(table, col, ids);
+	}
 
 	public int deleteBy(String sqlTemplate) {
 		Blade dao = getSqlMananger();
@@ -320,4 +335,5 @@ public class BaseService<M> implements IService<M>, ConstCurd {
 		}
 		return (temp && tempAfter);
 	}
+	
 }

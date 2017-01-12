@@ -33,6 +33,7 @@ import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.grid.BladePage;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.StrKit;
+import com.smallchill.core.toolbox.support.Convert;
 
 @SuppressWarnings({"unchecked","rawtypes"})
 public class DbManager {
@@ -420,7 +421,7 @@ public class DbManager {
 		}
 		StringBuilder fields = new StringBuilder();
 		StringBuilder values = new StringBuilder();
-		for(String key : paras.keySet()){
+		for(Object key : paras.keySet()){
 			fields.append(key + ",");
 			values.append("#{" + key + "},");
 		}
@@ -451,7 +452,7 @@ public class DbManager {
 		pk = (String) Func.getValue(pk, "ID");
 		String mainSql = "update {} set {} where {} = #{" + pk + "}";
 		StringBuilder fields = new StringBuilder();
-		for(String key : paras.keySet()){
+		for(Object key : paras.keySet()){
 			if(!key.equals(pk)){
 				fields.append(key + " = #{" + key + "},");
 			}
@@ -468,6 +469,20 @@ public class DbManager {
 	 * @return
 	 */
 	public int deleteByIds(String table, String col, String ids) {
+		String sqlTemplate = "DELETE FROM " + table + " WHERE " + col + " IN (#{join(ids)})";
+		Paras paras = Paras.create().set("ids", Convert.toIntArray(ids));
+		int result = getSqlManager().executeUpdate(sqlTemplate, paras);
+		return result;
+	}
+	
+	/**
+	 * 根据表名、字段名、值删除数据
+	 * @param table	表名
+	 * @param col	字段名
+	 * @param ids	字段值集合(1,2,3)
+	 * @return
+	 */
+	public int deleteByStrIds(String table, String col, String ids) {
 		String sqlTemplate = "DELETE FROM " + table + " WHERE " + col + " IN (#{join(ids)})";
 		Paras paras = Paras.create().set("ids", ids.split(","));
 		int result = getSqlManager().executeUpdate(sqlTemplate, paras);

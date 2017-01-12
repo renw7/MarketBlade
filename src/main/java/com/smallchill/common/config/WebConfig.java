@@ -18,9 +18,11 @@ package com.smallchill.common.config;
 import com.smallchill.common.intercept.DefaultSelectFactory;
 import com.smallchill.common.plugins.GlobalPlugin;
 import com.smallchill.core.constant.Cst;
+import com.smallchill.core.interfaces.ICache;
 import com.smallchill.core.interfaces.IConfig;
 import com.smallchill.core.interfaces.IPluginFactroy;
 import com.smallchill.core.shiro.DefaultShiroFactory;
+import com.smallchill.core.toolbox.cache.EhcacheFactory;
 import com.smallchill.core.toolbox.file.DefaultFileProxyFactory;
 import com.smallchill.core.toolbox.grid.JqGridFactory;
 import com.smallchill.core.toolbox.kit.DateKit;
@@ -61,6 +63,8 @@ public class WebConfig implements IConfig {
 		
 		//设定文件代理工厂类
 		me.setDefaultFileProxyFactory(new DefaultFileProxyFactory());
+		
+		me.setDefaultCacheFactory(getDefaultCacheFactory());
 	}
 
 	/** 
@@ -93,4 +97,17 @@ public class WebConfig implements IConfig {
 		
 	}
 
+
+	/**
+	 * 缓存工厂
+	 */
+	private ICache defaultCacheFactory = new EhcacheFactory();
+	
+	public ICache getDefaultCacheFactory() {
+		return defaultCacheFactory;
+	}
+
+	public void setDefaultCacheFactory(ICache defaultCacheFactory) {
+		this.defaultCacheFactory = defaultCacheFactory;
+	}
 }

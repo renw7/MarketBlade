@@ -9,7 +9,7 @@ import org.beetl.sql.core.annotatoin.Table;
 import com.smallchill.core.annotation.BindID;
 import com.smallchill.core.base.model.BaseModel;
 
-@Table(name = "tfw_attach")
+@Table(name = "blade_attach")
 @BindID(name = "id")
 @SuppressWarnings("serial")
 //附件表

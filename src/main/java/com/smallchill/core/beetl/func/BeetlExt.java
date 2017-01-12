@@ -440,7 +440,7 @@ public class BeetlExt {
 		Map<String, Object> userRole = CacheKit.get(ConstCache.MENU_CACHE, ConstCacheKey.ROLE_EXT + userId,
 				new ILoader() {
 					public Object load() {
-						return Db.selectOne("select * from TFW_ROLE_EXT where userId=#{userId}", Paras.create().set("userId", userId));
+						return Db.selectOne("select * from BLADE_ROLE_EXT where userId=#{userId}", Paras.create().set("userId", userId));
 					}
 				});
 
@@ -452,21 +452,21 @@ public class BeetlExt {
 		}
 		
 		final StringBuilder sql = new StringBuilder();
-		sql.append("select TFW_MENU.* ,(select name from TFW_MENU where code=#{code}) as PNAME  from TFW_MENU");
+		sql.append("select BLADE_MENU.* ,(select name from BLADE_MENU where code=#{code}) as pname  from BLADE_MENU");
 		sql.append(" where ( ");
 		sql.append("	 (status=1)");
 		sql.append("	 and (icon is not null and (icon like '%btn%' or icon like '%icon%' ) ) ");
 		sql.append("	 and (url like '%add%' or url like '%edit%' or url like '%remove%'  or url like '%del%' or url like '%view%' ) ");
 		sql.append("	 and (pCode=#{code})");
-		sql.append("	 and (id in (select menuId from TFW_RELATION where roleId in (#{join(roleId)})) or id in (#{join(roleIn)}))");
+		sql.append("	 and (id in (select menuId from BLADE_RELATION where roleId in (#{join(roleId)})) or id in (#{join(roleIn)}))");
 		sql.append("	 and id not in(#{join(roleOut)})");
 		sql.append("	)");
 		sql.append(" order by num");
 
 		List<Map> btnList = Db.selectListByCache(ConstCache.MENU_CACHE, ConstCacheKey.RIGHT_MENU + code + "_" + userId, sql.toString(), Paras.create().set("code", code)
-						.set("roleId", roleId.toString().split(","))
-						.set("roleIn", roleIn.split(","))
-						.set("roleOut", roleOut.split(",")));
+					.set("roleId", Convert.toIntArray(roleId.toString()))
+					.set("roleIn", Convert.toIntArray(roleIn))
+					.set("roleOut", Convert.toIntArray(roleOut)));
 
 		StringBuilder rightsb = new StringBuilder();
 		rightsb.append("<ul style=\"width: 200px;\">");

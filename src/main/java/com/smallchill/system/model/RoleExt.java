@@ -22,7 +22,7 @@ import org.beetl.sql.core.annotatoin.Table;
 import com.smallchill.core.annotation.BindID;
 import com.smallchill.core.base.model.BaseModel;
 
-@Table(name = "tfw_role_ext")
+@Table(name = "blade_role_ext")
 @BindID(name = "id")
 @SuppressWarnings("serial")
 //角色代理表
@@ -30,7 +30,7 @@ public class RoleExt extends BaseModel {
 	private Integer id; //主键
 	private String rolein; //额外附加的权限
 	private String roleout; //额外剔除的权限
-	private String userid; //用户id
+	private Integer userid; //用户id
 
 	@AutoID
 	@SeqID(name = "SEQ_ROLE_EXT")
@@ -58,11 +58,11 @@ public class RoleExt extends BaseModel {
 		this.roleout = roleout;
 	}
 
-	public String getUserid() {
+	public Integer getUserid() {
 		return userid;
 	}
 
-	public void setUserid(String userid) {
+	public void setUserid(Integer userid) {
 		this.userid = userid;
 	}
 

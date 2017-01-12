@@ -35,10 +35,10 @@ public class UserIntercept extends PageIntercept {
 		BladePage<Map<String, Object>> page = (BladePage<Map<String, Object>>) ac.getObject();
 		List<Map<String, Object>> list = page.getRows();
 		for (Map<String, Object> map : list) {
-			map.put("ROLENAME", SysCache.getRoleName(map.get("ROLEID")));
-			map.put("STATUSNAME", SysCache.getDictName(901, map.get("STATUS")));
-			map.put("SEXNAME", SysCache.getDictName(101, map.get("SEX")));
-			map.put("DEPTNAME", SysCache.getDeptName(map.get("DEPTID")));
+			map.put("rolename", SysCache.getRoleName(map.get("roleid")));
+			map.put("statusname", SysCache.getDictName(901, map.get("status")));
+			map.put("sexname", SysCache.getDictName(101, map.get("sex")));
+			map.put("deptname", SysCache.getDeptName(map.get("deptid")));
 		}
 	}
 }

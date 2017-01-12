@@ -72,10 +72,10 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		IShiro shiroFactory = ShiroManager.me().getDefaultShiroFactory();
 		ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
 		Object userId = shiroUser.getId();
-		List<String> roleList = shiroUser.getRoleList();
+		List<Integer> roleList = shiroUser.getRoleList();
 		Set<String> urlSet = new HashSet<>();
 		Set<String> roleNameSet = new HashSet<>();
-		for (String roleId : roleList) {
+		for (Integer roleId : roleList) {
 			List<Map> permissions = shiroFactory.findPermissionsByRoleId(userId, roleId);
 			if (null != permissions) {
 				for (Map map : permissions) {

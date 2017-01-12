@@ -9,7 +9,7 @@ jQuery.extend(jQuery.jgrid.defaults, {
     altRows: true,
     multiselect: true,
     multiboxonly: true,
-    jsonReader: { id: "F_IT_XL" }, //将后台返回的xl设置为表的主键
+    jsonReader: { id: "id" }, //将后台返回的id设置为表的主键
     viewrecords: true,
     rowNum: 10,
     rowList: [10, 20, 30, 50, 100],

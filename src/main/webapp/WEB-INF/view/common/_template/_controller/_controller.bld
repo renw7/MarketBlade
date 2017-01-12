@@ -42,7 +42,7 @@ public class ${modelName}Controller extends BaseController {
 	}
 
 	${"@"}RequestMapping(KEY_EDIT + "/{id}")
-	public String edit(${"@"}PathVariable String id, ModelMap mm) {
+	public String edit(${"@"}PathVariable Integer id, ModelMap mm) {
 		${modelName} ${lowerModelName} = service.findById(id);
 		mm.put("model", JsonKit.toJson(${lowerModelName}));
 		mm.put("id", id);
@@ -51,7 +51,7 @@ public class ${modelName}Controller extends BaseController {
 	}
 
 	${"@"}RequestMapping(KEY_VIEW + "/{id}")
-	public String view(${"@"}PathVariable String id, ModelMap mm) {
+	public String view(${"@"}PathVariable Integer id, ModelMap mm) {
 		${modelName} ${lowerModelName} = service.findById(id);
 		mm.put("model", JsonKit.toJson(${lowerModelName}));
 		mm.put("id", id);

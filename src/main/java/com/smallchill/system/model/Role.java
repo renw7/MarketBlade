@@ -22,7 +22,7 @@ import org.beetl.sql.core.annotatoin.Table;
 import com.smallchill.core.annotation.BindID;
 import com.smallchill.core.base.model.BaseModel;
 
-@Table(name = "tfw_role")
+@Table(name = "blade_role")
 @BindID(name = "id")
 @SuppressWarnings("serial")
 //角色表

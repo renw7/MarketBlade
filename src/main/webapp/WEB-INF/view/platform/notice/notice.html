@@ -13,17 +13,17 @@
 	function initGrid(){
 		var grid_url = ctx + "/${code}/list";//查询列表接口
 		var _colnames=[ "序列","通知标题", "公告类型", "公告类型", "创建人", "创建时间", "发布时间"];
-		var _colmodel=[   {name:"F_IT_XL", index:"F_IT_XL", width:80, hidden:true},
-						  {name:"F_VC_BT", index:"F_VC_BT", width:250},
-						  {name:"F_IT_LX", index:"F_IT_LX", width:80, hidden:true},
-						  {name:"DIC_F_IT_LX", index:"F_IT_LX", width:80, formatter:rowShow},
-						  {name:"DIC_F_IT_CJR", index:"F_IT_CJR", width:80},
-						  {name:"F_DT_CJSJ", index:"F_DT_CJSJ", width:135, align:"center"},
-						  {name:"F_DT_FBSJ", index:"F_DT_FBSJ", width:135, align:"center"}
+		var _colmodel=[   {name:"id", index:"id", width:80, hidden:true},
+						  {name:"title", index:"title", width:250},
+						  {name:"type", index:"type", width:80, hidden:true},
+						  {name:"typename", index:"type", width:80, formatter:rowShow},
+						  {name:"creatername", index:"creater", width:80},
+						  {name:"createtime", index:"createtime", width:135, align:"center"},
+						  {name:"publishtime", index:"publishtime", width:135, align:"center"}
 						];
 		
 		@ if (shiro.lacksRole('administrator')) {
-			_filter = '{"F_IT_CJR_equal":"${shiro.getUser().id}"}';//过滤,只看到自己发布,若是管理员则看到全部
+			_filter = '{"creater_equal":"${shiro.getUser().id}"}';//过滤,只看到自己发布,若是管理员则看到全部
 		@ }
 		
 		
@@ -32,15 +32,15 @@
 		    shrinkToFit:false,//适用于较少字段,响应式
 			colNames:_colnames,
 			colModel:_colmodel, 
-			jsonReader:{id : "F_IT_XL"},
+			jsonReader:{id : "id"},
 			pager : pager_selector,
-			postData: {where: _filter, sort: "F_IT_XL", order: "desc"}
+			postData: {where: _filter, sort: "id", order: "desc"}
 		});
 
 	}
 	
 	function rowShow(cellvalue, options, rowObject) {
-		var lx = rowObject.F_IT_LX;
+		var lx = rowObject.type;
 		var sclass = "";
 		switch (lx) {
 		case 1:
@@ -69,7 +69,7 @@
 			break;
 		}
 		
-		var html = "<span class='" + sclass + "'>" + rowObject.DIC_F_IT_LX + "</span>";
+		var html = "<span class='" + sclass + "'>" + rowObject.typename + "</span>";
 		return html;
 	}
 	
@@ -81,14 +81,14 @@
 		<div class="col-xs-12 tb-grid">
 			<!-- 配置查询 -->
 			@ var _col=[
-			@			  {name:"通知标题",index:"F_VC_BT", type:"text"},
-			@		      {name:"公告内容",index:"F_TX_NR",type:"text"},
-			@		      {name:"公告类型",index:"F_IT_LX_equal",type:"opentree_102",check:"radio"},
-			@//		      {name:"公告类型",index:"F_IT_LX_equal",type:"opentreeDiy", source:"notice.diy"},//_search_multi.html自定义数据源用法
-			@//		      {name:"公告类型",index:"F_IT_LX_equal",type:"opentreeDiy_notice.diy"},//_search.html自定义数据源用法
-			@		      {name:"创建人",index:"F_IT_CJR",type:"selectUser"},
-			@			  {name:"发布时间(大于)",index:"F_DT_FBSJ_gt", type:"date"},
-			@			  {name:"发布时间(小于)",index:"F_DT_FBSJ_lt", type:"date"}
+			@			  {name:"通知标题",index:"title", type:"text"},
+			@		      {name:"公告内容",index:"content",type:"text"},
+			@		      {name:"公告类型",index:"toint_type_equal",type:"opentree_102",check:"radio"},
+			@//		      {name:"公告类型",index:"toint_type_equal",type:"opentreeDiy", source:"notice.diy"},//_search_multi.html自定义数据源用法
+			@//		      {name:"公告类型",index:"toint_type_equal",type:"opentreeDiy_notice.diy"},//_search.html自定义数据源用法
+			@		      {name:"创建人",index:"toint_creater_equal",type:"selectUser"},
+			@			  {name:"发布时间(大于)",index:"publishtime_gt", type:"date"},
+			@			  {name:"发布时间(小于)",index:"publishtime_lt", type:"date"}
 			@		   ];
 			@ include("/common/_function/_search_multi.html",{"col":_col}){}
 			<!-- 按钮组 -->

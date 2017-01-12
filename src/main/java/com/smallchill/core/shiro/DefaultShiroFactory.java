@@ -33,6 +33,7 @@ import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.support.Convert;
 import com.smallchill.system.model.User;
 
 public class DefaultShiroFactory implements IShiro{
@@ -55,8 +56,8 @@ public class DefaultShiroFactory implements IShiro{
 	}
 
 	public ShiroUser shiroUser(User user) {
-		List<String> roleList = new ArrayList<>();
-		String[] roles = user.getRoleid().split(",");
+		List<Integer> roleList = new ArrayList<>();
+		Integer[] roles = Convert.toIntArray(user.getRoleid());
 		for (int i = 0; i < roles.length; i++) {
 			roleList.add(roles[i]);
 		}
@@ -64,11 +65,11 @@ public class DefaultShiroFactory implements IShiro{
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List<Map> findPermissionsByRoleId(final Object userId, String roleId) {
+	public List<Map> findPermissionsByRoleId(final Object userId, Integer roleId) {
 		Map<String, Object> userRole =  Db.selectOneByCache(ConstCache.ROLE_CACHE, 
 															ConstCacheKey.ROLE_EXT + userId, 
-															"select * from TFW_ROLE_EXT where USERID=#{userId}", 
-															Paras.create().set("userId", userId));
+															"select * from BLADE_ROLE_EXT where USERID=#{userId}", 
+															Paras.create().set("userId", Convert.toInt(userId)));
 
 		String roleIn = "0";
 		String roleOut = "0";
@@ -80,26 +81,26 @@ public class DefaultShiroFactory implements IShiro{
 		
 		final StringBuilder sql = new StringBuilder();
 		
-		sql.append("select ID,CODE,URL from TFW_MENU  ");
+		sql.append("select ID,CODE,URL from BLADE_MENU  ");
 		sql.append(" where ( ");
 		sql.append("	 (status=1)");
 		sql.append("	 and (url is not null) ");
-		sql.append("	 and (id in (select menuId from TFW_RELATION where roleId in (#{join(roleId)})) or id in (#{join(roleIn)}))");
+		sql.append("	 and (id in (select menuId from BLADE_RELATION where roleId = #{roleId}) or id in (#{join(roleIn)}))");
 		sql.append("	 and id not in(#{join(roleOut)})");
 		sql.append("	)");
 		sql.append(" order by levels,pCode,num");
 
 		List<Map> permissions = Db.selectListByCache(ConstCache.MENU_CACHE, ConstCacheKey.PERMISSIONS + userId, sql.toString(), Paras.create()
-				.set("roleId", roleId.split(",")).set("roleIn", roleIn.split(",")).set("roleOut", roleOut.split(",")));
+				.set("roleId", roleId).set("roleIn", Convert.toIntArray(roleIn)).set("roleOut", Convert.toIntArray(roleOut)));
 		
 		return permissions;
 	}
 
 	@SuppressWarnings("unchecked")
-	public String findRoleNameByRoleId(final String roleId) {
+	public String findRoleNameByRoleId(final Integer roleId) {
 		Map<String, Object> map = Db.selectOneByCache(ConstCache.ROLE_CACHE, 
 														ConstCacheKey.GET_ROLE_NAME_BY_ID + roleId, 
-														"select TIPS from tfw_role where id = #{id}", 
+														"select TIPS from BLADE_ROLE where id = #{id}", 
 														Paras.create().set("id", roleId));
 		return Func.toStr(map.get("TIPS"));
 	}

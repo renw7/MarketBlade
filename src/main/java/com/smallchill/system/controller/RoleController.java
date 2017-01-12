@@ -31,7 +31,6 @@ import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
-import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.system.meta.intercept.RoleIntercept;
 import com.smallchill.system.meta.intercept.RoleValidator;
 import com.smallchill.system.model.Role;
@@ -43,7 +42,7 @@ public class RoleController extends BaseController{
 	private static String LIST_SOURCE = "role.list";
 	private static String BASE_PATH = "/system/role/";
 	private static String CODE = "role";
-	private static String PREFIX = "tfw_role";
+	private static String PREFIX = "blade_role";
 	
 	@Autowired
 	RoleService service;
@@ -68,8 +67,8 @@ public class RoleController extends BaseController{
 	}
 	
 	@RequestMapping(KEY_ADD + "/{id}")
-	public String add(@PathVariable String id, ModelMap mm) {
-		if (StrKit.notBlank(id)) {
+	public String add(@PathVariable Integer id, ModelMap mm) {
+		if (null != id) {
 			mm.put("pId", id);
 			mm.put("num", service.findLastNum(id));
 		}
@@ -78,7 +77,7 @@ public class RoleController extends BaseController{
 	}
 	
 	@RequestMapping(KEY_EDIT + "/{id}")
-	public String edit(@PathVariable String id, ModelMap mm) {
+	public String edit(@PathVariable Integer id, ModelMap mm) {
 		Role role = service.findById(id);
 		mm.put("model", JsonKit.toJson(role));
 		mm.put("code", CODE);
@@ -86,13 +85,13 @@ public class RoleController extends BaseController{
 	}
 
 	@RequestMapping(KEY_VIEW + "/{id}")
-	public String view(@PathVariable String id, ModelMap mm) {
+	public String view(@PathVariable Integer id, ModelMap mm) {
 		Role role = service.findById(id);
 		Role parent = service.findById(role.getPid());
-		String pName = (null == parent) ? "" : parent.getName();
+		String pname = (null == parent) ? "" : parent.getName();
 		Paras rd = Paras.parse(role);
 		rd.set("deptName", SysCache.getDeptName(role.getDeptid()))
-			.set("pName", pName);
+			.set("pname", pname);
 		mm.put("model", JsonKit.toJson(rd));
 		mm.put("code", CODE);
 		return BASE_PATH + "role_view.html";
@@ -176,7 +175,7 @@ public class RoleController extends BaseController{
 	@ResponseBody
 	@RequestMapping("/getPowerById")
 	public AjaxResult getPowerById() {
-		int cnt = service.getParentCnt(getParameter("id"));
+		int cnt = service.getParentCnt(getParameterToInt("id"));
 		if (cnt > 0) {
 			return success("success");
 		} else {

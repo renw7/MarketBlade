@@ -24,6 +24,9 @@ public class SqlKeyword {
 	private static final String SECOND = "_2nd";
 	private static final String IS_NULL = "_null";
 	private static final String NOT_NULL = "_notnull";
+	public static final String TOINT = "toint_";
+	public static final String IT = "it_";
+	public static final String F_IT = "f_it_";
 	private static HashMap<String, String> keyWord = new HashMap<String, String>();
 	static {
 		keyWord.put(EQUAL, " = ? ");
@@ -84,7 +87,7 @@ public class SqlKeyword {
 		for (String k : keyWord.keySet()) {
 			key = key.replace(k, "");
 		}
-		key = key.replace(OR, "").replace(AND, "").replace(SECOND, "");
+		key = key.replace(OR, "").replace(AND, "").replace(SECOND, "").replace(TOINT, "");
 		return key;
 	}
 

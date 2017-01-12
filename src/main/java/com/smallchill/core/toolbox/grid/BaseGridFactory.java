@@ -28,6 +28,7 @@ import com.smallchill.core.plugins.dao.Md;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.core.toolbox.kit.StrKit;
+import com.smallchill.core.toolbox.support.Convert;
 import com.smallchill.core.toolbox.support.SqlKeyword;
 
 /**
@@ -117,6 +118,14 @@ public abstract class BaseGridFactory implements IGrid{
 		Map<String, Object> map = JsonKit.parse(Func.isEmpty(Func.decodeUrl(para)) ? null : Func.decodeUrl(para), HashMap.class);
 		if (Func.isEmpty(map)) {
 			map = new HashMap<>();
+		}
+		if (Func.isPostgresql()) {
+			//postgresql8.3+版本 字段类型敏感,如果是int型需要做强制类型转换,mysql和oracle可以无视
+			for (String key : map.keySet()) {
+				if (key.startsWith(SqlKeyword.TOINT) || key.startsWith(SqlKeyword.IT) || key.startsWith(SqlKeyword.F_IT)) {
+					map.put(key, Convert.toInt(map.get(key)));
+				}
+			}
 		}
 		map.put(Const.ORDER_BY_STR, Func.isAllEmpty(sort, order) ? "" : (sort + " " + order));
 		return map;

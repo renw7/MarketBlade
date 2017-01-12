@@ -29,7 +29,7 @@ import com.smallchill.system.service.RoleService;
 public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 
 	@Override
-	public int findLastNum(String id) {
+	public int findLastNum(Integer id) {
 		try{
 			Blade blade = Blade.create(Role.class);
 			Role rloe = blade.findFirstBy("pId = #{pId} order by num desc", Paras.create().set("pId", id));
@@ -42,7 +42,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 
 	@Override
 	public boolean authority(String ids, String roleId) {
-		Db.deleteByIds("TFW_RELATION", "ROLEID", roleId);
+		Db.deleteByIds("BLADE_RELATION", "ROLEID", roleId);
 		
 		String sql = "";
 		String insertSql = "";
@@ -51,16 +51,15 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 		String dual = (Func.isOracle()) ? " from dual " : "";
 		for (int i = 0; i < id.length; i++) {
 			union_all = (i < id.length - 1) ? " union all " : "";
-			sql += " (select " + id[i] + " menuId," + roleId + " roleId "
-					+ dual + ")" + union_all;
+			sql += " (select " + id[i] + " menuId," + roleId + " roleId " + dual + ")" + union_all;
 		}
 
 		if (Func.isOracle()) {
 			sql = "select SEQ_RELATION.nextval,i.* from (" + sql + ") i";
-			insertSql = "insert into TFW_RELATION(id,menuId,roleId) ";
+			insertSql = "insert into BLADE_RELATION(id,menuId,roleId) ";
 		} else {
 			sql = "select i.* from (" + sql + ") i";
-			insertSql = "insert into TFW_RELATION(menuId,roleId) ";
+			insertSql = "insert into BLADE_RELATION(menuId,roleId) ";
 		}
 
 		int cnt = Db.update(insertSql + sql, null);
@@ -68,14 +67,14 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 	}
 
 	@Override
-	public int getParentCnt(String id) {
+	public int getParentCnt(Integer id) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT");
 		sb.append("(CASE WHEN ");
-		sb.append("	(select (CASE when (PID=0 or PID is null) then ID else 0 end) as ID from TFW_ROLE where ID=#{id})>0 ");
+		sb.append("	(select (CASE when (PID=0 or PID is null) then ID else 0 end) as ID from BLADE_ROLE where ID=#{id})>0 ");
 		sb.append("THEN 1 ");
 		sb.append("ELSE");
-		sb.append("	(select count(*) from TFW_RELATION where ROLEID=(select (CASE when (PID=0 or PID is null) then ID else PID end) as ID from TFW_ROLE where ID=#{id})) ");
+		sb.append("	(select count(*) from BLADE_RELATION where ROLEID=(select (CASE when (PID=0 or PID is null) then ID else PID end) as ID from BLADE_ROLE where ID=#{id})) ");
 		sb.append("END) CNT");
 		if (Func.isOracle()) {
 			sb.append(" from dual");

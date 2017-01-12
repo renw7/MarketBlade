@@ -20,10 +20,10 @@ import com.smallchill.core.base.service.IService;
 import com.smallchill.system.model.Role;
 
 public interface RoleService extends IService<Role> {
-	int findLastNum(String id);
+	int findLastNum(Integer id);
 
 	@DoLog(name = "设置权限")
 	boolean authority(String ids, String roleId);
 
-	int getParentCnt(String id);
+	int getParentCnt(Integer id);
 }

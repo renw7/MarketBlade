@@ -30,6 +30,7 @@ import com.smallchill.core.toolbox.kit.ClassKit;
 import com.smallchill.core.toolbox.kit.DateKit;
 import com.smallchill.core.toolbox.kit.LogKit;
 import com.smallchill.core.toolbox.kit.StrKit;
+import com.smallchill.core.toolbox.support.Convert;
 import com.smallchill.system.meta.factory.GenerateFactory;
 import com.smallchill.system.model.Generate;
 
@@ -103,7 +104,7 @@ public class GenerateController extends CurdController<Generate> {
 	@RequestMapping("/code")
 	public AjaxResult gencode(){
 		String ids = getParameter("ids");
-		List<Generate> list = Blade.create(Generate.class).findBy("id in (#{join(ids)})", Paras.create().set("ids", ids.split(",")));
+		List<Generate> list = Blade.create(Generate.class).findBy("id in (#{join(ids)})", Paras.create().set("ids", Convert.toIntArray(ids)));
 
 		for (Generate gen : list) {
 			
@@ -171,13 +172,13 @@ public class GenerateController extends CurdController<Generate> {
 			String editTemplatePath = baseTemplatePath + "_view" + File.separator + "_edit.bld";
 			String viewTemplatePath = baseTemplatePath + "_view" + File.separator + "_view.bld";
 			
-			Paras ps = Paras.create();
-			ps.set("realPath", realPath);
-			ps.set("packageName", packageName);
-			ps.set("modelName", upperModelName);
-			ps.set("lowerModelName", lowerModelName);
-			ps.set("tableName", tableName);
-			ps.set("pkName", pkName);
+			Map<String, Object> ps = new HashMap<>();
+			ps.put("realPath", realPath);
+			ps.put("packageName", packageName);
+			ps.put("modelName", upperModelName);
+			ps.put("lowerModelName", lowerModelName);
+			ps.put("tableName", tableName);
+			ps.put("pkName", pkName);
 			
 			//java
 			BeetlMaker.makeFile(controllerTemplatePath, ps, controllerPath);
@@ -202,7 +203,7 @@ public class GenerateController extends CurdController<Generate> {
 	}
 	
 
-	private void setParasAttr(String table, Paras ps) {
+	private void setParasAttr(String table, Map<String, Object> ps) {
 		SQLManager sm = Blade.dao();
 		final TableDesc  tableDesc = sm.getMetaDataManager().getTable(table);
 		Set<String> cols = tableDesc.getCols();
@@ -274,8 +275,8 @@ public class GenerateController extends CurdController<Generate> {
 			srcHead += "import java.math.BigDecimal;" + CR;
 		}
 		
-		ps.set("attrs", attrs);
-		ps.set("imports", srcHead);
+		ps.put("attrs", attrs);
+		ps.put("imports", srcHead);
 	}
 	
 	private String getMethodName(String name) {

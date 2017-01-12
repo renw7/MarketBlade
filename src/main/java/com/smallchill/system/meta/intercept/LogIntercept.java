@@ -38,9 +38,9 @@ public class LogIntercept extends MetaIntercept {
 		BladePage<Map<String, Object>> page = (BladePage<Map<String, Object>>) ac.getObject();
 		List<Map<String, Object>> list = page.getRows();
 		for (Map<String, Object> map : list) {
-			String succeedName = (Func.toInt(map.get("SUCCEED"), 1) == 1) ? "成功" : "失败";
-			map.put("SUCCEEDNAME", succeedName);
-			map.put("USERNAME", SysCache.getUserName(map.get("USERID")));
+			String succeedName = (Func.toInt(map.get("succeed"), 1) == 1) ? "成功" : "失败";
+			map.put("succeedname", succeedName);
+			map.put("username", SysCache.getUserName(map.get("userid")));
 		}
 	}
 

@@ -1,12 +1,12 @@
 sourceList
 ===
-select * from tfw_operation_log
+select * from blade_operation_log
 
 list
 ===
 select l.*,
-	u.NAME USERNAME,
-	(CASE WHEN l.SUCCEED=1 THEN '成功' else '失败' end) SUCCEEDNAME 
+	u.NAME username,
+	(CASE WHEN l.SUCCEED=1 THEN '成功' else '失败' end) succeedname 
 from 
-	TFW_OPERATION_LOG l 
-	LEFT JOIN TFW_USER u on l.USERID=u.ID
+	blade_operation_log l 
+	LEFT JOIN blade_user u on l.USERID=u.ID

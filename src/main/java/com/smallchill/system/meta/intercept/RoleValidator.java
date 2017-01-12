@@ -40,7 +40,7 @@ public class RoleValidator extends BladeValidator {
 		String roleAlias = SysCache.getRoleAlias(roleId);
 		if(roleAlias.equals(ConstShiro.ADMINISTRATOR)){
 			String[] id = ids.split(",");
-			String authority = Db.queryStr("select id from tfw_menu where code = #{code}", Paras.create().set("code", "role_authority"));
+			String authority = Db.queryStr("select id from blade_menu where code = #{code}", Paras.create().set("code", "role_authority"));
 			if(!CollectionKit.contains(id, authority)){
 				//超管不包含权限配置则报错
 				addError(errorMessage);

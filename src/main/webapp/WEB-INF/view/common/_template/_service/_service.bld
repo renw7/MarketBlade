@@ -11,7 +11,7 @@ import ${packageName}.model.${modelName};
  */
 public interface ${modelName}Service extends IService<${modelName}>{
 	
-	boolean updateStatus(String ids, Object status);
+	boolean updateStatus(String ids, Integer status);
 	
 	Map<String, Object> findOne(Object id);
 

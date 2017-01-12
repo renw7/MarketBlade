@@ -21,16 +21,16 @@
 	function initGrid(){
 		var grid_url = ctx+"/${code}/list";//查询列表接口
 		var _colnames=[ "序列","菜单编号", "菜单父编号","菜单名称","请求地址","图标样式","排序","层级","备注","状态"];
-		var _colmodel=[   {name:"ID",index:"ID", width:80,hidden:true},
-						  {name:"CODE",index:"CODE", width:130},
-						  {name:"PCODE",index:"PCODE", width:130},
-						  {name:"NAME",index:"NAME", width:80},
-						  {name:"URL",index:"URL", width:120},
-						  {name:"ICON",index:"ICON", width:350},
-						  {name:"NUM",index:"NUM", width:40,align:"right"},
-						  {name:"LEVELS",index:"LEVELS", width:40,align:"right"},
-						  {name:"TIPS",index:"TIPS", width:60},
-						  {name:"DIC_STATUS",index:"DIC_STATUS", width:40}
+		var _colmodel=[   {name:"id",index:"id", width:80,hidden:true},
+						  {name:"code",index:"code", width:130},
+						  {name:"pcode",index:"pcode", width:130},
+						  {name:"name",index:"name", width:80},
+						  {name:"url",index:"url", width:120},
+						  {name:"icon",index:"icon", width:350},
+						  {name:"num",index:"num", width:40,align:"right"},
+						  {name:"levels",index:"levels", width:40,align:"right"},
+						  {name:"tips",index:"tips", width:60},
+						  {name:"dic_status",index:"status", width:40}
 						];
 		
 		jQuery(grid_selector).jqGrid({
@@ -38,7 +38,7 @@
 		    //shrinkToFit:true,//适用于较少字段,响应式
 			colNames:_colnames,
 			colModel:_colmodel, 
-			jsonReader:{id:"ID"},
+			jsonReader:{id:"id"},
 			pager : pager_selector,
 			postData: {sort: "status asc,id", order: "asc"}
 		});
@@ -108,7 +108,7 @@
 			<!-- 配置查询 -->
 			@ var _col=[
 			@			  {name:"菜单编号",index:"code",type:"text"},
-			@			  {name:"菜单父编号",index:"pCode",type:"text"},
+			@			  {name:"菜单父编号",index:"pcode",type:"text"},
 			@			  {name:"菜单名称",index:"name",type:"text"},
 			@			  {name:"图标样式",index:"icon",type:"text"},
 			@			  {name:"请求地址",index:"url",type:"text"},
@@ -117,7 +117,7 @@
 			@			  {name:"排序",index:"num",type:"text"},
 			@			  {name:"层级",index:"levels",type:"text"},
 			@			  {name:"备注",index:"tips",type:"text"},
-			@ 			  {name:"状态",index:"status",type:"select_902"}
+			@ 			  {name:"状态",index:"toint_status_equal",type:"select_902"}
 			@		   ];
 			@ include("/common/_function/_search.html",{"col":_col}){}
 			<!-- 按钮组 -->

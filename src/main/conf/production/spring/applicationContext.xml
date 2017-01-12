@@ -130,7 +130,11 @@
     <bean id="bladeConfig" class="com.smallchill.core.config.BladeConfig">
     	<!-- 注入自定义config -->
 		<property name="conf">
-			<bean class="com.smallchill.common.config.WebConfig"></bean>
+			<bean class="com.smallchill.common.config.WebConfig">
+				<property name="defaultCacheFactory">
+					<bean class="com.smallchill.core.toolbox.cache.RedisCacheFactory"></bean>
+				</property>
+			</bean>
 		</property>
 		<!-- 注入sqlManagerMap -->
 		<property name="sqlManager">

@@ -19,12 +19,12 @@
 	function initGrid(){
 		var grid_url = ctx+"/${code}/list";//查询列表接口
 		var _colnames=[ "序列","部门简称", "部门全称","上级部门","排序","备注"];
-		var _colmodel=[   {name:"ID",index:"ID", width:80,hidden:true},
-						  {name:"SIMPLENAME",index:"SIMPLENAME", width:100},
-						  {name:"FULLNAME",index:"FULLNAME", width:150},
-						  {name:"PNAME",index:"PID", width:100},
-						  {name:"NUM",index:"NUM", width:30,align:"right"},
-						  {name:"TIPS",index:"TIPS", width:100}
+		var _colmodel=[   {name:"id",index:"id", width:80,hidden:true},
+						  {name:"simplename",index:"simplename", width:100},
+						  {name:"fullname",index:"fullname", width:150},
+						  {name:"pname",index:"pid", width:100},
+						  {name:"num",index:"num", width:30,align:"right"},
+						  {name:"tips",index:"tips", width:100}
 						];
 		
 		jQuery(grid_selector).jqGrid({
@@ -32,7 +32,7 @@
 		    shrinkToFit:true,//适用于较少字段,响应式
 			colNames:_colnames,
 			colModel:_colmodel, 
-			jsonReader:{id:"ID"},
+			jsonReader:{id:"id"},
 			pager : pager_selector,
 			postData: {sort: "id", order: "asc"}
 		});
@@ -71,7 +71,7 @@
 			    return;
 		    }
 		    else{
-			    exwhere="{\"pId_equal\":\""+id+"\",\"or_id_equal\":\""+id+"\"}";
+			    exwhere="{\"toint_pId_equal\":\""+id+"\",\"toint_or_id_equal\":\""+id+"\"}";
 			    searchGrid();
 		    }
 		@ }
@@ -99,11 +99,11 @@
 		<div class="col-xs-9 tb-grid">
 			<!-- 配置查询 -->
 			@ var _col=[
-			@			  {name:"部门简称",index:"SIMPLENAME", type:"text"},
-			@			  {name:"部门全称",index:"FULLNAME", type:"text"},
-			@			  {name:"上级部门",index:"PID",type:"selectDept"},
-			@			  {name:"排序",index:"NUM",type:"text"},
-			@			  {name:"备注",index:"TIPS", type:"text"}
+			@			  {name:"部门简称",index:"simplename", type:"text"},
+			@			  {name:"部门全称",index:"fullname", type:"text"},
+			@			  {name:"上级部门",index:"toint_pid_equal",type:"selectDept"},
+			@			  {name:"排序",index:"num",type:"text"},
+			@			  {name:"备注",index:"tips", type:"text"}
 			@		   ];
 			@ include("/common/_function/_search.html",{"col":_col}){}
 			<!-- 按钮组 -->

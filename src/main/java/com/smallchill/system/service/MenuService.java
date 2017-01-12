@@ -23,5 +23,5 @@ public interface MenuService extends IService<Menu> {
 
 	boolean isExistCode(String code);
 
-	boolean updateStatus(String ids, Object status);
+	boolean updateStatus(String ids, Integer status);
 }

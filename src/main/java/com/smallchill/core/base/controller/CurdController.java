@@ -120,7 +120,7 @@ public abstract class CurdController<M> extends BaseController {
 	}
 
 	@RequestMapping(KEY_EDIT + "/{id}")
-	public ModelAndView edit(@PathVariable String id) {
+	public ModelAndView edit(@PathVariable Integer id) {
 		ModelAndView view = new ModelAndView(renderMap.get(KEY_EDIT));
 		Paras rd = Paras.create();
 		if (StrKit.isBlank(sourceMap.get(KEY_EDIT))) {
@@ -142,7 +142,7 @@ public abstract class CurdController<M> extends BaseController {
 	}
 
 	@RequestMapping(KEY_VIEW + "/{id}")
-	public ModelAndView view(@PathVariable String id) {
+	public ModelAndView view(@PathVariable Integer id) {
 		ModelAndView view = new ModelAndView(renderMap.get(KEY_VIEW));
 		Paras rd = Paras.create();
 		if (StrKit.isBlank(sourceMap.get(KEY_VIEW))) {

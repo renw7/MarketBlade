@@ -38,7 +38,7 @@ import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
-import com.smallchill.core.toolbox.kit.StrKit;
+import com.smallchill.core.toolbox.support.Convert;
 import com.smallchill.system.meta.intercept.MenuValidator;
 import com.smallchill.system.model.Menu;
 import com.smallchill.system.service.MenuService;
@@ -49,7 +49,7 @@ public class MenuController extends BaseController implements ConstShiro{
 	private static String LIST_SOURCE = "menu.list";
 	private static String BASE_PATH = "/system/menu/";
 	private static String CODE = "menu";
-	private static String PREFIX = "TFW_MENU";
+	private static String PREFIX = "blade_menu";
 
 	@Autowired
 	MenuService service;
@@ -72,8 +72,8 @@ public class MenuController extends BaseController implements ConstShiro{
 	
 	@RequestMapping(KEY_ADD + "/{id}")
 	@Permission(ADMINISTRATOR)
-	public String add(@PathVariable String id, ModelMap mm) {
-		if (StrKit.notBlank(id)) {
+	public String add(@PathVariable Integer id, ModelMap mm) {
+		if (null != id) {
 			Menu menu = service.findById(id);
 			mm.put("PCODE", menu.getCode());
 			mm.put("LEVELS", menu.getLevels() + 1);
@@ -85,7 +85,7 @@ public class MenuController extends BaseController implements ConstShiro{
 
 	@RequestMapping(KEY_EDIT + "/{id}")
 	@Permission(ADMINISTRATOR)
-	public String edit(@PathVariable String id, ModelMap mm) {
+	public String edit(@PathVariable Integer id, ModelMap mm) {
 		Menu menu = service.findById(id);
 		mm.put("model", JsonKit.toJson(menu));
 		mm.put("code", CODE);
@@ -94,7 +94,7 @@ public class MenuController extends BaseController implements ConstShiro{
 
 	@RequestMapping(KEY_VIEW + "/{id}")
 	@Permission(ADMINISTRATOR)
-	public String view(@PathVariable String id, ModelMap mm) {
+	public String view(@PathVariable Integer id, ModelMap mm) {
 		Menu menu = service.findById(id);
 		mm.put("model", JsonKit.toJson(menu));
 		mm.put("code", CODE);
@@ -186,13 +186,13 @@ public class MenuController extends BaseController implements ConstShiro{
 	@ResponseBody
 	@RequestMapping("/getMenu")
 	public List<Map> getMenu(){
-		final Object userId = getParameter("userId");
-		final Object roleId = getParameter("roleId");
+		final Integer userId = getParameterToInt("userId");
+		final Integer roleId = getParameterToInt("roleId");
 
 		Map<String, Object> userRole = CacheKit.get(MENU_CACHE, ROLE_EXT + userId, new ILoader() {
 			@Override
 			public Object load() {
-				return Db.selectOne("select * from TFW_ROLE_EXT where USERID = #{userId}", Paras.create().set("userId", userId));
+				return Db.selectOne("select * from BLADE_ROLE_EXT where USERID = #{userId}", Paras.create().set("userId", userId));
 			}
 		}); 
 
@@ -205,20 +205,20 @@ public class MenuController extends BaseController implements ConstShiro{
 			roleOut = rd.getStr("ROLEOUT");
 		}
 		final StringBuilder sql = new StringBuilder();
-		sql.append("select * from TFW_MENU  ");
+		sql.append("select * from BLADE_MENU ");
 		sql.append(" where ( ");
 		sql.append("	 (status=1)");
 		sql.append("	 and (icon is not null and icon not LIKE '%btn%' and icon not LIKE '%icon%' ) ");
-		sql.append("	 and (id in (select menuId from TFW_RELATION where roleId in (#{join(roleId)})) or id in (#{join(roleIn)}))");
+		sql.append("	 and (id in (select menuId from BLADE_RELATION where roleId in (#{join(roleId)})) or id in (#{join(roleIn)}))");
 		sql.append("	 and id not in(#{join(roleOut)})");
 		sql.append("	)");
 		sql.append(" order by levels,pCode,num");
 
 		List<Map> sideBar = Db.selectListByCache(MENU_CACHE, SIDEBAR + userId, sql.toString(),
 				Paras.create()
-				.set("roleId", roleId.toString().split(","))
-				.set("roleIn", roleIn.split(","))
-				.set("roleOut", roleOut.split(",")));
+				.set("roleId", Convert.toIntArray(roleId.toString()))
+				.set("roleIn", Convert.toIntArray(roleIn))
+				.set("roleOut", Convert.toIntArray(roleOut)));
 		return sideBar;
 	}
 

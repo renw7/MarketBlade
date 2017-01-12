@@ -28,7 +28,6 @@ import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
-import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.system.meta.intercept.DictValidator;
 import com.smallchill.system.model.Dict;
 
@@ -38,7 +37,7 @@ public class DictController extends BaseController{
 	private static String LIST_SOURCE = "dict.list";
 	private static String BASE_PATH = "/system/dict/";
 	private static String CODE = "dict";
-	private static String PREFIX = "tfw_dict";
+	private static String PREFIX = "blade_dict";
 	
 	@RequestMapping("/")
 	public String index(ModelMap mm) {
@@ -61,8 +60,8 @@ public class DictController extends BaseController{
 	}
 	
 	@RequestMapping(KEY_ADD + "/{id}")
-	public String add(@PathVariable String id, ModelMap mm) {
-		if (StrKit.notBlank(id)) {
+	public String add(@PathVariable Integer id, ModelMap mm) {
+		if (null != id) {
 			Dict dict = Blade.create(Dict.class).findById(id);
 			mm.put("dictcode", dict.getCode());
 			mm.put("pId", id);
@@ -73,7 +72,7 @@ public class DictController extends BaseController{
 	}
 	
 	@RequestMapping(KEY_EDIT + "/{id}")
-	public String edit(@PathVariable String id, ModelMap mm) {
+	public String edit(@PathVariable Integer id, ModelMap mm) {
 		Dict dict = Blade.create(Dict.class).findById(id);
 		mm.put("model", JsonKit.toJson(dict));
 		mm.put("code", CODE);
@@ -81,13 +80,13 @@ public class DictController extends BaseController{
 	}
 
 	@RequestMapping(KEY_VIEW + "/{id}")
-	public String view(@PathVariable String id, ModelMap mm) {
+	public String view(@PathVariable Integer id, ModelMap mm) {
 		Blade blade = Blade.create(Dict.class);
 		Dict dict = blade.findById(id);
 		Dict parent = blade.findById(dict.getPid());
-		String pName = (null == parent) ? "" : parent.getName();
+		String pname = (null == parent) ? "" : parent.getName();
 		Paras rd = Paras.parse(dict);
-		rd.set("pName", pName);
+		rd.set("pname", pname);
 		mm.put("model", JsonKit.toJson(rd));
 		mm.put("code", CODE);
 		return BASE_PATH + "dict_view.html";

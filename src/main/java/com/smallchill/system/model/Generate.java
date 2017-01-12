@@ -7,7 +7,7 @@ import org.beetl.sql.core.annotatoin.Table;
 import com.smallchill.core.annotation.BindID;
 import com.smallchill.core.base.model.BaseModel;
 
-@Table(name = "tfw_generate")
+@Table(name = "blade_generate")
 @BindID(name = "id")
 @SuppressWarnings("serial")
 //在线开发

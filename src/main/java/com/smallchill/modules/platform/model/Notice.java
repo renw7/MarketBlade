@@ -9,69 +9,62 @@ import org.beetl.sql.core.annotatoin.Table;
 import com.smallchill.core.annotation.BindID;
 import com.smallchill.core.base.model.BaseModel;
 
-@Table(name = "tb_yw_tzgg")
-@BindID(name = "f_it_xl")
-//@DbName(name = "other") //多数据源配置注解
+@Table(name = "blade_notice")
+@BindID(name = "id")
+// @DbName(name = "other") //多数据源配置注解
 @SuppressWarnings("serial")
 public class Notice extends BaseModel {
-	private String f_it_xl;
-	private Integer f_it_cjr;
-	private Integer f_it_lx;
-	private Integer f_it_tp;
-	private String f_tx_nr;
-	private String f_vc_bt;
-	private Date f_dt_cjsj;
-	private Date f_dt_fbsj;
+	// 序列
+	private Integer id;
+	// 创建人
+	private Integer creater;
+	// 图片
+	private Integer pic;
+	// 类型
+	private Integer type;
+	// 版本号
 	private Integer version;
+	// 内容
+	private String content;
+	// 标题
+	private String title;
+	// 创建时间
+	private Date createtime;
+	// 发布时间
+	private Date publishtime;
 
-	@AutoID //mysql自增使用
+	@AutoID //mysql、postgresql自增使用
 	@SeqID(name = "SEQ_NOTICE") //oracle sequence序列使用
-	public String getF_it_xl() {
-		return f_it_xl;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setF_it_xl(String f_it_xl) {
-		this.f_it_xl = f_it_xl;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public Integer getF_it_cjr() {
-		return f_it_cjr;
+	public Integer getCreater() {
+		return creater;
 	}
 
-	public void setF_it_cjr(Integer f_it_cjr) {
-		this.f_it_cjr = f_it_cjr;
+	public void setCreater(Integer creater) {
+		this.creater = creater;
 	}
 
-	public Integer getF_it_lx() {
-		return f_it_lx;
+	public Integer getPic() {
+		return pic;
 	}
 
-	public void setF_it_lx(Integer f_it_lx) {
-		this.f_it_lx = f_it_lx;
+	public void setPic(Integer pic) {
+		this.pic = pic;
 	}
 
-	public Integer getF_it_tp() {
-		return f_it_tp;
+	public Integer getType() {
+		return type;
 	}
 
-	public void setF_it_tp(Integer f_it_tp) {
-		this.f_it_tp = f_it_tp;
-	}
-
-	public String getF_tx_nr() {
-		return f_tx_nr;
-	}
-
-	public void setF_tx_nr(String f_tx_nr) {
-		this.f_tx_nr = f_tx_nr;
-	}
-
-	public String getF_vc_bt() {
-		return f_vc_bt;
-	}
-
-	public void setF_vc_bt(String f_vc_bt) {
-		this.f_vc_bt = f_vc_bt;
+	public void setType(Integer type) {
+		this.type = type;
 	}
 
 	public Integer getVersion() {
@@ -82,20 +75,36 @@ public class Notice extends BaseModel {
 		this.version = version;
 	}
 
-	public Date getF_dt_cjsj() {
-		return f_dt_cjsj;
+	public String getContent() {
+		return content;
 	}
 
-	public void setF_dt_cjsj(Date f_dt_cjsj) {
-		this.f_dt_cjsj = f_dt_cjsj;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public Date getF_dt_fbsj() {
-		return f_dt_fbsj;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setF_dt_fbsj(Date f_dt_fbsj) {
-		this.f_dt_fbsj = f_dt_fbsj;
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Date getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
+
+	public Date getPublishtime() {
+		return publishtime;
+	}
+
+	public void setPublishtime(Date publishtime) {
+		this.publishtime = publishtime;
 	}
 
 }

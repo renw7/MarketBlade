@@ -21,7 +21,7 @@ import com.smallchill.modules.platform.model.Notice;
 @RequestMapping("/notice")
 public class NoticeController extends BaseController {
 	private static String CODE = "notice";
-	private static String PREFIX = "TB_YW_TZGG";
+	private static String PREFIX = "blade_notice";
 	private static String DATA_SOURCE = "notice.data";
 	private static String LIST_SOURCE = "notice.list";
 	private static String BASE_PATH = "/platform/notice/";
@@ -40,7 +40,7 @@ public class NoticeController extends BaseController {
 
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(KEY_EDIT + "/{id}")
-	public String edit(@PathVariable String id, ModelMap mm) {
+	public String edit(@PathVariable Integer id, ModelMap mm) {
 		Map map = Md.selectOne(DATA_SOURCE, Paras.create().set("id", id), Map.class);
 		mm.put("model", JsonKit.toJson(map));
 		mm.put("id", id);
@@ -49,12 +49,12 @@ public class NoticeController extends BaseController {
 	}
 
 	@RequestMapping(KEY_VIEW + "/{id}")
-	public String view(@PathVariable String id, ModelMap mm) {
+	public String view(@PathVariable Integer id, ModelMap mm) {
 		Notice notice = Blade.create(Notice.class).findById(id);
 		//将javabean转化为map
 		Paras ps = Paras.parse(notice);
 		//使用SysCache.getDictName方法从缓存中获取对应字典项的中文值
-		ps.set("dic_f_it_lx", SysCache.getDictName(102, notice.getF_it_lx()));
+		ps.set("typename", SysCache.getDictName(102, notice.getType()));
 		//将结果传回前台
 		mm.put("model", JsonKit.toJson(ps));
 		mm.put("id", id);

@@ -30,6 +30,7 @@ import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.DateKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.core.toolbox.kit.StrKit;
+import com.smallchill.core.toolbox.support.Convert;
 import com.smallchill.core.toolbox.support.SqlKeyword;
 
 @Controller
@@ -109,6 +110,14 @@ public class ExcelController extends BaseController {
 		}
 
 		String menu_name = getInfoByCode(code, "NAME");
+		if (Func.isPostgresql()) {
+			//postgresql8.3+版本 字段类型敏感,如果是int型需要做强制类型转换,mysql和oracle可以无视
+			for (String key : para.keySet()) {
+				if (key.startsWith(SqlKeyword.TOINT) || key.startsWith(SqlKeyword.IT) || key.startsWith(SqlKeyword.F_IT)) {
+					para.put(key, Convert.toInt(para.get(key)));
+				}
+			}
+		}
 		@SuppressWarnings("rawtypes")
 		List<Map> dataResult = Db.selectList(Func.format(sql, StrKit.removeSuffix(sb.toString(), ",")), para);
 		ExportParams exportParams = new ExportParams(menu_name + " 数据导出表", "导出人账号：" + ShiroKit.getUser().getLoginName() + "      导出时间：" + DateKit.getTime(), code);
@@ -126,7 +135,7 @@ public class ExcelController extends BaseController {
 	private String getInfoByCode(String code, String col) {
 		List<Map<String, Object>> menu = CacheKit.get(MENU_CACHE, MENU_TABLE_ALL, new ILoader() {
 					public Object load() {
-						return Db.selectList("select CODE,PCODE,NAME,URL,SOURCE,PATH,TIPS,ISOPEN from TFW_MENU order by levels asc,num asc");
+						return Db.selectList("select CODE,PCODE,NAME,URL,SOURCE,PATH,TIPS,ISOPEN from BLADE_MENU order by levels asc,num asc");
 					}
 				});
 		for (Map<String, Object> _menu : menu) {
@@ -137,5 +146,5 @@ public class ExcelController extends BaseController {
 		}
 		return "";
 	}
-
+	
 }

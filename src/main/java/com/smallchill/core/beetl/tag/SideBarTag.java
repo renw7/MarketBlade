@@ -43,11 +43,11 @@ public class SideBarTag extends Tag {
 		try {
 			Map<String, String> param = (Map<String, String>) args[1];
 
-			final Object userId = param.get("userId");
-			final Object roleId = param.get("roleId");
+			final Integer userId = Convert.toInt(param.get("userId"));
+			final String roleId = param.get("roleId");
 			String ctxPath = Cst.me().getContextPath();
 
-			Map<String, Object> userRole = Db.selectOneByCache(ConstCache.ROLE_CACHE, ConstCacheKey.ROLE_EXT + userId, "select * from TFW_ROLE_EXT where USERID=#{userId}", Paras.create().set("userId", userId));
+			Map<String, Object> userRole = Db.selectOneByCache(ConstCache.ROLE_CACHE, ConstCacheKey.ROLE_EXT + userId, "select * from BLADE_ROLE_EXT where USERID=#{userId}", Paras.create().set("userId", userId));
 
 			String roleIn = "0";
 			String roleOut = "0";
@@ -58,11 +58,11 @@ public class SideBarTag extends Tag {
 			}
 			final StringBuilder sql = new StringBuilder();
 			
-			sql.append("select * from TFW_MENU  ");
+			sql.append("select * from BLADE_MENU  ");
 			sql.append(" where ( ");
 			sql.append("	 (status=1)");
 			sql.append("	 and (icon is not null and icon not LIKE '%btn%' and icon not LIKE '%icon%') ");
-			sql.append("	 and (id in (select menuId from TFW_RELATION where roleId in (#{join(roleId)})) or id in (#{join(roleIn)}))");
+			sql.append("	 and (id in (select menuId from BLADE_RELATION where roleId in (#{join(roleId)})) or id in (#{join(roleIn)}))");
 			sql.append("	 and id not in(#{join(roleOut)})");
 			sql.append("	)");
 			sql.append(" order by levels,pCode,num");
@@ -70,9 +70,9 @@ public class SideBarTag extends Tag {
 			@SuppressWarnings("rawtypes")
 			List<Map> sideBar = Db.selectListByCache(ConstCache.MENU_CACHE, ConstCacheKey.SIDEBAR + userId, sql.toString(),
 					Paras.create()
-					.set("roleId", roleId.toString().split(","))
-					.set("roleIn", roleIn.split(","))
-					.set("roleOut", roleOut.split(",")));
+					.set("roleId", Convert.toIntArray(roleId))
+					.set("roleIn", Convert.toIntArray(roleIn))
+					.set("roleOut", Convert.toIntArray(roleOut)));
 			
 			for (Map<String, Object> side : sideBar) {
 				TreeNode node = new TreeNode();

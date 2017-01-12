@@ -12,13 +12,13 @@
 	function initGrid(){
 		var grid_url = ctx+"/${code}/list/";//查询列表接口
 		var _colnames=[ "序列","模块名称", "物理路径", "包名","实体名","表名","主键名"];
-		var _colmodel=[   {name:"ID",index:"ID", width:80,hidden:true},
-						  {name:"NAME",index:"NAME", width:120},
-						  {name:"REALPATH",index:"REALPATH", width:200},
-						  {name:"PACKAGENAME",index:"PACKAGENAME", width:150},
-						  {name:"MODELNAME",index:"MODELNAME", width:60},
-						  {name:"TABLENAME",index:"TABLENAME", width:50},
-						  {name:"PKNAME",index:"PKNAME", width:50}
+		var _colmodel=[   {name:"id",index:"id", width:80,hidden:true},
+						  {name:"name",index:"name", width:120},
+						  {name:"realpath",index:"realpath", width:200},
+						  {name:"packagename",index:"packagename", width:150},
+						  {name:"modelname",index:"modelname", width:60},
+						  {name:"tablename",index:"tablename", width:50},
+						  {name:"pkname",index:"pkname", width:50}
 						];
 		
 		jQuery(grid_selector).jqGrid({
@@ -26,7 +26,7 @@
 		    shrinkToFit:true,//适用于较少字段,响应式
 			colNames:_colnames,
 			colModel:_colmodel, 
-			jsonReader:{id:"ID"},
+			jsonReader:{id:"id"},
 			pager : pager_selector,
 			postData: {sort: "id", order: "desc"}
 		});
@@ -70,9 +70,9 @@
 		<div class="col-xs-12 tb-grid">
 			<!-- 配置查询 -->
 			@ var _col=[
-			@			  {name:"包名",index:"PACKAGENAME", type:"text"},
-			@		      {name:"实体名",index:"MODELNAME",type:"text"},
-			@			  {name:"表名",index:"TABLENAME", type:"text"}
+			@			  {name:"包名",index:"packagename", type:"text"},
+			@		      {name:"实体名",index:"modelname",type:"text"},
+			@			  {name:"表名",index:"tablename", type:"text"}
 			@		   ];
 			@ include("/common/_function/_search.html",{"col":_col}){}
 			<!-- 按钮组 -->

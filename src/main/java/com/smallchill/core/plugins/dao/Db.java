@@ -309,6 +309,17 @@ public class Db {
 		return getDbManager().deleteByIds(table, col, ids);
 	}
 	
+	/**
+	 * 根据表名、字段名、值删除数据
+	 * @param table	表名
+	 * @param col	字段名
+	 * @param ids	字段值集合(1,2,3)
+	 * @return
+	 */
+	public static int deleteByStrIds(String table, String col, String ids) {
+		return getDbManager().deleteByStrIds(table, col, ids);
+	}
+	
 	
 	/**
 	 * 获取list

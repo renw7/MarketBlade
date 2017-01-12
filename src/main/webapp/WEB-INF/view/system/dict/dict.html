@@ -19,12 +19,12 @@
 	function initGrid(){
 		var grid_url = ctx+"/${code}/list";//查询列表接口
 		var _colnames=[ "序列","字典编号", "字典序号","上级字典", "字典名称","备注"];
-		var _colmodel=[   {name:"ID",index:"ID", width:80,hidden:true},
-						  {name:"CODE",index:"CODE", width:100},
-						  {name:"NUM",index:"NUM", width:80,align:"right"},
-						  {name:"PNAME",index:"PID", width:80,align:"right"},
-						  {name:"NAME",index:"NAME", width:250},
-						  {name:"TIPS",index:"TIPS", width:80}
+		var _colmodel=[   {name:"id",index:"id", width:80,hidden:true},
+						  {name:"code",index:"code", width:100},
+						  {name:"num",index:"num", width:80,align:"right"},
+						  {name:"pname",index:"pid", width:80,align:"right"},
+						  {name:"name",index:"name", width:250},
+						  {name:"tips",index:"tips", width:80}
 						];
 		
 		jQuery(grid_selector).jqGrid({
@@ -32,7 +32,7 @@
 		    shrinkToFit:true,//适用于较少字段,响应式
 			colNames:_colnames,
 			colModel:_colmodel, 
-			jsonReader:{id:"ID"},
+			jsonReader:{id:"id"},
 			pager : pager_selector,
 			postData: {sort: "code asc,num", order: "asc"}
 		});
@@ -103,10 +103,10 @@
 		<div class="col-xs-9 tb-grid">
 			<!-- 配置查询 -->
 			@ var _col=[
-			@			  {name:"字典编号",index:"CODE", type:"text"},
-			@			  {name:"字典序号",index:"NUM", type:"text"},
-			@			  {name:"字典名称",index:"NAME", type:"text"},
-			@			  {name:"备注",index:"TIPS", type:"text"}
+			@			  {name:"字典编号",index:"code", type:"text"},
+			@			  {name:"字典序号",index:"num", type:"text"},
+			@			  {name:"字典名称",index:"name", type:"text"},
+			@			  {name:"备注",index:"tips", type:"text"}
 			@		   ];
 			@ include("/common/_function/_search.html",{"col":_col}){}
 			<!-- 按钮组 -->

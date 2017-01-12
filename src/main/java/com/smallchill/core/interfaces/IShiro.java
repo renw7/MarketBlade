@@ -33,9 +33,9 @@ public interface IShiro {
 	ShiroUser shiroUser(User user);
 
 	@SuppressWarnings("rawtypes")
-	List<Map> findPermissionsByRoleId(Object userId, String roleId);
+	List<Map> findPermissionsByRoleId(Object userId, Integer roleId);
 
-	String findRoleNameByRoleId(String roleId);
+	String findRoleNameByRoleId(Integer roleId);
 	
 	SimpleAuthenticationInfo info(ShiroUser shiroUser, User user, String realmName);
 }

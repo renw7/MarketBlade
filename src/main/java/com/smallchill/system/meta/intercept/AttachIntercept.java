@@ -36,9 +36,9 @@ public class AttachIntercept extends MetaIntercept {
 		BladePage<Map<String, Object>> page = (BladePage<Map<String, Object>>) ac.getObject();
 		List<Map<String, Object>> list = page.getRows();
 		for (Map<String, Object> map : list) {
-			map.put("ATTACHURL", ConstConfig.DOMAIN + map.get("URL"));
-			map.put("STATUSNAME", SysCache.getDictName(902, map.get("STATUS")));
-			map.put("CREATERNAME", SysCache.getUserName(map.get("CREATER")));
+			map.put("attachurl", ConstConfig.DOMAIN + map.get("url"));
+			map.put("statusname", SysCache.getDictName(902, map.get("status")));
+			map.put("creatername", SysCache.getUserName(map.get("creater")));
 		}
 	}
 
@@ -60,7 +60,7 @@ public class AttachIntercept extends MetaIntercept {
 	 * @param ac
 	 */
 	public void removeBefore(AopContext ac) {
-		/*Map<String, Object> file = Db.findById("TFW_ATTACH", ac.getId().toString());
+		/*Map<String, Object> file = Db.findById("BLADE_ATTACH", ac.getId().toString());
 		if (Func.isEmpty(file)) {
 			throw new RuntimeException("文件不存在!");
 		} else {

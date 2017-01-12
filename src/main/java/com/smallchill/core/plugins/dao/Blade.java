@@ -23,6 +23,8 @@ import com.smallchill.core.plugins.connection.ConnectionPlugin;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.grid.BladePage;
+import com.smallchill.core.toolbox.support.Convert;
+
 import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.annotatoin.Table;
 import org.beetl.sql.core.db.ClassDesc;
@@ -516,7 +518,7 @@ public class Blade {
 	 */
 	public int deleteByIds(String ids) {
 		String sqlTemplate = getDeleteSql(this.table, this.pk);
-		Paras paras = Paras.create().set("ids", ids.split(","));
+		Paras paras = Paras.create().set("ids", Convert.toIntArray(ids));
 		int result = getSqlManager().executeUpdate(sqlTemplate, paras);
 		return result;
 	}
@@ -528,6 +530,45 @@ public class Blade {
 	 * @return
 	 */
 	public int deleteByCols(String col, String ids) {
+		String sqlTemplate = getDeleteSql(this.table, col);
+		Paras paras = Paras.create().set("ids", Convert.toIntArray(ids));
+		int result = getSqlManager().executeUpdate(sqlTemplate, paras);
+		return result;
+	}
+
+	/**
+	 * 根据表名、字段名、值删除数据
+	 * @param table	表名
+	 * @param col	字段名
+	 * @param ids	字段值集合(1,2,3)
+	 * @return
+	 */
+	public int deleteTableByCols(String table, String col, String ids) {
+		String sqlTemplate = getDeleteSql(table, col);
+		Paras paras = Paras.create().set("ids", Convert.toIntArray(ids));
+		int result = getSqlManager().executeUpdate(sqlTemplate, paras);
+		return result;
+	}
+
+	/**
+	 * 根据多个id集合删除数据
+	 * @param ids id集合(1,2,3)
+	 * @return
+	 */
+	public int deleteByStrIds(String ids) {
+		String sqlTemplate = getDeleteSql(this.table, this.pk);
+		Paras paras = Paras.create().set("ids", ids.split(","));
+		int result = getSqlManager().executeUpdate(sqlTemplate, paras);
+		return result;
+	}
+
+	/**
+	 * 根据字段及值删除数据
+	 * @param col	字段名
+	 * @param ids	字段值集合(1,2,3)
+	 * @return
+	 */
+	public int deleteByStrCols(String col, String ids) {
 		String sqlTemplate = getDeleteSql(this.table, col);
 		Paras paras = Paras.create().set("ids", ids.split(","));
 		int result = getSqlManager().executeUpdate(sqlTemplate, paras);
@@ -541,7 +582,7 @@ public class Blade {
 	 * @param ids	字段值集合(1,2,3)
 	 * @return
 	 */
-	public int deleteTableByCols(String table, String col, String ids) {
+	public int deleteTableByStrCols(String table, String col, String ids) {
 		String sqlTemplate = getDeleteSql(table, col);
 		Paras paras = Paras.create().set("ids", ids.split(","));
 		int result = getSqlManager().executeUpdate(sqlTemplate, paras);

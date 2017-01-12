@@ -22,7 +22,7 @@ import org.beetl.sql.core.annotatoin.Table;
 import com.smallchill.core.annotation.BindID;
 import com.smallchill.core.base.model.BaseModel;
 
-@Table(name = "tfw_dict")
+@Table(name = "blade_dict")
 @BindID(name = "id")
 @SuppressWarnings("serial")
 //字典表

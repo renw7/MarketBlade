@@ -81,7 +81,7 @@ public class BeetlTemplate {
 	public static String build(String str, Map<String, Object> paras) {
 		Template t = gt.getTemplate(str);
 		if (null == paras) {
-			paras = Paras.create();
+			paras = Paras.createHashMap();
 		}
 		for (String o : paras.keySet()) {
 			t.binding(o, paras.get(o));
@@ -92,7 +92,7 @@ public class BeetlTemplate {
 	public static void buildTo(String str, Map<String, Object> paras, PrintWriter pw) {
 		Template t = gt.getTemplate(str);
 		if (null == paras) {
-			paras = Paras.create();
+			paras = Paras.createHashMap();
 		}
 		for (String o : paras.keySet()) {
 			t.binding(o, paras.get(o));
