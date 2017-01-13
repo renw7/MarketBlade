@@ -12,7 +12,7 @@ public class EchartsController extends BaseController {
 
 	@GetMapping
 	public String echarts() {
-		return "/platform/echarts/echarts.html";
+		return "/modules/echarts/echarts.html";
 	}
 	
 }
