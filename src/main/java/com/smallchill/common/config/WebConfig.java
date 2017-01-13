@@ -64,6 +64,7 @@ public class WebConfig implements IConfig {
 		//设定文件代理工厂类
 		me.setDefaultFileProxyFactory(new DefaultFileProxyFactory());
 		
+		//设定缓存工厂类
 		me.setDefaultCacheFactory(getDefaultCacheFactory());
 	}
 

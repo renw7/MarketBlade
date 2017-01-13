@@ -24,7 +24,7 @@ public class NoticeController extends BaseController {
 	private static String PREFIX = "blade_notice";
 	private static String DATA_SOURCE = "notice.data";
 	private static String LIST_SOURCE = "notice.list";
-	private static String BASE_PATH = "/platform/notice/";
+	private static String BASE_PATH = "/modules/platform/notice/";
 	
 	@RequestMapping(KEY_MAIN)
 	public String index(ModelMap mm) {
