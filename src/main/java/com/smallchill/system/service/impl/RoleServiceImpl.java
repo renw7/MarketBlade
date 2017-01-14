@@ -41,7 +41,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 	}
 
 	@Override
-	public boolean authority(String ids, String roleId) {
+	public boolean grant(String ids, String roleId) {
 		Db.deleteByIds("BLADE_RELATION", "ROLEID", roleId);
 		
 		String sql = "";
@@ -62,7 +62,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 			insertSql = "insert into BLADE_RELATION(menuId,roleId) ";
 		}
 
-		int cnt = Db.update(insertSql + sql, null);
+		int cnt = Db.insert(insertSql + sql, null);
 		return cnt > 0;
 	}
 

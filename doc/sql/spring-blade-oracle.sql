@@ -2,7 +2,7 @@
 Navicat Oracle Data Transfer
 Oracle Client Version : 10.2.0.5.0
 
-Source Server         : Oracle_Blade
+Source Server         : oracle_172
 Source Server Version : 100200
 Source Host           : 192.168.30.172:1521
 Source Schema         : BLADE
@@ -11,52 +11,14 @@ Target Server Type    : ORACLE
 Target Server Version : 100200
 File Encoding         : 65001
 
-Date: 2017-01-12 15:28:26
+Date: 2017-01-13 08:53:30
 */
-
--- ----------------------------
--- Table structure for BLADE_NOTICE
--- ----------------------------
-DROP TABLE "BLADE_NOTICE";
-CREATE TABLE "BLADE_NOTICE" (
-"ID" NUMBER(11) NOT NULL ,
-"TITLE" NVARCHAR2(255) NULL ,
-"TYPE" NUMBER(11) NULL ,
-"CONTENT" NVARCHAR2(2000) NULL ,
-"PUBLISHTIME" DATE NULL ,
-"CREATETIME" DATE NULL ,
-"CREATER" NUMBER(11) NULL ,
-"PIC" NUMBER(11) NULL ,
-"VERSION" NUMBER(11) NULL 
-)
-LOGGING
-NOCOMPRESS
-NOCACHE
-
-;
-
--- ----------------------------
--- Records of BLADE_NOTICE
--- ----------------------------
-INSERT INTO "BLADE_NOTICE" VALUES ('1411', '23333', null, null, null, null, null, null, null);
-INSERT INTO "BLADE_NOTICE" VALUES ('1414', '2333333', '10', '11222', TO_DATE('2016-02-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null);
-INSERT INTO "BLADE_NOTICE" VALUES ('1412', '23333', '6', '1', TO_DATE('2016-02-15 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null);
-INSERT INTO "BLADE_NOTICE" VALUES ('1418', 'tom', '1', '1', TO_DATE('2016-02-18 10:58:44', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null);
-INSERT INTO "BLADE_NOTICE" VALUES ('1430', 'ceshi233333333333', null, null, null, null, null, null, null);
-INSERT INTO "BLADE_NOTICE" VALUES ('1431', 'ceshi233333333333', null, null, null, null, null, null, null);
-INSERT INTO "BLADE_NOTICE" VALUES ('123', 'sssssss', '2', null, null, null, null, null, null);
-INSERT INTO "BLADE_NOTICE" VALUES ('1420', 'ceshi233333333333', null, null, null, null, null, null, null);
-INSERT INTO "BLADE_NOTICE" VALUES ('1429', 'asdfasdf23312', '10', 'asdfdd1', TO_DATE('2016-01-31 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null);
-INSERT INTO "BLADE_NOTICE" VALUES ('1409', '23333', null, null, null, null, null, null, null);
-INSERT INTO "BLADE_NOTICE" VALUES ('1410', '23333', null, null, null, null, null, null, null);
-INSERT INTO "BLADE_NOTICE" VALUES ('1404', 'asdfasdf23312', '1', 'asdfdd1', TO_DATE('2016-01-31 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), null, null, null, null);
-INSERT INTO "BLADE_NOTICE" VALUES ('1419', 'ceshi', null, null, null, null, null, null, null);
 
 
 -- ----------------------------
 -- Table structure for BLADE_ATTACH
 -- ----------------------------
-DROP TABLE "BLADE_ATTACH";
+-- DROP TABLE "BLADE_ATTACH";
 CREATE TABLE "BLADE_ATTACH" (
 "ID" NUMBER(11) NOT NULL ,
 "CODE" NVARCHAR2(255) NULL ,
@@ -79,7 +41,7 @@ NOCACHE
 -- ----------------------------
 -- Table structure for BLADE_DEPT
 -- ----------------------------
-DROP TABLE "BLADE_DEPT";
+-- DROP TABLE "BLADE_DEPT";
 CREATE TABLE "BLADE_DEPT" (
 "ID" NUMBER(11) NOT NULL ,
 "NUM" NUMBER(11) NULL ,
@@ -115,7 +77,7 @@ INSERT INTO "BLADE_DEPT" VALUES ('13', '6', '7', '行政部', '行政部', null,
 -- ----------------------------
 -- Table structure for BLADE_DICT
 -- ----------------------------
-DROP TABLE "BLADE_DICT";
+-- DROP TABLE "BLADE_DICT";
 CREATE TABLE "BLADE_DICT" (
 "ID" NUMBER(11) NOT NULL ,
 "CODE" NVARCHAR2(255) NULL ,
@@ -160,7 +122,7 @@ INSERT INTO "BLADE_DICT" VALUES ('41', '102', '6', '16', '测试', null, '0');
 -- ----------------------------
 -- Table structure for BLADE_GENERATE
 -- ----------------------------
-DROP TABLE "BLADE_GENERATE";
+-- DROP TABLE "BLADE_GENERATE";
 CREATE TABLE "BLADE_GENERATE" (
 "ID" NUMBER(11) NOT NULL ,
 "NAME" NVARCHAR2(255) NULL ,
@@ -180,12 +142,12 @@ NOCACHE
 -- ----------------------------
 -- Records of BLADE_GENERATE
 -- ----------------------------
-INSERT INTO "BLADE_GENERATE" VALUES ('1', '测试', 'E:\Workspaces\git\bladepro', 'com.tonbusoft.platform', 'Blog', 'tb_yw_blog', 'ID', null);
+INSERT INTO "BLADE_GENERATE" VALUES ('1', '测试', 'E:\Workspaces\git\bladepro', 'com.tonbusoft.platform', 'Blog', 'tb_yw_blog', 'f_it_xl', null);
 
 -- ----------------------------
 -- Table structure for BLADE_LOGIN_LOG
 -- ----------------------------
-DROP TABLE "BLADE_LOGIN_LOG";
+-- DROP TABLE "BLADE_LOGIN_LOG";
 CREATE TABLE "BLADE_LOGIN_LOG" (
 "ID" NUMBER NOT NULL ,
 "LOGNAME" NVARCHAR2(255) NULL ,
@@ -203,9 +165,13 @@ NOCACHE
 ;
 
 -- ----------------------------
+-- Records of BLADE_LOGIN_LOG
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for BLADE_MENU
 -- ----------------------------
-DROP TABLE "BLADE_MENU";
+-- DROP TABLE "BLADE_MENU";
 CREATE TABLE "BLADE_MENU" (
 "ID" NUMBER NOT NULL ,
 "CODE" NVARCHAR2(255) NULL ,
@@ -318,9 +284,36 @@ INSERT INTO "BLADE_MENU" VALUES ('89', 'llog_edit', 'llog', '修改', 'btn btn-x
 INSERT INTO "BLADE_MENU" VALUES ('90', 'llog_remove', 'llog', '删除', 'btn btn-xs btn-white | fa fa-times  bigger-120', '/llog/remove', '3', '4', null, null, null, '1', '0', '0', '0', 'remove');
 
 -- ----------------------------
+-- Table structure for BLADE_NOTICE
+-- ----------------------------
+-- DROP TABLE "BLADE_NOTICE";
+CREATE TABLE "BLADE_NOTICE" (
+"ID" NUMBER(11) NOT NULL ,
+"TITLE" NVARCHAR2(255) NULL ,
+"TYPE" NUMBER(11) NULL ,
+"CONTENT" NVARCHAR2(2000) NULL ,
+"PUBLISHTIME" DATE NULL ,
+"CREATETIME" DATE NULL ,
+"CREATER" NUMBER(11) NULL ,
+"PIC" NUMBER(11) NULL ,
+"VERSION" NUMBER(11) NULL 
+)
+LOGGING
+NOCOMPRESS
+NOCACHE
+
+;
+
+-- ----------------------------
+-- Records of BLADE_NOTICE
+-- ----------------------------
+INSERT INTO "BLADE_NOTICE" VALUES ('1449', '测试', '1', '12', TO_DATE('2017-01-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2017-01-12 09:58:04', 'YYYY-MM-DD HH24:MI:SS'), '1', null, null);
+INSERT INTO "BLADE_NOTICE" VALUES ('1450', '测试233', '10', '123', TO_DATE('2017-02-15 12:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2017-01-12 13:32:59', 'YYYY-MM-DD HH24:MI:SS'), '1', null, '2');
+
+-- ----------------------------
 -- Table structure for BLADE_OPERATION_LOG
 -- ----------------------------
-DROP TABLE "BLADE_OPERATION_LOG";
+-- DROP TABLE "BLADE_OPERATION_LOG";
 CREATE TABLE "BLADE_OPERATION_LOG" (
 "ID" NUMBER NOT NULL ,
 "LOGNAME" NVARCHAR2(255) NULL ,
@@ -337,11 +330,14 @@ NOCACHE
 
 ;
 
+-- ----------------------------
+-- Records of BLADE_OPERATION_LOG
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for BLADE_PARAMETER
 -- ----------------------------
-DROP TABLE "BLADE_PARAMETER";
+-- DROP TABLE "BLADE_PARAMETER";
 CREATE TABLE "BLADE_PARAMETER" (
 "ID" NUMBER(11) NOT NULL ,
 "CODE" NVARCHAR2(255) NULL ,
@@ -366,7 +362,7 @@ INSERT INTO "BLADE_PARAMETER" VALUES ('1', '101', '100', '是否开启记录日�
 -- ----------------------------
 -- Table structure for BLADE_RELATION
 -- ----------------------------
-DROP TABLE "BLADE_RELATION";
+-- DROP TABLE "BLADE_RELATION";
 CREATE TABLE "BLADE_RELATION" (
 "ID" NUMBER(11) NOT NULL ,
 "MENUID" NUMBER(11) NULL ,
@@ -623,7 +619,7 @@ INSERT INTO "BLADE_RELATION" VALUES ('1535', '80', '25');
 -- ----------------------------
 -- Table structure for BLADE_ROLE
 -- ----------------------------
-DROP TABLE "BLADE_ROLE";
+-- DROP TABLE "BLADE_ROLE";
 CREATE TABLE "BLADE_ROLE" (
 "ID" NUMBER NOT NULL ,
 "NUM" NUMBER NULL ,
@@ -653,7 +649,7 @@ INSERT INTO "BLADE_ROLE" VALUES ('6', '2', '4', '测试2', '10', 'test', '0');
 -- ----------------------------
 -- Table structure for BLADE_ROLE_EXT
 -- ----------------------------
-DROP TABLE "BLADE_ROLE_EXT";
+-- DROP TABLE "BLADE_ROLE_EXT";
 CREATE TABLE "BLADE_ROLE_EXT" (
 "ID" NUMBER NOT NULL ,
 "USERID" NVARCHAR2(255) NULL ,
@@ -682,7 +678,7 @@ INSERT INTO "BLADE_ROLE_EXT" VALUES ('127', '21', '92,98,99,100,101,102', '0');
 -- ----------------------------
 -- Table structure for BLADE_USER
 -- ----------------------------
-DROP TABLE "BLADE_USER";
+-- DROP TABLE "BLADE_USER";
 CREATE TABLE "BLADE_USER" (
 "ID" NUMBER(11) NOT NULL ,
 "ACCOUNT" NVARCHAR2(45) NULL ,
@@ -712,20 +708,9 @@ INSERT INTO "BLADE_USER" VALUES ('1', 'admin', '4779e4a9903dfb08f9f877791c516a73
 INSERT INTO "BLADE_USER" VALUES ('2', 'test001', 'e334680512284cac2f57701abe03af96', 'r4i90', 'cs', TO_DATE('2016-02-19 14:00:13', 'YYYY-MM-DD HH24:MI:SS'), '1', null, null, '6', '2', '1', TO_DATE('2016-02-19 14:00:19', 'YYYY-MM-DD HH24:MI:SS'), '3');
 
 -- ----------------------------
--- Sequence structure for SEQ_ADMIN
--- ----------------------------
-DROP SEQUENCE "SEQ_ADMIN";
-CREATE SEQUENCE "SEQ_ADMIN"
- INCREMENT BY 1
- MINVALUE 1
- MAXVALUE 9999999999999999
- START WITH 100
- CACHE 20;
-
--- ----------------------------
 -- Sequence structure for SEQ_ATTACH
 -- ----------------------------
-DROP SEQUENCE "SEQ_ATTACH";
+-- DROP SEQUENCE "SEQ_ATTACH";
 CREATE SEQUENCE "SEQ_ATTACH"
  INCREMENT BY 1
  MINVALUE 1
@@ -734,20 +719,9 @@ CREATE SEQUENCE "SEQ_ATTACH"
  CACHE 20;
 
 -- ----------------------------
--- Sequence structure for SEQ_ATTACH_BLOB
--- ----------------------------
-DROP SEQUENCE "SEQ_ATTACH_BLOB";
-CREATE SEQUENCE "SEQ_ATTACH_BLOB"
- INCREMENT BY 1
- MINVALUE 1
- MAXVALUE 9999999999999999
- START WITH 101
- CACHE 20;
-
--- ----------------------------
 -- Sequence structure for SEQ_DEPT
 -- ----------------------------
-DROP SEQUENCE "SEQ_DEPT";
+-- DROP SEQUENCE "SEQ_DEPT";
 CREATE SEQUENCE "SEQ_DEPT"
  INCREMENT BY 1
  MINVALUE 1
@@ -758,7 +732,7 @@ CREATE SEQUENCE "SEQ_DEPT"
 -- ----------------------------
 -- Sequence structure for SEQ_DICT
 -- ----------------------------
-DROP SEQUENCE "SEQ_DICT";
+-- DROP SEQUENCE "SEQ_DICT";
 CREATE SEQUENCE "SEQ_DICT"
  INCREMENT BY 1
  MINVALUE 1
@@ -769,7 +743,7 @@ CREATE SEQUENCE "SEQ_DICT"
 -- ----------------------------
 -- Sequence structure for SEQ_GENERATE
 -- ----------------------------
-DROP SEQUENCE "SEQ_GENERATE";
+-- DROP SEQUENCE "SEQ_GENERATE";
 CREATE SEQUENCE "SEQ_GENERATE"
  INCREMENT BY 1
  MINVALUE 1
@@ -780,7 +754,7 @@ CREATE SEQUENCE "SEQ_GENERATE"
 -- ----------------------------
 -- Sequence structure for SEQ_LLOG
 -- ----------------------------
-DROP SEQUENCE "SEQ_LLOG";
+-- DROP SEQUENCE "SEQ_LLOG";
 CREATE SEQUENCE "SEQ_LLOG"
  INCREMENT BY 1
  MINVALUE 1
@@ -791,7 +765,7 @@ CREATE SEQUENCE "SEQ_LLOG"
 -- ----------------------------
 -- Sequence structure for SEQ_MENU
 -- ----------------------------
-DROP SEQUENCE "SEQ_MENU";
+-- DROP SEQUENCE "SEQ_MENU";
 CREATE SEQUENCE "SEQ_MENU"
  INCREMENT BY 1
  MINVALUE 1
@@ -800,53 +774,20 @@ CREATE SEQUENCE "SEQ_MENU"
  CACHE 20;
 
 -- ----------------------------
--- Sequence structure for SEQ_METADATA
--- ----------------------------
-DROP SEQUENCE "SEQ_METADATA";
-CREATE SEQUENCE "SEQ_METADATA"
- INCREMENT BY 1
- MINVALUE 1
- MAXVALUE 9999999999999999
- START WITH 41
- CACHE 20;
-
--- ----------------------------
--- Sequence structure for SEQ_NEWS
--- ----------------------------
-DROP SEQUENCE "SEQ_NEWS";
-CREATE SEQUENCE "SEQ_NEWS"
- INCREMENT BY 1
- MINVALUE 1
- MAXVALUE 9999999999999999
- START WITH 85080
- CACHE 20;
-
--- ----------------------------
--- Sequence structure for SEQ_NEWSCONTENT
--- ----------------------------
-DROP SEQUENCE "SEQ_NEWSCONTENT";
-CREATE SEQUENCE "SEQ_NEWSCONTENT"
- INCREMENT BY 1
- MINVALUE 1
- MAXVALUE 9999999999999999
- START WITH 40080
- CACHE 20;
-
--- ----------------------------
 -- Sequence structure for SEQ_NOTICE
 -- ----------------------------
-DROP SEQUENCE "SEQ_NOTICE";
+-- DROP SEQUENCE "SEQ_NOTICE";
 CREATE SEQUENCE "SEQ_NOTICE"
  INCREMENT BY 1
  MINVALUE 1
  MAXVALUE 999999999999999999999999999
- START WITH 1439
+ START WITH 1459
  CACHE 10;
 
 -- ----------------------------
 -- Sequence structure for SEQ_OLOG
 -- ----------------------------
-DROP SEQUENCE "SEQ_OLOG";
+-- DROP SEQUENCE "SEQ_OLOG";
 CREATE SEQUENCE "SEQ_OLOG"
  INCREMENT BY 1
  MINVALUE 1
@@ -857,7 +798,7 @@ CREATE SEQUENCE "SEQ_OLOG"
 -- ----------------------------
 -- Sequence structure for SEQ_PARAMETER
 -- ----------------------------
-DROP SEQUENCE "SEQ_PARAMETER";
+-- DROP SEQUENCE "SEQ_PARAMETER";
 CREATE SEQUENCE "SEQ_PARAMETER"
  INCREMENT BY 1
  MINVALUE 1
@@ -868,7 +809,7 @@ CREATE SEQUENCE "SEQ_PARAMETER"
 -- ----------------------------
 -- Sequence structure for SEQ_RELATION
 -- ----------------------------
-DROP SEQUENCE "SEQ_RELATION";
+-- DROP SEQUENCE "SEQ_RELATION";
 CREATE SEQUENCE "SEQ_RELATION"
  INCREMENT BY 1
  MINVALUE 1
@@ -877,31 +818,9 @@ CREATE SEQUENCE "SEQ_RELATION"
  CACHE 20;
 
 -- ----------------------------
--- Sequence structure for SEQ_REPORT
--- ----------------------------
-DROP SEQUENCE "SEQ_REPORT";
-CREATE SEQUENCE "SEQ_REPORT"
- INCREMENT BY 1
- MINVALUE 1
- MAXVALUE 9999999999999999
- START WITH 289
- CACHE 20;
-
--- ----------------------------
--- Sequence structure for SEQ_REPORTCONTENT
--- ----------------------------
-DROP SEQUENCE "SEQ_REPORTCONTENT";
-CREATE SEQUENCE "SEQ_REPORTCONTENT"
- INCREMENT BY 1
- MINVALUE 1
- MAXVALUE 9999999999999999
- START WITH 131
- CACHE 20;
-
--- ----------------------------
 -- Sequence structure for SEQ_ROLE
 -- ----------------------------
-DROP SEQUENCE "SEQ_ROLE";
+-- DROP SEQUENCE "SEQ_ROLE";
 CREATE SEQUENCE "SEQ_ROLE"
  INCREMENT BY 1
  MINVALUE 1
@@ -912,7 +831,7 @@ CREATE SEQUENCE "SEQ_ROLE"
 -- ----------------------------
 -- Sequence structure for SEQ_ROLE_EXT
 -- ----------------------------
-DROP SEQUENCE "SEQ_ROLE_EXT";
+-- DROP SEQUENCE "SEQ_ROLE_EXT";
 CREATE SEQUENCE "SEQ_ROLE_EXT"
  INCREMENT BY 1
  MINVALUE 1
@@ -923,7 +842,7 @@ CREATE SEQUENCE "SEQ_ROLE_EXT"
 -- ----------------------------
 -- Sequence structure for SEQ_USER
 -- ----------------------------
-DROP SEQUENCE "SEQ_USER";
+-- DROP SEQUENCE "SEQ_USER";
 CREATE SEQUENCE "SEQ_USER"
  INCREMENT BY 1
  MINVALUE 1
@@ -932,49 +851,13 @@ CREATE SEQUENCE "SEQ_USER"
  CACHE 20;
 
 -- ----------------------------
--- Sequence structure for SEQ_WEB
--- ----------------------------
-DROP SEQUENCE "SEQ_WEB";
-CREATE SEQUENCE "SEQ_WEB"
- INCREMENT BY 1
- MINVALUE 1
- MAXVALUE 9999999999999999
- START WITH 41
- CACHE 20;
-
--- ----------------------------
--- Sequence structure for SEQ_WEBCONTENT
--- ----------------------------
-DROP SEQUENCE "SEQ_WEBCONTENT";
-CREATE SEQUENCE "SEQ_WEBCONTENT"
- INCREMENT BY 1
- MINVALUE 1
- MAXVALUE 9999999999999999
- START WITH 21
- CACHE 20;
-
--- ----------------------------
--- Indexes structure for table BLADE_NOTICE
--- ----------------------------
-
--- ----------------------------
--- Checks structure for table BLADE_NOTICE
--- ----------------------------
-ALTER TABLE "BLADE_NOTICE" ADD CHECK ("ID" IS NOT NULL);
-ALTER TABLE "BLADE_NOTICE" ADD CHECK ("ID" IS NOT NULL);
-
--- ----------------------------
--- Primary Key structure for table BLADE_NOTICE
--- ----------------------------
-ALTER TABLE "BLADE_NOTICE" ADD PRIMARY KEY ("ID");
-
--- ----------------------------
 -- Indexes structure for table BLADE_ATTACH
 -- ----------------------------
 
 -- ----------------------------
 -- Checks structure for table BLADE_ATTACH
 -- ----------------------------
+ALTER TABLE "BLADE_ATTACH" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_ATTACH" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_ATTACH" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_ATTACH" ADD CHECK ("ID" IS NOT NULL);
@@ -996,6 +879,7 @@ ALTER TABLE "BLADE_DEPT" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_DEPT" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_DEPT" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_DEPT" ADD CHECK ("ID" IS NOT NULL);
+ALTER TABLE "BLADE_DEPT" ADD CHECK ("ID" IS NOT NULL);
 
 -- ----------------------------
 -- Primary Key structure for table BLADE_DEPT
@@ -1009,6 +893,7 @@ ALTER TABLE "BLADE_DEPT" ADD PRIMARY KEY ("ID");
 -- ----------------------------
 -- Checks structure for table BLADE_DICT
 -- ----------------------------
+ALTER TABLE "BLADE_DICT" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_DICT" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_DICT" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_DICT" ADD CHECK ("ID" IS NOT NULL);
@@ -1027,6 +912,7 @@ ALTER TABLE "BLADE_DICT" ADD PRIMARY KEY ("ID");
 -- Checks structure for table BLADE_GENERATE
 -- ----------------------------
 ALTER TABLE "BLADE_GENERATE" ADD CHECK ("ID" IS NOT NULL);
+ALTER TABLE "BLADE_GENERATE" ADD CHECK ("ID" IS NOT NULL);
 
 -- ----------------------------
 -- Primary Key structure for table BLADE_GENERATE
@@ -1040,6 +926,7 @@ ALTER TABLE "BLADE_GENERATE" ADD PRIMARY KEY ("ID");
 -- ----------------------------
 -- Checks structure for table BLADE_LOGIN_LOG
 -- ----------------------------
+ALTER TABLE "BLADE_LOGIN_LOG" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_LOGIN_LOG" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_LOGIN_LOG" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_LOGIN_LOG" ADD CHECK ("ID" IS NOT NULL);
@@ -1061,6 +948,7 @@ ALTER TABLE "BLADE_MENU" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_MENU" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_MENU" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_MENU" ADD CHECK ("ID" IS NOT NULL);
+ALTER TABLE "BLADE_MENU" ADD CHECK ("ID" IS NOT NULL);
 
 -- ----------------------------
 -- Primary Key structure for table BLADE_MENU
@@ -1068,21 +956,20 @@ ALTER TABLE "BLADE_MENU" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_MENU" ADD PRIMARY KEY ("ID");
 
 -- ----------------------------
--- Indexes structure for table BLADE_METADATA
+-- Indexes structure for table BLADE_NOTICE
 -- ----------------------------
 
 -- ----------------------------
--- Checks structure for table BLADE_METADATA
+-- Checks structure for table BLADE_NOTICE
 -- ----------------------------
-ALTER TABLE "BLADE_METADATA" ADD CHECK ("ID" IS NOT NULL);
-ALTER TABLE "BLADE_METADATA" ADD CHECK ("ID" IS NOT NULL);
-ALTER TABLE "BLADE_METADATA" ADD CHECK ("ID" IS NOT NULL);
-ALTER TABLE "BLADE_METADATA" ADD CHECK ("ID" IS NOT NULL);
+ALTER TABLE "BLADE_NOTICE" ADD CHECK ("ID" IS NOT NULL);
+ALTER TABLE "BLADE_NOTICE" ADD CHECK ("ID" IS NOT NULL);
+ALTER TABLE "BLADE_NOTICE" ADD CHECK ("ID" IS NOT NULL);
 
 -- ----------------------------
--- Primary Key structure for table BLADE_METADATA
+-- Primary Key structure for table BLADE_NOTICE
 -- ----------------------------
-ALTER TABLE "BLADE_METADATA" ADD PRIMARY KEY ("ID");
+ALTER TABLE "BLADE_NOTICE" ADD PRIMARY KEY ("ID");
 
 -- ----------------------------
 -- Indexes structure for table BLADE_OPERATION_LOG
@@ -1091,6 +978,7 @@ ALTER TABLE "BLADE_METADATA" ADD PRIMARY KEY ("ID");
 -- ----------------------------
 -- Checks structure for table BLADE_OPERATION_LOG
 -- ----------------------------
+ALTER TABLE "BLADE_OPERATION_LOG" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_OPERATION_LOG" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_OPERATION_LOG" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_OPERATION_LOG" ADD CHECK ("ID" IS NOT NULL);
@@ -1112,6 +1000,7 @@ ALTER TABLE "BLADE_PARAMETER" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_PARAMETER" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_PARAMETER" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_PARAMETER" ADD CHECK ("ID" IS NOT NULL);
+ALTER TABLE "BLADE_PARAMETER" ADD CHECK ("ID" IS NOT NULL);
 
 -- ----------------------------
 -- Primary Key structure for table BLADE_PARAMETER
@@ -1125,6 +1014,7 @@ ALTER TABLE "BLADE_PARAMETER" ADD PRIMARY KEY ("ID");
 -- ----------------------------
 -- Checks structure for table BLADE_RELATION
 -- ----------------------------
+ALTER TABLE "BLADE_RELATION" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_RELATION" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_RELATION" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_RELATION" ADD CHECK ("ID" IS NOT NULL);
@@ -1146,6 +1036,7 @@ ALTER TABLE "BLADE_ROLE" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_ROLE" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_ROLE" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_ROLE" ADD CHECK ("ID" IS NOT NULL);
+ALTER TABLE "BLADE_ROLE" ADD CHECK ("ID" IS NOT NULL);
 
 -- ----------------------------
 -- Primary Key structure for table BLADE_ROLE
@@ -1163,6 +1054,7 @@ ALTER TABLE "BLADE_ROLE_EXT" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_ROLE_EXT" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_ROLE_EXT" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_ROLE_EXT" ADD CHECK ("ID" IS NOT NULL);
+ALTER TABLE "BLADE_ROLE_EXT" ADD CHECK ("ID" IS NOT NULL);
 
 -- ----------------------------
 -- Primary Key structure for table BLADE_ROLE_EXT
@@ -1176,6 +1068,7 @@ ALTER TABLE "BLADE_ROLE_EXT" ADD PRIMARY KEY ("ID");
 -- ----------------------------
 -- Checks structure for table BLADE_USER
 -- ----------------------------
+ALTER TABLE "BLADE_USER" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_USER" ADD CHECK ("ID" IS NOT NULL);
 ALTER TABLE "BLADE_USER" ADD CHECK ("ID" IS NOT NULL);
 

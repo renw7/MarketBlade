@@ -117,7 +117,7 @@ public class RoleController extends BaseController{
 			CacheKit.removeAll(MENU_CACHE);
 			return success("设置成功");
 		}
-		boolean temp = service.authority(ids, roleId);
+		boolean temp = service.grant(ids, roleId);
 		if (temp) {
 			CacheKit.removeAll(ROLE_CACHE);
 			CacheKit.removeAll(MENU_CACHE);
