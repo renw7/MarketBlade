@@ -142,7 +142,7 @@ NOCACHE
 -- ----------------------------
 -- Records of BLADE_GENERATE
 -- ----------------------------
-INSERT INTO "BLADE_GENERATE" VALUES ('1', '测试', 'E:\Workspaces\git\bladepro', 'com.tonbusoft.platform', 'Blog', 'tb_yw_blog', 'f_it_xl', null);
+INSERT INTO "BLADE_GENERATE" VALUES ('1', '测试', 'E:\Workspaces\blade\SpringBlade', 'com.smallchill.gen', 'Notice', 'blade_notice', 'id', null);
 
 -- ----------------------------
 -- Table structure for BLADE_LOGIN_LOG

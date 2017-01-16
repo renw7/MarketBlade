@@ -120,7 +120,7 @@ AUTO_INCREMENT=2
 -- Records of blade_generate
 -- ----------------------------
 BEGIN;
-INSERT INTO `blade_generate` VALUES ('1', '测试', 'E:\\Workspaces\\blade\\SpringBlade', 'com.smallchill.gen', 'Menu', 'tfw_menu', 'id', null);
+INSERT INTO `blade_generate` VALUES ('1', '测试', 'E:\\Workspaces\\blade\\SpringBlade', 'com.smallchill.gen', 'Notice', 'blade_notice', 'id', null);
 COMMIT;
 
 -- ----------------------------
