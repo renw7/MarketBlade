@@ -13,17 +13,29 @@ import com.smallchill.core.toolbox.kit.ClassKit;
 
 public class ProxyTest {
 
+	/**   
+	 * 基于jdk代理
+	*/
 	@Test
 	public void test() {
 		TestProxyBean testBean = new TestProxyBean();
-
-		IProxy test = (IProxy) Proxy.newProxyInstance(testBean.getClass()
-				.getClassLoader(), testBean.getClass().getInterfaces(),
-				new TestProxyHander(testBean));
-
+		IProxy test = (IProxy) Proxy.newProxyInstance(testBean.getClass().getClassLoader(), testBean.getClass().getInterfaces(), new TestProxyHander(testBean));
 		test.test();
 	}
+
+	/**   
+	 * 基于jdk代理工具类
+	*/
+	@Test
+	public void testKit() {
+		TestProxyBean testBean = new TestProxyBean();
+		IProxyKit test = ClassKit.newProxyInstance(IProxyKit.class, new TestProxyHander(testBean));
+		test.testKit();
+	}
 	
+	/**   
+	 * 基于cglib代理
+	*/
 	@Test
 	public void testCglib(){
 		try {
@@ -34,6 +46,9 @@ public class ProxyTest {
 		}
 	}
 	
+	/**   
+	 * 基于cglib代理工具类
+	*/
 	@Test
 	public void testCglibKit(){
 		TestProxyMethodCglib test = ClassKit.newProxyCglibFactory(TestProxyMethodCglib.class, new TestProxyMethodInterceptor());

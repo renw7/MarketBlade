@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class BaseTest {
+	
 	public String getType() {
 		try {
 			BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
@@ -15,4 +16,5 @@ public class BaseTest {
 			return "";
 		}
 	}
+	
 }

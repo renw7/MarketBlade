@@ -1,4 +1,4 @@
-package com.smallchill.test;
+package com.smallchill.test.excel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
