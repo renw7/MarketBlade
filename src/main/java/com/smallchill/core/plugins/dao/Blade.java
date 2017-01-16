@@ -15,25 +15,25 @@
  */
 package com.smallchill.core.plugins.dao;
 
-import com.smallchill.core.annotation.BindID;
-import com.smallchill.core.annotation.DbName;
-import com.smallchill.core.constant.Const;
-import com.smallchill.core.constant.Cst;
-import com.smallchill.core.plugins.connection.ConnectionPlugin;
-import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Paras;
-import com.smallchill.core.toolbox.grid.BladePage;
-import com.smallchill.core.toolbox.support.Convert;
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.annotatoin.Table;
 import org.beetl.sql.core.db.ClassDesc;
 import org.beetl.sql.core.db.KeyHolder;
 
-import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import com.smallchill.core.annotation.BindID;
+import com.smallchill.core.annotation.DbName;
+import com.smallchill.core.constant.Const;
+import com.smallchill.core.constant.Cst;
+import com.smallchill.core.plugins.connection.SQLManagerPlugin;
+import com.smallchill.core.toolbox.Func;
+import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.grid.BladePage;
+import com.smallchill.core.toolbox.support.Convert;
 
 /**
  * beetlsql 自动API封装dao工具
@@ -54,7 +54,7 @@ public class Blade {
 					DbName dbName = modelClass.getAnnotation(DbName.class);
 					if (null == dbName){
 						sql = dao();
-						this.dbName = ConnectionPlugin.init().MASTER;
+						this.dbName = SQLManagerPlugin.init().MASTER;
 					} else {
 						sql = dao(dbName.name());
 						this.dbName = dbName.name();
@@ -70,7 +70,7 @@ public class Blade {
 	 * @return
 	 */
 	public static SQLManager dao() {
-		return dao(ConnectionPlugin.init().MASTER);
+		return dao(SQLManagerPlugin.init().MASTER);
 	}
 	
 	/**
@@ -79,7 +79,7 @@ public class Blade {
 	 * @return
 	 */
 	public static SQLManager dao(String name) {
-		return ConnectionPlugin.init().getSqlManagerPool().get(name);
+		return SQLManagerPlugin.init().getSqlManagerPool().get(name);
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class Blade {
 				if (null == blade) {
 					DbName dbName = modelClass.getAnnotation(DbName.class);
 					if (null == dbName){
-						blade = new Blade(ConnectionPlugin.init().MASTER, modelClass);
+						blade = new Blade(SQLManagerPlugin.init().MASTER, modelClass);
 					} else {
 						blade = new Blade(dbName.name(), modelClass);
 					}

@@ -27,7 +27,7 @@ import org.beetl.sql.core.engine.PageQuery;
 
 import com.smallchill.core.beetl.BeetlTemplate;
 import com.smallchill.core.interfaces.ILoader;
-import com.smallchill.core.plugins.connection.ConnectionPlugin;
+import com.smallchill.core.plugins.connection.SQLManagerPlugin;
 import com.smallchill.core.toolbox.grid.BladePage;
 import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.StrKit;
@@ -41,7 +41,7 @@ public class MdManager {
 	private volatile SQLManager sql = null;
 	
 	public static MdManager init() {
-		return init(ConnectionPlugin.init().MASTER);
+		return init(SQLManagerPlugin.init().MASTER);
 	}
 
 	public static MdManager init(String name) {
@@ -59,7 +59,7 @@ public class MdManager {
 	}
 	
 	private MdManager(String dbName) {
-		this.sql = ConnectionPlugin.init().getSqlManagerPool().get(dbName);
+		this.sql = SQLManagerPlugin.init().getSqlManagerPool().get(dbName);
 	}
 
 	private MdManager() {}
@@ -67,7 +67,7 @@ public class MdManager {
 	private SQLManager getSqlManager() {
 		if (null == sql) {
 			synchronized (MdManager.class) {
-				sql = ConnectionPlugin.init().getSqlManagerPool().get(ConnectionPlugin.init().MASTER);
+				sql = SQLManagerPlugin.init().getSqlManagerPool().get(SQLManagerPlugin.init().MASTER);
 			}
 		}
 		return sql;

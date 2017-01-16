@@ -27,7 +27,7 @@ import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.interfaces.IQuery;
-import com.smallchill.core.plugins.connection.ConnectionPlugin;
+import com.smallchill.core.plugins.connection.SQLManagerPlugin;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.grid.BladePage;
@@ -42,7 +42,7 @@ public class DbManager {
 	private volatile SQLManager sql = null;
 	
 	public static DbManager init() {
-		return init(ConnectionPlugin.init().MASTER);
+		return init(SQLManagerPlugin.init().MASTER);
 	}
 
 	public static DbManager init(String name) {
@@ -60,7 +60,7 @@ public class DbManager {
 	}
 	
 	private DbManager(String dbName) {
-		this.sql = ConnectionPlugin.init().getSqlManagerPool().get(dbName);
+		this.sql = SQLManagerPlugin.init().getSqlManagerPool().get(dbName);
 	}
 
 	private DbManager() {}
@@ -68,7 +68,7 @@ public class DbManager {
 	private SQLManager getSqlManager() {
 		if (null == sql) {
 			synchronized (DbManager.class) {
-				sql = ConnectionPlugin.init().getSqlManagerPool().get(ConnectionPlugin.init().MASTER);
+				sql = SQLManagerPlugin.init().getSqlManagerPool().get(SQLManagerPlugin.init().MASTER);
 			}
 		}
 		return sql;

@@ -2,6 +2,7 @@ package com.smallchill.modules.platform.controller;
 
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,12 +11,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.common.tool.SysCache;
-import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Md;
 import com.smallchill.core.toolbox.Paras;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.modules.platform.model.Notice;
+import com.smallchill.modules.platform.service.NoticeService;
 
 @Controller
 @RequestMapping("/notice")
@@ -25,6 +26,9 @@ public class NoticeController extends BaseController {
 	private static String DATA_SOURCE = "notice.data";
 	private static String LIST_SOURCE = "notice.list";
 	private static String BASE_PATH = "/modules/platform/notice/";
+	
+	@Autowired
+	NoticeService service;
 	
 	@RequestMapping(KEY_MAIN)
 	public String index(ModelMap mm) {
@@ -50,7 +54,7 @@ public class NoticeController extends BaseController {
 
 	@RequestMapping(KEY_VIEW + "/{id}")
 	public String view(@PathVariable Integer id, ModelMap mm) {
-		Notice notice = Blade.create(Notice.class).findById(id);
+		Notice notice = service.findById(id);
 		//将javabean转化为map
 		Paras ps = Paras.parse(notice);
 		//使用SysCache.getDictName方法从缓存中获取对应字典项的中文值
@@ -73,7 +77,7 @@ public class NoticeController extends BaseController {
 	@RequestMapping(KEY_SAVE)
 	public AjaxResult save() {
 		Notice notice = mapping(PREFIX, Notice.class);
-		boolean temp = Blade.create(Notice.class).save(notice);
+		boolean temp = service.save(notice);
 		if (temp) {
 			return success(SAVE_SUCCESS_MSG);
 		} else {
@@ -91,7 +95,7 @@ public class NoticeController extends BaseController {
 		//2.使用sql模板
 		//boolean temp = Md.update("notice.update", notice) > 0;
 		//3.使用自动生成api
-		boolean temp = Blade.create(Notice.class).update(notice);
+		boolean temp = service.update(notice);
 		if (temp) {
 			return success(UPDATE_SUCCESS_MSG);
 		} else {
@@ -102,7 +106,7 @@ public class NoticeController extends BaseController {
 	@ResponseBody
 	@RequestMapping(KEY_REMOVE)
 	public AjaxResult remove() {
-		int cnt = Blade.create(Notice.class).deleteByIds(getParameter("ids"));
+		int cnt = service.deleteByIds(getParameter("ids"));
 		if (cnt > 0) {
 			return success(DEL_SUCCESS_MSG);
 		} else {

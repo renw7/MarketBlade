@@ -18,7 +18,7 @@ package com.smallchill.core.plugins.dao;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.smallchill.core.plugins.connection.ConnectionPlugin;
+import com.smallchill.core.plugins.connection.RedisPlugin;
 import com.smallchill.core.toolbox.redis.IJedis;
 
 /**
@@ -28,7 +28,7 @@ public class RedisManager {
 	private static Map<String, IJedis> pool = new ConcurrentHashMap<String, IJedis>();
 	
 	public static IJedis init() {
-		return init(ConnectionPlugin.init().MASTER);
+		return init(RedisPlugin.init().MASTER);
 	}
 
 	public static IJedis init(String name) {
@@ -37,7 +37,7 @@ public class RedisManager {
 			synchronized (RedisManager.class) {
 				rc = pool.get(name);
 				if (null == rc) {
-					rc = ConnectionPlugin.init().getRedisCachePool().get(name);
+					rc = RedisPlugin.init().getRedisCachePool().get(name);
 					pool.put(name, rc);
 				}
 			}

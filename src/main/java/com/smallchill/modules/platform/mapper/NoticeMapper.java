@@ -9,7 +9,7 @@ import org.beetl.sql.core.mapper.BaseMapper;
 
 import com.smallchill.modules.platform.model.Notice;
 
-public interface NoticeMapper extends BaseMapper<Notice>{
+public interface NoticeMapper extends BaseMapper<Notice> {
 
 	public Notice findById(@Param("id") Integer id);
 	

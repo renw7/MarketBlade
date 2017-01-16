@@ -15,7 +15,7 @@ import ${packageName}.service.${modelName}Service;
  * ${func.getTime()}
  */
 ${"@"}Service
-public class ${modelName}ServiceImpl extends BaseService<${modelName}> implements ${modelName}Service{
+public class ${modelName}ServiceImpl extends BaseService<${modelName}> implements ${modelName}Service {
 
 	${"@"}Override
 	public boolean updateStatus(String ids, Integer status) {

@@ -15,6 +15,12 @@
  */
 package com.smallchill.core.plugins.connection;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import redis.clients.jedis.JedisCluster;
+import redis.clients.jedis.JedisPool;
+
 import com.smallchill.core.config.BladeConfig;
 import com.smallchill.core.interfaces.IPlugin;
 import com.smallchill.core.toolbox.kit.LogKit;
@@ -24,56 +30,28 @@ import com.smallchill.core.toolbox.redis.RedisCluster;
 import com.smallchill.core.toolbox.redis.RedisSingle;
 import com.smallchill.core.toolbox.redis.serializer.JdkSerializer;
 
-import org.beetl.sql.core.IDAutoGen;
-import org.beetl.sql.core.SQLManager;
-
-import redis.clients.jedis.JedisCluster;
-import redis.clients.jedis.JedisPool;
-
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-
-public class ConnectionPlugin implements IPlugin{
-
-	private static Map<String, SQLManager> sqlManagerPool = new ConcurrentHashMap<String, SQLManager>();
+/**
+ * Redis插件
+ */
+public class RedisPlugin implements IPlugin {
 	private static Map<String, IJedis> redisCachePool = new ConcurrentHashMap<String, IJedis>();
 	
 	public String MASTER = "master";
-	
-	public Map<String, SQLManager> getSqlManagerPool(){
-		return sqlManagerPool;
-	}
 	
 	public Map<String, IJedis> getRedisCachePool(){
 		return redisCachePool;
 	}
 	
-	private ConnectionPlugin() { }
+	private RedisPlugin() { }
 	
-	private static ConnectionPlugin me = new ConnectionPlugin();
+	private static RedisPlugin me = new RedisPlugin();
 	
-	public static ConnectionPlugin init(){
+	public static RedisPlugin init(){
 		return me;
 	}
 	
 	public void start() {
 		try {
-			//注入sqlmanager
-			for(String key : BladeConfig.getSqlManagerPool().keySet()){
-				SQLManager sm = BladeConfig.getSqlManagerPool().get(key);
-				//增加自定义@AssignID注解的值, 使用方式: @Assign("uuid")
-				sm.addIdAutonGen("uuid", new IDAutoGen<String>() {
-					public String nextID(String arg0) {
-						return UUID.randomUUID().toString();
-					}
-				});
-				sqlManagerPool.put(key, sm);
-			}
-			if(!sqlManagerPool.containsKey(MASTER)){
-				throw new RuntimeException("BladeConfig必须注入key值为master的sqlManager!");
-			}
-			
 			//注入redisSingle
 			for(String key : BladeConfig.getJedisPool().keySet()){
 				JedisPool jedisPool = BladeConfig.getJedisPool().get(key);
@@ -88,7 +66,6 @@ public class ConnectionPlugin implements IPlugin{
 				RedisCluster rc = new RedisCluster(key, jedisCluster, JdkSerializer.me, IKeyNamingPolicy.defaultKeyNamingPolicy);
 				redisCachePool.put(key, rc);
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -99,8 +76,7 @@ public class ConnectionPlugin implements IPlugin{
 			jedis.close();
 		}
 		redisCachePool.clear();
-		sqlManagerPool.clear();
-		LogKit.println("ConnectionPlugin关闭成功");
+		LogKit.println("RedisPlugin关闭成功");
 	}
 
 }

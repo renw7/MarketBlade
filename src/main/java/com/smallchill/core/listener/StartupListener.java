@@ -24,7 +24,8 @@ import com.smallchill.core.constant.Cst;
 import com.smallchill.core.interfaces.IPluginFactroy;
 import com.smallchill.core.plugins.PluginFactory;
 import com.smallchill.core.plugins.PluginManager;
-import com.smallchill.core.plugins.connection.ConnectionPlugin;
+import com.smallchill.core.plugins.connection.RedisPlugin;
+import com.smallchill.core.plugins.connection.SQLManagerPlugin;
 
 /**
  * 启动监听器
@@ -54,7 +55,8 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
 	 */
 	private void registerPlugins() {
 		IPluginFactroy plugins = PluginFactory.init();
-		plugins.register(ConnectionPlugin.init());
+		plugins.register(SQLManagerPlugin.init());
+		plugins.register(RedisPlugin.init());
 		BladeConfig.getConf().registerPlugins(plugins);//自定义配置插件	
 		PluginManager.init().start();
 	}
