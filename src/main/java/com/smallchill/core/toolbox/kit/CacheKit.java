@@ -27,35 +27,35 @@ import com.smallchill.core.interfaces.ILoader;
  */
 public class CacheKit {
 	
-	private static ICache defaultGridFactory = Cst.me().getDefaultCacheFactory();
+	private static ICache defaultCacheFactory = Cst.me().getDefaultCacheFactory();
 
 	public static void put(String cacheName, Object key, Object value) {
-		defaultGridFactory.put(cacheName, key, value);
+		defaultCacheFactory.put(cacheName, key, value);
 	}
 	
 	public static <T> T get(String cacheName, Object key) {
-		return defaultGridFactory.get(cacheName, key);
+		return defaultCacheFactory.get(cacheName, key);
 	}
 	
 	@SuppressWarnings("rawtypes")
 	public static List getKeys(String cacheName) {
-		return defaultGridFactory.getKeys(cacheName);
+		return defaultCacheFactory.getKeys(cacheName);
 	}
 	
 	public static void remove(String cacheName, Object key) {
-		defaultGridFactory.remove(cacheName, key);
+		defaultCacheFactory.remove(cacheName, key);
 	}
 	
 	public static void removeAll(String cacheName) {
-		defaultGridFactory.removeAll(cacheName);
+		defaultCacheFactory.removeAll(cacheName);
 	}
 	
 	public static <T> T get(String cacheName, Object key, ILoader iLoader) {
-		return defaultGridFactory.get(cacheName, key, iLoader);
+		return defaultCacheFactory.get(cacheName, key, iLoader);
 	}
 	
 	public static <T> T get(String cacheName, Object key, Class<? extends ILoader> iLoaderClass) {
-		return defaultGridFactory.get(cacheName, key, iLoaderClass);
+		return defaultCacheFactory.get(cacheName, key, iLoaderClass);
 	}
 	
 }
