@@ -377,8 +377,8 @@ public class UserController extends BaseController implements ConstShiro{
 			flag = true;
 		}
 		roleExt.setUserid(userId);  
-		roleExt.setRolein(roleIn); 
-		roleExt.setRoleout(roleOut);
+		roleExt.setRolein((StrKit.equals(roleIn, "")) ? "0" : roleIn); 
+		roleExt.setRoleout((StrKit.equals(roleOut, "")) ? "0" : roleOut); 
 		if (flag) {
 			blade.save(roleExt);
 		} else {

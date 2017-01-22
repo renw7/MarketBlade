@@ -85,6 +85,7 @@ CREATE SEQUENCE "blade_login_log_id_seq"
  MAXVALUE 9223372036854775807
  START 1
  CACHE 1;
+SELECT setval('"public"."blade_login_log_id_seq"', 3, true);
 
 -- ----------------------------
 -- Sequence structure for blade_menu_id_seq
@@ -96,6 +97,7 @@ CREATE SEQUENCE "blade_menu_id_seq"
  MAXVALUE 9223372036854775807
  START 105
  CACHE 1;
+SELECT setval('"public"."blade_menu_id_seq"', 105, true);
 
 -- ----------------------------
 -- Sequence structure for blade_operation_log_id_seq
@@ -426,10 +428,10 @@ INSERT INTO "blade_menu" VALUES ('90', 'llog_remove', 'llog', 'remove', '删除'
 INSERT INTO "blade_menu" VALUES ('91', 'llog_view', 'llog', 'view', '查看', 'btn btn-xs btn-white | fa fa-eye bigger-120', '/llog/view', '4', '4', null, 'llog_view.html', null, '1', '0', '0', '0');
 INSERT INTO "blade_menu" VALUES ('92', 'office', '0', null, '工作台', 'fa fa-desktop', null, '1', '1', null, null, null, '1', '0', '0', '0');
 INSERT INTO "blade_menu" VALUES ('93', 'notice', 'office', null, '通知公告', 'fa fa-bell', '/notice/', '1', '2', null, null, null, '1', '0', '0', '0');
-INSERT INTO "blade_menu" VALUES ('94', 'notice_add', 'notice', 'add', '新增', 'btn btn-xs btn-white | fa fa-floppy-o bigger-120', '/notice/add', '1', '3', null, null, '800*500', '1', '0', '0', '1');
-INSERT INTO "blade_menu" VALUES ('95', 'notice_edit', 'notice', 'edit', '修改', 'btn btn-xs btn-white | fa fa-pencil  bigger-120', '/notice/edit', '2', '3', null, null, '800*500', '1', '0', '0', '0');
+INSERT INTO "blade_menu" VALUES ('94', 'notice_add', 'notice', 'add', '新增', 'btn btn-xs btn-white | fa fa-floppy-o bigger-120', '/notice/add', '1', '3', null, null, '800*450', '1', '0', '0', '1');
+INSERT INTO "blade_menu" VALUES ('95', 'notice_edit', 'notice', 'edit', '修改', 'btn btn-xs btn-white | fa fa-pencil  bigger-120', '/notice/edit', '2', '3', null, null, '800*450', '1', '0', '0', '0');
 INSERT INTO "blade_menu" VALUES ('96', 'notice_remove', 'notice', 'remove', '删除', 'btn btn-xs btn-white | fa fa-times  bigger-120', '/notice/remove', '3', '3', null, null, null, '1', '0', '0', '0');
-INSERT INTO "blade_menu" VALUES ('97', 'notice_view', 'notice', 'view', '查看', 'btn btn-xs btn-white | fa fa-eye bigger-120', '/notice/view', '4', '3', null, null, '800*500', '1', '0', '0', '0');
+INSERT INTO "blade_menu" VALUES ('97', 'notice_view', 'notice', 'view', '查看', 'btn btn-xs btn-white | fa fa-eye bigger-120', '/notice/view', '4', '3', null, null, '800*450', '1', '0', '0', '0');
 INSERT INTO "blade_menu" VALUES ('98', 'online', 'system', '', '在线开发', 'fa-rocket', null, '12', '2', null, null, '800*520', '1', '0', null, '1');
 INSERT INTO "blade_menu" VALUES ('99', 'generate', 'online', null, '代码生成', 'fa-gavel', '/generate/', '1', '3', null, null, '800*520', '1', '0', null, '1');
 INSERT INTO "blade_menu" VALUES ('100', 'generate_add', 'generate', 'add', '新增', 'btn btn-xs btn-white | fa fa-floppy-o bigger-120', '/generate/add', '1', '4', null, null, '800*420', '1', '0', null, '3');
