@@ -18,7 +18,7 @@
 		<spring.version>4.3.5.RELEASE</spring.version>
 		<shiro.version>1.3.2</shiro.version>
 		<log4j2.version>2.7</log4j2.version>
-		<beetl.version>2.7.5</beetl.version>
+		<beetl.version>2.7.6</beetl.version>
 		<beetlsql.version>2.7.10</beetlsql.version>
 	</properties>
 
