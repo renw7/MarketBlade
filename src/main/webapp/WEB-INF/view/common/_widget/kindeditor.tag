@@ -18,11 +18,8 @@
 						$("#${id}").attr("name", _name);
 						$("#form_token").val(1);
 					},
-					afterCreate : function() {
-						var self = this;
-						$("#btn_save").bind("click",function(){
-							$("#${id}").val(editor.html());
-						});
+					afterChange : function() {
+						$("#${id}").val(this.html());
 					}
 				};
 			@ var _token = token!'';

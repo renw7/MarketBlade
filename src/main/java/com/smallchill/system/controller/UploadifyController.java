@@ -16,9 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.plugins.dao.Db;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.file.BladeFile;
-import com.smallchill.core.toolbox.file.FileRender;
 import com.smallchill.core.toolbox.file.BladeFileKit;
 import com.smallchill.core.toolbox.kit.PathKit;
 
@@ -28,31 +27,31 @@ public class UploadifyController extends BladeController {
 	
 	@ResponseBody
 	@RequestMapping("/upload")
-	public Paras upload(@RequestParam("imgFile") MultipartFile file) {
-		Paras rd = Paras.create();
+	public CMap upload(@RequestParam("imgFile") MultipartFile file) {
+		CMap cmap = CMap.init();
 		if (null == file) {
-			rd.set("error", 1);
-			rd.set("message", "请选择要上传的图片");
-			return rd;
+			cmap.set("error", 1);
+			cmap.set("message", "请选择要上传的图片");
+			return cmap;
 		}
 		String originalFileName = file.getOriginalFilename();
 		String dir = getParameter("dir", "image");
 		// 测试后缀
 		boolean ok = BladeFileKit.testExt(dir, originalFileName);
 		if (!ok) {
-			rd.set("error", 1);
-			rd.set("message", "上传文件的类型不允许");
-			return rd;
+			cmap.set("error", 1);
+			cmap.set("message", "上传文件的类型不允许");
+			return cmap;
 		}
 		BladeFile bf = getFile(file);
 		bf.transfer();
 		Object fileId = bf.getFileId();	
 		String url = "/uploadify/renderFile/" + fileId;
-		rd.set("error", 0);
-		rd.set("fileId", fileId);
-		rd.set("url", Cst.me().getContextPath() + url);
-		rd.set("fileName", originalFileName);
-		return rd;	
+		cmap.set("error", 0);
+		cmap.set("fileId", fileId);
+		cmap.set("url", Cst.me().getContextPath() + url);
+		cmap.set("fileName", originalFileName);
+		return cmap;	
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -61,7 +60,7 @@ public class UploadifyController extends BladeController {
 		Map<String, Object> file = Db.findById("BLADE_ATTACH", id);
 		String url = file.get("URL").toString();
 		File f = new File((Cst.me().isRemoteMode() ? "" : PathKit.getWebRootPath()) + url);
-		FileRender.init(request, response, f).render();
+		makeFile(response, f);
 	}
 	
 }

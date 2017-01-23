@@ -27,9 +27,9 @@ import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.annotation.Before;
 import com.smallchill.core.annotation.Permission;
 import com.smallchill.core.constant.ConstShiro;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
-import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.core.toolbox.cache.CacheKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.system.meta.intercept.RoleIntercept;
 import com.smallchill.system.meta.intercept.RoleValidator;
@@ -89,10 +89,9 @@ public class RoleController extends BaseController{
 		Role role = service.findById(id);
 		Role parent = service.findById(role.getPid());
 		String pname = (null == parent) ? "" : parent.getName();
-		Paras rd = Paras.parse(role);
-		rd.set("deptName", SysCache.getDeptName(role.getDeptid()))
-			.set("pname", pname);
-		mm.put("model", JsonKit.toJson(rd));
+		CMap cmap = CMap.parse(role);
+		cmap.set("deptName", SysCache.getDeptName(role.getDeptid())).set("pname", pname);
+		mm.put("model", JsonKit.toJson(cmap));
 		mm.put("code", CODE);
 		return BASE_PATH + "role_view.html";
 	}
@@ -110,17 +109,15 @@ public class RoleController extends BaseController{
 	@RequestMapping("/saveAuthority")
 	public AjaxResult saveAuthority() {
 		String ids = getParameter("ids");
-		String roleId = getParameter("roleId");
+		Integer roleId = getParameterToInt("roleId");
 		String[] id = ids.split(",");
 		if (id.length <= 1) {
-			CacheKit.removeAll(ROLE_CACHE);
-			CacheKit.removeAll(MENU_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success("设置成功");
 		}
 		boolean temp = service.grant(ids, roleId);
 		if (temp) {
-			CacheKit.removeAll(ROLE_CACHE);
-			CacheKit.removeAll(MENU_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success("设置成功");
 		} else {
 			return error("设置失败");
@@ -137,8 +134,7 @@ public class RoleController extends BaseController{
 		}
 		boolean temp = service.save(role);
 		if (temp) {
-			CacheKit.removeAll(ROLE_CACHE);
-			CacheKit.removeAll(MENU_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success(SAVE_SUCCESS_MSG);
 		} else {
 			return error(SAVE_FAIL_MSG);
@@ -151,8 +147,7 @@ public class RoleController extends BaseController{
 		Role role = mapping(PREFIX, Role.class);
 		boolean temp = service.update(role);
 		if (temp) {
-			CacheKit.removeAll(ROLE_CACHE);
-			CacheKit.removeAll(MENU_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success(UPDATE_SUCCESS_MSG);
 		} else {
 			return error(UPDATE_FAIL_MSG);
@@ -164,8 +159,7 @@ public class RoleController extends BaseController{
 	public AjaxResult remove() {
 		int cnt = service.deleteByIds(getParameter("ids"));
 		if (cnt > 0) {
-			CacheKit.removeAll(ROLE_CACHE);
-			CacheKit.removeAll(MENU_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success(DEL_SUCCESS_MSG);
 		} else {
 			return error(DEL_FAIL_MSG);

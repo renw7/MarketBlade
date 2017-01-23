@@ -22,10 +22,11 @@ import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.ConstConfig;
 import com.smallchill.core.meta.MetaIntercept;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.grid.BladePage;
 
 public class AttachIntercept extends MetaIntercept {
+	
 	/**
 	 * 查询后操作
 	 * 
@@ -48,10 +49,10 @@ public class AttachIntercept extends MetaIntercept {
 	 * @param ac
 	 */
 	public void renderViewBefore(AopContext ac) {
-		Paras ps = (Paras) ac.getObject();
-		ps.set("attachUrl", ConstConfig.DOMAIN + ps.get("url"))
-		.set("statusName", SysCache.getDictName(902, ps.get("status")))
-		.set("createrName", SysCache.getUserName(ps.get("creater")));
+		CMap cmap = (CMap) ac.getObject();
+		cmap.set("attachUrl", ConstConfig.DOMAIN + cmap.get("url"))
+			.set("statusName", SysCache.getDictName(902, cmap.get("status")))
+			.set("createrName", SysCache.getUserName(cmap.get("creater")));
 	}
 	
 	/**

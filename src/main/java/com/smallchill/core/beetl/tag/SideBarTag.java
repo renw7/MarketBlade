@@ -31,7 +31,7 @@ import com.smallchill.core.constant.ConstCacheKey;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 
 public class SideBarTag extends Tag {
 	
@@ -47,14 +47,14 @@ public class SideBarTag extends Tag {
 			final String roleId = param.get("roleId");
 			String ctxPath = Cst.me().getContextPath();
 
-			Map<String, Object> userRole = Db.selectOneByCache(ConstCache.ROLE_CACHE, ConstCacheKey.ROLE_EXT + userId, "select * from BLADE_ROLE_EXT where USERID=#{userId}", Paras.create().set("userId", userId));
+			Map<String, Object> userRole = Db.selectOneByCache(ConstCache.SYS_CACHE, ConstCacheKey.ROLE_EXT + userId, "select * from BLADE_ROLE_EXT where USERID=#{userId}", CMap.init().set("userId", userId));
 
 			String roleIn = "0";
 			String roleOut = "0";
 			if (!Func.isEmpty(userRole)) {
-				Paras rd = Paras.parse(userRole);
-				roleIn = rd.getStr("ROLEIN");
-				roleOut = rd.getStr("ROLEOUT");
+				CMap cmap = CMap.parse(userRole);
+				roleIn = cmap.getStr("ROLEIN");
+				roleOut = cmap.getStr("ROLEOUT");
 			}
 			final StringBuilder sql = new StringBuilder();
 			
@@ -68,19 +68,19 @@ public class SideBarTag extends Tag {
 			sql.append(" order by levels,pCode,num");
 			
 			@SuppressWarnings("rawtypes")
-			List<Map> sideBar = Db.selectListByCache(ConstCache.MENU_CACHE, ConstCacheKey.SIDEBAR + userId, sql.toString(),
-					Paras.create()
+			List<Map> sideBar = Db.selectListByCache(ConstCache.SYS_CACHE, ConstCacheKey.SIDEBAR + userId, sql.toString(),
+					CMap.init()
 					.set("roleId", Convert.toIntArray(roleId))
 					.set("roleIn", Convert.toIntArray(roleIn))
 					.set("roleOut", Convert.toIntArray(roleOut)));
 			
 			for (Map<String, Object> side : sideBar) {
 				TreeNode node = new TreeNode();
-				Paras rd = Paras.parse(side);
-				node.setId(rd.getStr("CODE"));
-				node.setParentId(rd.getStr("PCODE"));
-				node.setName(rd.getStr("NAME"));
-				node.setIcon(rd.getStr("ICON"));
+				CMap cmap = CMap.parse(side);
+				node.setId(cmap.getStr("CODE"));
+				node.setParentId(cmap.getStr("PCODE"));
+				node.setName(cmap.getStr("NAME"));
+				node.setIcon(cmap.getStr("ICON"));
 				node.setIsParent(false);
 				nodeList.add(node);
 			}
@@ -119,14 +119,14 @@ public class SideBarTag extends Tag {
 			sb.append("  var name = $supporter.html();");
 			sb.append("  var index = layer;");
 			sb.append("  if(index == undefined){");
-			sb.append("    alert(\"该产品版权归 smallchill@163.com 所有，请勿盗版！\");");
+			sb.append("    alert(\"该产品版权归 " + FootTag.company + " 所有，请勿盗版！\");");
 			sb.append("    return;");
 			sb.append("  }");
 			sb.append("  if(name == undefined){");
-			sb.append("    layer.alert(\"该产品版权归 smallchill@163.com 所有，请勿盗版！\", {icon: 2,title:\"侵权警告\"});");
+			sb.append("    layer.alert(\"该产品版权归 " + FootTag.company + " 所有，请勿盗版！\", {icon: 2,title:\"侵权警告\"});");
 			sb.append("    return;");
-			sb.append("  } else if(!(name.indexOf(\"smallchill@163.com\") >= 0 && $supporter.is(\"span\") && !$supporter.is(\":hidden\"))){");
-			sb.append("    layer.alert(\"该产品版权归 smallchill@163.com 所有，请勿盗版！\", {icon: 2,title:\"侵权警告\"});");
+			sb.append("  } else if(!(name.indexOf(\"" + FootTag.company + "\") >= 0 && $supporter.is(\"span\") && !$supporter.is(\":hidden\"))){");
+			sb.append("    layer.alert(\"该产品版权归 " + FootTag.company + " 所有，请勿盗版！\", {icon: 2,title:\"侵权警告\"});");
 			sb.append("    return;");
 			sb.append("  }");
 			sb.append("  }, 1800);");
@@ -159,13 +159,13 @@ public class SideBarTag extends Tag {
 		String Str = "";
 		String subStr = "";
 		for (Map subside : sideBar) {
-			Paras rd = Paras.parse(subside);
-			int _levels = rd.getInt("LEVELS");
-			String _code = rd.getStr("CODE");
-			String _pCode = rd.getStr("PCODE");
-			String _url = rd.getStr("URL");
-			String _icon = rd.getStr("ICON");
-			String _name = rd.getStr("NAME");
+			CMap cmap = CMap.parse(subside);
+			int _levels = cmap.getInt("LEVELS");
+			String _code = cmap.getStr("CODE");
+			String _pCode = cmap.getStr("PCODE");
+			String _url = cmap.getStr("URL");
+			String _icon = cmap.getStr("ICON");
+			String _name = cmap.getStr("NAME");
 			if ((_pCode.equals(pCode) && _levels > levels)) {
 				String href = StrKit.isBlank(_url.trim()) ? "#" : ctxPath + _url + "";
 				String addtabs = StrKit.isBlank(_url.trim()) ? "" : "data-addtabs=\"" + _code + "\"";

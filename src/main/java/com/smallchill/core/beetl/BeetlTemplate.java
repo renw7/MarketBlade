@@ -35,7 +35,7 @@ import com.smallchill.core.beetl.tag.HotBlogsTag;
 import com.smallchill.core.beetl.tag.SelectTag;
 import com.smallchill.core.beetl.tag.SideBarTag;
 import com.smallchill.core.constant.ConstConfig;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 
 /**
  * Beetl模板绑值
@@ -81,7 +81,7 @@ public class BeetlTemplate {
 	public static String build(String str, Map<String, Object> paras) {
 		Template t = gt.getTemplate(str);
 		if (null == paras) {
-			paras = Paras.createHashMap();
+			paras = CMap.createHashMap();
 		}
 		for (String o : paras.keySet()) {
 			t.binding(o, paras.get(o));
@@ -92,7 +92,7 @@ public class BeetlTemplate {
 	public static void buildTo(String str, Map<String, Object> paras, PrintWriter pw) {
 		Template t = gt.getTemplate(str);
 		if (null == paras) {
-			paras = Paras.createHashMap();
+			paras = CMap.createHashMap();
 		}
 		for (String o : paras.keySet()) {
 			t.binding(o, paras.get(o));

@@ -17,9 +17,7 @@ package com.smallchill.core.plugins;
 
 import java.util.List;
 
-import com.smallchill.core.interfaces.IPlugin;
-
-public class PluginManager implements IPlugin{
+public class PluginManager implements IPlugin {
 	private static List<IPlugin> plugins = PluginFactory.init().getPlugins();
 	
 	private static PluginManager me = new PluginManager();

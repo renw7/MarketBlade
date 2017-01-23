@@ -17,8 +17,7 @@ package com.smallchill.core.toolbox.grid;
 
 import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.constant.Cst;
-import com.smallchill.core.interfaces.IGrid;
-import com.smallchill.core.interfaces.IQuery;
+import com.smallchill.core.meta.IQuery;
 
 public class GridManager {
 	private final static GridManager me = new GridManager();

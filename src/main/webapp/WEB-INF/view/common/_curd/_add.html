@@ -97,6 +97,9 @@
 				@			else if(func.like(x.type,"opentree")) {
 								<blade:opentree x="${x}" placeholder="${placeholder}"/>
 				@			}
+				@			else if(func.like(x.type,"combotree")) {
+								<blade:combotree  id="_${x.index!}" name="${table!x.table}.${x.index!}" value="${x.value!}" type="${x.type!}" source="${x.source!}" check="${x.check!}" treeId="${x.treeId!}" intercept="${x.intercept!}" where="${x.where!}" ext="${x.ext!}" width="${x.width!}" height="${x.height!}" readonly="${x.readonly!}" required="${x.required!}" placeholder="${x.placeholder!'输入后请按回车搜索'}" />
+				@			}
 				@			else if(x.type == "span") {
 								<span class="form-control" style="border:0px;">${x.value!}</span>
 				@			}

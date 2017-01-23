@@ -21,7 +21,7 @@ ${"@"}layout("/common/_container.html"){
 					@ }
 		
 		${"@"}		   ];
-		${"@"} include("/common/_curd/_view.html", {"col":_col}){}
+		${"@"} include("/common/_curd/_view_table.html", {"col":_col}){}
 		
 		<!-- 按钮 -->
 		${"@"} include("/common/_curd/_btn.html", {btn_close:"关闭"}) {}

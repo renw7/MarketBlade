@@ -22,7 +22,7 @@ import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPool;
 
 import com.smallchill.core.config.BladeConfig;
-import com.smallchill.core.interfaces.IPlugin;
+import com.smallchill.core.plugins.IPlugin;
 import com.smallchill.core.toolbox.kit.LogKit;
 import com.smallchill.core.toolbox.redis.IJedis;
 import com.smallchill.core.toolbox.redis.IKeyNamingPolicy;

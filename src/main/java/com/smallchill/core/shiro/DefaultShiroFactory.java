@@ -28,18 +28,17 @@ import org.apache.shiro.util.ByteSource;
 import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.constant.ConstCacheKey;
-import com.smallchill.core.interfaces.IShiro;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.support.Convert;
 import com.smallchill.system.model.User;
 
 public class DefaultShiroFactory implements IShiro{
 	
 	public User user(String account) {
-		User user = Blade.create(User.class).findFirstBy("account = #{account}", Paras.create().set("account", account));
+		User user = Blade.create(User.class).findFirstBy("account = #{account}", CMap.init().set("account", account));
 		// 账号不存在
 		if (null == user) {
 			throw new UnknownAccountException();
@@ -66,17 +65,17 @@ public class DefaultShiroFactory implements IShiro{
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<Map> findPermissionsByRoleId(final Object userId, Integer roleId) {
-		Map<String, Object> userRole =  Db.selectOneByCache(ConstCache.ROLE_CACHE, 
+		Map<String, Object> userRole =  Db.selectOneByCache(ConstCache.SYS_CACHE, 
 															ConstCacheKey.ROLE_EXT + userId, 
 															"select * from BLADE_ROLE_EXT where USERID=#{userId}", 
-															Paras.create().set("userId", Convert.toInt(userId)));
+															CMap.init().set("userId", Convert.toInt(userId)));
 
 		String roleIn = "0";
 		String roleOut = "0";
 		if (!Func.isEmpty(userRole)) {
-			Paras rd = Paras.parse(userRole);
-			roleIn = rd.getStr("ROLEIN");
-			roleOut = rd.getStr("ROLEOUT");
+			CMap cmap = CMap.parse(userRole);
+			roleIn = cmap.getStr("ROLEIN");
+			roleOut = cmap.getStr("ROLEOUT");
 		}
 		
 		final StringBuilder sql = new StringBuilder();
@@ -90,7 +89,7 @@ public class DefaultShiroFactory implements IShiro{
 		sql.append("	)");
 		sql.append(" order by levels,pCode,num");
 
-		List<Map> permissions = Db.selectListByCache(ConstCache.MENU_CACHE, ConstCacheKey.PERMISSIONS + userId, sql.toString(), Paras.create()
+		List<Map> permissions = Db.selectListByCache(ConstCache.SYS_CACHE, ConstCacheKey.PERMISSIONS + userId, sql.toString(), CMap.init()
 				.set("roleId", roleId).set("roleIn", Convert.toIntArray(roleIn)).set("roleOut", Convert.toIntArray(roleOut)));
 		
 		return permissions;
@@ -98,10 +97,10 @@ public class DefaultShiroFactory implements IShiro{
 
 	@SuppressWarnings("unchecked")
 	public String findRoleNameByRoleId(final Integer roleId) {
-		Map<String, Object> map = Db.selectOneByCache(ConstCache.ROLE_CACHE, 
+		Map<String, Object> map = Db.selectOneByCache(ConstCache.SYS_CACHE, 
 														ConstCacheKey.GET_ROLE_NAME_BY_ID + roleId, 
 														"select TIPS from BLADE_ROLE where id = #{id}", 
-														Paras.create().set("id", roleId));
+														CMap.init().set("id", roleId));
 		return Func.toStr(map.get("TIPS"));
 	}
 

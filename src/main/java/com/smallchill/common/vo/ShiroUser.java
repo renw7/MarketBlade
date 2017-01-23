@@ -22,11 +22,11 @@ import java.util.Map;
 import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.constant.ConstCacheKey;
-import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Paras;
-import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.core.toolbox.CMap;
+import com.smallchill.core.toolbox.cache.CacheKit;
+import com.smallchill.core.toolbox.cache.ILoader;
 import com.smallchill.core.toolbox.kit.CollectionKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.support.Convert;
@@ -63,19 +63,19 @@ public class ShiroUser implements Serializable {
 		String superDepts = null;
 		if (Func.isOracle()) {
 			superDeptSql = "select wm_concat(ID) subDepts from (select ID,PID,SIMPLENAME from blade_dept start with ID in (#{join(deptIds)}) connect by prior PID=ID order by ID) a where a.ID not in (#{join(deptIds)})";
-			superDepts = Db.queryStr(superDeptSql, Paras.create().set("deptIds", Convert.toIntArray(deptId.toString())));
+			superDepts = Db.queryStr(superDeptSql, CMap.init().set("deptIds", Convert.toIntArray(deptId.toString())));
 		} else if (Func.isMySql()){
 			String[] arr = deptId.toString().split(",");
 			StringBuilder sb = new StringBuilder();
 			for (String deptid : arr) {
 				superDeptSql = "select queryParent(#{deptid},'blade_dept') as superdepts";
-				String str = Db.queryStr(superDeptSql, Paras.create().set("deptid", deptid));
+				String str = Db.queryStr(superDeptSql, CMap.init().set("deptid", deptid));
 				sb.append(str).append(",");
 			}
 			superDepts = StrKit.removeSuffix(sb.toString(), ",");
 		} else if (Func.isPostgresql()){
 			superDeptSql = "select id from (with RECURSIVE cte as (select a.id,a.simplename,a.pid from blade_dept as a where id in (#{join(deptIds)}) union all  select k.id,k.simplename,k.pid  from blade_dept as k inner join cte as c on c.pid = k.id )select id,pid,simplename from cte) a where id not in (#{join(deptIds)})";
-			List<Map> list = Db.selectList(superDeptSql, Paras.create().set("deptIds", Convert.toIntArray(deptId.toString())));
+			List<Map> list = Db.selectList(superDeptSql, CMap.init().set("deptIds", Convert.toIntArray(deptId.toString())));
 			StringBuilder sb = new StringBuilder();
 			for (Map m : list) {
 				sb.append(m.get("id")).append(",");
@@ -89,19 +89,19 @@ public class ShiroUser implements Serializable {
 		String subDepts = null;
 		if (Func.isOracle()) {
 			subDeptSql = "select wm_concat(ID) subDepts from (select ID,PID,SIMPLENAME from blade_dept start with ID in (#{join(deptIds)}) connect by prior ID=PID order by ID) a where a.ID not in (#{join(deptIds)})";
-			subDepts = Db.queryStr(subDeptSql, Paras.create().set("deptIds", Convert.toIntArray(deptId.toString())));
+			subDepts = Db.queryStr(subDeptSql, CMap.init().set("deptIds", Convert.toIntArray(deptId.toString())));
 		} else if (Func.isMySql()){
 			String[] arr = deptId.toString().split(",");
 			StringBuilder sb = new StringBuilder();
 			for (String deptid : arr) {
 				subDeptSql = "select queryChildren(#{deptid},'blade_dept') as subdepts";
-				String str = Db.queryStr(subDeptSql, Paras.create().set("deptid", deptid));
+				String str = Db.queryStr(subDeptSql, CMap.init().set("deptid", deptid));
 				sb.append(str).append(",");
 			}
 			subDepts = StrKit.removeSuffix(sb.toString(), ",");
 		} else if (Func.isPostgresql()){
 			subDeptSql = "select id from (with RECURSIVE cte as (select a.id,a.simplename,a.pid from blade_dept as a where id in (#{join(deptIds)}) union all  select k.id,k.simplename,k.pid  from blade_dept as k inner join cte as c on c.id = k.pid )select id,pid,simplename from cte) a where id not in (#{join(deptIds)})";
-			List<Map> list = Db.selectList(subDeptSql, Paras.create().set("deptIds", Convert.toIntArray(deptId.toString())));
+			List<Map> list = Db.selectList(subDeptSql, CMap.init().set("deptIds", Convert.toIntArray(deptId.toString())));
 			StringBuilder sb = new StringBuilder();
 			for (Map m : list) {
 				sb.append(m.get("id")).append(",");
@@ -115,18 +115,18 @@ public class ShiroUser implements Serializable {
 		String subRoles = null;
 		if (Func.isOracle()) {
 			roleSql = "select wm_concat(ID) subRoles from (select ID,PID,NAME from blade_role start with ID in (#{join(roleIds)}) connect by prior ID=PID order by ID) a where a.ID not in (#{join(roleIds)})";
-			subRoles = Db.queryStr(roleSql, Paras.create().set("roleIds", roleList));
+			subRoles = Db.queryStr(roleSql, CMap.init().set("roleIds", roleList));
 		} else if (Func.isMySql()){
 			StringBuilder sb = new StringBuilder();
 			for (Integer roleid : roleList) {
 				roleSql = "SELECT queryChildren(#{deptid},'blade_role') as subroles";
-				String str = Db.queryStr(roleSql, Paras.create().set("deptid", roleid));
+				String str = Db.queryStr(roleSql, CMap.init().set("deptid", roleid));
 				sb.append(str).append(",");
 			}
 			subRoles = StrKit.removeSuffix(sb.toString(), ",");
 		} else if (Func.isPostgresql()){
 			roleSql = "select id from (with RECURSIVE cte as (select a.id,a.name,a.pid from blade_role as a where id in (#{join(roleIds)}) union all  select k.id,k.name,k.pid  from blade_role as k inner join cte as c on c.id = k.pid )select id,pid,name from cte) a where id not in (#{join(roleIds)})";
-			List<Map> list = Db.selectList(roleSql, Paras.create().set("roleIds", roleList));
+			List<Map> list = Db.selectList(roleSql, CMap.init().set("roleIds", roleList));
 			StringBuilder sb = new StringBuilder();
 			for (Map m : list) {
 				sb.append(m.get("id")).append(",");
@@ -136,7 +136,7 @@ public class ShiroUser implements Serializable {
 		this.subRoles = subRoles;
 		
 		// 查找子角色对应账号id集合
-		List<Map<String, Object>> listUser = CacheKit.get(ConstCache.USER_CACHE, ConstCacheKey.USER_ALL_LIST, new ILoader() {
+		List<Map<String, Object>> listUser = CacheKit.get(ConstCache.SYS_CACHE, ConstCacheKey.USER_ALL_LIST, new ILoader() {
 			@Override
 			public Object load() {
 				return Db.selectList("SELECT * FROM blade_user where status = 1 and name is not null");

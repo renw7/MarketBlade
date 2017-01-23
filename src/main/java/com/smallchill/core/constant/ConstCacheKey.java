@@ -107,4 +107,6 @@ public interface ConstCacheKey {
 	
 	String DIY_SELECT = "diy_select_";
 	
+	String GET_COMBOTREE = "get_combotree_";
+	
 }

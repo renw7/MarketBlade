@@ -24,8 +24,6 @@ import org.beetl.sql.core.SQLManager;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPool;
 
-import com.smallchill.core.interfaces.IConfig;
-
 /**
  * blade配置
  */

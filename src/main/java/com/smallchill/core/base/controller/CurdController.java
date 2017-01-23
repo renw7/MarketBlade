@@ -28,13 +28,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.core.aop.AopContext;
-import com.smallchill.core.interfaces.IMeta;
+import com.smallchill.core.meta.IMeta;
 import com.smallchill.core.meta.MetaIntercept;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.plugins.dao.Md;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.ClassKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
@@ -122,44 +122,44 @@ public abstract class CurdController<M> extends BaseController {
 	@RequestMapping(KEY_EDIT + "/{id}")
 	public ModelAndView edit(@PathVariable Integer id) {
 		ModelAndView view = new ModelAndView(renderMap.get(KEY_EDIT));
-		Paras rd = Paras.create();
+		CMap cmap = CMap.init();
 		if (StrKit.isBlank(sourceMap.get(KEY_EDIT))) {
 			M model = Blade.create(modelClass).findById(id);
-			rd.parseBean(model);
+			cmap.parseBean(model);
 		} else {
 			Map<String, Object> map = new HashMap<>();
 			map.put("id", id);
 			Map<String, Object> model = this.find(sourceMap.get(KEY_EDIT), map);
-			rd.parseMap(model);
+			cmap.parseMap(model);
 		}
 		if (null != intercept) {
-			AopContext ac = new AopContext(ctrl, rd, view);
+			AopContext ac = new AopContext(ctrl, cmap, view);
 			intercept.renderEditBefore(ac);
 		}
 		view.addObject("code", controllerKey);
-		view.addObject("model", JsonKit.toJson(rd));
+		view.addObject("model", JsonKit.toJson(cmap));
 		return view;
 	}
 
 	@RequestMapping(KEY_VIEW + "/{id}")
 	public ModelAndView view(@PathVariable Integer id) {
 		ModelAndView view = new ModelAndView(renderMap.get(KEY_VIEW));
-		Paras rd = Paras.create();
+		CMap cmap = CMap.init();
 		if (StrKit.isBlank(sourceMap.get(KEY_VIEW))) {
 			M model = Blade.create(modelClass).findById(id);
-			rd.parseBean(model);
+			cmap.parseBean(model);
 		} else {
 			Map<String, Object> map = new HashMap<>();
 			map.put("id", id);
 			Map<String, Object> model = this.find(sourceMap.get(KEY_VIEW), map);
-			rd.parseMap(model);
+			cmap.parseMap(model);
 		}
 		if (null != intercept) {
-			AopContext ac = new AopContext(ctrl, rd, view);
+			AopContext ac = new AopContext(ctrl, cmap, view);
 			intercept.renderViewBefore(ac);
 		}
 		view.addObject("code", controllerKey);
-		view.addObject("model", JsonKit.toJson(rd));
+		view.addObject("model", JsonKit.toJson(cmap));
 		return view;
 	}
 

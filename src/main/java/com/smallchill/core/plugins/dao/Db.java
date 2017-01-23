@@ -22,8 +22,8 @@ import org.beetl.sql.core.OnConnection;
 import org.beetl.sql.core.SQLReady;
 
 import com.smallchill.core.aop.AopContext;
-import com.smallchill.core.interfaces.IQuery;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.meta.IQuery;
+import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.grid.BladePage;
 
 /**
@@ -283,7 +283,7 @@ public class Db {
 	 * @param paras		参数
 	 * @return
 	 */
-	public static int save(String tableName, String pk, Paras paras) {
+	public static int save(String tableName, String pk, CMap paras) {
 		return getDbManager().save(tableName, pk, paras);
 	}
 	
@@ -294,7 +294,7 @@ public class Db {
 	 * @param paras		参数
 	 * @return
 	 */
-	public static int update(String tableName, String pk, Paras paras) {
+	public static int update(String tableName, String pk, CMap paras) {
 		return getDbManager().update(tableName, pk, paras);
 	}
 	

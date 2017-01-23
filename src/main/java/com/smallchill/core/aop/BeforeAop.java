@@ -27,7 +27,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 import com.smallchill.core.annotation.Before;
-import com.smallchill.core.interfaces.Interceptor;
+import com.smallchill.core.intercept.Interceptor;
 import com.smallchill.core.toolbox.kit.HttpKit;
 
 /**

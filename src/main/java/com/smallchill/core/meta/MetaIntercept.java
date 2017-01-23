@@ -17,9 +17,6 @@ package com.smallchill.core.meta;
 
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.ConstCurd;
-import com.smallchill.core.interfaces.ICURD;
-import com.smallchill.core.interfaces.IQuery;
-import com.smallchill.core.interfaces.IRender;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 
 /**

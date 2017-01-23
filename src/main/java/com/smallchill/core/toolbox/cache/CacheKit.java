@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.smallchill.core.toolbox.kit;
+package com.smallchill.core.toolbox.cache;
 
 import java.util.List;
 
 import com.smallchill.core.constant.Cst;
-import com.smallchill.core.interfaces.ICache;
-import com.smallchill.core.interfaces.ILoader;
+import com.smallchill.core.toolbox.cache.ICache;
+import com.smallchill.core.toolbox.cache.ILoader;
 
 /**
  * 缓存工具类

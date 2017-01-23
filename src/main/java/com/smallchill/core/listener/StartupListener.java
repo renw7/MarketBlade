@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 
 import com.smallchill.core.config.BladeConfig;
 import com.smallchill.core.constant.Cst;
-import com.smallchill.core.interfaces.IPluginFactroy;
+import com.smallchill.core.plugins.IPluginHolder;
 import com.smallchill.core.plugins.PluginFactory;
 import com.smallchill.core.plugins.PluginManager;
 import com.smallchill.core.plugins.connection.RedisPlugin;
@@ -54,7 +54,7 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
 	 * 插件的启用
 	 */
 	private void registerPlugins() {
-		IPluginFactroy plugins = PluginFactory.init();
+		IPluginHolder plugins = PluginFactory.init();
 		plugins.register(SQLManagerPlugin.init());
 		plugins.register(RedisPlugin.init());
 		BladeConfig.getConf().registerPlugins(plugins);//自定义配置插件	

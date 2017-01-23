@@ -15,14 +15,17 @@
  */
 package com.smallchill.common.config;
 
+import java.math.BigDecimal;
+
 import com.smallchill.common.intercept.DefaultSelectFactory;
 import com.smallchill.common.plugins.GlobalPlugin;
+import com.smallchill.core.config.IConfig;
+import com.smallchill.core.constant.Const;
 import com.smallchill.core.constant.Cst;
-import com.smallchill.core.interfaces.ICache;
-import com.smallchill.core.interfaces.IConfig;
-import com.smallchill.core.interfaces.IPluginFactroy;
+import com.smallchill.core.plugins.IPluginHolder;
 import com.smallchill.core.shiro.DefaultShiroFactory;
 import com.smallchill.core.toolbox.cache.EhcacheFactory;
+import com.smallchill.core.toolbox.cache.ICache;
 import com.smallchill.core.toolbox.file.DefaultFileProxyFactory;
 import com.smallchill.core.toolbox.grid.JqGridFactory;
 import com.smallchill.core.toolbox.kit.DateKit;
@@ -35,7 +38,7 @@ public class WebConfig implements IConfig {
 	 * 全局参数设置
 	 */
 	public void globalConstants(Cst me) {
-		Prop prop = PropKit.use("config/config.properties");
+		Prop prop = PropKit.use(Const.PROPERTY_FILE);
 		
 		//设定开发模式
 		me.setDevMode(prop.getBoolean("config.devMode", false));
@@ -51,6 +54,15 @@ public class WebConfig implements IConfig {
 		
 		//设定文件下载头文件夹
 		me.setDownloadPath(prop.get("config.downloadPath", "/download"));
+		
+		//设定上传图片是否压缩
+		me.setCompress(prop.getBoolean("config.compress", false));
+		
+		//设定上传图片压缩比例
+		me.setCompressScale(prop.getBigDecimal("config.compressScale", new BigDecimal(2)));
+		
+		//设定上传图片缩放选择:true放大;false缩小
+		me.setCompressFlag(prop.getBoolean("config.compressFlag", false));
 
 		//设定grid工厂类
 		me.setDefaultGridFactory(new JqGridFactory());
@@ -71,7 +83,7 @@ public class WebConfig implements IConfig {
 	/** 
 	 * 自定义插件注册
 	 */
-	public void registerPlugins(IPluginFactroy plugins) {
+	public void registerPlugins(IPluginHolder plugins) {
 		plugins.register(new GlobalPlugin());
 		
 		

@@ -18,7 +18,7 @@ public class JunitTest extends BaseTest{
 	@Test
 	public void test2() {
 		System.out.println(AESKit.encrypt("com.mysql.jdbc.Driver"));
-		System.out.println(AESKit.encrypt("jdbc:mysql://localhost:3306/blade?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true"));
+		System.out.println(AESKit.encrypt("jdbc:mysql://localhost:3306/blade?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true"));
 		System.out.println(AESKit.encrypt("root"));
 		System.out.println(AESKit.encrypt("root"));
 		System.out.println(ShiroKit.md5("admin", "admin"));

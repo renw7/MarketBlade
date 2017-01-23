@@ -39,7 +39,6 @@ import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
-import com.smallchill.core.toolbox.captcha.Captcha;
 import com.smallchill.core.toolbox.kit.LogKit;
 import com.smallchill.core.toolbox.log.BladeLogManager;
 import com.smallchill.system.meta.intercept.LoginValidator;
@@ -74,7 +73,7 @@ public class LoginController extends BaseController implements Const{
 		String account = getParameter("account");
 		String password = getParameter("password");
 		String imgCode = getParameter("imgCode");
-		if (!Captcha.validate(request, response, imgCode)) {
+		if (!validateCaptcha(response, imgCode)) {
 			return error("验证码错误");
 		}
 		Subject currentUser = ShiroKit.getSubject();
@@ -121,7 +120,7 @@ public class LoginController extends BaseController implements Const{
 
 	@RequestMapping("/captcha")
 	public void captcha(HttpServletResponse response) {
-		Captcha.init(response).render();
+		makeCaptcha(response);
 	}
 
 	public void doLog(Session session, String type){

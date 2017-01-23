@@ -268,10 +268,10 @@ INSERT INTO "BLADE_MENU" VALUES ('48', 'attach_view', 'attach', '查看', 'btn b
 INSERT INTO "BLADE_MENU" VALUES ('49', 'attach_download', 'attach', '下载', 'btn btn-xs btn-white | fa fa-paperclip bigger-120', '/attach/download', '5', '3', null, null, null, '1', null, null, '0', 'download');
 INSERT INTO "BLADE_MENU" VALUES ('92', 'office', '0', '工作台', 'fa fa-desktop', null, '1', '1', null, null, null, '1', null, null, '1', null);
 INSERT INTO "BLADE_MENU" VALUES ('93', 'notice', 'office', '通知公告', 'fa fa-bell', '/notice/', '1', '2', null, 'notice.html', null, '1', '0', '1', '0', null);
-INSERT INTO "BLADE_MENU" VALUES ('94', 'notice_add', 'notice', '新增', 'btn btn-xs btn-white | fa fa-floppy-o bigger-120', '/notice/add', '1', '3', null, 'notice_add.html', '800*500', '1', '0', '0', '0', 'add');
-INSERT INTO "BLADE_MENU" VALUES ('95', 'notice_edit', 'notice', '修改', 'btn btn-xs btn-white | fa fa-pencil  bigger-120', '/notice/edit', '2', '3', null, 'notice_edit.html', '800*500', '1', '0', '0', '1', 'edit');
+INSERT INTO "BLADE_MENU" VALUES ('94', 'notice_add', 'notice', '新增', 'btn btn-xs btn-white | fa fa-floppy-o bigger-120', '/notice/add', '1', '3', null, 'notice_add.html', '800*450', '1', '0', '0', '0', 'add');
+INSERT INTO "BLADE_MENU" VALUES ('95', 'notice_edit', 'notice', '修改', 'btn btn-xs btn-white | fa fa-pencil  bigger-120', '/notice/edit', '2', '3', null, 'notice_edit.html', '800*450', '1', '0', '0', '1', 'edit');
 INSERT INTO "BLADE_MENU" VALUES ('96', 'notice_remove', 'notice', '删除', 'btn btn-xs btn-white | fa fa-times  bigger-120', '/notice/remove', '3', '3', null, null, null, '1', '0', '0', '0', 'remove');
-INSERT INTO "BLADE_MENU" VALUES ('97', 'notice_view', 'notice', '查看', 'btn btn-xs btn-white | fa fa-eye bigger-120', '/notice/view', '4', '3', null, null, '800*500', '1', '0', '0', '0', 'view');
+INSERT INTO "BLADE_MENU" VALUES ('97', 'notice_view', 'notice', '查看', 'btn btn-xs btn-white | fa fa-eye bigger-120', '/notice/view', '4', '3', null, null, '800*450', '1', '0', '0', '0', 'view');
 INSERT INTO "BLADE_MENU" VALUES ('23', 'user_roleAssign', 'user', '角色分配', 'btn btn-xs btn-white | fa fa-users bigger-120', '/user/roleAssign', '9', '3', null, 'user_roleAssign.html', '350*500', '1', null, null, '0', 'assign');
 INSERT INTO "BLADE_MENU" VALUES ('81', 'log', 'system', '日志管理', 'fa-tasks', null, '11', '2', null, null, null, '1', '0', '0', '1', null);
 INSERT INTO "BLADE_MENU" VALUES ('82', 'olog', 'log', '操作日志', 'fa-database', '/olog/', '1', '3', null, 'olog.html', null, '1', '0', '0', '0', null);

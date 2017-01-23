@@ -100,7 +100,7 @@ public class DefaultFileProxyFactory implements IFileProxy {
 	 */
 	public void compress(String path) {
 		try {
-			ImageKit.zoomScale(ImageKit.readImage(path), new FileOutputStream(new File(path)), null, 2, false);
+			ImageKit.zoomScale(ImageKit.readImage(path), new FileOutputStream(new File(path)), null, Cst.me().getCompressScale().doubleValue(), Cst.me().isCompressFlag());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

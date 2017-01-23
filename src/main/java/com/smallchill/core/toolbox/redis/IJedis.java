@@ -19,8 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.smallchill.core.interfaces.ICallBack;
-
 /**
  * Redis 单机、集群统一接口
  */

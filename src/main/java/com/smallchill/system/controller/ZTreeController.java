@@ -12,14 +12,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.smallchill.common.base.BaseController;
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.Cst;
-import com.smallchill.core.interfaces.ILoader;
-import com.smallchill.core.interfaces.IQuery;
+import com.smallchill.core.meta.IQuery;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.plugins.dao.Md;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
-import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.core.toolbox.cache.CacheKit;
+import com.smallchill.core.toolbox.cache.ILoader;
 import com.smallchill.core.toolbox.kit.ClassKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.core.toolbox.kit.StrKit;
@@ -50,7 +50,7 @@ public class ZTreeController extends BaseController {
 	public AjaxResult getTreeList(@RequestParam String type, @RequestParam String source, @RequestParam String where, @RequestParam String intercept, @RequestParam String ext, @RequestParam String val, @RequestParam String treeId) {	
 		final String sqlSource = getSql(type, source);
 		
-		Map<String, Object> params = Paras.createHashMap();
+		Map<String, Object> params = CMap.createHashMap();
 		if(!where.equals("0") && StrKit.notBlank(where)){
 			params = JsonKit.parse(where, Map.class);
 		}
@@ -91,14 +91,14 @@ public class ZTreeController extends BaseController {
 		
 		final String sqlSource = getSql(type, source);
 		
-		Map<String, Object> params = Paras.createHashMap();
+		Map<String, Object> params = CMap.createHashMap();
 		if(StrKit.notBlank(where)){
 			params = JsonKit.parse(where, Map.class);
 		}
 		
 		final Map<String, Object> modelOrMap = params;
 		
-		List<Map<String, Object>> list = CacheKit.get(getCacheName(type), DICT_ZTREE_LIST + type,
+		List<Map<String, Object>> list = CacheKit.get(SYS_CACHE, DICT_ZTREE_LIST + type,
 				new ILoader() {
 					public Object load() {
 						return Db.selectList(sqlSource, modelOrMap);
@@ -153,20 +153,6 @@ public class ZTreeController extends BaseController {
 			sql = Md.getSql(source);
 		}
 		return sql;
-	}
-	
-	private String getCacheName(String type){
-		String cacheName = DICT_CACHE;
-		if (type.equals("user")) {
-			cacheName = USER_CACHE;
-		} else if (type.equals("dept")) {
-			cacheName = DEPT_CACHE;
-		} else if (type.equals("role")) {
-			cacheName = ROLE_CACHE;
-		} else {
-			cacheName = DIY_CACHE;
-		}
-		return cacheName;
 	}
 	
 	private IQuery getIntercept(String type) {

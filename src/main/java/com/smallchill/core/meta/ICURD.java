@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.smallchill.core.interfaces;
+package com.smallchill.core.meta;
 
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.toolbox.ajax.AjaxResult;

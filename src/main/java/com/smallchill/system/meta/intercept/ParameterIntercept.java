@@ -28,10 +28,10 @@ import com.smallchill.core.constant.ConstShiro;
 import com.smallchill.core.meta.MetaIntercept;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.shiro.ShiroKit;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
+import com.smallchill.core.toolbox.cache.CacheKit;
 import com.smallchill.core.toolbox.grid.BladePage;
-import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.system.model.Parameter;
 
 public class ParameterIntercept extends MetaIntercept {
@@ -70,7 +70,7 @@ public class ParameterIntercept extends MetaIntercept {
 	public void saveBefore(AopContext ac) {
 		BladeController ctrl = ac.getCtrl();
 		String code = ctrl.getParameter("blade_parameter.code");
-		int cnt = Blade.create(Parameter.class).count("code = #{code}", Paras.create().set("code", code));
+		int cnt = Blade.create(Parameter.class).count("code = #{code}", CMap.init().set("code", code));
 		if(cnt > 0){
 			throw new RuntimeException("参数编号已存在!");
 		}

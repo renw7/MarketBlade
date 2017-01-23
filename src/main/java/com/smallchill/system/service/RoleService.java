@@ -23,7 +23,7 @@ public interface RoleService extends IService<Role> {
 	int findLastNum(Integer id);
 
 	@DoLog(name = "设置权限")
-	boolean grant(String ids, String roleId);
+	boolean grant(String ids, Integer roleId);
 
 	int getParentCnt(Integer id);
 }

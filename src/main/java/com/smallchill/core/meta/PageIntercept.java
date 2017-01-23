@@ -16,7 +16,6 @@
 package com.smallchill.core.meta;
 
 import com.smallchill.core.aop.AopContext;
-import com.smallchill.core.interfaces.IQuery;
 
 public class PageIntercept extends MetaTool implements IQuery{
 

@@ -16,7 +16,6 @@
 package com.smallchill.core.shiro;
 
 import com.smallchill.core.constant.Cst;
-import com.smallchill.core.interfaces.IShiro;
 
 public class ShiroManager {
 	private static ShiroManager me = new ShiroManager();

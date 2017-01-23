@@ -13,40 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.smallchill.core.interfaces;
+package com.smallchill.core.config;
 
-import com.smallchill.core.aop.AopContext;
+import com.smallchill.core.constant.Cst;
+import com.smallchill.core.plugins.IPluginHolder;
 
 /**
- * 页面跳转aop
+ *  Blade配置型接口
  */
-public interface IRender {
-
-	/**
-	 * 列表转向前操作
-	 * 
-	 * @param ac
-	 */
-	public void renderIndexBefore(AopContext ac);
-
-	/**
-	 * 新增转向前操作
-	 * 
-	 * @param ac
-	 */
-	public void renderAddBefore(AopContext ac);
-
-	/**
-	 * 修改转向前操作
-	 * 
-	 * @param ac
-	 */
-	public void renderEditBefore(AopContext ac);
-
-	/**
-	 * 查看转向前操作
-	 * 
-	 * @param ac
-	 */
-	public void renderViewBefore(AopContext ac);
+public interface IConfig {
+	
+	/**   
+	 * 插件注册
+	 * @param plugins 插件集合
+	*/
+	void registerPlugins(IPluginHolder plugins);	
+	
+	/**   
+	 * 全局变量设置
+	*/
+	void globalConstants(Cst me);
+	
+	/**   
+	 * 全局设置
+	*/
+	void globalSettings();
+	
+	/**   
+	 * 程序启动之后执行
+	*/
+	void afterBladeStart();
+	
+	/**   
+	 * 程序关闭之后执行
+	*/
+	void afterBladeStop();
+	
 }

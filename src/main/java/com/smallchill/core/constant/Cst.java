@@ -15,25 +15,26 @@
  */
 package com.smallchill.core.constant;
 
+import java.math.BigDecimal;
+
 import com.smallchill.core.intercept.CURDInterceptor;
 import com.smallchill.core.intercept.QueryInterceptor;
 import com.smallchill.core.intercept.SelectInterceptor;
-import com.smallchill.core.interfaces.ICURD;
-import com.smallchill.core.interfaces.ICache;
-import com.smallchill.core.interfaces.ICheck;
-import com.smallchill.core.interfaces.IGrid;
-import com.smallchill.core.interfaces.ILog;
-import com.smallchill.core.interfaces.IQuery;
-import com.smallchill.core.interfaces.ISelect;
-import com.smallchill.core.interfaces.IShiro;
-import com.smallchill.core.listener.ConfigListener;
+import com.smallchill.core.meta.ICURD;
+import com.smallchill.core.meta.IQuery;
+import com.smallchill.core.meta.ISelect;
 import com.smallchill.core.shiro.DefaultShiroFactory;
+import com.smallchill.core.shiro.IShiro;
 import com.smallchill.core.toolbox.cache.EhcacheFactory;
+import com.smallchill.core.toolbox.cache.ICache;
+import com.smallchill.core.toolbox.check.ICheck;
 import com.smallchill.core.toolbox.check.PermissionCheckFactory;
 import com.smallchill.core.toolbox.file.DefaultFileProxyFactory;
 import com.smallchill.core.toolbox.file.IFileProxy;
+import com.smallchill.core.toolbox.grid.IGrid;
 import com.smallchill.core.toolbox.grid.JqGridFactory;
 import com.smallchill.core.toolbox.log.BladeLogFactory;
+import com.smallchill.core.toolbox.log.ILog;
 
 /**
  * Blade系统配置类
@@ -69,16 +70,31 @@ public class Cst {
 	 * 下载路径
 	 */
 	private String downloadPath = "/download";
+	
+	/**
+	 * 图片压缩
+	 */
+	private boolean compress = false;
+	
+	/**
+	 * 图片压缩比例
+	 */
+	private BigDecimal compressScale = new BigDecimal(2);
+	
+	/**
+	 * 图片缩放选择:true放大;false缩小
+	 */
+	private boolean compressFlag = false;
 
 	/**
 	 * 项目物理路径
 	 */
-	private String realPath = ConfigListener.getConf().get("realPath");
+	private String realPath = ConstConfig.REAL_PATH;
 
 	/**
 	 * 项目相对路径
 	 */
-	private String contextPath = ConfigListener.getConf().get("contextPath");
+	private String contextPath = ConstConfig.CONTEXT_PATH;
 
 	/**
 	 * 密码允许错误次数
@@ -192,6 +208,30 @@ public class Cst {
 
 	public String getDownloadPath() {
 		return downloadPath;
+	}
+
+	public boolean isCompress() {
+		return compress;
+	}
+
+	public void setCompress(boolean compress) {
+		this.compress = compress;
+	}
+
+	public BigDecimal getCompressScale() {
+		return compressScale;
+	}
+
+	public void setCompressScale(BigDecimal compressScale) {
+		this.compressScale = compressScale;
+	}
+
+	public boolean isCompressFlag() {
+		return compressFlag;
+	}
+
+	public void setCompressFlag(boolean compressFlag) {
+		this.compressFlag = compressFlag;
 	}
 
 	public void setDownloadPath(String downloadPath) {

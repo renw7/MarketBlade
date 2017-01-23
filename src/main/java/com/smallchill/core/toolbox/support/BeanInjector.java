@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.smallchill.core.constant.Const;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.kit.BeanKit;
 import com.smallchill.core.toolbox.kit.CollectionKit;
 import com.smallchill.core.toolbox.kit.StrKit;
@@ -26,28 +26,28 @@ public class BeanInjector {
 		}
 	}
 
-	public static final <T> T inject(Class<T> beanClass, String paraPrefix, HttpServletRequest request) {
+	public static final <T> T inject(Class<T> beanClass, String prefix, HttpServletRequest request) {
 		try {
-			Map<String, Object> map = injectPara(paraPrefix, request);
+			Map<String, Object> map = injectPara(prefix, request);
 			return BeanKit.mapToBeanIgnoreCase(map, beanClass);
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
 	
-	public static final Paras injectMaps(HttpServletRequest request) {
-		return Paras.parse(getParameterMap(request));
+	public static final CMap injectMaps(HttpServletRequest request) {
+		return CMap.parse(getParameterMap(request));
 	}
 
-	public static final Paras injectMaps(String paraPrefix, HttpServletRequest request) {
-		Map<String, Object> map = injectPara(paraPrefix, request);
-		return Paras.parse(map);
+	public static final CMap injectMaps(String prefix, HttpServletRequest request) {
+		Map<String, Object> map = injectPara(prefix, request);
+		return CMap.parse(map);
 	}
 
-	private static final Map<String, Object> injectPara(String paraPrefix, HttpServletRequest request) {
+	private static final Map<String, Object> injectPara(String prefix, HttpServletRequest request) {
 		Map<String, String[]> paramMap = request.getParameterMap();
 		Map<String, Object> map = new HashMap<>();
-		String start = paraPrefix.toLowerCase() + ".";
+		String start = prefix.toLowerCase() + ".";
 		String[] value = null;
 		for (Entry<String, String[]> param : paramMap.entrySet()) {
 			if (!param.getKey().toLowerCase().startsWith(start)) {

@@ -113,6 +113,9 @@
 				@			else if(func.like(x.type, "opentree")) {
 								<blade:opentree x="${x}" />
 				@			}
+				@			else if(func.like(x.type,"combotree")) {
+								<blade:combotree  id="_${x.index!}" name="${table!x.table}.${x.index!}" value="${x.value!}" type="${x.type!}" source="${x.source!}" check="${x.check!}" treeId="${x.treeId!}" intercept="${x.intercept!}" where="${x.where!}" ext="${x.ext!}" width="${x.width!}" height="${x.height!}" token="${token}" readonly="${x.readonly!}" required="${x.required!}" placeholder="${x.placeholder!'输入后请按回车搜索'}" autoInit="false"/>
+				@			}
 				@			else if(x.type == "span") {
 								<span id="_${x.index!}" class="form-control" style="border:0px;">${x.value!}</span>
 				@			}
@@ -172,6 +175,12 @@
 						var ids = _model[x];
 						$x.val(ids);
 						initOpenTree(ids);
+					}
+					else if(_model[x] != null && $x.attr("data-type") == "combotree"){
+						var ids = _model[x];
+						$x.val(ids);
+						eval("initComboTree_" + x + "_ipt('" + ids + "')"); 
+						eval("initComboTreeName_" + x + "_ipt('" + ids + "')"); 
 					}
 					else if(_model[x] != null && $("#_" + x + "_chb").attr("type") == "checkbox"){
 						if(_model[x] == "1"){

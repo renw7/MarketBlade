@@ -84,7 +84,7 @@ public class BladeFile {
 	 * 图片上传
 	*/
 	public void transfer() {
-		transfer(true);
+		transfer(Cst.me().isCompress());
 	}
 
 	/**   

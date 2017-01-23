@@ -1,7 +1,5 @@
 package com.smallchill.modules.platform.controller;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,8 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.common.tool.SysCache;
-import com.smallchill.core.plugins.dao.Md;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.modules.platform.model.Notice;
@@ -23,7 +20,6 @@ import com.smallchill.modules.platform.service.NoticeService;
 public class NoticeController extends BaseController {
 	private static String CODE = "notice";
 	private static String PREFIX = "blade_notice";
-	private static String DATA_SOURCE = "notice.data";
 	private static String LIST_SOURCE = "notice.list";
 	private static String BASE_PATH = "/modules/platform/notice/";
 	
@@ -42,11 +38,10 @@ public class NoticeController extends BaseController {
 		return BASE_PATH + "notice_add.html";
 	}
 
-	@SuppressWarnings("rawtypes")
 	@RequestMapping(KEY_EDIT + "/{id}")
 	public String edit(@PathVariable Integer id, ModelMap mm) {
-		Map map = Md.selectOne(DATA_SOURCE, Paras.create().set("id", id), Map.class);
-		mm.put("model", JsonKit.toJson(map));
+		Notice notice = service.findById(id);
+		mm.put("model", JsonKit.toJson(notice));
 		mm.put("id", id);
 		mm.put("code", CODE);
 		return BASE_PATH + "notice_edit.html";
@@ -56,11 +51,11 @@ public class NoticeController extends BaseController {
 	public String view(@PathVariable Integer id, ModelMap mm) {
 		Notice notice = service.findById(id);
 		//将javabean转化为map
-		Paras ps = Paras.parse(notice);
+		CMap cmap = CMap.parse(notice);
 		//使用SysCache.getDictName方法从缓存中获取对应字典项的中文值
-		ps.set("typename", SysCache.getDictName(102, notice.getType()));
+		cmap.set("typename", SysCache.getDictName(102, notice.getType()));
 		//将结果传回前台
-		mm.put("model", JsonKit.toJson(ps));
+		mm.put("model", JsonKit.toJson(cmap));
 		mm.put("id", id);
 		mm.put("code", CODE);
 		return BASE_PATH + "notice_view.html";

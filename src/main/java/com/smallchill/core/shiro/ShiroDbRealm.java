@@ -36,7 +36,6 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
 import com.smallchill.common.vo.ShiroUser;
-import com.smallchill.core.interfaces.IShiro;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.system.model.User;
 

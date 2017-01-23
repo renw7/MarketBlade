@@ -16,7 +16,7 @@
 package com.smallchill.core.intercept;
 
 import com.smallchill.core.aop.AopContext;
-import com.smallchill.core.interfaces.ICURD;
+import com.smallchill.core.meta.ICURD;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 
 /**

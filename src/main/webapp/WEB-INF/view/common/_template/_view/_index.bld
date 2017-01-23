@@ -61,7 +61,7 @@ ${"@"}layout("/common/_container.html"){
 			@ }
 							
 			${"@"}];
-			${"@"} include("/common/_function/_search.html",{"col":_col}){}
+			${"@"} include("/common/_function/_search_multi.html",{"col":_col}){}
 			<!-- 按钮 -->
 			<div class="welljq well-sm" id="btns"></div>
 			<!-- grid -->

@@ -158,8 +158,7 @@ public class Func {
 	/**
 	 * 对象是否为空
 	 * 
-	 * @param obj
-	 *            String,List,Map,Object[],int[],long[]
+	 * @param obj String,List,Map,Object[],int[],long[]
 	 * @return
 	 */
 	@SuppressWarnings("rawtypes")

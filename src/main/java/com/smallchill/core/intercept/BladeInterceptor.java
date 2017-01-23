@@ -15,7 +15,6 @@
  */
 package com.smallchill.core.intercept;
 
-import com.smallchill.core.interfaces.Interceptor;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 
 public abstract class BladeInterceptor implements Interceptor{

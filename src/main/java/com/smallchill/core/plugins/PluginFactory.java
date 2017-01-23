@@ -18,10 +18,7 @@ package com.smallchill.core.plugins;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.smallchill.core.interfaces.IPlugin;
-import com.smallchill.core.interfaces.IPluginFactroy;
-
-public class PluginFactory implements IPluginFactroy{
+public class PluginFactory implements IPluginHolder {
 	private static List<IPlugin> plugins = new ArrayList<>();
 	
 	private static PluginFactory me = new PluginFactory();

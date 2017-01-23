@@ -25,13 +25,13 @@ import org.beetl.sql.core.SQLReady;
 
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.Cst;
-import com.smallchill.core.interfaces.ILoader;
-import com.smallchill.core.interfaces.IQuery;
+import com.smallchill.core.meta.IQuery;
 import com.smallchill.core.plugins.connection.SQLManagerPlugin;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
+import com.smallchill.core.toolbox.cache.CacheKit;
+import com.smallchill.core.toolbox.cache.ILoader;
 import com.smallchill.core.toolbox.grid.BladePage;
-import com.smallchill.core.toolbox.kit.CacheKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.support.Convert;
 
@@ -140,7 +140,7 @@ public class DbManager {
 	 * @return
 	 */
 	public Map selectOne(String sqlTemplate){
-		return queryMap(sqlTemplate, Paras.create());
+		return queryMap(sqlTemplate, CMap.init());
 	}
 	
 	/**
@@ -174,7 +174,7 @@ public class DbManager {
 	 * @return
 	 */
 	public List<Map> selectList(String sqlTemplate){	
-		return queryListMap(sqlTemplate, Paras.create());
+		return queryListMap(sqlTemplate, CMap.init());
 	}
 	
 	/**
@@ -216,7 +216,7 @@ public class DbManager {
 	 * @return
 	 */
 	public Map findById(String tableName, String pkValue) {
-		return selectOneBy(tableName, "id = #{id}", Paras.create().set("id", pkValue));
+		return selectOneBy(tableName, "id = #{id}", CMap.init().set("id", pkValue));
 	}
 	
 	/**
@@ -227,7 +227,7 @@ public class DbManager {
 	 * @return
 	 */
 	public Map findById(String tableName, String pk, String pkValue) {
-		return selectOneBy(tableName, pk + " = #{id}", Paras.create().set("id", pkValue));
+		return selectOneBy(tableName, pk + " = #{id}", CMap.init().set("id", pkValue));
 	}
 	
 	/**
@@ -405,7 +405,7 @@ public class DbManager {
 	 * @param paras		参数
 	 * @return
 	 */
-	public int save(String tableName, String pk, Paras paras) {
+	public int save(String tableName, String pk, CMap paras) {
 		if(Func.isOneEmpty(tableName, pk)){
 			throw new RuntimeException("表名或主键不能为空!");
 		}
@@ -445,7 +445,7 @@ public class DbManager {
 	 * @param paras		参数
 	 * @return
 	 */
-	public int update(String tableName, String pk, Paras paras) {
+	public int update(String tableName, String pk, CMap paras) {
 		if(Func.isOneEmpty(tableName, pk)){
 			throw new RuntimeException("表名或主键不能为空!");
 		}
@@ -470,7 +470,7 @@ public class DbManager {
 	 */
 	public int deleteByIds(String table, String col, String ids) {
 		String sqlTemplate = "DELETE FROM " + table + " WHERE " + col + " IN (#{join(ids)})";
-		Paras paras = Paras.create().set("ids", Convert.toIntArray(ids));
+		CMap paras = CMap.init().set("ids", Convert.toIntArray(ids));
 		int result = getSqlManager().executeUpdate(sqlTemplate, paras);
 		return result;
 	}
@@ -484,7 +484,7 @@ public class DbManager {
 	 */
 	public int deleteByStrIds(String table, String col, String ids) {
 		String sqlTemplate = "DELETE FROM " + table + " WHERE " + col + " IN (#{join(ids)})";
-		Paras paras = Paras.create().set("ids", ids.split(","));
+		CMap paras = CMap.init().set("ids", ids.split(","));
 		int result = getSqlManager().executeUpdate(sqlTemplate, paras);
 		return result;
 	}

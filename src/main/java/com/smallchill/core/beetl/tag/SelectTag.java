@@ -25,14 +25,14 @@ import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.constant.ConstCacheKey;
 import com.smallchill.core.constant.Cst;
-import com.smallchill.core.interfaces.ILoader;
-import com.smallchill.core.interfaces.IQuery;
+import com.smallchill.core.meta.IQuery;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.plugins.dao.Md;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Paras;
-import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.core.toolbox.CMap;
+import com.smallchill.core.toolbox.cache.CacheKit;
+import com.smallchill.core.toolbox.cache.ILoader;
 import com.smallchill.core.toolbox.kit.ClassKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.core.toolbox.kit.StrKit;
@@ -56,29 +56,29 @@ public class SelectTag extends Tag {
 			String inter = param.get("intercept");
 			String sql = "";
 			
-			Map<String, Object> modelOrMap = Paras.createHashMap();
+			Map<String, Object> modelOrMap = CMap.createHashMap();
 			
 			IQuery intercept = Cst.me().getDefaultQueryFactory();
 			
-			String CACHE_NAME = ConstCache.DICT_CACHE;
+			String CACHE_NAME = ConstCache.SYS_CACHE;
 			
 			if (type.equals("dict")) {
 				sql = "select num as ID,pId as PID,name as TEXT from  BLADE_DICT where code='" + code + "' and num > 0 order by num asc";
 				intercept = Cst.me().getDefaultSelectFactory().dictIntercept();
 			} else if (type.equals("user")) {
-				CACHE_NAME = ConstCache.USER_CACHE;
+				CACHE_NAME = ConstCache.SYS_CACHE;
 				sql = "select ID,name as TEXT from  BLADE_USER where status=1";
 				intercept = Cst.me().getDefaultSelectFactory().userIntercept();
 			} else if (type.equals("dept")) {
-				CACHE_NAME = ConstCache.DEPT_CACHE;
+				CACHE_NAME = ConstCache.SYS_CACHE;
 				sql = "select ID,PID,SIMPLENAME as TEXT from  BLADE_DEPT";
 				intercept = Cst.me().getDefaultSelectFactory().deptIntercept();
 			} else if (type.equals("role")) {
-				CACHE_NAME = ConstCache.ROLE_CACHE;
+				CACHE_NAME = ConstCache.SYS_CACHE;
 				sql = "select ID,name as TEXT from  BLADE_ROLE";
 				intercept = Cst.me().getDefaultSelectFactory().roleIntercept();
 			} else if (type.equals("diy")) {
-				CACHE_NAME = ConstCache.DIY_CACHE;
+				CACHE_NAME = ConstCache.SYS_CACHE;
 				type = type + "_" + param.get("source");
 				if(StrKit.notBlank(where)){
 					modelOrMap = JsonKit.parse(where, Map.class);

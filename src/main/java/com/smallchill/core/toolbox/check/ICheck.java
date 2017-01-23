@@ -13,27 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.smallchill.core.interfaces;
+package com.smallchill.core.toolbox.check;
 
-import com.smallchill.core.aop.AopContext;
 
 /**
- * 分页aop
+ *  检查用接口
  */
-public interface IQuery {
-
-	/**
-	 * 查询前操作
-	 * 
-	 * @param ac
-	 */
-	void queryBefore(AopContext ac);
-
-	/**
-	 * 查询后操作
-	 * 
-	 * @param ac
-	 */
-	void queryAfter(AopContext ac);
+public interface ICheck {
 	
+	/**   
+	 * 检查指定角色
+	 * @param permissions
+	 * @return boolean
+	*/
+	boolean check(Object[] permissions);
+	
+	/**   
+	 * 检查全体角色
+	 * @return boolean
+	*/
+	boolean checkAll();
 }

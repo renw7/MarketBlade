@@ -15,8 +15,6 @@
  */
 package com.smallchill.core.toolbox.cache;
 
-import com.smallchill.core.interfaces.ICache;
-import com.smallchill.core.interfaces.ILoader;
 
 /**
  * 缓存工厂基类

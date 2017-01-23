@@ -46,7 +46,7 @@
 				</property>
 			</bean>
 		</property>
-		<property name="configLocation" value="classpath:/config/beetlsql.properties"></property>
+		<property name="configLocation" value="classpath:/beetlsql.properties"></property>
 	</bean>
 
 	<!-- blade框架自定义config -->

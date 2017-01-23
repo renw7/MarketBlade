@@ -25,11 +25,11 @@ import org.beetl.core.Tag;
 import com.smallchill.common.vo.TreeNode;
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.constant.ConstCacheKey;
-import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.plugins.dao.Md;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.core.toolbox.cache.CacheKit;
+import com.smallchill.core.toolbox.cache.ILoader;
 
 public class DropDownTag extends Tag {
 	
@@ -39,12 +39,12 @@ public class DropDownTag extends Tag {
 		try {
 			Map<String, String> param = (Map<String, String>) args[1];
 			List<TreeNode> nodeList = new ArrayList<TreeNode>();
-			String codes = param.get("code");
-			String name = param.get("name");
-			Object value = param.get("value");
-			String token = (value.toString().equals("0")) ? Func.toStr(param.get("token")) : "";
-			String type = param.get("type");
-			String required = param.get("required");
+			String codes = Func.toStr(param.get("code"), "");
+			String name = Func.toStr(param.get("name"), "");
+			Object value = Func.toStr(param.get("value"), "0");
+			String token = (Func.toStr(value).equals("0")) ? Func.toStr(param.get("token")) : "";
+			String type = Func.toStr(param.get("type"), "dict");
+			String required = Func.toStr(param.get("required"), "");
 			int lev = 99;
 			String code = "";
 			String sql = "";
@@ -60,12 +60,12 @@ public class DropDownTag extends Tag {
 				sql = "select ID,(case when PID is null then 0 else PID end) PID,NUM,name as TEXT from  BLADE_ROLE";
 			} else if (type.equals("diy")) {
 				type = type + "_" + param.get("source");
-				sql = Md.getSql(param.get("source")); //.getNamespaceSql(param.get("source"));
+				sql = Md.getSql(param.get("source"));
 			}
  
 			final String sqlstr = sql;
 			
-			List<Map<String, Object>> dict = CacheKit.get(ConstCache.DICT_CACHE, ConstCacheKey.DROPDOWN + type + "_" + code, new ILoader() {
+			List<Map<String, Object>> dict = CacheKit.get(ConstCache.SYS_CACHE, ConstCacheKey.DROPDOWN + type + "_" + code, new ILoader() {
 				@Override
 				public Object load() {
 					return Db.selectList(sqlstr);

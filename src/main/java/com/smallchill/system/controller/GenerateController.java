@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.smallchill.core.base.controller.CurdController;
 import com.smallchill.core.beetl.BeetlMaker;
 import com.smallchill.core.constant.Cst;
-import com.smallchill.core.interfaces.IMeta;
+import com.smallchill.core.meta.IMeta;
 import com.smallchill.core.plugins.dao.Blade;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.ClassKit;
 import com.smallchill.core.toolbox.kit.DateKit;
@@ -104,7 +104,7 @@ public class GenerateController extends CurdController<Generate> {
 	@RequestMapping("/code")
 	public AjaxResult gencode(){
 		String ids = getParameter("ids");
-		List<Generate> list = Blade.create(Generate.class).findBy("id in (#{join(ids)})", Paras.create().set("ids", Convert.toIntArray(ids)));
+		List<Generate> list = Blade.create(Generate.class).findBy("id in (#{join(ids)})", CMap.init().set("ids", Convert.toIntArray(ids)));
 
 		for (Generate gen : list) {
 			
@@ -213,7 +213,7 @@ public class GenerateController extends CurdController<Generate> {
 		for(String col : cols){
 			
 			ColDesc desc = tableDesc.getColDesc(col);
-			Map<String, Object> attr = Paras.createHashMap();
+			Map<String, Object> attr = CMap.createHashMap();
 			attr.put("comment", desc.remark);
 			String attrName = sm.getNc().getPropertyName(null, desc.colName);
 			attr.put("name", attrName);

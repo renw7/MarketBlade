@@ -58,7 +58,7 @@
 
 			<div class="col-sm-3">
 				@if(shiro.hasAnyRoles("administrator, admin")){
-					<blade:select type="dept"  name="BLADE_USER.DEPTID" value="${user.deptid!0}" />
+					<blade:combotree type="combotreeDept" id="_DEPTID" name="BLADE_USER.DEPTID" value="${user.deptid!0}" height="180px" check="radio" />
 				@} else {
 					<input type="text" name="BLADE_USER.DEPTID" disabled value="${shiro.getUser().deptName}" placeholder="暂无部门" class="form-control" />
 				@}

@@ -46,7 +46,7 @@
 				</property>
 			</bean>
 		</property>
-		<property name="configLocation" value="classpath:/config/beetlsql.properties"></property>
+		<property name="configLocation" value="classpath:/beetlsql.properties"></property>
 	</bean>
 
 	<!-- 注册sqlmanager(其他库) -->
@@ -76,7 +76,7 @@
 				</property>
 			</bean>
 		</property>
-		<property name="configLocation" value="classpath:/config/beetlsql.properties"></property>
+		<property name="configLocation" value="classpath:/beetlsql.properties"></property>
 	</bean>-->
 
 

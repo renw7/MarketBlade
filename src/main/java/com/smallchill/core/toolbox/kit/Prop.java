@@ -21,9 +21,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.util.Properties;
 
 import com.smallchill.core.constant.Const;
+import com.smallchill.core.toolbox.support.Convert;
 
 /**
  * Prop. Prop can load properties file from CLASSPATH or File object.
@@ -142,6 +144,17 @@ public class Prop {
 		String value = properties.getProperty(key);
 		if (value != null)
 			return Integer.parseInt(value.trim());
+		return defaultValue;
+	}
+
+	public BigDecimal getBigDecimal(String key) {
+		return getBigDecimal(key, null);
+	}
+
+	public BigDecimal getBigDecimal(String key, BigDecimal defaultValue) {
+		String value = properties.getProperty(key);
+		if (value != null)
+			return Convert.toBigDecimal(value.trim());
 		return defaultValue;
 	}
 

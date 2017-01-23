@@ -1,7 +1,7 @@
 package com.smallchill.common.intercept;
 
 import com.smallchill.core.intercept.SelectInterceptor;
-import com.smallchill.core.interfaces.IQuery;
+import com.smallchill.core.meta.IQuery;
 
 public class DefaultSelectFactory extends SelectInterceptor {
 	

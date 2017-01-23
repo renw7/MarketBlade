@@ -18,7 +18,6 @@ package com.smallchill.core.meta;
 import java.util.Map;
 
 import com.smallchill.core.constant.ConstCurd;
-import com.smallchill.core.interfaces.IMeta;
 
 public abstract class MetaManager extends MetaTool implements IMeta,ConstCurd{
 

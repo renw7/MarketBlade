@@ -33,10 +33,9 @@ import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.constant.ConstConfig;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.plugins.dao.Db;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.file.BladeFile;
-import com.smallchill.core.toolbox.file.FileRender;
 import com.smallchill.core.toolbox.file.BladeFileKit;
 import com.smallchill.core.toolbox.kit.PathKit;
 
@@ -46,31 +45,31 @@ public class KindEditorController extends BladeController {
 	
 	@ResponseBody
 	@RequestMapping("/upload_json")
-	public Paras upload_json(@RequestParam("imgFile") MultipartFile file) {
-		Paras ps = Paras.create();
+	public CMap upload_json(@RequestParam("imgFile") MultipartFile file) {
+		CMap cmap = CMap.init();
 		if (null == file) {
-			ps.set("error", 1);
-			ps.set("message", "请选择要上传的图片");
-			return ps;
+			cmap.set("error", 1);
+			cmap.set("message", "请选择要上传的图片");
+			return cmap;
 		}
 		String originalFileName = file.getOriginalFilename();
 		String dir = getParameter("dir", "image");
 		// 测试后缀
 		boolean ok = BladeFileKit.testExt(dir, originalFileName);
 		if (!ok) {
-			ps.set("error", 1);
-			ps.set("message", "上传文件的类型不允许");
-			return ps;
+			cmap.set("error", 1);
+			cmap.set("message", "上传文件的类型不允许");
+			return cmap;
 		}
 		BladeFile bf = getFile(file, dir);
 		bf.transfer();
 		Object fileId = bf.getFileId();	
 		String url = ConstConfig.DOMAIN + bf.getUploadVirtualPath();
-		ps.set("error", 0);
-		ps.set("title", fileId);
-		ps.set("url", url);
-		ps.set("name", originalFileName);
-		return ps;	
+		cmap.set("error", 0);
+		cmap.set("title", fileId);
+		cmap.set("url", url);
+		cmap.set("name", originalFileName);
+		return cmap;	
 	}
 	
 	@ResponseBody
@@ -111,7 +110,7 @@ public class KindEditorController extends BladeController {
 	@ResponseBody
 	@RequestMapping("/initfile")
 	public AjaxResult initfile(@RequestParam String ids) {
-		List<Map> file = Db.selectList("select ID as \"id\",NAME as \"name\",URL as \"url\" from BLADE_ATTACH where ID in (#{join(ids)})", Paras.create().set("ids", ids.split(",")));
+		List<Map> file = Db.selectList("select ID as \"id\",NAME as \"name\",URL as \"url\" from BLADE_ATTACH where ID in (#{join(ids)})", CMap.init().set("ids", ids.split(",")));
 		if (null != file) {
 			for (Map m : file) {
 				String url = ConstConfig.DOMAIN + m.get("url");
@@ -129,7 +128,7 @@ public class KindEditorController extends BladeController {
 		Map<String, Object> file = Db.findById("BLADE_ATTACH", id);
 		String url = file.get("URL").toString();
 		File f = new File((Cst.me().isRemoteMode() ? "" : PathKit.getWebRootPath()) + url);
-		FileRender.init(request, response, f).render();
+		makeFile(response, f);
 	}
 	
 	

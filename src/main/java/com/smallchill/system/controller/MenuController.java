@@ -30,13 +30,13 @@ import com.smallchill.common.base.BaseController;
 import com.smallchill.core.annotation.Before;
 import com.smallchill.core.annotation.Permission;
 import com.smallchill.core.constant.ConstShiro;
-import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
-import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.core.toolbox.cache.CacheKit;
+import com.smallchill.core.toolbox.cache.ILoader;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.core.toolbox.support.Convert;
 import com.smallchill.system.meta.intercept.MenuValidator;
@@ -118,7 +118,7 @@ public class MenuController extends BaseController implements ConstShiro{
 		menu.setStatus(1);
 		boolean temp = service.save(menu);
 		if (temp) {
-			CacheKit.removeAll(MENU_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success(SAVE_SUCCESS_MSG);
 		} else {
 			return error(SAVE_FAIL_MSG);
@@ -133,7 +133,7 @@ public class MenuController extends BaseController implements ConstShiro{
 		Menu menu = mapping(PREFIX, Menu.class);
 		boolean temp = service.update(menu);
 		if (temp) {
-			CacheKit.removeAll(MENU_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success(UPDATE_SUCCESS_MSG);
 		} else {
 			return error(UPDATE_FAIL_MSG);
@@ -146,7 +146,7 @@ public class MenuController extends BaseController implements ConstShiro{
 	public AjaxResult del() {
 		boolean temp = service.updateStatus(getParameter("ids"), 2);
 		if (temp) {
-			CacheKit.removeAll(MENU_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success(DEL_SUCCESS_MSG);
 		} else {
 			return error(DEL_FAIL_MSG);
@@ -159,7 +159,7 @@ public class MenuController extends BaseController implements ConstShiro{
 	public AjaxResult restore(@RequestParam String ids) {
 		boolean temp = service.updateStatus(ids, 1);
 		if (temp) {
-			CacheKit.removeAll(MENU_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success(RESTORE_SUCCESS_MSG);
 		} else {
 			return error(RESTORE_FAIL_MSG);
@@ -173,7 +173,7 @@ public class MenuController extends BaseController implements ConstShiro{
 	public AjaxResult remove(@RequestParam String ids) {
 		int cnt = service.deleteByIds(ids);
 		if (cnt > 0) {
-			CacheKit.removeAll(MENU_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success(DEL_SUCCESS_MSG);
 		} else {
 			return error(DEL_FAIL_MSG);
@@ -189,10 +189,10 @@ public class MenuController extends BaseController implements ConstShiro{
 		final Integer userId = getParameterToInt("userId");
 		final Integer roleId = getParameterToInt("roleId");
 
-		Map<String, Object> userRole = CacheKit.get(MENU_CACHE, ROLE_EXT + userId, new ILoader() {
+		Map<String, Object> userRole = CacheKit.get(SYS_CACHE, ROLE_EXT + userId, new ILoader() {
 			@Override
 			public Object load() {
-				return Db.selectOne("select * from BLADE_ROLE_EXT where USERID = #{userId}", Paras.create().set("userId", userId));
+				return Db.selectOne("select * from BLADE_ROLE_EXT where USERID = #{userId}", CMap.init().set("userId", userId));
 			}
 		}); 
 
@@ -200,9 +200,9 @@ public class MenuController extends BaseController implements ConstShiro{
 		String roleIn = "0";
 		String roleOut = "0";
 		if (!Func.isEmpty(userRole)) {
-			Paras rd = Paras.parse(userRole);
-			roleIn = rd.getStr("ROLEIN");
-			roleOut = rd.getStr("ROLEOUT");
+			CMap cmap = CMap.parse(userRole);
+			roleIn = cmap.getStr("ROLEIN");
+			roleOut = cmap.getStr("ROLEOUT");
 		}
 		final StringBuilder sql = new StringBuilder();
 		sql.append("select * from BLADE_MENU ");
@@ -214,8 +214,8 @@ public class MenuController extends BaseController implements ConstShiro{
 		sql.append("	)");
 		sql.append(" order by levels,pCode,num");
 
-		List<Map> sideBar = Db.selectListByCache(MENU_CACHE, SIDEBAR + userId, sql.toString(),
-				Paras.create()
+		List<Map> sideBar = Db.selectListByCache(SYS_CACHE, SIDEBAR + userId, sql.toString(),
+				CMap.init()
 				.set("roleId", Convert.toIntArray(roleId.toString()))
 				.set("roleIn", Convert.toIntArray(roleIn))
 				.set("roleOut", Convert.toIntArray(roleOut)));

@@ -16,8 +16,7 @@
 package com.smallchill.core.toolbox.log;
 
 import com.smallchill.core.constant.Cst;
-import com.smallchill.core.interfaces.ILog;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 
 /**
  * 日志工厂
@@ -50,7 +49,7 @@ public class BladeLogManager {
 		return me.defaultLogFactory.logPatten();
 	}
 
-	public static Paras logMaps() {
+	public static CMap logMaps() {
 		return me.defaultLogFactory.logMaps();
 	}
 

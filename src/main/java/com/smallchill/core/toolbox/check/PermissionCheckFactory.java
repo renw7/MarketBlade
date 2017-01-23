@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.core.constant.Cst;
-import com.smallchill.core.interfaces.ICheck;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.kit.CollectionKit;
 import com.smallchill.core.toolbox.kit.HttpKit;

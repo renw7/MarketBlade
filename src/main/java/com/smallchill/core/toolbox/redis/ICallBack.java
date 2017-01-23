@@ -13,35 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.smallchill.core.interfaces;
-
-import com.smallchill.core.toolbox.Paras;
+package com.smallchill.core.toolbox.redis;
 
 /**
- *  日志记录接口
+ *  回调用接口
  */
-public interface ILog {
-	
-	/**
-	 * 定义日志拦截的方法
-	 */
-	String[] logPatten();
-	
-	/**
-	 * 定义日志拦截的方法名
-	 */
-	Paras logMaps();
-	
-	/**
-	 * 是否需要记录日志
-	 */
-	boolean isDoLog();
-	
-	/**   
-	 * 日志记录
-	 * @param logName 日志名称
-	 * @param msg  返回消息
-	 * @return boolean
-	*/
-	boolean doLog(String logName, String msg, boolean succeed);
+public interface ICallBack {
+	<T> T call(Object obj);
 }

@@ -18,7 +18,7 @@ package com.smallchill.core.base.service;
 import java.util.List;
 
 import com.smallchill.core.aop.AopContext;
-import com.smallchill.core.interfaces.ICURD;
+import com.smallchill.core.meta.ICURD;
 import com.smallchill.core.toolbox.grid.BladePage;
 
 public interface IService<M> {

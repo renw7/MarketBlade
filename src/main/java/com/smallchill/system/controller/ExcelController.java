@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.core.constant.ConstCache;
-import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.plugins.dao.Md;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
-import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.core.toolbox.cache.CacheKit;
+import com.smallchill.core.toolbox.cache.ILoader;
 import com.smallchill.core.toolbox.kit.DateKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.core.toolbox.kit.StrKit;
@@ -37,7 +37,7 @@ import com.smallchill.core.toolbox.support.SqlKeyword;
 @RequestMapping("/excel")
 public class ExcelController extends BaseController {
 
-	private static String cacheName = ConstCache.FILE_CACHE;
+	private static String cacheName = ConstCache.SYS_CACHE;
 
 	@ResponseBody
 	@RequestMapping("/preExport")
@@ -133,7 +133,7 @@ public class ExcelController extends BaseController {
 	}
 
 	private String getInfoByCode(String code, String col) {
-		List<Map<String, Object>> menu = CacheKit.get(MENU_CACHE, MENU_TABLE_ALL, new ILoader() {
+		List<Map<String, Object>> menu = CacheKit.get(SYS_CACHE, MENU_TABLE_ALL, new ILoader() {
 					public Object load() {
 						return Db.selectList("select CODE,PCODE,NAME,URL,SOURCE,PATH,TIPS,ISOPEN from BLADE_MENU order by levels asc,num asc");
 					}

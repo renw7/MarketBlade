@@ -16,7 +16,6 @@
 package com.smallchill.core.toolbox.check;
 
 import com.smallchill.core.constant.Cst;
-import com.smallchill.core.interfaces.ICheck;
 
 /**
  * 权限检查工厂

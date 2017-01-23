@@ -15,7 +15,7 @@
  */
 package com.smallchill.common.plugins;
 
-import com.smallchill.core.interfaces.IPlugin;
+import com.smallchill.core.plugins.IPlugin;
 
 public class GlobalPlugin implements IPlugin {
 

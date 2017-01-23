@@ -250,13 +250,12 @@ public class BeanKit {
 				propertyName = property.getName();
 				value = valueProvider.value(propertyName);
 				if (null == value) {
-					// 此处取得的值为空时跳过，包括null和""
 					continue;
 				}
 				try {
 					property.getWriteMethod().invoke(bean, Convert.parse(property.getPropertyType(), value));
 				} catch (Exception e) {
-					throw new ToolBoxException(StrKit.format("Inject [{}] error!", property.getName()), e);
+					LogKit.error(e.getMessage());
 				}
 			}
 		} catch (Exception e) {

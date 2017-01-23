@@ -15,29 +15,29 @@
  */
 package com.smallchill.system.controller;
 
-import com.smallchill.common.base.BaseController;
-import com.smallchill.common.vo.ShiroUser;
-import com.smallchill.core.aop.AopContext;
-import com.smallchill.core.constant.Cst;
-import com.smallchill.core.interfaces.ILoader;
-import com.smallchill.core.plugins.dao.Db;
-import com.smallchill.core.plugins.dao.Md;
-import com.smallchill.core.shiro.ShiroKit;
-import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Paras;
-import com.smallchill.core.toolbox.ajax.AjaxResult;
-import com.smallchill.core.toolbox.kit.CacheKit;
-import com.smallchill.core.toolbox.kit.JsonKit;
-import com.smallchill.core.toolbox.kit.StrKit;
-import com.smallchill.core.toolbox.support.Convert;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.smallchill.common.base.BaseController;
+import com.smallchill.common.vo.ShiroUser;
+import com.smallchill.core.aop.AopContext;
+import com.smallchill.core.constant.Cst;
+import com.smallchill.core.plugins.dao.Db;
+import com.smallchill.core.plugins.dao.Md;
+import com.smallchill.core.shiro.ShiroKit;
+import com.smallchill.core.toolbox.Func;
+import com.smallchill.core.toolbox.CMap;
+import com.smallchill.core.toolbox.ajax.AjaxResult;
+import com.smallchill.core.toolbox.cache.CacheKit;
+import com.smallchill.core.toolbox.cache.ILoader;
+import com.smallchill.core.toolbox.kit.JsonKit;
+import com.smallchill.core.toolbox.kit.StrKit;
+import com.smallchill.core.toolbox.support.Convert;
 
 @Controller
 @RequestMapping("/cache")
@@ -59,7 +59,7 @@ public class CacheController extends BaseController {
 		final Integer userId = Convert.toInt(user.getId());
 		final String roleId = Convert.toStr(user.getRoles());
 
-		Map<String, Object> userRole = Db.selectOneByCache(ROLE_CACHE, ROLE_EXT + userId, "select * from BLADE_ROLE_EXT where userId= #{id}", Paras.create().set("id", userId));
+		Map<String, Object> userRole = Db.selectOneByCache(SYS_CACHE, ROLE_EXT + userId, "select * from BLADE_ROLE_EXT where userId= #{id}", CMap.init().set("id", userId));
 
 		String roleIn = "0";
 		String roleOut = "0";
@@ -68,7 +68,7 @@ public class CacheController extends BaseController {
 			roleOut = Func.toStr(userRole.get("ROLEOUT"));
 		}
 		final StringBuilder sql = new StringBuilder();
-		sql.append("select blade_menu.id as \"id\", blade_menu.code as \"code\", blade_menu.pcode as \"pcode\", blade_menu.alias as \"alias\", blade_menu.name as \"name\", blade_menu.icon as \"icon\", blade_menu.url as \"url\", blade_menu.path as \"path\", blade_menu.tips as \"tips\", (select name from blade_menu where code = #{code}) as \"pname\"  from blade_menu");
+		sql.append("select blade_menu.id as \"id\", blade_menu.code as \"code\", blade_menu.pcode as \"pcode\", blade_menu.alias as \"alias\", blade_menu.name as \"name\", blade_menu.icon as \"icon\", blade_menu.url as \"url\", blade_menu.path as \"path\", blade_menu.tips as \"tips\", blade_menu.isopen as \"isopen\", (select name from blade_menu where code = #{code}) as \"pname\"  from blade_menu");
 		sql.append(" where ( ");
 		sql.append("	 (status=1)");
 		sql.append("	 and (icon is not null and (icon like '%btn%' or icon like '%icon%' ) ) ");
@@ -79,8 +79,8 @@ public class CacheController extends BaseController {
 		sql.append(" order by num");
 
 
-		List<Map> btnList = Db.selectListByCache(MENU_CACHE, BTN_LIST + code + "_" + userId, sql.toString(), 
-				Paras.create()
+		List<Map> btnList = Db.selectListByCache(SYS_CACHE, BTN_LIST + code + "_" + userId, sql.toString(), 
+				CMap.init()
 				.set("code", code)
 				.set("roleId", Convert.toIntArray(roleId))
 				.set("roleIn", Convert.toIntArray(roleIn))
@@ -103,7 +103,7 @@ public class CacheController extends BaseController {
 		final Integer userId = Convert.toInt(user.getId());
 		final String roleId = Convert.toStr(user.getRoles());
 
-		Map<String, Object> userRole = Db.selectOneByCache(ROLE_CACHE, ROLE_EXT + userId, "select * from BLADE_ROLE_EXT where userId= #{id}", Paras.create().set("id", userId));
+		Map<String, Object> userRole = Db.selectOneByCache(SYS_CACHE, ROLE_EXT + userId, "select * from BLADE_ROLE_EXT where userId= #{id}", CMap.init().set("id", userId));
 
 		String roleIn = "0";
 		String roleOut = "0";
@@ -112,7 +112,7 @@ public class CacheController extends BaseController {
 			roleOut = Func.toStr(userRole.get("ROLEOUT"));
 		}
 		final StringBuilder sql = new StringBuilder();
-		sql.append("select blade_menu.id as \"id\", blade_menu.code as \"code\", blade_menu.pcode as \"pcode\", blade_menu.alias as \"alias\", blade_menu.name as \"name\", blade_menu.icon as \"icon\", blade_menu.url as \"url\", blade_menu.path as \"path\", blade_menu.tips as \"tips\", (select name from blade_menu where code=#{code}) as \"pname\"  from blade_menu");
+		sql.append("select blade_menu.id as \"id\", blade_menu.code as \"code\", blade_menu.pcode as \"pcode\", blade_menu.alias as \"alias\", blade_menu.name as \"name\", blade_menu.icon as \"icon\", blade_menu.url as \"url\", blade_menu.path as \"path\", blade_menu.tips as \"tips\", blade_menu.isopen as \"isopen\", (select name from blade_menu where code=#{code}) as \"pname\"  from blade_menu");
 		sql.append(" where ( ");
 		sql.append("	 (status=1)");
 		sql.append("	 and (icon is not null and (icon like '%btn%' or icon like '%icon%' ) ) ");
@@ -122,8 +122,8 @@ public class CacheController extends BaseController {
 		sql.append("	)");
 		sql.append(" order by num");
 
-		List<Map> btnList = Db.selectListByCache(MENU_CACHE, BTN_CHILD_LIST + code + "_" + userId, sql.toString(), 
-				Paras.create()
+		List<Map> btnList = Db.selectListByCache(SYS_CACHE, BTN_CHILD_LIST + code + "_" + userId, sql.toString(), 
+				CMap.init()
 				.set("code", code)
 				.set("roleId", Convert.toIntArray(roleId))
 				.set("roleIn", Convert.toIntArray(roleIn))
@@ -144,7 +144,7 @@ public class CacheController extends BaseController {
 		final String code = getParameter("code");
 		final String num = getParameter("num");
 
-		List<Map> dict = Db.selectListByCache(DICT_CACHE, DICT_SELECT + code, "select num as ID,pId as PID,name as TEXT from  BLADE_DICT where code=#{code} and num>0", Paras.create().set("code", code));
+		List<Map> dict = Db.selectListByCache(SYS_CACHE, DICT_SELECT + code, "select num as ID,pId as PID,name as TEXT from  BLADE_DICT where code=#{code} and num>0", CMap.init().set("code", code));
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("<select class=\"form-control\" style=\"margin-left:-3px;cursor:pointer;\" id=\"inputs"
@@ -164,12 +164,12 @@ public class CacheController extends BaseController {
 		if (StrKit.equalsIgnoreCase(type, "diy")) {
 			final String source = getParameter("source");
 			String where = getParameter("where");
-			Map<String, Object> param = Paras.createHashMap();
+			Map<String, Object> param = CMap.createHashMap();
 			if (StrKit.notBlank(where)) {
 				param = JsonKit.parse(where);
 			}
 			final Map<String, Object> map = param;
-			List<Map<String, Object>> diy = CacheKit.get(DIY_CACHE, DICT_COMBO + type + source,
+			List<Map<String, Object>> diy = CacheKit.get(SYS_CACHE, DICT_COMBO + type + source,
 					new ILoader() {
 						public Object load() {
 							return Db.selectList(Md.getSql(source), map);
@@ -178,10 +178,10 @@ public class CacheController extends BaseController {
 			return json(diy);
 		} else {
 			final String code = getParameter("code");
-			List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, DICT_COMBO + type + code,
+			List<Map<String, Object>> dict = CacheKit.get(SYS_CACHE, DICT_COMBO + type + code,
 					new ILoader() {
 						public Object load() {
-							return Db.selectList("select num as \"id\",name as \"text\" from  BLADE_DICT where code=#{code} and num>0", Paras.create().set("code", code));
+							return Db.selectList("select num as \"id\",name as \"text\" from  BLADE_DICT where code=#{code} and num>0", CMap.init().set("code", code));
 						}
 					});
 			return json(dict);
@@ -192,10 +192,10 @@ public class CacheController extends BaseController {
 	@RequestMapping("/getDeptSelect")
 	public AjaxResult getDeptSelect() {
 		final String num = getParameter("num");
-		List<Map<String, Object>> dept = CacheKit.get(DEPT_CACHE, DEPT_ALL_LIST,
+		List<Map<String, Object>> dept = CacheKit.get(SYS_CACHE, DEPT_ALL_LIST,
 				new ILoader() {
 					public Object load() {
-						return Db.selectList("select ID,PID,simpleName as TEXT from  BLADE_DEPT order by pId,num asc", Paras.create(), new AopContext(), Cst.me().getDefaultSelectFactory().deptIntercept());
+						return Db.selectList("select ID,PID,simpleName as TEXT from  BLADE_DEPT order by pId,num asc", CMap.init(), new AopContext(), Cst.me().getDefaultSelectFactory().deptIntercept());
 					}
 				});
 		StringBuilder sb = new StringBuilder();
@@ -213,10 +213,10 @@ public class CacheController extends BaseController {
 	@RequestMapping("/getUserSelect")
 	public AjaxResult getUserSelect() {
 		final String num = getParameter("num");
-		List<Map<String, Object>> user = CacheKit.get(USER_CACHE, USER_SELECT_ALL,
+		List<Map<String, Object>> user = CacheKit.get(SYS_CACHE, USER_SELECT_ALL,
 				new ILoader() {
 					public Object load() {
-						return Db.selectList("select ID,name as TEXT from BLADE_USER where status=1 and name is not null order by name ", Paras.create(), new AopContext(), Cst.me().getDefaultSelectFactory().userIntercept());
+						return Db.selectList("select ID,name as TEXT from BLADE_USER where status=1 and name is not null order by name ", CMap.init(), new AopContext(), Cst.me().getDefaultSelectFactory().userIntercept());
 					}
 				});
 		StringBuilder sb = new StringBuilder();
@@ -234,10 +234,10 @@ public class CacheController extends BaseController {
 	@RequestMapping("/getRoleSelect")
 	public AjaxResult getRoleSelect() {
 		final String num = getParameter("num");
-		List<Map<String, Object>> role = CacheKit.get(ROLE_CACHE, ROLE_ALL_LIST,
+		List<Map<String, Object>> role = CacheKit.get(SYS_CACHE, ROLE_ALL_LIST,
 				new ILoader() {
 					public Object load() {
-						return Db.selectList("select ID,name as TEXT from BLADE_Role where  name is not null order by name ", Paras.create(), new AopContext(), Cst.me().getDefaultSelectFactory().roleIntercept());
+						return Db.selectList("select ID,name as TEXT from BLADE_Role where  name is not null order by name ", CMap.init(), new AopContext(), Cst.me().getDefaultSelectFactory().roleIntercept());
 					}
 				});
 		StringBuilder sb = new StringBuilder();
@@ -257,12 +257,12 @@ public class CacheController extends BaseController {
 		final String num = getParameter("num");
 		final String source = getParameter("source");
 		String where = getParameter("where");
-		Map<String, Object> param = Paras.createHashMap();
+		Map<String, Object> param = CMap.createHashMap();
 		if (StrKit.notBlank(where)) {
 			param = JsonKit.parse(where);
 		}
 		final Map<String, Object> map = param;
-		List<Map<String, Object>> diy = CacheKit.get(DIY_CACHE, DIY_SELECT + source,
+		List<Map<String, Object>> diy = CacheKit.get(SYS_CACHE, DIY_SELECT + source,
 				new ILoader() {
 					public Object load() {
 						return Db.selectList(Md.getSql(source), map);
@@ -281,10 +281,10 @@ public class CacheController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/dicTreeList")
 	public AjaxResult dicTreeList() {
-		List<Map<String, Object>> dic = CacheKit.get(DICT_CACHE, DICT_TREE_ALL,
+		List<Map<String, Object>> dic = CacheKit.get(SYS_CACHE, DICT_TREE_ALL,
 				new ILoader() {
 					public Object load() {
-						return Db.selectList("select code \"code\",id \"id\",pId \"pId\",name \"name\",num \"num\",'false' \"open\" from BLADE_DICT order by code asc,num asc", Paras.create());
+						return Db.selectList("select code \"code\",id \"id\",pId \"pId\",name \"name\",num \"num\",'false' \"open\" from BLADE_DICT order by code asc,num asc", CMap.init());
 					}
 				});
 
@@ -294,10 +294,10 @@ public class CacheController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/deptTreeList")
 	public AjaxResult deptTreeList() {
-		List<Map<String, Object>> dept = CacheKit.get(DEPT_CACHE, DEPT_TREE_ALL + "_" + ShiroKit.getUser().getId(),
+		List<Map<String, Object>> dept = CacheKit.get(SYS_CACHE, DEPT_TREE_ALL + "_" + ShiroKit.getUser().getId(),
 				new ILoader() {
 					public Object load() {
-						return Db.selectList("select id \"id\",pId \"pId\",simpleName as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  BLADE_DEPT ", Paras.create(), new AopContext("ztree"), Cst.me().getDefaultSelectFactory().deptIntercept());
+						return Db.selectList("select id \"id\",pId \"pId\",simpleName as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  BLADE_DEPT ", CMap.init(), new AopContext("ztree"), Cst.me().getDefaultSelectFactory().deptIntercept());
 					}
 				});
 
@@ -307,10 +307,10 @@ public class CacheController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/roleTreeList")
 	public AjaxResult roleTreeList() {
-		List<Map<String, Object>> dept = CacheKit.get(ROLE_CACHE, ROLE_TREE_ALL + "_" + ShiroKit.getUser().getId(),
+		List<Map<String, Object>> dept = CacheKit.get(SYS_CACHE, ROLE_TREE_ALL + "_" + ShiroKit.getUser().getId(),
 				new ILoader() {
 					public Object load() {
-						return Db.selectList("select id \"id\",pId \"pId\",name as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  BLADE_ROLE ", Paras.create(), new AopContext("ztree"), Cst.me().getDefaultSelectFactory().roleIntercept());
+						return Db.selectList("select id \"id\",pId \"pId\",name as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  BLADE_ROLE ", CMap.init(), new AopContext("ztree"), Cst.me().getDefaultSelectFactory().roleIntercept());
 					}
 				});
 
@@ -321,10 +321,10 @@ public class CacheController extends BaseController {
 	@RequestMapping("/getDicById")
 	public AjaxResult getDicById() {
 		final int id = getParameterToInt("id");
-		List<Map<String, Object>> dict = CacheKit.get(DICT_CACHE, DICT_CODE + id,
+		List<Map<String, Object>> dict = CacheKit.get(SYS_CACHE, DICT_CODE + id,
 				new ILoader() {
 					public Object load() {
-						return Db.selectList("select CODE from BLADE_DICT where id=#{id}", Paras.create().set("id", id));
+						return Db.selectList("select CODE from BLADE_DICT where id=#{id}", CMap.init().set("id", id));
 					}
 				});
 		return json(dict);
@@ -333,7 +333,7 @@ public class CacheController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/menuTreeList")
 	public AjaxResult menuTreeList() {
-		List<Map<String, Object>> menu = CacheKit.get(MENU_CACHE, MENU_TREE_ALL,
+		List<Map<String, Object>> menu = CacheKit.get(SYS_CACHE, MENU_TREE_ALL,
 				new ILoader() {
 					public Object load() {
 						return Db.selectList("select code \"id\",pCode \"pId\",name \"name\",(case when levels=1 then 'true' else 'false' end) \"open\" from BLADE_MENU where status=1 order by levels asc,num asc");
@@ -347,13 +347,13 @@ public class CacheController extends BaseController {
 	@RequestMapping("/menuTreeListByRoleId")
 	public AjaxResult menuTreeListByRoleId() {
 		final String roleId = getParameter("roleId", "0");
-		List<Map<String, Object>> menu = CacheKit.get(MENU_CACHE, MENU_TREE + roleId,
+		List<Map<String, Object>> menu = CacheKit.get(SYS_CACHE, MENU_TREE + roleId,
 				new ILoader() {
 					@SuppressWarnings("rawtypes")
 					public Object load() {
 						String table = "BLADE_MENU";
 						String pid = "";
-						List<Map> pids = Db.selectList("select PID from BLADE_ROLE where id in (#{join(roleId)})", Paras.create().set("roleId", Convert.toIntArray(roleId)));
+						List<Map> pids = Db.selectList("select PID from BLADE_ROLE where id in (#{join(roleId)})", CMap.init().set("roleId", Convert.toIntArray(roleId)));
 						for (Map p : pids) {
 							if (!Func.isEmpty(p.get("PID")) && Func.toInt(p.get("PID")) > 0) {
 								pid += p.get("PID").toString() + ",";
@@ -368,7 +368,7 @@ public class CacheController extends BaseController {
 						sb.append(" from ");
 						sb.append(table);
 						sb.append(" m left join (select MENUID from BLADE_RELATION where roleId in (#{join(roleId)}) GROUP BY MENUID) r on m.id=r.menuId where m.status=1 order by m.levels,m.num asc");
-						return Db.selectList(sb.toString(), Paras.create().set("roleId", Convert.toIntArray(roleId)).set("pid", Convert.toIntArray(pid)));
+						return Db.selectList(sb.toString(), CMap.init().set("roleId", Convert.toIntArray(roleId)).set("pid", Convert.toIntArray(pid)));
 					}
 				});
 
@@ -380,7 +380,7 @@ public class CacheController extends BaseController {
 	public AjaxResult roleTreeListById() {
 		final String Id = getParameter("id");
 		final String roleId = getParameter("roleId", "0");
-		List<Map<String, Object>> menu = CacheKit.get(ROLE_CACHE, ROLE_TREE + Id,
+		List<Map<String, Object>> menu = CacheKit.get(SYS_CACHE, ROLE_TREE + Id,
 				new ILoader() {
 					public Object load() {
 						String sql = "select id \"id\",pId \"pId\",name as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  BLADE_ROLE order by pId,num asc";
@@ -389,7 +389,7 @@ public class CacheController extends BaseController {
 									+ "#{join(roleId)}"
 									+ ")) r1 on r.ID=r1.ID order by pId,num asc";
 						}
-						return Db.selectList(sql, Paras.create().set("roleId", Convert.toIntArray(roleId)));
+						return Db.selectList(sql, CMap.init().set("roleId", Convert.toIntArray(roleId)));
 					}
 				});
 

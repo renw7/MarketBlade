@@ -23,7 +23,7 @@ ${"@"}layout("/common/_container.html"){
 					@ }
 		
 		${"@"}		   ];
-		${"@"} include("/common/_curd/_edit.html", {"col":_col, "table":_table, "key":_key}){}
+		${"@"} include("/common/_curd/_edit_table.html", {"col":_col, "table":_table, "key":_key}){}
 		
 		<!-- 按钮 -->
 		${"@"} include("/common/_curd/_btn.html", {btn_save:"修改", btn_close:"关闭"}) {}

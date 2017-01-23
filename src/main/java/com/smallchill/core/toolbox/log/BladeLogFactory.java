@@ -22,14 +22,13 @@ import com.smallchill.common.vo.ShiroUser;
 import com.smallchill.core.constant.Const;
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.constant.ConstCacheKey;
-import com.smallchill.core.interfaces.ILoader;
-import com.smallchill.core.interfaces.ILog;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Paras;
-import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.core.toolbox.CMap;
+import com.smallchill.core.toolbox.cache.CacheKit;
+import com.smallchill.core.toolbox.cache.ILoader;
 import com.smallchill.system.model.OperationLog;
 
 /**
@@ -42,8 +41,8 @@ public class BladeLogFactory implements ILog {
 		return patten;
 	}
 
-	public Paras logMaps() {
-		Paras rd = Paras.create()
+	public CMap logMaps() {
+		CMap cmap = CMap.init()
 				.set("login", "登录")
 				.set("logout", "登出")
 				.set("grant", "授权")
@@ -54,7 +53,7 @@ public class BladeLogFactory implements ILog {
 				.set("delete", "删除")
 				.set("restore", "还原")
 				.set("restore", "变更");
-		return rd;
+		return cmap;
 	}
 
 	public boolean isDoLog() {
@@ -62,7 +61,7 @@ public class BladeLogFactory implements ILog {
 		Map map = CacheKit.get(ConstCache.SYS_CACHE, ConstCacheKey.PARAMETER_LOG, new ILoader() {
 			@Override
 			public Object load() {
-				return Db.selectOne("select para from blade_parameter where code = #{code}", Paras.create().set("code", Const.PARA_LOG_CODE));
+				return Db.selectOne("select para from blade_parameter where code = #{code}", CMap.init().set("code", Const.PARA_LOG_CODE));
 			}
 		}); 
 		if(map.get("para").equals("1")){

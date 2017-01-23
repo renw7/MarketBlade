@@ -20,9 +20,9 @@ import java.util.Map;
 
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.constant.ConstCacheKey;
-import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.shiro.ShiroKit;
-import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.core.toolbox.cache.CacheKit;
+import com.smallchill.core.toolbox.cache.ILoader;
 
 
 /**

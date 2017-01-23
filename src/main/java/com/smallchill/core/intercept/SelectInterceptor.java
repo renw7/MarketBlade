@@ -15,8 +15,8 @@
  */
 package com.smallchill.core.intercept;
 
-import com.smallchill.core.interfaces.IQuery;
-import com.smallchill.core.interfaces.ISelect;
+import com.smallchill.core.meta.IQuery;
+import com.smallchill.core.meta.ISelect;
 
 /**
  * select查询拦截器工厂类

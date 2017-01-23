@@ -21,7 +21,9 @@ import com.smallchill.core.base.service.BaseService;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
+import com.smallchill.core.toolbox.support.Convert;
+import com.smallchill.system.model.Relation;
 import com.smallchill.system.model.Role;
 import com.smallchill.system.service.RoleService;
 
@@ -32,8 +34,8 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 	public int findLastNum(Integer id) {
 		try{
 			Blade blade = Blade.create(Role.class);
-			Role rloe = blade.findFirstBy("pId = #{pId} order by num desc", Paras.create().set("pId", id));
-			return rloe.getNum() + 1;
+			Role role = blade.findFirstBy("pId = #{pId} order by num desc", CMap.init().set("pId", id));
+			return role.getNum() + 1;
 		}
 		catch(Exception ex){
 			return 1;
@@ -41,29 +43,16 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 	}
 
 	@Override
-	public boolean grant(String ids, String roleId) {
-		Db.deleteByIds("BLADE_RELATION", "ROLEID", roleId);
-		
-		String sql = "";
-		String insertSql = "";
-		String union_all = "";
-		String[] id = ids.split(",");
-		String dual = (Func.isOracle()) ? " from dual " : "";
-		for (int i = 0; i < id.length; i++) {
-			union_all = (i < id.length - 1) ? " union all " : "";
-			sql += " (select " + id[i] + " menuId," + roleId + " roleId " + dual + ")" + union_all;
+	public boolean grant(String ids, Integer roleId) {
+		Blade dao = Blade.create(Relation.class);
+		dao.deleteBy("ROLEID = #{roleId}", CMap.init().set("roleId", roleId));
+		for (Integer menuId : Convert.toIntArray(ids)) {
+			Relation relation = new Relation();
+			relation.setMenuid(menuId);
+			relation.setRoleid(roleId);
+			dao.save(relation);
 		}
-
-		if (Func.isOracle()) {
-			sql = "select SEQ_RELATION.nextval,i.* from (" + sql + ") i";
-			insertSql = "insert into BLADE_RELATION(id,menuId,roleId) ";
-		} else {
-			sql = "select i.* from (" + sql + ") i";
-			insertSql = "insert into BLADE_RELATION(menuId,roleId) ";
-		}
-
-		int cnt = Db.insert(insertSql + sql, null);
-		return cnt > 0;
+		return true;
 	}
 
 	@Override
@@ -79,7 +68,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 		if (Func.isOracle()) {
 			sb.append(" from dual");
 		}
-		Object cnt = Db.selectOne(sb.toString(), Paras.create().set("id", id)).get("CNT");
+		Object cnt = Db.selectOne(sb.toString(), CMap.init().set("id", id)).get("CNT");
 		return Func.toInt(cnt, 0);
 	}
 

@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.core.plugins.dao.Blade;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
-import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.core.toolbox.cache.CacheKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.system.meta.intercept.DeptIntercept;
 import com.smallchill.system.model.Dept;
@@ -82,9 +82,9 @@ public class DeptController extends BaseController{
 		Dept Dept = blade.findById(id);
 		Dept parent = blade.findById(Dept.getPid());
 		String pname = (null == parent) ? "" : parent.getSimplename();
-		Paras rd = Paras.parse(Dept);
-		rd.set("pname", pname);
-		mm.put("model", JsonKit.toJson(rd));
+		CMap cmap = CMap.parse(Dept);
+		cmap.set("pname", pname);
+		mm.put("model", JsonKit.toJson(cmap));
 		mm.put("code", CODE);
 		return BASE_PATH + "dept_view.html";
 	}
@@ -95,7 +95,7 @@ public class DeptController extends BaseController{
 		Dept dept = mapping(PREFIX, Dept.class);
 		boolean temp = Blade.create(Dept.class).save(dept);
 		if (temp) {
-			CacheKit.removeAll(DEPT_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success("新增成功");
 		} else {
 			return error("新增失败");
@@ -108,7 +108,7 @@ public class DeptController extends BaseController{
 		Dept dept = mapping(PREFIX, Dept.class);
 		boolean temp =  Blade.create(Dept.class).update(dept);
 		if (temp) {
-			CacheKit.removeAll(DEPT_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success("修改成功");
 		} else {
 			return error("修改失败");
@@ -120,7 +120,7 @@ public class DeptController extends BaseController{
 	public AjaxResult remove() {
 		int cnt = Blade.create(Dept.class).deleteByIds(getParameter("ids"));
 		if (cnt > 0) {
-			CacheKit.removeAll(DEPT_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success("删除成功!");
 		} else {
 			return error("删除失败!");
@@ -136,7 +136,7 @@ public class DeptController extends BaseController{
 	private int findLastNum(Integer id){
 		try{
 			Blade blade = Blade.create(Dept.class);
-			Dept dept = blade.findFirstBy("pId = #{pId} order by num desc", Paras.create().set("pId", id));
+			Dept dept = blade.findFirstBy("pId = #{pId} order by num desc", CMap.init().set("pId", id));
 			return dept.getNum() + 1;
 		}
 		catch(Exception ex){

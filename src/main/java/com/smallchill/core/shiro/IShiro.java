@@ -13,39 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.smallchill.core.interfaces;
+package com.smallchill.core.shiro;
 
-import com.smallchill.core.constant.Cst;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
+
+import com.smallchill.common.vo.ShiroUser;
+import com.smallchill.system.model.User;
 
 /**
- *  Blade配置型接口
+ * 定义shirorealm所需数据的接口
+ *
  */
-public interface IConfig {
+public interface IShiro {
+	User user(String account);
+
+	ShiroUser shiroUser(User user);
+
+	@SuppressWarnings("rawtypes")
+	List<Map> findPermissionsByRoleId(Object userId, Integer roleId);
+
+	String findRoleNameByRoleId(Integer roleId);
 	
-	/**   
-	 * 插件注册
-	 * @param plugins 插件集合
-	*/
-	void registerPlugins(IPluginFactroy plugins);	
-	
-	/**   
-	 * 全局变量设置
-	*/
-	void globalConstants(Cst me);
-	
-	/**   
-	 * 全局设置
-	*/
-	void globalSettings();
-	
-	/**   
-	 * 程序启动之后执行
-	*/
-	void afterBladeStart();
-	
-	/**   
-	 * 程序关闭之后执行
-	*/
-	void afterBladeStop();
-	
+	SimpleAuthenticationInfo info(ShiroUser shiroUser, User user, String realmName);
 }

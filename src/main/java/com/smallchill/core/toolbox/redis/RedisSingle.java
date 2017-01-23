@@ -25,17 +25,16 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.smallchill.core.interfaces.ICallBack;
-import com.smallchill.core.toolbox.redis.serializer.ISerializer;
-
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+
+import com.smallchill.core.toolbox.redis.serializer.ISerializer;
 
 /**
  * Redis单机工具类
  * Redis 命令参考: http://redisdoc.com/
  */
-public class RedisSingle implements IJedis{
+public class RedisSingle implements IJedis {
 	
 	protected String name;
 	protected JedisPool jedisPool;

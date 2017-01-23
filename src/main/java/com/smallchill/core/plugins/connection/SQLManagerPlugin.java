@@ -23,7 +23,7 @@ import org.beetl.sql.core.IDAutoGen;
 import org.beetl.sql.core.SQLManager;
 
 import com.smallchill.core.config.BladeConfig;
-import com.smallchill.core.interfaces.IPlugin;
+import com.smallchill.core.plugins.IPlugin;
 import com.smallchill.core.toolbox.kit.LogKit;
 
 /**

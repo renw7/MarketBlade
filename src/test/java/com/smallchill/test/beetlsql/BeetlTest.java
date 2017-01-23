@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 
 import com.smallchill.core.beetl.ReportInterceptor;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.kit.CharsetKit;
 
 @SuppressWarnings("rawtypes")
@@ -24,7 +24,7 @@ public class BeetlTest {
 
 	@Test
 	public void test() {
-		List<Map> list = getSqlManager().execute("select * from blade_notice where id = #{id}", Map.class, Paras.create().set("id", 1), 1, 10);
+		List<Map> list = getSqlManager().execute("select * from blade_notice where id = #{id}", Map.class, CMap.init().set("id", 1), 1, 10);
 		System.out.println(list);
 	}
 
@@ -34,7 +34,7 @@ public class BeetlTest {
 		SQLLoader loader = new ClasspathLoader("/beetlsql");
 		loader.setCharset(CharsetKit.UTF_8);
 		loader.setAutoCheck(true);
-		ClassPathResource cpr = new ClassPathResource("config/beetlsql.properties");
+		ClassPathResource cpr = new ClassPathResource("beetlsql.properties");
 		Properties properties = new Properties();
 		InputStream in = null;
         try {

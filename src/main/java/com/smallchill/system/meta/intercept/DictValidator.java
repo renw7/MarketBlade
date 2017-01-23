@@ -18,7 +18,7 @@ package com.smallchill.system.meta.intercept;
 import com.smallchill.core.aop.Invocation;
 import com.smallchill.core.intercept.BladeValidator;
 import com.smallchill.core.plugins.dao.Blade;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.system.model.Dict;
 
@@ -41,7 +41,7 @@ public class DictValidator extends BladeValidator {
 				code = request.getParameter("blade_dict.code");
 			}
 			
-			boolean temp = Blade.create(Dict.class).isExist("select * from blade_dict where code = #{code} and num = #{num}", Paras.create().set("code", code).set("num", num));
+			boolean temp = Blade.create(Dict.class).isExist("select * from blade_dict where code = #{code} and num = #{num}", CMap.init().set("code", code).set("num", num));
 			
 			if (temp) {
 				addError(errorMessage);

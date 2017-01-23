@@ -16,7 +16,7 @@
 package com.smallchill.core.intercept;
 
 import com.smallchill.core.aop.AopContext;
-import com.smallchill.core.interfaces.IQuery;
+import com.smallchill.core.meta.IQuery;
 
 /**
  * 通用查询拦截器工厂类

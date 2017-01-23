@@ -28,11 +28,11 @@ import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.constant.ConstCacheKey;
 import com.smallchill.core.constant.ConstConfig;
-import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Paras;
-import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.core.toolbox.CMap;
+import com.smallchill.core.toolbox.cache.CacheKit;
+import com.smallchill.core.toolbox.cache.ILoader;
 import com.smallchill.core.toolbox.kit.CharsetKit;
 import com.smallchill.core.toolbox.kit.DateKit;
 import com.smallchill.core.toolbox.kit.DateTimeKit;
@@ -437,10 +437,10 @@ public class BeetlExt {
 	 */
 	@SuppressWarnings("rawtypes")
 	public String getRightMenu(final Object userId, Object roleId, final String code, boolean isExport) {
-		Map<String, Object> userRole = CacheKit.get(ConstCache.MENU_CACHE, ConstCacheKey.ROLE_EXT + userId,
+		Map<String, Object> userRole = CacheKit.get(ConstCache.SYS_CACHE, ConstCacheKey.ROLE_EXT + userId,
 				new ILoader() {
 					public Object load() {
-						return Db.selectOne("select * from BLADE_ROLE_EXT where userId=#{userId}", Paras.create().set("userId", userId));
+						return Db.selectOne("select * from BLADE_ROLE_EXT where userId=#{userId}", CMap.init().set("userId", userId));
 					}
 				});
 
@@ -463,7 +463,7 @@ public class BeetlExt {
 		sql.append("	)");
 		sql.append(" order by num");
 
-		List<Map> btnList = Db.selectListByCache(ConstCache.MENU_CACHE, ConstCacheKey.RIGHT_MENU + code + "_" + userId, sql.toString(), Paras.create().set("code", code)
+		List<Map> btnList = Db.selectListByCache(ConstCache.SYS_CACHE, ConstCacheKey.RIGHT_MENU + code + "_" + userId, sql.toString(), CMap.init().set("code", code)
 					.set("roleId", Convert.toIntArray(roleId.toString()))
 					.set("roleIn", Convert.toIntArray(roleIn))
 					.set("roleOut", Convert.toIntArray(roleOut)));

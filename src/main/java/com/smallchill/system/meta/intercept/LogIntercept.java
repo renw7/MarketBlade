@@ -23,9 +23,9 @@ import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.meta.MetaIntercept;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
+import com.smallchill.core.toolbox.cache.CacheKit;
 import com.smallchill.core.toolbox.grid.BladePage;
-import com.smallchill.core.toolbox.kit.CacheKit;
 
 public class LogIntercept extends MetaIntercept {
 	/**
@@ -50,9 +50,9 @@ public class LogIntercept extends MetaIntercept {
 	 * @param ac
 	 */
 	public void renderViewBefore(AopContext ac) {
-		Paras rd = (Paras) ac.getObject();
-		String succeedName = (rd.getInt("succeed") == 1) ? "成功" : "失败";
-		rd.set("succeedName", succeedName).set("userName", SysCache.getUserName(rd.get("userid")));
+		CMap cmap = (CMap) ac.getObject();
+		String succeedName = (cmap.getInt("succeed") == 1) ? "成功" : "失败";
+		cmap.set("succeedName", succeedName).set("userName", SysCache.getUserName(cmap.get("userid")));
 	}
 	
 	

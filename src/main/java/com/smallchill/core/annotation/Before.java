@@ -21,7 +21,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.smallchill.core.interfaces.Interceptor;
+import com.smallchill.core.intercept.Interceptor;
 
 /**
  * 用于方法执行前拦截

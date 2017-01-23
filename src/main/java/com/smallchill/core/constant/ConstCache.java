@@ -15,25 +15,15 @@
  */
 package com.smallchill.core.constant;
 
-
+/**
+ * 缓存名
+ */
 public interface ConstCache {
 	
-	String DEFAULT_CACHE = "defaultCache";
+	String DEFAULT_CACHE = "DEFAULT_CACHE";//默认变量1小时
 	
-	String DICT_CACHE = "dictCache";
+	String LONG_CACHE = "LONG_CACHE";//全局永久变量
 	
-	String DEPT_CACHE = "deptCache";
-	
-	String MENU_CACHE = "menuCache";
-	
-	String ROLE_CACHE = "roleCache";
-	
-	String USER_CACHE = "userCache";
-	
-	String FILE_CACHE = "fileCache";
-	
-	String DIY_CACHE = "diyCache";
-	
-	String SYS_CACHE = "sysCache";
+	String SYS_CACHE = "SYS_CACHE";//系统变量 1小时
 
 }

@@ -33,10 +33,15 @@ public interface ConstConfig {
 	String MINIDLE = pool.get("druid.minIdle");
 	String MAXWAIT = pool.get("druid.maxWait");
 
+	String REAL_PATH = pool.get("realPath");
+	String CONTEXT_PATH = pool.get("contextPath");
 	String DOMAIN = pool.get("config.domain");
 	String REMOTE_MODE = pool.get("config.remoteMode");
 	String REMOTE_PATH = pool.get("config.remotePath");
 	String UPLOAD_PATH = pool.get("config.uploadPath");
 	String DOWNLOAD_PATH = pool.get("config.downloadPath");
+	String COMPRESS = pool.get("config.compress");
+	String COMPRESS_SCALE = pool.get("config.compressScale");
+	String COMPRESS_FLAG = pool.get("config.compressFlag");
 	
 }

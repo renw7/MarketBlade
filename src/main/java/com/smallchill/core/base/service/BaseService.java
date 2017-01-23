@@ -20,7 +20,7 @@ import java.util.List;
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.ConstCurd;
 import com.smallchill.core.constant.Cst;
-import com.smallchill.core.interfaces.ICURD;
+import com.smallchill.core.meta.ICURD;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.toolbox.grid.BladePage;
 import com.smallchill.core.toolbox.kit.ClassKit;

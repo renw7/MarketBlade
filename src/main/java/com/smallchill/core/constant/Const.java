@@ -26,7 +26,7 @@ public interface Const {
 	/**
 	 * 配置文件
 	 */
-	String PROPERTY_FILE = "config/config.properties";
+	String PROPERTY_FILE = "config.properties";
 
 	/**
 	 * 字符编码

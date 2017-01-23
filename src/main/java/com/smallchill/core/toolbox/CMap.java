@@ -24,17 +24,17 @@ import com.smallchill.core.toolbox.support.Convert;
  * 
  */
 @SuppressWarnings({ "serial", "unchecked" })
-public class Paras extends CaseInsensitiveHashMap<String, Object> implements BasicTypeGetter<String>{
+public class CMap extends CaseInsensitiveHashMap<String, Object> implements BasicTypeGetter<String> {
 
 	/**
-	 * 创建Paras
-	 * @return Paras
+	 * 创建CMap
+	 * @return CMap
 	 */
-	public static Paras create() {
-		return new Paras();
+	public static CMap init() {
+		return new CMap();
 	}
 
-	private Paras(){
+	private CMap(){
 		
 	}
 	
@@ -53,8 +53,8 @@ public class Paras extends CaseInsensitiveHashMap<String, Object> implements Bas
 	 * @param bean Bean对象
 	 * @return Vo
 	 */
-	public static <T> Paras parse(T bean) {
-		return create().parseBean(bean);
+	public static <T> CMap parse(T bean) {
+		return init().parseBean(bean);
 	}
 
 	/**
@@ -65,8 +65,8 @@ public class Paras extends CaseInsensitiveHashMap<String, Object> implements Bas
 	 *            值对象
 	 * @return Vo
 	 */
-	public static <T> Paras parse(Map<String, Object> map) {
-		return create().parseMap(map);
+	public static <T> CMap parse(Map<String, Object> map) {
+		return init().parseMap(map);
 	}
 
 	
@@ -117,7 +117,7 @@ public class Paras extends CaseInsensitiveHashMap<String, Object> implements Bas
 	 * @param bean 值对象
 	 * @return 自己
 	 */
-	public <T> Paras parseBean(T bean) {
+	public <T> CMap parseBean(T bean) {
 		if (null != bean) {
 			this.putAll(BeanKit.beanToMap(bean));
 		}
@@ -133,7 +133,7 @@ public class Paras extends CaseInsensitiveHashMap<String, Object> implements Bas
 	 *            值对象
 	 * @return 自己
 	 */
-	public <T> Paras parseMap(Map<String, Object> map) {
+	public <T> CMap parseMap(Map<String, Object> map) {
 		if (null != map) {
 			this.putAll(map);
 		}
@@ -147,7 +147,7 @@ public class Paras extends CaseInsensitiveHashMap<String, Object> implements Bas
 	 * @param dict
 	 * @param withoutNames 不需要去除的字段名
 	 */
-	public <T extends Paras> void removeEqual(T paras, String... withoutNames) {
+	public <T extends CMap> void removeEqual(T paras, String... withoutNames) {
 		HashSet<String> withoutSet = CollectionKit.newHashSet(withoutNames);
 		for(Entry<String, Object> entry : paras.entrySet()) {
 			if(withoutSet.contains(entry.getKey())) {
@@ -168,7 +168,7 @@ public class Paras extends CaseInsensitiveHashMap<String, Object> implements Bas
 	 * @param value 值
 	 * @return 本身
 	 */
-	public Paras set(String attr, Object value) {
+	public CMap set(String attr, Object value) {
 		return this.put(attr, value);
 	}
 	
@@ -179,7 +179,7 @@ public class Paras extends CaseInsensitiveHashMap<String, Object> implements Bas
 	 * @param value 值
 	 * @return 本身
 	 */
-	public Paras setIgnoreNull(String attr, Object value) {
+	public CMap setIgnoreNull(String attr, Object value) {
 		if(null != attr && null != value) {
 			set(attr, value);
 		}
@@ -193,7 +193,7 @@ public class Paras extends CaseInsensitiveHashMap<String, Object> implements Bas
 	 * @return 本身
 	 */
 	@Override
-	public Paras put(String attr, Object value) {
+	public CMap put(String attr, Object value) {
 		super.put(attr, value);
 		return this;
 	}
@@ -298,8 +298,8 @@ public class Paras extends CaseInsensitiveHashMap<String, Object> implements Bas
 	//-------------------------------------------------------------------- 特定类型值
 	
 	@Override
-	public Paras clone() {
-		return (Paras) super.clone();
+	public CMap clone() {
+		return (CMap) super.clone();
 	}
 	
 	//-------------------------------------------------------------------- 特定类型值

@@ -13,19 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.smallchill.core.interfaces;
+package com.smallchill.core.toolbox.cache;
+
+import java.util.List;
 
 /**
- * select aop
+ * 通用缓存接口
  */
-public interface ISelect {
+public interface ICache {
 	
-	IQuery userIntercept();
+	public void put(String cacheName, Object key, Object value);
 	
-	IQuery deptIntercept();
+	public <T> T get(String cacheName, Object key);
 	
-	IQuery dictIntercept();
+	@SuppressWarnings("rawtypes")
+	public List getKeys(String cacheName);
 	
-	IQuery roleIntercept();
+	public void remove(String cacheName, Object key);
+	
+	public void removeAll(String cacheName);
+	
+	public <T> T get(String cacheName, Object key, ILoader iLoader);
+	
+	public <T> T get(String cacheName, Object key, Class<? extends ILoader> iLoaderClass);
 	
 }

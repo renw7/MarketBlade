@@ -18,7 +18,7 @@ package com.smallchill.system.meta.intercept;
 import com.smallchill.core.aop.Invocation;
 import com.smallchill.core.intercept.BladeValidator;
 import com.smallchill.core.plugins.dao.Blade;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.system.model.Menu;
 
@@ -42,7 +42,7 @@ public class MenuValidator extends BladeValidator {
 		}
 		Blade blade = Blade.create(Menu.class);
 		String sql = "select * from blade_menu where code = #{code}";
-		boolean temp = blade.isExist(sql, Paras.create().set("code", code));
+		boolean temp = blade.isExist(sql, CMap.init().set("code", code));
 		if (temp) {
 			addError(errorMessage);
 		}

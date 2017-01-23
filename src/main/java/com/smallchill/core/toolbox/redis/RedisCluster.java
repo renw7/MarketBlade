@@ -30,7 +30,6 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPool;
 
-import com.smallchill.core.interfaces.ICallBack;
 import com.smallchill.core.toolbox.kit.LogKit;
 import com.smallchill.core.toolbox.redis.serializer.ISerializer;
 
@@ -38,7 +37,7 @@ import com.smallchill.core.toolbox.redis.serializer.ISerializer;
  * Redis集群工具类
  * Redis 命令参考: http://redisdoc.com/
  */
-public class RedisCluster implements IJedis{
+public class RedisCluster implements IJedis {
 	
 	protected String name;
 	protected JedisCluster jedisCluster;

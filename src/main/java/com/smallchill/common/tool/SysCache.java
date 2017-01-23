@@ -5,12 +5,12 @@ import java.util.Map;
 
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.constant.ConstCacheKey;
-import com.smallchill.core.interfaces.ILoader;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Paras;
-import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.core.toolbox.CMap;
+import com.smallchill.core.toolbox.cache.CacheKit;
+import com.smallchill.core.toolbox.cache.ILoader;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.support.Convert;
 import com.smallchill.system.model.Dept;
@@ -28,10 +28,10 @@ public class SysCache implements ConstCache, ConstCacheKey{
 	 * @return
 	 */
 	public static String getDictName(final Object code, final Object num) {
-		Dict dict = CacheKit.get(DICT_CACHE, GET_DICT_NAME + code + "_" + num, new ILoader() {
+		Dict dict = CacheKit.get(SYS_CACHE, GET_DICT_NAME + code + "_" + num, new ILoader() {
 			@Override
 			public Object load() {
-				return Blade.create(Dict.class).findFirstBy("code = #{code} and num = #{num}", Paras.create().set("code", Convert.toStr(code)).set("num", num));
+				return Blade.create(Dict.class).findFirstBy("code = #{code} and num = #{num}", CMap.init().set("code", Convert.toStr(code)).set("num", num));
 			}
 		});
 		if(null == dict){
@@ -46,10 +46,10 @@ public class SysCache implements ConstCache, ConstCacheKey{
 	 * @return
 	 */
 	public static List<Dict> getDict(final Object code) {
-		List<Dict> list = CacheKit.get(DICT_CACHE, GET_DICT + code, new ILoader() {
+		List<Dict> list = CacheKit.get(SYS_CACHE, GET_DICT + code, new ILoader() {
 			@Override
 			public Object load() {
-				return Blade.create(Dict.class).findBy("code = #{code} and num > 0", Paras.create().set("code", Convert.toStr(code)));
+				return Blade.create(Dict.class).findBy("code = #{code} and num > 0", CMap.init().set("code", Convert.toStr(code)));
 			}
 		});
 		return list;
@@ -62,10 +62,10 @@ public class SysCache implements ConstCache, ConstCacheKey{
 	 */
 	@SuppressWarnings("rawtypes")
 	public static List<Map> getSimpleDict(final Object code) {
-		List<Map> list = CacheKit.get(DICT_CACHE, GET_DICT + "simple_" + code, new ILoader() {
+		List<Map> list = CacheKit.get(SYS_CACHE, GET_DICT + "simple_" + code, new ILoader() {
 			@Override
 			public Object load() {
-				return Db.selectList("select num, name, tips from blade_dict where code = #{code} and num > 0", Paras.create().set("code", Convert.toStr(code))); 
+				return Db.selectList("select num, name, tips from blade_dict where code = #{code} and num > 0", CMap.init().set("code", Convert.toStr(code))); 
 			}
 		});
 		return list;
@@ -84,7 +84,7 @@ public class SysCache implements ConstCache, ConstCacheKey{
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0 ; i < roleIdArr.length; i++){
 			final Integer roleId = roleIdArr[i];
-			Role role = CacheKit.get(ROLE_CACHE, GET_ROLE_NAME + roleId, new ILoader() {
+			Role role = CacheKit.get(SYS_CACHE, GET_ROLE_NAME + roleId, new ILoader() {
 				@Override
 				public Object load() {
 					return Blade.create(Role.class).findById(roleId);
@@ -109,7 +109,7 @@ public class SysCache implements ConstCache, ConstCacheKey{
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0 ; i < roleIdArr.length; i++){
 			final Integer roleId = roleIdArr[i];
-			Role role = CacheKit.get(ROLE_CACHE, GET_ROLE_ALIAS + roleId, new ILoader() {
+			Role role = CacheKit.get(SYS_CACHE, GET_ROLE_ALIAS + roleId, new ILoader() {
 				@Override
 				public Object load() {
 					return Blade.create(Role.class).findById(roleId);
@@ -127,7 +127,7 @@ public class SysCache implements ConstCache, ConstCacheKey{
 	 * @return
 	 */
 	public static String getUserName(final Object userId) {
-		User user = CacheKit.get(USER_CACHE, GET_USER_NAME + userId, new ILoader() {
+		User user = CacheKit.get(SYS_CACHE, GET_USER_NAME + userId, new ILoader() {
 			@Override
 			public Object load() {
 				return Blade.create(User.class).findById(Convert.toInt(userId));
@@ -152,7 +152,7 @@ public class SysCache implements ConstCache, ConstCacheKey{
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0 ; i < deptIdArr.length; i++){
 			final Integer deptId = deptIdArr[i];
-			Dept dept = CacheKit.get(DEPT_CACHE, GET_DEPT_NAME + deptId, new ILoader() {
+			Dept dept = CacheKit.get(SYS_CACHE, GET_DEPT_NAME + deptId, new ILoader() {
 				@Override
 				public Object load() {
 					return Blade.create(Dept.class).findById(deptId);
@@ -170,7 +170,7 @@ public class SysCache implements ConstCache, ConstCacheKey{
 	 * @return String
 	*/
 	public static String getParamByCode(Object code){
-		Parameter param = Blade.create(Parameter.class).findFirstBy("code = #{code} and status = 1", Paras.create().set("code", Convert.toInt(code)));
+		Parameter param = Blade.create(Parameter.class).findFirstBy("code = #{code} and status = 1", CMap.init().set("code", Convert.toInt(code)));
 		return param.getPara();
 	}
 }

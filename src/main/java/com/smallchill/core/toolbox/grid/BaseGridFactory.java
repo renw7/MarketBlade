@@ -21,8 +21,7 @@ import java.util.Map;
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.constant.Const;
-import com.smallchill.core.interfaces.IGrid;
-import com.smallchill.core.interfaces.IQuery;
+import com.smallchill.core.meta.IQuery;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.plugins.dao.Md;
 import com.smallchill.core.toolbox.Func;
@@ -34,7 +33,7 @@ import com.smallchill.core.toolbox.support.SqlKeyword;
 /**
  * grid工厂基类,封装通用分页方法
  */
-public abstract class BaseGridFactory implements IGrid{
+public abstract class BaseGridFactory implements IGrid {
 
 	/**
 	 * 封装grid返回数据类型
@@ -97,17 +96,20 @@ public abstract class BaseGridFactory implements IGrid{
 			statement = statement + sqlex + orderBy;
 		}
 
-		Object list = null;
-		
-		if(StrKit.notBlank(dbName)){
-			list = Db.init(dbName).paginate(statement, sqlCount, map, page, rows);			
-		} else {
-			list = Db.paginate(statement, sqlCount, map, page, rows);
+		Object list = (null == ac) ? null : ac.getObject();
+		if (null == list) {
+			if(StrKit.notBlank(dbName)) {
+				list = Db.init(dbName).paginate(statement, sqlCount, map, page, rows);			
+			} else {
+				list = Db.paginate(statement, sqlCount, map, page, rows);
+			}
 		}
 
 		// 查询后拦截
 		if (null != intercept) {
-			ac.setObject(list);
+			if(null == ac.getObject()) {
+				ac.setObject(list);
+			}
 			intercept.queryAfter(ac);
 		}
 		return list;

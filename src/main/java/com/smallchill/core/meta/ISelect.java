@@ -13,29 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.smallchill.core.interfaces;
+package com.smallchill.core.meta;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
-
-import com.smallchill.common.vo.ShiroUser;
-import com.smallchill.system.model.User;
+import com.smallchill.core.meta.IQuery;
 
 /**
- * 定义shirorealm所需数据的接口
- *
+ * select aop
  */
-public interface IShiro {
-	User user(String account);
-
-	ShiroUser shiroUser(User user);
-
-	@SuppressWarnings("rawtypes")
-	List<Map> findPermissionsByRoleId(Object userId, Integer roleId);
-
-	String findRoleNameByRoleId(Integer roleId);
+public interface ISelect {
 	
-	SimpleAuthenticationInfo info(ShiroUser shiroUser, User user, String realmName);
+	IQuery userIntercept();
+	
+	IQuery deptIntercept();
+	
+	IQuery dictIntercept();
+	
+	IQuery roleIntercept();
+	
 }

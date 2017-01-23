@@ -15,21 +15,32 @@
  */
 package com.smallchill.system.controller;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.smallchill.common.base.BaseController;
 import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.annotation.Before;
 import com.smallchill.core.annotation.Permission;
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.ConstShiro;
-import com.smallchill.core.interfaces.ILoader;
-import com.smallchill.core.interfaces.IQuery;
+import com.smallchill.core.meta.IQuery;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.shiro.ShiroKit;
 import com.smallchill.core.toolbox.Func;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
-import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.core.toolbox.cache.CacheKit;
+import com.smallchill.core.toolbox.cache.ILoader;
 import com.smallchill.core.toolbox.kit.CollectionKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.support.Convert;
@@ -38,16 +49,6 @@ import com.smallchill.system.meta.intercept.UserIntercept;
 import com.smallchill.system.meta.intercept.UserValidator;
 import com.smallchill.system.model.RoleExt;
 import com.smallchill.system.model.User;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -87,9 +88,9 @@ public class UserController extends BaseController implements ConstShiro{
 	@Permission({ ADMINISTRATOR, ADMIN })
 	public String edit(@PathVariable Integer id, ModelMap mm) {
 		User user = Blade.create(User.class).findById(id);
-		Paras rd = Paras.parse(user);
-		rd.set("roleName", SysCache.getRoleName(user.getRoleid()));
-		mm.put("user", rd);
+		CMap cmap = CMap.parse(user);
+		cmap.set("roleName", SysCache.getRoleName(user.getRoleid()));
+		mm.put("user", cmap);
 		mm.put("code", CODE);
 		return BASE_PATH + "user_edit.html";
 	}
@@ -97,9 +98,9 @@ public class UserController extends BaseController implements ConstShiro{
 	@RequestMapping("/editMySelf/{id}")
 	public String editMySelf(@PathVariable Integer id, ModelMap mm) {
 		User user = Blade.create(User.class).findById(id);
-		Paras rd = Paras.parse(user);
-		rd.set("roleName", SysCache.getRoleName(user.getRoleid()));
-		mm.put("user", rd);
+		CMap cmap = CMap.parse(user);
+		cmap.set("roleName", SysCache.getRoleName(user.getRoleid()));
+		mm.put("user", cmap);
 		mm.put("code", CODE);
 		mm.put("methodName", "editMySelf");
 		return BASE_PATH + "user_edit.html";
@@ -136,11 +137,11 @@ public class UserController extends BaseController implements ConstShiro{
 	@Permission({ ADMINISTRATOR, ADMIN })
 	public String view(@PathVariable Integer id, ModelMap mm) {
 		User user = Blade.create(User.class).findById(id);
-		Paras rd = Paras.parse(user);
-		rd.set("deptName", SysCache.getDeptName(user.getDeptid()))
+		CMap cmap = CMap.parse(user);
+		cmap.set("deptName", SysCache.getDeptName(user.getDeptid()))
 			.set("roleName", SysCache.getRoleName(user.getRoleid()))
 			.set("sexName", SysCache.getDictName(101, user.getSex()));
-		mm.put("user", rd);
+		mm.put("user", cmap);
 		mm.put("code", CODE);
 		return BASE_PATH + "user_view.html";
 	}
@@ -161,9 +162,7 @@ public class UserController extends BaseController implements ConstShiro{
 		user.setCreatetime(new Date());
 		boolean temp = Blade.create(User.class).save(user);
 		if (temp) {
-			CacheKit.removeAll(DEPT_CACHE);
-			CacheKit.removeAll(DICT_CACHE);
-			CacheKit.removeAll(USER_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success(SAVE_SUCCESS_MSG);
 		} else {
 			return error(SAVE_FAIL_MSG);
@@ -186,9 +185,7 @@ public class UserController extends BaseController implements ConstShiro{
 		}
 		boolean temp = Blade.create(User.class).update(user);
 		if (temp) {
-			CacheKit.removeAll(DEPT_CACHE);
-			CacheKit.removeAll(DICT_CACHE);
-			CacheKit.removeAll(USER_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success(UPDATE_SUCCESS_MSG);
 		} else {
 			return error(UPDATE_FAIL_MSG);
@@ -199,7 +196,7 @@ public class UserController extends BaseController implements ConstShiro{
 	@RequestMapping(KEY_DEL)
 	@Permission({ ADMINISTRATOR, ADMIN })
 	public AjaxResult del() {
-		boolean temp = Blade.create(User.class).updateBy("status = #{status}", "id in (#{join(ids)})", Paras.create().set("status", 5).set("ids", Convert.toIntArray(getParameter("ids"))));
+		boolean temp = Blade.create(User.class).updateBy("status = #{status}", "id in (#{join(ids)})", CMap.init().set("status", 5).set("ids", Convert.toIntArray(getParameter("ids"))));
 		if (temp) {
 			return success(DEL_SUCCESS_MSG);
 		} else {
@@ -239,12 +236,12 @@ public class UserController extends BaseController implements ConstShiro{
 	public AjaxResult auditOk() {
 		String ids = getParameter("ids");
 		Blade blade = Blade.create(User.class);
-		Paras countMap = Paras.create().set("ids", Convert.toIntArray(ids));
+		CMap countMap = CMap.init().set("ids", Convert.toIntArray(ids));
 		int cnt = blade.count("id in (#{join(ids)}) and (roleId='' or roleId is null)", countMap);
 		if (cnt > 0) {
 			return warn("存在没有分配角色的账号!");
 		}
-		Paras updateMap = Paras.create().set("status", 1).set("ids", Convert.toIntArray(ids));
+		CMap updateMap = CMap.init().set("status", 1).set("ids", Convert.toIntArray(ids));
 		boolean temp = blade.updateBy("status = #{status}", "id in (#{join(ids)})", updateMap);
 		if (temp) {
 			return success("审核成功!");
@@ -257,7 +254,7 @@ public class UserController extends BaseController implements ConstShiro{
 	@RequestMapping("/auditRefuse")
 	public AjaxResult auditRefuse() {
 		String ids = getParameter("ids");
-		Paras updateMap = Paras.create().set("status", 4).set("ids", Convert.toIntArray(ids));
+		CMap updateMap = CMap.init().set("status", 4).set("ids", Convert.toIntArray(ids));
 		boolean temp = Blade.create(User.class).updateBy("status = #{status}", "id in (#{join(ids)})", updateMap);
 		if (temp) {
 			return success("审核拒绝成功!");
@@ -270,7 +267,7 @@ public class UserController extends BaseController implements ConstShiro{
 	@RequestMapping("/ban")
 	public AjaxResult ban() {
 		String ids = getParameter("ids");
-		Paras updateMap = Paras.create().set("ids", Convert.toIntArray(ids));
+		CMap updateMap = CMap.init().set("ids", Convert.toIntArray(ids));
 		boolean temp = Blade.create(User.class).updateBy("status = (CASE WHEN STATUS=2 THEN 3 ELSE 2 END)", "id in (#{join(ids)})", updateMap);
 		if (temp) {
 			return success("操作成功!");
@@ -283,7 +280,7 @@ public class UserController extends BaseController implements ConstShiro{
 	@RequestMapping("/restore")
 	public AjaxResult restore() {
 		String ids = getParameter("ids");
-		Paras updateMap = Paras.create().set("status", 3).set("ids", Convert.toIntArray(ids));
+		CMap updateMap = CMap.init().set("status", 3).set("ids", Convert.toIntArray(ids));
 		boolean temp = Blade.create(User.class).updateBy("status = #{status}", "id in (#{join(ids)})", updateMap);
 		if (temp) {
 			return success("还原成功!");
@@ -298,7 +295,7 @@ public class UserController extends BaseController implements ConstShiro{
 		String ids = getParameter("ids");
 		boolean temp = Blade.create(User.class).deleteByIds(ids) > 0;
 		if (temp) {
-			CacheKit.removeAll(USER_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success("删除成功!");
 		} else {
 			return error("删除失败!");
@@ -320,8 +317,8 @@ public class UserController extends BaseController implements ConstShiro{
 	@RequestMapping("/menuTreeIn")
 	public AjaxResult menuTreeIn() {
 		Integer userId = getParameterToInt("userId");
-		Map<String, Object> roleIn = Db.selectOne("select ROLEIN from blade_role_ext where userId = #{userId}", Paras.create().set("userId",userId));
-		List<Integer> ids = Db.queryListInt("select MENUID from blade_relation where ROLEID in (#{join(roles)})", Paras.create().set("roles", ShiroKit.getUser().getRoleList()));
+		Map<String, Object> roleIn = Db.selectOne("select ROLEIN from blade_role_ext where userId = #{userId}", CMap.init().set("userId",userId));
+		List<Integer> ids = Db.queryListInt("select MENUID from blade_relation where ROLEID in (#{join(roles)})", CMap.init().set("roles", ShiroKit.getUser().getRoleList()));
 		String inId = "0";
 		if (!Func.isEmpty(roleIn)) {
 			inId = Func.toStr(roleIn.get("ROLEIN"));
@@ -335,7 +332,7 @@ public class UserController extends BaseController implements ConstShiro{
 				" where m.status=1 and m.id in (#{join(all)}) order by m.levels,m.num asc"
 				);
 		
-		List<Map> menu = Db.selectList(sb.toString(), Paras.create().set("inId", Convert.toIntArray(inId)).set("all", all));
+		List<Map> menu = Db.selectList(sb.toString(), CMap.init().set("inId", Convert.toIntArray(inId)).set("all", all));
 		return json(menu);
 	}
 	
@@ -344,8 +341,8 @@ public class UserController extends BaseController implements ConstShiro{
 	@RequestMapping("/menuTreeOut")
 	public AjaxResult menuTreeOut() {
 		Integer userId = getParameterToInt("userId");
-		Map roleOut = Db.selectOne("select ROLEOUT from blade_role_ext where userId = #{userId}", Paras.create().set("userId",userId));
-		List<Integer> ids = Db.queryListInt("select MENUID from blade_relation where ROLEID in (#{join(roles)})", Paras.create().set("roles", ShiroKit.getUser().getRoleList()));
+		Map roleOut = Db.selectOne("select ROLEOUT from blade_role_ext where userId = #{userId}", CMap.init().set("userId",userId));
+		List<Integer> ids = Db.queryListInt("select MENUID from blade_relation where ROLEID in (#{join(roles)})", CMap.init().set("roles", ShiroKit.getUser().getRoleList()));
 		String outId = "0";
 		if (!Func.isEmpty(roleOut)) {
 			outId = Func.toStr(roleOut.get("ROLEOUT"));
@@ -359,7 +356,7 @@ public class UserController extends BaseController implements ConstShiro{
 				" where m.status=1 and m.id in (#{join(all)}) order by m.levels,m.num asc"
 				);
 		
-		List<Map> menu = Db.selectList(sb.toString(), Paras.create().set("outId", Convert.toIntArray(outId)).set("all", all));
+		List<Map> menu = Db.selectList(sb.toString(), CMap.init().set("outId", Convert.toIntArray(outId)).set("all", all));
 		return json(menu);
 	}
 	
@@ -370,7 +367,7 @@ public class UserController extends BaseController implements ConstShiro{
 		Integer userId = getParameterToInt("userId");
 		String roleIn = getParameter("idsIn", "0");
 		String roleOut = getParameter("idsOut", "0");
-		RoleExt roleExt = blade.findFirstBy("userId = #{userId}", Paras.create().set("userId", userId));	
+		RoleExt roleExt = blade.findFirstBy("userId = #{userId}", CMap.init().set("userId", userId));	
 		boolean flag = false;
 		if (Func.isEmpty(roleExt)) {
 			roleExt = new RoleExt();
@@ -384,7 +381,7 @@ public class UserController extends BaseController implements ConstShiro{
 		} else {
 			blade.update(roleExt);
 		}
-		CacheKit.removeAll(MENU_CACHE);
+		CacheKit.removeAll(SYS_CACHE);
 		return success("配置成功!"); 
 	}
 	
@@ -401,12 +398,11 @@ public class UserController extends BaseController implements ConstShiro{
 	public AjaxResult saveRole() {
 		String id = getParameter("id");
 		String roleIds = getParameter("roleIds");
-		Paras rd = Paras.create();
-		rd.set("roleIds", roleIds).set("id", Convert.toIntArray(id));
-		boolean temp = Blade.create(User.class).updateBy("ROLEID = #{roleIds}", "id in (#{join(id)})", rd);
+		CMap cmap = CMap.init();
+		cmap.set("roleIds", roleIds).set("id", Convert.toIntArray(id));
+		boolean temp = Blade.create(User.class).updateBy("ROLEID = #{roleIds}", "id in (#{join(id)})", cmap);
 		if (temp) {
-			CacheKit.removeAll(ROLE_CACHE);
-			CacheKit.removeAll(MENU_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success("配置成功!");
 		} else {
 			return error("配置失败!");
@@ -416,10 +412,10 @@ public class UserController extends BaseController implements ConstShiro{
 	@ResponseBody
 	@RequestMapping("/userTreeList")
 	public AjaxResult userTreeList() {
-		List<Map<String, Object>> dept = CacheKit.get(DEPT_CACHE, USER_TREE_ALL,
+		List<Map<String, Object>> dept = CacheKit.get(SYS_CACHE, USER_TREE_ALL,
 				new ILoader() {
 					public Object load() {
-						return Db.selectList("select id \"id\",pId \"pId\",simpleName as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  BLADE_DEPT order by pId,num asc", Paras.create(), new AopContext(), new IQuery() {
+						return Db.selectList("select id \"id\",pId \"pId\",simpleName as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  BLADE_DEPT order by pId,num asc", CMap.init(), new AopContext(), new IQuery() {
 							
 							@Override
 							public void queryBefore(AopContext ac) {
@@ -433,10 +429,10 @@ public class UserController extends BaseController implements ConstShiro{
 								List<Map<String, Object>> _list = new ArrayList<>(); 
 								for (Map<String, Object> map : list) {
 									Integer[] deptIds = Convert.toIntArray(map.get("id").toString());
-									List<User> users = Blade.create(User.class).findBy("DEPTID in (#{join(deptId)})", Paras.create().set("deptId", deptIds));
+									List<User> users = Blade.create(User.class).findBy("DEPTID in (#{join(deptId)})", CMap.init().set("deptId", deptIds));
 									for (User user : users) {
 										for (Integer deptId : deptIds) {
-											Map<String, Object> userMap = Paras.createHashMap();
+											Map<String, Object> userMap = CMap.createHashMap();
 											userMap.put("id", user.getId() + 9999);
 											userMap.put("pId", deptId);
 											userMap.put("name", user.getName());

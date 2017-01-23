@@ -19,7 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.smallchill.core.base.controller.CurdController;
-import com.smallchill.core.interfaces.IMeta;
+import com.smallchill.core.meta.IMeta;
 import com.smallchill.system.meta.factory.OLogFactory;
 import com.smallchill.system.model.OperationLog;
 

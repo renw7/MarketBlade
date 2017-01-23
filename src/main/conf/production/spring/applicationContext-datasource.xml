@@ -12,10 +12,10 @@
     http://www.springframework.org/schema/tx/spring-tx-4.3.xsd ">
 
 	<!-- 连接池配置文件 -->
-	<bean id="propertyConfigurer" class="com.smallchill.core.config.EncryptablePropertyPlaceholder">    
+	<bean id="propertyConfigurer" class="com.smallchill.core.toolbox.support.EncryptablePropertyPlaceholder">    
        <property name="locations">    
            <list>    
-               <value>classpath:config/config.properties</value>    
+               <value>classpath:config.properties</value>    
            </list>    
        </property>    
    </bean>  

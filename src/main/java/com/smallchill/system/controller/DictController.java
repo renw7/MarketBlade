@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.smallchill.common.base.BaseController;
 import com.smallchill.core.annotation.Before;
 import com.smallchill.core.plugins.dao.Blade;
-import com.smallchill.core.toolbox.Paras;
+import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
-import com.smallchill.core.toolbox.kit.CacheKit;
+import com.smallchill.core.toolbox.cache.CacheKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.system.meta.intercept.DictValidator;
 import com.smallchill.system.model.Dict;
@@ -85,9 +85,9 @@ public class DictController extends BaseController{
 		Dict dict = blade.findById(id);
 		Dict parent = blade.findById(dict.getPid());
 		String pname = (null == parent) ? "" : parent.getName();
-		Paras rd = Paras.parse(dict);
-		rd.set("pname", pname);
-		mm.put("model", JsonKit.toJson(rd));
+		CMap cmap = CMap.parse(dict);
+		cmap.set("pname", pname);
+		mm.put("model", JsonKit.toJson(cmap));
 		mm.put("code", CODE);
 		return BASE_PATH + "dict_view.html";
 	}
@@ -99,8 +99,7 @@ public class DictController extends BaseController{
 		Dict dict = mapping(PREFIX, Dict.class);
 		boolean temp = Blade.create(Dict.class).save(dict);
 		if (temp) {
-			CacheKit.removeAll(DICT_CACHE);
-			CacheKit.removeAll(DIY_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success(SAVE_SUCCESS_MSG);
 		} else {
 			return error(SAVE_FAIL_MSG);
@@ -114,8 +113,7 @@ public class DictController extends BaseController{
 		Dict dict = mapping(PREFIX, Dict.class);
 		boolean temp =  Blade.create(Dict.class).update(dict);
 		if (temp) {
-			CacheKit.removeAll(DICT_CACHE);
-			CacheKit.removeAll(DIY_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success(UPDATE_SUCCESS_MSG);
 		} else {
 			return error(UPDATE_FAIL_MSG);
@@ -127,8 +125,7 @@ public class DictController extends BaseController{
 	public AjaxResult remove() {
 		int cnt = Blade.create(Dict.class).deleteByIds(getParameter("ids"));
 		if (cnt > 0) {
-			CacheKit.removeAll(DICT_CACHE);
-			CacheKit.removeAll(DIY_CACHE);
+			CacheKit.removeAll(SYS_CACHE);
 			return success(DEL_SUCCESS_MSG);
 		} else {
 			return error(DEL_FAIL_MSG);
@@ -139,7 +136,7 @@ public class DictController extends BaseController{
 	private int findLastNum(String code){
 		try{
 			Blade blade = Blade.create(Dict.class);
-			Dict dict = blade.findFirstBy("code = #{code} order by num desc", Paras.create().set("code", code));
+			Dict dict = blade.findFirstBy("code = #{code} order by num desc", CMap.init().set("code", code));
 			return dict.getNum() + 1;
 		}
 		catch(Exception ex){
