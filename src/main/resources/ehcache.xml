@@ -36,13 +36,13 @@
            transactionalMode="off">
     </cache>
             
-	<!-- 系统变量：1小时-->
+	<!-- 系统变量：10小时-->
     <cache name="SYS_CACHE"
     	   maxElementsInMemory="50000"
     	   clearOnFlush="false"
            eternal="false"
-           timeToIdleSeconds="3600"
-           timeToLiveSeconds="3600"
+           timeToIdleSeconds="36000"
+           timeToLiveSeconds="36000"
            overflowToDisk="true"
            diskSpoolBufferSizeMB="1024"
            maxElementsOnDisk="100000"

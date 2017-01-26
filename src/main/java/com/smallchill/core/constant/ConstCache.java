@@ -24,6 +24,6 @@ public interface ConstCache {
 	
 	String LONG_CACHE = "LONG_CACHE";//全局永久变量
 	
-	String SYS_CACHE = "SYS_CACHE";//系统变量 1小时
+	String SYS_CACHE = "SYS_CACHE";//系统变量 10小时
 
 }
