@@ -53,7 +53,7 @@
 				}
 			};
 		
-		var ajax = new $ax("${ctxPath}/cache/roleTreeList", function(data){
+		var ajax = new Ajax("${ctxPath}/cache/roleTreeList", function(data){
 			if(data.code === 0){
 				$.fn.zTree.init($("#zTree"), setting, data.data);
 			}

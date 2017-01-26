@@ -46,7 +46,7 @@ $(function () {
 		var $form = $(this);
 		var $imgcode=$("#"+$form.attr("data-imgcode"));
 		
-		var ajax = new $ax($form.attr("action"), function(data){
+		var ajax = new Ajax($form.attr("action"), function(data){
 			if (data.code === 0) {
 				layer.msg(data.message, {shift: 1});
 				setTimeout(function(){window.location.href = BladeApp.ctxPath + "/";}, 1200);

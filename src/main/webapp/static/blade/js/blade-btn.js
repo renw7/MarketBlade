@@ -482,7 +482,7 @@ var exwhere;
 
 // 根据模块code生成每个工具条上面的 btn
 function initMenuBtn(obj, code) {
-    var ajax = new $ax(BladeApp.ctxPath + "/cache/getBtn", function (data) {
+    var ajax = new Ajax(BladeApp.ctxPath + "/cache/getBtn", function (data) {
         if (data.code === 0) {
             toolbar = obj;
             btnjsons = data.data;

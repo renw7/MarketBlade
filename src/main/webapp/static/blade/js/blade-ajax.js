@@ -1,5 +1,5 @@
 (function () {
-	var $ax = function (url, success) {
+	var Ajax = function (url, success) {
 		this.url = url;
 		this.type = "post";
 		this.data = {};
@@ -8,7 +8,7 @@
 		this.success = success;
 	};
 	
-	$ax.prototype = {
+	Ajax.prototype = {
 		start : function () {	
 			var me = this;
 			
@@ -54,6 +54,6 @@
 		//closeDialog(data);
 	});
 	
-	window.$ax = $ax;
+	window.Ajax = Ajax;
 	
 } ());

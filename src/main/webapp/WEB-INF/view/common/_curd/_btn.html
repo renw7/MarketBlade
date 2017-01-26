@@ -33,7 +33,7 @@
 					var appindex = appLoading();
 					var $form = $(this);
 					
-					var ajax = new $ax($form.attr("data-url"), function(data){
+					var ajax = new Ajax($form.attr("data-url"), function(data){
 						if (data.code === 0) {
 							clearLoading(appindex);
 							layer.msg(data.message, {shift: 1});

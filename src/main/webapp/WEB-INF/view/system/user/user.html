@@ -54,7 +54,7 @@
 				}
 			};
 		
-		var ajax = new $ax("${ctxPath}/user/userTreeList", function(data){
+		var ajax = new Ajax("${ctxPath}/user/userTreeList", function(data){
 			if(data.code === 0){
 				$.fn.zTree.init($("#zTree"), setting, data.data);
 			}

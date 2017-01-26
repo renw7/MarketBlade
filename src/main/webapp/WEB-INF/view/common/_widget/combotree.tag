@@ -102,7 +102,7 @@
 						onCheck: onCheck${id}_ipt
 					}
 				};
-			var treeList = new $ax("${ctxPath}/combotree/getTreeList", function(data){
+			var treeList = new Ajax("${ctxPath}/combotree/getTreeList", function(data){
 				if (data.code === 0) {
 					$.fn.zTree.init($("#tree${id}_ipt"), setting, data.data);
 				} else {
@@ -121,7 +121,7 @@
 		}
 		
 		function initComboTreeName${id}_ipt(val) {
-			var treeName = new $ax("${ctxPath}/combotree/getTreeListName", function(data){
+			var treeName = new Ajax("${ctxPath}/combotree/getTreeListName", function(data){
 				if (data.code === 0) {
 					$("#${id}_ipt").val(data.data);
 				} else {

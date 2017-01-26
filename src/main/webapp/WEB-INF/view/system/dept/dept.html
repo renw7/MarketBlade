@@ -51,7 +51,7 @@
 					beforeClick: zTreeBeforeClick
 				}
 			};
-		var ajax = new $ax("${ctxPath}/cache/deptTreeList", function(data){
+		var ajax = new Ajax("${ctxPath}/cache/deptTreeList", function(data){
 			if(data.code===0){
 				$.fn.zTree.init($("#zTree"), setting, data.data);
 			}
