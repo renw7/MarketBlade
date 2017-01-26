@@ -15,6 +15,9 @@
  */
 package com.smallchill.system.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.smallchill.core.base.service.BaseService;
@@ -46,12 +49,14 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 	public boolean grant(String ids, Integer roleId) {
 		Blade dao = Blade.create(Relation.class);
 		dao.deleteBy("ROLEID = #{roleId}", CMap.init().set("roleId", roleId));
+		List<Relation> relations = new ArrayList<>();
 		for (Integer menuId : Convert.toIntArray(ids)) {
 			Relation relation = new Relation();
 			relation.setMenuid(menuId);
 			relation.setRoleid(roleId);
-			dao.save(relation);
+			relations.add(relation);
 		}
+		dao.saveBatch(relations);
 		return true;
 	}
 
