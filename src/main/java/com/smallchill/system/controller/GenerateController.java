@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.beetl.sql.core.JavaType;
 import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.annotatoin.Table;
 import org.beetl.sql.core.db.ColDesc;
 import org.beetl.sql.core.db.TableDesc;
-import org.beetl.sql.ext.gen.JavaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

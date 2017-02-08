@@ -49,8 +49,11 @@ public class RedisCacheFactory extends BaseCacheFactory {
 		return jedis;
 	}
 	
+	public RedisCacheFactory() {
+		this.redisName = "cache";
+	}
+	
 	public RedisCacheFactory(String redisName) {
-		super();
 		this.redisName = redisName;
 	}
 	
