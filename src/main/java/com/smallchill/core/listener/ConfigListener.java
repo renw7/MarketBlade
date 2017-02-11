@@ -45,7 +45,7 @@ public class ConfigListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent evt) {
 		ServletContext sc = evt.getServletContext();
 		// 项目路径
-		conf.put("realPath", sc.getRealPath("/").replaceFirst("/", ""));
+		conf.put("realPath", sc.getRealPath("/"));
 		conf.put("contextPath", sc.getContextPath());
 
 		Properties prop = PropKit.use(Const.PROPERTY_FILE).getProperties();

@@ -43,7 +43,7 @@ public class DefaultFileProxyFactory implements IFileProxy {
 		//避免网络延迟导致时间不同步
 		long time = System.currentTimeMillis();
 		
-		StringBuilder uploadPath = new StringBuilder().append(File.separator)
+		StringBuilder uploadPath = new StringBuilder()
 		.append(getFileDir(dir, Cst.me().getUploadRealPath()))
 		.append(time)
 		.append(getFileExt(f.getName()));

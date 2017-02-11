@@ -471,13 +471,51 @@ public class Blade {
 	}
 
 	/**
-	 * 根据实体类集合批量更新
+	 * 根据实体类集合批量更新(更新全部字段)
 	 * @param list 实体类集合
 	 * @return
 	 */
 	public int[] updateBathById(List<?> list) {
 		int[] n = getSqlManager().updateByIdBatch(list);
 		return n;
+	}
+	
+	/**
+	 * 根据实体类集合批量更新(只更新非空字段)
+	 * @param list 实体类集合
+	 * @return
+	 */
+	public int[] updateBatchTemplateById(List<?> list) {
+		int[] n = getSqlManager().updateBatchTemplateById(this.modelClass, list);
+		return n;
+	}
+
+	/**
+	 * 新增或修改一条数据(为null的字段不更新)
+	 * @param model 实体类
+	 * @return
+	 */
+	public boolean saveOrUpdate(Object model) {
+		Object idValue = this.getIdValue(model);
+		if(Func.isEmpty(idValue)){
+			return saveAndSetKey(model);
+		} else {
+			return getSqlManager().updateTemplateById(model) > 0;
+		}
+	}
+	
+	/**
+	 * 新增或修改一条数据(为null的字段也更新)
+	 * @param model 实体类
+	 * @return
+	 */
+	public boolean saveOrUpdateEveryCol(Object model) {
+		Object idValue = this.getIdValue(model);
+		if(Func.isEmpty(idValue)){
+			return saveAndSetKey(model);
+		} else {
+			return getSqlManager().updateById(model) > 0;
+		}
 	}
 
 	/**

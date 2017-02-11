@@ -116,9 +116,9 @@ public class GenerateController extends CurdController<Generate> {
 			
 			String tableName = gen.getTablename();
 			String pkName = gen.getPkname();
-			String path = File.separator + realPath + File.separator + "java" + File.separator + packageName.replace(StrKit.DOT, File.separator);
-			String resourcesPath = File.separator + realPath + File.separator + "resources";
-			String webappPath = File.separator + realPath + File.separator + "webapp" + File.separator + "WEB-INF" + File.separator + "view";
+			String path = realPath + File.separator + "java" + File.separator + packageName.replace(StrKit.DOT, File.separator);
+			String resourcesPath = realPath + File.separator + "resources";
+			String webappPath = realPath + File.separator + "webapp" + File.separator + "WEB-INF" + File.separator + "view";
 			
 			//java
 			String controllerPath = path + File.separator + "controller" + File.separator + upperModelName + "Controller.java";
