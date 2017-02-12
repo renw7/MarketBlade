@@ -1,6 +1,6 @@
-#Spring-Blade java开发平台
+#SpringBlade java开发平台
 ## 平台简介
-Spring-Blade是基于多个优秀的开源项目，将各个亮点设计融于一体的快速开发平台。构建稳定的生态圈，对各大底层框架无代码侵入。
+SpringBlade是基于多个优秀的开源项目，将各个亮点设计融于一体的快速开发平台。构建稳定的生态圈，对各大底层框架无代码侵入。
 
 ## 鸣谢
 1.[JFinal](http://www.oschina.net/p/jfinal)
