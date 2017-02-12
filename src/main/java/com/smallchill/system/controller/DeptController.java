@@ -19,9 +19,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
+import com.smallchill.core.annotation.Json;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
@@ -45,7 +45,7 @@ public class DeptController extends BaseController{
 	}
 	
 	
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_LIST)
 	public Object list() {
 		Object gird = paginate(LIST_SOURCE, new DeptIntercept());
@@ -89,7 +89,7 @@ public class DeptController extends BaseController{
 		return BASE_PATH + "dept_view.html";
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_SAVE)
 	public AjaxResult save() {
 		Dept dept = mapping(PREFIX, Dept.class);
@@ -102,7 +102,7 @@ public class DeptController extends BaseController{
 		}
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
 		Dept dept = mapping(PREFIX, Dept.class);
@@ -115,7 +115,7 @@ public class DeptController extends BaseController{
 		}
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_REMOVE)
 	public AjaxResult remove() {
 		int cnt = Blade.create(Dept.class).deleteByIds(getParameter("ids"));

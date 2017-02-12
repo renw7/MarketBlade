@@ -19,10 +19,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.core.annotation.Before;
+import com.smallchill.core.annotation.Json;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
@@ -46,7 +46,7 @@ public class DictController extends BaseController{
 	}
 	
 	
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_LIST)
 	public Object list() {
 		Object gird = paginate(LIST_SOURCE);
@@ -92,7 +92,7 @@ public class DictController extends BaseController{
 		return BASE_PATH + "dict_view.html";
 	}
 	
-	@ResponseBody
+	@Json
 	@Before(DictValidator.class)
 	@RequestMapping(KEY_SAVE)
 	public AjaxResult save() {
@@ -106,7 +106,7 @@ public class DictController extends BaseController{
 		}
 	}
 
-	@ResponseBody
+	@Json
 	@Before(DictValidator.class)
 	@RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
@@ -120,7 +120,7 @@ public class DictController extends BaseController{
 		}
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_REMOVE)
 	public AjaxResult remove() {
 		int cnt = Blade.create(Dict.class).deleteByIds(getParameter("ids"));

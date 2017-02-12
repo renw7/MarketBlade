@@ -6,17 +6,17 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.smallchill.common.base.BaseController;
+import com.smallchill.core.annotation.Json;
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.meta.IQuery;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.plugins.dao.Md;
-import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.CMap;
+import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.cache.CacheKit;
 import com.smallchill.core.toolbox.cache.ILoader;
@@ -44,7 +44,7 @@ public class ZTreeController extends BaseController {
 		return view;
 	}
 	
-	@ResponseBody
+	@Json
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping("/getTreeList")
 	public AjaxResult getTreeList(@RequestParam String type, @RequestParam String source, @RequestParam String where, @RequestParam String intercept, @RequestParam String ext, @RequestParam String val, @RequestParam String treeId) {	
@@ -83,7 +83,7 @@ public class ZTreeController extends BaseController {
 		return json(list);
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping("/getTreeListName")
 	@SuppressWarnings("unchecked")
 	public AjaxResult getTreeListName(@RequestParam String type, @RequestParam String source, @RequestParam String where, @RequestParam String val, @RequestParam String treeId){

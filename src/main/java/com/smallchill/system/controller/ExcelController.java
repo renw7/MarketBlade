@@ -16,9 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
+import com.smallchill.core.annotation.Json;
 import com.smallchill.core.constant.ConstCache;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.plugins.dao.Md;
@@ -39,7 +39,7 @@ public class ExcelController extends BaseController {
 
 	private static String cacheName = ConstCache.SYS_CACHE;
 
-	@ResponseBody
+	@Json
 	@RequestMapping("/preExport")
 	@SuppressWarnings("unchecked")
 	public AjaxResult preExport(@RequestParam String postdata, @RequestParam String colnames, @RequestParam String colmodel, @RequestParam String source, @RequestParam String code) {

@@ -23,18 +23,18 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.smallchill.common.base.BaseController;
+import com.smallchill.core.annotation.Json;
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.meta.IMeta;
 import com.smallchill.core.meta.MetaIntercept;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.plugins.dao.Md;
-import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.CMap;
+import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.ClassKit;
 import com.smallchill.core.toolbox.kit.JsonKit;
@@ -163,7 +163,7 @@ public abstract class CurdController<M> extends BaseController {
 		return view;
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_SAVE)
 	public AjaxResult save() {
 		M model = autoMapping();
@@ -180,7 +180,7 @@ public abstract class CurdController<M> extends BaseController {
 		}
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
 		M model = autoMapping();
@@ -197,7 +197,7 @@ public abstract class CurdController<M> extends BaseController {
 		}
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_REMOVE)
 	public AjaxResult remove() {
 		String ids = getParameter("ids");
@@ -215,7 +215,7 @@ public abstract class CurdController<M> extends BaseController {
 		}
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_DEL)
 	public AjaxResult del() {
 		String ids = getParameter("ids");
@@ -233,7 +233,7 @@ public abstract class CurdController<M> extends BaseController {
 		}
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_RESTORE)
 	public AjaxResult restore() {
 		String ids = getParameter("ids");
@@ -251,7 +251,7 @@ public abstract class CurdController<M> extends BaseController {
 		}
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_LIST)
 	public Object list() {
 		Integer page = getParameterToInt("page", 1);

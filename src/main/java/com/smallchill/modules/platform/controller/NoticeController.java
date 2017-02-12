@@ -5,10 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.common.tool.SysCache;
+import com.smallchill.core.annotation.Json;
 import com.smallchill.core.toolbox.CMap;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.kit.JsonKit;
@@ -61,14 +61,14 @@ public class NoticeController extends BaseController {
 		return BASE_PATH + "notice_view.html";
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_LIST)
 	public Object list() {
 		Object grid = paginate(LIST_SOURCE);
 		return grid;
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_SAVE)
 	public AjaxResult save() {
 		Notice notice = mapping(PREFIX, Notice.class);
@@ -80,7 +80,7 @@ public class NoticeController extends BaseController {
 		}
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
 		Notice notice = mapping(PREFIX, Notice.class);
@@ -98,7 +98,7 @@ public class NoticeController extends BaseController {
 		}
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_REMOVE)
 	public AjaxResult remove() {
 		int cnt = service.deleteByIds(getParameter("ids"));

@@ -30,10 +30,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.core.annotation.Before;
+import com.smallchill.core.annotation.Json;
 import com.smallchill.core.constant.Const;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.shiro.ShiroKit;
@@ -66,8 +66,8 @@ public class LoginController extends BaseController implements Const{
 	/**
 	 * 登陆请求
 	 */
+	@Json
 	@Before(LoginValidator.class)
-	@ResponseBody
 	@PostMapping("/login")
 	public AjaxResult login(HttpServletRequest request, HttpServletResponse response) {
 		String account = getParameter("account");

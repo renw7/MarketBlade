@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.smallchill.core.annotation.Json;
 import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.plugins.dao.Db;
@@ -25,7 +25,7 @@ import com.smallchill.core.toolbox.kit.PathKit;
 @RequestMapping("/uploadify")
 public class UploadifyController extends BladeController {
 	
-	@ResponseBody
+	@Json
 	@RequestMapping("/upload")
 	public CMap upload(@RequestParam("imgFile") MultipartFile file) {
 		CMap cmap = CMap.init();

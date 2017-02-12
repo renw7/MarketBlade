@@ -17,8 +17,8 @@ import org.beetl.sql.core.db.TableDesc;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.smallchill.core.annotation.Json;
 import com.smallchill.core.base.controller.CurdController;
 import com.smallchill.core.beetl.BeetlMaker;
 import com.smallchill.core.constant.Cst;
@@ -43,7 +43,7 @@ public class GenerateController extends CurdController<Generate> {
 		return GenerateFactory.class;
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping("/pojo/{table}")
 	public String createPojo(@PathVariable String table) {
 		try {
@@ -54,7 +54,7 @@ public class GenerateController extends CurdController<Generate> {
 		}
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping("/pojo/{slave}/{table}")
 	public String createPojoSlave(@PathVariable String slave, @PathVariable String table) {
 		try {
@@ -65,7 +65,7 @@ public class GenerateController extends CurdController<Generate> {
 		}
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping("/sql/{table:.+}")
 	public String createBuiltInSql(@PathVariable String table) {
 		try {
@@ -82,7 +82,7 @@ public class GenerateController extends CurdController<Generate> {
 		}
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping("/sql/{slave}/{table:.+}")
 	public String createBuiltInSqlSlave(@PathVariable String slave, @PathVariable String table) {
 		try {
@@ -100,7 +100,7 @@ public class GenerateController extends CurdController<Generate> {
 	}
 	
 	
-	@ResponseBody
+	@Json
 	@RequestMapping("/code")
 	public AjaxResult gencode(){
 		String ids = getParameter("ids");

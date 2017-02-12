@@ -1,6 +1,6 @@
 #Spring-Blade java开发平台
 ## 平台简介
-Spring-Blade是基于多个优秀的开源项目，高度整合封装而成的快速开发平台。
+Spring-Blade是基于多个优秀的开源项目，将各个亮点设计融于一体的快速开发平台。构建稳定的生态圈，对各大底层框架无代码侵入。
 
 ## 鸣谢
 1.[JFinal](http://www.oschina.net/p/jfinal)
@@ -91,7 +91,7 @@ public class Notice extends BaseModel {
 
  新增
 ```
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_SAVE)
 	public AjaxResult save() {
 		Notice notice = mapping(PREFIX, Notice.class);
@@ -106,7 +106,7 @@ public class Notice extends BaseModel {
 
  修改
 ```
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
 		Notice notice = mapping(PREFIX, Notice.class);
@@ -121,7 +121,7 @@ public class Notice extends BaseModel {
 
  删除
 ```
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_REMOVE)
 	public AjaxResult remove(@RequestParam String ids) {
 		int cnt = Blade.create(Notice.class).deleteByIds(ids);
@@ -176,7 +176,7 @@ public class Notice extends BaseModel {
 	@Autowired
 	NoticeService service;
 
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_SAVE)
 	public AjaxResult save() {
 		Notice notice = mapping(PREFIX, Notice.class);
@@ -192,7 +192,7 @@ public class Notice extends BaseModel {
 
 ## 分页
 ```
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_LIST)
 	public Object list() {
 		Object grid = paginate(LIST_SOURCE, new IQuery() {

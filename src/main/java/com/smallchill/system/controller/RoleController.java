@@ -20,11 +20,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.annotation.Before;
+import com.smallchill.core.annotation.Json;
 import com.smallchill.core.annotation.Permission;
 import com.smallchill.core.constant.ConstShiro;
 import com.smallchill.core.toolbox.CMap;
@@ -53,7 +53,7 @@ public class RoleController extends BaseController{
 		return BASE_PATH + "role.html";
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_LIST)
 	public Object list() {
 		Object gird = paginate(LIST_SOURCE, new RoleIntercept());
@@ -104,7 +104,7 @@ public class RoleController extends BaseController{
 		return BASE_PATH + "role_authority.html";
 	}
 	
-	@ResponseBody
+	@Json
 	@Before(RoleValidator.class)
 	@RequestMapping("/saveAuthority")
 	public AjaxResult saveAuthority() {
@@ -124,7 +124,7 @@ public class RoleController extends BaseController{
 		}
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_SAVE)
 	public AjaxResult save() {
 		Role role = mapping(PREFIX, Role.class);
@@ -141,7 +141,7 @@ public class RoleController extends BaseController{
 		}
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
 		Role role = mapping(PREFIX, Role.class);
@@ -154,7 +154,7 @@ public class RoleController extends BaseController{
 		}
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_REMOVE)
 	public AjaxResult remove() {
 		int cnt = service.deleteByIds(getParameter("ids"));
@@ -166,7 +166,7 @@ public class RoleController extends BaseController{
 		}
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping("/getPowerById")
 	public AjaxResult getPowerById() {
 		int cnt = service.getParentCnt(getParameterToInt("id"));

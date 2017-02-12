@@ -26,9 +26,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.smallchill.core.annotation.Json;
 import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.constant.ConstConfig;
 import com.smallchill.core.constant.Cst;
@@ -43,7 +43,7 @@ import com.smallchill.core.toolbox.kit.PathKit;
 @RequestMapping("/kindeditor")
 public class KindEditorController extends BladeController {
 	
-	@ResponseBody
+	@Json
 	@RequestMapping("/upload_json")
 	public CMap upload_json(@RequestParam("imgFile") MultipartFile file) {
 		CMap cmap = CMap.init();
@@ -72,7 +72,7 @@ public class KindEditorController extends BladeController {
 		return cmap;	
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping("/file_manager_json")
 	public Object file_manager_json() {
 		String dir = getParameter("dir", "image");
@@ -93,7 +93,7 @@ public class KindEditorController extends BladeController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@ResponseBody
+	@Json
 	@RequestMapping("/initimg")
 	public AjaxResult initimg(@RequestParam String id) { 
 		Map<String, Object> img = Db.findById("BLADE_ATTACH", id);
@@ -107,7 +107,7 @@ public class KindEditorController extends BladeController {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@ResponseBody
+	@Json
 	@RequestMapping("/initfile")
 	public AjaxResult initfile(@RequestParam String ids) {
 		List<Map> file = Db.selectList("select ID as \"id\",NAME as \"name\",URL as \"url\" from BLADE_ATTACH where ID in (#{join(ids)})", CMap.init().set("ids", ids.split(",")));

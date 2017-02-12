@@ -24,16 +24,16 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.core.annotation.Before;
+import com.smallchill.core.annotation.Json;
 import com.smallchill.core.annotation.Permission;
 import com.smallchill.core.constant.ConstShiro;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.shiro.ShiroKit;
-import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.CMap;
+import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.cache.CacheKit;
 import com.smallchill.core.toolbox.cache.ILoader;
@@ -101,7 +101,7 @@ public class MenuController extends BaseController implements ConstShiro{
 		return BASE_PATH + "menu_view.html";
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_LIST)
 	@Permission(ADMINISTRATOR)
 	public Object list() {
@@ -109,7 +109,7 @@ public class MenuController extends BaseController implements ConstShiro{
 		return gird;
 	}
 
-	@ResponseBody
+	@Json
 	@Before(MenuValidator.class)
 	@RequestMapping(KEY_SAVE)
 	@Permission(ADMINISTRATOR)
@@ -125,7 +125,7 @@ public class MenuController extends BaseController implements ConstShiro{
 		}
 	}
 
-	@ResponseBody
+	@Json
 	@Before(MenuValidator.class)
 	@RequestMapping(KEY_UPDATE)
 	@Permission(ADMINISTRATOR)
@@ -140,7 +140,7 @@ public class MenuController extends BaseController implements ConstShiro{
 		}
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_DEL)
 	@Permission(ADMINISTRATOR)
 	public AjaxResult del() {
@@ -153,7 +153,7 @@ public class MenuController extends BaseController implements ConstShiro{
 		}
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_RESTORE)
 	@Permission(ADMINISTRATOR)
 	public AjaxResult restore(@RequestParam String ids) {
@@ -167,7 +167,7 @@ public class MenuController extends BaseController implements ConstShiro{
 
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_REMOVE)
 	@Permission(ADMINISTRATOR)
 	public AjaxResult remove(@RequestParam String ids) {
@@ -183,7 +183,7 @@ public class MenuController extends BaseController implements ConstShiro{
 	
 	
 	@SuppressWarnings("rawtypes")
-	@ResponseBody
+	@Json
 	@RequestMapping("/getMenu")
 	public List<Map> getMenu(){
 		final Integer userId = getParameterToInt("userId");

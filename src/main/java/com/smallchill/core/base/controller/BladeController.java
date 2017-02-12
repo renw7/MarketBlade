@@ -29,11 +29,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.smallchill.core.annotation.Json;
 import com.smallchill.core.constant.Const;
 import com.smallchill.core.constant.ConstShiro;
 import com.smallchill.core.exception.NoPermissionException;
@@ -734,7 +734,7 @@ public class BladeController {
 	
 	/** ============================     exception    =================================================  */
 
-	@ResponseBody
+	@Json
 	@ExceptionHandler(Exception.class)
 	public Object exceptionHandler(Exception ex, HttpServletResponse response, HttpServletRequest request) throws IOException {
 		AjaxResult result = new AjaxResult();

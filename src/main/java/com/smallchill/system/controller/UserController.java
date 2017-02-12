@@ -24,11 +24,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.annotation.Before;
+import com.smallchill.core.annotation.Json;
 import com.smallchill.core.annotation.Permission;
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.ConstShiro;
@@ -36,8 +36,8 @@ import com.smallchill.core.meta.IQuery;
 import com.smallchill.core.plugins.dao.Blade;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.shiro.ShiroKit;
-import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.CMap;
+import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.cache.CacheKit;
 import com.smallchill.core.toolbox.cache.ILoader;
@@ -69,7 +69,7 @@ public class UserController extends BaseController implements ConstShiro{
 	 * 分页aop
 	 * 普通用法
 	 */
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_LIST)
 	@Permission({ ADMINISTRATOR, ADMIN })
 	public Object list() {
@@ -114,7 +114,7 @@ public class UserController extends BaseController implements ConstShiro{
 		return BASE_PATH + "user_edit_password.html";
 	}
 
-	@ResponseBody
+	@Json
 	@Before(PasswordValidator.class)
 	@RequestMapping("/updatePassword")
 	public AjaxResult updatePassword(){
@@ -147,7 +147,7 @@ public class UserController extends BaseController implements ConstShiro{
 	}
 	
 	
-	@ResponseBody
+	@Json
 	@Before(UserValidator.class)
 	@RequestMapping(KEY_SAVE)
 	@Permission({ ADMINISTRATOR, ADMIN })
@@ -169,7 +169,7 @@ public class UserController extends BaseController implements ConstShiro{
 		}
 	}
 	
-	@ResponseBody
+	@Json
 	@Before(UserValidator.class)
 	@RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
@@ -192,7 +192,7 @@ public class UserController extends BaseController implements ConstShiro{
 		}
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_DEL)
 	@Permission({ ADMINISTRATOR, ADMIN })
 	public AjaxResult del() {
@@ -204,7 +204,7 @@ public class UserController extends BaseController implements ConstShiro{
 		}
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping("/reset")
 	@Permission({ ADMINISTRATOR, ADMIN })
 	public AjaxResult reset() {
@@ -231,7 +231,7 @@ public class UserController extends BaseController implements ConstShiro{
 		}
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping("/auditOk")
 	public AjaxResult auditOk() {
 		String ids = getParameter("ids");
@@ -250,7 +250,7 @@ public class UserController extends BaseController implements ConstShiro{
 		}
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping("/auditRefuse")
 	public AjaxResult auditRefuse() {
 		String ids = getParameter("ids");
@@ -263,7 +263,7 @@ public class UserController extends BaseController implements ConstShiro{
 		}
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping("/ban")
 	public AjaxResult ban() {
 		String ids = getParameter("ids");
@@ -276,7 +276,7 @@ public class UserController extends BaseController implements ConstShiro{
 		}
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping("/restore")
 	public AjaxResult restore() {
 		String ids = getParameter("ids");
@@ -289,7 +289,7 @@ public class UserController extends BaseController implements ConstShiro{
 		}
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping(KEY_REMOVE)
 	public AjaxResult remove() {
 		String ids = getParameter("ids");
@@ -313,7 +313,7 @@ public class UserController extends BaseController implements ConstShiro{
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@ResponseBody
+	@Json
 	@RequestMapping("/menuTreeIn")
 	public AjaxResult menuTreeIn() {
 		Integer userId = getParameterToInt("userId");
@@ -337,7 +337,7 @@ public class UserController extends BaseController implements ConstShiro{
 	}
 	
 	@SuppressWarnings("rawtypes")
-	@ResponseBody
+	@Json
 	@RequestMapping("/menuTreeOut")
 	public AjaxResult menuTreeOut() {
 		Integer userId = getParameterToInt("userId");
@@ -360,7 +360,7 @@ public class UserController extends BaseController implements ConstShiro{
 		return json(menu);
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping("/saveRoleExt")
 	public AjaxResult saveRoleExt() {
 		Blade blade = Blade.create(RoleExt.class);
@@ -393,7 +393,7 @@ public class UserController extends BaseController implements ConstShiro{
 		return BASE_PATH + "user_roleassign.html";
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping("/saveRole")
 	public AjaxResult saveRole() {
 		String id = getParameter("id");
@@ -409,7 +409,7 @@ public class UserController extends BaseController implements ConstShiro{
 		}
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping("/userTreeList")
 	public AjaxResult userTreeList() {
 		List<Map<String, Object>> dept = CacheKit.get(SYS_CACHE, USER_TREE_ALL,

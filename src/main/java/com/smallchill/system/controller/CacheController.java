@@ -21,17 +21,17 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smallchill.common.base.BaseController;
 import com.smallchill.common.vo.ShiroUser;
+import com.smallchill.core.annotation.Json;
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.plugins.dao.Db;
 import com.smallchill.core.plugins.dao.Md;
 import com.smallchill.core.shiro.ShiroKit;
-import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.CMap;
+import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.ajax.AjaxResult;
 import com.smallchill.core.toolbox.cache.CacheKit;
 import com.smallchill.core.toolbox.cache.ILoader;
@@ -51,7 +51,7 @@ public class CacheController extends BaseController {
 	 * 获取按钮组
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@ResponseBody
+	@Json
 	@RequestMapping("/getBtn")
 	public AjaxResult getBtn() {
 		final String code = getParameter("code");
@@ -95,7 +95,7 @@ public class CacheController extends BaseController {
 	 * 获取按钮组
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@ResponseBody
+	@Json
 	@RequestMapping("/getChildBtn")
 	public AjaxResult getChildBtn() {
 		final String code = getParameter("code");
@@ -138,7 +138,7 @@ public class CacheController extends BaseController {
 	 * @return String
 	 */
 	@SuppressWarnings("rawtypes")
-	@ResponseBody
+	@Json
 	@RequestMapping("/getSelect")
 	public AjaxResult getSelect() {
 		final String code = getParameter("code");
@@ -157,7 +157,7 @@ public class CacheController extends BaseController {
 		return json(sb.toString());
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping("/getCombo")
 	public AjaxResult getCombo() {
 		String type = getParameter("type");
@@ -188,7 +188,7 @@ public class CacheController extends BaseController {
 		}
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping("/getDeptSelect")
 	public AjaxResult getDeptSelect() {
 		final String num = getParameter("num");
@@ -209,7 +209,7 @@ public class CacheController extends BaseController {
 		return json(sb.toString());
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping("/getUserSelect")
 	public AjaxResult getUserSelect() {
 		final String num = getParameter("num");
@@ -230,7 +230,7 @@ public class CacheController extends BaseController {
 		return json(sb.toString());
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping("/getRoleSelect")
 	public AjaxResult getRoleSelect() {
 		final String num = getParameter("num");
@@ -251,7 +251,7 @@ public class CacheController extends BaseController {
 		return json(sb.toString());
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping("/getDiySelect")
 	public AjaxResult getDiySelect() {
 		final String num = getParameter("num");
@@ -278,7 +278,7 @@ public class CacheController extends BaseController {
 		return json(sb.toString());
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping("/dicTreeList")
 	public AjaxResult dicTreeList() {
 		List<Map<String, Object>> dic = CacheKit.get(SYS_CACHE, DICT_TREE_ALL,
@@ -291,7 +291,7 @@ public class CacheController extends BaseController {
 		return json(dic);
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping("/deptTreeList")
 	public AjaxResult deptTreeList() {
 		List<Map<String, Object>> dept = CacheKit.get(SYS_CACHE, DEPT_TREE_ALL + "_" + ShiroKit.getUser().getId(),
@@ -304,7 +304,7 @@ public class CacheController extends BaseController {
 		return json(dept);
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping("/roleTreeList")
 	public AjaxResult roleTreeList() {
 		List<Map<String, Object>> dept = CacheKit.get(SYS_CACHE, ROLE_TREE_ALL + "_" + ShiroKit.getUser().getId(),
@@ -317,7 +317,7 @@ public class CacheController extends BaseController {
 		return json(dept);
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping("/getDicById")
 	public AjaxResult getDicById() {
 		final int id = getParameterToInt("id");
@@ -330,7 +330,7 @@ public class CacheController extends BaseController {
 		return json(dict);
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping("/menuTreeList")
 	public AjaxResult menuTreeList() {
 		List<Map<String, Object>> menu = CacheKit.get(SYS_CACHE, MENU_TREE_ALL,
@@ -343,7 +343,7 @@ public class CacheController extends BaseController {
 		return json(menu);
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping("/menuTreeListByRoleId")
 	public AjaxResult menuTreeListByRoleId() {
 		final String roleId = getParameter("roleId", "0");
@@ -375,7 +375,7 @@ public class CacheController extends BaseController {
 		return json(menu);
 	}
 
-	@ResponseBody
+	@Json
 	@RequestMapping("/roleTreeListById")
 	public AjaxResult roleTreeListById() {
 		final String Id = getParameter("id");
@@ -396,7 +396,7 @@ public class CacheController extends BaseController {
 		return json(menu);
 	}
 	
-	@ResponseBody
+	@Json
 	@RequestMapping("/theme")
 	public AjaxResult theme() {
 		if (null == ShiroKit.getUser()) {
