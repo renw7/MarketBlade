@@ -249,9 +249,9 @@ public class DbManager {
 	 * @return
 	 */
 	public Integer queryInt(String sqlTemplate, Object paras){
-		List<Integer> list = getSqlManager().execute(sqlTemplate, Integer.class, paras, 1, 1);
+		List<Integer> list = getSqlManager().execute(sqlTemplate, Integer.class, paras);
 		if(list.size() == 0){
-			return 0;
+			return -1;
 		} else {
 			return list.get(0);
 		}
@@ -275,7 +275,7 @@ public class DbManager {
 	 * @return
 	 */
 	public String queryStr(String sqlTemplate, Object paras){
-		List<String> list = getSqlManager().execute(sqlTemplate, String.class, paras, 1, 1);
+		List<String> list = getSqlManager().execute(sqlTemplate, String.class, paras);
 		if(list.size() == 0){
 			return "";
 		} else {
