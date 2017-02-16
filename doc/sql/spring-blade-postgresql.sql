@@ -215,13 +215,13 @@ WITH (OIDS=FALSE)
 -- Records of blade_dept
 -- ----------------------------
 BEGIN;
-INSERT INTO "blade_dept" VALUES ('1', '0', '0', 'Tonbu', 'Tonbu', null, '1');
-INSERT INTO "blade_dept" VALUES ('2', '1', '1', '江苏同步', '江苏同步信息技术有限公司', null, '1');
+INSERT INTO "blade_dept" VALUES ('1', '0', '0', 'company', 'company', null, '1');
+INSERT INTO "blade_dept" VALUES ('2', '1', '1', '江苏XX', '江苏XX信息技术有限公司', null, '1');
 INSERT INTO "blade_dept" VALUES ('3', '1', '2', '技服部', '技术服务部', null, '2');
 INSERT INTO "blade_dept" VALUES ('4', '2', '2', '客服部', '客户服务部', null, '1');
 INSERT INTO "blade_dept" VALUES ('5', '3', '2', '销售部', '销售部', null, '1');
 INSERT INTO "blade_dept" VALUES ('6', '4', '2', '综合管理部', '综合管理部', null, '1');
-INSERT INTO "blade_dept" VALUES ('7', '2', '1', '常州同步', '常州同步软件技术有限公司', null, '1');
+INSERT INTO "blade_dept" VALUES ('7', '2', '1', '常州XX', '常州XX软件技术有限公司', null, '1');
 INSERT INTO "blade_dept" VALUES ('8', '1', '7', '产品部', '产品部', null, '1');
 INSERT INTO "blade_dept" VALUES ('9', '2', '7', '研发部', '研发部', null, '1');
 INSERT INTO "blade_dept" VALUES ('10', '3', '7', '项目部', '项目部', null, '1');
