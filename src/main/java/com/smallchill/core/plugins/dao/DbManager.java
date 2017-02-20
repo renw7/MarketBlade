@@ -195,7 +195,7 @@ public class DbManager {
 	 * @return
 	 */
 	public List<Map> selectTop(String sqlTemplate, Object paras, Integer topNum){	
-		return getSqlManager().execute(sqlTemplate, Map.class, paras, topNum, 1);
+		return getSqlManager().execute(sqlTemplate, Map.class, paras, 1, topNum);
 	}
 	
 	/**
