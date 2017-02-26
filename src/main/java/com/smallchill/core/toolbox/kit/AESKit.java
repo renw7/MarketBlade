@@ -19,14 +19,19 @@ public class AESKit {
 
 	/**
 	 * 加密
-	 * @param content 需要加密的内容
-	 * @param password  加密密码
+	 * 
+	 * @param content
+	 *            需要加密的内容
+	 * @param password
+	 *            加密密码
 	 * @return
 	 */
 	private static byte[] encryptByte(String content, String password) {
 		try {
 			KeyGenerator kgen = KeyGenerator.getInstance("AES");
-			kgen.init(128, new SecureRandom(password.getBytes()));
+			SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
+			secureRandom.setSeed(password.getBytes());
+			kgen.init(128, secureRandom);
 			SecretKey secretKey = kgen.generateKey();
 			byte[] enCodeFormat = secretKey.getEncoded();
 			SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
@@ -53,14 +58,19 @@ public class AESKit {
 
 	/**
 	 * 解密
-	 * @param content  待解密内容
-	 * @param password 解密密钥
+	 * 
+	 * @param content
+	 *            待解密内容
+	 * @param password
+	 *            解密密钥
 	 * @return
 	 */
 	private static byte[] decryptByte(byte[] content, String password) {
 		try {
 			KeyGenerator kgen = KeyGenerator.getInstance("AES");
-			kgen.init(128, new SecureRandom(password.getBytes()));
+			SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
+			secureRandom.setSeed(password.getBytes());
+			kgen.init(128, secureRandom);
 			SecretKey secretKey = kgen.generateKey();
 			byte[] enCodeFormat = secretKey.getEncoded();
 			SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
@@ -84,6 +94,7 @@ public class AESKit {
 
 	/**
 	 * AES加密
+	 * 
 	 * @param str
 	 * @return
 	 */
@@ -93,6 +104,7 @@ public class AESKit {
 
 	/**
 	 * AES解密
+	 * 
 	 * @param str
 	 * @return
 	 */
