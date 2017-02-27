@@ -168,7 +168,7 @@ public class Db {
 	 * @return
 	 */
 	@SuppressWarnings("rawtypes")
-	public static Map findById(String tableName, String pkValue) {
+	public static Map findById(String tableName, Object pkValue) {
 		return getDbManager().findById(tableName, pkValue);
 	}
 	
@@ -180,7 +180,7 @@ public class Db {
 	 * @return
 	 */
 	@SuppressWarnings("rawtypes")
-	public static Map findById(String tableName, String pk, String pkValue) {
+	public static Map findById(String tableName, String pk, Object pkValue) {
 		return getDbManager().findById(tableName, pk, pkValue);
 	}
 	

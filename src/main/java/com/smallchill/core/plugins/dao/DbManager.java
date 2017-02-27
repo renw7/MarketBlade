@@ -215,7 +215,7 @@ public class DbManager {
 	 * @param pkValue	主键值
 	 * @return
 	 */
-	public Map findById(String tableName, String pkValue) {
+	public Map findById(String tableName, Object pkValue) {
 		return selectOneBy(tableName, "id = #{id}", CMap.init().set("id", pkValue));
 	}
 	
@@ -226,7 +226,7 @@ public class DbManager {
 	 * @param pkValue	主键值
 	 * @return
 	 */
-	public Map findById(String tableName, String pk, String pkValue) {
+	public Map findById(String tableName, String pk, Object pkValue) {
 		return selectOneBy(tableName, pk + " = #{id}", CMap.init().set("id", pkValue));
 	}
 	
