@@ -27,7 +27,7 @@ public class UploadifyController extends BladeController {
 	
 	@Json
 	@RequestMapping("/upload")
-	public CMap upload(@RequestParam("imgFile") MultipartFile file) {
+	public CMap upload(@RequestParam("Filedata") MultipartFile file) {
 		CMap cmap = CMap.init();
 		if (null == file) {
 			cmap.set("error", 1);

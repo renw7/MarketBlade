@@ -77,5 +77,13 @@ public class ReportInterceptor extends DebugInterceptor {
 		sb.append("\n").append("-----------------------------------------------------------------------------------------");
 		println(sb.toString());
 	}
+	
+	@Override
+	public void exception(InterceptorContext ctx, Exception ex) {
+		StringBuilder sb =(StringBuilder) ctx.get("debug.sb");
+		sb.append("错误: ").append(ex!=null?ex.getMessage():"");
+		sb.append("\n").append("-----------------------------------------------------------------------------------------");
+		println(sb.toString());
+	}
 
 }
