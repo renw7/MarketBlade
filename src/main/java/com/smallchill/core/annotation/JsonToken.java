@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * 用于简化ResponseBody
+ * 用于API接口调用校验
  */
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
