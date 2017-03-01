@@ -18,15 +18,21 @@ package com.smallchill.core.beetl;
 import org.beetl.sql.core.InterceptorContext;
 import org.beetl.sql.ext.DebugInterceptor;
 
-import com.smallchill.core.constant.Cst;
 import com.smallchill.core.toolbox.kit.DateKit;
+import com.smallchill.core.toolbox.kit.Prop;
+import com.smallchill.core.toolbox.kit.PropKit;
 
 /**
  * 重写beetlsql输出的sql语句格式
  */
 public class ReportInterceptor extends DebugInterceptor {
 
-	public static boolean productMode = !Cst.me().isDevMode(); 
+	public static boolean productMode; 
+	
+	static {
+		Prop prop = PropKit.use("config.properties");
+		productMode = !prop.getBoolean("config.devMode", false); 
+	}
 
 	@Override
 	public void before(InterceptorContext ctx) {
