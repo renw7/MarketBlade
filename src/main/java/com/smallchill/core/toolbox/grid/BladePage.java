@@ -15,11 +15,13 @@
  */
 package com.smallchill.core.toolbox.grid;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.smallchill.core.toolbox.Func;
 
-public class BladePage<T> {
+@SuppressWarnings("serial")
+public class BladePage<T> implements Serializable{
 
 	/** 返回结果集 **/
 	private List<T> rows;

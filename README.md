@@ -135,29 +135,29 @@ public class Notice extends BaseModel {
 
  自定义sql查询,返回map
 ```
-	List<Map> list = Db.selectList("select * form news where title = #{title}", Paras.create().set("title", "标题测试"));
+	List<Map> list = Db.selectList("select * form news where title = #{title}", CMap.init().set("title", "标题测试"));
 ```
 
  自定义sql查询,返回String(使用多数据源)
 ```
-	String editor = Db.init("otherDb").queryStr("select editor form news where newsId = #{newsId}", Paras.create().set("newsId", 123));
+	String editor = Db.init("otherDb").queryStr("select editor form news where newsId = #{newsId}", CMap.init().set("newsId", 123));
 ```
 
  根据md文件的sql执行修改
 ```
-	int cnt = Md.update("news.update", Paras.create().set("title", "标题测试").set("id", "1"));
+	int cnt = Md.update("news.update", CMap.init().set("title", "标题测试").set("id", "1"));
 ```
 
  根据条件修改
 ```
-	boolean temp = Blade.create(News.class).updateBy("editor = #{editor}", "title = #{title}", Paras.create().set("title", "测试标题").set("editor", "编辑一"));
+	boolean temp = Blade.create(News.class).updateBy("editor = #{editor}", "title = #{title}", CMap.init().set("title", "测试标题").set("editor", "编辑一"));
 ```
 
  根据条件删除
 ```
 	String ids = "1,2,3,4,5";
 	String[] idArr = ids.split(",");
-	int cnt = Blade.create(News.class).deleteBy("status in (#{join(ids)})", Paras.create().set("ids", idArr));
+	int cnt = Blade.create(News.class).deleteBy("status in (#{join(ids)})", CMap.init().set("ids", idArr));
 ```
 
 ## 通用Service
