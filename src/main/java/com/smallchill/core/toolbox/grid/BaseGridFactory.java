@@ -91,6 +91,7 @@ public abstract class BaseGridFactory implements IGrid {
 			ac.setParam(map);
 			intercept.queryBefore(ac);
 			sqlCount = ac.getSqlCount();
+			sqlex = ac.getSqlEx();
 			statement = (StrKit.isBlank(ac.getSqlStatement()) ? (statement + (StrKit.isBlank(ac.getWhere()) ? (sqlex + ac.getCondition()) : ac.getWhere()) + orderBy) : ac.getSqlStatement());
 		} else {
 			statement = statement + sqlex + orderBy;
