@@ -15,9 +15,6 @@
  */
 package com.smallchill.core.toolbox.grid;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.smallchill.core.aop.AopContext;
 import com.smallchill.core.base.controller.BladeController;
 import com.smallchill.core.constant.Const;
@@ -29,6 +26,9 @@ import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.support.Convert;
 import com.smallchill.core.toolbox.support.SqlKeyword;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * grid工厂基类,封装通用分页方法
@@ -44,8 +44,6 @@ public abstract class BaseGridFactory implements IGrid {
 	 *            当前页号
 	 * @param rows
 	 *            每页的数量
-	 * @param sql
-	 *            数据源
 	 * @param para
 	 *            额外条件 {"id":1,"title":"test"}
 	 * @param sort
@@ -92,6 +90,7 @@ public abstract class BaseGridFactory implements IGrid {
 			intercept.queryBefore(ac);
 			sqlCount = ac.getSqlCount();
 			sqlex = ac.getSqlEx();
+			orderBy = ac.getOrderBy();
 			statement = (StrKit.isBlank(ac.getSqlStatement()) ? (statement + (StrKit.isBlank(ac.getWhere()) ? (sqlex + ac.getCondition()) : ac.getWhere()) + orderBy) : ac.getSqlStatement());
 		} else {
 			statement = statement + sqlex + orderBy;
