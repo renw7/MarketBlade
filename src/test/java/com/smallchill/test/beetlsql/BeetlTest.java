@@ -1,28 +1,22 @@
 package com.smallchill.test.beetlsql;
 
+import com.smallchill.core.beetl.ReportInterceptor;
+import com.smallchill.core.toolbox.CMap;
+import com.smallchill.core.toolbox.kit.CharsetKit;
+import org.beetl.sql.core.*;
+import org.beetl.sql.core.db.PostgresStyle;
+import org.springframework.core.io.ClassPathResource;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.beetl.sql.core.ClasspathLoader;
-import org.beetl.sql.core.DefaultNameConversion;
-import org.beetl.sql.core.Interceptor;
-import org.beetl.sql.core.SQLLoader;
-import org.beetl.sql.core.SQLManager;
-import org.beetl.sql.core.db.PostgresStyle;
-import org.junit.Test;
-import org.springframework.core.io.ClassPathResource;
-
-import com.smallchill.core.beetl.ReportInterceptor;
-import com.smallchill.core.toolbox.CMap;
-import com.smallchill.core.toolbox.kit.CharsetKit;
-
 @SuppressWarnings("rawtypes")
 public class BeetlTest {
 
-	@Test
+	//@Test
 	public void test() {
 		List<Map> list = getSqlManager().execute("select * from blade_notice where id = #{id}", Map.class, CMap.init().set("id", 1), 1, 10);
 		System.out.println(list);
