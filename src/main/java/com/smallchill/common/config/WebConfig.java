@@ -15,8 +15,6 @@
  */
 package com.smallchill.common.config;
 
-import java.math.BigDecimal;
-
 import com.smallchill.common.intercept.DefaultSelectFactory;
 import com.smallchill.common.plugins.GlobalPlugin;
 import com.smallchill.core.config.IConfig;
@@ -28,9 +26,10 @@ import com.smallchill.core.toolbox.cache.EhcacheFactory;
 import com.smallchill.core.toolbox.cache.ICache;
 import com.smallchill.core.toolbox.file.DefaultFileProxyFactory;
 import com.smallchill.core.toolbox.grid.JqGridFactory;
-import com.smallchill.core.toolbox.kit.DateKit;
 import com.smallchill.core.toolbox.kit.Prop;
 import com.smallchill.core.toolbox.kit.PropKit;
+
+import java.math.BigDecimal;
 
 public class WebConfig implements IConfig {
 
@@ -100,7 +99,7 @@ public class WebConfig implements IConfig {
 	 * 工程启动完毕执行逻辑
 	 */
 	public void afterBladeStart() {
-		System.out.println(DateKit.getMsTime() + "	after blade start, you can do something~~~~~~~~~~~~~~~~");
+
 	}
 
 	/** 

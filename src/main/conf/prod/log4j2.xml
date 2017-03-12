@@ -8,7 +8,7 @@
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY" />
-            <PatternLayout pattern="%n%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%file] %n%level : %msg%n" />
+            <PatternLayout pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%file] %n%level : %msg%n" />
         </Console>
         <RollingFile name="RollingFile"
             fileName="${logdir}/blade.log"

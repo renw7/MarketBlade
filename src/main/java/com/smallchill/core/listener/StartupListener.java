@@ -15,17 +15,17 @@
  */
 package com.smallchill.core.listener;
 
-import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.stereotype.Component;
-
 import com.smallchill.core.config.BladeConfig;
 import com.smallchill.core.constant.Cst;
 import com.smallchill.core.plugins.IPluginHolder;
 import com.smallchill.core.plugins.PluginFactory;
 import com.smallchill.core.plugins.PluginManager;
+import com.smallchill.core.plugins.connection.LogoPlugin;
 import com.smallchill.core.plugins.connection.RedisPlugin;
 import com.smallchill.core.plugins.connection.SQLManagerPlugin;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.stereotype.Component;
 
 /**
  * 启动监听器
@@ -57,6 +57,7 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
 		IPluginHolder plugins = PluginFactory.init();
 		plugins.register(SQLManagerPlugin.init());
 		plugins.register(RedisPlugin.init());
+		plugins.register(new LogoPlugin());
 		BladeConfig.getConf().registerPlugins(plugins);//自定义配置插件	
 		PluginManager.init().start();
 	}
