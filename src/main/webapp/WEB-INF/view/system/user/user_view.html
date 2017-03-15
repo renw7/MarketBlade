@@ -26,7 +26,7 @@
 			<label class="col-sm-2 control-label no-padding-right" > 出生日期 </label>
 
 			<div class="col-sm-3">
-				<input type="text" id="birthday" name="BLADE_USER.BIRTHDAY" disabled value="${user.birthday!}" placeholder="暂无日期" data-date-format="yyyy-mm-dd" class="form-control" />
+				<input type="text" id="birthday" name="BLADE_USER.BIRTHDAY" disabled value="${func.formatTime(user.birthday!)}" placeholder="暂无日期" data-date-format="yyyy-mm-dd" class="form-control" />
 			</div>
 		</div>
 

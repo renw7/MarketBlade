@@ -145,15 +145,13 @@
 					layer_alert("读取数据失败!", "error");
 					return;
 				}
+                $("input, textarea").bind("focus", function(){
+                    var _name = $(this).attr("name").replace("token_", "");
+                    $(this).attr("name", _name);
+                    $("#form_token").val(1);
+                });
 				for(var x in _model){
 					var $x = $("#_" + x);
-					if($x.is("input") || $x.is("textarea")){
-						$x.bind("focus", function(){
-							var _name = $(this).attr("name").replace("token_", "");
-							$(this).attr("name", _name);
-							$("#form_token").val(1);
-						});
-					}
 					
 					if(_model[x] != null && $x.attr("data-type") == "image"){
 						var src = $("#_"+x).attr("data-auto") + _model[x];

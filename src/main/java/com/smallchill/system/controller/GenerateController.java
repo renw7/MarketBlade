@@ -1,23 +1,5 @@
 package com.smallchill.system.controller;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.beetl.sql.core.JavaType;
-import org.beetl.sql.core.SQLManager;
-import org.beetl.sql.core.annotatoin.Table;
-import org.beetl.sql.core.db.ColDesc;
-import org.beetl.sql.core.db.TableDesc;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.smallchill.core.annotation.Json;
 import com.smallchill.core.base.controller.CurdController;
 import com.smallchill.core.beetl.BeetlMaker;
@@ -33,6 +15,17 @@ import com.smallchill.core.toolbox.kit.StrKit;
 import com.smallchill.core.toolbox.support.Convert;
 import com.smallchill.system.meta.factory.GenerateFactory;
 import com.smallchill.system.model.Generate;
+import org.beetl.sql.core.JavaType;
+import org.beetl.sql.core.SQLManager;
+import org.beetl.sql.core.annotatoin.Table;
+import org.beetl.sql.core.db.ColDesc;
+import org.beetl.sql.core.db.TableDesc;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.io.File;
+import java.util.*;
 
 @Controller
 @RequestMapping("/generate")
@@ -205,7 +198,8 @@ public class GenerateController extends CurdController<Generate> {
 
 	private void setParasAttr(String table, Map<String, Object> ps) {
 		SQLManager sm = Blade.dao();
-		final TableDesc  tableDesc = sm.getMetaDataManager().getTable(table);
+        TableDesc tableDesc = sm.getMetaDataManager().getTable(table);
+        final Set<String> idNames = tableDesc.getIdNames();
 		Set<String> cols = tableDesc.getCols();
 		List<Map<String, Object>> attrs = new ArrayList<>();
 		boolean tempDouble = false;
@@ -253,7 +247,7 @@ public class GenerateController extends CurdController<Generate> {
 			}
 			
 			private int score(ColDesc desc){
-				if(tableDesc.getIdNames().contains(desc.colName)) {
+				if(idNames.contains(desc.colName)) {
 					return 99;
 				}else if(JavaType.isInteger(desc.sqlType)) {
 					return 9;

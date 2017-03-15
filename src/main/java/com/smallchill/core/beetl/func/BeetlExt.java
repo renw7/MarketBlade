@@ -383,50 +383,68 @@ public class BeetlExt {
 		}
 	}
 
-	/**
-	 * 获取YYYY-MM-DD HH:mm:ss格式
-	 * 
-	 * @return
-	 */
-	public String getTime() {
-		return DateKit.getTime();
-	}
+    /**
+     * 获取YYYY-MM-DD HH:mm:ss格式
+     *
+     * @return
+     */
+    public String getTime() {
+        return DateKit.getTime();
+    }
 
-	/**
-	 * 获取YYYY-MM-DD HH:mm:ss.SSS格式
-	 * 
-	 * @return
-	 */
-	public String getMsTime() {
-		return DateKit.getMsTime();
-	}
-	
-	/**
-	 * 获取YYYY-MM-DD格式
-	 * 
-	 * @return
-	 */
-	public String getDay() {
-		return DateKit.getDay();
-	}
+    /**
+     * 获取YYYY-MM-DD HH:mm:ss.SSS格式
+     *
+     * @return
+     */
+    public String getMsTime() {
+        return DateKit.getMsTime();
+    }
 
-	/**
-	 * 格式化日期
-	 * 
-	 * @return
-	 */
-	public String formatTime(String pattern) {
-		return DateKit.format(new Date(), pattern);
-	}
+    /**
+     * 获取YYYY-MM-DD格式
+     *
+     * @return
+     */
+    public String getDay() {
+        return DateKit.getDay();
+    }
 
-	/**
-	 * 格式化日期
-	 * 
-	 * @return
-	 */
-	public String formatTime(String dateStr, String pattern) {
-		return DateKit.format(DateTimeKit.parse(dateStr).toDate(), pattern);
-	}
+    /**
+     * 格式化日期
+     *
+     * @return
+     */
+    public String formatNow(String pattern) {
+        return DateKit.format(new Date(), pattern);
+    }
+
+    /**
+     * 格式化日期
+     * @param date yyyy-MM-dd HH:mm:ss
+     * @return
+     */
+    public String formatTime(Date date) {
+        if(isEmpty(date)) return "";
+        return DateKit.format(date, "yyyy-MM-dd HH:mm:ss");
+    }
+
+    /**
+     * 格式化日期
+     * @return
+     */
+    public String formatTime(Date date, String pattern) {
+        return DateKit.format(date, pattern);
+    }
+
+    /**
+     * 格式化日期
+     *
+     * @return
+     */
+    public String formatTime(String dateStr, String pattern) {
+        return DateKit.format(DateTimeKit.parse(dateStr).toDate(), pattern);
+    }
 	
 	/**
 	 * 获取grid右键菜单
