@@ -1,11 +1,11 @@
 package com.smallchill.core.toolbox.support;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.smallchill.core.toolbox.Func;
 import com.smallchill.core.toolbox.kit.JsonKit;
 import com.smallchill.core.toolbox.kit.StrKit;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 定义常用的 sql关键字
@@ -96,8 +96,8 @@ public class SqlKeyword {
 		if (key.equals(DATE_GT) || key.equals(DATE_LT)) {
 			if (Func.isOracle()) {
 				value = "to_date(#{" + value + "},'yyyy-mm-dd hh24:mi:ss')" + (key.equals(DATE_LT) ? "-1" : "");
-			}
-			return _keyWord.replace("?", value);
+                return _keyWord.replace("?", value);
+            }
 		}
 		if(key.indexOf("like") > 0){
 			return _keyWord.replace("?", " CONCAT(CONCAT('%', #{" + value + "}),'%')  ");
