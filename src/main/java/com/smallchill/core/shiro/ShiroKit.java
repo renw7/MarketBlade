@@ -20,6 +20,7 @@ import java.util.Random;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
@@ -268,5 +269,16 @@ public class ShiroKit {
 		}
 		return "";
 	}
-	
+
+	/**
+	 * 清理AuthenticationInfo缓存
+	 * 参考：http://blog.csdn.net/win7system/article/details/51038131
+	 * @param account
+	 */
+	public static void clearCachedAuthenticationInfo(String account) {
+
+		RealmSecurityManager securityManager =(RealmSecurityManager) SecurityUtils.getSecurityManager();
+		ShiroDbRealm userRealm = (ShiroDbRealm) securityManager.getRealms().iterator().next();
+		userRealm.getCacheManager().getCache(userRealm.getAuthenticationCacheName()).remove(account);
+	}
 }

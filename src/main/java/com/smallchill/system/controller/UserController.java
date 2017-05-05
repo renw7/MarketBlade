@@ -127,6 +127,7 @@ public class UserController extends BaseController implements ConstShiro{
 		user.setVersion(user.getVersion() + 1);
 		boolean temp = blade.update(user);
 		if (temp) {
+			ShiroKit.clearCachedAuthenticationInfo(user.getAccount());
 			return success(UPDATE_SUCCESS_MSG);
 		} else {
 			return error(UPDATE_FAIL_MSG);
