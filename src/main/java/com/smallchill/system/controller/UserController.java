@@ -15,16 +15,6 @@
  */
 package com.smallchill.system.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.smallchill.common.base.BaseController;
 import com.smallchill.common.tool.SysCache;
 import com.smallchill.core.annotation.Before;
@@ -49,6 +39,15 @@ import com.smallchill.system.meta.intercept.UserIntercept;
 import com.smallchill.system.meta.intercept.UserValidator;
 import com.smallchill.system.model.RoleExt;
 import com.smallchill.system.model.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -187,6 +186,7 @@ public class UserController extends BaseController implements ConstShiro{
 		boolean temp = Blade.create(User.class).update(user);
 		if (temp) {
 			CacheKit.removeAll(SYS_CACHE);
+            ShiroKit.clearCachedAuthenticationInfo(user.getAccount());
 			return success(UPDATE_SUCCESS_MSG);
 		} else {
 			return error(UPDATE_FAIL_MSG);
