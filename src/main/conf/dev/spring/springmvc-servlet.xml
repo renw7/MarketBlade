@@ -70,6 +70,15 @@
         </property>
     </bean>
 
+    <!-- 跨域配置 -->
+    <mvc:cors>
+        <mvc:mapping path="/api/**"
+                     allowed-origins="*"
+                     allowed-methods="POST, GET, OPTIONS, DELETE, PUT"
+                     allowed-headers="Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+                     allow-credentials="true" />
+    </mvc:cors>
+
  	<!-- Bean解析器,级别高于默认解析器,寻找bean对象进行二次处理 -->
     <bean id="beanNameViewResolver"
           class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0">
