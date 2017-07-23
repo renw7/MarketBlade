@@ -19213,10 +19213,10 @@ input.typeahead.scrollable ~ .tt-dropdown-menu {
   }
 }
 .no-skin .nav-list > li .submenu > li.active:not(.open) > a {
-  background-color: #2f4050;
+  background-color: #293846;
 }
 .no-skin .nav-list > li .submenu > li.active:not(.open) > a:hover {
-  background-color: #2f4050;
+  background-color: #293846;
 }
 .no-skin .nav-list > li > .submenu .open > a,
 .no-skin .nav-list > li > .submenu .open > a:hover,
