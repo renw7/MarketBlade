@@ -12,6 +12,10 @@
     <script type="text/javascript">
 		$(function(){
 			BladeApp.addCtx("${ctxPath}");
+            if(self != top){
+                var url = window.location.href;
+                parent.window.location.href = url;
+            }
 		});
 	</script>
     <script src="${ctxPath}/static/style/js/login.js" type="text/javascript"></script>
