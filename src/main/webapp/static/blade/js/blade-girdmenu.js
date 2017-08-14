@@ -53,7 +53,7 @@ $.extend({
 					var postdata = $(gridtbl)
 							.jqGrid('getGridParam', 'postData');
 					var source = (typeof (export_source) == "undefined") ? (code + ".list") : export_source;
-					$.post(BladeApp.ctxPath + "/excel/preExport", {
+					$.post(BladeApp.getCtx() + "/excel/preExport", {
 						code : code,
 						colnames : JSON.stringify(colnames),
 						colmodel : JSON.stringify(colmodel),
@@ -61,7 +61,7 @@ $.extend({
 						source : source
 					}, function(data) {
 						if (data.code === 0) {
-							window.top.location.href = BladeApp.ctxPath + "/excel/export?code=" + data.data;
+							window.top.location.href = BladeApp.getCtx() + "/excel/export?code=" + data.data;
 						} else {
 							layer.alert(data.message, {
 								icon : 2,

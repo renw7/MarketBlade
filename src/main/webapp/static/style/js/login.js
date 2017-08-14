@@ -49,7 +49,7 @@ $(function () {
 		var ajax = new Ajax($form.attr("action"), function(data){
 			if (data.code === 0) {
 				layer.msg(data.message, {shift: 1});
-				setTimeout(function(){window.location.href = BladeApp.ctxPath + "/";}, 1200);
+				setTimeout(function(){window.location.href = BladeApp.getCtx() + "/";}, 1200);
 				return false;
 			} else {
 				layer.msg(data.message, {shift: 6});

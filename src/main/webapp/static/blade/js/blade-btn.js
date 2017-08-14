@@ -7,7 +7,7 @@ var exwhere;
         this.name = btnjson.name;
         this.pname = btnjson.pname;
         this.alias = btnjson.alias;
-        this.url = this.isEmpty(BladeApp.ctxPath) + btnjson.url;
+        this.url = this.isEmpty(BladeApp.getCtx()) + btnjson.url;
         this.div = this.isEmpty(btnjson.icon.split('|')[0]);
         this.li = this.isEmpty(btnjson.icon.split('|')[1]);
         this.area=this.isEmpty(btnjson.tips);
@@ -144,7 +144,7 @@ var exwhere;
                 return;
             }
             var _this = this;
-            $.post(BladeApp.ctxPath + "/role/getPowerById", { id: ids }, function (data) {
+            $.post(BladeApp.getCtx() + "/role/getPowerById", { id: ids }, function (data) {
                 if (data.code === 0) {
                     var roleName = rowData.name;
                     _this.open(_this.url + "?roleId=" + ids + "&roleName=" + roleName);
@@ -251,7 +251,7 @@ var exwhere;
         if (this.alias == "audit" || this.alias == "recycle") {
         	var code = this.id;
             if (stage.all[code] == undefined) {
-                $.post(BladeApp.ctxPath + "/cache/getChildBtn", { code: code }, function (data) {
+                $.post(BladeApp.getCtx() + "/cache/getChildBtn", { code: code }, function (data) {
                     if (data.code === 0) {
                         btnjsons = data.data;
                         var _btn_child_stage = new btn_child_stage();
@@ -268,7 +268,7 @@ var exwhere;
             else {
             	stage.all[code].btn.bind(toolbar);
             }
-            exwhere = this.url.replace(BladeApp.ctxPath, "");//修复未发布在tomcat根目录下带有项目路径导致不能搜索的问题 
+            exwhere = this.url.replace(BladeApp.getCtx(), "");//修复未发布在tomcat根目录下带有项目路径导致不能搜索的问题
             isAutoPage = false;//自动跳转到第一页
             searchGrid();
             return;
@@ -482,7 +482,7 @@ var exwhere;
 
 // 根据模块code生成每个工具条上面的 btn
 function initMenuBtn(obj, code) {
-    var ajax = new Ajax(BladeApp.ctxPath + "/cache/getBtn", function (data) {
+    var ajax = new Ajax(BladeApp.getCtx() + "/cache/getBtn", function (data) {
         if (data.code === 0) {
             toolbar = obj;
             btnjsons = data.data;

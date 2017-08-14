@@ -1,13 +1,17 @@
 	
 	/****************** 基本信息 ***************/
-	var BladeApp = {
-		ctxPath : "",
-		addCtx: function (ctx) {
-			if (this.ctxPath == "") {
-				this.ctxPath = ctx;
-			}
-	    }
-	};
+    var BladeApp = {
+        ctx : "",
+        getCtx: function () {
+            if (this.ctx == "") {
+                var pathName = window.top.document.location.pathname;
+                var index = pathName.substr(1).indexOf("/");
+                var result = pathName.substr(0, index + 1);
+                this.ctx = result;
+            }
+            return this.ctx;
+        }
+    };
 
 	/****************** 公共工具类 ***************/
 	var BladeTool = {
