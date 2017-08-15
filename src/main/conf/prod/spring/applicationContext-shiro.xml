@@ -18,7 +18,7 @@
 	</bean>
 
 	<!-- 项目自定义的Realm -->
-	<bean id="shiroDbRealm" class="com.smallchill.core.shiro.ShiroDbRealm" >
+	<bean id="shiroDbRealm" class="org.springblade.core.shiro.ShiroDbRealm" >
 		<!-- 设置缓存管理器 -->
 		<property name="cacheManager" ref="cacheManager" ></property>
         <!-- 启用身份验证缓存，即缓存AuthenticationInfo信息,默认false -->
@@ -44,7 +44,7 @@
     </bean>
 
 	<!-- 用户授权信息Cache, 采用Redis -->
-    <bean id="cacheManager" class="com.smallchill.core.shiro.redis.RedisCacheManager">
+    <bean id="cacheManager" class="org.springblade.core.shiro.redis.RedisCacheManager">
         <property name="redisName" value="${shiro.redis.name}" />
     </bean>
 
@@ -105,7 +105,7 @@
 		<!-- <property name="filters">    
            <map>    
                <entry key="rest" >
-               		<bean id="restShiroFilter" class="com.smallchill.core.shiro.RestAuthorizationFilter"></bean>  
+               		<bean id="restShiroFilter" class="org.springblade.core.shiro.RestAuthorizationFilter"></bean>
                </entry>  
            </map>    
         </property>  -->

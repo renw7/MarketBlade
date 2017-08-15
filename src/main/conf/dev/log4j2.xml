@@ -13,10 +13,10 @@
         <logger name="org.apache.shiro" level="INFO"/>
         <logger name="org.mybatis.spring" level="INFO"/>
         <logger name="org.springframework" level="INFO"/>
-        <logger name="com.smallchill.core.shiro.redis" level="INFO"/>
+        <logger name="org.springblade.core.shiro.redis" level="INFO"/>
         
         <!-- 业务debug日志 -->
-        <logger name="com.smallchill" level="DEBUG"/>
+        <logger name="org.springblade" level="DEBUG"/>
         
         <Root level="debug">
             <AppenderRef ref="Console" />

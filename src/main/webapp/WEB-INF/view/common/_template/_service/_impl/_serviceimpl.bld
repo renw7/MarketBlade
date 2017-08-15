@@ -3,10 +3,10 @@ package ${packageName}.service.impl;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
-import com.smallchill.core.base.service.BaseService;
-import com.smallchill.core.plugins.dao.Md;
-import com.smallchill.core.toolbox.CMap;
-import com.smallchill.core.toolbox.support.Convert;
+import org.springblade.core.base.service.BaseService;
+import org.springblade.core.plugins.dao.Md;
+import org.springblade.core.toolbox.CMap;
+import org.springblade.core.toolbox.support.Convert;
 import ${packageName}.model.${modelName};
 import ${packageName}.service.${modelName}Service;
 

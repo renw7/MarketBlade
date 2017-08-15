@@ -22,7 +22,7 @@
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
 	<listener>
-		<listener-class>com.smallchill.core.listener.ConfigListener</listener-class>
+		<listener-class>org.springblade.core.listener.ConfigListener</listener-class>
 	</listener>
 	<filter>
 		<filter-name>SpringEncodingFilter</filter-name>

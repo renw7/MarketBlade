@@ -10,7 +10,7 @@
     http://www.springframework.org/schema/aop/spring-aop-4.3.xsd ">
 
 	<!-- beetl主配置 -->
-	<bean id="beetlConfig" class="com.smallchill.core.beetl.MyBeetlGroupUtilConfiguration" init-method="init">
+	<bean id="beetlConfig" class="org.springblade.core.beetl.MyBeetlGroupUtilConfiguration" init-method="init">
 		<property name="root" value="/" />
 	</bean>
 
@@ -26,7 +26,7 @@
 		</property>
 		<property name="interceptors">
 			<list>
-				<bean class="com.smallchill.core.beetl.ReportInterceptor"></bean>
+				<bean class="org.springblade.core.beetl.ReportInterceptor"></bean>
 			</list>
 		</property>
 		<property name="cs">
@@ -50,12 +50,12 @@
 	</bean>
 
 	<!-- blade框架自定义config -->
-    <bean id="bladeConfig" class="com.smallchill.core.config.BladeConfig">
+    <bean id="bladeConfig" class="org.springblade.core.config.BladeConfig">
     	<!-- 注入自定义config -->
 		<property name="conf">
-			<bean class="com.smallchill.common.config.WebConfig">
+			<bean class="org.springblade.common.config.WebConfig">
 				<property name="defaultCacheFactory">
-					<bean class="com.smallchill.core.toolbox.cache.EhcacheFactory"></bean>
+					<bean class="org.springblade.core.toolbox.cache.EhcacheFactory"></bean>
 				</property>
 			</bean>
 		</property>

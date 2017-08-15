@@ -257,6 +257,6 @@ SpringBlade不搞捐赠, 不打广告, 只做最单纯的开源项目
 ##3.创建model后有没有自动生成javabean字段和sql的办法？
 有,访问如下两个地址：
 `localhost:8080/blade/generate/pojo/blade_menu`
-`localhost:8080/blade/generate/sql/com.smallchill.system.model.Menu`
+`localhost:8080/blade/generate/sql/org.springblade.system.model.Menu`
 查看控制台打印结果,按自己需求复制粘贴到model和md文件中
 

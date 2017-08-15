@@ -2,7 +2,7 @@ package ${packageName}.service;
 
 import java.util.Map;
 
-import com.smallchill.core.base.service.IService;
+import org.springblade.core.base.service.IService;
 import ${packageName}.model.${modelName};
 
 /**

@@ -39,7 +39,7 @@
     </Appenders>
 
     <Loggers>
-        <Logger name="com.smallchill" level="info" />
+        <Logger name="org.springblade" level="info" />
         <Root level="WARN" additivity="false">
             <AppenderRef ref="Console" />
             <AppenderRef ref="RollingFile" />
