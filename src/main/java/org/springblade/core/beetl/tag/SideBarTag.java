@@ -114,7 +114,7 @@ public class SideBarTag extends Tag {
 			sb.append("<script type=\"text/javascript\">");
 			sb.append(" $(function(){");
 			sb.append("  setTimeout(function(){");
-			sb.append("  var $supporter = $(\"#support_tonbusoft\");");
+			sb.append("  var $supporter = $(\"#support_springblade\");");
 			sb.append("  $supporter.addClass('bigger-110');");
 			sb.append("  var name = $supporter.html();");
 			sb.append("  var index = layer;");

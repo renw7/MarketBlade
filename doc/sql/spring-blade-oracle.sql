@@ -704,7 +704,7 @@ NOCACHE
 -- ----------------------------
 -- Records of BLADE_USER
 -- ----------------------------
-INSERT INTO "BLADE_USER" VALUES ('1', 'admin', '4779e4a9903dfb08f9f877791c516a73', 'admin', '管理员', TO_DATE('2015-09-08 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), '1', 'admin@tonbusoft.com.cn', '222333', '1', '1', '1', TO_DATE('2016-01-29 08:49:53', 'YYYY-MM-DD HH24:MI:SS'), '10');
+INSERT INTO "BLADE_USER" VALUES ('1', 'admin', '4779e4a9903dfb08f9f877791c516a73', 'admin', '管理员', TO_DATE('2015-09-08 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), '1', 'admin@springblade.com.cn', '222333', '1', '1', '1', TO_DATE('2016-01-29 08:49:53', 'YYYY-MM-DD HH24:MI:SS'), '10');
 INSERT INTO "BLADE_USER" VALUES ('2', 'test001', 'e334680512284cac2f57701abe03af96', 'r4i90', 'cs', TO_DATE('2016-02-19 14:00:13', 'YYYY-MM-DD HH24:MI:SS'), '1', null, null, '6', '2', '1', TO_DATE('2016-02-19 14:00:19', 'YYYY-MM-DD HH24:MI:SS'), '3');
 
 -- ----------------------------

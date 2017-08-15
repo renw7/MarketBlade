@@ -33,7 +33,7 @@ public class FootTag extends Tag {
 		try {
 			if(args.length > 1){
 				Map<String, String> param = (Map<String, String>) args[1];
-			    company = (Func.isEmpty(param.get("tonbusoft"))) ? company : param.get("tonbusoft");
+			    company = (Func.isEmpty(param.get("springblade"))) ? company : param.get("springblade");
 			    customer = (Func.isEmpty(param.get("customer"))) ? customer : param.get("customer");
 			}
 			String year = DateKit.getYear();
@@ -44,7 +44,7 @@ public class FootTag extends Tag {
 			sb.append("	<div class=\"footer-inner\">");
 			sb.append("		<div class=\"footer-content\" style=\"height:30px;background-color:#fbfbfb;\">");
 			sb.append("			<span class=\"bigger-110\">技术支持 :</span>");
-			sb.append("			<span class=\"bigger-110\" id=\"support_tonbusoft\">" + company + "</span>");
+			sb.append("			<span class=\"bigger-110\" id=\"support_springblade\">" + company + "</span>");
 			sb.append("			<span class=\"bigger-110\"  style=\"padding-left:15px;\">");
 			sb.append("				© " + year);
 			sb.append("			</span>");
@@ -70,7 +70,7 @@ public class FootTag extends Tag {
 			sb.append("  <div style=\"padding-bottom:1px;\">");
 			sb.append("   <span class=\"bigger-120\">");
 			sb.append("    <span style=\"font-size:4px;\">技术支持：</span>");
-			sb.append("    <span style=\"font-size:4px;\" id=\"support_tonbusoft\">" + company + "</span>");
+			sb.append("    <span style=\"font-size:4px;\" id=\"support_springblade\">" + company + "</span>");
 			sb.append("   </span>");
 			sb.append("  </div>");
 			sb.append(" </div>");
