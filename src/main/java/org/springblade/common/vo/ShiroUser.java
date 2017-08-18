@@ -15,21 +15,17 @@
  */
 package org.springblade.common.vo;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-
 import org.springblade.common.tool.SysCache;
-import org.springblade.core.constant.ConstCache;
-import org.springblade.core.constant.ConstCacheKey;
 import org.springblade.core.plugins.dao.Db;
-import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.CMap;
-import org.springblade.core.toolbox.cache.CacheKit;
-import org.springblade.core.toolbox.cache.ILoader;
+import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.kit.CollectionKit;
 import org.springblade.core.toolbox.kit.StrKit;
 import org.springblade.core.toolbox.support.Convert;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 
 public class ShiroUser implements Serializable {
@@ -43,10 +39,10 @@ public class ShiroUser implements Serializable {
 	private String name;// 姓名
 	private List<Integer> roleList;// 角色集
 	private String roles;// 角色集
-	private Object superDepts;// 上级部门集合
-	private Object subDepts;// 子部门集合
-	private Object subRoles;// 子角色集合
-	private Object subUsers;// 子账号集合
+	private Object superDepts = "0";// 上级部门集合
+	private Object subDepts = "0";// 子部门集合
+	private Object subRoles = "0";// 子角色集合
+	private Object subUsers = "0";// 子账号集合
 
 	@SuppressWarnings("rawtypes")
 	public ShiroUser(Object id, Object deptId, String loginName, String name, List<Integer> roleList) {
@@ -106,7 +102,7 @@ public class ShiroUser implements Serializable {
 			for (Map m : list) {
 				sb.append(m.get("id")).append(",");
 			}
-			superDepts = StrKit.removeSuffix(sb.toString(), ",");
+            subDepts = StrKit.removeSuffix(sb.toString(), ",");
 		}
 		this.subDepts = subDepts;
 		
@@ -131,12 +127,12 @@ public class ShiroUser implements Serializable {
 			for (Map m : list) {
 				sb.append(m.get("id")).append(",");
 			}
-			superDepts = StrKit.removeSuffix(sb.toString(), ",");
+            subRoles = StrKit.removeSuffix(sb.toString(), ",");
 		}
 		this.subRoles = subRoles;
 		
 		// 查找子角色对应账号id集合
-		List<Map<String, Object>> listUser = CacheKit.get(ConstCache.SYS_CACHE, ConstCacheKey.USER_ALL_LIST, new ILoader() {
+		/*List<Map<String, Object>> listUser = CacheKit.get(ConstCache.SYS_CACHE, ConstCacheKey.USER_ALL_LIST, new ILoader() {
 			@Override
 			public Object load() {
 				return Db.selectList("SELECT * FROM blade_user where status = 1 and name is not null");
@@ -153,7 +149,7 @@ public class ShiroUser implements Serializable {
 			}
 		}
 		
-		this.subUsers = StrKit.removeSuffix(sbUser.toString(), ","); 
+		this.subUsers = StrKit.removeSuffix(sbUser.toString(), ","); */
 	}
 
 	public Object getId() {
