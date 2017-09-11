@@ -94,7 +94,8 @@
 				/static/** = anon
 				/login = anon
 				/captcha = anon
-				/** = user 
+                /api/** = rest
+                /** = user
 			</value>
 		</property>
 	</bean>
