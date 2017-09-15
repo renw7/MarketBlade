@@ -21,7 +21,6 @@ import org.springblade.core.toolbox.CMap;
 import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.kit.CollectionKit;
 import org.springblade.core.toolbox.kit.StrKit;
-import org.springblade.core.toolbox.support.Convert;
 
 import java.io.Serializable;
 import java.util.List;
@@ -55,7 +54,7 @@ public class ShiroUser implements Serializable {
 		this.roles = CollectionKit.join(roleList.toArray(), ",");
 		
 		// 递归查找上级部门id集合
-		String superDeptSql;
+		/*String superDeptSql;
 		String superDepts = null;
 		if (Func.isOracle()) {
 			superDeptSql = "select wm_concat(ID) subDepts from (select ID,PID,SIMPLENAME from blade_dept start with ID in (#{join(deptIds)}) connect by prior PID=ID order by ID) a where a.ID not in (#{join(deptIds)})";
@@ -78,10 +77,10 @@ public class ShiroUser implements Serializable {
 			}
 			superDepts = StrKit.removeSuffix(sb.toString(), ",");
 		}
-		this.superDepts = superDepts;
+		this.superDepts = superDepts;*/
 		
 		// 递归查找子部门id集合
-		String subDeptSql;
+		/*String subDeptSql;
 		String subDepts = null;
 		if (Func.isOracle()) {
 			subDeptSql = "select wm_concat(ID) subDepts from (select ID,PID,SIMPLENAME from blade_dept start with ID in (#{join(deptIds)}) connect by prior ID=PID order by ID) a where a.ID not in (#{join(deptIds)})";
@@ -104,7 +103,7 @@ public class ShiroUser implements Serializable {
 			}
             subDepts = StrKit.removeSuffix(sb.toString(), ",");
 		}
-		this.subDepts = subDepts;
+		this.subDepts = subDepts;*/
 		
 		// 递归查找子角色id集合
 		String roleSql;
