@@ -16,13 +16,12 @@
 package org.springblade.core.config;
 
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.beetl.sql.core.SQLManager;
-
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPool;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * blade配置
@@ -61,7 +60,7 @@ public class BladeConfig {
 	
 	/**
 	 * 注入自定义config
-	 * @param conf
+	 * @param config
 	 */
 	public void setConf(IConfig config) {
 		conf = config;

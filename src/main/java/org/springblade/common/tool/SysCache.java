@@ -1,23 +1,19 @@
 package org.springblade.common.tool;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springblade.core.constant.ConstCache;
 import org.springblade.core.constant.ConstCacheKey;
 import org.springblade.core.plugins.dao.Blade;
 import org.springblade.core.plugins.dao.Db;
-import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.CMap;
+import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.cache.CacheKit;
 import org.springblade.core.toolbox.cache.ILoader;
 import org.springblade.core.toolbox.kit.StrKit;
 import org.springblade.core.toolbox.support.Convert;
-import org.springblade.system.model.Dept;
-import org.springblade.system.model.Dict;
-import org.springblade.system.model.Parameter;
-import org.springblade.system.model.Role;
-import org.springblade.system.model.User;
+import org.springblade.system.model.*;
+
+import java.util.List;
+import java.util.Map;
 
 public class SysCache implements ConstCache, ConstCacheKey {
 	
@@ -73,7 +69,7 @@ public class SysCache implements ConstCache, ConstCacheKey {
 
 	/**
 	 * 获取对应角色名
-	 * @param roleId 角色id
+	 * @param roleIds 角色id
 	 * @return
 	 */
 	public static String getRoleName(final Object roleIds) {
@@ -98,7 +94,7 @@ public class SysCache implements ConstCache, ConstCacheKey {
 
 	/**
 	 * 获取对应角色别名
-	 * @param roleId 角色id
+	 * @param roleIds 角色id
 	 * @return
 	 */
 	public static String getRoleAlias(final Object roleIds) {
