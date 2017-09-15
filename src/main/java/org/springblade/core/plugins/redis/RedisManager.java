@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.core.plugins.dao;
+package org.springblade.core.plugins.redis;
+
+import org.springblade.core.toolbox.redis.IJedis;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import org.springblade.core.plugins.connection.RedisPlugin;
-import org.springblade.core.toolbox.redis.IJedis;
 
 /**
  * Redis操作工具类

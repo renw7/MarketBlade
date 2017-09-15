@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.core.plugins.dao;
+package org.springblade.core.plugins.redis;
 
 import java.util.List;
 import java.util.Map;

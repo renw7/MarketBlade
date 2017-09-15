@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.core.plugins.connection;
+package org.springblade.core.plugins.logo;
 
 import org.springblade.core.plugins.IPlugin;
 

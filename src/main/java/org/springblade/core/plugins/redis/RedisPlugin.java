@@ -13,22 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.core.plugins.connection;
+package org.springblade.core.plugins.redis;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
+import org.springblade.core.config.BladeConfig;
 import org.springblade.core.plugins.IPlugin;
+import org.springblade.core.toolbox.kit.LogKit;
 import org.springblade.core.toolbox.redis.IJedis;
+import org.springblade.core.toolbox.redis.IKeyNamingPolicy;
+import org.springblade.core.toolbox.redis.RedisCluster;
+import org.springblade.core.toolbox.redis.RedisSingle;
 import org.springblade.core.toolbox.redis.serializer.JdkSerializer;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPool;
 
-import org.springblade.core.config.BladeConfig;
-import org.springblade.core.toolbox.kit.LogKit;
-import org.springblade.core.toolbox.redis.IKeyNamingPolicy;
-import org.springblade.core.toolbox.redis.RedisCluster;
-import org.springblade.core.toolbox.redis.RedisSingle;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Redis插件

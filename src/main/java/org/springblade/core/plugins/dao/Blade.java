@@ -23,7 +23,6 @@ import org.springblade.core.annotation.BindID;
 import org.springblade.core.annotation.DbName;
 import org.springblade.core.constant.Const;
 import org.springblade.core.constant.Cst;
-import org.springblade.core.plugins.connection.SQLManagerPlugin;
 import org.springblade.core.toolbox.CMap;
 import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.grid.BladePage;

@@ -18,7 +18,7 @@ package org.springblade.core.toolbox.cache;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springblade.core.plugins.dao.Redis;
+import org.springblade.core.plugins.redis.Redis;
 import org.springblade.core.toolbox.redis.IJedis;
 
 /**

@@ -29,7 +29,7 @@ import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.util.CollectionUtils;
 
-import org.springblade.core.plugins.dao.Redis;
+import org.springblade.core.plugins.redis.Redis;
 import org.springblade.core.toolbox.redis.IJedis;
 import org.springblade.core.toolbox.redis.IKeyNamingPolicy;
 

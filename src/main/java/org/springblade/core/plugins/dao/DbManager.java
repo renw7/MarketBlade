@@ -26,7 +26,6 @@ import org.beetl.sql.core.SQLReady;
 import org.springblade.core.aop.AopContext;
 import org.springblade.core.constant.Cst;
 import org.springblade.core.meta.IQuery;
-import org.springblade.core.plugins.connection.SQLManagerPlugin;
 import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.CMap;
 import org.springblade.core.toolbox.cache.CacheKit;

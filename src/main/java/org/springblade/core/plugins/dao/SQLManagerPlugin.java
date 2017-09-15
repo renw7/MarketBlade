@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.core.plugins.connection;
+package org.springblade.core.plugins.dao;
+
+import org.beetl.sql.core.IDAutoGen;
+import org.beetl.sql.core.SQLManager;
+import org.springblade.core.config.BladeConfig;
+import org.springblade.core.plugins.IPlugin;
+import org.springblade.core.toolbox.kit.LogKit;
 
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-
-import org.beetl.sql.core.IDAutoGen;
-import org.beetl.sql.core.SQLManager;
-
-import org.springblade.core.config.BladeConfig;
-import org.springblade.core.plugins.IPlugin;
-import org.springblade.core.toolbox.kit.LogKit;
 
 /**
  * SQLManager插件

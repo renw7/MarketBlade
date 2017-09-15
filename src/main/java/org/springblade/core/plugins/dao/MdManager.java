@@ -26,7 +26,6 @@ import org.beetl.sql.core.db.KeyHolder;
 import org.beetl.sql.core.engine.PageQuery;
 
 import org.springblade.core.beetl.BeetlTemplate;
-import org.springblade.core.plugins.connection.SQLManagerPlugin;
 import org.springblade.core.toolbox.cache.CacheKit;
 import org.springblade.core.toolbox.cache.ILoader;
 import org.springblade.core.toolbox.grid.BladePage;
