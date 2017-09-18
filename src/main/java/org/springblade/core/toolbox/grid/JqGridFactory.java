@@ -15,11 +15,12 @@
  */
 package org.springblade.core.toolbox.grid;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springblade.core.base.controller.BladeController;
 import org.springblade.core.meta.IQuery;
+import org.springblade.core.toolbox.Func;
+
+import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("unchecked")
 public class JqGridFactory extends BaseGridFactory {
@@ -29,8 +30,18 @@ public class JqGridFactory extends BaseGridFactory {
 			IQuery intercept, BladeController ctrl) {
 		
 		BladePage<Map<String, Object>> list = (BladePage<Map<String, Object>>) super.basePaginate(dbName, page, rows, source, para, sort, order, intercept, ctrl);
-		
+
 		List<Map<String, Object>> _rows = list.getRows();
+
+        //用于oracle下jqgrid大小写敏感的场景
+		if (Func.isOracle()) {
+		    for (Map<String, Object> map : _rows) {
+		        for (String key : map.keySet()) {
+		            map.put(key.toLowerCase(), map.get(key));
+                }
+            }
+        }
+
 		long _total = list.getTotal();
 		long _page = list.getPage();
 		long _records = list.getRecords();
