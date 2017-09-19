@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springblade.core.plugins.redis.Redis;
-import org.springblade.core.toolbox.redis.IJedis;
+import org.springblade.core.plugins.redis.IJedis;
 
 /**
  * Redis缓存工厂

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springblade.core.toolbox.redis;
+package org.springblade.core.plugins.redis;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.springblade.core.toolbox.kit.LogKit;
-import org.springblade.core.toolbox.redis.serializer.ISerializer;
+import org.springblade.core.plugins.redis.serializer.ISerializer;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPool;

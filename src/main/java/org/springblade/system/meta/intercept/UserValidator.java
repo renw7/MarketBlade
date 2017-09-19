@@ -50,7 +50,7 @@ public class UserValidator extends BladeValidator {
 		if (StrKit.isBlank(account)) {
 			addError("请输入账号!");
 		}
-		if (Blade.create(User.class).isExist("SELECT * FROM blade_user WHERE account = #{account} and status=1", CMap.init().set("account", account))) {
+		if (Blade.create(User.class).isExist("SELECT * FROM blade_user WHERE account = #{account}", CMap.init().set("account", account))) {
 			addError(errorMessage);
 		}
 	}

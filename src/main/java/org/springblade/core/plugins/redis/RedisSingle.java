@@ -14,20 +14,14 @@
  * limitations under the License.
  */
 
-package org.springblade.core.toolbox.redis;
+package org.springblade.core.plugins.redis;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import org.springblade.core.toolbox.redis.serializer.ISerializer;
+import org.springblade.core.plugins.redis.serializer.ISerializer;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * Redis单机工具类

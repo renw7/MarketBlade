@@ -18,11 +18,7 @@ package org.springblade.core.plugins.redis;
 import org.springblade.core.config.BladeConfig;
 import org.springblade.core.plugins.IPlugin;
 import org.springblade.core.toolbox.kit.LogKit;
-import org.springblade.core.toolbox.redis.IJedis;
-import org.springblade.core.toolbox.redis.IKeyNamingPolicy;
-import org.springblade.core.toolbox.redis.RedisCluster;
-import org.springblade.core.toolbox.redis.RedisSingle;
-import org.springblade.core.toolbox.redis.serializer.JdkSerializer;
+import org.springblade.core.plugins.redis.serializer.JdkSerializer;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPool;
 

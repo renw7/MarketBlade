@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package org.springblade.core.toolbox.redis.serializer;
+package org.springblade.core.plugins.redis.serializer;
+
+import org.springblade.core.toolbox.kit.LogKit;
+import redis.clients.util.SafeEncoder;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
-import redis.clients.util.SafeEncoder;
-
-import org.springblade.core.toolbox.kit.LogKit;
 
 /**
  * JdkSerializer.

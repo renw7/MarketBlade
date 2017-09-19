@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.core.toolbox.redis;
+package org.springblade.core.plugins.redis;
 
 /**
  *  回调用接口

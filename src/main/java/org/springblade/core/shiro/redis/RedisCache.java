@@ -30,8 +30,8 @@ import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.util.CollectionUtils;
 
 import org.springblade.core.plugins.redis.Redis;
-import org.springblade.core.toolbox.redis.IJedis;
-import org.springblade.core.toolbox.redis.IKeyNamingPolicy;
+import org.springblade.core.plugins.redis.IJedis;
+import org.springblade.core.plugins.redis.IKeyNamingPolicy;
 
 /**
  * 缓存接口实现类

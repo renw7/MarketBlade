@@ -15,8 +15,6 @@
  */
 package org.springblade.core.plugins.redis;
 
-import org.springblade.core.toolbox.redis.IJedis;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 

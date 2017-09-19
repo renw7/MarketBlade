@@ -19,9 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.springblade.core.toolbox.redis.IJedis;
-import org.springblade.core.toolbox.redis.IKeyNamingPolicy;
-
 /**
  * Redis操作工具类
  */

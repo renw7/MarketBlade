@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springblade.core.toolbox.redis.serializer;
+package org.springblade.core.plugins.redis.serializer;
 
 /**
  * ISerializer.
