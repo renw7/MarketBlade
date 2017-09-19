@@ -124,6 +124,8 @@ public abstract class BaseGridFactory implements IGrid {
         for (String key : map.keySet()) {
             if (key.startsWith(SqlKeyword.TOINT) || key.startsWith(SqlKeyword.IT) || key.startsWith(SqlKeyword.F_IT)) {
                 map.put(key.replace(SqlKeyword.SKIP, ""), Convert.toInt(map.get(key)));
+            } else {
+                map.put(key.replace(SqlKeyword.SKIP, ""), map.get(key));
             }
         }
 		map.put(Const.ORDER_BY_STR, Func.isAllEmpty(sort, order) ? "" : (sort + " " + order));
