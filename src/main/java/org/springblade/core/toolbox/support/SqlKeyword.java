@@ -11,6 +11,7 @@ import java.util.Map;
  * 定义常用的 sql关键字
  */
 public class SqlKeyword {
+    public static final String SKIP = "_skip_true";
 	private static final String EQUAL = "_equal";
 	private static final String NOT_EQUAL = "_notequal";
 	private static final String LIKE = "_like";
@@ -57,6 +58,7 @@ public class SqlKeyword {
 				w = Func.decodeUrl(w);
 				Map<String, String> mm = JsonKit.parse(w, HashMap.class);
 				for (String m : mm.keySet()) {
+                    if (m.endsWith(SKIP)) break;
 					String col = clearKeyWord(m);
 					String k = "";
 					for (String key : keyWord.keySet()) {
