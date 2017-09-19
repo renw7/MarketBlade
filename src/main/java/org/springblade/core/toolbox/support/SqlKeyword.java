@@ -58,7 +58,7 @@ public class SqlKeyword {
 				w = Func.decodeUrl(w);
 				Map<String, String> mm = JsonKit.parse(w, HashMap.class);
 				for (String m : mm.keySet()) {
-                    if (m.endsWith(SKIP)) break;
+                    if (m.endsWith(SKIP)) continue;
 					String col = clearKeyWord(m);
 					String k = "";
 					for (String key : keyWord.keySet()) {
