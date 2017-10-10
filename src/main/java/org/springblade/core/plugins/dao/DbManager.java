@@ -193,7 +193,7 @@ public class DbManager {
 	 * @param topNum 排序
 	 * @return
 	 */
-	public List<Map> selectTop(String sqlTemplate, Object paras, Integer topNum){	
+	public List<Map> selectTop(String sqlTemplate, Object paras, long topNum){
 		return getSqlManager().execute(sqlTemplate, Map.class, paras, 1, topNum);
 	}
 	

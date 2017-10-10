@@ -15,16 +15,15 @@
  */
 package org.springblade.core.plugins.dao;
 
-import java.util.List;
-import java.util.Map;
-
 import org.beetl.sql.core.OnConnection;
 import org.beetl.sql.core.SQLReady;
-
 import org.springblade.core.aop.AopContext;
 import org.springblade.core.meta.IQuery;
 import org.springblade.core.toolbox.CMap;
 import org.springblade.core.toolbox.grid.BladePage;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * beetlsql Dao工具
@@ -157,7 +156,7 @@ public class Db {
 	 * @return
 	 */
 	@SuppressWarnings("rawtypes")
-	public static List<Map> selectTop(String sqlTemplate, Object paras, Integer topNum){	
+	public static List<Map> selectTop(String sqlTemplate, Object paras, long topNum){
 		return getDbManager().selectTop(sqlTemplate, paras, topNum);
 	}
 	
@@ -226,7 +225,7 @@ public class Db {
 	
 	/** 查询aop返回单条数据
 	 * @param sqlTemplate
-	 * @param paras
+	 * @param param
 	 * @param ac
 	 * @param intercept
 	 * @return
@@ -238,7 +237,7 @@ public class Db {
 	
 	/**查询aop返回多条数据
 	 * @param sqlTemplate
-	 * @param paras
+	 * @param param
 	 * @param ac
 	 * @param intercept
 	 * @return
@@ -376,7 +375,6 @@ public class Db {
 	 * 分页
 	 * @param sqlTemplate sql语句
 	 * @param sqlCount count语句
-	 * @param clazz	返回类型
 	 * @param paras	参数
 	 * @param pageNum	页号
 	 * @param pageSize	数量
