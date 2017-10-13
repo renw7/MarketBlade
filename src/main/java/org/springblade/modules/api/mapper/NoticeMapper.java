@@ -1,13 +1,12 @@
-package org.springblade.modules.platform.mapper;
-
-import java.util.List;
+package org.springblade.modules.api.mapper;
 
 import org.beetl.sql.core.annotatoin.Param;
 import org.beetl.sql.core.annotatoin.Sql;
 import org.beetl.sql.core.annotatoin.SqlStatementType;
 import org.beetl.sql.core.mapper.BaseMapper;
-
 import org.springblade.modules.platform.model.Notice;
+
+import java.util.List;
 
 public interface NoticeMapper extends BaseMapper<Notice> {
 
