@@ -146,12 +146,12 @@ function getRowData() {
 
 //刷新grid
 function reloadGrid() {
-    item_selected = [];
     exwhere = "";
     var filter = "";
     if (typeof (_filter) != "undefined") {
         filter = _filter;
     }
+    item_selected = [];
     $jqGrid.jqGrid('setGridParam', { postData: { where: filter }, page: 1 }).trigger("reloadGrid");
 }
 

@@ -124,6 +124,7 @@
 			where = BladeTool.isEmpty(where) ? "" : encodeURI(where);
 			isAutoPage = (BladeTool.isEmpty(where) ? true : false);
 			var pageNum = $jqGrid.getGridParam('page');
+            item_selected = [];
 			$jqGrid.jqGrid("setGridParam", {
 				datatype : "json",
 				postData : {
