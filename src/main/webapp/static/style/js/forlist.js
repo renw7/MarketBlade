@@ -146,6 +146,7 @@ function getRowData() {
 
 //刷新grid
 function reloadGrid() {
+    item_selected = [];
     exwhere = "";
     var filter = "";
     if (typeof (_filter) != "undefined") {
