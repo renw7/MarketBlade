@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * 节点数据封装
+ * @author zhuangqian
  */
 public class TreeNode {
 
@@ -172,8 +173,9 @@ public class TreeNode {
 	}
 	
 	public List<TreeNode> findChildNodes(List<TreeNode> list, Object parentId) {
-		if (list == null && parentId == null)
+		if (list == null && parentId == null) {
 			return null;
+        }
 		for (Iterator<TreeNode> iterator = list.iterator(); iterator.hasNext();) {
 			TreeNode node = (TreeNode) iterator.next();
 			// 根据传入的某个父节点ID,遍历该父节点的所有子节点
@@ -186,10 +188,11 @@ public class TreeNode {
 	}
 	
 	public List<TreeNode> findParentNodes(List<TreeNode> list, Object childId) {
-		if (list == null && childId == null)
+		if (list == null && childId == null) {
 			return null;
+        }
 		for (Iterator<TreeNode> iterator = list.iterator(); iterator.hasNext();) {
-			TreeNode node = (TreeNode) iterator.next();
+			TreeNode node = iterator.next();
 			if (childId.toString().equals(node.getId())) {
 				recursionFnP(list, node);
 			}
@@ -200,12 +203,18 @@ public class TreeNode {
 	
 
 	private void recursionFn(List<TreeNode> list, TreeNode node) {
-		List<TreeNode> childList = getChildList(list, node);// 得到子节点列表
-		if (childList.size() > 0) {// 判断是否有子节点
+        /**
+         * 得到子节点列表
+         */
+		List<TreeNode> childList = getChildList(list, node);
+        /**
+         * 判断是否有子节点
+         */
+        if (childList.size() > 0) {
 			linkedList.add(node);
 			Iterator<TreeNode> it = childList.iterator();
 			while (it.hasNext()) {
-				TreeNode n = (TreeNode) it.next();
+				TreeNode n = it.next();
 				recursionFn(list, n);
 			}
 		} else {
@@ -214,12 +223,18 @@ public class TreeNode {
 	}
 	
 	private void recursionFnP(List<TreeNode> list, TreeNode node) {
-		List<TreeNode> parentList = getParentList(list, node);// 得到父节点列表
-		if (parentList.size() > 0) {// 判断是否有父节点
+        /**
+         * 得到父节点列表
+         */
+		List<TreeNode> parentList = getParentList(list, node);
+        /**
+         * 判断是否有父节点
+         */
+		if (parentList.size() > 0) {
 			linkedListP.add(node);
 			Iterator<TreeNode> it = parentList.iterator();
 			while (it.hasNext()) {
-				TreeNode n = (TreeNode) it.next();
+				TreeNode n = it.next();
 				recursionFnP(list, n);
 			}
 		} else {
@@ -227,25 +242,35 @@ public class TreeNode {
 		}
 	}
 
-	// 得到子节点列表
+    /**
+     * 得到子节点列表
+     * @param list
+     * @param node
+     * @return
+     */
 	private List<TreeNode> getChildList(List<TreeNode> list, TreeNode node) {
-		List<TreeNode> nodeList = new ArrayList<TreeNode>();
+		List<TreeNode> nodeList = new ArrayList<>();
 		Iterator<TreeNode> it = list.iterator();
 		while (it.hasNext()) {
-			TreeNode n = (TreeNode) it.next();
+			TreeNode n = it.next();
 			if (n.getParentId().equals(node.getId())) {
 				nodeList.add(n);
 			}
 		}
 		return nodeList;
 	}
-	
-	// 得到子节点列表
+
+    /**
+     * 得到子节点列表
+     * @param list
+     * @param node
+     * @return
+     */
 	private List<TreeNode> getParentList(List<TreeNode> list, TreeNode node) {
-		List<TreeNode> nodeList = new ArrayList<TreeNode>();
+		List<TreeNode> nodeList = new ArrayList<>();
 		Iterator<TreeNode> it = list.iterator();
 		while (it.hasNext()) {
-			TreeNode n = (TreeNode) it.next();
+			TreeNode n = it.next();
 			if (n.getId().equals(node.getParentId())) {
 				nodeList.add(n);
 			}

@@ -15,11 +15,6 @@
  */
 package org.springblade.core.toolbox.file;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.util.Date;
-
 import org.springblade.common.vo.ShiroUser;
 import org.springblade.core.constant.Cst;
 import org.springblade.core.plugins.dao.Blade;
@@ -29,6 +24,15 @@ import org.springblade.core.toolbox.kit.DateKit;
 import org.springblade.core.toolbox.kit.ImageKit;
 import org.springblade.system.model.Attach;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.Date;
+
+/**
+ * 文件代理工厂
+ * @author zhuangqian
+ */
 public class DefaultFileProxyFactory implements IFileProxy {
 
 	@Override
@@ -73,10 +77,11 @@ public class DefaultFileProxyFactory implements IFileProxy {
 	 * 获取文件后缀
 	 */
 	public static String getFileExt(String fileName) {
-		if (fileName.indexOf(".") == -1)
-			return ".jpg";
-		else 
-			return fileName.substring(fileName.lastIndexOf('.'), fileName.length());
+		if (fileName.indexOf(".") == -1) {
+            return ".jpg";
+        } else {
+            return fileName.substring(fileName.lastIndexOf('.'), fileName.length());
+        }
 	}
 
 	/**
@@ -98,7 +103,8 @@ public class DefaultFileProxyFactory implements IFileProxy {
 	 * @param path 文件地址
 	 * @return
 	 */
-	public void compress(String path) {
+	@Override
+    public void compress(String path) {
 		try {
 			ImageKit.zoomScale(ImageKit.readImage(path), new FileOutputStream(new File(path)), null, Cst.me().getCompressScale().doubleValue(), Cst.me().isCompressFlag());
 		} catch (FileNotFoundException e) {

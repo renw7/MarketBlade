@@ -19,6 +19,10 @@ import org.springblade.core.base.controller.BladeController;
 import org.springblade.core.constant.Cst;
 import org.springblade.core.meta.IQuery;
 
+/**
+ * GridManager
+ * @author zhuangqian
+ */
 public class GridManager {
 	private final static GridManager me = new GridManager();
 

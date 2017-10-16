@@ -1,29 +1,31 @@
 package org.springblade.system.controller;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springblade.common.base.BaseController;
 import org.springblade.core.annotation.Json;
+import org.springblade.core.aop.AopContext;
+import org.springblade.core.constant.Cst;
 import org.springblade.core.meta.IQuery;
+import org.springblade.core.plugins.dao.Db;
 import org.springblade.core.plugins.dao.Md;
 import org.springblade.core.toolbox.CMap;
 import org.springblade.core.toolbox.Func;
+import org.springblade.core.toolbox.ajax.AjaxResult;
 import org.springblade.core.toolbox.cache.CacheKit;
 import org.springblade.core.toolbox.cache.ILoader;
+import org.springblade.core.toolbox.kit.ClassKit;
+import org.springblade.core.toolbox.kit.JsonKit;
 import org.springblade.core.toolbox.kit.StrKit;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import org.springblade.core.aop.AopContext;
-import org.springblade.core.constant.Cst;
-import org.springblade.core.plugins.dao.Db;
-import org.springblade.core.toolbox.ajax.AjaxResult;
-import org.springblade.core.toolbox.kit.ClassKit;
-import org.springblade.core.toolbox.kit.JsonKit;
-
+import java.util.List;
+import java.util.Map;
+/**
+ * ZTreeController
+ * @author zhuangqian
+ */
 @Controller
 @RequestMapping("/ztree")
 public class ZTreeController extends BaseController {
@@ -100,7 +102,8 @@ public class ZTreeController extends BaseController {
 		
 		List<Map<String, Object>> list = CacheKit.get(SYS_CACHE, DICT_ZTREE_LIST + type,
 				new ILoader() {
-					public Object load() {
+					@Override
+                    public Object load() {
 						return Db.selectList(sqlSource, modelOrMap);
 					}
 				});

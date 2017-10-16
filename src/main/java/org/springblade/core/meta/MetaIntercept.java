@@ -25,8 +25,9 @@ import org.springblade.core.toolbox.ajax.AjaxResult;
  * (适用于后端校验、多表操作等)<br>
  * 已自带事务回滚机制,无需自行设置<br>
  * 如果出错直接抛异常即可回滚<br>
+ * @author zhuangqian
  */
-public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
+public class MetaIntercept extends MetaTool implements IQuery, IRender, ICurd {
 
 	protected AjaxResult result = new AjaxResult();
 
@@ -35,6 +36,7 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
+	@Override
 	public void queryBefore(AopContext ac) {
 
 	}
@@ -44,6 +46,7 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
+    @Override
 	public void queryAfter(AopContext ac) {
 
 	}
@@ -53,6 +56,7 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
+    @Override
 	public void renderIndexBefore(AopContext ac) {
 
 	}
@@ -62,6 +66,7 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
+    @Override
 	public void renderAddBefore(AopContext ac) {
 
 	}
@@ -71,6 +76,7 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
+    @Override
 	public void renderEditBefore(AopContext ac) {
 
 	}
@@ -80,6 +86,7 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
+    @Override
 	public void renderViewBefore(AopContext ac) {
 
 	}
@@ -89,6 +96,7 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
+    @Override
 	public void saveBefore(AopContext ac) {
 
 	}
@@ -98,6 +106,7 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
+    @Override
 	public boolean saveAfter(AopContext ac) {
 		return true;
 	}
@@ -107,6 +116,7 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
+    @Override
 	public AjaxResult saveSucceed(AopContext ac) {
 		return result.addSuccess(ConstCurd.SAVE_SUCCESS_MSG);
 	}
@@ -116,6 +126,7 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
+    @Override
 	public void updateBefore(AopContext ac) {
 
 	}
@@ -125,6 +136,7 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
+    @Override
 	public boolean updateAfter(AopContext ac) {
 		return true;
 	}
@@ -134,6 +146,7 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
+    @Override
 	public AjaxResult updateSucceed(AopContext ac) {
 		return result.addSuccess(ConstCurd.UPDATE_SUCCESS_MSG);
 	}
@@ -143,6 +156,7 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
+    @Override
 	public void removeBefore(AopContext ac) {
 
 	}
@@ -152,6 +166,7 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
+    @Override
 	public boolean removeAfter(AopContext ac) {
 		return true;
 	}
@@ -161,6 +176,7 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
+    @Override
 	public AjaxResult removeSucceed(AopContext ac) {
 		return result.addSuccess(ConstCurd.DEL_SUCCESS_MSG);
 	}
@@ -170,6 +186,7 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
+    @Override
 	public void delBefore(AopContext ac) {
 
 	}
@@ -179,7 +196,8 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
-	public boolean delAfter(AopContext ac) {
+	@Override
+    public boolean delAfter(AopContext ac) {
 		return true;
 	}
 	
@@ -188,7 +206,8 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
-	public AjaxResult delSucceed(AopContext ac) {
+	@Override
+    public AjaxResult delSucceed(AopContext ac) {
 		return result.addSuccess(ConstCurd.DEL_SUCCESS_MSG);
 	}
 	
@@ -197,7 +216,8 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
-	public void restoreBefore(AopContext ac) {
+	@Override
+    public void restoreBefore(AopContext ac) {
 
 	}
 
@@ -206,7 +226,8 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
-	public boolean restoreAfter(AopContext ac) {
+	@Override
+    public boolean restoreAfter(AopContext ac) {
 		return true;
 	}
 	
@@ -215,7 +236,8 @@ public class MetaIntercept extends MetaTool implements IQuery, IRender, ICURD{
 	 * 
 	 * @param ac
 	 */
-	public AjaxResult restoreSucceed(AopContext ac) {
+	@Override
+    public AjaxResult restoreSucceed(AopContext ac) {
 		return result.addSuccess(ConstCurd.RESTORE_SUCCESS_MSG);
 	}
 	

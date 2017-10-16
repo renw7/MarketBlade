@@ -15,6 +15,9 @@
  */
 package org.springblade.core.constant;
 
+/**
+ * @author zhuangqian
+ */
 public interface ConstCacheKey {
 
 	//-----------------------------menu---------------------------------------

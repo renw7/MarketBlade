@@ -15,14 +15,17 @@
  */
 package org.springblade.core.toolbox.file;
 
+import org.springblade.core.constant.Cst;
+import org.springblade.core.toolbox.kit.DateKit;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
 import java.io.IOException;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import org.springblade.core.constant.Cst;
-import org.springblade.core.toolbox.kit.DateKit;
-
+/**
+ * 文件封装类
+ * @author zhuangqian
+ */
 public class BladeFile {
 	/**
 	 * 上传文件在附件表中的id

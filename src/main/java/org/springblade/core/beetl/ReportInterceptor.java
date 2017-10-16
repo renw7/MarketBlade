@@ -23,6 +23,7 @@ import java.util.Collection;
 
 /**
  * 重写beetlsql输出的sql语句格式
+ * @author zhuangqian
  */
 public class ReportInterceptor extends DebugInterceptor {
 
@@ -66,7 +67,9 @@ public class ReportInterceptor extends DebugInterceptor {
 			if (ctx.getResult().getClass().isArray()) {
 				int[] ret = (int[]) ctx.getResult();
                 for(int i=0;i<ret.length;i++){
-                    if(i>0) sb.append(",");
+                    if(i>0) {
+                        sb.append(",");
+                    }
                     sb.append(ret[i]);
                 }
 			} else {

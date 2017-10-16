@@ -17,6 +17,10 @@ package org.springblade.core.toolbox.file;
 
 import java.io.File;
 
+/**
+ * IFileProxy
+ * @author zhuangqian
+ */
 public interface IFileProxy {
 	
 	/**
@@ -29,21 +33,23 @@ public interface IFileProxy {
 
 	/**
 	 * 文件重命名策略
+	 * @param f
 	 * @param path
-	 * @param file
 	 * @return
 	 */
 	File rename(File f, String path);
-	
-	/**
-	 * 获取入库id
-	 * @return
-	 */
+
+    /**
+     * 获取入库id
+     * @param bf
+     * @return
+     */
 	Object getFileId(BladeFile bf);
-	
-	/**   
-	 * 图片压缩
-	*/
+
+    /**
+     * 图片压缩
+     * @param path
+     */
 	void compress(String path);
 	
 }

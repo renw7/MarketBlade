@@ -15,16 +15,17 @@
  */
 package org.springblade.core.toolbox.check;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springblade.common.vo.ShiroUser;
 import org.springblade.core.constant.Cst;
 import org.springblade.core.shiro.ShiroKit;
 import org.springblade.core.toolbox.kit.CollectionKit;
 import org.springblade.core.toolbox.kit.HttpKit;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 权限自定义检查
+ * @author zhuangqian
  */
 public class PermissionCheckFactory implements ICheck {
 
@@ -50,7 +51,8 @@ public class PermissionCheckFactory implements ICheck {
 		}
 		String requestURI = request.getRequestURI().replace(Cst.me().getContextPath(), "");
 		String[] str = requestURI.split("/");
-		if (str.length > 3) {
+		Integer strLength = 3;
+		if (str.length > strLength) {
 			requestURI = str[1] + "/" + str[2];
 		}
 		if(ShiroKit.hasPermission(requestURI)){

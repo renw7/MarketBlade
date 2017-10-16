@@ -15,25 +15,28 @@
  */
 package org.springblade.core.plugins.dao;
 
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.beetl.sql.core.OnConnection;
 import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.SQLReady;
-
 import org.springblade.core.aop.AopContext;
 import org.springblade.core.constant.Cst;
 import org.springblade.core.meta.IQuery;
-import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.CMap;
+import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.cache.CacheKit;
 import org.springblade.core.toolbox.cache.ILoader;
 import org.springblade.core.toolbox.grid.BladePage;
 import org.springblade.core.toolbox.kit.StrKit;
 import org.springblade.core.toolbox.support.Convert;
 
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+/**
+ * Db工具类
+ * @author zhuangqian
+ */
 @SuppressWarnings({"unchecked","rawtypes"})
 public class DbManager {
 	private static Map<String, DbManager> pool = new ConcurrentHashMap<String, DbManager>();
@@ -41,7 +44,7 @@ public class DbManager {
 	private volatile SQLManager sql = null;
 	
 	public static DbManager init() {
-		return init(SQLManagerPlugin.init().MASTER);
+		return init(SqlManagerPlugin.init().MASTER);
 	}
 
 	public static DbManager init(String name) {
@@ -59,7 +62,7 @@ public class DbManager {
 	}
 	
 	private DbManager(String dbName) {
-		this.sql = SQLManagerPlugin.init().getSqlManagerPool().get(dbName);
+		this.sql = SqlManagerPlugin.init().getSqlManagerPool().get(dbName);
 	}
 
 	private DbManager() {}
@@ -67,7 +70,7 @@ public class DbManager {
 	private SQLManager getSqlManager() {
 		if (null == sql) {
 			synchronized (DbManager.class) {
-				sql = SQLManagerPlugin.init().getSqlManagerPool().get(SQLManagerPlugin.init().MASTER);
+				sql = SqlManagerPlugin.init().getSqlManagerPool().get(SqlManagerPlugin.init().MASTER);
 			}
 		}
 		return sql;
@@ -295,7 +298,7 @@ public class DbManager {
 	
 	/** 查询aop返回单条数据
 	 * @param sqlTemplate
-	 * @param paras
+	 * @param param
 	 * @param ac
 	 * @return
 	 */
@@ -305,7 +308,7 @@ public class DbManager {
 	
 	/**查询aop返回多条数据
 	 * @param sqlTemplate
-	 * @param paras
+	 * @param param
 	 * @param ac
 	 * @return
 	 */
@@ -315,7 +318,7 @@ public class DbManager {
 	
 	/** 查询aop返回单条数据
 	 * @param sqlTemplate
-	 * @param paras
+	 * @param param
 	 * @param ac
 	 * @param intercept
 	 * @return
@@ -338,7 +341,7 @@ public class DbManager {
 	
 	/**查询aop返回多条数据
 	 * @param sqlTemplate
-	 * @param paras
+	 * @param param
 	 * @param ac
 	 * @param intercept
 	 * @return
@@ -371,6 +374,7 @@ public class DbManager {
 		final String _sqlTemplate = sqlTemplate;
 		final Object _paras = paras;
 		return CacheKit.get(cacheName, key, new ILoader() {
+		    @Override
 			public Object load() {
 				return selectOne(_sqlTemplate, _paras);
 			}
@@ -389,6 +393,7 @@ public class DbManager {
 		final String _sqlTemplate = sqlTemplate;
 		final Object _paras = paras;
 		return CacheKit.get(cacheName, key, new ILoader() {
+		    @Override
 			public Object load() {
 				return selectList(_sqlTemplate, _paras);
 			}
@@ -412,7 +417,8 @@ public class DbManager {
 		pk = (String) Func.getValue(pk, "ID");
 		if(Func.isOracle()){
 			String pkValue = paras.getStr(pk);
-			if(pkValue.indexOf(".nextval") > 0){
+			String nextVal = ".nextval";
+			if(pkValue.indexOf(nextVal) > 0){
 				Map<String, Object> map = selectOne("select " + pkValue + " as PK from dual");
 				Object val = map.get("PK");
 				paras.set(pk, val);
@@ -512,7 +518,7 @@ public class DbManager {
 	 * @return
 	 */
 	public <T> List<T> getList(String sqlTemplate, Class<T> clazz, Object paras, int pageNum, int pageSize) {
-		List<T> all = (List<T>) getSqlManager().execute(sqlTemplate, clazz, paras, (pageNum - 1) * pageSize + 1, pageSize);
+		List<T> all = getSqlManager().execute(sqlTemplate, clazz, paras, (pageNum - 1) * pageSize + 1, pageSize);
 		return all;
 	}
 	
@@ -545,7 +551,6 @@ public class DbManager {
 	 * 分页
 	 * @param sqlTemplate sql语句
 	 * @param sqlCount count语句
-	 * @param clazz	返回类型
 	 * @param paras	参数
 	 * @param pageNum	页号
 	 * @param pageSize	数量

@@ -1,19 +1,6 @@
 package org.springblade.core.toolbox.file;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
-import javax.imageio.stream.FileImageOutputStream;
-
+import com.alibaba.druid.util.Base64;
 import org.springblade.core.constant.ConstConfig;
 import org.springblade.core.constant.Cst;
 import org.springblade.core.toolbox.Func;
@@ -22,13 +9,23 @@ import org.springblade.core.toolbox.kit.PathKit;
 import org.springblade.core.toolbox.kit.StrKit;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.alibaba.druid.util.Base64;
+import javax.imageio.stream.FileImageOutputStream;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
+/**
+ * @author zhuangqian
+ */
 public class BladeFileKit {
 
-	// 定义允许上传的文件扩展名
-	private static HashMap<String, String> extMap = new HashMap<String, String>();
-	// 图片扩展名
+    /**
+     * 定义允许上传的文件扩展名
+     */
+	private static HashMap<String, String> extMap = new HashMap<>();
+    /**
+     * 图片扩展名
+     */
 	private static String[] fileTypes = new String[] { "gif", "jpg", "jpeg", "png", "bmp" };
 
 	static {
@@ -71,7 +68,11 @@ public class BladeFileKit {
 	public enum FileSort {
 		size, type, name;
 
-		// 文本排序转换成枚举
+        /**
+         * 文本排序转换成枚举
+         * @param sort
+         * @return
+         */
 		public static FileSort of(String sort) {
 			try {
 				return FileSort.valueOf(sort);
@@ -155,7 +156,8 @@ public class BladeFileKit {
 
 	@SuppressWarnings("rawtypes")
 	public static class NameComparator implements Comparator {
-		public int compare(Object a, Object b) {
+		@Override
+        public int compare(Object a, Object b) {
 			Hashtable hashA = (Hashtable) a;
 			Hashtable hashB = (Hashtable) b;
 			if (((Boolean) hashA.get("is_dir")) && !((Boolean) hashB.get("is_dir"))) {
@@ -170,7 +172,8 @@ public class BladeFileKit {
 
 	@SuppressWarnings("rawtypes")
 	public static class SizeComparator implements Comparator {
-		public int compare(Object a, Object b) {
+		@Override
+        public int compare(Object a, Object b) {
 			Hashtable hashA = (Hashtable) a;
 			Hashtable hashB = (Hashtable) b;
 			if (((Boolean) hashA.get("is_dir")) && !((Boolean) hashB.get("is_dir"))) {
@@ -191,7 +194,8 @@ public class BladeFileKit {
 
 	@SuppressWarnings("rawtypes")
 	public static class TypeComparator implements Comparator {
-		public int compare(Object a, Object b) {
+		@Override
+        public int compare(Object a, Object b) {
 			Hashtable hashA = (Hashtable) a;
 			Hashtable hashB = (Hashtable) b;
 			if (((Boolean) hashA.get("is_dir")) && !((Boolean) hashB.get("is_dir"))) {

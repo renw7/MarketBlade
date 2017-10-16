@@ -25,12 +25,27 @@ import org.springblade.core.base.model.BaseModel;
 @Table(name = "blade_role_ext")
 @BindID(name = "id")
 @SuppressWarnings("serial")
-//角色代理表
+/**
+ * 权限代理表
+ * @author zhuangqian
+ */
 public class RoleExt extends BaseModel {
-	private Integer id; //主键
-	private String rolein; //额外附加的权限
-	private String roleout; //额外剔除的权限
-	private Integer userid; //用户id
+    /**
+     * 主键
+     */
+	private Integer id;
+    /**
+     * 额外附加的权限
+     */
+	private String rolein;
+    /**
+     * 额外剔除的权限
+     */
+	private String roleout;
+    /**
+     * 用户id
+     */
+	private Integer userid;
 
 	@AutoID
 	@SeqID(name = "SEQ_ROLE_EXT")

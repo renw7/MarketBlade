@@ -20,8 +20,9 @@ import org.springblade.core.meta.IQuery;
 
 /**
  * 通用查询拦截器工厂类
+ * @author zhuangqian
  */
-public class QueryInterceptor implements IQuery{
+public class QueryInterceptor implements IQuery {
 
 	@Override
 	public void queryBefore(AopContext ac) {

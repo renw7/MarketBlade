@@ -18,6 +18,9 @@ package org.springblade.core.base.model;
 import java.io.Serializable;
 
 
+/**
+ *@author zhuangqian
+ */
 @SuppressWarnings("serial")
 public class BaseModel implements Serializable {
 

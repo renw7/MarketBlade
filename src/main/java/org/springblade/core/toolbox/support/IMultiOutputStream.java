@@ -19,6 +19,7 @@ import java.io.OutputStream;
 
 /**
  * A factory for creating MultiOutputStream objects.
+ * @author looly
  */
 public interface IMultiOutputStream {
 

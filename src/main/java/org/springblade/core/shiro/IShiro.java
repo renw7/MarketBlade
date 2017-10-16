@@ -15,27 +15,54 @@
  */
 package org.springblade.core.shiro;
 
-import java.util.List;
-import java.util.Map;
-
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
-
 import org.springblade.common.vo.ShiroUser;
 import org.springblade.system.model.User;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 定义shirorealm所需数据的接口
- *
+ * @author zhuangqian
  */
 public interface IShiro {
+    /**
+     * user
+     * @param account
+     * @return
+     */
 	User user(String account);
 
+    /**
+     * shiroUser
+     * @param user
+     * @return
+     */
 	ShiroUser shiroUser(User user);
 
+    /**
+     * findPermissionsByRoleId
+     * @param userId
+     * @param roleId
+     * @return
+     */
 	@SuppressWarnings("rawtypes")
 	List<Map> findPermissionsByRoleId(Object userId, Integer roleId);
 
+    /**
+     * findRoleNameByRoleId
+     * @param roleId
+     * @return
+     */
 	String findRoleNameByRoleId(Integer roleId);
-	
+
+    /**
+     * info
+     * @param shiroUser
+     * @param user
+     * @param realmName
+     * @return
+     */
 	SimpleAuthenticationInfo info(ShiroUser shiroUser, User user, String realmName);
 }

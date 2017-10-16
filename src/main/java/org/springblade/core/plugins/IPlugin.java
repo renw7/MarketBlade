@@ -17,6 +17,7 @@ package org.springblade.core.plugins;
 
 /**
  *  IPlugin插件接口
+ *  @author zhuangqian
  */
 public interface IPlugin {
 	

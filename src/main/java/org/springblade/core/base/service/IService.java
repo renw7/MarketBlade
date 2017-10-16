@@ -15,12 +15,17 @@
  */
 package org.springblade.core.base.service;
 
-import java.util.List;
-
 import org.springblade.core.aop.AopContext;
-import org.springblade.core.meta.ICURD;
+import org.springblade.core.meta.ICurd;
 import org.springblade.core.toolbox.grid.BladePage;
 
+import java.util.List;
+
+/**
+ * 基础业务接口
+ * @author zhuangqian
+ * @param <M>
+ */
 public interface IService<M> {
 
 	/**
@@ -28,7 +33,7 @@ public interface IService<M> {
 	 * @param id 主键
 	 * @return M 实体类
 	 */
-	public M findById(Object id);
+	M findById(Object id);
 
 	/**
 	 * 根据自定义sql找到实体类集合 
@@ -36,7 +41,7 @@ public interface IService<M> {
 	 * @param modelOrMap 实体类或者Map(查询条件)
 	 * @return List<M> 实体类集合
 	 */
-	public List<M> find(String sql, Object modelOrMap);
+	List<M> find(String sql, Object modelOrMap);
 
 	/**
 	 * 根据实体类查询符合要求的前N条数据 
@@ -44,7 +49,7 @@ public interface IService<M> {
 	 * @param model 实体类
 	 * @return List<M> 实体类集合
 	 */
-	public List<M> findTop(int topNum, M model);
+	List<M> findTop(int topNum, M model);
 	
 	/**
 	 * 根据sql查询符合要求的前N条数据 
@@ -52,7 +57,7 @@ public interface IService<M> {
 	 * @param sqlTemplate sql语句
 	 * @return
 	 */
-	public List<M> findTop(int topNum, String sqlTemplate);
+	List<M> findTop(int topNum, String sqlTemplate);
 	
 	/**
 	 * 根据sql查询符合要求的前N条数据 
@@ -61,13 +66,13 @@ public interface IService<M> {
 	 * @param modelOrMap 实体类或map
 	 * @return
 	 */
-	public List<M> findTop(int topNum, String sqlTemplate, Object modelOrMap);
+	List<M> findTop(int topNum, String sqlTemplate, Object modelOrMap);
 
 	/**
 	 * 找到所有的实体类集合 
 	 * @return List<M> 实体类集合
 	 */
-	public List<M> findAll();
+	List<M> findAll();
 
 	/**
 	 * 根据条件查询相匹配的数据 
@@ -75,7 +80,7 @@ public interface IService<M> {
 	 * @param modelOrMap 实体类或者Map(查询条件)
 	 * @return List<M> 实体类集合
 	 */
-	public List<M> findBy(String where, Object modelOrMap);
+	List<M> findBy(String where, Object modelOrMap);
 
 	/**
 	 * 根据条件查询相匹配的数据 
@@ -84,14 +89,14 @@ public interface IService<M> {
 	 * @param modelOrMap 实体类或者Map(查询条件)
 	 * @return List<M> 实体类集合
 	 */
-	public List<M> findBy(String columns, String where, Object modelOrMap);
+	List<M> findBy(String columns, String where, Object modelOrMap);
 
 	/**
 	 * 根据实体类找到数据库相匹配数据 
 	 * @param model 实体类
 	 * @return List<M> 实体集合
 	 */
-	public List<M> findByTemplate(M model);
+	List<M> findByTemplate(M model);
 
 	/**
 	 * 根据自定义sql语句查询数据 
@@ -99,7 +104,7 @@ public interface IService<M> {
 	 * @param modelOrMap 实体类或者Map(查询条件)
 	 * @return M 实体类
 	 */
-	public M findFirst(String sql, Object modelOrMap);
+	M findFirst(String sql, Object modelOrMap);
 
 	/**
 	 * 根据where条件查询第一条数据 
@@ -107,61 +112,61 @@ public interface IService<M> {
 	 * @param modelOrMap 实体类或者Map(查询条件)
 	 * @return M 实体类
 	 */
-	public M findFirstBy(String where, Object modelOrMap);
+	M findFirstBy(String where, Object modelOrMap);
 
 	/**
 	 * 通用新增 
 	 * @param model 实体类
 	 * @return boolean
 	 */
-	public boolean save(M model);
+	boolean save(M model);
 	
 	/**
 	 * 新增返回int型主键 
 	 * @param model 实体类
 	 * @return int
 	 */
-	public int saveRtId(M model);
+	int saveRtId(M model);
 
 	/**
 	 * 新增返回String型主键 
 	 * @param model 实体类
 	 * @return String
 	 */
-	public String saveRtStrId(M model);
+	String saveRtStrId(M model);
 
 	/**
 	 * 新增一条数据,并自动将主键反射到字段中
 	 * @param model
 	 */
-	public boolean saveAndSetKey(M model);
+	boolean saveAndSetKey(M model);
 	
 	/**   
 	 * 批量插入
 	 * @param list void
 	*/
-	public void saveBatch(List<?> list);
+	void saveBatch(List<?> list);
 
 	/**
 	 * 通用修改(null的不入库) 
 	 * @param model 实体类
 	 * @return boolean
 	 */
-	public boolean update(M model);
+	boolean update(M model);
 
 	/**
 	 * 通用修改(null的也入库) 
 	 * @param model
 	 * @return boolean
 	 */
-	public boolean updateEveryCol(M model);
+	boolean updateEveryCol(M model);
 
 	/**
 	 * 根据一个model更新一个表内所有数据(非特殊情况慎重使用) 
 	 * @param model
 	 * @return int
 	 */
-	public int updateAllRecords(M model);
+	int updateAllRecords(M model);
 
 	/**
 	 * 根据条件修改 
@@ -170,28 +175,28 @@ public interface IService<M> {
 	 * @param modelOrMap 实体类或者Map(查询条件)
 	 * @return boolean
 	 */
-	public boolean updateBy(String set, String where, Object modelOrMap);
+	boolean updateBy(String set, String where, Object modelOrMap);
 	
 	/**   
 	 * 根据实体类集合修改
 	 * @param list 实体类集合
 	 * @return int[]
 	*/
-	public int[] updateBathById(List<M> list);
+	int[] updateBathById(List<M> list);
 
 	/**
 	 * 通用删除一条数据 
 	 * @param id 主键值
 	 * @return int 删除条数
 	 */
-	public int delete(Object id);
+	int delete(Object id);
 
 	/**
 	 * 通用删除多条数据 
 	 * @param ids 主键值集合
 	 * @return int 删除条数
 	 */
-	public int deleteByIds(String ids);
+	int deleteByIds(String ids);
 
 	/**
 	 * 根据字段名以及字段值删除多条数据
@@ -199,7 +204,7 @@ public interface IService<M> {
 	 * @param ids 键值集合
 	 * @return int 删除条数
 	 */
-	public int deleteByCols(String col, String ids);
+	int deleteByCols(String col, String ids);
 
 
 	/**   
@@ -209,14 +214,14 @@ public interface IService<M> {
 	 * @param ids 键值集合
 	 * @return int 删除条数
 	*/
-	public int deleteTableByCols(String table, String col, String ids);	
+	int deleteTableByCols(String table, String col, String ids);	
 	
 	/**
 	 * 根据多个id集合删除数据
 	 * @param ids id集合(1,2,3)
 	 * @return
 	 */
-	public int deleteByStrIds(String ids);
+	int deleteByStrIds(String ids);
 
 	/**
 	 * 根据字段及值删除数据
@@ -224,7 +229,7 @@ public interface IService<M> {
 	 * @param ids	字段值集合(1,2,3)
 	 * @return
 	 */
-	public int deleteByStrCols(String col, String ids);
+	int deleteByStrCols(String col, String ids);
 
 	/**
 	 * 根据表名、字段名、值删除数据
@@ -233,14 +238,14 @@ public interface IService<M> {
 	 * @param ids	字段值集合(1,2,3)
 	 * @return
 	 */
-	public int deleteTableByStrCols(String table, String col, String ids);
+	int deleteTableByStrCols(String table, String col, String ids);
 	
 	/**   
 	 * 根据sql模板删除
 	 * @param sqlTemplate sql模板
 	 * @return int 删除条数
 	*/
-	public int deleteBy(String sqlTemplate);
+	int deleteBy(String sqlTemplate);
 
 	/**   
 	 * 根据条件删除
@@ -248,20 +253,20 @@ public interface IService<M> {
 	 * @param modelOrMap 实体类或者Map(查询条件)
 	 * @return int 删除条数
 	*/
-	public int deleteBy(String where, Object modelOrMap);
+	int deleteBy(String where, Object modelOrMap);
 
 	/**   
 	 * 查询总数
 	 * @return int
 	*/
-	public long total();
+	long total();
 
 	/**   
 	 * 查询符合通用实体类的总数
 	 * @param model 通用实体
 	 * @return long 总数
 	*/
-	public long count(M model);
+	long count(M model);
 
 	/**   
 	 * 根据条件查询总数
@@ -269,7 +274,7 @@ public interface IService<M> {
 	 * @param modelOrMap 实体类或者Map(查询条件)
 	 * @return int 总数
 	*/
-	public int count(String where, Object modelOrMap);
+	int count(String where, Object modelOrMap);
 
 	/**   
 	 * 查询自定义sql的总数
@@ -277,7 +282,7 @@ public interface IService<M> {
 	 * @param modelOrMap 实体类或者Map(查询条件)
 	 * @return int 总数
 	*/
-	public int countBy(String sqlTemplate, Object modelOrMap);
+	int countBy(String sqlTemplate, Object modelOrMap);
 	
 	/**   
 	 * 对整表的分页
@@ -285,7 +290,7 @@ public interface IService<M> {
 	 * @param size 每页的数据量
 	 * @return List<M> 实体类集合
 	*/
-	public List<M> getList(int start, int size);
+	List<M> getList(int start, int size);
 
 	/**   
 	 * 找出符合实体类条件的分页
@@ -294,7 +299,7 @@ public interface IService<M> {
 	 * @param size 每页的数据量
 	 * @return List<M> 实体类集合
 	*/
-	public List<M> getList(M model, int start, int size);
+	List<M> getList(M model, int start, int size);
 	
 	/**   
 	 * 找出符合实体类条件的分页
@@ -304,7 +309,7 @@ public interface IService<M> {
 	 * @param size 每页的数据量
 	 * @return List<M> 实体类集合
 	*/
-	public List<M> getList(String sqlTemplate, Object modelOrMap, int start, int size);
+	List<M> getList(String sqlTemplate, Object modelOrMap, int start, int size);
 	
 	/**
 	 * 分页
@@ -314,7 +319,7 @@ public interface IService<M> {
 	 * @param size	数量
 	 * @return
 	 */
-	public BladePage<M> paginate(String sqlTemplate, Object paras, int start, int size);
+	BladePage<M> paginate(String sqlTemplate, Object paras, int start, int size);
 	
 	/**   
 	 * 根据自定义sql查询是否存在
@@ -322,14 +327,14 @@ public interface IService<M> {
 	 * @param modelOrMap 实体类或者Map(查询条件)
 	 * @return boolean
 	*/
-	public boolean isExist(String sqlTemplate, Object modelOrMap);
+	boolean isExist(String sqlTemplate, Object modelOrMap);
 
 	/**   
 	 * 获取model的主键值
 	 * @param model
 	 * @return Object
 	*/
-	public Object getIdValue(Object model);
+	Object getIdValue(Object model);
 	
 	/**
 	 * 通用新增
@@ -338,7 +343,7 @@ public interface IService<M> {
 	 * @param ac	 aop上下文
 	 * @return boolean
 	 */
-	public boolean save(M model, AopContext ac);
+	boolean save(M model, AopContext ac);
 
 	/**
 	 * 通用修改(null的不入库)
@@ -347,7 +352,7 @@ public interface IService<M> {
 	 * @param ac	 aop上下文
 	 * @return boolean
 	 */
-	public boolean update(M model, AopContext ac);
+	boolean update(M model, AopContext ac);
 
 	/**
 	 * 通用删除多条数据(物理)
@@ -356,7 +361,7 @@ public interface IService<M> {
 	 * @param ac	aop上下文
 	 * @return int  删除条数
 	 */
-	public boolean removeByIds(String ids, AopContext ac);
+	boolean removeByIds(String ids, AopContext ac);
 
 	/**
 	 * 通用删除多条数据(逻辑)
@@ -365,7 +370,7 @@ public interface IService<M> {
 	 * @param ac	aop上下文
 	 * @return int  删除条数
 	 */
-	public boolean delByIds(String ids, AopContext ac);
+	boolean delByIds(String ids, AopContext ac);
 
 	/**
 	 * 通用还原多条数据
@@ -374,7 +379,7 @@ public interface IService<M> {
 	 * @param ac	aop上下文
 	 * @return int  删除条数
 	 */
-	public boolean restoreByIds(String ids, AopContext ac);
+	boolean restoreByIds(String ids, AopContext ac);
 	
 	/**
 	 * 通用新增
@@ -384,7 +389,7 @@ public interface IService<M> {
 	 * @param intercept 业务拦截器
 	 * @return boolean
 	 */
-	public boolean save(M model, AopContext ac, ICURD intercept);
+	boolean save(M model, AopContext ac, ICurd intercept);
 
 	/**
 	 * 通用修改(null的不入库)
@@ -394,7 +399,7 @@ public interface IService<M> {
 	 * @param intercept 业务拦截器
 	 * @return boolean
 	 */
-	public boolean update(M model, AopContext ac, ICURD intercept);
+	boolean update(M model, AopContext ac, ICurd intercept);
 
 	/**
 	 * 通用删除多条数据(物理)
@@ -404,7 +409,7 @@ public interface IService<M> {
 	 * @param intercept 业务拦截器
 	 * @return int 删除条数
 	 */
-	public boolean removeByIds(String ids, AopContext ac, ICURD intercept);
+	boolean removeByIds(String ids, AopContext ac, ICurd intercept);
 
 	/**
 	 * 通用删除多条数据(逻辑)
@@ -414,7 +419,7 @@ public interface IService<M> {
 	 * @param intercept 业务拦截器
 	 * @return int 删除条数
 	 */
-	public boolean delByIds(String ids, AopContext ac, ICURD intercept);
+	boolean delByIds(String ids, AopContext ac, ICurd intercept);
 
 	/**
 	 * 通用还原多条数据
@@ -424,6 +429,6 @@ public interface IService<M> {
 	 * @param intercept 业务拦截器
 	 * @return int 删除条数
 	 */
-	public boolean restoreByIds(String ids, AopContext ac, ICURD intercept);
+	boolean restoreByIds(String ids, AopContext ac, ICurd intercept);
 	
 }

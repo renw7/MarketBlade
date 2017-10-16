@@ -15,14 +15,15 @@
  */
 package org.springblade.core.toolbox.support;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.springblade.core.toolbox.kit.ClassKit;
 import org.springblade.core.toolbox.kit.StrKit;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * 单例对象集合
+ * @author zhuangqian
  */
 public class Singleton {
 	private static Map<Class<?>, Object> pool = new ConcurrentHashMap<Class<?>, Object>();

@@ -26,11 +26,16 @@ import org.springblade.core.toolbox.grid.GridManager;
 import org.springblade.core.toolbox.support.Convert;
 import org.springblade.system.service.CurdService;
 
+/**
+ * CurdServiceImpl
+ * @author zhuangqian
+ */
 @Service
 public class CurdServiceImpl implements CurdService {
 
-	public boolean save(BladeController ctrl, Object model, Class<?> modelClass,
-			MetaIntercept intercept) {
+	@Override
+    public boolean save(BladeController ctrl, Object model, Class<?> modelClass,
+                        MetaIntercept intercept) {
 		AopContext ac = null;
 		if (null != intercept) {
 			ac = new AopContext(ctrl, model);
@@ -45,8 +50,9 @@ public class CurdServiceImpl implements CurdService {
 		return (rtid.length() > 0 && tempAfter);
 	}
 
-	public boolean update(BladeController ctrl, Object model,
-			Class<?> modelClass, MetaIntercept intercept) {
+	@Override
+    public boolean update(BladeController ctrl, Object model,
+                          Class<?> modelClass, MetaIntercept intercept) {
 		AopContext ac = null;
 		if (null != intercept) {
 			ac = new AopContext(ctrl, model);
@@ -60,8 +66,9 @@ public class CurdServiceImpl implements CurdService {
 		return (temp && tempAfter);
 	}
 
-	public boolean deleteByIds(BladeController ctrl, String ids,
-			Class<?> modelClass, MetaIntercept intercept) {
+	@Override
+    public boolean deleteByIds(BladeController ctrl, String ids,
+                               Class<?> modelClass, MetaIntercept intercept) {
 		AopContext ac = null;
 		if (null != intercept) {
 			ac = new AopContext(ctrl);
@@ -76,8 +83,9 @@ public class CurdServiceImpl implements CurdService {
 		return (n > 0 && tempAfter);
 	}
 
-	public boolean delByIds(BladeController ctrl, String ids,
-			Class<?> modelClass, MetaIntercept intercept) {
+	@Override
+    public boolean delByIds(BladeController ctrl, String ids,
+                            Class<?> modelClass, MetaIntercept intercept) {
 		AopContext ac = null;
 		if (null != intercept) {
 			ac = new AopContext(ctrl);
@@ -92,8 +100,9 @@ public class CurdServiceImpl implements CurdService {
 		return (temp && tempAfter);
 	}
 
-	public boolean restoreByIds(BladeController ctrl, String ids,
-			Class<?> modelClass, MetaIntercept intercept) {
+	@Override
+    public boolean restoreByIds(BladeController ctrl, String ids,
+                                Class<?> modelClass, MetaIntercept intercept) {
 		AopContext ac = null;
 		if (null != intercept) {
 			ac = new AopContext(ctrl);
@@ -108,9 +117,10 @@ public class CurdServiceImpl implements CurdService {
 		return (temp && tempAfter);
 	}
 
-	public Object paginate(Integer page, Integer rows, String source,
-			String para, String sort, String order, MetaIntercept intercept,
-			BladeController ctrl) {
+	@Override
+    public Object paginate(Integer page, Integer rows, String source,
+                           String para, String sort, String order, MetaIntercept intercept,
+                           BladeController ctrl) {
 		Object list = GridManager.paginate(null, page, rows, source, para, sort, order, intercept, ctrl);
 		return list;
 	}

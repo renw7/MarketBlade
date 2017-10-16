@@ -18,6 +18,10 @@ package org.springblade.system.meta.intercept;
 import org.springblade.core.aop.Invocation;
 import org.springblade.core.intercept.BladeValidator;
 
+/**
+ * LoginValidator
+ * @author zhuangqian
+ */
 public class LoginValidator extends BladeValidator {
 
 	@Override

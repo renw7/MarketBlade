@@ -26,22 +26,58 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * @author zhuangqian
+ */
 public class ShiroUser implements Serializable {
 
 	private static final long serialVersionUID = 6847303349754497231L;
-	
-	private Object id;// 主键
-	private Object deptId;// 部门id
-	private String deptName;// 部门名称
-	private String loginName;// 账号
-	private String name;// 姓名
-	private List<Integer> roleList;// 角色集
-	private String roles;// 角色集
-	private Object superDepts = "0";// 上级部门集合
-	private Object subDepts = "0";// 子部门集合
-	private Object subRoles = "0";// 子角色集合
-	private Object subUsers = "0";// 子账号集合
+
+    /**
+     *  主键
+     */
+	private Object id;
+    /**
+     * 部门id
+     */
+	private Object deptId;
+    /**
+     * 部门名称
+     */
+    private String deptName;
+    /**
+     * 账号
+     */
+    private String loginName;
+    /**
+     * 姓名
+     */
+    private String name;
+    /**
+     * 角色集
+     */
+    private List<Integer> roleList;
+    /**
+     * 角色集
+     */
+    private String roles;
+    /**
+     * 上级部门集合
+     */
+    private Object superDepts = "0";
+    /**
+     * 子部门集合
+     */
+    private Object subDepts = "0";
+    /**
+     * 子角色集合
+     */
+    private Object subRoles = "0";
+    /**
+     * 子账号集合
+     */
+    private Object subUsers = "0";
+
 
 	@SuppressWarnings("rawtypes")
 	public ShiroUser(Object id, Object deptId, String loginName, String name, List<Integer> roleList) {
@@ -52,60 +88,10 @@ public class ShiroUser implements Serializable {
 		this.name = name;
 		this.roleList = roleList;
 		this.roles = CollectionKit.join(roleList.toArray(), ",");
-		
-		// 递归查找上级部门id集合
-		/*String superDeptSql;
-		String superDepts = null;
-		if (Func.isOracle()) {
-			superDeptSql = "select wm_concat(ID) subDepts from (select ID,PID,SIMPLENAME from blade_dept start with ID in (#{join(deptIds)}) connect by prior PID=ID order by ID) a where a.ID not in (#{join(deptIds)})";
-			superDepts = Db.queryStr(superDeptSql, CMap.init().set("deptIds", Convert.toIntArray(deptId.toString())));
-		} else if (Func.isMySql()){
-			String[] arr = deptId.toString().split(",");
-			StringBuilder sb = new StringBuilder();
-			for (String deptid : arr) {
-				superDeptSql = "select queryParent(#{deptid},'blade_dept') as superdepts";
-				String str = Db.queryStr(superDeptSql, CMap.init().set("deptid", deptid));
-				sb.append(str).append(",");
-			}
-			superDepts = StrKit.removeSuffix(sb.toString(), ",");
-		} else if (Func.isPostgresql()){
-			superDeptSql = "select id from (with RECURSIVE cte as (select a.id,a.simplename,a.pid from blade_dept as a where id in (#{join(deptIds)}) union all  select k.id,k.simplename,k.pid  from blade_dept as k inner join cte as c on c.pid = k.id )select id,pid,simplename from cte) a where id not in (#{join(deptIds)})";
-			List<Map> list = Db.selectList(superDeptSql, CMap.init().set("deptIds", Convert.toIntArray(deptId.toString())));
-			StringBuilder sb = new StringBuilder();
-			for (Map m : list) {
-				sb.append(m.get("id")).append(",");
-			}
-			superDepts = StrKit.removeSuffix(sb.toString(), ",");
-		}
-		this.superDepts = superDepts;*/
-		
-		// 递归查找子部门id集合
-		/*String subDeptSql;
-		String subDepts = null;
-		if (Func.isOracle()) {
-			subDeptSql = "select wm_concat(ID) subDepts from (select ID,PID,SIMPLENAME from blade_dept start with ID in (#{join(deptIds)}) connect by prior ID=PID order by ID) a where a.ID not in (#{join(deptIds)})";
-			subDepts = Db.queryStr(subDeptSql, CMap.init().set("deptIds", Convert.toIntArray(deptId.toString())));
-		} else if (Func.isMySql()){
-			String[] arr = deptId.toString().split(",");
-			StringBuilder sb = new StringBuilder();
-			for (String deptid : arr) {
-				subDeptSql = "select queryChildren(#{deptid},'blade_dept') as subdepts";
-				String str = Db.queryStr(subDeptSql, CMap.init().set("deptid", deptid));
-				sb.append(str).append(",");
-			}
-			subDepts = StrKit.removeSuffix(sb.toString(), ",");
-		} else if (Func.isPostgresql()){
-			subDeptSql = "select id from (with RECURSIVE cte as (select a.id,a.simplename,a.pid from blade_dept as a where id in (#{join(deptIds)}) union all  select k.id,k.simplename,k.pid  from blade_dept as k inner join cte as c on c.id = k.pid )select id,pid,simplename from cte) a where id not in (#{join(deptIds)})";
-			List<Map> list = Db.selectList(subDeptSql, CMap.init().set("deptIds", Convert.toIntArray(deptId.toString())));
-			StringBuilder sb = new StringBuilder();
-			for (Map m : list) {
-				sb.append(m.get("id")).append(",");
-			}
-            subDepts = StrKit.removeSuffix(sb.toString(), ",");
-		}
-		this.subDepts = subDepts;*/
-		
-		// 递归查找子角色id集合
+
+        /**
+         * 递归查找子角色id集合
+         */
 		String roleSql;
 		String subRoles = null;
 		if (Func.isOracle()) {
@@ -129,26 +115,7 @@ public class ShiroUser implements Serializable {
             subRoles = StrKit.removeSuffix(sb.toString(), ",");
 		}
 		this.subRoles = subRoles;
-		
-		// 查找子角色对应账号id集合
-		/*List<Map<String, Object>> listUser = CacheKit.get(ConstCache.SYS_CACHE, ConstCacheKey.USER_ALL_LIST, new ILoader() {
-			@Override
-			public Object load() {
-				return Db.selectList("SELECT * FROM blade_user where status = 1 and name is not null");
-			}
-		});
-		
-		String[] subrolestr = Func.toStr(this.subRoles).split(",");
-		StringBuilder sbUser = new StringBuilder();
-		for (Map<String, Object> map : listUser) {
-			for (String str : subrolestr) {
-				if (Func.toStr(map.get("ROLEID")).indexOf(str) >= 0 && (("," + sbUser.toString() + ",").indexOf("," + Func.toStr(map.get("ID")) + ",") == -1)) {
-					Func.builder(sbUser, Func.toStr(map.get("ID")) + ",");
-				}
-			}
-		}
-		
-		this.subUsers = StrKit.removeSuffix(sbUser.toString(), ","); */
+
 	}
 
 	public Object getId() {

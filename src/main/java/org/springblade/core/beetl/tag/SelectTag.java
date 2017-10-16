@@ -15,12 +15,7 @@
  */
 package org.springblade.core.beetl.tag;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
 import org.beetl.core.Tag;
-
 import org.springblade.core.aop.AopContext;
 import org.springblade.core.constant.ConstCache;
 import org.springblade.core.constant.ConstCacheKey;
@@ -29,14 +24,21 @@ import org.springblade.core.meta.IQuery;
 import org.springblade.core.plugins.dao.Db;
 import org.springblade.core.plugins.dao.Md;
 import org.springblade.core.shiro.ShiroKit;
-import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.CMap;
+import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.cache.CacheKit;
 import org.springblade.core.toolbox.cache.ILoader;
 import org.springblade.core.toolbox.kit.ClassKit;
 import org.springblade.core.toolbox.kit.JsonKit;
 import org.springblade.core.toolbox.kit.StrKit;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author zhuangqian
+ */
 public class SelectTag extends Tag {
 
 	@Override
@@ -61,23 +63,28 @@ public class SelectTag extends Tag {
 			IQuery intercept = Cst.me().getDefaultQueryFactory();
 			
 			String CACHE_NAME = ConstCache.SYS_CACHE;
-			
-			if (type.equals("dict")) {
+
+            String DICT = "dict";
+            String USER = "user";
+            String DEPT = "dept";
+            String ROLE = "role";
+            String DIY = "diy";
+			if (type.equals(DICT)) {
 				sql = "select num as ID,pId as PID,name as TEXT from  BLADE_DICT where code='" + code + "' and num > 0 order by num asc";
 				intercept = Cst.me().getDefaultSelectFactory().dictIntercept();
-			} else if (type.equals("user")) {
+			} else if (type.equals(USER)) {
 				CACHE_NAME = ConstCache.SYS_CACHE;
 				sql = "select ID,name as TEXT from  BLADE_USER where status=1";
 				intercept = Cst.me().getDefaultSelectFactory().userIntercept();
-			} else if (type.equals("dept")) {
+			} else if (type.equals(DEPT)) {
 				CACHE_NAME = ConstCache.SYS_CACHE;
 				sql = "select ID,PID,SIMPLENAME as TEXT from  BLADE_DEPT";
 				intercept = Cst.me().getDefaultSelectFactory().deptIntercept();
-			} else if (type.equals("role")) {
+			} else if (type.equals(ROLE)) {
 				CACHE_NAME = ConstCache.SYS_CACHE;
 				sql = "select ID,name as TEXT from  BLADE_ROLE";
 				intercept = Cst.me().getDefaultSelectFactory().roleIntercept();
-			} else if (type.equals("diy")) {
+			} else if (type.equals(DIY)) {
 				CACHE_NAME = ConstCache.SYS_CACHE;
 				type = type + "_" + param.get("source");
 				if(StrKit.notBlank(where)){

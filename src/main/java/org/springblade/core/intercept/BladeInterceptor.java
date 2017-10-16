@@ -17,6 +17,10 @@ package org.springblade.core.intercept;
 
 import org.springblade.core.toolbox.ajax.AjaxResult;
 
+/**
+ * 拦截器
+ * @author zhuangqian
+ */
 public abstract class BladeInterceptor implements Interceptor{
 	protected AjaxResult result = new AjaxResult();
 

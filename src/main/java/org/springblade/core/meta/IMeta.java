@@ -19,6 +19,7 @@ import java.util.Map;
 
 /**
  *  定义CURD元数据接口
+ *  @author zhuangqian
  */
 public interface IMeta {
 	

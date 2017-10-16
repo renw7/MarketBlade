@@ -19,8 +19,13 @@ import org.beetl.ext.spring.BeetlGroupUtilConfiguration;
 
 import org.springblade.common.beetl.BeetlRegister;
 
+/**
+ * beetl初始化类
+ * @author zhuangqian
+ */
 public class MyBeetlGroupUtilConfiguration extends BeetlGroupUtilConfiguration {
 
+    @Override
 	public void initOther() {
 
 		BeetlTemplate.registerTemplate(groupTemplate);

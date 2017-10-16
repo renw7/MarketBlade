@@ -32,6 +32,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springblade.core.plugins.dao.Blade;
 import org.springblade.core.toolbox.ajax.AjaxResult;
 
+/**
+ * DictController
+ * @author zhuangqian
+ */
 @Controller
 @RequestMapping("/dict")
 public class DictController extends BaseController {

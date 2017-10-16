@@ -135,8 +135,9 @@ public class URLKit {
 	 * @exception ToolBoxException UnsupportedEncodingException
 	 */
 	public static String encode(String url, String charset) {
-		if (StrKit.isBlank(url))
-			return StrKit.EMPTY;
+		if (StrKit.isBlank(url)) {
+            return StrKit.EMPTY;
+        }
 		try {
 			return URLEncoder.encode(url, charset);
 		} catch (UnsupportedEncodingException e) {
@@ -152,8 +153,9 @@ public class URLKit {
 	 * @exception ToolBoxException UnsupportedEncodingException
 	 */
 	public static String decode(String url, String charset) {
-		if (StrKit.isBlank(url))
-			return StrKit.EMPTY;
+		if (StrKit.isBlank(url)) {
+            return StrKit.EMPTY;
+        }
 		try {
 			return URLDecoder.decode(url, charset);
 		} catch (UnsupportedEncodingException e) {

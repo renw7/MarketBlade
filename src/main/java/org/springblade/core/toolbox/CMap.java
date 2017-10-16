@@ -1,5 +1,11 @@
 package org.springblade.core.toolbox;
 
+import org.beetl.sql.core.kit.CaseInsensitiveHashMap;
+import org.springblade.core.toolbox.kit.BeanKit;
+import org.springblade.core.toolbox.kit.CollectionKit;
+import org.springblade.core.toolbox.support.BasicTypeGetter;
+import org.springblade.core.toolbox.support.Convert;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Time;
@@ -9,13 +15,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import org.beetl.sql.core.kit.CaseInsensitiveHashMap;
-
-import org.springblade.core.toolbox.kit.BeanKit;
-import org.springblade.core.toolbox.kit.CollectionKit;
-import org.springblade.core.toolbox.support.BasicTypeGetter;
-import org.springblade.core.toolbox.support.Convert;
 
 /**
  * 扩充了HashMap中的方法
@@ -61,7 +60,7 @@ public class CMap extends CaseInsensitiveHashMap<String, Object> implements Basi
 	 * 将map对象转为Maps
 	 * 
 	 * @param <T>
-	 * @param vo
+	 * @param map
 	 *            值对象
 	 * @return Vo
 	 */
@@ -144,7 +143,7 @@ public class CMap extends CaseInsensitiveHashMap<String, Object> implements Basi
 	 * 与给定实体对比并去除相同的部分<br>
 	 * 此方法用于在更新操作时避免所有字段被更新，跳过不需要更新的字段
 	 * version from 2.0.0
-	 * @param dict
+	 * @param paras
 	 * @param withoutNames 不需要去除的字段名
 	 */
 	public <T extends CMap> void removeEqual(T paras, String... withoutNames) {

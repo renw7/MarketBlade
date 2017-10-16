@@ -35,6 +35,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * beetlsql 自动API封装dao工具
+ * @author zhuangqian
  */
 @SuppressWarnings({"unchecked","rawtypes"})
 public class Blade {
@@ -52,7 +53,7 @@ public class Blade {
 					DbName dbName = modelClass.getAnnotation(DbName.class);
 					if (null == dbName){
 						sql = dao();
-						this.dbName = SQLManagerPlugin.init().MASTER;
+						this.dbName = SqlManagerPlugin.init().MASTER;
 					} else {
 						sql = dao(dbName.name());
 						this.dbName = dbName.name();
@@ -68,7 +69,7 @@ public class Blade {
 	 * @return
 	 */
 	public static SQLManager dao() {
-		return dao(SQLManagerPlugin.init().MASTER);
+		return dao(SqlManagerPlugin.init().MASTER);
 	}
 	
 	/**
@@ -77,7 +78,7 @@ public class Blade {
 	 * @return
 	 */
 	public static SQLManager dao(String name) {
-		return SQLManagerPlugin.init().getSqlManagerPool().get(name);
+		return SqlManagerPlugin.init().getSqlManagerPool().get(name);
 	}
 
 	/**
@@ -93,7 +94,7 @@ public class Blade {
 				if (null == blade) {
 					DbName dbName = modelClass.getAnnotation(DbName.class);
 					if (null == dbName){
-						blade = new Blade(SQLManagerPlugin.init().MASTER, modelClass);
+						blade = new Blade(SqlManagerPlugin.init().MASTER, modelClass);
 					} else {
 						blade = new Blade(dbName.name(), modelClass);
 					}
@@ -432,9 +433,18 @@ public class Blade {
 			}
 			// 3.乐观锁控制
 			CMap modelForm = CMap.parse(model);
-			if (modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase()) != null) { // 是否需要乐观锁控制
-				int versionDB = Func.toInt(modelOld.get(Const.OPTIMISTIC_LOCK.toLowerCase()), 0); // 数据库中的版本号
-				int versionForm = Func.toInt(modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase()), 1); // 表单中的版本号
+            /**
+             * 是否需要乐观锁控制
+             */
+			if (modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase()) != null) {
+                /**
+                 * 数据库中的版本号
+                 */
+				int versionDB = Func.toInt(modelOld.get(Const.OPTIMISTIC_LOCK.toLowerCase()), 0);
+                /**
+                 * 表单中的版本号
+                 */
+				int versionForm = Func.toInt(modelForm.get(Const.OPTIMISTIC_LOCK.toLowerCase()), 1);
 				if (!(versionForm > versionDB)) {
 					throw new RuntimeException("表单数据版本号和数据库数据版本号不一致，可能数据已经被其他人修改，请重新编辑");
 				}

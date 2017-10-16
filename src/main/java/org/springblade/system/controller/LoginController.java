@@ -15,35 +15,36 @@
  */
 package org.springblade.system.controller;
 
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.springblade.common.base.BaseController;
 import org.springblade.core.annotation.Before;
 import org.springblade.core.annotation.Json;
-import org.springblade.core.shiro.ShiroKit;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springblade.common.base.BaseController;
 import org.springblade.core.constant.Const;
 import org.springblade.core.plugins.dao.Blade;
+import org.springblade.core.shiro.ShiroKit;
 import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.ajax.AjaxResult;
 import org.springblade.core.toolbox.kit.LogKit;
 import org.springblade.core.toolbox.log.BladeLogManager;
 import org.springblade.system.meta.intercept.LoginValidator;
 import org.springblade.system.model.LoginLog;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+/**
+ * LoginController
+ * @author zhuangqian
+ */
 @Controller
 public class LoginController extends BaseController implements Const{
 

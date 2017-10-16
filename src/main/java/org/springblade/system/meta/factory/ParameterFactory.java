@@ -15,29 +15,37 @@
  */
 package org.springblade.system.meta.factory;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springblade.core.meta.MetaIntercept;
 import org.springblade.core.meta.MetaManager;
 import org.springblade.system.meta.intercept.ParameterIntercept;
 import org.springblade.system.model.Parameter;
 
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * ParameterFactory
+ * @author zhuangqian
+ */
 public class ParameterFactory extends MetaManager {
 
-	public Class<? extends MetaIntercept> intercept() {
+	@Override
+    public Class<? extends MetaIntercept> intercept() {
 		return ParameterIntercept.class;
 	}
 
-	public String controllerKey() {
+	@Override
+    public String controllerKey() {
 		return "parameter";
 	}
 
-	public String paraPrefix() {
+	@Override
+    public String paraPrefix() {
 		return getTableName(Parameter.class);
 	}
 
-	public Map<String, String> renderMap() {
+	@Override
+    public Map<String, String> renderMap() {
 		Map<String, String> renderMap = new HashMap<>();
 		renderMap.put(KEY_INDEX, "/system/parameter/parameter.html");
 		renderMap.put(KEY_ADD, "/system/parameter/parameter_add.html");
@@ -46,7 +54,8 @@ public class ParameterFactory extends MetaManager {
 		return renderMap;
 	}
 
-	public Map<String, String> sourceMap() {
+	@Override
+    public Map<String, String> sourceMap() {
 		Map<String, String> sourceMap = new HashMap<>();
 		sourceMap.put(KEY_INDEX, "parameter.sourceList");
 		return sourceMap;

@@ -15,29 +15,37 @@
  */
 package org.springblade.system.meta.factory;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springblade.core.meta.MetaIntercept;
 import org.springblade.core.meta.MetaManager;
 import org.springblade.system.meta.intercept.AttachIntercept;
 import org.springblade.system.model.Attach;
 
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * AttachFactory
+ * @author zhuangqian
+ */
 public class AttachFactory extends MetaManager {
 
-	public Class<? extends MetaIntercept> intercept() {
+	@Override
+    public Class<? extends MetaIntercept> intercept() {
 		return AttachIntercept.class;
 	}
 	
-	public String controllerKey() {
+	@Override
+    public String controllerKey() {
 		return "attach";
 	}
 
-	public String paraPrefix() {
+	@Override
+    public String paraPrefix() {
 		return getTableName(Attach.class);
 	}
 
-	public Map<String, String> renderMap() {
+	@Override
+    public Map<String, String> renderMap() {
 		Map<String, String> renderMap = new HashMap<>();
 		renderMap.put(KEY_INDEX, "/system/attach/attach.html");
 		renderMap.put(KEY_ADD, "/system/attach/attach_add.html");
@@ -46,7 +54,8 @@ public class AttachFactory extends MetaManager {
 		return renderMap;
 	}
 
-	public Map<String, String> sourceMap() {
+	@Override
+    public Map<String, String> sourceMap() {
 		Map<String, String> sourceMap = new HashMap<>();
 		sourceMap.put(KEY_INDEX, "attach.sourceList");
 		return sourceMap;

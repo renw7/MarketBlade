@@ -15,16 +15,21 @@
  */
 package org.springblade.core.toolbox.grid;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springblade.core.base.controller.BladeController;
 import org.springblade.core.meta.IQuery;
 
+import java.util.List;
+import java.util.Map;
+
+/**
+ * LigerGridFactory
+ * @author zhuangqian
+ */
 @SuppressWarnings("unchecked")
 public class LigerGridFactory extends BaseGridFactory {
 
-	public LigerGrid<Map<String, Object>> paginate(String dbName, Integer page, Integer rows,
+	@Override
+    public LigerGrid<Map<String, Object>> paginate(String dbName, Integer page, Integer rows,
                                                    String source, String para, String sort, String order,
                                                    IQuery intercept, BladeController ctrl) {
 		BladePage<Map<String, Object>> list = (BladePage<Map<String, Object>>) super.basePaginate(dbName, page, rows, source, para, sort, order, intercept, ctrl);

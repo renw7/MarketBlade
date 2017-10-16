@@ -15,29 +15,37 @@
  */
 package org.springblade.system.meta.factory;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springblade.core.meta.MetaIntercept;
 import org.springblade.core.meta.MetaManager;
 import org.springblade.system.meta.intercept.LogIntercept;
 import org.springblade.system.model.LoginLog;
 
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * LLogFactory
+ * @author zhuangqian
+ */
 public class LLogFactory extends MetaManager {
 
-	public Class<? extends MetaIntercept> intercept() {
+	@Override
+    public Class<? extends MetaIntercept> intercept() {
 		return LogIntercept.class;
 	}
 	
-	public String controllerKey() {
+	@Override
+    public String controllerKey() {
 		return "llog";
 	}
 
-	public String paraPrefix() {
+	@Override
+    public String paraPrefix() {
 		return getTableName(LoginLog.class);
 	}
 
-	public Map<String, String> renderMap() {
+	@Override
+    public Map<String, String> renderMap() {
 		Map<String, String> renderMap = new HashMap<>();
 		renderMap.put(KEY_INDEX, "/system/log/llog.html");
 		renderMap.put(KEY_ADD, "/system/log/llog_add.html");
@@ -46,7 +54,8 @@ public class LLogFactory extends MetaManager {
 		return renderMap;
 	}
 
-	public Map<String, String> sourceMap() {
+	@Override
+    public Map<String, String> sourceMap() {
 		Map<String, String> sourceMap = new HashMap<>();
 		sourceMap.put(KEY_INDEX, "llog.sourceList");
 		return sourceMap;

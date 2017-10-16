@@ -25,6 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * blade配置
+ * @author zhuangqian
  */
 public class BladeConfig {
 

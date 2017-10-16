@@ -1,29 +1,5 @@
 package org.springblade.core.toolbox.kit;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Proxy;
-import java.lang.reflect.Type;
-import java.net.URI;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springblade.core.exception.ToolBoxException;
@@ -31,6 +7,17 @@ import org.springblade.core.toolbox.support.BasicType;
 import org.springblade.core.toolbox.support.Singleton;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;
+
+import java.io.File;
+import java.io.FileFilter;
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.*;
+import java.net.URI;
+import java.net.URL;
+import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 /**
  * 类工具类
@@ -540,8 +527,9 @@ public class ClassKit {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T newInstance(String clazz) {
-		if (null == clazz)
-			return null;
+		if (null == clazz) {
+            return null;
+        }
 		try {
 			return (T) Class.forName(clazz).newInstance();
 		} catch (Exception e) {
@@ -556,8 +544,9 @@ public class ClassKit {
 	 * @return 对象
 	 */
 	public static <T> T newInstance(Class<T> clazz) {
-		if (null == clazz)
-			return null;
+		if (null == clazz) {
+            return null;
+        }
 		try {
 			return (T) clazz.newInstance();
 		} catch (Exception e) {
@@ -572,8 +561,9 @@ public class ClassKit {
 	 * @return 对象
 	 */
 	public static <T> T newInstance(Class<T> clazz, Object... params) {
-		if (null == clazz)
-			return null;
+		if (null == clazz) {
+            return null;
+        }
 		if (CollectionKit.isEmpty(params)) {
 			return newInstance(clazz);
 		}

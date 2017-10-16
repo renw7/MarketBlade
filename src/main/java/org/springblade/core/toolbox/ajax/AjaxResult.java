@@ -2,15 +2,25 @@ package org.springblade.core.toolbox.ajax;
 
 import org.springblade.core.toolbox.kit.JsonKit;
 
+/**
+ * 接口返回
+ * @author zhuangqian
+ */
 public class AjaxResult {
 
-	// 返回状态码   (默认0:成功,1:失败)
+    /**
+     * 返回状态码   (默认0:成功,1:失败)
+     */
 	private int code = 0;
 
-	// 返回的中文消息
+    /**
+     * 返回的中文消息
+     */
 	private String message;
 
-	// 成功时携带的数据
+    /**
+     * 成功时携带的数据
+     */
 	private Object data;
 
 	public int getCode() {

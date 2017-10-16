@@ -20,6 +20,7 @@ import org.springblade.core.meta.ISelect;
 
 /**
  * select查询拦截器工厂类
+ * @author zhuangqian
  */
 public class SelectInterceptor implements ISelect {
 	

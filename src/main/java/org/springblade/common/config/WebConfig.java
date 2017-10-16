@@ -31,11 +31,16 @@ import org.springblade.core.toolbox.kit.PropKit;
 
 import java.math.BigDecimal;
 
+/**
+ * 配置类
+ * @author zhuangqian
+ */
 public class WebConfig implements IConfig {
 
 	/** 
 	 * 全局参数设置
 	 */
+	@Override
 	public void globalConstants(Cst me) {
 		Prop prop = PropKit.use(Const.PROPERTY_FILE);
 		
@@ -82,6 +87,7 @@ public class WebConfig implements IConfig {
 	/** 
 	 * 自定义插件注册
 	 */
+    @Override
 	public void registerPlugins(IPluginHolder plugins) {
 		plugins.register(new GlobalPlugin());
 		
@@ -91,6 +97,7 @@ public class WebConfig implements IConfig {
 	/** 
 	 * 全局自定义设置
 	 */
+    @Override
 	public void globalSettings() {
 		
 	}
@@ -98,6 +105,7 @@ public class WebConfig implements IConfig {
 	/** 
 	 * 工程启动完毕执行逻辑
 	 */
+    @Override
 	public void afterBladeStart() {
 
 	}
@@ -105,6 +113,7 @@ public class WebConfig implements IConfig {
 	/** 
 	 * 工程关闭执行逻辑
 	 */
+    @Override
 	public void afterBladeStop() {
 		
 	}

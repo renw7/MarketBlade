@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  *  IPluginFactroy插件管理接口
+ *  @author zhuangqian
  */
 public interface IPluginHolder {
 	
@@ -30,6 +31,7 @@ public interface IPluginHolder {
 
 	/**   
 	 * 获取插件
+     * @return
 	*/
 	List<IPlugin> getPlugins();
 	

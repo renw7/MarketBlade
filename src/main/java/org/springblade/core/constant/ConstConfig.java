@@ -15,10 +15,13 @@
  */
 package org.springblade.core.constant;
 
-import java.util.Map;
-
 import org.springblade.core.listener.ConfigListener;
 
+import java.util.Map;
+
+/**
+ * @author zhuangqian
+ */
 public interface ConstConfig {
 
 	Map<String, String> pool = ConfigListener.getConf();

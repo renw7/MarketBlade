@@ -41,10 +41,13 @@ public class CookieKit {
 	 */
 	public static Cookie getCookieObject(String name, HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
-		if (cookies != null)
-			for (Cookie cookie : cookies)
-				if (cookie.getName().equals(name))
-					return cookie;
+		if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(name)) {
+                    return cookie;
+                }
+            }
+        }
 		return null;
 	}
 	

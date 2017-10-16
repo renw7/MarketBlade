@@ -1,20 +1,20 @@
 package org.springblade.core.toolbox.support;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springblade.core.constant.Const;
-import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.CMap;
+import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.kit.BeanKit;
 import org.springblade.core.toolbox.kit.CollectionKit;
 import org.springblade.core.toolbox.kit.StrKit;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 /**
  * javabean 、 paras映射
+ * @author zhuangqian
  */
 public class BeanInjector {
 

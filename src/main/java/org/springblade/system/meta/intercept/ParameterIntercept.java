@@ -15,25 +15,28 @@
  */
 package org.springblade.system.meta.intercept;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springblade.common.tool.SysCache;
-import org.springblade.core.shiro.ShiroKit;
-import org.springblade.core.toolbox.cache.CacheKit;
-import org.springframework.web.servlet.ModelAndView;
-
 import org.springblade.core.aop.AopContext;
 import org.springblade.core.base.controller.BladeController;
 import org.springblade.core.constant.ConstCache;
 import org.springblade.core.constant.ConstShiro;
 import org.springblade.core.meta.MetaIntercept;
 import org.springblade.core.plugins.dao.Blade;
+import org.springblade.core.shiro.ShiroKit;
 import org.springblade.core.toolbox.CMap;
 import org.springblade.core.toolbox.ajax.AjaxResult;
+import org.springblade.core.toolbox.cache.CacheKit;
 import org.springblade.core.toolbox.grid.BladePage;
 import org.springblade.system.model.Parameter;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+import java.util.Map;
+
+/**
+ * ParameterIntercept
+ * @author zhuangqian
+ */
 public class ParameterIntercept extends MetaIntercept {
 
 	/**
@@ -41,7 +44,8 @@ public class ParameterIntercept extends MetaIntercept {
 	 * 
 	 * @param ac
 	 */
-	public void renderIndexBefore(AopContext ac) {
+	@Override
+    public void renderIndexBefore(AopContext ac) {
 		if(ShiroKit.lacksRole(ConstShiro.ADMINISTRATOR)){
 			ModelAndView view = ac.getView();
 			view.setViewName("redirect:/unauth");
@@ -53,7 +57,8 @@ public class ParameterIntercept extends MetaIntercept {
 	 * 
 	 * @param ac
 	 */
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public void queryAfter(AopContext ac) {
 		BladePage<Map<String, Object>> page = (BladePage<Map<String, Object>>) ac.getObject();
 		List<Map<String, Object>> list = page.getRows();
@@ -67,7 +72,8 @@ public class ParameterIntercept extends MetaIntercept {
 	 * 
 	 * @param ac
 	 */
-	public void saveBefore(AopContext ac) {
+	@Override
+    public void saveBefore(AopContext ac) {
 		BladeController ctrl = ac.getCtrl();
 		String code = ctrl.getParameter("blade_parameter.code");
 		int cnt = Blade.create(Parameter.class).count("code = #{code}", CMap.init().set("code", code));
@@ -81,7 +87,8 @@ public class ParameterIntercept extends MetaIntercept {
 	 * 
 	 * @param ac
 	 */
-	public boolean saveAfter(AopContext ac) {
+	@Override
+    public boolean saveAfter(AopContext ac) {
 		CacheKit.remove(ConstCache.SYS_CACHE, "parameter_log");
 		return super.saveAfter(ac);
 	}
@@ -91,7 +98,8 @@ public class ParameterIntercept extends MetaIntercept {
 	 * 
 	 * @param ac
 	 */
-	public boolean updateAfter(AopContext ac) {
+	@Override
+    public boolean updateAfter(AopContext ac) {
 		CacheKit.remove(ConstCache.SYS_CACHE, "parameter_log");
 		return super.updateAfter(ac);
 	}
@@ -101,7 +109,8 @@ public class ParameterIntercept extends MetaIntercept {
 	 * 
 	 * @param ac
 	 */
-	public AjaxResult removeSucceed(AopContext ac) {
+	@Override
+    public AjaxResult removeSucceed(AopContext ac) {
 		CacheKit.remove(ConstCache.SYS_CACHE, "parameter_log");
 		return super.removeSucceed(ac);
 	}
@@ -111,7 +120,8 @@ public class ParameterIntercept extends MetaIntercept {
 	 * 
 	 * @param ac
 	 */
-	public AjaxResult delSucceed(AopContext ac) {
+	@Override
+    public AjaxResult delSucceed(AopContext ac) {
 		CacheKit.remove(ConstCache.SYS_CACHE, "parameter_log");
 		return super.delSucceed(ac);
 	}
@@ -121,7 +131,8 @@ public class ParameterIntercept extends MetaIntercept {
 	 * 
 	 * @param ac
 	 */
-	public AjaxResult restoreSucceed(AopContext ac) {
+	@Override
+    public AjaxResult restoreSucceed(AopContext ac) {
 		CacheKit.remove(ConstCache.SYS_CACHE, "parameter_log");
 		return super.restoreSucceed(ac);
 	}

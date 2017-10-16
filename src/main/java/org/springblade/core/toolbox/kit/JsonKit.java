@@ -29,8 +29,9 @@ public class JsonKit {
     }
 
     public static <T> List<T> parseArray(String text, Class<T> clazz) {
-        if (!(text.startsWith("[") && text.endsWith("]")))
+        if (!(text.startsWith("[") && text.endsWith("]"))) {
             text = "[" + text + "]";
+        }
         return JSONObject.parseArray(text, clazz);
     }
 	

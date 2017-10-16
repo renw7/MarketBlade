@@ -23,6 +23,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springblade.system.model.Attach;
 
+
+/**
+ * AttachController
+ * @author zhuangqian
+ */
 @Controller
 @RequestMapping("/attach")
 public class AttachController extends CurdController<Attach> {

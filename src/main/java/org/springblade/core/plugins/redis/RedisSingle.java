@@ -47,7 +47,8 @@ public class RedisSingle implements IJedis {
 		this.keyNamingPolicy = keyNamingPolicy;
 	}
 
-	public String set(Object key, Object value) {
+	@Override
+    public String set(Object key, Object value) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.set(keyToBytes(key), valueToBytes(value));
@@ -55,7 +56,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public String setex(Object key, int seconds, Object value) {
+	@Override
+    public String setex(Object key, int seconds, Object value) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.setex(keyToBytes(key), seconds, valueToBytes(value));
@@ -63,7 +65,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public <T> T get(Object key) {
 		Jedis jedis = getJedis();
 		try {
@@ -72,7 +75,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long del(Object key) {
+	@Override
+    public Long del(Object key) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.del(keyToBytes(key));
@@ -80,7 +84,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long del(Object... keys) {
+	@Override
+    public Long del(Object... keys) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.del(keysToBytesArray(keys));
@@ -88,7 +93,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Set<String> keys(String pattern) {
+	@Override
+    public Set<String> keys(String pattern) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.keys(pattern);
@@ -96,7 +102,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Set<byte[]> keys(byte[] pattern) {
+	@Override
+    public Set<byte[]> keys(byte[] pattern) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.keys(pattern);
@@ -104,24 +111,28 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public String mset(Object... keysValues) {
-		if (keysValues.length % 2 != 0)
-			throw new IllegalArgumentException("wrong number of arguments for met, keysValues length can not be odd");
+	@Override
+    public String mset(Object... keysValues) {
+		if (keysValues.length % 2 != 0) {
+            throw new IllegalArgumentException("wrong number of arguments for met, keysValues length can not be odd");
+        }
 		Jedis jedis = getJedis();
 		try {
 			byte[][] kv = new byte[keysValues.length][];
 			for (int i=0; i<keysValues.length; i++) {
-				if (i % 2 == 0)
-					kv[i] = keyToBytes(keysValues[i]);
-				else
-					kv[i] = valueToBytes(keysValues[i]);
+				if (i % 2 == 0) {
+                    kv[i] = keyToBytes(keysValues[i]);
+                } else {
+                    kv[i] = valueToBytes(keysValues[i]);
+                }
 			}
 			return jedis.mset(kv);
 		}
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public List mget(Object... keys) {
 		Jedis jedis = getJedis();
 		try {
@@ -132,7 +143,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long decr(Object key) {
+	@Override
+    public Long decr(Object key) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.decr(keyToBytes(key));
@@ -140,7 +152,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long decrBy(Object key, long longValue) {
+	@Override
+    public Long decrBy(Object key, long longValue) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.decrBy(keyToBytes(key), longValue);
@@ -148,7 +161,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long incr(Object key) {
+	@Override
+    public Long incr(Object key) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.incr(keyToBytes(key));
@@ -156,7 +170,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long incrBy(Object key, long longValue) {
+	@Override
+    public Long incrBy(Object key, long longValue) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.incrBy(keyToBytes(key), longValue);
@@ -164,7 +179,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public boolean exists(Object key) {
+	@Override
+    public boolean exists(Object key) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.exists(keyToBytes(key));
@@ -172,16 +188,13 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public String randomKey() {
-		/*Jedis jedis = getJedis();
-		try {
-			return jedis.randomKey();
-		}
-		finally {close(jedis);}*/
+	@Override
+    public String randomKey() {
 		return null;
 	}
 
-	public String rename(Object oldkey, Object newkey) {
+	@Override
+    public String rename(Object oldkey, Object newkey) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.rename(keyToBytes(oldkey), keyToBytes(newkey));
@@ -189,25 +202,18 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long move(Object key, int dbIndex) {
-		/*Jedis jedis = getJedis();
-		try {
-			return jedis.move(keyToBytes(key), dbIndex);
-		}
-		finally {close(jedis);}*/
+	@Override
+    public Long move(Object key, int dbIndex) {
 		return null;
 	}
 
-	public String migrate(String host, int port, Object key, int destinationDb, int timeout) {
-		/*Jedis jedis = getJedis();
-		try {
-			return jedis.migrate(valueToBytes(host), port, keyToBytes(key), destinationDb, timeout);
-		}
-		finally {close(jedis);}*/
+	@Override
+    public String migrate(String host, int port, Object key, int destinationDb, int timeout) {
 		return null;
 	}
 
-	public String select(int databaseIndex) {
+	@Override
+    public String select(int databaseIndex) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.select(databaseIndex);
@@ -215,7 +221,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long expire(Object key, int seconds) {
+	@Override
+    public Long expire(Object key, int seconds) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.expire(keyToBytes(key), seconds);
@@ -223,7 +230,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long expireAt(Object key, long unixTime) {
+	@Override
+    public Long expireAt(Object key, long unixTime) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.expireAt(keyToBytes(key), unixTime);
@@ -231,7 +239,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long pexpire(Object key, long milliseconds) {
+	@Override
+    public Long pexpire(Object key, long milliseconds) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.pexpire(keyToBytes(key), milliseconds);
@@ -239,7 +248,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long pexpireAt(Object key, long millisecondsTimestamp) {
+	@Override
+    public Long pexpireAt(Object key, long millisecondsTimestamp) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.pexpireAt(keyToBytes(key), millisecondsTimestamp);
@@ -247,7 +257,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public <T> T getSet(Object key, Object value) {
 		Jedis jedis = getJedis();
 		try {
@@ -256,7 +267,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long persist(Object key) {
+	@Override
+    public Long persist(Object key) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.persist(keyToBytes(key));
@@ -264,7 +276,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public String type(Object key) {
+	@Override
+    public String type(Object key) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.type(keyToBytes(key));
@@ -272,7 +285,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long ttl(Object key) {
+	@Override
+    public Long ttl(Object key) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.ttl(keyToBytes(key));
@@ -280,34 +294,23 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 	
-	public Long pttl(Object key) {
-		/*Jedis jedis = getJedis();
-		try {
-			return jedis.pttl(keyToBytes(key));
-		}
-		finally {close(jedis);}*/
+	@Override
+    public Long pttl(Object key) {
 		return null;
 	}
 
-	public Long objectRefcount(Object key) {
-		/*Jedis jedis = getJedis();
-		try {
-			return jedis.objectRefcount(keyToBytes(key));
-		}
-		finally {close(jedis);}*/
+	@Override
+    public Long objectRefcount(Object key) {
 		return null;
 	}
 
-	public Long objectIdletime(Object key) {
-		/*Jedis jedis = getJedis();
-		try {
-			return jedis.objectIdletime(keyToBytes(key));
-		}
-		finally {close(jedis);}*/
+	@Override
+    public Long objectIdletime(Object key) {
 		return null;
 	}
 
-	public Long hset(Object key, Object field, Object value) {
+	@Override
+    public Long hset(Object key, Object field, Object value) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.hset(keyToBytes(key), fieldToBytes(field), valueToBytes(value));
@@ -315,18 +318,21 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public String hmset(Object key, Map<Object, Object> hash) {
+	@Override
+    public String hmset(Object key, Map<Object, Object> hash) {
 		Jedis jedis = getJedis();
 		try {
-			Map<byte[], byte[]> para = new HashMap<byte[], byte[]>();
-			for (Entry<Object, Object> e : hash.entrySet())
-				para.put(fieldToBytes(e.getKey()), valueToBytes(e.getValue()));
+			Map<byte[], byte[]> para = new HashMap<>(16);
+			for (Entry<Object, Object> e : hash.entrySet()) {
+                para.put(fieldToBytes(e.getKey()), valueToBytes(e.getValue()));
+            }
 			return jedis.hmset(keyToBytes(key), para);
 		}
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public <T> T hget(Object key, Object field) {
 		Jedis jedis = getJedis();
 		try {
@@ -335,7 +341,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public List hmget(Object key, Object... fields) {
 		Jedis jedis = getJedis();
 		try {
@@ -345,7 +352,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long hdel(Object key, Object... fields) {
+	@Override
+    public Long hdel(Object key, Object... fields) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.hdel(keyToBytes(key), fieldsToBytesArray(fields));
@@ -353,7 +361,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public boolean hexists(Object key, Object field) {
+	@Override
+    public boolean hexists(Object key, Object field) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.hexists(keyToBytes(key), fieldToBytes(field));
@@ -361,42 +370,41 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public Map hgetAll(Object key) {
 		Jedis jedis = getJedis();
 		try {
 			Map<byte[], byte[]> data = jedis.hgetAll(keyToBytes(key));
-			Map<Object, Object> result = new HashMap<Object, Object>();
-			for (Entry<byte[], byte[]> e : data.entrySet())
-				result.put(fieldFromBytes(e.getKey()), valueFromBytes(e.getValue()));
+			Map<Object, Object> result = new HashMap<>(16);
+			for (Entry<byte[], byte[]> e : data.entrySet()) {
+                result.put(fieldFromBytes(e.getKey()), valueFromBytes(e.getValue()));
+            }
 			return result;
 		}
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public List hvals(Object key) {
-		/*Jedis jedis = getJedis();
-		try {
-			List<byte[]> data = jedis.hvals(keyToBytes(key));
-			return valueListFromBytesList(data);
-		}
-		finally {close(jedis);}*/
 		return null;
 	}
 
-	public Set<Object> hkeys(Object key) {
+	@Override
+    public Set<Object> hkeys(Object key) {
 		Jedis jedis = getJedis();
 		try {
 			Set<byte[]> fieldSet = jedis.hkeys(keyToBytes(key));
-			Set<Object> result = new HashSet<Object>();
+			Set<Object> result = new HashSet<>();
 			fieldSetFromBytesSet(fieldSet, result);
 			return result;
 		}
 		finally {close(jedis);}
 	}
 	
-	public Long hlen(Object key) {
+	@Override
+    public Long hlen(Object key) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.hlen(keyToBytes(key));
@@ -404,7 +412,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long hincrBy(Object key, Object field, long value) {
+	@Override
+    public Long hincrBy(Object key, Object field, long value) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.hincrBy(keyToBytes(key), fieldToBytes(field), value);
@@ -412,7 +421,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Double hincrByFloat(Object key, Object field, double value) {
+	@Override
+    public Double hincrByFloat(Object key, Object field, double value) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.hincrByFloat(keyToBytes(key), fieldToBytes(field), value);
@@ -420,7 +430,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public <T> T lindex(Object key, long index) {
 		Jedis jedis = getJedis();
 		try {
@@ -429,15 +440,17 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long getCounter(Object key) {
+	@Override
+    public Long getCounter(Object key) {
 		Jedis jedis = getJedis();
 		try {
-			return Long.parseLong((String)jedis.get(keyNamingPolicy.getKeyName(key)));
+			return Long.parseLong(jedis.get(keyNamingPolicy.getKeyName(key)));
 		}
 		finally {close(jedis);}
 	}
 
-	public Long llen(Object key) {
+	@Override
+    public Long llen(Object key) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.llen(keyToBytes(key));
@@ -445,7 +458,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public <T> T lpop(Object key) {
 		Jedis jedis = getJedis();
 		try {
@@ -454,7 +468,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long lpush(Object key, Object... values) {
+	@Override
+    public Long lpush(Object key, Object... values) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.lpush(keyToBytes(key), valuesToBytesArray(values));
@@ -462,7 +477,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public String lset(Object key, long index, Object value) {
+	@Override
+    public String lset(Object key, long index, Object value) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.lset(keyToBytes(key), index, valueToBytes(value));
@@ -470,7 +486,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long lrem(Object key, long count, Object value) {
+	@Override
+    public Long lrem(Object key, long count, Object value) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.lrem(keyToBytes(key), count, valueToBytes(value));
@@ -478,7 +495,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public List lrange(Object key, long start, long end) {
 		Jedis jedis = getJedis();
 		try {
@@ -488,7 +506,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public String ltrim(Object key, long start, long end) {
+	@Override
+    public String ltrim(Object key, long start, long end) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.ltrim(keyToBytes(key), start, end);
@@ -496,7 +515,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public <T> T rpop(Object key) {
 		Jedis jedis = getJedis();
 		try {
@@ -505,7 +525,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public <T> T rpoplpush(Object srcKey, Object dstKey) {
 		Jedis jedis = getJedis();
 		try {
@@ -514,7 +535,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long rpush(Object key, Object... values) {
+	@Override
+    public Long rpush(Object key, Object... values) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.rpush(keyToBytes(key), valuesToBytesArray(values));
@@ -522,18 +544,14 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public List blpop(Object... keys) {
-		/*Jedis jedis = getJedis();
-		try {
-			List<byte[]> data = jedis.blpop(keysToBytesArray(keys));
-			return valueListFromBytesList(data);
-		}
-		finally {close(jedis);}*/
 		return null;
 	}
 
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public List blpop(int timeout, Object... keys) {
 		Jedis jedis = getJedis();
 		try {
@@ -543,18 +561,14 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public List brpop(Object... keys) {
-		/*Jedis jedis = getJedis();
-		try {
-			List<byte[]> data = jedis.brpop(keysToBytesArray(keys));
-			return valueListFromBytesList(data);
-		}
-		finally {close(jedis);}*/
 		return null;
 	}
 
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public List brpop(int timeout, Object... keys) {
 		Jedis jedis = getJedis();
 		try {
@@ -564,7 +578,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public String ping() {
+	@Override
+    public String ping() {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.ping();
@@ -572,7 +587,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long sadd(Object key, Object... members) {
+	@Override
+    public Long sadd(Object key, Object... members) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.sadd(keyToBytes(key), valuesToBytesArray(members));
@@ -580,7 +596,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long scard(Object key) {
+	@Override
+    public Long scard(Object key) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.scard(keyToBytes(key));
@@ -588,7 +605,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public <T> T spop(Object key) {
 		Jedis jedis = getJedis();
 		try {
@@ -597,19 +615,21 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 	
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public Set smembers(Object key) {
 		Jedis jedis = getJedis();
 		try {
 			Set<byte[]> data = jedis.smembers(keyToBytes(key));
-			Set<Object> result = new HashSet<Object>();
+			Set<Object> result = new HashSet<>();
 			valueSetFromBytesSet(data, result);
 			return result;
 		}
 		finally {close(jedis);}
 	}
 
-	public boolean sismember(Object key, Object member) {
+	@Override
+    public boolean sismember(Object key, Object member) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.sismember(keyToBytes(key), valueToBytes(member));
@@ -617,19 +637,21 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public Set sinter(Object... keys) {
 		Jedis jedis = getJedis();
 		try {
 			Set<byte[]> data = jedis.sinter(keysToBytesArray(keys));
-			Set<Object> result = new HashSet<Object>();
+			Set<Object> result = new HashSet<>();
 			valueSetFromBytesSet(data, result);
 			return result;
 		}
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public <T> T srandmember(Object key) {
 		Jedis jedis = getJedis();
 		try {
@@ -638,7 +660,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public List srandmember(Object key, int count) {
 		Jedis jedis = getJedis();
 		try {
@@ -648,7 +671,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long srem(Object key, Object... members) {
+	@Override
+    public Long srem(Object key, Object... members) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.srem(keyToBytes(key), valuesToBytesArray(members));
@@ -656,31 +680,34 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public Set sunion(Object... keys) {
 		Jedis jedis = getJedis();
 		try {
 			Set<byte[]> data = jedis.sunion(keysToBytesArray(keys));
-			Set<Object> result = new HashSet<Object>();
+			Set<Object> result = new HashSet<>();
 			valueSetFromBytesSet(data, result);
 			return result;
 		}
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public Set sdiff(Object... keys) {
 		Jedis jedis = getJedis();
 		try {
 			Set<byte[]> data = jedis.sdiff(keysToBytesArray(keys));
-			Set<Object> result = new HashSet<Object>();
+			Set<Object> result = new HashSet<>();
 			valueSetFromBytesSet(data, result);
 			return result;
 		}
 		finally {close(jedis);}
 	}
 
-	public Long zadd(Object key, double score, Object member) {
+	@Override
+    public Long zadd(Object key, double score, Object member) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.zadd(keyToBytes(key), score, valueToBytes(member));
@@ -688,18 +715,21 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 	
-	public Long zadd(Object key, Map<Object, Double> scoreMembers) {
+	@Override
+    public Long zadd(Object key, Map<Object, Double> scoreMembers) {
 		Jedis jedis = getJedis();
 		try {
-			Map<byte[], Double> para = new HashMap<byte[], Double>();
-			for (Entry<Object, Double> e : scoreMembers.entrySet())
-				para.put(valueToBytes(e.getKey()), e.getValue());	// valueToBytes is important
+			Map<byte[], Double> para = new HashMap<>(16);
+			for (Entry<Object, Double> e : scoreMembers.entrySet()) {
+                para.put(valueToBytes(e.getKey()), e.getValue());
+            }
 			return jedis.zadd(keyToBytes(key), para);
 		}
 		finally {close(jedis);}
 	}
 
-	public Long zcard(Object key) {
+	@Override
+    public Long zcard(Object key) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.zcard(keyToBytes(key));
@@ -707,7 +737,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long zcount(Object key, double min, double max) {
+	@Override
+    public Long zcount(Object key, double min, double max) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.zcount(keyToBytes(key), min, max);
@@ -715,7 +746,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Double zincrby(Object key, double score, Object member) {
+	@Override
+    public Double zincrby(Object key, double score, Object member) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.zincrby(keyToBytes(key), score, valueToBytes(member));
@@ -723,43 +755,56 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public Set zrange(Object key, long start, long end) {
 		Jedis jedis = getJedis();
 		try {
 			Set<byte[]> data = jedis.zrange(keyToBytes(key), start, end);
-			Set<Object> result = new LinkedHashSet<Object>();	// 有序集合必须 LinkedHashSet
+            /**
+             * 有序集合必须 LinkedHashSet
+             */
+			Set<Object> result = new LinkedHashSet<>(16);
 			valueSetFromBytesSet(data, result);
 			return result;
 		}
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public Set zrevrange(Object key, long start, long end) {
 		Jedis jedis = getJedis();
 		try {
 			Set<byte[]> data = jedis.zrevrange(keyToBytes(key), start, end);
-			Set<Object> result = new LinkedHashSet<Object>();	// 有序集合必须 LinkedHashSet
+            /**
+             * 有序集合必须 LinkedHashSet
+             */
+			Set<Object> result = new LinkedHashSet<>();
 			valueSetFromBytesSet(data, result);
 			return result;
 		}
 		finally {close(jedis);}
 	}
 
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public Set zrangeByScore(Object key, double min, double max) {
 		Jedis jedis = getJedis();
 		try {
 			Set<byte[]> data = jedis.zrangeByScore(keyToBytes(key), min, max);
-			Set<Object> result = new LinkedHashSet<Object>();	// 有序集合必须 LinkedHashSet
+            /**
+             * 有序集合必须 LinkedHashSet
+             */
+			Set<Object> result = new LinkedHashSet<>();
 			valueSetFromBytesSet(data, result);
 			return result;
 		}
 		finally {close(jedis);}
 	}
 
-	public Long zrank(Object key, Object member) {
+	@Override
+    public Long zrank(Object key, Object member) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.zrank(keyToBytes(key), valueToBytes(member));
@@ -767,7 +812,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long zrevrank(Object key, Object member) {
+	@Override
+    public Long zrevrank(Object key, Object member) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.zrevrank(keyToBytes(key), valueToBytes(member));
@@ -775,7 +821,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long zrem(Object key, Object... members) {
+	@Override
+    public Long zrem(Object key, Object... members) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.zrem(keyToBytes(key), valuesToBytesArray(members));
@@ -783,7 +830,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Double zscore(Object key, Object member) {
+	@Override
+    public Double zscore(Object key, Object member) {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.zscore(keyToBytes(key), valueToBytes(member));
@@ -791,7 +839,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public String flushDB() {
+	@Override
+    public String flushDB() {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.flushDB();
@@ -799,7 +848,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long getDB() {
+	@Override
+    public Long getDB() {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.getDB();
@@ -807,7 +857,8 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 
-	public Long dbSize() {
+	@Override
+    public Long dbSize() {
 		Jedis jedis = getJedis();
 		try {
 			return jedis.dbSize();
@@ -815,19 +866,22 @@ public class RedisSingle implements IJedis {
 		finally {close(jedis);}
 	}
 	
-	public void close() {
+	@Override
+    public void close() {
 		jedisPool.close();
 		jedisPool.destroy();
 	}
 
-	public <T> T call(ICallBack call) {
+	@Override
+    public <T> T call(ICallBack call) {
 		Jedis jedis = getJedis();
 		T val = call.call(jedis);
 		close(jedis);
 		return val;
 	}
 
-	public void setKeyNamingPolicy(IKeyNamingPolicy keyNamingPolicy) {
+	@Override
+    public void setKeyNamingPolicy(IKeyNamingPolicy keyNamingPolicy) {
 		this.keyNamingPolicy = keyNamingPolicy;	
 	}
 	
@@ -843,8 +897,9 @@ public class RedisSingle implements IJedis {
 	
 	protected byte[][] keysToBytesArray(Object... keys) {
 		byte[][] result = new byte[keys.length][];
-		for (int i=0; i<result.length; i++)
-			result[i] = keyToBytes(keys[i]);
+		for (int i=0; i<result.length; i++) {
+            result[i] = keyToBytes(keys[i]);
+        }
 		return result;
 	}
 	
@@ -858,8 +913,9 @@ public class RedisSingle implements IJedis {
 	
 	protected byte[][] fieldsToBytesArray(Object... fieldsArray) {
 		byte[][] data = new byte[fieldsArray.length][];
-		for (int i=0; i<data.length; i++)
-			data[i] = fieldToBytes(fieldsArray[i]);
+		for (int i=0; i<data.length; i++) {
+            data[i] = fieldToBytes(fieldsArray[i]);
+        }
 		return data;
 	}
 	
@@ -879,8 +935,9 @@ public class RedisSingle implements IJedis {
 	
 	protected byte[][] valuesToBytesArray(Object... valuesArray) {
 		byte[][] data = new byte[valuesArray.length][];
-		for (int i=0; i<data.length; i++)
-			data[i] = valueToBytes(valuesArray[i]);
+		for (int i=0; i<data.length; i++) {
+            data[i] = valueToBytes(valuesArray[i]);
+        }
 		return data;
 	}
 	
@@ -893,8 +950,9 @@ public class RedisSingle implements IJedis {
 	@SuppressWarnings("rawtypes")
 	protected List valueListFromBytesList(List<byte[]> data) {
 		List<Object> result = new ArrayList<Object>();
-		for (byte[] d : data)
-			result.add(valueFromBytes(d));
+		for (byte[] d : data) {
+            result.add(valueFromBytes(d));
+        }
 		return result;
 	}
 	
@@ -916,14 +974,18 @@ public class RedisSingle implements IJedis {
 	
 	public Jedis getJedis() {
 		Jedis jedis = getThreadLocalJedis();
-		if (null == jedis) 
-			jedis = jedisPool.getResource(); setThreadLocalJedis(jedis);
+		if (null == jedis) {
+            jedis = jedisPool.getResource();
+        }
+        setThreadLocalJedis(jedis);
 		return jedis;
 	}
 	
 	public void close(Jedis jedis) {
-		if (jedis != null)
-			jedis.close(); removeThreadLocalJedis();
+		if (jedis != null) {
+            jedis.close();
+        }
+        removeThreadLocalJedis();
 	}
 	
 	public Jedis getThreadLocalJedis() {

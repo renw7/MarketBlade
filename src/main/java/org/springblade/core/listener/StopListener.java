@@ -24,6 +24,7 @@ import org.springblade.core.plugins.PluginManager;
 
 /**
  * 关闭监听器
+ * @author zhuangqian
  */
 @Component
 public class StopListener implements ApplicationListener<ContextClosedEvent> {

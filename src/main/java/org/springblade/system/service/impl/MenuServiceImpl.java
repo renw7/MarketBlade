@@ -15,17 +15,21 @@
  */
 package org.springblade.system.service.impl;
 
+import org.springblade.core.base.service.BaseServiceImpl;
 import org.springblade.core.toolbox.support.Convert;
 import org.springblade.system.service.MenuService;
 import org.springframework.stereotype.Service;
 
-import org.springblade.core.base.service.BaseService;
 import org.springblade.core.plugins.dao.Blade;
 import org.springblade.core.toolbox.CMap;
 import org.springblade.system.model.Menu;
 
+/**
+ * MenuServiceImpl
+ * @author zhuangqian
+ */
 @Service
-public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
+public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuService {
 
 	@Override
 	public int findLastNum(String code) {

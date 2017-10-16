@@ -18,6 +18,7 @@ package org.springblade.core.toolbox.check;
 
 /**
  *  检查用接口
+ *  @author zhuangqian
  */
 public interface ICheck {
 	

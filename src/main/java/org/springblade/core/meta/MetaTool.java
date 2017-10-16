@@ -19,6 +19,10 @@ import org.beetl.sql.core.annotatoin.Table;
 
 import org.springblade.core.base.model.BaseModel;
 
+
+/**
+ * @author zhuangqian
+ */
 public class MetaTool {
 	
 	/**

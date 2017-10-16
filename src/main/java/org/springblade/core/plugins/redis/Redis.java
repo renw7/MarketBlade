@@ -21,6 +21,7 @@ import java.util.Set;
 
 /**
  * Redis操作工具类
+ * @author zhuangqian
  */
 public class Redis {
 	private static IJedis jedis = null;

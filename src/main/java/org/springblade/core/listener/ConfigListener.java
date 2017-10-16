@@ -15,22 +15,25 @@
  */
 package org.springblade.core.listener;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
 import org.springblade.core.constant.Const;
 import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.kit.ObjectKit;
 import org.springblade.core.toolbox.kit.PropKit;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
+/**
+ * 配置监听
+ * @author zhuangqian
+ */
 public class ConfigListener implements ServletContextListener {
 
-	private static Map<String, String> conf = new HashMap<String, String>();
+	private static Map<String, String> conf = new HashMap<>();
 
 	public static Map<String, String> getConf() {
 		return ObjectKit.clone(conf);
@@ -44,7 +47,7 @@ public class ConfigListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent evt) {
 		ServletContext sc = evt.getServletContext();
-		// 项目路径
+
 		conf.put("realPath", sc.getRealPath("/"));
 		conf.put("contextPath", sc.getContextPath());
 

@@ -25,24 +25,75 @@ import org.springblade.core.base.model.BaseModel;
 @Table(name = "blade_menu")
 @BindID(name = "id")
 @SuppressWarnings("serial")
-//菜单表
+/**
+ * 菜单表
+ * @author zhuangqian
+ */
 public class Menu extends BaseModel {
-	private Integer id; //主键
-	private String code; //菜单编号
-	private String alias; //菜单别名
-	private String icon; //图标
-	private String isopen; //是否打开tab
-	private String istemplate; //是否模板
-	private Integer levels; //菜单层级
-	private String name; //菜单名称
-	private Integer num; //排序号
-	private String path; //地址
-	private String pcode; //父编号
-	private String source; //数据源
-	private Integer status; //状态
-	private String tips; //备注
-	private String url; //接口地址
-	private Integer version; //版本号
+    /**
+     * 主键
+     */
+	private Integer id;
+    /**
+     * 菜单编号
+     */
+	private String code;
+    /**
+     * 菜单别名
+     */
+	private String alias;
+    /**
+     * 图标
+     */
+	private String icon;
+    /**
+     * 是否打开tab
+     */
+	private String isopen;
+    /**
+     * 是否模板
+     */
+	private String istemplate;
+    /**
+     * 菜单层级
+     */
+	private Integer levels;
+    /**
+     * 菜单名称
+     */
+	private String name;
+    /**
+     * 排序号
+     */
+	private Integer num;
+    /**
+     * 地址
+     */
+	private String path;
+    /**
+     * 父编号
+     */
+	private String pcode;
+    /**
+     * 数据源
+     */
+	private String source;
+    /**
+     * 状态
+     */
+	private Integer status;
+    /**
+     * 备注
+     */
+	private String tips;
+    /**
+     * 接口地址
+     */
+	private String url;
+    /**
+     * 版本号
+     */
+	private Integer version;
 
 	@AutoID
 	@SeqID(name = "SEQ_MENU")

@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * LigerGrid封装bean
+ * @author zhuangqian
  */
 public final class LigerGrid<E> {
 	/** 当前页号   **/
@@ -63,8 +64,9 @@ public final class LigerGrid<E> {
 
 	public void setPageNum(int pageNum) {
 		this.pageNum = pageNum;
-		if (pageNum < 1)
-			this.pageNum = 1;
+		if (pageNum < 1) {
+            this.pageNum = 1;
+        }
 	}
 
 	public int getTotalPage() {
@@ -81,8 +83,13 @@ public final class LigerGrid<E> {
 
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
-		if (pageSize < 1)// 不合法时，默认至少3条数据
-			this.pageSize = 3;
+        /**
+         * 不合法时，默认至少3条数据
+         */
+		if (pageSize < 1)
+        {
+            this.pageSize = 3;
+        }
 	}
 
 	public long getTotalSize() {

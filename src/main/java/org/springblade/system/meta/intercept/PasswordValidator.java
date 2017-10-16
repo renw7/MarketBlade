@@ -22,6 +22,10 @@ import org.springblade.core.shiro.ShiroKit;
 import org.springblade.core.toolbox.kit.StrKit;
 import org.springblade.system.model.User;
 
+/**
+ * PasswordValidator
+ * @author zhuangqian
+ */
 public class PasswordValidator extends BladeValidator {
 
 	@Override

@@ -15,10 +15,14 @@
  */
 package org.springblade.core.toolbox.file;
 
-import java.io.File;
-
 import org.springblade.core.constant.Cst;
 
+import java.io.File;
+
+/**
+ * 文件管理类
+ * @author zhuangqian
+ */
 public class FileProxyManager {
 	private IFileProxy defaultFileProxyFactory = Cst.me().getDefaultFileProxyFactory();
 

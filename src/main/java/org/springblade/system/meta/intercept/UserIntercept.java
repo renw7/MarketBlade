@@ -15,14 +15,18 @@
  */
 package org.springblade.system.meta.intercept;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springblade.common.tool.SysCache;
 import org.springblade.core.aop.AopContext;
 import org.springblade.core.meta.PageIntercept;
 import org.springblade.core.toolbox.grid.BladePage;
 
+import java.util.List;
+import java.util.Map;
+
+/**
+ * UserIntercept
+ * @author zhuangqian
+ */
 public class UserIntercept extends PageIntercept {
 
 	/**
@@ -30,7 +34,8 @@ public class UserIntercept extends PageIntercept {
 	 * 
 	 * @param ac
 	 */
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public void queryAfter(AopContext ac) {
 		BladePage<Map<String, Object>> page = (BladePage<Map<String, Object>>) ac.getObject();
 		List<Map<String, Object>> list = page.getRows();

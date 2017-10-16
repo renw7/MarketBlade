@@ -15,11 +15,16 @@
  */
 package org.springblade.core.toolbox.grid;
 
+import org.springblade.core.toolbox.Func;
+
 import java.io.Serializable;
 import java.util.List;
 
-import org.springblade.core.toolbox.Func;
-
+/**
+ * 分页工具类
+ * @param <T>
+ * @author zhuangqian
+ */
 @SuppressWarnings("serial")
 public class BladePage<T> implements Serializable{
 
@@ -77,8 +82,9 @@ public class BladePage<T> implements Serializable{
 
 	public void setPage(long page) {
 		this.page = page;
-		if (page < 1)
-			this.page = 1;
+		if (page < 1) {
+            this.page = 1;
+        }
 	}
 
 	public long getPageSize() {
@@ -87,8 +93,9 @@ public class BladePage<T> implements Serializable{
 
 	public void setPageSize(long pageSize) {
 		this.pageSize = pageSize;
-		if (pageSize < 1)
-			this.pageSize = 5;
+		if (pageSize < 1) {
+            this.pageSize = 5;
+        }
 	}
 
 	public long getRecords() {

@@ -15,18 +15,17 @@
  */
 package org.springblade.system.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.springblade.common.base.BaseController;
 import org.springblade.common.vo.ShiroUser;
 import org.springblade.core.annotation.Json;
+import org.springblade.core.aop.AopContext;
+import org.springblade.core.constant.Cst;
 import org.springblade.core.plugins.dao.Db;
 import org.springblade.core.plugins.dao.Md;
 import org.springblade.core.shiro.ShiroKit;
 import org.springblade.core.toolbox.CMap;
 import org.springblade.core.toolbox.Func;
+import org.springblade.core.toolbox.ajax.AjaxResult;
 import org.springblade.core.toolbox.cache.CacheKit;
 import org.springblade.core.toolbox.cache.ILoader;
 import org.springblade.core.toolbox.kit.JsonKit;
@@ -35,10 +34,14 @@ import org.springblade.core.toolbox.support.Convert;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import org.springblade.core.aop.AopContext;
-import org.springblade.core.constant.Cst;
-import org.springblade.core.toolbox.ajax.AjaxResult;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+/**
+ * CacheController
+ * @author zhuangqian
+ */
 @Controller
 @RequestMapping("/cache")
 public class CacheController extends BaseController {
@@ -171,7 +174,8 @@ public class CacheController extends BaseController {
 			final Map<String, Object> map = param;
 			List<Map<String, Object>> diy = CacheKit.get(SYS_CACHE, DICT_COMBO + type + source,
 					new ILoader() {
-						public Object load() {
+						@Override
+                        public Object load() {
 							return Db.selectList(Md.getSql(source), map);
 						}
 					});
@@ -180,7 +184,8 @@ public class CacheController extends BaseController {
 			final String code = getParameter("code");
 			List<Map<String, Object>> dict = CacheKit.get(SYS_CACHE, DICT_COMBO + type + code,
 					new ILoader() {
-						public Object load() {
+						@Override
+                        public Object load() {
 							return Db.selectList("select num as \"id\",name as \"text\" from  BLADE_DICT where code=#{code} and num>0", CMap.init().set("code", code));
 						}
 					});
@@ -194,7 +199,8 @@ public class CacheController extends BaseController {
 		final String num = getParameter("num");
 		List<Map<String, Object>> dept = CacheKit.get(SYS_CACHE, DEPT_ALL_LIST,
 				new ILoader() {
-					public Object load() {
+					@Override
+                    public Object load() {
 						return Db.selectList("select ID,PID,simpleName as TEXT from  BLADE_DEPT order by pId,num asc", CMap.init(), new AopContext(), Cst.me().getDefaultSelectFactory().deptIntercept());
 					}
 				});
@@ -215,7 +221,8 @@ public class CacheController extends BaseController {
 		final String num = getParameter("num");
 		List<Map<String, Object>> user = CacheKit.get(SYS_CACHE, USER_SELECT_ALL,
 				new ILoader() {
-					public Object load() {
+					@Override
+                    public Object load() {
 						return Db.selectList("select ID,name as TEXT from BLADE_USER where status=1 and name is not null order by name ", CMap.init(), new AopContext(), Cst.me().getDefaultSelectFactory().userIntercept());
 					}
 				});
@@ -236,7 +243,8 @@ public class CacheController extends BaseController {
 		final String num = getParameter("num");
 		List<Map<String, Object>> role = CacheKit.get(SYS_CACHE, ROLE_ALL_LIST,
 				new ILoader() {
-					public Object load() {
+					@Override
+                    public Object load() {
 						return Db.selectList("select ID,name as TEXT from BLADE_Role where  name is not null order by name ", CMap.init(), new AopContext(), Cst.me().getDefaultSelectFactory().roleIntercept());
 					}
 				});
@@ -264,7 +272,8 @@ public class CacheController extends BaseController {
 		final Map<String, Object> map = param;
 		List<Map<String, Object>> diy = CacheKit.get(SYS_CACHE, DIY_SELECT + source,
 				new ILoader() {
-					public Object load() {
+					@Override
+                    public Object load() {
 						return Db.selectList(Md.getSql(source), map);
 					}
 				});
@@ -283,7 +292,8 @@ public class CacheController extends BaseController {
 	public AjaxResult dicTreeList() {
 		List<Map<String, Object>> dic = CacheKit.get(SYS_CACHE, DICT_TREE_ALL,
 				new ILoader() {
-					public Object load() {
+					@Override
+                    public Object load() {
 						return Db.selectList("select code \"code\",id \"id\",pId \"pId\",name \"name\",num \"num\",'false' \"open\" from BLADE_DICT order by code asc,num asc", CMap.init());
 					}
 				});
@@ -296,7 +306,8 @@ public class CacheController extends BaseController {
 	public AjaxResult deptTreeList() {
 		List<Map<String, Object>> dept = CacheKit.get(SYS_CACHE, DEPT_TREE_ALL + "_" + ShiroKit.getUser().getId(),
 				new ILoader() {
-					public Object load() {
+					@Override
+                    public Object load() {
 						return Db.selectList("select id \"id\",pId \"pId\",simpleName as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  BLADE_DEPT ", CMap.init(), new AopContext("ztree"), Cst.me().getDefaultSelectFactory().deptIntercept());
 					}
 				});
@@ -309,7 +320,8 @@ public class CacheController extends BaseController {
 	public AjaxResult roleTreeList() {
 		List<Map<String, Object>> dept = CacheKit.get(SYS_CACHE, ROLE_TREE_ALL + "_" + ShiroKit.getUser().getId(),
 				new ILoader() {
-					public Object load() {
+					@Override
+                    public Object load() {
 						return Db.selectList("select id \"id\",pId \"pId\",name as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  BLADE_ROLE ", CMap.init(), new AopContext("ztree"), Cst.me().getDefaultSelectFactory().roleIntercept());
 					}
 				});
@@ -323,7 +335,8 @@ public class CacheController extends BaseController {
 		final int id = getParameterToInt("id");
 		List<Map<String, Object>> dict = CacheKit.get(SYS_CACHE, DICT_CODE + id,
 				new ILoader() {
-					public Object load() {
+					@Override
+                    public Object load() {
 						return Db.selectList("select CODE from BLADE_DICT where id=#{id}", CMap.init().set("id", id));
 					}
 				});
@@ -335,7 +348,8 @@ public class CacheController extends BaseController {
 	public AjaxResult menuTreeList() {
 		List<Map<String, Object>> menu = CacheKit.get(SYS_CACHE, MENU_TREE_ALL,
 				new ILoader() {
-					public Object load() {
+					@Override
+                    public Object load() {
 						return Db.selectList("select code \"id\",pCode \"pId\",name \"name\",(case when levels=1 then 'true' else 'false' end) \"open\" from BLADE_MENU where status=1 order by levels asc,num asc");
 					}
 				});
@@ -349,7 +363,8 @@ public class CacheController extends BaseController {
 		final String roleId = getParameter("roleId", "0");
 		List<Map<String, Object>> menu = CacheKit.get(SYS_CACHE, MENU_TREE + roleId,
 				new ILoader() {
-					@SuppressWarnings("rawtypes")
+					@Override
+                    @SuppressWarnings("rawtypes")
 					public Object load() {
 						String table = "BLADE_MENU";
 						String pid = "";
@@ -382,7 +397,8 @@ public class CacheController extends BaseController {
 		final String roleId = getParameter("roleId", "0");
 		List<Map<String, Object>> menu = CacheKit.get(SYS_CACHE, ROLE_TREE + Id,
 				new ILoader() {
-					public Object load() {
+					@Override
+                    public Object load() {
 						String sql = "select id \"id\",pId \"pId\",name as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  BLADE_ROLE order by pId,num asc";
 						if (Id.indexOf(",") == -1) {
 							sql = "select r.id \"id\",pId \"pId\",name as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\",(case when (r1.ID=0 or r1.ID is null) then 'false' else 'true' end) \"checked\" from  BLADE_ROLE r left join (select ID  from BLADE_ROLE where ID in ("
@@ -403,7 +419,8 @@ public class CacheController extends BaseController {
 			return error("error");
 		}
 		Map<String, String> theme = CacheKit.get(SYS_CACHE, ACE_THEME + ShiroKit.getUser().getId() , new ILoader() {
-			public Object load() {
+			@Override
+            public Object load() {
 				Map<String, String> map = new HashMap<String, String>();
 				map.put("ace", "ace-dark.css");
 				return map;

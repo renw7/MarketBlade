@@ -24,6 +24,10 @@ import org.springblade.core.toolbox.CMap;
 import org.springblade.core.toolbox.kit.CollectionKit;
 import org.springblade.core.toolbox.kit.StrKit;
 
+/**
+ * RoleValidator
+ * @author zhuangqian
+ */
 public class RoleValidator extends BladeValidator {
 
 	@Override

@@ -15,7 +15,9 @@
  */
 package org.springblade.core.constant;
 
-
+/**
+ * @author zhuangqian
+ */
 public interface ConstCurd {
 	/**
 	 * 定义首页转向key

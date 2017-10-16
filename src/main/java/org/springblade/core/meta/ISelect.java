@@ -17,15 +17,32 @@ package org.springblade.core.meta;
 
 /**
  * select aop
+ * @author zhuangqian
  */
 public interface ISelect {
-	
+
+    /**
+     * 用户
+     * @return
+     */
 	IQuery userIntercept();
-	
+
+    /**
+     * 部门
+     * @return
+     */
 	IQuery deptIntercept();
-	
+
+    /**
+     * 字典
+     * @return
+     */
 	IQuery dictIntercept();
-	
+
+    /**
+     * 角色
+     * @return
+     */
 	IQuery roleIntercept();
 	
 }

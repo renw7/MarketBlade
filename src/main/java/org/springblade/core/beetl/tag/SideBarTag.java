@@ -15,24 +15,26 @@
  */
 package org.springblade.core.beetl.tag;
 
+import org.beetl.core.Tag;
+import org.springblade.common.vo.TreeNode;
+import org.springblade.core.constant.ConstCache;
+import org.springblade.core.constant.ConstCacheKey;
+import org.springblade.core.constant.Cst;
+import org.springblade.core.plugins.dao.Db;
+import org.springblade.core.toolbox.CMap;
+import org.springblade.core.toolbox.Func;
+import org.springblade.core.toolbox.kit.StrKit;
+import org.springblade.core.toolbox.support.Convert;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.springblade.core.toolbox.kit.StrKit;
-import org.springblade.core.toolbox.support.Convert;
-import org.beetl.core.Tag;
-
-import org.springblade.common.vo.TreeNode;
-import org.springblade.core.constant.ConstCache;
-import org.springblade.core.constant.ConstCacheKey;
-import org.springblade.core.constant.Cst;
-import org.springblade.core.plugins.dao.Db;
-import org.springblade.core.toolbox.Func;
-import org.springblade.core.toolbox.CMap;
-
+/**
+ * @author zhuangqian
+ */
 public class SideBarTag extends Tag {
 	
 	private List<TreeNode> nodeList = new ArrayList<TreeNode>();
@@ -178,7 +180,10 @@ public class SideBarTag extends Tag {
 				Str += "	</a>";
 				Str += "	<b class=\"arrow\"></b>";
 
-				subStr = this.reloadMenu(sideBar, _code, Str, _levels, ctxPath);// 递归寻找子菜单
+                /**
+                 * 递归寻找子菜单
+                 */
+				subStr = this.reloadMenu(sideBar, _code, Str, _levels, ctxPath);
 
 				Str = Func.isEmpty(subStr) ? Str : subStr;
 			}
@@ -197,7 +202,7 @@ public class SideBarTag extends Tag {
 	public String getDropDownClass(String code,String dropdownclass){
 		Iterator<TreeNode> it = nodeList.iterator();
 		while (it.hasNext()) {
-			TreeNode n = (TreeNode) it.next();
+			TreeNode n = it.next();
 			if(n.getId().equals(code)&&n.isParent()){
 				return dropdownclass;
 			}

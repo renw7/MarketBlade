@@ -17,12 +17,17 @@ package org.springblade.core.meta;
 
 import org.springblade.core.aop.AopContext;
 
-public class PageIntercept extends MetaTool implements IQuery{
+/**
+ * @author zhuangqian
+ */
+public class PageIntercept extends MetaTool implements IQuery {
 
+    @Override
 	public void queryBefore(AopContext ac) {
 		
 	}
 
+	@Override
 	public void queryAfter(AopContext ac) {
 		
 	}

@@ -8,14 +8,17 @@ import org.springblade.modules.platform.model.Notice;
 
 import java.util.List;
 
+/**
+ * @author zhuangqian
+ */
 public interface NoticeMapper extends BaseMapper<Notice> {
 
-	public Notice findById(@Param("id") Integer id);
+	Notice findById(@Param("id") Integer id);
 	
 	@Sql("select * from blade_notice")
-	public List<Notice> selectAll();
+	List<Notice> selectAll();
 	
 	@Sql(value=" update blade_notice set title = ? where id = ? ", type=SqlStatementType.UPDATE)
-	public void updateTitle(String f_vc_bt, int id);
+	void updateTitle(String title, int id);
 	
 }

@@ -24,14 +24,24 @@ import org.springblade.core.base.model.BaseModel;
 
 /**
  * 菜单关系表
+ * @author zhuangqian
  */
 @Table(name = "blade_relation")
 @BindID(name = "id")
 @SuppressWarnings("serial")
 public class Relation extends BaseModel {
-	private Integer id; // 主键
-	private Integer menuid; // 菜单id
-	private Integer roleid; // 角色id
+    /**
+     * 主键
+     */
+	private Integer id;
+    /**
+     * 菜单id
+     */
+	private Integer menuid;
+    /**
+     * 角色id
+     */
+	private Integer roleid;
 
 	@AutoID
 	@SeqID(name = "SEQ_RELATION")

@@ -17,6 +17,10 @@ package org.springblade.core.shiro;
 
 import org.springblade.core.constant.Cst;
 
+/**
+ * ShiroManager
+ * @author zhuangqian
+ */
 public class ShiroManager {
 	private static ShiroManager me = new ShiroManager();
 	private IShiro defaultShiroFactory = Cst.me().getDefaultShiroFactory();

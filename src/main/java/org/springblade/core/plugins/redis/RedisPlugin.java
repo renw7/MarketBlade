@@ -27,6 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Redis插件
+ * @author zhuangqian
  */
 public class RedisPlugin implements IPlugin {
 	private static Map<String, IJedis> redisCachePool = new ConcurrentHashMap<String, IJedis>();
@@ -44,7 +45,8 @@ public class RedisPlugin implements IPlugin {
 	public static RedisPlugin init(){
 		return me;
 	}
-	
+
+	@Override
 	public void start() {
 		try {
 			//注入redisSingle
@@ -66,6 +68,7 @@ public class RedisPlugin implements IPlugin {
 		}
 	}
 
+	@Override
 	public void stop() {
 		for (IJedis jedis : redisCachePool.values()) {
 			jedis.close();

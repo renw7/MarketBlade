@@ -25,15 +25,39 @@ import org.springblade.core.base.model.BaseModel;
 @Table(name = "blade_dict")
 @BindID(name = "id")
 @SuppressWarnings("serial")
-//字典表
+/**
+ * 字典表
+ * @author zhuangqian
+ */
 public class Dict extends BaseModel {
-	private Integer id; //主键
-	private String code; //字典编码
-	private String name; //字典名
-	private Integer num; //排序号
-	private Integer pid; //父字典
-	private String tips; //备注
-	private Integer version; //版本号
+    /**
+     * 主键
+     */
+	private Integer id;
+    /**
+     * 字典编码
+     */
+	private String code;
+    /**
+     * 字典名
+     */
+	private String name;
+    /**
+     * 排序号
+     */
+	private Integer num;
+    /**
+     * 父字典
+     */
+	private Integer pid;
+    /**
+     * 备注
+     */
+	private String tips;
+    /**
+     * 版本号
+     */
+	private Integer version;
 
 	@AutoID
 	@SeqID(name = "SEQ_DICT")

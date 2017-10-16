@@ -2,6 +2,9 @@ package org.springblade.core.beetl.tag;
 
 import org.beetl.core.GeneralVarTagBinding;
 
+/**
+ * @author zhuangqian
+ */
 public class HotBlogsTag extends GeneralVarTagBinding {
 
 	@Override

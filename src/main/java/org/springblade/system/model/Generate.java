@@ -10,16 +10,43 @@ import org.springblade.core.base.model.BaseModel;
 @Table(name = "blade_generate")
 @BindID(name = "id")
 @SuppressWarnings("serial")
-//在线开发
+/**
+ * 代码生成表
+ * @author zhuangqian
+ */
 public class Generate extends BaseModel {
-	private Integer id; //主键
-	private String modelname; //实体类名
-	private String name; //模块名称
-	private String realpath; //物理地址
-	private String packagename; //package包名
-	private String pkname; //主键名
-	private String tablename; //表名
-	private String tips; //备注
+    /**
+     * 主键
+     */
+	private Integer id;
+    /**
+     * 实体类名
+     */
+	private String modelname;
+    /**
+     * 模块名称
+     */
+	private String name;
+    /**
+     * 物理地址
+     */
+	private String realpath;
+    /**
+     * package包名
+     */
+	private String packagename;
+    /**
+     * 主键名
+     */
+	private String pkname;
+    /**
+     * 表名
+     */
+	private String tablename;
+    /**
+     * 备注
+     */
+	private String tips;
 
 	@AutoID
 	@SeqID(name = "SEQ_GENERATE")

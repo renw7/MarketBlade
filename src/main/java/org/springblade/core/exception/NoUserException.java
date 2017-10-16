@@ -19,6 +19,10 @@ import org.springblade.core.constant.ConstShiro;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * 无用户异常
+ * @author zhuangqian
+ */
 @SuppressWarnings("serial")
 @ResponseStatus(value = HttpStatus.FORBIDDEN, reason = ConstShiro.NO_USER)
 public class NoUserException extends RuntimeException {

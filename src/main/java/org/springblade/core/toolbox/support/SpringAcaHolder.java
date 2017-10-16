@@ -15,18 +15,23 @@
  */
 package org.springblade.core.toolbox.support;
 
-import java.util.Map;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
+/**
+ * SpringAcaHolder
+ * @author zhuangqian
+ */
 @Component
 public class SpringAcaHolder implements ApplicationContextAware {
 
 	private static ApplicationContext applicationContext;
 
-	public void setApplicationContext(ApplicationContext applicationContext) {
+	@Override
+    public void setApplicationContext(ApplicationContext applicationContext) {
 		SpringAcaHolder.applicationContext = applicationContext;
 	}
 

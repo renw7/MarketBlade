@@ -25,16 +25,43 @@ import org.springblade.core.base.model.BaseModel;
 @Table(name = "blade_parameter")
 @BindID(name = "id")
 @SuppressWarnings("serial")
-//参数表
+/**
+ * 参数表
+ * @author zhuangqian
+ */
 public class Parameter extends BaseModel {
-	private Integer id; //主键
-	private String code; //参数编号
-	private String name; //参数名
-	private Integer num; //排序号
-	private String para; //参数值
-	private Integer status; //状态
-	private String tips; //备注
-	private Integer version; //版本号
+    /**
+     * 主键
+     */
+	private Integer id;
+    /**
+     * 参数编号
+     */
+	private String code;
+    /**
+     * 参数名
+     */
+	private String name;
+    /**
+     * 排序号
+     */
+	private Integer num;
+    /**
+     * 参数值
+     */
+	private String para;
+    /**
+     * 状态
+     */
+	private Integer status;
+    /**
+     * 备注
+     */
+	private String tips;
+    /**
+     * 版本号
+     */
+	private Integer version;
 
 	@AutoID
 	@SeqID(name = "SEQ_PARAMETER")

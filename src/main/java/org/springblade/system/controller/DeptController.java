@@ -30,6 +30,10 @@ import org.springblade.core.toolbox.kit.JsonKit;
 import org.springblade.system.meta.intercept.DeptIntercept;
 import org.springblade.system.model.Dept;
 
+/**
+ * DeptController
+ * @author zhuangqian
+ */
 @Controller
 @RequestMapping("/dept")
 public class DeptController extends BaseController{

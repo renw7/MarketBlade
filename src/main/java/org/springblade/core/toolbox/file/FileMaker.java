@@ -63,10 +63,11 @@ public class FileMaker {
         response.setContentType(DEFAULT_CONTENT_TYPE);
         
         // ---------
-        if (StrKit.isBlank(request.getHeader("Range")))
-        	normalStart();
-        else
-        	rangeStart();
+        if (StrKit.isBlank(request.getHeader("Range"))) {
+            normalStart();
+        } else {
+            rangeStart();
+        }
 	}
 	
 	private String encodeFileName(String fileName) {
@@ -91,16 +92,28 @@ public class FileMaker {
             outputStream.flush();
         }
         catch (IOException e) {
-        	if (Cst.me().isDevMode())	throw new RuntimeException(e);
+        	if (Cst.me().isDevMode()) {
+                throw new RuntimeException(e);
+            }
         }
         catch (Exception e) {
         	throw new RuntimeException(e);
         }
         finally {
-            if (inputStream != null)
-                try {inputStream.close();} catch (IOException e) {LogKit.error(e.getMessage(), e);}
-            if (outputStream != null)
-            	try {outputStream.close();} catch (IOException e) {LogKit.error(e.getMessage(), e);}
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    LogKit.error(e.getMessage(), e);
+                }
+            }
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    LogKit.error(e.getMessage(), e);
+                }
+            }
         }
 	}
 	
@@ -122,8 +135,9 @@ public class FileMaker {
         	long start = range[0];
         	long end = range[1];
             inputStream = new BufferedInputStream(new FileInputStream(file));
-            if (inputStream.skip(start) != start)
-                	throw new RuntimeException("File skip error");
+            if (inputStream.skip(start) != start) {
+                throw new RuntimeException("File skip error");
+            }
             outputStream = response.getOutputStream();
             byte[] buffer = new byte[1024];
             long position = start;
@@ -142,16 +156,28 @@ public class FileMaker {
             outputStream.flush();
         }
         catch (IOException e) {
-        	if (Cst.me().isDevMode())	throw new RuntimeException(e);
+        	if (Cst.me().isDevMode()) {
+                throw new RuntimeException(e);
+            }
         }
         catch (Exception e) {
         	throw new RuntimeException(e);
         }
         finally {
-            if (inputStream != null)
-                try {inputStream.close();} catch (IOException e) {LogKit.error(e.getMessage(), e);}
-            if (outputStream != null)
-            	try {outputStream.close();} catch (IOException e) {LogKit.error(e.getMessage(), e);}
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    LogKit.error(e.getMessage(), e);
+                }
+            }
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    LogKit.error(e.getMessage(), e);
+                }
+            }
         }
 	}
 	
@@ -165,20 +191,23 @@ public class FileMaker {
 	private void processRange(Long[] range) {
 		String rangeStr = request.getHeader("Range");
 		int index = rangeStr.indexOf(',');
-		if (index != -1)
-			rangeStr = rangeStr.substring(0, index);
+		if (index != -1) {
+            rangeStr = rangeStr.substring(0, index);
+        }
 		rangeStr = rangeStr.replace("bytes=", "");
 		
 		String[] arr = rangeStr.split("-", 2);
-		if (arr.length < 2)
-			throw new RuntimeException("Range error");
+		if (arr.length < 2) {
+            throw new RuntimeException("Range error");
+        }
 		
 		long fileLength = file.length();
 		for (int i=0; i<range.length; i++) {
 			if (StrKit.notBlank(arr[i])) {
 				range[i] = Long.parseLong(arr[i].trim());
-				if (range[i] >= fileLength)
-					range[i] = fileLength - 1;
+				if (range[i] >= fileLength) {
+                    range[i] = fileLength - 1;
+                }
 			}
 		}
 		
@@ -193,7 +222,8 @@ public class FileMaker {
 		}
 		
 		// check final range
-		if (range[0] == null || range[1] == null || range[0].longValue() > range[1].longValue())
-			throw new RuntimeException("Range error");
+		if (range[0] == null || range[1] == null || range[0].longValue() > range[1].longValue()) {
+            throw new RuntimeException("Range error");
+        }
 	}
 }

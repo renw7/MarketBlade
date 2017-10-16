@@ -49,8 +49,9 @@ public class HashKit {
 			byte[] bytes = md.digest(srcStr.getBytes(CharsetKit.UTF_8));
 			for (byte b : bytes) {
 				String hex = Integer.toHexString(b&0xFF);
-				if (hex.length() == 1)
-					result.append("0");
+				if (hex.length() == 1) {
+                    result.append("0");
+                }
 				result.append(hex);
 			}
 			return result.toString();
@@ -64,8 +65,9 @@ public class HashKit {
 		StringBuilder result = new StringBuilder();
 		for (byte b : bytes) {
 			String hex = Integer.toHexString(b&0xFF);
-			if (hex.length() == 1)
-				result.append("0");
+			if (hex.length() == 1) {
+                result.append("0");
+            }
 			result.append(hex);
 		}
 		return result.toString();

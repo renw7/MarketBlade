@@ -1,5 +1,11 @@
 package org.springblade.core.toolbox.support;
 
+import org.springblade.core.exception.ToolBoxException;
+import org.springblade.core.toolbox.kit.CollectionKit;
+import org.springblade.core.toolbox.kit.DateTimeKit;
+import org.springblade.core.toolbox.kit.HexKit;
+import org.springblade.core.toolbox.kit.StrKit;
+
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -7,12 +13,6 @@ import java.nio.charset.Charset;
 import java.text.NumberFormat;
 import java.util.Date;
 import java.util.Set;
-
-import org.springblade.core.exception.ToolBoxException;
-import org.springblade.core.toolbox.kit.CollectionKit;
-import org.springblade.core.toolbox.kit.DateTimeKit;
-import org.springblade.core.toolbox.kit.HexKit;
-import org.springblade.core.toolbox.kit.StrKit;
 
 /**
  * 类型转换器
@@ -966,10 +966,12 @@ public class Convert {
 			c = strText.charAt(i);
 			intAsc = (int) c;
 			strHex = Integer.toHexString(intAsc);
-			if (intAsc > 128)
-				str.append("\\u" + strHex);
-			else // 低位在前面补00
-				str.append("\\u00" + strHex);
+			if (intAsc > 128) {
+                str.append("\\u" + strHex);
+            } else // 低位在前面补00
+            {
+                str.append("\\u00" + strHex);
+            }
 		}
 		return str.toString();
 	}

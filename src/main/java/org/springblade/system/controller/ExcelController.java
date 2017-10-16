@@ -1,21 +1,23 @@
 package org.springblade.system.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.poi.hssf.util.HSSFColor;
 import org.jeecgframework.poi.excel.entity.ExportParams;
 import org.jeecgframework.poi.excel.entity.params.ExcelExportEntity;
 import org.jeecgframework.poi.excel.entity.vo.MapExcelConstants;
 import org.jeecgframework.poi.excel.entity.vo.NormalExcelConstants;
+import org.springblade.common.base.BaseController;
 import org.springblade.core.annotation.Json;
+import org.springblade.core.constant.ConstCache;
+import org.springblade.core.plugins.dao.Db;
+import org.springblade.core.plugins.dao.Md;
 import org.springblade.core.shiro.ShiroKit;
+import org.springblade.core.toolbox.Func;
+import org.springblade.core.toolbox.ajax.AjaxResult;
 import org.springblade.core.toolbox.cache.CacheKit;
 import org.springblade.core.toolbox.cache.ILoader;
+import org.springblade.core.toolbox.kit.DateKit;
+import org.springblade.core.toolbox.kit.JsonKit;
+import org.springblade.core.toolbox.kit.StrKit;
 import org.springblade.core.toolbox.support.Convert;
 import org.springblade.core.toolbox.support.SqlKeyword;
 import org.springframework.stereotype.Controller;
@@ -23,16 +25,15 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import org.springblade.common.base.BaseController;
-import org.springblade.core.constant.ConstCache;
-import org.springblade.core.plugins.dao.Db;
-import org.springblade.core.plugins.dao.Md;
-import org.springblade.core.toolbox.Func;
-import org.springblade.core.toolbox.ajax.AjaxResult;
-import org.springblade.core.toolbox.kit.DateKit;
-import org.springblade.core.toolbox.kit.JsonKit;
-import org.springblade.core.toolbox.kit.StrKit;
-
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+/**
+ * ExcelController
+ * @author zhuangqian
+ */
 @Controller
 @RequestMapping("/excel")
 public class ExcelController extends BaseController {
@@ -134,7 +135,8 @@ public class ExcelController extends BaseController {
 
 	private String getInfoByCode(String code, String col) {
 		List<Map<String, Object>> menu = CacheKit.get(SYS_CACHE, MENU_TABLE_ALL, new ILoader() {
-					public Object load() {
+					@Override
+                    public Object load() {
 						return Db.selectList("select CODE,PCODE,NAME,URL,SOURCE,PATH,TIPS,ISOPEN from BLADE_MENU order by levels asc,num asc");
 					}
 				});

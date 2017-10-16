@@ -19,6 +19,7 @@ import org.springblade.core.aop.AopContext;
 
 /**
  * 分页aop
+ * @author zhuangqian
  */
 public interface IQuery {
 

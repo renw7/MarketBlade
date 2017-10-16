@@ -17,6 +17,10 @@ package org.springblade.core.plugins;
 
 import java.util.List;
 
+/**
+ * 插件统一管理
+ * @author zhuangqian
+ */
 public class PluginManager implements IPlugin {
 	private static List<IPlugin> plugins = PluginFactory.init().getPlugins();
 	
@@ -28,13 +32,15 @@ public class PluginManager implements IPlugin {
 	
 	private PluginManager(){}
 
-	public void start() {
+	@Override
+    public void start() {
 		for(IPlugin plugin : plugins){
 			plugin.start();
 		}
 	}
 
-	public void stop() {
+	@Override
+    public void stop() {
 		for(IPlugin plugin : plugins){
 			plugin.stop();
 		}

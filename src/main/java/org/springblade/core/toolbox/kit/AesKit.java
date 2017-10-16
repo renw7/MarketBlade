@@ -7,7 +7,10 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-public class AESKit {
+/**
+ * @author zhuangqian
+ */
+public class AesKit {
 
 	private static final String key = "springblade";
 
@@ -33,7 +36,7 @@ public class AESKit {
 			byte[] byteContent = content.getBytes("utf-8");
 			cipher.init(Cipher.ENCRYPT_MODE, key);// 初始化
 			byte[] result = cipher.doFinal(byteContent);
-			return result; // 加密
+			return result;
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		} catch (NoSuchPaddingException e) {
@@ -71,7 +74,7 @@ public class AESKit {
 			Cipher cipher = Cipher.getInstance("AES");// 创建密码器
 			cipher.init(Cipher.DECRYPT_MODE, key);// 初始化
 			byte[] result = cipher.doFinal(content);
-			return result; // 加密
+			return result;
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		} catch (NoSuchPaddingException e) {
@@ -113,8 +116,8 @@ public class AESKit {
 	public static void main(String[] args) {
 		String str = "spring+springmvc+beetl+beetlsql+shiro开发框架";
 		System.out.println("加密前：" + str);
-		String s = AESKit.encrypt(str);
+		String s = AesKit.encrypt(str);
 		System.out.println("加密后：" + s);
-		System.out.println("解密后：" + AESKit.decrypt(s));
+		System.out.println("解密后：" + AesKit.decrypt(s));
 	}
 }

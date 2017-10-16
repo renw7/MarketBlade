@@ -19,6 +19,7 @@ import org.springblade.core.constant.Cst;
 
 /**
  * 权限检查工厂
+ * @author zhuangqian
  */
 public class PermissionCheckManager {
 	private final static PermissionCheckManager me = new PermissionCheckManager();

@@ -22,6 +22,9 @@ import org.springblade.core.toolbox.kit.DateKit;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * @author zhuangqian
+ */
 public class FootTag extends Tag {
 
 	public static String company = "springblade.org";
@@ -56,30 +59,7 @@ public class FootTag extends Tag {
 			sb.append("  顶部");
 			sb.append(" </i>");
 			sb.append("</a>");
-			
-			
-			/*sb.append("<div class=\"footer\">");
-			sb.append(" <div class=\"footer-inner\">");
-			sb.append("  <div class=\"footer-content\" style=\"padding-bottom:15px;\">");
-			sb.append("   <span class=\"bigger-120\">");
-			sb.append("    <span class=\"blue bolder\">" + customer + "</span>");
-			sb.append("     &nbsp;copyright &copy; "+year);
-			sb.append("   </span>");
-			sb.append("&nbsp; &nbsp;");
-			sb.append("  </div>");
-			sb.append("  <div style=\"padding-bottom:1px;\">");
-			sb.append("   <span class=\"bigger-120\">");
-			sb.append("    <span style=\"font-size:4px;\">技术支持：</span>");
-			sb.append("    <span style=\"font-size:4px;\" id=\"support_springblade\">" + company + "</span>");
-			sb.append("   </span>");
-			sb.append("  </div>");
-			sb.append(" </div>");
-			sb.append("</div>");
-			sb.append("<a href=\"#\" id=\"btn-scroll-up\" class=\"btn-scroll-up btn btn-sm btn-inverse\">");
-			sb.append(" <i class=\"ace-icon fa fa-angle-double-up icon-only bigger-110\">");
-			sb.append("  顶部");
-			sb.append(" </i>");
-			sb.append("</a>");*/
+
 			ctx.byteWriter.writeString(sb.toString());
 		} catch (IOException e) {
 			e.printStackTrace();

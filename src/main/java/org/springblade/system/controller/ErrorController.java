@@ -6,7 +6,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import org.springblade.core.base.controller.BladeController;
 import org.springblade.core.constant.Const;
-
+/**
+ * ErrorController
+ * @author zhuangqian
+ */
 @Controller
 @RequestMapping("/error")
 public class ErrorController extends BladeController {

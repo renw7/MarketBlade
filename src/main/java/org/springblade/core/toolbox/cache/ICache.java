@@ -19,22 +19,65 @@ import java.util.List;
 
 /**
  * 通用缓存接口
+ * @author zhuangqian
  */
 public interface ICache {
-	
-	public void put(String cacheName, Object key, Object value);
-	
-	public <T> T get(String cacheName, Object key);
-	
+    /**
+     * put
+     * @param cacheName
+     * @param key
+     * @param value
+     */
+	void put(String cacheName, Object key, Object value);
+
+    /**
+     * get
+     * @param cacheName
+     * @param key
+     * @param <T>
+     * @return
+     */
+	<T> T get(String cacheName, Object key);
+
+    /**
+     * getKeys
+     * @param cacheName
+     * @return
+     */
 	@SuppressWarnings("rawtypes")
-	public List getKeys(String cacheName);
-	
-	public void remove(String cacheName, Object key);
-	
-	public void removeAll(String cacheName);
-	
-	public <T> T get(String cacheName, Object key, ILoader iLoader);
-	
-	public <T> T get(String cacheName, Object key, Class<? extends ILoader> iLoaderClass);
+	List getKeys(String cacheName);
+
+    /**
+     * remove
+     * @param cacheName
+     * @param key
+     */
+	void remove(String cacheName, Object key);
+
+    /**
+     * removeAll
+     * @param cacheName
+     */
+	void removeAll(String cacheName);
+
+    /**
+     * get
+     * @param cacheName
+     * @param key
+     * @param iLoader
+     * @param <T>
+     * @return
+     */
+	<T> T get(String cacheName, Object key, ILoader iLoader);
+
+    /**
+     * get
+     * @param cacheName
+     * @param key
+     * @param iLoaderClass
+     * @param <T>
+     * @return
+     */
+	<T> T get(String cacheName, Object key, Class<? extends ILoader> iLoaderClass);
 	
 }

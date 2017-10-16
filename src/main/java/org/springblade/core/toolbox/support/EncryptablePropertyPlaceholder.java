@@ -15,28 +15,29 @@
  */
 package org.springblade.core.toolbox.support;
 
-import java.util.Properties;
-
+import org.springblade.core.toolbox.kit.AesKit;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 
-import org.springblade.core.toolbox.kit.AESKit;
+import java.util.Properties;
 
 /**
  * spring参数加密配置
+ * @author zhuangqian
  */
 public class EncryptablePropertyPlaceholder extends PropertyPlaceholderConfigurer {
 
-	protected void processProperties(ConfigurableListableBeanFactory beanFactory, Properties props) throws BeansException {
+	@Override
+    protected void processProperties(ConfigurableListableBeanFactory beanFactory, Properties props) throws BeansException {
 		try {
 			for (Object key : props.keySet()) {
 				if (Convert.toStr(key).contains("encrypt")) {
 					String value = props.getProperty(Convert.toStr(key));
 					if (null != value) {
 						try {
-							String desryptValue = AESKit.decrypt(value);
+							String desryptValue = AesKit.decrypt(value);
 							props.setProperty(Convert.toStr(key), desryptValue);
 						} catch (Exception e) {
 							e.printStackTrace();

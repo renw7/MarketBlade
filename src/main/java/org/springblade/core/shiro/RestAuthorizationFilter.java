@@ -15,11 +15,15 @@
  */
 package org.springblade.core.shiro;
 
+import org.apache.shiro.web.filter.authz.AuthorizationFilter;
+
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import org.apache.shiro.web.filter.authz.AuthorizationFilter;
-
+/**
+ * rest接口过滤类
+ * @author zhuangqian
+ */
 public class RestAuthorizationFilter extends AuthorizationFilter {
 
 	@Override

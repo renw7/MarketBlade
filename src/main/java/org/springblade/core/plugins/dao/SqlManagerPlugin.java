@@ -27,8 +27,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * SQLManager插件
+ * @author zhuangqian
  */
-public class SQLManagerPlugin implements IPlugin {
+public class SqlManagerPlugin implements IPlugin {
 	private static Map<String, SQLManager> sqlManagerPool = new ConcurrentHashMap<String, SQLManager>();
 	
 	public String MASTER = "master";
@@ -37,14 +38,15 @@ public class SQLManagerPlugin implements IPlugin {
 		return sqlManagerPool;
 	}
 	
-	private SQLManagerPlugin() { }
+	private SqlManagerPlugin() { }
 	
-	private static SQLManagerPlugin me = new SQLManagerPlugin();
+	private static SqlManagerPlugin me = new SqlManagerPlugin();
 	
-	public static SQLManagerPlugin init(){
+	public static SqlManagerPlugin init(){
 		return me;
 	}
-	
+
+	@Override
 	public void start() {
 		try {
 			//注入sqlmanager
@@ -52,7 +54,8 @@ public class SQLManagerPlugin implements IPlugin {
 				SQLManager sm = BladeConfig.getSqlManagerPool().get(key);
 				//增加自定义@AssignID注解的值, 使用方式: @Assign("uuid")
 				sm.addIdAutonGen("uuid", new IDAutoGen<String>() {
-					public String nextID(String arg0) {
+					@Override
+                    public String nextID(String arg0) {
 						return UUID.randomUUID().toString();
 					}
 				});
@@ -66,6 +69,7 @@ public class SQLManagerPlugin implements IPlugin {
 		}
 	}
 
+	@Override
 	public void stop() {
 		sqlManagerPool.clear();
 		LogKit.println("SQLManagerPlugin关闭成功");

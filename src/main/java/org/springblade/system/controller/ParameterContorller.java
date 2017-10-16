@@ -22,7 +22,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springblade.system.model.Parameter;
-
+/**
+ * ParameterContorller
+ * @author zhuangqian
+ */
 @Controller
 @RequestMapping("/parameter")
 public class ParameterContorller extends CurdController<Parameter> {

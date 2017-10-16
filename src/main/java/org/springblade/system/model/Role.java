@@ -25,15 +25,39 @@ import org.springblade.core.base.model.BaseModel;
 @Table(name = "blade_role")
 @BindID(name = "id")
 @SuppressWarnings("serial")
-//角色表
+/**
+ * 角色表
+ * @author zhuangqian
+ */
 public class Role extends BaseModel {
-	private Integer id; //主键
-	private Integer deptid; //部门id
-	private String name; //角色名
-	private Integer num; //排序号
-	private Integer pid; //父角色
-	private String tips; //角色别名(用于Permission注解权限检查)
-	private Integer version; //版本号
+    /**
+     * 主键
+     */
+	private Integer id;
+    /**
+     * 部门id
+     */
+	private Integer deptid;
+    /**
+     * 角色名
+     */
+	private String name;
+    /**
+     * 排序号
+     */
+	private Integer num;
+    /**
+     * 父角色
+     */
+	private Integer pid;
+    /**
+     *  角色别名(用于Permission注解权限检查)
+     */
+	private String tips;
+    /**
+     * 版本号
+     */
+	private Integer version;
 
 	@AutoID
 	@SeqID(name = "SEQ_ROLE")

@@ -21,6 +21,9 @@ import org.beetl.core.GroupTemplate;
 
 import org.springblade.common.vo.ShiroUser;
 
+/**
+ * @author zhuangqian
+ */
 public class ShiroExt {
 	private static final String NAMES_DELIMETER = ",";
 	

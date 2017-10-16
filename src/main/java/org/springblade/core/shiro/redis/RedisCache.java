@@ -15,26 +15,21 @@
  */
 package org.springblade.core.shiro.redis;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.util.CollectionUtils;
-
-import org.springblade.core.plugins.redis.Redis;
 import org.springblade.core.plugins.redis.IJedis;
 import org.springblade.core.plugins.redis.IKeyNamingPolicy;
+import org.springblade.core.plugins.redis.Redis;
+
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * 缓存接口实现类
+ * @author zhuangqian
  */
 public class RedisCache<K, V> implements Cache<K, V>, Serializable {
 
@@ -196,7 +191,8 @@ public class RedisCache<K, V> implements Cache<K, V>, Serializable {
 				if (null == this.jedis) {
 					IJedis jedis = Redis.init(getShiroName());
 					jedis.setKeyNamingPolicy(new IKeyNamingPolicy() {
-								public String getKeyName(Object key) {
+								@Override
+                                public String getKeyName(Object key) {
 									return getKeyPrefix().concat(key.toString());
 								}
 							});

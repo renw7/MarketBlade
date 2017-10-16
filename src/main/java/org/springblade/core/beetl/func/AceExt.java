@@ -15,18 +15,19 @@
  */
 package org.springblade.core.beetl.func;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springblade.core.constant.ConstCache;
 import org.springblade.core.constant.ConstCacheKey;
 import org.springblade.core.shiro.ShiroKit;
 import org.springblade.core.toolbox.cache.CacheKit;
 import org.springblade.core.toolbox.cache.ILoader;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * ace工具类
+ * @author zhuangqian
  */
 public class AceExt {
 
@@ -35,8 +36,9 @@ public class AceExt {
 			return "ace-dark.css";
 		}
 		Map<String, String> theme = CacheKit.get(ConstCache.SYS_CACHE, ConstCacheKey.ACE_THEME + ShiroKit.getUser().getId(), new ILoader() {
-			public Object load() {
-				Map<String, String> map = new HashMap<String, String>();
+			@Override
+            public Object load() {
+				Map<String, String> map = new HashMap<>(16);
 				map.put("ace", "ace-dark.css");
 				return map;
 			}

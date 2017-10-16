@@ -22,6 +22,10 @@ import org.springblade.core.toolbox.CMap;
 import org.springblade.core.toolbox.kit.StrKit;
 import org.springblade.system.model.Dict;
 
+/**
+ * DictValidator
+ * @author zhuangqian
+ */
 public class DictValidator extends BladeValidator {
 
 	@Override

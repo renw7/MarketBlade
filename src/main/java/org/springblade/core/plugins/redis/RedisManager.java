@@ -20,6 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Redis操作工具类
+ * @author zhuangqian
  */
 public class RedisManager {
 	private static Map<String, IJedis> pool = new ConcurrentHashMap<String, IJedis>();

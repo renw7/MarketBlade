@@ -15,25 +15,30 @@
  */
 package org.springblade.system.meta.intercept;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springblade.common.tool.SysCache;
 import org.springblade.core.aop.AopContext;
 import org.springblade.core.constant.ConstCache;
 import org.springblade.core.meta.MetaIntercept;
-import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.CMap;
+import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.cache.CacheKit;
 import org.springblade.core.toolbox.grid.BladePage;
 
+import java.util.List;
+import java.util.Map;
+
+/**
+ * LogIntercept
+ * @author zhuangqian
+ */
 public class LogIntercept extends MetaIntercept {
 	/**
 	 * 查询后操作
 	 * 
 	 * @param ac
 	 */
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public void queryAfter(AopContext ac) {
 		BladePage<Map<String, Object>> page = (BladePage<Map<String, Object>>) ac.getObject();
 		List<Map<String, Object>> list = page.getRows();
@@ -49,7 +54,8 @@ public class LogIntercept extends MetaIntercept {
 	 * 
 	 * @param ac
 	 */
-	public void renderViewBefore(AopContext ac) {
+	@Override
+    public void renderViewBefore(AopContext ac) {
 		CMap cmap = (CMap) ac.getObject();
 		String succeedName = (cmap.getInt("succeed") == 1) ? "成功" : "失败";
 		cmap.set("succeedName", succeedName).set("userName", SysCache.getUserName(cmap.get("userid")));
@@ -62,7 +68,8 @@ public class LogIntercept extends MetaIntercept {
 	 * 
 	 * @param ac
 	 */
-	public boolean saveAfter(AopContext ac) {
+	@Override
+    public boolean saveAfter(AopContext ac) {
 		CacheKit.removeAll(ConstCache.SYS_CACHE);
 		return true;
 	}
@@ -72,7 +79,8 @@ public class LogIntercept extends MetaIntercept {
 	 * 
 	 * @param ac
 	 */
-	public boolean updateAfter(AopContext ac) {
+	@Override
+    public boolean updateAfter(AopContext ac) {
 		CacheKit.removeAll(ConstCache.SYS_CACHE);
 		return true;
 	}
@@ -83,7 +91,8 @@ public class LogIntercept extends MetaIntercept {
 	 * 
 	 * @param ac
 	 */
-	public boolean removeAfter(AopContext ac) {
+	@Override
+    public boolean removeAfter(AopContext ac) {
 		CacheKit.removeAll(ConstCache.SYS_CACHE);
 		return true;
 	}

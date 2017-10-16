@@ -20,6 +20,7 @@ import org.beetl.sql.core.annotatoin.Table;
 
 /**
  * 适用于oracle字段全部小写的NameConversion
+ * @author zhuangqian
  */
 public class LowerNameConversion extends NameConversion {
 

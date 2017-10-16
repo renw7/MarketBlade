@@ -15,12 +15,10 @@
  */
 package org.springblade.core.constant;
 
-import java.math.BigDecimal;
-
 import org.springblade.core.intercept.CURDInterceptor;
 import org.springblade.core.intercept.QueryInterceptor;
 import org.springblade.core.intercept.SelectInterceptor;
-import org.springblade.core.meta.ICURD;
+import org.springblade.core.meta.ICurd;
 import org.springblade.core.meta.IQuery;
 import org.springblade.core.meta.ISelect;
 import org.springblade.core.shiro.DefaultShiroFactory;
@@ -36,8 +34,11 @@ import org.springblade.core.toolbox.grid.JqGridFactory;
 import org.springblade.core.toolbox.log.BladeLogFactory;
 import org.springblade.core.toolbox.log.ILog;
 
+import java.math.BigDecimal;
+
 /**
  * Blade系统配置类
+ * @author zhuangqian
  */
 public class Cst {
 
@@ -144,7 +145,7 @@ public class Cst {
 	/**
 	 * 默认CURD工厂类
 	 */
-	private ICURD defaultCURDFactory = new CURDInterceptor();
+	private ICurd defaultCURDFactory = new CURDInterceptor();
 	
 	/**
 	 * 默认查询工厂类
@@ -326,11 +327,11 @@ public class Cst {
 		this.defaultFileProxyFactory = defaultFileProxyFactory;
 	}
 
-	public ICURD getDefaultCURDFactory() {
+	public ICurd getDefaultCURDFactory() {
 		return defaultCURDFactory;
 	}
 
-	public void setDefaultCURDFactory(ICURD defaultCURDFactory) {
+	public void setDefaultCURDFactory(ICurd defaultCURDFactory) {
 		this.defaultCURDFactory = defaultCURDFactory;
 	}
 

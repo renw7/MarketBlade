@@ -15,16 +15,17 @@
  */
 package org.springblade.core.beetl;
 
+import org.springblade.core.toolbox.kit.CharsetKit;
+import org.springblade.core.toolbox.kit.FileKit;
+
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.Map;
 
-import org.springblade.core.toolbox.kit.CharsetKit;
-import org.springblade.core.toolbox.kit.FileKit;
-
 /**
  * Beetl静态化生成工具类
+ * @author zhuangqian
  */
 public class BeetlMaker {
 

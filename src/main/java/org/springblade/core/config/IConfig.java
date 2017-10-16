@@ -20,6 +20,7 @@ import org.springblade.core.plugins.IPluginHolder;
 
 /**
  *  Blade配置型接口
+ * @author zhuangqian
  */
 public interface IConfig {
 	

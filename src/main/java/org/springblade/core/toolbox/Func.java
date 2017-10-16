@@ -33,6 +33,7 @@ import org.springblade.core.toolbox.support.Convert;
 
 /**
  * 高频方法集合类
+ * @author zhuangqian
  */
 public class Func {
 

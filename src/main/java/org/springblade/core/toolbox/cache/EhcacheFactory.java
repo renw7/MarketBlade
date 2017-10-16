@@ -15,17 +15,17 @@
  */
 package org.springblade.core.toolbox.cache;
 
-import java.util.List;
-
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
+
 /**
  * Ehcache缓存工厂
+ * @author zhuangqian
  */
 public class EhcacheFactory extends BaseCacheFactory {
 	
@@ -61,26 +61,31 @@ public class EhcacheFactory extends BaseCacheFactory {
 		return cache;
 	}
 	
-	public void put(String cacheName, Object key, Object value) {
+	@Override
+    public void put(String cacheName, Object key, Object value) {
 		getOrAddCache(cacheName).put(new Element(key, value));
 	}
 	
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public <T> T get(String cacheName, Object key) {
 		Element element = getOrAddCache(cacheName).get(key);
 		return element != null ? (T)element.getObjectValue() : null;
 	}
 	
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public List getKeys(String cacheName) {
 		return getOrAddCache(cacheName).getKeys();
 	}
 	
-	public void remove(String cacheName, Object key) {
+	@Override
+    public void remove(String cacheName, Object key) {
 		getOrAddCache(cacheName).remove(key);
 	}
 	
-	public void removeAll(String cacheName) {
+	@Override
+    public void removeAll(String cacheName) {
 		getOrAddCache(cacheName).removeAll();
 	}
 

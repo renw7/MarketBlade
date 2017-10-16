@@ -26,7 +26,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
 import java.util.*;
-
+/**
+ * GenerateController
+ * @author zhuangqian
+ */
 @Controller
 @RequestMapping("/generate")
 public class GenerateController extends CurdController<Generate> {

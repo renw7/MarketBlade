@@ -15,10 +15,7 @@
  */
 package org.springblade.system.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springblade.core.base.service.BaseService;
+import org.springblade.core.base.service.BaseServiceImpl;
 import org.springblade.core.plugins.dao.Blade;
 import org.springblade.core.plugins.dao.Db;
 import org.springblade.core.toolbox.CMap;
@@ -29,8 +26,15 @@ import org.springblade.system.model.Role;
 import org.springblade.system.service.RoleService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * RoleServiceImpl
+ * @author zhuangqian
+ */
 @Service
-public class RoleServiceImpl extends BaseService<Role> implements RoleService {
+public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleService {
 
 	@Override
 	public int findLastNum(Integer id) {

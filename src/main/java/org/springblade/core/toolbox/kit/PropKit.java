@@ -61,8 +61,9 @@ public class PropKit {
 		if (result == null) {
 			result = new Prop(fileName, encoding);
 			map.put(fileName, result);
-			if (PropKit.prop == null)
-				PropKit.prop = result;
+			if (PropKit.prop == null) {
+                PropKit.prop = result;
+            }
 		}
 		return result;
 	}
@@ -90,16 +91,18 @@ public class PropKit {
 		if (result == null) {
 			result = new Prop(file, encoding);
 			map.put(file.getName(), result);
-			if (PropKit.prop == null)
-				PropKit.prop = result;
+			if (PropKit.prop == null) {
+                PropKit.prop = result;
+            }
 		}
 		return result;
 	}
 	
 	public static Prop useless(String fileName) {
 		Prop previous = map.remove(fileName);
-		if (PropKit.prop == previous)
-			PropKit.prop = null;
+		if (PropKit.prop == previous) {
+            PropKit.prop = null;
+        }
 		return previous;
 	}
 	
@@ -109,8 +112,9 @@ public class PropKit {
 	}
 	
 	public static Prop getProp() {
-		if (prop == null)
-			throw new IllegalStateException("Load propties file by invoking PropKit.use(String fileName) method first.");
+		if (prop == null) {
+            throw new IllegalStateException("Load propties file by invoking PropKit.use(String fileName) method first.");
+        }
 		return prop;
 	}
 	

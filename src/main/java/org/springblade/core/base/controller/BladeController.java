@@ -15,31 +15,27 @@
  */
 package org.springblade.core.base.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springblade.core.annotation.Json;
+import org.springblade.core.constant.Const;
 import org.springblade.core.constant.ConstShiro;
+import org.springblade.core.exception.NoPermissionException;
+import org.springblade.core.exception.NoUserException;
 import org.springblade.core.meta.IQuery;
 import org.springblade.core.toolbox.CMap;
 import org.springblade.core.toolbox.Func;
+import org.springblade.core.toolbox.ajax.AjaxResult;
 import org.springblade.core.toolbox.captcha.CaptchaMaker;
 import org.springblade.core.toolbox.file.BladeFile;
+import org.springblade.core.toolbox.file.BladeFileKit;
 import org.springblade.core.toolbox.file.FileMaker;
 import org.springblade.core.toolbox.grid.GridManager;
-import org.springblade.core.toolbox.kit.LogKit;
-import org.springblade.core.toolbox.kit.StrKit;
-import org.springblade.core.toolbox.kit.URLKit;
-import org.springblade.core.toolbox.qrcode.QRCodeMaker;
+import org.springblade.core.toolbox.kit.*;
+import org.springblade.core.toolbox.log.BladeLogManager;
+import org.springblade.core.toolbox.qrcode.QrCodeMaker;
+import org.springblade.core.toolbox.support.BeanInjector;
 import org.springblade.core.toolbox.support.Convert;
 import org.springblade.core.toolbox.support.WafRequestWrapper;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -47,19 +43,18 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import org.springblade.core.constant.Const;
-import org.springblade.core.exception.NoPermissionException;
-import org.springblade.core.exception.NoUserException;
-import org.springblade.core.toolbox.ajax.AjaxResult;
-import org.springblade.core.toolbox.file.BladeFileKit;
-import org.springblade.core.toolbox.kit.CharsetKit;
-import org.springblade.core.toolbox.kit.ObjectKit;
-import org.springblade.core.toolbox.log.BladeLogManager;
-import org.springblade.core.toolbox.support.BeanInjector;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Blade控制器封装类
+ * @author zhuangqian
  */
 public class BladeController {
 
@@ -187,7 +182,7 @@ public class BladeController {
 
 	/**   
 	 * 页面跳转
-	 * @param 路径
+	 * @param url
 	*/
 	public String redirect(String url) {
 		return StrKit.format("redirect:{}", url);
@@ -199,8 +194,8 @@ public class BladeController {
 	 * @param obj String,List,Map,Object[],int[],long[]
 	 * @return
 	 */
-	public boolean isEmpty(Object o) {
-		return Func.isEmpty(o);
+	public boolean isEmpty(Object obj) {
+		return Func.isEmpty(obj);
 	}
 	
 	/**
@@ -209,8 +204,8 @@ public class BladeController {
 	 * @param obj String,List,Map,Object[],int[],long[]
 	 * @return
 	 */
-	public boolean notEmpty(Object o) {
-		return !isEmpty(o);
+	public boolean notEmpty(Object obj) {
+		return !isEmpty(obj);
 	}
 	
 	/**
@@ -698,7 +693,7 @@ public class BladeController {
 	 * @param height 二维码高度
 	*/
 	public void makeQRCode(HttpServletResponse response, String content, int width, int height) {
-		QRCodeMaker.init(response, content, width, height).start();
+		QrCodeMaker.init(response, content, width, height).start();
 	}
 	
 	/**   
@@ -710,7 +705,7 @@ public class BladeController {
 	 * @param errorCorrectionLevel 带有纠错级别参数的构造方法，纠错能力从高到低共有四个级别：'H'、'Q'、'M'、'L'
 	*/
 	public void makeQRCode(HttpServletResponse response, String content, int width, int height, ErrorCorrectionLevel errorCorrectionLevel) {
-		QRCodeMaker.init(response, content, width, height, errorCorrectionLevel).start();
+		QrCodeMaker.init(response, content, width, height, errorCorrectionLevel).start();
 	}
 	
 	/**   
@@ -722,7 +717,7 @@ public class BladeController {
 	 * @param errorCorrectionLevel 带有纠错级别参数的构造方法，纠错能力从高到低共有四个级别：'H'、'Q'、'M'、'L'
 	*/
 	public void makeQRCode(HttpServletResponse response, String content, int width, int height, char errorCorrectionLevel) {
-		QRCodeMaker.init(response, content, width, height, errorCorrectionLevel).start();
+		QrCodeMaker.init(response, content, width, height, errorCorrectionLevel).start();
 	}
 	
 	/**   
@@ -743,12 +738,21 @@ public class BladeController {
 		Object resultModel = null;
 		try {
 			if (ex.getClass() == HttpRequestMethodNotSupportedException.class) {
-				url = Const.ERROR_500;// 请求方式不允许抛出的异常,后面可自定义页面
+                /**
+                 * 请求方式不允许抛出的异常,后面可自定义页面
+                 */
+				url = Const.ERROR_500;
 			} else if (ex.getClass() == NoPermissionException.class) {
-				url = Const.NOPERMISSION_PATH;// 无权限抛出的异常
+                /**
+                 * 无权限抛出的异常
+                 */
+				url = Const.NOPERMISSION_PATH;
 				msg = ConstShiro.NO_PERMISSION;
 			} else if (ex.getClass() == NoUserException.class) {
-				url = Const.LOGIN_REALPATH;// session过期抛出的异常
+                /**
+                 * session过期抛出的异常
+                 */
+				url = Const.LOGIN_REALPATH;
 				msg = ConstShiro.NO_USER;
 			}
 			if (isAjax() || isPost()) {

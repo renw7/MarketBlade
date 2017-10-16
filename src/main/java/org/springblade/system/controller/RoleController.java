@@ -35,7 +35,10 @@ import org.springblade.core.toolbox.ajax.AjaxResult;
 import org.springblade.core.toolbox.kit.JsonKit;
 import org.springblade.system.meta.intercept.RoleValidator;
 import org.springblade.system.model.Role;
-
+/**
+ * RoleController
+ * @author zhuangqian
+ */
 @Controller
 @RequestMapping("/role")
 public class RoleController extends BaseController{

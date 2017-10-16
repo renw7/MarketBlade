@@ -15,13 +15,7 @@
  */
 package org.springblade.core.beetl.tag;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.beetl.core.Tag;
-
 import org.springblade.common.vo.TreeNode;
 import org.springblade.core.constant.ConstCache;
 import org.springblade.core.constant.ConstCacheKey;
@@ -31,6 +25,14 @@ import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.cache.CacheKit;
 import org.springblade.core.toolbox.cache.ILoader;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author zhuangqian
+ */
 public class DropDownTag extends Tag {
 	
 	@Override
@@ -48,17 +50,22 @@ public class DropDownTag extends Tag {
 			int lev = 99;
 			String code = "";
 			String sql = "";
-			if (type.equals("dict")) {
+			String DICT = "dict";
+            String USER = "user";
+            String DEPT = "dept";
+            String ROLE = "role";
+            String DIY = "diy";
+			if (type.equals(DICT)) {
 			    code = codes.split("_")[0];
 			    lev = (codes.split("_").length > 1) ? Func.toInt(codes.split("_")[1]) : 99;
 				sql = "select ID,(case when PID is null then 0 else PID end) PID,NUM,name as TEXT from  BLADE_DICT where code=" + code + " and num > 0 order by num asc";
-			} else if (type.equals("user")) {
+			} else if (type.equals(USER)) {
 				sql = "select ID,ID NUM,0 as PID,name as TEXT from  BLADE_USER where status=1";
-			} else if (type.equals("dept")) {
+			} else if (type.equals(DEPT)) {
 				sql = "select ID,(case when PID is null then 0 else PID end) PID,NUM,SIMPLENAME as TEXT from  BLADE_DEPT WHERE num>0";
-			} else if (type.equals("role")) {
+			} else if (type.equals(ROLE)) {
 				sql = "select ID,(case when PID is null then 0 else PID end) PID,NUM,name as TEXT from  BLADE_ROLE";
-			} else if (type.equals("diy")) {
+			} else if (type.equals(DIY)) {
 				type = type + "_" + param.get("source");
 				sql = Md.getSql(param.get("source"));
 			}

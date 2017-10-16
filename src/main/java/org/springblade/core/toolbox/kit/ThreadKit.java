@@ -1,18 +1,13 @@
 package org.springblade.core.toolbox.kit;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.CompletionService;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorCompletionService;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
 import org.springblade.core.exception.ToolBoxException;
+
+import java.util.concurrent.*;
 
 
 public class ThreadKit {
 	private static ExecutorService executor = Executors.newCachedThreadPool();
+
 
 	/**
 	 * 直接在公共线程池中执行线程

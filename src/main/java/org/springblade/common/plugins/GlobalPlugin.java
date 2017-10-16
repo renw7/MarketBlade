@@ -17,12 +17,17 @@ package org.springblade.common.plugins;
 
 import org.springblade.core.plugins.IPlugin;
 
+/**
+ * @author zhuangqian
+ */
 public class GlobalPlugin implements IPlugin {
 
+    @Override
 	public void start() {
 		System.out.println("\n插件启动测试");
 	}
 
+	@Override
 	public void stop() {
 		System.out.println("\n插件关闭测试");
 	}

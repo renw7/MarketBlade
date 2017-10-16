@@ -18,6 +18,10 @@ package org.springblade.core.plugins;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 插件工厂
+ * @author zhuangqian
+ */
 public class PluginFactory implements IPluginHolder {
 	private static List<IPlugin> plugins = new ArrayList<>();
 	
@@ -29,11 +33,13 @@ public class PluginFactory implements IPluginHolder {
 	
 	private PluginFactory(){}
 	
-	public void register(IPlugin plugin) {
+	@Override
+    public void register(IPlugin plugin) {
 		plugins.add(plugin);
 	}
 
-	public List<IPlugin> getPlugins() {
+	@Override
+    public List<IPlugin> getPlugins() {
 		return plugins;
 	}
 

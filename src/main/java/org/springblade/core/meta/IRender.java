@@ -19,6 +19,7 @@ import org.springblade.core.aop.AopContext;
 
 /**
  * 页面跳转aop
+ * @author zhuangqian
  */
 public interface IRender {
 
@@ -27,26 +28,26 @@ public interface IRender {
 	 * 
 	 * @param ac
 	 */
-	public void renderIndexBefore(AopContext ac);
+	void renderIndexBefore(AopContext ac);
 
 	/**
 	 * 新增转向前操作
 	 * 
 	 * @param ac
 	 */
-	public void renderAddBefore(AopContext ac);
+	void renderAddBefore(AopContext ac);
 
 	/**
 	 * 修改转向前操作
 	 * 
 	 * @param ac
 	 */
-	public void renderEditBefore(AopContext ac);
+	void renderEditBefore(AopContext ac);
 
 	/**
 	 * 查看转向前操作
 	 * 
 	 * @param ac
 	 */
-	public void renderViewBefore(AopContext ac);
+	void renderViewBefore(AopContext ac);
 }

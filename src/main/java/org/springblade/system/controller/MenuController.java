@@ -15,9 +15,6 @@
  */
 package org.springblade.system.controller;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springblade.common.base.BaseController;
 import org.springblade.core.annotation.Before;
 import org.springblade.core.annotation.Json;
@@ -28,6 +25,7 @@ import org.springblade.core.plugins.dao.Db;
 import org.springblade.core.shiro.ShiroKit;
 import org.springblade.core.toolbox.CMap;
 import org.springblade.core.toolbox.Func;
+import org.springblade.core.toolbox.ajax.AjaxResult;
 import org.springblade.core.toolbox.cache.CacheKit;
 import org.springblade.core.toolbox.cache.ILoader;
 import org.springblade.core.toolbox.kit.JsonKit;
@@ -42,8 +40,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import org.springblade.core.toolbox.ajax.AjaxResult;
-
+import java.util.List;
+import java.util.Map;
+/**
+ * MenuController
+ * @author zhuangqian
+ */
 @Controller
 @RequestMapping("/menu")
 public class MenuController extends BaseController implements ConstShiro {

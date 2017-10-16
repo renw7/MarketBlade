@@ -1,10 +1,5 @@
 package org.springblade.core.aop;
 
-import java.lang.reflect.Method;
-import java.util.Enumeration;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -13,18 +8,22 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springblade.common.vo.ShiroUser;
-import org.springblade.core.shiro.ShiroKit;
-import org.springframework.stereotype.Component;
-
 import org.springblade.core.annotation.DoLog;
+import org.springblade.core.shiro.ShiroKit;
 import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.kit.HttpKit;
 import org.springblade.core.toolbox.kit.ObjectKit;
 import org.springblade.core.toolbox.kit.StrKit;
 import org.springblade.core.toolbox.log.BladeLogManager;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
+import java.util.Enumeration;
 
 /**
  * AOP 日志
+ * @author zhuangqian
  */
 @Aspect
 @Component

@@ -6,9 +6,14 @@ import org.springblade.core.meta.PageIntercept;
 import org.springblade.core.shiro.ShiroKit;
 import org.springblade.core.toolbox.support.Convert;
 
+/**
+ * RoleIntercept
+ * @author zhuangqian
+ */
 public class RoleIntercept extends PageIntercept {
 
-	public void queryBefore(AopContext ac) {
+	@Override
+    public void queryBefore(AopContext ac) {
 		if (ShiroKit.lacksRole(ConstShiro.ADMINISTRATOR)) {
 			String roles = ShiroKit.getUser().getRoles() + "," + ShiroKit.getUser().getSubRoles();
 			String condition = "and id in (#{join(ids)})";

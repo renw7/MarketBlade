@@ -22,7 +22,10 @@ import org.springblade.core.base.controller.CurdController;
 import org.springblade.core.meta.IMeta;
 import org.springblade.system.meta.factory.OLogFactory;
 import org.springblade.system.model.OperationLog;
-
+/**
+ * OLogController
+ * @author zhuangqian
+ */
 @Controller
 @RequestMapping("/olog")
 public class OLogController extends CurdController<OperationLog>{

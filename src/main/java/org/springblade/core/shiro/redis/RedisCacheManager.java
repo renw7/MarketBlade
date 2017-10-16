@@ -15,9 +15,6 @@
  */
 package org.springblade.core.shiro.redis;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
@@ -25,8 +22,12 @@ import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.util.Destroyable;
 import org.apache.shiro.util.Initializable;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * 缓存接口管理类
+ * @author zhuangqian
  */
 public class RedisCacheManager implements CacheManager, Initializable, Destroyable {
 

@@ -25,15 +25,39 @@ import org.springblade.core.base.model.BaseModel;
 @Table(name = "blade_dept")
 @BindID(name = "id")
 @SuppressWarnings("serial")
-//部门表
+/**
+ * 部门表
+ * @author zhuangqian
+ */
 public class Dept extends BaseModel {
-	private Integer id; //主键
-	private String fullname; //全称
-	private Integer num; //排序号
-	private Integer pid; //上级部门
-	private String simplename; //简称
-	private String tips; //备注
-	private Integer version; //版本号
+    /**
+     * 主键
+     */
+	private Integer id;
+    /**
+     * 全称
+     */
+	private String fullname;
+    /**
+     * 排序号
+     */
+	private Integer num;
+    /**
+     * 上级部门
+     */
+	private Integer pid;
+    /**
+     * 简称
+     */
+	private String simplename;
+    /**
+     * 备注
+     */
+	private String tips;
+    /**
+     * 版本号
+     */
+	private Integer version;
 
 	@AutoID
 	@SeqID(name = "SEQ_DEPT")

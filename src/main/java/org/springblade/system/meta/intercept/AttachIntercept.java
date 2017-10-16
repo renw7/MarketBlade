@@ -15,9 +15,6 @@
  */
 package org.springblade.system.meta.intercept;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springblade.common.tool.SysCache;
 import org.springblade.core.aop.AopContext;
 import org.springblade.core.constant.ConstConfig;
@@ -25,6 +22,13 @@ import org.springblade.core.meta.MetaIntercept;
 import org.springblade.core.toolbox.CMap;
 import org.springblade.core.toolbox.grid.BladePage;
 
+import java.util.List;
+import java.util.Map;
+
+/**
+ * AttachIntercept
+ * @author zhuangqian
+ */
 public class AttachIntercept extends MetaIntercept {
 	
 	/**
@@ -32,7 +36,8 @@ public class AttachIntercept extends MetaIntercept {
 	 * 
 	 * @param ac
 	 */
-	@SuppressWarnings("unchecked")
+	@Override
+    @SuppressWarnings("unchecked")
 	public void queryAfter(AopContext ac) {
 		BladePage<Map<String, Object>> page = (BladePage<Map<String, Object>>) ac.getObject();
 		List<Map<String, Object>> list = page.getRows();
@@ -48,7 +53,8 @@ public class AttachIntercept extends MetaIntercept {
 	 * 
 	 * @param ac
 	 */
-	public void renderViewBefore(AopContext ac) {
+	@Override
+    public void renderViewBefore(AopContext ac) {
 		CMap cmap = (CMap) ac.getObject();
 		cmap.set("attachUrl", ConstConfig.DOMAIN + cmap.get("url"))
 			.set("statusName", SysCache.getDictName(902, cmap.get("status")))
@@ -60,7 +66,8 @@ public class AttachIntercept extends MetaIntercept {
 	 * 
 	 * @param ac
 	 */
-	public void removeBefore(AopContext ac) {
+	@Override
+    public void removeBefore(AopContext ac) {
 		/*Map<String, Object> file = Db.findById("BLADE_ATTACH", ac.getId().toString());
 		if (Func.isEmpty(file)) {
 			throw new RuntimeException("文件不存在!");

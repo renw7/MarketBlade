@@ -15,23 +15,30 @@
  */
 package org.springblade.system.meta.factory;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springblade.core.meta.MetaManager;
 import org.springblade.system.model.Generate;
 
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * GenerateFactory
+ * @author zhuangqian
+ */
 public class GenerateFactory extends MetaManager {
 	
-	public String controllerKey() {
+	@Override
+    public String controllerKey() {
 		return "generate";
 	}
 
-	public String paraPrefix() {
+	@Override
+    public String paraPrefix() {
 		return getTableName(Generate.class);
 	}
 
-	public Map<String, String> renderMap() {
+	@Override
+    public Map<String, String> renderMap() {
 		Map<String, String> renderMap = new HashMap<>();
 		renderMap.put(KEY_INDEX, "/system/generate/generate.html");
 		renderMap.put(KEY_ADD, "/system/generate/generate_add.html");
@@ -40,7 +47,8 @@ public class GenerateFactory extends MetaManager {
 		return renderMap;
 	}
 
-	public Map<String, String> sourceMap() {
+	@Override
+    public Map<String, String> sourceMap() {
 		Map<String, String> sourceMap = new HashMap<>();
 		sourceMap.put(KEY_INDEX, "generate.sourceList");
 		return sourceMap;

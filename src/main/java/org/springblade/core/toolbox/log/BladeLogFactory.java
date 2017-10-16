@@ -15,9 +15,6 @@
  */
 package org.springblade.core.toolbox.log;
 
-import java.util.Date;
-import java.util.Map;
-
 import org.springblade.common.vo.ShiroUser;
 import org.springblade.core.constant.Const;
 import org.springblade.core.constant.ConstCache;
@@ -25,23 +22,29 @@ import org.springblade.core.constant.ConstCacheKey;
 import org.springblade.core.plugins.dao.Blade;
 import org.springblade.core.plugins.dao.Db;
 import org.springblade.core.shiro.ShiroKit;
-import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.CMap;
+import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.cache.CacheKit;
 import org.springblade.core.toolbox.cache.ILoader;
 import org.springblade.system.model.OperationLog;
 
+import java.util.Date;
+import java.util.Map;
+
 /**
  * 系统默认日志记录
+ * @author zhuangqian
  */
 public class BladeLogFactory implements ILog {
 
-	public String[] logPatten() {
+	@Override
+    public String[] logPatten() {
 		String[] patten = { "login", "logout", "grant", "save", "update", "remove", "del", "delete", "restore", "change" };
 		return patten;
 	}
 
-	public CMap logMaps() {
+	@Override
+    public CMap logMaps() {
 		CMap cmap = CMap.init()
 				.set("login", "登录")
 				.set("logout", "登出")
@@ -56,7 +59,8 @@ public class BladeLogFactory implements ILog {
 		return cmap;
 	}
 
-	public boolean isDoLog() {
+	@Override
+    public boolean isDoLog() {
 		@SuppressWarnings("rawtypes")
 		Map map = CacheKit.get(ConstCache.SYS_CACHE, ConstCacheKey.PARAMETER_LOG, new ILoader() {
 			@Override
@@ -70,7 +74,8 @@ public class BladeLogFactory implements ILog {
 		return false;
 	}
 	
-	public boolean doLog(String logName, String msg, boolean succeed) {
+	@Override
+    public boolean doLog(String logName, String msg, boolean succeed) {
 		ShiroUser user = ShiroKit.getUser();
 		if (null == user) {
 			return true;

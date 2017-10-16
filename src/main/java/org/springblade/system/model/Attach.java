@@ -1,26 +1,49 @@
 package org.springblade.system.model;
 
-import java.util.Date;
-
 import org.beetl.sql.core.annotatoin.AutoID;
 import org.beetl.sql.core.annotatoin.SeqID;
 import org.beetl.sql.core.annotatoin.Table;
-
 import org.springblade.core.annotation.BindID;
 import org.springblade.core.base.model.BaseModel;
+
+import java.util.Date;
 
 @Table(name = "blade_attach")
 @BindID(name = "id")
 @SuppressWarnings("serial")
-//附件表
+/**
+ * Attach
+ * @author zhuangqian
+ */
 public class Attach extends BaseModel {
-	private Integer id; //主键
-	private String code; //编码
-	private Integer creater; //创建人
-	private String name; //附件名
-	private Integer status; //状态
-	private String url; //附件地址
-	private Date createtime; //上传时间
+    /**
+     * 主键
+     */
+	private Integer id;
+    /**
+     * 编码
+     */
+	private String code;
+    /**
+     * 创建人
+     */
+	private Integer creater;
+    /**
+     * 附件名
+     */
+    private String name;
+    /**
+     * 状态
+     */
+	private Integer status;
+    /**
+     * 附件地址
+     */
+	private String url;
+    /**
+     * 上传时间
+     */
+	private Date createtime;
 
 	@AutoID
 	@SeqID(name = "SEQ_ATTACH")

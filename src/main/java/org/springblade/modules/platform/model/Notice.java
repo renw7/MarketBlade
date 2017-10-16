@@ -1,36 +1,56 @@
 package org.springblade.modules.platform.model;
 
-import java.util.Date;
-
 import org.beetl.sql.core.annotatoin.AutoID;
 import org.beetl.sql.core.annotatoin.SeqID;
 import org.beetl.sql.core.annotatoin.Table;
-
 import org.springblade.core.annotation.BindID;
 import org.springblade.core.base.model.BaseModel;
 
+import java.util.Date;
+
+/**
+ * @author zhuangqian
+ */
 @Table(name = "blade_notice")
 @BindID(name = "id")
 // @DbName(name = "other") //多数据源配置注解
 @SuppressWarnings("serial")
 public class Notice extends BaseModel {
-	// 序列
+    /**
+     * 序列
+      */
 	private Integer id;
-	// 创建人
+    /**
+     * 创建人
+      */
 	private Integer creater;
-	// 图片
+    /**
+     * 图片
+      */
 	private Integer pic;
-	// 类型
+    /**
+     * 类型
+      */
 	private Integer type;
-	// 版本号
+    /**
+     * 版本号
+      */
 	private Integer version;
-	// 内容
+    /**
+     * 内容
+      */
 	private String content;
-	// 标题
+    /**
+     * 标题
+      */
 	private String title;
-	// 创建时间
+    /**
+     * 创建时间
+      */
 	private Date createtime;
-	// 发布时间
+    /**
+     * 发布时间
+     */
 	private Date publishtime;
 
 	@AutoID //mysql、postgresql自增使用

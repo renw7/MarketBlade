@@ -18,21 +18,72 @@ package org.springblade.core.plugins.redis.serializer;
 
 /**
  * ISerializer.
+ * @author jfinal
  */
 public interface ISerializer {
-	
+
+    /**
+     * keyToBytes
+     * @param key
+     * @return
+     */
     byte[] keyToBytes(String key);
+
+    /**
+     * keyFromBytes
+     * @param bytes
+     * @return
+     */
     String keyFromBytes(byte[] bytes);
-    
+
+    /**
+     * fieldToBytes
+     * @param field
+     * @return
+     */
     byte[] fieldToBytes(Object field);
+
+    /**
+     * fieldFromBytes
+     * @param bytes
+     * @return
+     */
     Object fieldFromBytes(byte[] bytes);
-    
+
+    /**
+     * valueToBytes
+     * @param value
+     * @return
+     */
 	byte[] valueToBytes(Object value);
-    Object valueFromBytes(byte[] bytes);
-    
-    public byte[] serialize(Object value);
-    public Object deserialize(byte[] bytes);
-    
+
+    /**
+     * valueFromBytes
+     * @param bytes
+     * @return
+     */
+	Object valueFromBytes(byte[] bytes);
+
+    /**
+     * serialize
+     * @param value
+     * @return
+     */
+    byte[] serialize(Object value);
+
+    /**
+     * deserialize
+     * @param bytes
+     * @return
+     */
+    Object deserialize(byte[] bytes);
+
+    /**
+     * mergeBytes
+     * @param array1
+     * @param array2
+     * @return
+     */
     byte[] mergeBytes(final byte[] array1, final byte... array2);
 }
 

@@ -15,29 +15,32 @@
  */
 package org.springblade.system.controller;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springblade.common.base.BaseController;
 import org.springblade.core.annotation.Json;
+import org.springblade.core.aop.AopContext;
+import org.springblade.core.constant.Cst;
+import org.springblade.core.meta.IQuery;
+import org.springblade.core.plugins.dao.Db;
 import org.springblade.core.plugins.dao.Md;
+import org.springblade.core.toolbox.CMap;
 import org.springblade.core.toolbox.Func;
+import org.springblade.core.toolbox.ajax.AjaxResult;
 import org.springblade.core.toolbox.cache.CacheKit;
 import org.springblade.core.toolbox.cache.ILoader;
+import org.springblade.core.toolbox.kit.ClassKit;
+import org.springblade.core.toolbox.kit.JsonKit;
 import org.springblade.core.toolbox.kit.StrKit;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import org.springblade.core.aop.AopContext;
-import org.springblade.core.constant.Cst;
-import org.springblade.core.meta.IQuery;
-import org.springblade.core.plugins.dao.Db;
-import org.springblade.core.toolbox.CMap;
-import org.springblade.core.toolbox.ajax.AjaxResult;
-import org.springblade.core.toolbox.kit.ClassKit;
-import org.springblade.core.toolbox.kit.JsonKit;
+import java.util.List;
+import java.util.Map;
 
+/**
+ * ComboTreeController
+ * @author zhuangqian
+ */
 @Controller
 @RequestMapping("/combotree")
 public class ComboTreeController extends BaseController {
@@ -75,7 +78,8 @@ public class ComboTreeController extends BaseController {
 		final Map<String, Object> f_modelOrMap = modelOrMap;
 		final IQuery f_intercept = _intercept;
 		List<Map> list = CacheKit.get(SYS_CACHE, GET_COMBOTREE + type + val + source + where + intercept + ext + treeId + search, new ILoader() {
-			public Object load() {
+			@Override
+            public Object load() {
 				return Db.selectList(f_sqlSource, f_modelOrMap, ac, f_intercept);
 			}
 		});
@@ -112,7 +116,8 @@ public class ComboTreeController extends BaseController {
 		
 		List<Map<String, Object>> list = CacheKit.get(SYS_CACHE, DICT_ZTREE_LIST + type,
 				new ILoader() {
-					public Object load() {
+					@Override
+                    public Object load() {
 						return Db.selectList(sqlSource, modelOrMap);
 					}
 				});

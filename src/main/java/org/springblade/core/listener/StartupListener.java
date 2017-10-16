@@ -22,13 +22,14 @@ import org.springblade.core.plugins.PluginFactory;
 import org.springblade.core.plugins.PluginManager;
 import org.springblade.core.plugins.logo.LogoPlugin;
 import org.springblade.core.plugins.redis.RedisPlugin;
-import org.springblade.core.plugins.dao.SQLManagerPlugin;
+import org.springblade.core.plugins.dao.SqlManagerPlugin;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 /**
  * 启动监听器
+ * @author zhuangqian
  */
 @Component
 public class StartupListener implements ApplicationListener<ContextRefreshedEvent> {
@@ -55,10 +56,13 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
 	 */
 	private void registerPlugins() {
 		IPluginHolder plugins = PluginFactory.init();
-		plugins.register(SQLManagerPlugin.init());
+		plugins.register(SqlManagerPlugin.init());
 		plugins.register(RedisPlugin.init());
 		plugins.register(new LogoPlugin());
-		BladeConfig.getConf().registerPlugins(plugins);//自定义配置插件	
+        /**
+         * 自定义配置插件
+         */
+		BladeConfig.getConf().registerPlugins(plugins);
 		PluginManager.init().start();
 	}
 	

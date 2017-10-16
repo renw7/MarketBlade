@@ -15,19 +15,15 @@
  */
 package org.springblade.system.controller;
 
-import java.io.File;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springblade.core.annotation.Json;
 import org.springblade.core.base.controller.BladeController;
 import org.springblade.core.constant.ConstConfig;
+import org.springblade.core.constant.Cst;
 import org.springblade.core.plugins.dao.Db;
 import org.springblade.core.toolbox.CMap;
+import org.springblade.core.toolbox.ajax.AjaxResult;
 import org.springblade.core.toolbox.file.BladeFile;
+import org.springblade.core.toolbox.file.BladeFileKit;
 import org.springblade.core.toolbox.kit.PathKit;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,10 +31,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import org.springblade.core.constant.Cst;
-import org.springblade.core.toolbox.ajax.AjaxResult;
-import org.springblade.core.toolbox.file.BladeFileKit;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.util.List;
+import java.util.Map;
+/**
+ * KindEditorController
+ * @author zhuangqian
+ */
 @Controller
 @RequestMapping("/kindeditor")
 public class KindEditorController extends BladeController {

@@ -15,22 +15,22 @@
  */
 package org.springblade.core.aop;
 
-import java.lang.reflect.Method;
-
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.stereotype.Component;
-
 import org.springblade.core.annotation.Permission;
 import org.springblade.core.exception.NoPermissionException;
 import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.check.PermissionCheckManager;
+import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
 
 /**
  * AOP 权限自定义检查
+ * @author zhuangqian
  */
 @Aspect
 @Component
@@ -47,9 +47,12 @@ public class PermissionAop {
 		Method method = ms.getMethod();
 		Permission permission = method.getAnnotation(Permission.class);
 		Object[] permissions = permission.value();
-		if ((permissions.length == 1 && Func.toStr(permissions[0]).equals("ALL"))
-				|| permissions == null || permissions.length == 0) {
-			//检查全体角色
+		boolean flag = (permissions.length == 1 && Func.toStr(permissions[0]).equals("ALL"))
+                || permissions == null || permissions.length == 0;
+		if (flag) {
+            /**
+             * 检查全体角色
+             */
 			boolean result = PermissionCheckManager.checkAll();
 			if (result) {
 				return point.proceed();
@@ -57,7 +60,9 @@ public class PermissionAop {
 				throw new NoPermissionException();
 			}
 		} else {
-			//检查指定角色
+            /**
+             * 检查指定角色
+             */
 			boolean result = PermissionCheckManager.check(permissions);
 			if (result) {
 				return point.proceed();

@@ -15,6 +15,7 @@ import java.util.Map;
 
 /**
  * api接口示例
+ * @author zhuangqian
  */
 @RestController
 @RequestMapping("api")
@@ -86,12 +87,6 @@ public class ApiController extends BladeController {
     @PostMapping("update")
     public AjaxResult update() {
         Notice notice = mapping("notice", Notice.class);
-        //1.使用mapper
-        //NoticeMapper mapper = Md.getMapper(NoticeMapper.class);
-        //boolean temp = mapper.updateTemplateById(notice) > 0;
-        //2.使用sql模板
-        //boolean temp = Md.update("notice.update", notice) > 0;
-        //3.使用自动生成api
         boolean temp = service.update(notice);
         if (temp) {
             return success("修改成功");

@@ -32,6 +32,7 @@ import java.util.Map;
 
 /**
  * grid工厂基类,封装通用分页方法
+ * @author zhuangqian
  */
 public abstract class BaseGridFactory implements IGrid {
 
@@ -119,7 +120,7 @@ public abstract class BaseGridFactory implements IGrid {
 	private static Map<String, Object> getSqlMap(String para, String sort, String order){
 		Map<String, Object> map = JsonKit.parse(Func.isEmpty(Func.decodeUrl(para)) ? null : Func.decodeUrl(para), HashMap.class);
 		if (Func.isEmpty(map)) {
-			map = new HashMap<>();
+			map = new HashMap<>(16);
 		}
         for (String key : map.keySet()) {
             if (key.startsWith(SqlKeyword.TOINT) || key.startsWith(SqlKeyword.IT) || key.startsWith(SqlKeyword.F_IT)) {

@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * JqGrid封装bean
+ * @author zhuangqian
  */
 public class JqGrid<E> {
 	/** 返回结果集  **/

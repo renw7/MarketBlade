@@ -19,11 +19,31 @@ import org.springblade.core.annotation.DoLog;
 import org.springblade.core.base.service.IService;
 import org.springblade.system.model.Role;
 
+/**
+ * RoleService
+ * @author zhuangqian
+ */
 public interface RoleService extends IService<Role> {
+    /**
+     * findLastNum
+     * @param id
+     * @return
+     */
 	int findLastNum(Integer id);
 
+    /**
+     * grant
+     * @param ids
+     * @param roleId
+     * @return
+     */
 	@DoLog(name = "设置权限")
 	boolean grant(String ids, Integer roleId);
 
+    /**
+     * getParentCnt
+     * @param id
+     * @return
+     */
 	int getParentCnt(Integer id);
 }

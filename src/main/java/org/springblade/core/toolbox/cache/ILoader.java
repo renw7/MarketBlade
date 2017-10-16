@@ -17,7 +17,12 @@ package org.springblade.core.toolbox.cache;
 
 /**
  *  数据重载
+ *  @author zhuangqian
  */
 public interface ILoader {
+    /**
+     * 数据加载
+     * @return
+     */
 	Object load();
 }

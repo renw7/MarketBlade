@@ -49,7 +49,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * UserController
+ * @author zhuangqian
+ */
 @Controller
 @RequestMapping("/user")
 public class UserController extends BaseController implements ConstShiro {
@@ -416,7 +419,8 @@ public class UserController extends BaseController implements ConstShiro {
 	public AjaxResult userTreeList() {
 		List<Map<String, Object>> dept = CacheKit.get(SYS_CACHE, ConstCacheKey.USER_TREE_ALL,
 				new ILoader() {
-					public Object load() {
+					@Override
+                    public Object load() {
 						return Db.selectList("select id \"id\",pId \"pId\",simpleName as \"name\",(case when (pId=0 or pId is null) then 'true' else 'false' end) \"open\" from  BLADE_DEPT order by pId,num asc", CMap.init(), new AopContext(), new IQuery() {
 							
 							@Override

@@ -22,6 +22,10 @@ import org.springblade.core.toolbox.CMap;
 import org.springblade.core.toolbox.kit.StrKit;
 import org.springblade.system.model.User;
 
+/**
+ * UserValidator
+ * @author zhuangqian
+ */
 public class UserValidator extends BladeValidator {
 
 	@Override

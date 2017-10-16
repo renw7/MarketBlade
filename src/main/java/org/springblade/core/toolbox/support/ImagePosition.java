@@ -15,6 +15,10 @@
  */
 package org.springblade.core.toolbox.support;
 
+/**
+ * ImagePosition
+ * @author zhuangqian
+ */
 public class ImagePosition {
 
 	/** 图片顶部. */ 

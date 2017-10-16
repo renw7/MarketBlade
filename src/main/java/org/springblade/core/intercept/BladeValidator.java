@@ -47,7 +47,8 @@ public abstract class BladeValidator extends BladeInterceptor {
 		}
 	}
 
-	final public Object intercept(Invocation inv) {
+	@Override
+    final public Object intercept(Invocation inv) {
 		BladeValidator validator = null;
 		try {
 			validator = getClass().newInstance();
@@ -134,15 +135,18 @@ public abstract class BladeValidator extends BladeInterceptor {
 	protected void validateRequired(String field, String errorMessage) {
 		String value = request.getParameter(field);
 		if (value == null || "".equals(value)) // 经测试,form表单域无输入时值为"",跳格键值为"\t",输入空格则为空格" "
-			addError(errorMessage);
+        {
+            addError(errorMessage);
+        }
 	}
 
 	/**
 	 * Validate required string.
 	 */
 	protected void validateRequiredString(String field, String errorMessage) {
-		if (StrKit.isBlank(request.getParameter(field)))
-			addError(errorMessage);
+		if (StrKit.isBlank(request.getParameter(field))) {
+            addError(errorMessage);
+        }
 	}
 
 	/**
@@ -162,8 +166,9 @@ public abstract class BladeValidator extends BladeInterceptor {
 		}
 		try {
 			int temp = Integer.parseInt(value.trim());
-			if (temp < min || temp > max)
-				addError(errorMessage);
+			if (temp < min || temp > max) {
+                addError(errorMessage);
+            }
 		} catch (Exception e) {
 			addError(errorMessage);
 		}
@@ -204,8 +209,9 @@ public abstract class BladeValidator extends BladeInterceptor {
 		}
 		try {
 			long temp = Long.parseLong(value.trim());
-			if (temp < min || temp > max)
-				addError(errorMessage);
+			if (temp < min || temp > max) {
+                addError(errorMessage);
+            }
 		} catch (Exception e) {
 			addError(errorMessage);
 		}
@@ -242,8 +248,9 @@ public abstract class BladeValidator extends BladeInterceptor {
 		}
 		try {
 			double temp = Double.parseDouble(value.trim());
-			if (temp < min || temp > max)
-				addError(errorMessage);
+			if (temp < min || temp > max) {
+                addError(errorMessage);
+            }
 		} catch (Exception e) {
 			addError(errorMessage);
 		}
@@ -291,8 +298,9 @@ public abstract class BladeValidator extends BladeInterceptor {
 		}
 		try {
 			Date temp = DateKit.parseTime(Func.toStr(value));
-			if (temp.before(min) || temp.after(max))
-				addError(errorMessage);
+			if (temp.before(min) || temp.after(max)) {
+                addError(errorMessage);
+            }
 		} catch (Exception e) {
 			addError(errorMessage);
 		}
@@ -320,16 +328,18 @@ public abstract class BladeValidator extends BladeInterceptor {
 			String errorMessage) {
 		String value_1 = request.getParameter(field_1);
 		String value_2 = request.getParameter(field_2);
-		if (value_1 == null || value_2 == null || (!value_1.equals(value_2)))
-			addError(errorMessage);
+		if (value_1 == null || value_2 == null || (!value_1.equals(value_2))) {
+            addError(errorMessage);
+        }
 	}
 
 	/**
 	 * Validate equal string.
 	 */
 	protected void validateEqualString(String s1, String s2, String errorMessage) {
-		if (s1 == null || s2 == null || (!s1.equals(s2)))
-			addError(errorMessage);
+		if (s1 == null || s2 == null || (!s1.equals(s2))) {
+            addError(errorMessage);
+        }
 	}
 
 	/**
@@ -337,8 +347,9 @@ public abstract class BladeValidator extends BladeInterceptor {
 	 */
 	protected void validateEqualInteger(Integer i1, Integer i2,
 			String errorMessage) {
-		if (i1 == null || i2 == null || (i1.intValue() != i2.intValue()))
-			addError(errorMessage);
+		if (i1 == null || i2 == null || (i1.intValue() != i2.intValue())) {
+            addError(errorMessage);
+        }
 	}
 
 	/**
@@ -359,8 +370,9 @@ public abstract class BladeValidator extends BladeInterceptor {
 		}
 		try {
 			value = value.trim();
-			if (value.startsWith("https://"))
-				value = "http://" + value.substring(8); // URL doesn't
+			if (value.startsWith("https://")) {
+                value = "http://" + value.substring(8); // URL doesn't
+            }
 														// understand the https
 														// protocol, hack it
 			new URL(value);
@@ -382,8 +394,9 @@ public abstract class BladeValidator extends BladeInterceptor {
 		Pattern pattern = isCaseSensitive ? Pattern.compile(regExpression)
 				: Pattern.compile(regExpression, Pattern.CASE_INSENSITIVE);
 		Matcher matcher = pattern.matcher(value);
-		if (!matcher.matches())
-			addError(errorMessage);
+		if (!matcher.matches()) {
+            addError(errorMessage);
+        }
 	}
 
 	/**
@@ -409,8 +422,9 @@ public abstract class BladeValidator extends BladeInterceptor {
 			addError(errorMessage);
 			return;
 		}
-		if (value.length() < minLen || value.length() > maxLen)
-			addError(errorMessage);
+		if (value.length() < minLen || value.length() > maxLen) {
+            addError(errorMessage);
+        }
 	}
 
 	/**

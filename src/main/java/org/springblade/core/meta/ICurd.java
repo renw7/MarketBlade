@@ -20,110 +20,106 @@ import org.springblade.core.toolbox.ajax.AjaxResult;
 
 /**
  * 增删改查aop
+ * @author zhuangqian
  */
-public interface ICURD {
-	/**
-	 * 主表新增前操作
-	 * 
-	 * @param ac
-	 */
+public interface ICurd {
+    /**
+     * 主表新增前操作
+     * @param ac 拦截器
+     */
 	void saveBefore(AopContext ac);
 
-	/**
-	 * 主表新增后操作(事务内)
-	 * 
-	 * @param ac
-	 */
+    /**
+     * 主表新增后操作(事务内)
+     * @param ac 拦截器
+     * @return
+     */
 	boolean saveAfter(AopContext ac);
 
 	/**
 	 * 新增全部完毕后操作(事务外)
-	 * 
-	 * @param ac
+	 * @param ac 拦截器
+     * @return
 	 */
 	AjaxResult saveSucceed(AopContext ac);
 
 	/**
 	 * 主表修改前操作
-	 * 
-	 * @param ac
+	 * @param ac 拦截器
 	 */
 	void updateBefore(AopContext ac);
 
 	/**
 	 * 主表修改后操作(事务内)
-	 * 
-	 * @param ac
+	 * @param ac 拦截器
+     * @return
 	 */
 	boolean updateAfter(AopContext ac);
 
 	/**
 	 * 修改全部完毕后操作(事务外)
-	 * 
-	 * @param ac
+	 * @param ac 拦截器
+     * @return
 	 */
 	AjaxResult updateSucceed(AopContext ac);
 
 	/**
 	 * 物理删除前操作
-	 * 
 	 * @param ac
 	 */
 	void removeBefore(AopContext ac);
 
 	/**
 	 * 物理删除后操作(事务内)
-	 * 
 	 * @param ac
+     * @return
 	 */
 	boolean removeAfter(AopContext ac);
 
 	/**
 	 * 物理删除全部完毕后操作(事务外)
-	 * 
 	 * @param ac
+     * @return AjaxResult
 	 */
 	AjaxResult removeSucceed(AopContext ac);
 	
 	/**
 	 * 逻辑删除前操作
-	 * 
 	 * @param ac
 	 */
 	void delBefore(AopContext ac);
 
 	/**
 	 * 逻辑删除后操作(事务内)
-	 * 
 	 * @param ac
+     * @return
 	 */
 	boolean delAfter(AopContext ac);
 	
 	/**
 	 * 逻辑删除后操作(事务外)
-	 * 
 	 * @param ac
+     * @return AjaxResult
 	 */
 	AjaxResult delSucceed(AopContext ac);
 	
 	/**
 	 * 主表还原前操作
-	 * 
 	 * @param ac
 	 */
 	void restoreBefore(AopContext ac);
 
 	/**
 	 * 主表还原后操作(事务内)
-	 * 
 	 * @param ac
+     * @return
 	 */
 	boolean restoreAfter(AopContext ac);
 	
 	/**
 	 * 还原全部完毕后操作(事务外)
-	 * 
 	 * @param ac
+     * @return
 	 */
 	AjaxResult restoreSucceed(AopContext ac);
 }

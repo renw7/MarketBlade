@@ -16,13 +16,14 @@
 package org.springblade.core.intercept;
 
 import org.springblade.core.aop.AopContext;
-import org.springblade.core.meta.ICURD;
+import org.springblade.core.meta.ICurd;
 import org.springblade.core.toolbox.ajax.AjaxResult;
 
 /**
  * 增删改查拦截器工厂类
+ * @author zhuangqian
  */
-public class CURDInterceptor implements ICURD{
+public class CURDInterceptor implements ICurd {
 
 	@Override
 	public void saveBefore(AopContext ac) {

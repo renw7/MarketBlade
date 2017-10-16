@@ -15,16 +15,21 @@
  */
 package org.springblade.core.toolbox.grid;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springblade.core.base.controller.BladeController;
 import org.springblade.core.meta.IQuery;
 
+import java.util.List;
+import java.util.Map;
+
+/**
+ * EasyGridFactory
+ * @author zhuangqian
+ */
 @SuppressWarnings("unchecked")
 public class EasyGridFactory extends BaseGridFactory{
 
-	public EasyGrid<Map<String, Object>> paginate(String dbName, Integer page, Integer rows,
+	@Override
+    public EasyGrid<Map<String, Object>> paginate(String dbName, Integer page, Integer rows,
                                                   String source, String para, String sort, String order,
                                                   IQuery intercept, BladeController ctrl) {
 		

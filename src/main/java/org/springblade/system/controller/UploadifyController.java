@@ -1,11 +1,5 @@
 package org.springblade.system.controller;
 
-import java.io.File;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springblade.core.annotation.Json;
 import org.springblade.core.base.controller.BladeController;
 import org.springblade.core.constant.Cst;
@@ -20,6 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.util.Map;
+/**
+ * UploadifyController
+ * @author zhuangqian
+ */
 @Controller
 @RequestMapping("/uploadify")
 public class UploadifyController extends BladeController {

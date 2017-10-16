@@ -17,12 +17,18 @@ package org.springblade.core.plugins.logo;
 
 import org.springblade.core.plugins.IPlugin;
 
+/**
+ * logo打印插件
+ * @author zhuangqian
+ */
 public class LogoPlugin implements IPlugin {
 
+    @Override
 	public void start() {
         printLogo();
     }
 
+    @Override
 	public void stop() {
         printLogo();
 	}

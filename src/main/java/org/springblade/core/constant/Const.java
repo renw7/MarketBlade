@@ -16,6 +16,9 @@
 package org.springblade.core.constant;
 
 
+/**
+ * @author zhuangqian
+ */
 public interface Const {
 
 	/**

@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * EasyGrid封装bean
+ * @author zhuangqian
  */
 public class EasyGrid<E> {
 	/** 总记录  **/

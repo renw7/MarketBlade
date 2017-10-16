@@ -20,6 +20,7 @@ import org.springblade.core.meta.IQuery;
 
 /**
  *  定义Grid分页接口
+ *  @author zhuangqian
  */
 public interface IGrid {
 	/**

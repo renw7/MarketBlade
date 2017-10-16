@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springblade.common.base.BaseController;
 
+/**
+ * @author zhuangqian
+ */
 @Controller
 @RequestMapping("/echarts")
 public class EchartsController extends BaseController {

@@ -15,18 +15,19 @@
  */
 package org.springblade.core.base.controller;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springblade.common.base.BaseController;
 import org.springblade.core.annotation.Json;
+import org.springblade.core.aop.AopContext;
 import org.springblade.core.constant.ConstCurd;
+import org.springblade.core.meta.IMeta;
+import org.springblade.core.meta.MetaIntercept;
+import org.springblade.core.plugins.dao.Blade;
 import org.springblade.core.plugins.dao.Db;
 import org.springblade.core.plugins.dao.Md;
 import org.springblade.core.toolbox.CMap;
 import org.springblade.core.toolbox.Func;
+import org.springblade.core.toolbox.ajax.AjaxResult;
+import org.springblade.core.toolbox.kit.ClassKit;
 import org.springblade.core.toolbox.kit.JsonKit;
 import org.springblade.core.toolbox.kit.StrKit;
 import org.springblade.system.service.CurdService;
@@ -35,13 +36,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import org.springblade.core.aop.AopContext;
-import org.springblade.core.meta.IMeta;
-import org.springblade.core.meta.MetaIntercept;
-import org.springblade.core.plugins.dao.Blade;
-import org.springblade.core.toolbox.ajax.AjaxResult;
-import org.springblade.core.toolbox.kit.ClassKit;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
 
+/**
+ * @author zhuangqian
+ * @param <M>
+ */
 public abstract class CurdController<M> extends BaseController {
 	
 	@Autowired
@@ -80,6 +83,10 @@ public abstract class CurdController<M> extends BaseController {
 		this.init();
 	}
 
+    /**
+     * 获取核心工厂
+     * @return
+     */
 	protected abstract Class<? extends IMeta> metaFactoryClass();
 
 	/**
@@ -91,7 +98,7 @@ public abstract class CurdController<M> extends BaseController {
 		if (Func.isEmpty(switchMap)) {
 			return null;
 		}
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>(16);
 		for (String key : switchMap.keySet()) {
 			map.put((String) switchMap.get(key), key);
 		}
@@ -150,7 +157,7 @@ public abstract class CurdController<M> extends BaseController {
 			M model = Blade.create(modelClass).findById(id);
 			cmap.parseBean(model);
 		} else {
-			Map<String, Object> map = new HashMap<>();
+			Map<String, Object> map = new HashMap<>(16);
 			map.put("id", id);
 			Map<String, Object> model = this.find(sourceMap.get(ConstCurd.KEY_VIEW), map);
 			cmap.parseMap(model);
@@ -291,7 +298,8 @@ public abstract class CurdController<M> extends BaseController {
 	}
 
 	private Map<String, Object> find(String source, Map<String, Object> map) {
-		if (source.indexOf("select") == -1) {
+		String KEY = "select";
+	    if (source.indexOf(KEY) == -1) {
 			return findOneById(source, map);
 		} else {
 			return findOneBySql(source, map);
@@ -306,7 +314,7 @@ public abstract class CurdController<M> extends BaseController {
 
 	@SuppressWarnings("unchecked")
 	private Map<String, Object> findOneById(String sqlId, Map<String, Object> map) {
-		Map<String, Object> model =  Md.selectOne(sqlId, map, Map.class); //Db.selectOneBySqlId(sqlId, map);
+		Map<String, Object> model =  Md.selectOne(sqlId, map, Map.class);
 		return Func.caseInsensitiveMap(model);
 	}
 

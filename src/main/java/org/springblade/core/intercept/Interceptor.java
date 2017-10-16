@@ -19,6 +19,7 @@ import org.springblade.core.aop.Invocation;
 
 /**
  * 自定义拦截器接口
+ * @author zhuangqian
  */
 public interface Interceptor {
 	

@@ -15,30 +15,26 @@
  */
 package org.springblade.core.beetl;
 
+import org.beetl.core.Configuration;
+import org.beetl.core.GroupTemplate;
+import org.beetl.core.Template;
+import org.beetl.core.resource.StringTemplateResourceLoader;
+import org.springblade.core.beetl.func.AceExt;
+import org.springblade.core.beetl.func.BeetlExt;
+import org.springblade.core.beetl.func.ShiroExt;
+import org.springblade.core.beetl.tag.*;
+import org.springblade.core.constant.ConstConfig;
+import org.springblade.core.toolbox.CMap;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.beetl.core.Configuration;
-import org.beetl.core.GroupTemplate;
-import org.beetl.core.Template;
-import org.beetl.core.resource.StringTemplateResourceLoader;
-
-import org.springblade.core.beetl.func.AceExt;
-import org.springblade.core.beetl.func.BeetlExt;
-import org.springblade.core.beetl.func.ShiroExt;
-import org.springblade.core.beetl.tag.DropDownTag;
-import org.springblade.core.beetl.tag.FootTag;
-import org.springblade.core.beetl.tag.HotBlogsTag;
-import org.springblade.core.beetl.tag.SelectTag;
-import org.springblade.core.beetl.tag.SideBarTag;
-import org.springblade.core.constant.ConstConfig;
-import org.springblade.core.toolbox.CMap;
-
 /**
  * Beetl模板绑值
+ * @author zhuangqian
  */
 public class BeetlTemplate {
 	private static GroupTemplate gt;
@@ -62,7 +58,7 @@ public class BeetlTemplate {
 	}
 
 	public static void registerTemplate(GroupTemplate groupTemplate){
-		Map<String, Object> sharedVars = new HashMap<String, Object>();
+		Map<String, Object> sharedVars = new HashMap<>(16);
 		sharedVars.put("startTime", new Date());
 		sharedVars.put("domain", ConstConfig.DOMAIN);
 		groupTemplate.setSharedVars(sharedVars);

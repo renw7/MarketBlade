@@ -18,10 +18,30 @@ package org.springblade.system.service;
 import org.springblade.core.base.service.IService;
 import org.springblade.system.model.Menu;
 
+/**
+ * MenuService
+ * @author zhuangqian
+ */
 public interface MenuService extends IService<Menu> {
+    /**
+     * findLastNum
+     * @param code
+     * @return
+     */
 	int findLastNum(String code);
 
+    /**
+     * isExistCode
+     * @param code
+     * @return
+     */
 	boolean isExistCode(String code);
 
+    /**
+     * updateStatus
+     * @param ids
+     * @param status
+     * @return
+     */
 	boolean updateStatus(String ids, Integer status);
 }

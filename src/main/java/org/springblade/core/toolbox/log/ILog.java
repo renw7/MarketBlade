@@ -19,29 +19,34 @@ import org.springblade.core.toolbox.CMap;
 
 /**
  *  日志记录接口
+ *  @author zhuangqian
  */
 public interface ILog {
 	
 	/**
 	 * 定义日志拦截的方法
+     * @return
 	 */
 	String[] logPatten();
 	
 	/**
 	 * 定义日志拦截的方法名
-	 */
+     * @return
+     */
 	CMap logMaps();
 	
 	/**
 	 * 是否需要记录日志
-	 */
+     * @return
+     */
 	boolean isDoLog();
-	
-	/**   
-	 * 日志记录
-	 * @param logName 日志名称
-	 * @param msg  返回消息
-	 * @return boolean
-	*/
+
+    /**
+     * 日志记录
+     * @param logName
+     * @param msg
+     * @param succeed
+     * @return
+     */
 	boolean doLog(String logName, String msg, boolean succeed);
 }

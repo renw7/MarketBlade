@@ -15,34 +15,25 @@
  */
 package org.springblade.core.beetl.func;
 
-import java.lang.reflect.Array;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.springblade.common.tool.SysCache;
 import org.springblade.core.constant.ConstCache;
 import org.springblade.core.constant.ConstCacheKey;
 import org.springblade.core.constant.ConstConfig;
 import org.springblade.core.plugins.dao.Db;
-import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.CMap;
+import org.springblade.core.toolbox.Func;
 import org.springblade.core.toolbox.cache.CacheKit;
 import org.springblade.core.toolbox.cache.ILoader;
-import org.springblade.core.toolbox.kit.CharsetKit;
-import org.springblade.core.toolbox.kit.DateKit;
-import org.springblade.core.toolbox.kit.DateTimeKit;
-import org.springblade.core.toolbox.kit.StrKit;
-import org.springblade.core.toolbox.kit.URLKit;
+import org.springblade.core.toolbox.kit.*;
 import org.springblade.core.toolbox.support.Convert;
+
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * beetl注册工具类
  * 高频使用方法
+ * @author zhuangqian
  */
 public class BeetlExt {
 
@@ -168,7 +159,7 @@ public class BeetlExt {
 	/**
 	 * 对象是否为空
 	 * 
-	 * @param obj
+	 * @param o
 	 *            String,List,Map,Object[],int[],long[]
 	 * @return
 	 */
@@ -297,7 +288,7 @@ public class BeetlExt {
 	/**
 	 * 强转->int
 	 * 
-	 * @param obj
+	 * @param value
 	 * @return
 	 */
 	public int toInt(Object value) {
@@ -307,7 +298,7 @@ public class BeetlExt {
 	/**
 	 * 强转->int
 	 * 
-	 * @param obj
+	 * @param value
 	 * @param defaultValue
 	 * @return
 	 */
@@ -318,7 +309,7 @@ public class BeetlExt {
 	/**
 	 * 强转->long
 	 * 
-	 * @param obj
+	 * @param value
 	 * @return
 	 */
 	public long toLong(Object value) {
@@ -328,7 +319,7 @@ public class BeetlExt {
 	/**
 	 * 强转->long
 	 * 
-	 * @param obj
+	 * @param value
 	 * @param defaultValue
 	 * @return
 	 */
@@ -425,7 +416,9 @@ public class BeetlExt {
      * @return
      */
     public String formatTime(Date date) {
-        if(isEmpty(date)) return "";
+        if(isEmpty(date)) {
+            return "";
+        }
         return DateKit.format(date, "yyyy-MM-dd HH:mm:ss");
     }
 
@@ -457,7 +450,8 @@ public class BeetlExt {
 	public String getRightMenu(final Object userId, Object roleId, final String code, boolean isExport) {
 		Map<String, Object> userRole = CacheKit.get(ConstCache.SYS_CACHE, ConstCacheKey.ROLE_EXT + userId,
 				new ILoader() {
-					public Object load() {
+					@Override
+                    public Object load() {
 						return Db.selectOne("select * from BLADE_ROLE_EXT where userId=#{userId}", CMap.init().set("userId", userId));
 					}
 				});

@@ -25,6 +25,27 @@ import java.util.regex.Pattern;
  */
 public class WafKit {
 
+
+    private static Pattern pattern1 = Pattern.compile("<script>(.*?)</script>", Pattern.CASE_INSENSITIVE);
+
+    private static Pattern pattern2 = Pattern.compile("</script>", Pattern.CASE_INSENSITIVE);
+
+    private static Pattern pattern3 = Pattern.compile("<script(.*?)>", Pattern.CASE_INSENSITIVE
+            | Pattern.MULTILINE | Pattern.DOTALL);
+
+    private static Pattern pattern4 = Pattern.compile("eval\\((.*?)\\)", Pattern.CASE_INSENSITIVE
+            | Pattern.MULTILINE | Pattern.DOTALL);
+
+    private static Pattern pattern5 = Pattern.compile("expression\\((.*?)\\)", Pattern.CASE_INSENSITIVE
+            | Pattern.MULTILINE | Pattern.DOTALL);
+
+    private static Pattern pattern6 = Pattern.compile("javascript:", Pattern.CASE_INSENSITIVE);
+
+    private static Pattern pattern7 = Pattern.compile("vbscript:", Pattern.CASE_INSENSITIVE);
+
+    private static Pattern pattern8 = Pattern.compile("onload(.*?)=", Pattern.CASE_INSENSITIVE
+            | Pattern.MULTILINE | Pattern.DOTALL);
+
 	/**
 	 * @Description 过滤XSS脚本内容
 	 * @param value
@@ -36,55 +57,42 @@ public class WafKit {
 
 		if (null != value) {
 			// NOTE: It's highly recommended to use the ESAPI library and uncomment the following line to
-			// avoid encoded attacks.
-			// value = ESAPI.encoder().canonicalize(value);
 
-			// Avoid null characters
 			rlt = value.replaceAll("", "");
 
 			// Avoid anything between script tags
-			Pattern scriptPattern = Pattern.compile("<script>(.*?)</script>", Pattern.CASE_INSENSITIVE);
+			Pattern scriptPattern = pattern1;
 			rlt = scriptPattern.matcher(rlt).replaceAll("");
 
 			// Avoid anything in a src='...' type of expression
-			/*scriptPattern = Pattern.compile("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", Pattern.CASE_INSENSITIVE
-					| Pattern.MULTILINE | Pattern.DOTALL);
-			rlt = scriptPattern.matcher(rlt).replaceAll("");
 
-			scriptPattern = Pattern.compile("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", Pattern.CASE_INSENSITIVE
-					| Pattern.MULTILINE | Pattern.DOTALL);
-			rlt = scriptPattern.matcher(rlt).replaceAll("");*/
 
 			// Remove any lonesome </script> tag
-			scriptPattern = Pattern.compile("</script>", Pattern.CASE_INSENSITIVE);
+			scriptPattern = pattern2;
 			rlt = scriptPattern.matcher(rlt).replaceAll("");
 
 			// Remove any lonesome <script ...> tag
-			scriptPattern = Pattern.compile("<script(.*?)>", Pattern.CASE_INSENSITIVE
-					| Pattern.MULTILINE | Pattern.DOTALL);
+			scriptPattern = pattern3;
 			rlt = scriptPattern.matcher(rlt).replaceAll("");
 
 			// Avoid eval(...) expressions
-			scriptPattern = Pattern.compile("eval\\((.*?)\\)", Pattern.CASE_INSENSITIVE
-					| Pattern.MULTILINE | Pattern.DOTALL);
+			scriptPattern = pattern4;
 			rlt = scriptPattern.matcher(rlt).replaceAll("");
 
 			// Avoid expression(...) expressions
-			scriptPattern = Pattern.compile("expression\\((.*?)\\)", Pattern.CASE_INSENSITIVE
-					| Pattern.MULTILINE | Pattern.DOTALL);
+			scriptPattern = pattern5;
 			rlt = scriptPattern.matcher(rlt).replaceAll("");
 
 			// Avoid javascript:... expressions
-			scriptPattern = Pattern.compile("javascript:", Pattern.CASE_INSENSITIVE);
+			scriptPattern = pattern6;
 			rlt = scriptPattern.matcher(rlt).replaceAll("");
 
 			// Avoid vbscript:... expressions
-			scriptPattern = Pattern.compile("vbscript:", Pattern.CASE_INSENSITIVE);
+			scriptPattern = pattern7;
 			rlt = scriptPattern.matcher(rlt).replaceAll("");
 
 			// Avoid onload= expressions
-			scriptPattern = Pattern.compile("onload(.*?)=", Pattern.CASE_INSENSITIVE
-					| Pattern.MULTILINE | Pattern.DOTALL);
+			scriptPattern = pattern8;
 			rlt = scriptPattern.matcher(rlt).replaceAll("");
 		}
 		

@@ -22,7 +22,10 @@ import org.springblade.core.base.controller.CurdController;
 import org.springblade.core.meta.IMeta;
 import org.springblade.system.meta.factory.LLogFactory;
 import org.springblade.system.model.LoginLog;
-
+/**
+ * LLogController
+ * @author zhuangqian
+ */
 @Controller
 @RequestMapping("/llog")
 public class LLogController extends CurdController<LoginLog>{

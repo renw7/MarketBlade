@@ -15,14 +15,15 @@
  */
 package org.springblade.core.toolbox.cache;
 
+import org.springblade.core.plugins.redis.IJedis;
+import org.springblade.core.plugins.redis.Redis;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springblade.core.plugins.redis.Redis;
-import org.springblade.core.plugins.redis.IJedis;
-
 /**
  * Redis缓存工厂
+ * @author zhuangqian
  */
 public class RedisCacheFactory extends BaseCacheFactory {
 	
@@ -57,24 +58,29 @@ public class RedisCacheFactory extends BaseCacheFactory {
 		this.redisName = redisName;
 	}
 	
-	public void put(String cacheName, Object key, Object value) {
+	@Override
+    public void put(String cacheName, Object key, Object value) {
 		getCacheManager().hset(cacheName, key, value);
 	}
 
-	public <T> T get(String cacheName, Object key) {
+	@Override
+    public <T> T get(String cacheName, Object key) {
 		return getCacheManager().hget(cacheName, key);
 	}
 
-	@SuppressWarnings("rawtypes")
+	@Override
+    @SuppressWarnings("rawtypes")
 	public List getKeys(String cacheName) {
 		return new ArrayList<>(getCacheManager().hkeys(cacheName));
 	}
 
-	public void remove(String cacheName, Object key) {
+	@Override
+    public void remove(String cacheName, Object key) {
 		getCacheManager().hdel(cacheName, key);
 	}
 
-	public void removeAll(String cacheName) {
+	@Override
+    public void removeAll(String cacheName) {
 		getCacheManager().del(cacheName);
 	}
 

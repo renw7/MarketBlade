@@ -15,20 +15,26 @@
  */
 package org.springblade.core.meta;
 
-import java.util.Map;
-
 import org.springblade.core.constant.ConstCurd;
 
+import java.util.Map;
+
+/**
+ * @author zhuangqian
+ */
 public abstract class MetaManager extends MetaTool implements IMeta,ConstCurd {
 
+    @Override
 	public Class<? extends MetaIntercept> intercept() {
 		return null;
 	}
 
+    @Override
 	public String paraPrefix() {
 		return null;
 	}
 
+    @Override
 	public Map<String, Object> switchMap() {
 		return null;
 	}

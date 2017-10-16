@@ -27,6 +27,7 @@ import java.util.Map;
 
 /**
  * beetlsql Dao工具
+ * @author zhuangqian
  */
 public class Db {
 

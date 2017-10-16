@@ -22,6 +22,10 @@ import org.springblade.core.toolbox.CMap;
 import org.springblade.core.toolbox.kit.StrKit;
 import org.springblade.system.model.Menu;
 
+/**
+ * MenuValidator
+ * @author zhuangqian
+ */
 public class MenuValidator extends BladeValidator {
 
 	@Override

@@ -21,13 +21,17 @@ import org.springblade.core.toolbox.Func;
 
 import java.util.List;
 import java.util.Map;
-
+/**
+ * GridManager
+ * @author zhuangqian
+ */
 @SuppressWarnings("unchecked")
 public class JqGridFactory extends BaseGridFactory {
 
-	public JqGrid<Map<String, Object>> paginate(String dbName, Integer page, Integer rows,
-			String source, String para, String sort, String order,
-			IQuery intercept, BladeController ctrl) {
+	@Override
+    public JqGrid<Map<String, Object>> paginate(String dbName, Integer page, Integer rows,
+                                                String source, String para, String sort, String order,
+                                                IQuery intercept, BladeController ctrl) {
 		
 		BladePage<Map<String, Object>> list = (BladePage<Map<String, Object>>) super.basePaginate(dbName, page, rows, source, para, sort, order, intercept, ctrl);
 

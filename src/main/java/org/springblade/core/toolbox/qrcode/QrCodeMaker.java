@@ -15,11 +15,6 @@
  */
 package org.springblade.core.toolbox.qrcode;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
-
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -28,10 +23,15 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import org.springblade.core.toolbox.kit.StrKit;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * QrCode 生成二维码
+ * @author jfinal
  */
-public class QRCodeMaker {
+public class QrCodeMaker {
 	
 	private HttpServletResponse response;
 	
@@ -46,8 +46,8 @@ public class QRCodeMaker {
 	 * @param width 二维码宽度
 	 * @param height 二维码高度
 	 */
-	public static QRCodeMaker init(HttpServletResponse response, String content, int width, int height) {
-		return new QRCodeMaker(response, content, width, height);
+	public static QrCodeMaker init(HttpServletResponse response, String content, int width, int height) {
+		return new QrCodeMaker(response, content, width, height);
 	}
 	
 	/**
@@ -62,40 +62,44 @@ public class QRCodeMaker {
 	 *
 	 *  使用的时候直接这样：ErrorCorrectionLevel.H
 	 */
-	public static QRCodeMaker init(HttpServletResponse response, String content, int width, int height, ErrorCorrectionLevel errorCorrectionLevel) {
-		return new QRCodeMaker(response, content, width, height, errorCorrectionLevel);
+	public static QrCodeMaker init(HttpServletResponse response, String content, int width, int height, ErrorCorrectionLevel errorCorrectionLevel) {
+		return new QrCodeMaker(response, content, width, height, errorCorrectionLevel);
 	}
 	
 	/**
 	 * 带有纠错级别参数的构造方法，纠错能力从高到低共有四个级别：'H'、'Q'、'M'、'L'
 	 */
-	public static QRCodeMaker init(HttpServletResponse response, String content, int width, int height, char errorCorrectionLevel) {
-		return new QRCodeMaker(response, content, width, height, errorCorrectionLevel);
+	public static QrCodeMaker init(HttpServletResponse response, String content, int width, int height, char errorCorrectionLevel) {
+		return new QrCodeMaker(response, content, width, height, errorCorrectionLevel);
 	}
 	
 
-	private QRCodeMaker(HttpServletResponse response, String content, int width, int height) {
+	private QrCodeMaker(HttpServletResponse response, String content, int width, int height) {
 		initialize(response, content, width, height, null);
 	}
 
 
-	private QRCodeMaker(HttpServletResponse response, String content, int width, int height, ErrorCorrectionLevel errorCorrectionLevel) {
+	private QrCodeMaker(HttpServletResponse response, String content, int width, int height, ErrorCorrectionLevel errorCorrectionLevel) {
 		initialize(response, content, width, height, errorCorrectionLevel);
 	}
 
 
-	private QRCodeMaker(HttpServletResponse response, String content, int width, int height, char errorCorrectionLevel) {
+	private QrCodeMaker(HttpServletResponse response, String content, int width, int height, char errorCorrectionLevel) {
 		initialize(response, content, width, height, errorCorrectionLevel);
 	}
 
 	private void initialize(HttpServletResponse response, String content, int width, int height, char errorCorrectionLevel) {
-		if (errorCorrectionLevel == 'H') {
+        char H = 'H';
+        char Q = 'Q';
+        char M = 'M';
+        char L = 'L';
+	    if (errorCorrectionLevel == H) {
 			initialize(response, content, width, height, ErrorCorrectionLevel.H);
-		} else if (errorCorrectionLevel == 'Q') {
+		} else if (errorCorrectionLevel == Q) {
 			initialize(response, content, width, height, ErrorCorrectionLevel.Q);
-		} else if (errorCorrectionLevel == 'M') {
+		} else if (errorCorrectionLevel == M) {
 			initialize(response, content, width, height, ErrorCorrectionLevel.M);
-		} else if (errorCorrectionLevel == 'L') {
+		} else if (errorCorrectionLevel == L) {
 			initialize(response, content, width, height, ErrorCorrectionLevel.L);
 		} else {
 			throw new IllegalArgumentException("errorCorrectionLevel 纠错级别参数值，从高到低必须为： 'H'、'Q'、'M'、'L'");
@@ -122,21 +126,23 @@ public class QRCodeMaker {
 		response.setDateHeader("Expires", 0);
 		response.setContentType("image/png");
 
-		Map<EncodeHintType, Object> hints = new HashMap<EncodeHintType, Object>();
+		Map<EncodeHintType, Object> hints = new HashMap<>(16);
 		hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
-		hints.put(EncodeHintType.MARGIN, 0);    //去掉白色边框，否则二维码周围的白边会很宽
+        /**
+         * 去掉白色边框，否则二维码周围的白边会很宽
+         */
+		hints.put(EncodeHintType.MARGIN, 0);
 		if (errorCorrectionLevel != null) {
 			hints.put(EncodeHintType.ERROR_CORRECTION, errorCorrectionLevel);
 		}
 		try {
 			// MultiFormatWriter 可支持多种格式的条形码，在此直接使用 QRCodeWriter，通过查看源码可知少创建一个对象
-			// BitMatrix bitMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height, hints);
 
 			QRCodeWriter writer = new QRCodeWriter();
 			BitMatrix bitMatrix = writer.encode(content, BarcodeFormat.QR_CODE, width, height, hints);
 
 			// 经测试 200 X 200 大小的二维码使用 "png" 格式只有 412B，而 "jpg" 却达到 15KB
-			MatrixToImageWriter.writeToStream(bitMatrix, "png", response.getOutputStream());    // format: "jpg"、"png"
+			MatrixToImageWriter.writeToStream(bitMatrix, "png", response.getOutputStream());
 		}catch (Exception e) {
 			throw new RuntimeException(e);
 		}

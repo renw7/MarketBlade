@@ -20,6 +20,7 @@ import org.springblade.core.toolbox.CMap;
 
 /**
  * 日志工厂
+ * @author zhuangqian
  */
 public class BladeLogManager {
 	private final static BladeLogManager me = new BladeLogManager();
@@ -58,7 +59,8 @@ public class BladeLogManager {
 	}
 
 	public static void doLog(String logName, String msg, boolean succeed) {
-		if (isDoLog())
-			me.defaultLogFactory.doLog(logName, msg, succeed);
+		if (isDoLog()) {
+            me.defaultLogFactory.doLog(logName, msg, succeed);
+        }
 	}
 }

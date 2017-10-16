@@ -1,5 +1,9 @@
 package org.springblade.core.toolbox.support;
 
+/**
+ * @author
+ * StreamProgresslooly
+ */
 public class StreamProgress {
 
 	public void start() {

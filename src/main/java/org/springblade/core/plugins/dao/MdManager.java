@@ -15,24 +15,24 @@
  */
 package org.springblade.core.plugins.dao;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.SQLResult;
 import org.beetl.sql.core.db.KeyHolder;
 import org.beetl.sql.core.engine.PageQuery;
-
 import org.springblade.core.beetl.BeetlTemplate;
 import org.springblade.core.toolbox.cache.CacheKit;
 import org.springblade.core.toolbox.cache.ILoader;
 import org.springblade.core.toolbox.grid.BladePage;
 import org.springblade.core.toolbox.kit.StrKit;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * beetlsql  MarkDown模式sql管理工具
+ * @author zhuangqian
  */
 public class MdManager {
 	private static Map<String, MdManager> pool = new ConcurrentHashMap<String, MdManager>();
@@ -40,7 +40,7 @@ public class MdManager {
 	private volatile SQLManager sql = null;
 	
 	public static MdManager init() {
-		return init(SQLManagerPlugin.init().MASTER);
+		return init(SqlManagerPlugin.init().MASTER);
 	}
 
 	public static MdManager init(String name) {
@@ -58,7 +58,7 @@ public class MdManager {
 	}
 	
 	private MdManager(String dbName) {
-		this.sql = SQLManagerPlugin.init().getSqlManagerPool().get(dbName);
+		this.sql = SqlManagerPlugin.init().getSqlManagerPool().get(dbName);
 	}
 
 	private MdManager() {}
@@ -66,7 +66,7 @@ public class MdManager {
 	private SQLManager getSqlManager() {
 		if (null == sql) {
 			synchronized (MdManager.class) {
-				sql = SQLManagerPlugin.init().getSqlManagerPool().get(SQLManagerPlugin.init().MASTER);
+				sql = SqlManagerPlugin.init().getSqlManagerPool().get(SqlManagerPlugin.init().MASTER);
 			}
 		}
 		return sql;
@@ -248,7 +248,7 @@ public class MdManager {
 	 * @return
 	 */
 	public <T> BladePage<T> paginate(String sqlId, Class<T> clazz, Object paras, int pageNum, int pageSize, String orderBy){
-		PageQuery<T> query = new PageQuery<T>();
+		PageQuery<T> query = new PageQuery<>();
 		query.setPageNumber(pageNum);
 		query.setPageSize(pageSize);
 		query.setParas(paras);
@@ -278,8 +278,9 @@ public class MdManager {
 	 * @return
 	 */
 	public KeyHolder insert(String sqlId, Object paras, String keyName) {
-		if (StrKit.isBlank(keyName))
-			return null;
+		if (StrKit.isBlank(keyName)) {
+            return null;
+        }
 		KeyHolder holder = new KeyHolder();
 		getSqlManager().insert(sqlId, paras, holder, keyName);
 		return (getSqlManager().insert(sqlId, paras, holder, keyName) > 0) ? holder : null;

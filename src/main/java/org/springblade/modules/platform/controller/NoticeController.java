@@ -15,6 +15,9 @@ import org.springblade.core.toolbox.kit.JsonKit;
 import org.springblade.modules.platform.model.Notice;
 import org.springblade.modules.platform.service.NoticeService;
 
+/**
+ * @author zhuangqian
+ */
 @Controller
 @RequestMapping("/notice")
 public class NoticeController extends BaseController {
@@ -84,12 +87,6 @@ public class NoticeController extends BaseController {
 	@RequestMapping(KEY_UPDATE)
 	public AjaxResult update() {
 		Notice notice = mapping(PREFIX, Notice.class);
-		//1.使用mapper
-		//NoticeMapper mapper = Md.getMapper(NoticeMapper.class);
-		//boolean temp = mapper.updateTemplateById(notice) > 0;
-		//2.使用sql模板
-		//boolean temp = Md.update("notice.update", notice) > 0;
-		//3.使用自动生成api
 		boolean temp = service.update(notice);
 		if (temp) {
 			return success(UPDATE_SUCCESS_MSG);
