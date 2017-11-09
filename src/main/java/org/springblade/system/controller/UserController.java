@@ -127,7 +127,7 @@ public class UserController extends BaseController implements ConstShiro {
 		User user = blade.findById(userId);
 		String salt = user.getSalt();
 		user.setPassword(ShiroKit.md5(password, salt));
-		user.setVersion(user.getVersion() + 1);
+        user.setVersion(((null == user.getVersion()) ? 0 : user.getVersion()) + 1);
 		boolean temp = blade.update(user);
 		if (temp) {
 			ShiroKit.clearCachedAuthenticationInfo(user.getAccount());
@@ -226,6 +226,7 @@ public class UserController extends BaseController implements ConstShiro {
 			user.setPassword(pwdMd5);
 			boolean temp = blade.update(user);
 			if(temp){
+                ShiroKit.clearCachedAuthenticationInfo(user.getAccount());
 				cnt++;
 			}
 		}
