@@ -44,7 +44,7 @@ jQuery.extend(jQuery.jgrid.defaults, {
         //CheckBox区域的td点击后不触发选中事件
 
         var flag = true
-        if (e.target.firstChild != undefined) {
+        if (e.target.firstChild != undefined || e.target.nodeName == "IMG") {
             /*
             //选择非CheckBox区域，禁止默认点击事件，调用该行对应的CheckBox的点击事件
             if(e.target.firstChild.className == undefined) {
