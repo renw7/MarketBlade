@@ -191,7 +191,7 @@
 					}
 					else if($x.is("span")){
 						var _x = _model[x];
-						if(_x == null || _x == ""){
+						if(_x === null || _x === ""){
 							_x = "请选择";
 						}
 						$x.html(_x);

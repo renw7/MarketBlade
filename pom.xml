@@ -18,7 +18,8 @@
 		<spring.version>4.3.12.RELEASE</spring.version>
 		<shiro.version>1.3.2</shiro.version>
 		<log4j2.version>2.7</log4j2.version>
-		<beetlsql.version>2.9.10</beetlsql.version>
+		<beetlsql.version>2.9.15</beetlsql.version>
+        <beetl.version>2.7.23</beetl.version>
 	</properties>
 
 	<dependencies>
@@ -51,6 +52,11 @@
             <version>${log4j2.version}</version>
         </dependency>
 		<!-- beetl -->
+        <dependency>
+            <groupId>com.ibeetl</groupId>
+            <artifactId>beetl</artifactId>
+            <version>${beetl.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>com.ibeetl</groupId>
 			<artifactId>beetlsql</artifactId>
@@ -183,7 +189,7 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>1.2.40</version>
+			<version>1.2.41</version>
 		</dependency>
 		
 		<!-- qrcode -->
