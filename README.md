@@ -1,262 +1,99 @@
-#SpringBlade java开发平台
-## 平台简介
-SpringBlade是基于多个优秀的开源项目，将各个亮点设计融于一体的快速开发平台。构建稳定的生态圈，对各大底层框架无代码侵入。
+## 简介
+SpringBlade 2.0 是一个基于 Spring Boot 2 & Spring Cloud Finchley & Mybatis 等核心技术，用于快速构建中大型系统的基础框架。
 
-## 鸣谢
-1.[JFinal](http://www.oschina.net/p/jfinal)
-2.[eova](http://www.oschina.net/p/eova)
-3.[hutool](http://www.oschina.net/p/hutool)
-4.[beetl](http://www.oschina.net/p/beetl)
-5.[beetlsql](http://www.oschina.net/p/beetlsql)
-6.[dreamlu](http://www.oschina.net/p/dreamlu)
-7.[kisso](http://www.oschina.net/p/kisso)
-8.[spring-shiro-training](https://git.oschina.net/wangzhixuan/spring-shiro-training)
+注意事项
+* 注册中心为 Consul 
+* 基于 SpringBoot2.x 版本 以及 SpringCloud Finchley 版本
 
-## 内置功能
+技术选型&文档
+* Spring Boot（[查看Spring Boot学习&使用指南](http://www.jianshu.com/p/1a9fd8936bd8)）
+* Spring Cloud（[查看Spring Cloud学习&使用指南](https://springcloud.cc/)）
+* Mybatis-Plus（[查看官方文档](https://mp.baomidou.com/guide/)）
+* JsonWebToken（[查看官方文档](https://jwt.io/)） 
 
-1.	用户管理
-2.	角色管理
-3.	菜单管理
-4.	字典管理
-5.	部门管理
-6.	附件管理
-7.	参数管理
-8.	连接池监视
-9.	日志管理
-10.	代码生成
-
-## 技术选型
-
-1、后端
-
-* 核心框架：Spring Framework
-* 安全框架：Apache Shiro
-* 视图框架：Spring MVC
-* 服务端验证：Blade Validator
-* 任务调度：Spring Task
-* 持久层框架：beetlsql
-* 模板引擎：beetl
-* 数据库连接池：Alibaba Druid
-* 缓存框架：Ehcache
-* 日志管理：SLF4J、LOGBACKUP
-* 工具类：Apache Commons、FastJson、EASYPOI、BladeToolBox
-
-2、前端
-
-* JS框架：jQuery
-* CSS框架：Twitter Bootstrap
-* 客户端验证：JQuery-html5Validate
-* 富文本：KindEcitor
-* 数据表格：jqGrid
-* 树结构控件：jQuery zTree
-* 弹出层：Layer
-* 日期控件： LayDate
-* 图表控件：echarts
-
-## 后台界面
-![后台界面](http://git.oschina.net/uploads/images/2016/1216/101843_390413c3_474499.png "后台界面")
-![后台界面](http://git.oschina.net/uploads/images/2016/1216/101859_f8602cd4_474499.png "后台界面")
-![后台界面](http://git.oschina.net/uploads/images/2016/1216/101906_23f5cac9_474499.png "后台界面")
-![后台界面](http://git.oschina.net/uploads/images/2016/1216/101918_2d2f2b09_474499.png "后台界面")
-![后台界面](http://git.oschina.net/uploads/images/2016/1216/101926_2fed83a4_474499.png "后台界面")
-![后台界面](http://git.oschina.net/uploads/images/2016/1216/101936_51942583_474499.png "后台界面")
-![后台界面](http://git.oschina.net/uploads/images/2016/1216/101944_17417a87_474499.png "后台界面")
-
-## 代码示例
-实体类
-```
-@Table(name = "notice")
-@BindID(name = "id")
-@SuppressWarnings("serial")
-public class Notice extends BaseModel {
-	private String id;
-	private Integer creater;
-	private String content;
-	private String title;
-	private Date createTime;
-
-	@AutoID
-	@SeqID(name = "SEQ_NOTICE")
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}	
-	.....................
-		
-}
+## 工程结构
+``` 
+bladex
+├── blade-auth -- 授权服务提供
+├── blade-common -- 常用工具封装包
+├── blade-gateway -- Spring Cloud 网关
+├── blade-ops -- 运维中心
+├    ├── blade-admin -- spring-cloud后台管理
+├    ├── blade-codegen -- 代码生成
+├    └── blade-config-server -- 配置中心
+├── blade-service -- 业务模块
+├    ├── blade-desk -- 工作台模块 
+├    ├── blade-log -- 日志模块 
+├    ├── blade-system -- 系统模块 
+├    └── blade-user -- 用户模块 
+├── blade-service-api -- 业务模块api封装
+├    ├── blade-desk-api -- 工作台api 
+├    ├── blade-dict-api -- 字典api 
+├    ├── blade-system-api -- 系统api 
+└──  └── blade-user-api -- 用户api 
 ```
 
- 新增
-```
-	@Json
-	@RequestMapping(KEY_SAVE)
-	public AjaxResult save() {
-		Notice notice = mapping(PREFIX, Notice.class);
-		boolean temp = Blade.create(Notice.class).save(notice);
-		if (temp) {
-			return success(SAVE_SUCCESS_MSG);
-		} else {
-			return error(SAVE_FAIL_MSG);
-		}
-	}
-```
+# 开源协议
+Apache Licence 2.0 （[英文原文](http://www.apache.org/licenses/LICENSE-2.0.html)）
 
- 修改
-```
-	@Json
-	@RequestMapping(KEY_UPDATE)
-	public AjaxResult update() {
-		Notice notice = mapping(PREFIX, Notice.class);
-		boolean temp = Blade.create(Notice.class).update(notice);
-		if (temp) {
-			return success(UPDATE_SUCCESS_MSG);
-		} else {
-			return error(UPDATE_FAIL_MSG);
-		}
-	}
-```
+Apache Licence是著名的非盈利开源组织Apache采用的协议。该协议和BSD类似，同样鼓励代码共享和尊重原作者的著作权，同样允许代码修改，再发布（作为开源或商业软件）。
 
- 删除
-```
-	@Json
-	@RequestMapping(KEY_REMOVE)
-	public AjaxResult remove(@RequestParam String ids) {
-		int cnt = Blade.create(Notice.class).deleteByIds(ids);
-		if (cnt > 0) {
-			return success(DEL_SUCCESS_MSG);
-		} else {
-			return error(DEL_FAIL_MSG);
-		}
-	}
-```
+需要满足的条件如下：
 
- 自定义sql查询,返回map
-```
-	List<Map> list = Db.selectList("select * form news where title = #{title}", CMap.init().set("title", "标题测试"));
-```
+* 需要给代码的用户一份Apache Licence
 
- 自定义sql查询,返回String(使用多数据源)
-```
-	String editor = Db.init("otherDb").queryStr("select editor form news where newsId = #{newsId}", CMap.init().set("newsId", 123));
-```
+* 如果你修改了代码，需要在被修改的文件中说明。
 
- 根据md文件的sql执行修改
-```
-	int cnt = Md.update("news.update", CMap.init().set("title", "标题测试").set("id", "1"));
-```
+* 在延伸的代码中（修改和有源代码衍生的代码中）需要带有原来代码中的协议，商标，专利声明和其他原来作者规定需要包含的说明。
 
- 根据条件修改
-```
-	boolean temp = Blade.create(News.class).updateBy("editor = #{editor}", "title = #{title}", CMap.init().set("title", "测试标题").set("editor", "编辑一"));
-```
+* 如果再发布的产品中包含一个Notice文件，则在Notice文件中需要带有Apache Licence。你可以在Notice中增加自己的许可，但不可以表现为对Apache Licence构成更改。
 
- 根据条件删除
-```
-	String ids = "1,2,3,4,5";
-	String[] idArr = ids.split(",");
-	int cnt = Blade.create(News.class).deleteBy("status in (#{join(ids)})", CMap.init().set("ids", idArr));
-```
+Apache Licence也是对商业应用友好的许可。使用者也可以在需要的时候修改代码来满足需要并作为开源或商业产品发布/销售。
 
-## 通用Service
-```
-	public interface NoticeService extends IService<Notice> {
-	
-	}
-	
-	
-	@Service
-	public class NoticeServiceImpl extends BaseService<Notice> implements NoticeService {
-	
-	}
+## 用户权益
+* 允许免费用于学习、毕设、公司项目、私活等。
+* 代码文件需保留相关license信息。
+
+## 禁止事项
+* 直接将本项目挂淘宝等商业平台出售。
+* 非界面代码50%以上相似度的二次开源，二次开源需先联系作者。
+
+注意：若禁止条款被发现有权追讨19999的授权费。
+
+## 如何启动
+* 开启consul，redis，mysql
+* fork ([bladex-config](https://gitee.com/smallc/bladex-config))项目，修改数据库等相关链接
+* 修改 `blade-config-server` 工程 `bootstrap.yml中config.server.git.uri` 的值为新fork项目的地址
+* 先启动 `blade-config-server`
+* 再依次启动其余模块
+
+## 技术文档
+* 即将发布，敬请期待
+
+## 注
+* SpringBlade前端UI项目地址：[Sword](https://gitee.com/smallc/Sword)
+* SpringBlade交流群：`477853168`
 
 
-	@Autowired
-	NoticeService service;
-
-	@Json
-	@RequestMapping(KEY_SAVE)
-	public AjaxResult save() {
-		Notice notice = mapping(PREFIX, Notice.class);
-		boolean temp = service.save(notice);
-		if (temp) {
-			return success(SAVE_SUCCESS_MSG);
-		} else {
-			return error(SAVE_FAIL_MSG);
-		}
-	}
-
-```
-
-## 分页
-```
-	@Json
-	@RequestMapping(KEY_LIST)
-	public Object list() {
-		Object grid = paginate(LIST_SOURCE, new IQuery() {
-			
-			@Override
-			public void queryBefore(AopContext ac) {
-				if (ShiroKit.lacksRole(ConstShiro.ADMINISTRATOR)) {
-					String condition = "and creater = #{creater}";
-					ac.setCondition(condition);
-					ac.getParam().put("creater", ShiroKit.getUser().getId());
-				}
-			}
-			
-			@Override
-			public void queryAfter(AopContext ac) {
-				@SuppressWarnings("unchecked")
-				BladePage<Map<String, Object>> page = (BladePage<Map<String, Object>>) ac.getObject();
-				List<Map<String, Object>> list = page.getRows();
-				for (Map<String, Object> map : list) {
-					map.put("createrName", SysCache.getDictName(102, map.get("creater")));
-				}
-			}
-		});
-		
-		return grid;
-	}
-```
-
-注：
-=======
-
-欢迎提出更好的意见, 大家共同进步  
-SpringBlade主要用于交流学习, 开源协议署名为smallchill的代码也可以进行商用
-但是如果因为商业用途引起的纠纷和造成的一切后果请自行承担
-登陆名密码：两个 admin
-
-SpringBlade交流群：`477853168`  主要给大家交流学习, 本人工作比较忙, 回复的少请见谅
-
-SpringBlade不搞捐赠, 不打广告, 只做最单纯的开源项目
-
-如果需要非maven版,请点击[SpringBlade](http://git.oschina.net/smallc/SpringBlade_General)
-
-常见问题
-=======
-##1.linux下登陆报未知错误
-发布在linux的小伙伴需要做如下操作：
-`vi /etc/my.cnf`
-在[mysqld]节点下增加`lower_case_table_names = 1`
-`:wq`
-`service mysqld restart`
-取消大小写敏感，就可以正常运行了
-
-##2.连接oracle报未知错误
-到resource文件夹下config.properties修改oracle链接，然后到resource/spring/applicationContext.xml找到
-```
-<property name="dbStyle">
-    <bean class="org.beetl.sql.core.db.MySqlStyle"></bean>
-</property>
-```
-将`MySqlStyle`改为`OracleStyle`
-
-##3.创建model后有没有自动生成javabean字段和sql的办法？
-有,访问如下两个地址：
-`localhost:8080/blade/generate/pojo/blade_menu`
-`localhost:8080/blade/generate/sql/org.springblade.system.model.Menu`
-查看控制台打印结果,按自己需求复制粘贴到model和md文件中
-
+# 界面一览
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-k8s.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-traefik.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-traefik-health.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-harbor.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-consul.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-consul-nodes1.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-consul-nodes2.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-admin1.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-admin2.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-swagger1.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-swagger2.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-main.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-menu.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-menu-edit.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-menu-icon.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-role.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-user.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-dict.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-locale-cn.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-locale-us.png "业务系统")
+![业务系统](https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-log.png "业务系统")
