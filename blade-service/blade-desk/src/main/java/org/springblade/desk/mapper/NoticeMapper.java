@@ -22,15 +22,15 @@ import org.springblade.desk.entity.Notice;
 import java.util.List;
 
 /**
- *  Mapper 接口
+ * Mapper 接口
  *
  * @author Chill
  * @since 2018-09-29
  */
 public interface NoticeMapper extends BaseMapper<Notice> {
 
-    List<Notice> topList(Integer number);
+	List<Notice> topList(Integer number);
 
-    List<Notice> selectNoticePage(IPage page, Notice notice);
+	List<Notice> selectNoticePage(IPage page, Notice notice);
 
 }

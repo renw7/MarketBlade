@@ -20,13 +20,17 @@ import org.springblade.core.launch.BladeApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.config.server.EnableConfigServer;
 
-
+/**
+ * 服务中心启动器
+ *
+ * @author Chill
+ */
 @EnableConfigServer
 @SpringBootApplication
 public class BladeConfigApplication {
 
 	public static void main(String[] args) {
-        BladeApplication.run(AppConstant.APPLICATION_CONFIG_NAME, BladeConfigApplication.class, args);
+		BladeApplication.run(AppConstant.APPLICATION_CONFIG_NAME, BladeConfigApplication.class, args);
 	}
 
 }

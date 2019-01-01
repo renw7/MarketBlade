@@ -66,9 +66,9 @@ public class CodeController extends BladeController {
 	 */
 	@GetMapping("/list")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="codeName", value = "模块名", paramType = "query", dataType = "string"),
-		@ApiImplicitParam(name="tableName", value = "表名", paramType = "query", dataType = "string"),
-		@ApiImplicitParam(name="modelName", value = "实体名", paramType = "query", dataType = "string")
+		@ApiImplicitParam(name = "codeName", value = "模块名", paramType = "query", dataType = "string"),
+		@ApiImplicitParam(name = "tableName", value = "表名", paramType = "query", dataType = "string"),
+		@ApiImplicitParam(name = "modelName", value = "实体名", paramType = "query", dataType = "string")
 	})
 	@ApiOperation(value = "分页", notes = "传入code", position = 2)
 	public R<IPage<CodeVO>> list(@ApiIgnore @RequestParam Map<String, Object> code, Query query) {

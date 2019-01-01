@@ -21,15 +21,17 @@ import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
- * 首页
+ * Desk启动器
+ *
+ * @author Chill
  */
 @SpringCloudApplication
 @EnableFeignClients(AppConstant.BASE_PACKAGES)
 public class DeskApplication {
 
-    public static void main(String[] args) {
-        BladeApplication.run(AppConstant.APPLICATION_DESK_NAME, DeskApplication.class, args);
-    }
+	public static void main(String[] args) {
+		BladeApplication.run(AppConstant.APPLICATION_DESK_NAME, DeskApplication.class, args);
+	}
 
 }
 

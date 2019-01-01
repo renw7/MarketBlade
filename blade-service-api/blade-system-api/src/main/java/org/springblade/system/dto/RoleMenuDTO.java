@@ -28,6 +28,6 @@ import org.springblade.system.entity.RoleMenu;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class RoleMenuDTO extends RoleMenu {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 }

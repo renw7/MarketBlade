@@ -25,17 +25,22 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
+/**
+ * Notice Feign
+ *
+ * @author Chill
+ */
 @ApiIgnore()
 @RestController
 @AllArgsConstructor
 public class NoticeClient implements INoticeClient {
 
-    NoticeMapper mapper;
+	NoticeMapper mapper;
 
-    @Override
+	@Override
 	@GetMapping(API_PREFIX + "/top")
 	public R<List<Notice>> top(Integer number) {
-        return R.data(mapper.topList(number));
-    }
+		return R.data(mapper.topList(number));
+	}
 
 }

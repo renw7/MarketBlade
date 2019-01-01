@@ -22,7 +22,7 @@ import org.springblade.core.log.service.ILogApiService;
 import org.springframework.stereotype.Service;
 
 /**
- *  服务实现类
+ * 服务实现类
  *
  * @author Chill
  */

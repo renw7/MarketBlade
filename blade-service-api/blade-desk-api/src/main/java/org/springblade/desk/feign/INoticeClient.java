@@ -25,21 +25,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 /**
- *  Feign接口类
+ * Notice Feign接口类
+ *
+ * @author Chill
  */
 @FeignClient(
-        value = AppConstant.APPLICATION_DESK_NAME
+	value = AppConstant.APPLICATION_DESK_NAME
 )
 public interface INoticeClient {
 
-    String API_PREFIX = "/dashboard";
+	String API_PREFIX = "/dashboard";
 
-    /**
-     * 获取notice列表
-     * @param number
-     * @return
-     */
+	/**
+	 * 获取notice列表
+	 *
+	 * @param number
+	 * @return
+	 */
 	@GetMapping(API_PREFIX + "/top")
-    R<List<Notice>> top(@RequestParam("number") Integer number);
+	R<List<Notice>> top(@RequestParam("number") Integer number);
 
 }

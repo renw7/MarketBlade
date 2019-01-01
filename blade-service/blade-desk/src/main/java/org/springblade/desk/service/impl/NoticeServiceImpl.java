@@ -23,7 +23,7 @@ import org.springblade.desk.service.INoticeService;
 import org.springframework.stereotype.Service;
 
 /**
- *  服务实现类
+ * 服务实现类
  *
  * @author Chill
  * @since 2018-09-29
@@ -31,9 +31,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class NoticeServiceImpl extends BaseServiceImpl<NoticeMapper, Notice> implements INoticeService {
 
-    @Override
-    public IPage<Notice> selectNoticePage(IPage<Notice> page, Notice notice) {
-        return page.setRecords(baseMapper.selectNoticePage(page, notice));
-    }
+	@Override
+	public IPage<Notice> selectNoticePage(IPage<Notice> page, Notice notice) {
+		return page.setRecords(baseMapper.selectNoticePage(page, notice));
+	}
 
 }

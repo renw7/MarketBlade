@@ -23,7 +23,7 @@ import org.springblade.core.mp.base.BaseEntity;
 import java.time.LocalDateTime;
 
 /**
- *  实体类
+ * 实体类
  *
  * @author Chill
  */
@@ -32,48 +32,48 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class User extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * 账号
-     */
-    private String account;
-    /**
-     * 密码
-     */
-    private String password;
-    /**
-     * 昵称
-     */
-    private String name;
-    /**
-     * 真名
-     */
-    private String realName;
-    /**
-     * 邮箱
-     */
-    private String email;
-    /**
-     * 手机
-     */
-    private String phone;
-    /**
-     * 生日
-     */
-    private LocalDateTime birthday;
-    /**
-     * 性别
-     */
-    private Integer sex;
-    /**
-     * 角色id
-     */
-    private String roleId;
-    /**
-     * 部门id
-     */
-    private String deptId;
+	/**
+	 * 账号
+	 */
+	private String account;
+	/**
+	 * 密码
+	 */
+	private String password;
+	/**
+	 * 昵称
+	 */
+	private String name;
+	/**
+	 * 真名
+	 */
+	private String realName;
+	/**
+	 * 邮箱
+	 */
+	private String email;
+	/**
+	 * 手机
+	 */
+	private String phone;
+	/**
+	 * 生日
+	 */
+	private LocalDateTime birthday;
+	/**
+	 * 性别
+	 */
+	private Integer sex;
+	/**
+	 * 角色id
+	 */
+	private String roleId;
+	/**
+	 * 部门id
+	 */
+	private String deptId;
 
 
 }

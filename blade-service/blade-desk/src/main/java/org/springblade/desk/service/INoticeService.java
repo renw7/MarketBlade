@@ -20,7 +20,7 @@ import org.springblade.core.mp.base.BaseService;
 import org.springblade.desk.entity.Notice;
 
 /**
- *  服务类
+ * 服务类
  *
  * @author Chill
  * @since 2018-09-29

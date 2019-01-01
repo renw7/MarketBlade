@@ -20,13 +20,17 @@ import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.launch.BladeApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
+/**
+ * admin启动器
+ *
+ * @author Chill
+ */
 @EnableAdminServer
 @SpringBootApplication
 public class BladeAdminApplication {
 
 	public static void main(String[] args) {
-        BladeApplication.run(AppConstant.APPLICATION_ADMIN_NAME, BladeAdminApplication.class, args);
+		BladeApplication.run(AppConstant.APPLICATION_ADMIN_NAME, BladeAdminApplication.class, args);
 	}
 
 }

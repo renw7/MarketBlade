@@ -13,7 +13,7 @@ SpringBlade 2.0 是一个基于 Spring Boot 2 & Spring Cloud Finchley & Mybatis 
 
 ## 工程结构
 ``` 
-bladex
+SpringBlade
 ├── blade-auth -- 授权服务提供
 ├── blade-common -- 常用工具封装包
 ├── blade-gateway -- Spring Cloud 网关

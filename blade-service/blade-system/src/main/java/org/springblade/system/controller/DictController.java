@@ -63,8 +63,8 @@ public class DictController extends BladeController {
 	 */
 	@GetMapping("/list")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="code", value = "字典编号", paramType = "query", dataType = "string"),
-		@ApiImplicitParam(name="dictValue", value = "字典名称", paramType = "query", dataType = "string")
+		@ApiImplicitParam(name = "code", value = "字典编号", paramType = "query", dataType = "string"),
+		@ApiImplicitParam(name = "dictValue", value = "字典名称", paramType = "query", dataType = "string")
 	})
 	@ApiOperation(value = "列表", notes = "传入dict", position = 2)
 	public R<List<INode>> list(@ApiIgnore @RequestParam Map<String, Object> dict) {

@@ -30,6 +30,6 @@ import org.springblade.system.entity.Code;
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "CodeVO对象", description = "CodeVO对象")
 public class CodeVO extends Code {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 }

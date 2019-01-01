@@ -28,6 +28,6 @@ import org.springblade.system.entity.Dict;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class DictDTO extends Dict {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 }

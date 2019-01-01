@@ -27,11 +27,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class RegistryConfiguration implements WebMvcConfigurer {
 
-    @Bean
-    public SecureRegistry secureRegistry() {
-        SecureRegistry secureRegistry = new SecureRegistry();
-        secureRegistry.excludePathPatterns("/token/**");
-        return secureRegistry;
-    }
+	@Bean
+	public SecureRegistry secureRegistry() {
+		SecureRegistry secureRegistry = new SecureRegistry();
+		secureRegistry.excludePathPatterns("/token/**");
+		return secureRegistry;
+	}
 
 }

@@ -28,6 +28,6 @@ import org.springblade.system.entity.Code;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class CodeDTO extends Code {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 }

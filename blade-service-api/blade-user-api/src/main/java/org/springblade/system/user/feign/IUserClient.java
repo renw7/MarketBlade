@@ -24,21 +24,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- *  Feign接口类
+ * User Feign接口类
+ * @author Chill
  */
 @FeignClient(
-        value = AppConstant.APPLICATION_USER_NAME
+	value = AppConstant.APPLICATION_USER_NAME
 )
 public interface IUserClient {
 
-    String API_PREFIX = "/user";
+	String API_PREFIX = "/user";
 
-    /**
-     * 获取用户信息
-     * @param account  账号
-     * @param password 密码
-     * @return
-     */
+	/**
+	 * 获取用户信息
+	 *
+	 * @param account  账号
+	 * @param password 密码
+	 * @return
+	 */
 	@GetMapping(API_PREFIX + "/userInfo")
 	R<UserInfo> userInfo(@RequestParam("account") String account, @RequestParam("password") String password);
 

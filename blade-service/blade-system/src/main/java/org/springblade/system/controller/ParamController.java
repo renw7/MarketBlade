@@ -66,9 +66,9 @@ public class ParamController extends BladeController {
 	 */
 	@GetMapping("/list")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="paramName", value = "参数名称", paramType = "query", dataType = "string"),
-		@ApiImplicitParam(name="paramKey", value = "参数键名", paramType = "query", dataType = "string"),
-		@ApiImplicitParam(name="paramValue", value = "参数键值", paramType = "query", dataType = "string")
+		@ApiImplicitParam(name = "paramName", value = "参数名称", paramType = "query", dataType = "string"),
+		@ApiImplicitParam(name = "paramKey", value = "参数键名", paramType = "query", dataType = "string"),
+		@ApiImplicitParam(name = "paramValue", value = "参数键值", paramType = "query", dataType = "string")
 	})
 	@ApiOperation(value = "分页", notes = "传入param", position = 2)
 	public R<IPage<ParamVO>> list(@ApiIgnore @RequestParam Map<String, Object> param, Query query) {

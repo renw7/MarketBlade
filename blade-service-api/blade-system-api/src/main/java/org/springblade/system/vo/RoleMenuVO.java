@@ -30,6 +30,6 @@ import org.springblade.system.entity.RoleMenu;
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "RoleMenuVO对象", description = "RoleMenuVO对象")
 public class RoleMenuVO extends RoleMenu {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 }

@@ -28,6 +28,6 @@ import org.springblade.system.entity.Menu;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class MenuDTO extends Menu {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 }

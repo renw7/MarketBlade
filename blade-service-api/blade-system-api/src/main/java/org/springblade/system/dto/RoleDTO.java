@@ -28,6 +28,6 @@ import org.springblade.system.entity.Role;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class RoleDTO extends Role {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 }

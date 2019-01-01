@@ -20,6 +20,11 @@ import org.springblade.system.entity.Dict;
 
 import java.util.List;
 
+/**
+ * Feign失败配置
+ *
+ * @author Chill
+ */
 public class IDictClientFallback implements IDictClient {
 	@Override
 	public R<String> getValue(String code, Integer dictKey) {

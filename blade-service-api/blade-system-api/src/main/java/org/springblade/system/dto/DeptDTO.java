@@ -28,6 +28,6 @@ import org.springblade.system.entity.Dept;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class DeptDTO extends Dept {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 }

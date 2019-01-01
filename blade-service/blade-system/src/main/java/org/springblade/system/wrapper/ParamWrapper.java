@@ -29,20 +29,13 @@ import org.springblade.system.vo.ParamVO;
  * @since 2018-12-28
  */
 @AllArgsConstructor
-public class ParamWrapper extends BaseEntityWrapper<Param, ParamVO>  {
+public class ParamWrapper extends BaseEntityWrapper<Param, ParamVO> {
 
 	private IDictClient dictClient;
 
 	@Override
 	public ParamVO entityVO(Param param) {
 		ParamVO paramVO = BeanUtil.copy(param, ParamVO.class);
-
-		/*R<String> dict = dictClient.getValue("param" , paramVO.getCategory());
-		if (dict.isSuccess()) {
-			String categoryName = dict.getData();
-			paramVO.setCategoryName(categoryName);
-		}*/
-
 		return paramVO;
 	}
 
