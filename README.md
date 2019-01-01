@@ -72,6 +72,7 @@ Apache Licence也是对商业应用友好的许可。使用者也可以在需要
 
 ## 注
 * SpringBlade前端UI项目地址：[Sword](https://gitee.com/smallc/Sword)
+* SpringBlade核心框架项目地址：[Blade-Tool](https://github.com/chillzhuang/blade-tool.git)
 * SpringBlade交流群：`477853168`
 
 
