@@ -15,14 +15,17 @@
 ## 主要特性&&变化
 * 采用前后端分离的模式，前端单独开源出一个框架：[Sword](https://gitee.com/smallc/Sword)，主要选型技术为React、Ant Design、Umi、Dva
 * 后端采用SpringCloud全家桶，并同时对其基础组件做了高度的封装，单独开源出一个框架：[Blade-Tool](https://github.com/chillzhuang/blade-tool.git)
-* [Blade-Tool](https://github.com/chillzhuang/blade-tool.git)已推送至maven中央库，直接引入即可，减少了工程的臃肿，也可更注重于业务开发
+* [Blade-Tool](https://github.com/chillzhuang/blade-tool.git)已推送至Maven中央库，直接引入即可，减少了工程的臃肿，也可更注重于业务开发
 * 注册中心选型Consul
-* 部署使用docker或k8s + Jenkins
-* 使用traefik进行反向代理
-* 踩了踩kong的坑，有个基本的使用方案，但不深入，因为涉及到OpenResty。
-* 封装了简单的secure模块，采用JWT做token认证，可拓展集成redis等细颗粒度控制方案
+* 部署使用Docker或K8s + Jenkins
+* 使用Traefik进行反向代理
+* 踩了踩Kong的坑，有个基本的使用方案，但不深入，因为涉及到OpenResty。
+* 封装了简单的Secure模块，采用JWT做Token认证，可拓展集成Redis等细颗粒度控制方案
 * 在2.0诞生之前，已经稳定生产了近一年，经历了从Camden -> Finchley的技术架构，也经历了从fat jar -> docker -> k8s + jenkins的部署架构
 * 项目分包明确，规范微服务的开发模式，使包与包之间的分工清晰。
+
+## 技术文档
+* 即将发布，敬请期待
 
 ## 工程结构
 ``` 
@@ -81,9 +84,6 @@ Apache Licence也是对商业应用友好的许可。使用者也可以在需要
 * 先启动 `blade-config-server`
 * 再依次启动其余模块
 
-## 技术文档
-* 即将发布，敬请期待
-
 ## 注
 * SpringBlade前端UI项目地址：[Sword](https://gitee.com/smallc/Sword)
 * SpringBlade核心框架项目地址：[Blade-Tool](https://github.com/chillzhuang/blade-tool.git)
@@ -93,43 +93,43 @@ Apache Licence也是对商业应用友好的许可。使用者也可以在需要
 # 界面一览
 <table>
     <tr>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-k8s.png"/></td>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-harbor.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-k8s.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-harbor.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-traefik.png"/></td>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-traefik-health.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-traefik.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-traefik-health.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-consul.png"/></td>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-consul-nodes1.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-consul.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-consul-nodes1.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-admin1.png"/></td>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-admin2.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-admin1.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-admin2.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-swagger1.png"/></td>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/springblade-swagger2.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-swagger1.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-swagger2.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-main.png"/></td>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-menu.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-main.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-menu.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-menu-edit.png"/></td>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-menu-icon.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-menu-edit.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-menu-icon.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-role.png"/></td>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-user.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-role.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-user.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-dict.png "/></td>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-log.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-dict.png "/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-log.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-locale-cn.png"/></td>
-        <td><img src="https://raw.githubusercontent.com/chillzhuang/blade-tool/master/pic/sword-locale-us.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-locale-cn.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-locale-us.png"/></td>
     </tr>
 </table>
