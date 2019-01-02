@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 #set($dtoPackage=$package.Entity.replace("entity","dto"))
-package ${dtoPackage};
+package $!{dtoPackage};
 
-import ${package.Entity}.${entity};
-#if(${entityLombokModel})
+import $!{package.Entity}.$!{entity};
+#if($!{entityLombokModel})
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 #end
@@ -25,14 +25,14 @@ import lombok.EqualsAndHashCode;
 /**
  * $!{table.comment}数据传输对象实体类
  *
- * @author ${author}
- * @since ${date}
+ * @author $!{author}
+ * @since $!{date}
  */
-#if(${entityLombokModel})
+#if($!{entityLombokModel})
 @Data
 @EqualsAndHashCode(callSuper = true)
 #end
-public class ${entity}DTO extends ${entity} {
-    private static final long serialVersionUID = 1L;
+public class $!{entity}DTO extends $!{entity} {
+	private static final long serialVersionUID = 1L;
 
 }

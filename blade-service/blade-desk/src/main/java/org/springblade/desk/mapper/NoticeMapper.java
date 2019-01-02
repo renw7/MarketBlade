@@ -29,8 +29,19 @@ import java.util.List;
  */
 public interface NoticeMapper extends BaseMapper<Notice> {
 
+	/**
+	 * 前N条数据
+	 * @param number
+	 * @return
+	 */
 	List<Notice> topList(Integer number);
 
+	/**
+	 * 自定义分页
+	 * @param page
+	 * @param notice
+	 * @return
+	 */
 	List<Notice> selectNoticePage(IPage page, Notice notice);
 
 }

@@ -30,6 +30,12 @@ import java.util.List;
  */
 public interface RoleMenuMapper extends BaseMapper<RoleMenu> {
 
+	/**
+	 * 自定义分页
+	 * @param page
+	 * @param roleMenu
+	 * @return
+	 */
 	List<RoleMenuVO> selectRoleMenuPage(IPage page, RoleMenuVO roleMenu);
 
 }

@@ -36,13 +36,6 @@ public class RoleMenuWrapper extends BaseEntityWrapper<RoleMenu, RoleMenuVO> {
 	@Override
 	public RoleMenuVO entityVO(RoleMenu roleMenu) {
 		RoleMenuVO roleMenuVO = BeanUtil.copy(roleMenu, RoleMenuVO.class);
-
-        /*R<String> dict = dictClient.getList("roleMenu" , Func.toStr(roleMenuVO.getCategory()));
-		if (dict.isSuccess()) {
-			String categoryName = dict.getData();
-			roleMenuVO.setCategoryName(categoryName);
-		}*/
-
 		return roleMenuVO;
 	}
 

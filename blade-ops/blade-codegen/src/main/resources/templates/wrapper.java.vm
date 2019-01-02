@@ -14,38 +14,38 @@
  * limitations under the License.
  */
 #set($wrapperPackage=$package.Entity.replace("entity","wrapper"))
-package ${wrapperPackage};
+package $!{wrapperPackage};
 
 import lombok.AllArgsConstructor;
 import org.springblade.core.mp.support.BaseEntityWrapper;
 import org.springblade.core.tool.utils.BeanUtil;
 import org.springblade.system.feign.IDictClient;
-import ${package.Entity}.${entity};
+import $!{package.Entity}.$!{entity};
 #set($voPackage=$package.Entity.replace("entity","vo"))
-import ${voPackage}.${entity}VO;
+import $!{voPackage}.$!{entity}VO;
 
 /**
  * $!{table.comment}包装类,返回视图层所需的字段
  *
- * @author ${author}
- * @since ${date}
+ * @author $!{author}
+ * @since $!{date}
  */
 @AllArgsConstructor
-public class ${entity}Wrapper extends BaseEntityWrapper<${entity}, ${entity}VO>  {
+public class $!{entity}Wrapper extends BaseEntityWrapper<$!{entity}, $!{entity}VO>  {
 
 	private IDictClient dictClient;
 
 	@Override
-	public ${entity}VO entityVO(${entity} ${table.entityPath}) {
-		${entity}VO ${table.entityPath}VO = BeanUtil.copy(${table.entityPath}, ${entity}VO.class);
+	public $!{entity}VO entityVO($!{entity} $!{table.entityPath}) {
+		$!{entity}VO $!{table.entityPath}VO = BeanUtil.copy($!{table.entityPath}, $!{entity}VO.class);
 
-		/*R<String> dict = dictClient.getValue("${table.entityPath}" , ${table.entityPath}VO.getCategory());
+		/*R<String> dict = dictClient.getValue("$!{table.entityPath}" , $!{table.entityPath}VO.getCategory());
 		if (dict.isSuccess()) {
 			String categoryName = dict.getData();
-			${table.entityPath}VO.setCategoryName(categoryName);
+			$!{table.entityPath}VO.setCategoryName(categoryName);
 		}*/
 
-		return ${table.entityPath}VO;
+		return $!{table.entityPath}VO;
 	}
 
 }

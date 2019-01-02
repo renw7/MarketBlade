@@ -23,6 +23,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * secure模块api放行配置
+ *
+ * @author Chill
  */
 @Configuration
 public class RegistryConfiguration implements WebMvcConfigurer {

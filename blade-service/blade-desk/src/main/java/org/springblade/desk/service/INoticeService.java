@@ -27,6 +27,12 @@ import org.springblade.desk.entity.Notice;
  */
 public interface INoticeService extends BaseService<Notice> {
 
+	/**
+	 * 自定义分页
+	 * @param page
+	 * @param notice
+	 * @return
+	 */
 	IPage<Notice> selectNoticePage(IPage<Notice> page, Notice notice);
 
 }
