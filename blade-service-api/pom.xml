@@ -19,7 +19,7 @@
         <module>blade-desk-api</module>
         <module>blade-dict-api</module>
         <module>blade-system-api</module>
-		<module>blade-user-api</module>
+        <module>blade-user-api</module>
     </modules>
 
     <dependencies>
@@ -63,7 +63,7 @@
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-				<version>${docker.plugin.version}</version>
+                <version>${docker.plugin.version}</version>
                 <configuration>
                     <skipDockerBuild>true</skipDockerBuild>
                 </configuration>

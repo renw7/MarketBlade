@@ -15,6 +15,6 @@
         <module>blade-admin</module>
         <module>blade-codegen</module>
         <module>blade-config-server</module>
-	</modules>
+    </modules>
 
 </project>
