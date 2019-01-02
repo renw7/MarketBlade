@@ -75,7 +75,7 @@ Apache Licence也是对商业应用友好的许可。使用者也可以在需要
 
 ## 如何启动
 * 安装Lombok Plugin、idea可选装MyBatisX
-* 开启consul，redis，mysql
+* [开启consul](https://gitee.com/smallc/SpringBlade/blob/master/doc/consul/consul.md)，redis，mysql
 * fork ([bladex-config](https://gitee.com/smallc/bladex-config))项目，修改数据库等相关链接
 * 修改 `blade-config-server` 工程 `bootstrap.yml中config.server.git.uri` 的值为新fork项目的地址
 * 先启动 `blade-config-server`
