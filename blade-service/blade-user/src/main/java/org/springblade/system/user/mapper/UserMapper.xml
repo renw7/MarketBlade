@@ -45,7 +45,7 @@
         FROM
             blade_user
         WHERE
-            account = #{account} AND password = #{password}
+            account = #{param1} AND password = #{param2}
     </select>
 
     <select id="getRoleName" resultType="java.lang.String">
