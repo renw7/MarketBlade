@@ -1,5 +1,6 @@
 ## 简介
-SpringBlade 2.0 是一个基于 Spring Boot 2 & Spring Cloud Finchley & Mybatis 等核心技术，用于快速构建中大型系统的基础框架。
+* SpringBlade 2.0 是如梦技术团队作品，是一个基于 Spring Boot 2 & Spring Cloud Finchley & Mybatis 等核心技术，用于快速构建中大型系统的基础框架。
+* SpringBlade 致力于创造新颖的开发模式，将开发中遇到的痛点、生产中所踩的坑整理归纳，并将解决方案都融合到框架中。
 
 注意事项
 * 注册中心为 Consul 
@@ -10,6 +11,18 @@ SpringBlade 2.0 是一个基于 Spring Boot 2 & Spring Cloud Finchley & Mybatis 
 * Spring Cloud（[查看Spring Cloud学习&使用指南](https://springcloud.cc/)）
 * Mybatis-Plus（[查看官方文档](https://mp.baomidou.com/guide/)）
 * JsonWebToken（[查看官方文档](https://jwt.io/)） 
+
+## 主要特性&&变化
+* 采用前后端分离的模式，前端单独开源出一个框架：[Sword](https://gitee.com/smallc/Sword)，主要选型技术为React、Ant Design、Umi、Dva
+* 后端采用SpringCloud全家桶，并同时对其基础组件做了高度的封装，单独开源出一个框架：[Blade-Tool](https://github.com/chillzhuang/blade-tool.git)
+* [Blade-Tool](https://github.com/chillzhuang/blade-tool.git)已推送至maven中央库，直接引入即可，减少了工程的臃肿，也可更注重于业务开发
+* 注册中心选型Consul
+* 部署使用docker或k8s + Jenkins
+* 使用traefik进行反向代理
+* 踩了踩kong的坑，有个基本的使用方案，但不深入，因为涉及到OpenResty。
+* 封装了简单的secure模块，采用JWT做token认证，可拓展集成redis等细颗粒度控制方案
+* 在2.0诞生之前，已经稳定生产了近一年，经历了从Camden -> Finchley的技术架构，也经历了从fat jar -> docker -> k8s + jenkins的部署架构
+* 项目分包明确，规范微服务的开发模式，使包与包之间的分工清晰。
 
 ## 工程结构
 ``` 
@@ -61,6 +74,7 @@ Apache Licence也是对商业应用友好的许可。使用者也可以在需要
 注意：若禁止条款被发现有权追讨19999的授权费。
 
 ## 如何启动
+* 安装Lombok Plugin、idea可选装MyBatisX
 * 开启consul，redis，mysql
 * fork ([bladex-config](https://gitee.com/smallc/bladex-config))项目，修改数据库等相关链接
 * 修改 `blade-config-server` 工程 `bootstrap.yml中config.server.git.uri` 的值为新fork项目的地址
