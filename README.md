@@ -93,7 +93,11 @@ Apache Licence也是对商业应用友好的许可。使用者也可以在需要
 # 界面一览
 <table>
     <tr>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-k8s.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-k8s1.png"/></td>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-k8s2.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-grafana.png"/></td>
         <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-harbor.png"/></td>
     </tr>
     <tr>

@@ -17,8 +17,6 @@ package org.springblade.common.config;
 
 
 import lombok.AllArgsConstructor;
-import org.springblade.common.tool.DictUtil;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -29,10 +27,5 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @AllArgsConstructor
 public class BladeCommonConfiguration {
-
-	@Bean
-	public DictUtil dictUtil() {
-		return new DictUtil();
-	}
 
 }

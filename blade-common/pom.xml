@@ -14,6 +14,14 @@
     <version>${blade.project.version}</version>
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-launch</artifactId>
+            <version>${blade.tool.version}</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
