@@ -25,7 +25,7 @@
 * 项目分包明确，规范微服务的开发模式，使包与包之间的分工清晰。
 
 ## 技术文档
-* 即将发布，敬请期待
+* [SpringBlade开发手册](https://gitee.com/smallc/SpringBlade/wikis/SpringBlade开发手册)
 
 ## 工程结构
 ``` 
