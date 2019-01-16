@@ -55,7 +55,7 @@ public class AuthController {
 							 @ApiParam(value = "密码", required = true) @RequestParam String password) {
 
 		if (Func.hasEmpty(account, password)) {
-			return R.failure("接口调用不合法");
+			return R.fail("接口调用不合法");
 		}
 
 		R<UserInfo> res = client.userInfo(account, DigestUtil.encrypt(password));
@@ -64,11 +64,11 @@ public class AuthController {
 
 		//验证用户
 		if (user == null) {
-			return R.failure("用户名或密码不正确");
+			return R.fail("用户名或密码不正确");
 		} else {
 			String digestPassword = DigestUtil.encrypt(password);
 			if (!StringUtil.equalsIgnoreCase(Func.toStr(user.getPassword()), digestPassword)) {
-				return R.failure("用户名或密码不正确");
+				return R.fail("用户名或密码不正确");
 			}
 		}
 

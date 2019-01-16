@@ -25,12 +25,33 @@ import org.springblade.support.BladeGenerator;
  */
 public class CodeGenerator {
 
-	public static String PACKAGE_NAME = "org.springblade.system";
+	/**
+	 * 代码生成的包名
+	 */
+	public static String PACKAGE_NAME = "org.springblade.demo";
+	/**
+	 * 代码生成的地址
+	 */
 	public static String PACKAGE_DIR = "/blade-ops/blade-codegen/src/main/java";
+	/**
+	 * 需要去掉的表前缀
+	 */
 	public static String[] TABLE_PREFIX = {"blade_"};
-	public static String[] INCLUDE_TABLES = {"blade_param"};
+	/**
+	 * 需要生成的表名(两者只能取其一)
+	 */
+	public static String[] INCLUDE_TABLES = {"blade_blog"};
+	/**
+	 * 需要排除的表名(两者只能取其一)
+	 */
 	public static String[] EXCLUDE_TABLES = {};
-	public static Boolean HAS_SUPER_ENTITY = Boolean.TRUE;
+	/**
+	 * 是否包含基础业务字段
+	 */
+	public static Boolean HAS_SUPER_ENTITY = Boolean.FALSE;
+	/**
+	 * 基础业务字段
+	 */
 	public static String[] SUPER_ENTITY_COLUNMS = {"id", "create_time", "create_user", "update_time", "update_user", "status", "is_deleted"};
 
 	/**

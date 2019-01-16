@@ -28,11 +28,11 @@ import java.util.List;
 public class IDictClientFallback implements IDictClient {
 	@Override
 	public R<String> getValue(String code, Integer dictKey) {
-		return R.failure("获取数据失败");
+		return R.fail("获取数据失败");
 	}
 
 	@Override
 	public R<List<Dict>> getList(String code) {
-		return R.failure("获取数据失败");
+		return R.fail("获取数据失败");
 	}
 }
