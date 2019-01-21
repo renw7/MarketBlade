@@ -13,28 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.system.service;
+package org.springblade.develop;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
-import org.springblade.system.entity.Code;
-import org.springblade.system.vo.CodeVO;
+import org.springblade.core.launch.BladeApplication;
+import org.springblade.core.launch.constant.AppConstant;
+import org.springframework.cloud.client.SpringCloudApplication;
 
 /**
- * 服务类
+ * Develop启动器
  *
  * @author Chill
- * @since 2018-12-24
  */
-public interface ICodeService extends IService<Code> {
+@SpringCloudApplication
+public class DevelopApplication {
 
-	/**
-	 * 自定义分页
-	 *
-	 * @param page
-	 * @param code
-	 * @return
-	 */
-	IPage<CodeVO> selectCodePage(IPage<CodeVO> page, CodeVO code);
+	public static void main(String[] args) {
+		BladeApplication.run(AppConstant.APPLICATION_DEVELOP_NAME, DevelopApplication.class, args);
+	}
 
 }
+

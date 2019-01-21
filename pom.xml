@@ -5,20 +5,21 @@
 
     <groupId>org.springblade</groupId>
     <artifactId>SpringBlade</artifactId>
-    <version>2.0.0-RC2</version>
+    <version>2.0.0-RC3</version>
     <packaging>pom</packaging>
 
     <properties>
-        <blade.tool.version>1.0.0-RC4</blade.tool.version>
-        <blade.project.version>2.0.0-RC2</blade.project.version>
+        <blade.tool.version>1.0.0-RC6</blade.tool.version>
+        <blade.project.version>2.0.0-RC3</blade.project.version>
 
         <java.version>1.8</java.version>
         <swagger.version>2.9.2</swagger.version>
         <swagger.models.version>1.5.21</swagger.models.version>
         <swagger.bootstrapui.version>1.8.8</swagger.bootstrapui.version>
-        <mybatis.plus.version>3.0.6</mybatis.plus.version>
+        <mybatis.plus.version>3.0.7.1</mybatis.plus.version>
         <curator.framework.version>4.0.1</curator.framework.version>
         <protostuff.version>1.6.0</protostuff.version>
+        <mica.auto.version>1.0.0</mica.auto.version>
         <spring.boot.admin.version>2.0.2</spring.boot.admin.version>
 
         <spring.boot.version>2.0.7.RELEASE</spring.boot.version>
@@ -68,45 +69,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
-            <version>${spring.boot.admin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-        </dependency>
-        <!--<dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId>
-        </dependency>-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-consul-discovery</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.retry</groupId>
-            <artifactId>spring-retry</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
@@ -119,7 +81,8 @@
         <dependency>
             <groupId>net.dreamlu</groupId>
             <artifactId>mica-auto</artifactId>
-            <version>0.0.1</version>
+            <version>${mica.auto.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

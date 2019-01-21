@@ -16,8 +16,8 @@
 package org.springblade.system.dto;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.springblade.system.entity.Menu;
+
+import java.io.Serializable;
 
 /**
  * 数据传输对象实体类
@@ -26,8 +26,8 @@ import org.springblade.system.entity.Menu;
  * @since 2018-12-24
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class MenuDTO extends Menu {
+public class MenuDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	private String alias;
+	private String path;
 }

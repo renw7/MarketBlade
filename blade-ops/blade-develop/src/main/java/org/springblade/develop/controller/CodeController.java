@@ -13,25 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.system.controller;
+package org.springblade.develop.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
+import org.springblade.develop.entity.Code;
+import org.springblade.develop.service.ICodeService;
 import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.Func;
-import org.springblade.system.entity.Code;
-import org.springblade.system.feign.IDictClient;
-import org.springblade.system.service.ICodeService;
-import org.springblade.system.vo.CodeVO;
-import org.springblade.system.wrapper.CodeWrapper;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -48,17 +46,14 @@ public class CodeController extends BladeController {
 
 	private ICodeService codeService;
 
-	private IDictClient dictClient;
-
 	/**
 	 * 详情
 	 */
 	@GetMapping("/detail")
 	@ApiOperation(value = "详情", notes = "传入code", position = 1)
-	public R<CodeVO> detail(Code code) {
+	public R<Code> detail(Code code) {
 		Code detail = codeService.getOne(Condition.getQueryWrapper(code));
-		CodeWrapper codeWrapper = new CodeWrapper(dictClient);
-		return R.data(codeWrapper.entityVO(detail));
+		return R.data(detail);
 	}
 
 	/**
@@ -71,10 +66,9 @@ public class CodeController extends BladeController {
 		@ApiImplicitParam(name = "modelName", value = "实体名", paramType = "query", dataType = "string")
 	})
 	@ApiOperation(value = "分页", notes = "传入code", position = 2)
-	public R<IPage<CodeVO>> list(@ApiIgnore @RequestParam Map<String, Object> code, Query query) {
+	public R<IPage<Code>> list(@ApiIgnore @RequestParam Map<String, Object> code, Query query) {
 		IPage<Code> pages = codeService.page(Condition.getPage(query), Condition.getQueryWrapper(code, Code.class));
-		CodeWrapper codeWrapper = new CodeWrapper(dictClient);
-		return R.data(codeWrapper.pageVO(pages));
+		return R.data(pages);
 	}
 
 	/**
@@ -94,6 +88,19 @@ public class CodeController extends BladeController {
 	@ApiOperation(value = "物理删除", notes = "传入ids", position = 7)
 	public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
 		return R.status(codeService.removeByIds(Func.toIntList(ids)));
+	}
+
+	/**
+	 * 代码生成
+	 */
+	@PostMapping("/gen-code")
+	@ApiOperation(value = "代码生成", notes = "传入ids", position = 8)
+	public R genCode(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
+		Collection<Code> codes = codeService.listByIds(Func.toIntList(ids));
+		codes.forEach(code -> {
+			
+		});
+		return R.success("代码生成成功");
 	}
 
 }

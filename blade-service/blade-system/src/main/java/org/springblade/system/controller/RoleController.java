@@ -21,9 +21,9 @@ import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.node.INode;
+import org.springblade.core.tool.support.Kv;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.system.entity.Role;
-import org.springblade.system.feign.IDictClient;
 import org.springblade.system.service.IRoleService;
 import org.springblade.system.vo.RoleVO;
 import org.springblade.system.wrapper.RoleWrapper;
@@ -70,7 +70,7 @@ public class RoleController extends BladeController {
 	@ApiOperation(value = "列表", notes = "传入role", position = 2)
 	public R<List<INode>> list(@ApiIgnore @RequestParam Map<String, Object> role) {
 		List<Role> list = roleService.list(Condition.getQueryWrapper(role, Role.class));
-		RoleWrapper roleWrapper = new RoleWrapper();
+		RoleWrapper roleWrapper = new RoleWrapper(roleService);
 		return R.data(roleWrapper.listNodeVO(list));
 	}
 

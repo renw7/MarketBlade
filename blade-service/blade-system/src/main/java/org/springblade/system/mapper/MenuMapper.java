@@ -17,6 +17,7 @@ package org.springblade.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springblade.system.dto.MenuDTO;
 import org.springblade.system.entity.Menu;
 import org.springblade.system.vo.MenuVO;
 
@@ -83,4 +84,11 @@ public interface MenuMapper extends BaseMapper<Menu> {
 	 * @return
 	 */
 	List<Menu> buttons(List<Integer> roleId);
+
+	/**
+	 * 获取配置的角色权限
+	 * @param roleIds
+	 * @return
+	 */
+	List<MenuDTO> authRoutes(List<Integer> roleIds);
 }

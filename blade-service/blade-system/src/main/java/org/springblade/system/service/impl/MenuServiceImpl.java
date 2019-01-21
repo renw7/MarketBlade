@@ -21,6 +21,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springblade.core.tool.node.ForestNodeMerger;
 import org.springblade.core.tool.utils.Func;
+import org.springblade.system.dto.MenuDTO;
 import org.springblade.system.entity.Menu;
 import org.springblade.system.entity.RoleMenu;
 import org.springblade.system.mapper.MenuMapper;
@@ -94,6 +95,11 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 	public List<String> roleTreeKeys(String roleIds) {
 		List<RoleMenu> roleMenus = roleMenuService.list(Wrappers.<RoleMenu>query().lambda().in(RoleMenu::getRoleId, Func.toIntList(roleIds)));
 		return roleMenus.stream().map(roleMenu -> Func.toStr(roleMenu.getMenuId())).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<MenuDTO> authRoutes(List<Integer> roleIds) {
+		return baseMapper.authRoutes(roleIds);
 	}
 
 }

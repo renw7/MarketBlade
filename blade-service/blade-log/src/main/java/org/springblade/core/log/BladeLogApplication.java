@@ -25,8 +25,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  *
  * @author Chill
  */
-@EnableFeignClients(AppConstant.BASE_PACKAGES)
 @SpringCloudApplication
+@EnableFeignClients(AppConstant.BASE_PACKAGES)
 public class BladeLogApplication {
 
 	public static void main(String[] args) {

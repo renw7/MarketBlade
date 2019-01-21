@@ -13,30 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.system.wrapper;
+package org.springblade.develop.mapper;
 
-import lombok.AllArgsConstructor;
-import org.springblade.core.mp.support.BaseEntityWrapper;
-import org.springblade.core.tool.utils.BeanUtil;
-import org.springblade.system.entity.Code;
-import org.springblade.system.feign.IDictClient;
-import org.springblade.system.vo.CodeVO;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springblade.develop.entity.Code;
 
 /**
- * 包装类,返回视图层所需的字段
+ * Mapper 接口
  *
  * @author Chill
  * @since 2018-12-24
  */
-@AllArgsConstructor
-public class CodeWrapper extends BaseEntityWrapper<Code, CodeVO> {
-
-	private IDictClient dictClient;
-
-	@Override
-	public CodeVO entityVO(Code code) {
-		CodeVO codeVO = BeanUtil.copy(code, CodeVO.class);
-		return codeVO;
-	}
+public interface CodeMapper extends BaseMapper<Code> {
 
 }

@@ -13,23 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.system.vo;
+package org.springblade.develop.service;
 
-import io.swagger.annotations.ApiModel;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.springblade.system.entity.Code;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import org.springblade.develop.entity.Code;
 
 /**
- * 视图实体类
+ * 服务类
  *
  * @author Chill
  * @since 2018-12-24
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "CodeVO对象", description = "CodeVO对象")
-public class CodeVO extends Code {
-	private static final long serialVersionUID = 1L;
+public interface ICodeService extends IService<Code> {
 
 }

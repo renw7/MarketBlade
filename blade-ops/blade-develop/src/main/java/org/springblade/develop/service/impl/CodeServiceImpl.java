@@ -13,30 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.system.mapper;
+package org.springblade.develop.service.impl;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.system.entity.Code;
-import org.springblade.system.vo.CodeVO;
-
-import java.util.List;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springblade.develop.entity.Code;
+import org.springblade.develop.mapper.CodeMapper;
+import org.springblade.develop.service.ICodeService;
+import org.springframework.stereotype.Service;
 
 /**
- * Mapper 接口
+ * 服务实现类
  *
  * @author Chill
  * @since 2018-12-24
  */
-public interface CodeMapper extends BaseMapper<Code> {
-
-	/**
-	 * 自定义分页
-	 *
-	 * @param page
-	 * @param code
-	 * @return
-	 */
-	List<CodeVO> selectCodePage(IPage page, CodeVO code);
+@Service
+public class CodeServiceImpl extends ServiceImpl<CodeMapper, Code> implements ICodeService {
 
 }

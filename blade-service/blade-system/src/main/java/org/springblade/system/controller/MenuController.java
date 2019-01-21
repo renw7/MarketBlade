@@ -21,7 +21,9 @@ import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.secure.BladeUser;
 import org.springblade.core.tool.api.R;
+import org.springblade.core.tool.support.Kv;
 import org.springblade.core.tool.utils.Func;
+import org.springblade.system.dto.MenuDTO;
 import org.springblade.system.entity.Menu;
 import org.springblade.system.feign.IDictClient;
 import org.springblade.system.service.IMenuService;
@@ -31,6 +33,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -110,7 +113,7 @@ public class MenuController extends BladeController {
 	/**
 	 * 获取权限分配树形结构
 	 */
-	@GetMapping("/grantTree")
+	@GetMapping("/grant-tree")
 	@ApiOperation(value = "权限分配树形结构", notes = "权限分配树形结构", position = 6)
 	public R<List<MenuVO>> grantTree() {
 		return R.data(menuService.grantTree());
@@ -119,7 +122,7 @@ public class MenuController extends BladeController {
 	/**
 	 * 获取权限分配树形结构
 	 */
-	@GetMapping("/roleTreeKeys")
+	@GetMapping("/role-tree-keys")
 	@ApiOperation(value = "角色所分配的树", notes = "角色所分配的树", position = 7)
 	public R<List<String>> roleTreeKeys(String roleIds) {
 		return R.data(menuService.roleTreeKeys(roleIds));
@@ -144,5 +147,17 @@ public class MenuController extends BladeController {
 		return R.status(menuService.removeByIds(Func.toIntList(ids)));
 	}
 
+	/**
+	 * 获取配置的角色权限
+	 * @return
+	 */
+	@GetMapping("auth-routes")
+	@ApiOperation(value = "菜单的角色权限", position = 8)
+	public R<List<Kv>> authRoutes(BladeUser user) {
+		List<Kv> list = new ArrayList<>();
+		List<MenuDTO> routes = menuService.authRoutes(Func.toIntList(user.getRoleId()));
+		routes.forEach(route -> list.add(Kv.init().set(route.getPath(), Kv.init().set("authority", Func.toStrArray(route.getAlias())))));
+		return R.data(list);
+	}
 
 }

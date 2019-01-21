@@ -91,9 +91,9 @@ public class UserController {
 	/**
 	 * 删除
 	 */
-	@PostMapping("/delete")
+	@PostMapping("/remove")
 	@ApiOperation(value = "删除", notes = "传入地基和", position = 4)
-	public R delete(@RequestParam String ids) {
+	public R remove(@RequestParam String ids) {
 		return R.status(userService.deleteLogic(Func.toIntList(ids)));
 	}
 
