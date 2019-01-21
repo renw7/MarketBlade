@@ -57,7 +57,7 @@ public class CodeGenerator {
 	/**
 	 * RUN THIS
 	 */
-	public static void main(String[] args) {
+	public static void generate() {
 		BladeGenerator generator = new BladeGenerator();
 		generator.setPackageName(PACKAGE_NAME);
 		generator.setPackageDir(PACKAGE_DIR);
