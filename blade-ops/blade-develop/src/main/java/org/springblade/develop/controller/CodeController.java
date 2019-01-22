@@ -18,13 +18,14 @@ package org.springblade.develop.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
-import org.springblade.develop.entity.Code;
-import org.springblade.develop.service.ICodeService;
 import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.Func;
+import org.springblade.develop.entity.Code;
+import org.springblade.develop.service.ICodeService;
+import org.springblade.develop.support.BladeGenerator;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -98,7 +99,14 @@ public class CodeController extends BladeController {
 	public R genCode(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
 		Collection<Code> codes = codeService.listByIds(Func.toIntList(ids));
 		codes.forEach(code -> {
-			
+			BladeGenerator generator = new BladeGenerator();
+			generator.setPackageName(code.getPackageName());
+			generator.setPackageDir(code.getApiPath());
+			generator.setTablePrefix(Func.toStrArray(code.getModelName()));
+			generator.setIncludeTables(Func.toStrArray(code.getTableName()));
+			// 设置是否继承基础业务字段
+			generator.setHasSuperEntity(false);
+			generator.run();
 		});
 		return R.success("代码生成成功");
 	}

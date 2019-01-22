@@ -27,6 +27,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springblade.core.tool.utils.Func;
 import org.springblade.core.tool.utils.StringUtil;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -46,14 +47,41 @@ import java.util.Properties;
 @Data
 @Slf4j
 public class BladeGenerator {
-
+	/**
+	 * 代码生成的包名
+	 */
 	private String packageName = "org.springblade.test";
-	private String packageDir = "/blade-ops/blade-codegen/src/main/java";
+	/**
+	 * 代码后端生成的地址
+	 */
+	private String packageDir;
+	/**
+	 * 代码前端生成的地址
+	 */
+	private String packageWebDir;
+	/**
+	 * 需要去掉的表前缀
+	 */
 	private String[] tablePrefix = {"blade_"};
+	/**
+	 * 需要生成的表名(两者只能取其一)
+	 */
 	private String[] includeTables = {"blade_test"};
+	/**
+	 * 需要排除的表名(两者只能取其一)
+	 */
 	private String[] excludeTables = {};
-	private Boolean hasSuperEntity = Boolean.TRUE;
+	/**
+	 * 是否包含基础业务字段
+	 */
+	private Boolean hasSuperEntity = Boolean.FALSE;
+	/**
+	 * 基础业务字段
+	 */
 	private String[] superEntityColumns = {"id", "create_time", "create_user", "update_time", "update_user", "status", "is_deleted"};
+	/**
+	 * 是否启用swagger
+	 */
 	private Boolean isSwagger2 = Boolean.TRUE;
 
 	public void run() {
@@ -230,7 +258,16 @@ public class BladeGenerator {
 	 * @return outputDir
 	 */
 	public String getOutputDir() {
-		return System.getProperty("user.dir") + packageDir;
+		return Func.isBlank(packageDir) ? System.getProperty("user.dir") : packageDir + "/src/main/java";
+	}
+
+	/**
+	 * 生成到Web项目中
+	 *
+	 * @return outputDir
+	 */
+	public String getOutputWebDir() {
+		return Func.isBlank(packageWebDir) ? System.getProperty("user.dir") : packageWebDir + "/src/pages";
 	}
 
 	/**

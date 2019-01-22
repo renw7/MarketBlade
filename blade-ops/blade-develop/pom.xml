@@ -11,7 +11,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>blade-codegen</artifactId>
+    <artifactId>blade-develop</artifactId>
     <name>${project.artifactId}</name>
     <version>${blade.project.version}</version>
     <packaging>jar</packaging>

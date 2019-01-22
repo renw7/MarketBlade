@@ -18,6 +18,7 @@ package org.springblade.develop;
 import org.springblade.core.launch.BladeApplication;
 import org.springblade.core.launch.constant.AppConstant;
 import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * Develop启动器
@@ -25,6 +26,7 @@ import org.springframework.cloud.client.SpringCloudApplication;
  * @author Chill
  */
 @SpringCloudApplication
+@EnableFeignClients(AppConstant.BASE_PACKAGES)
 public class DevelopApplication {
 
 	public static void main(String[] args) {

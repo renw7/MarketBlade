@@ -13,10 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.develop.generate;
+package org.springblade.develop.support;
 
-
-import org.springblade.develop.support.BladeGenerator;
 
 /**
  * 代码生成器
