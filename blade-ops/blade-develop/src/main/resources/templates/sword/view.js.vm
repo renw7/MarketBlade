@@ -9,8 +9,8 @@ import { $!{upperEntityPath}_DETAIL } from '../../../actions/$!{table.entityPath
 
 const FormItem = Form.Item;
 
-@connect(({ code }) => ({
-  code,
+@connect(({ $!{table.entityPath} }) => ({
+  $!{table.entityPath},
 }))
 @Form.create()
 class $!{entity}View extends PureComponent {
