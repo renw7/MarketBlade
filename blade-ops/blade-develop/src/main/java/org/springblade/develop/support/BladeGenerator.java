@@ -35,9 +35,7 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * 代码生成器配置类
@@ -47,6 +45,10 @@ import java.util.Properties;
 @Data
 @Slf4j
 public class BladeGenerator {
+	/**
+	 * 代码所在服务名
+	 */
+	private String serviceName = "blade-service";
 	/**
 	 * 代码生成的包名
 	 */
@@ -207,7 +209,9 @@ public class BladeGenerator {
 		InjectionConfig cfg = new InjectionConfig() {
 			@Override
 			public void initMap() {
-				// to do nothing
+				Map<String, Object> map = new HashMap<>(16);
+				map.put("serviceName", serviceName);
+				this.setMap(map);
 			}
 		};
 		List<FileOutConfig> focList = new ArrayList<>();
@@ -227,6 +231,24 @@ public class BladeGenerator {
 			@Override
 			public String outputFile(TableInfo tableInfo) {
 				return getOutputDir() + "/" + packageName.replace(".", "/") + "/" + "wrapper" + "/" + tableInfo.getEntityName() + "Wrapper" + StringPool.DOT_JAVA;
+			}
+		});
+		focList.add(new FileOutConfig("/templates/sword/action.js.vm") {
+			@Override
+			public String outputFile(TableInfo tableInfo) {
+				return getOutputWebDir() + "/actions" + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
+			}
+		});
+		focList.add(new FileOutConfig("/templates/sword/model.js.vm") {
+			@Override
+			public String outputFile(TableInfo tableInfo) {
+				return getOutputWebDir() + "/models" + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
+			}
+		});
+		focList.add(new FileOutConfig("/templates/sword/service.js.vm") {
+			@Override
+			public String outputFile(TableInfo tableInfo) {
+				return getOutputWebDir() + "/services" + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
 			}
 		});
 		cfg.setFileOutConfigList(focList);
@@ -267,7 +289,7 @@ public class BladeGenerator {
 	 * @return outputDir
 	 */
 	public String getOutputWebDir() {
-		return Func.isBlank(packageWebDir) ? System.getProperty("user.dir") : packageWebDir + "/src/pages";
+		return Func.isBlank(packageWebDir) ? System.getProperty("user.dir") : packageWebDir + "/src";
 	}
 
 	/**

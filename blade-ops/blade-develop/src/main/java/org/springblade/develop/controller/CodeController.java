@@ -100,9 +100,11 @@ public class CodeController extends BladeController {
 		Collection<Code> codes = codeService.listByIds(Func.toIntList(ids));
 		codes.forEach(code -> {
 			BladeGenerator generator = new BladeGenerator();
+			generator.setServiceName(code.getServiceName());
 			generator.setPackageName(code.getPackageName());
 			generator.setPackageDir(code.getApiPath());
-			generator.setTablePrefix(Func.toStrArray(code.getModelName()));
+			generator.setPackageWebDir(code.getWebPath());
+			generator.setTablePrefix(Func.toStrArray(code.getTablePrefix()));
 			generator.setIncludeTables(Func.toStrArray(code.getTableName()));
 			// 设置是否继承基础业务字段
 			generator.setHasSuperEntity(false);

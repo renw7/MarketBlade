@@ -48,6 +48,12 @@ public class Code implements Serializable {
 	/**
 	 * 模块名称
 	 */
+	@ApiModelProperty(value = "服务名称")
+	private String serviceName;
+
+	/**
+	 * 模块名称
+	 */
 	@ApiModelProperty(value = "模块名称")
 	private String codeName;
 
@@ -58,16 +64,16 @@ public class Code implements Serializable {
 	private String tableName;
 
 	/**
+	 * 实体名
+	 */
+	@ApiModelProperty(value = "表前缀")
+	private String tablePrefix;
+
+	/**
 	 * 主键名
 	 */
 	@ApiModelProperty(value = "主键名")
 	private String pkName;
-
-	/**
-	 * 实体名
-	 */
-	@ApiModelProperty(value = "实体名")
-	private String modelName;
 
 	/**
 	 * 后端包名

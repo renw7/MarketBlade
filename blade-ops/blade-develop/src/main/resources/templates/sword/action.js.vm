@@ -1,0 +1,37 @@
+#set($moduleName=$table.entityPath.toUpperCase())
+export const $!{moduleName}_NAMESPACE = '$!{table.entityPath}';
+
+export function $!{moduleName}_LIST(payload) {
+  return {
+    type: `${$!{moduleName}_NAMESPACE}/fetchList`,
+    payload,
+  };
+}
+
+export function $!{moduleName}_DETAIL(id) {
+  return {
+    type: `${$!{moduleName}_NAMESPACE}/fetchDetail`,
+    payload: { id },
+  };
+}
+
+export function $!{moduleName}_CLEAR_DETAIL() {
+  return {
+    type: `${$!{moduleName}_NAMESPACE}/clearDetail`,
+    payload: {},
+  };
+}
+
+export function $!{moduleName}_SUBMIT(payload) {
+  return {
+    type: `${$!{moduleName}_NAMESPACE}/submit`,
+    payload,
+  };
+}
+
+export function $!{moduleName}_REMOVE(payload) {
+  return {
+    type: `${$!{moduleName}_NAMESPACE}/remove`,
+    payload,
+  };
+}
