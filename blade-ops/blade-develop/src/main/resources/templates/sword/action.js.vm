@@ -1,37 +1,37 @@
-#set($moduleName=$table.entityPath.toUpperCase())
-export const $!{moduleName}_NAMESPACE = '$!{table.entityPath}';
+#set($upperEntityPath=$table.entityPath.toUpperCase())
+export const $!{upperEntityPath}_NAMESPACE = '$!{table.entityPath}';
 
-export function $!{moduleName}_LIST(payload) {
+export function $!{upperEntityPath}_LIST(payload) {
   return {
-    type: `${$!{moduleName}_NAMESPACE}/fetchList`,
+    type: `${$!{upperEntityPath}_NAMESPACE}/fetchList`,
     payload,
   };
 }
 
-export function $!{moduleName}_DETAIL(id) {
+export function $!{upperEntityPath}_DETAIL(id) {
   return {
-    type: `${$!{moduleName}_NAMESPACE}/fetchDetail`,
+    type: `${$!{upperEntityPath}_NAMESPACE}/fetchDetail`,
     payload: { id },
   };
 }
 
-export function $!{moduleName}_CLEAR_DETAIL() {
+export function $!{upperEntityPath}_CLEAR_DETAIL() {
   return {
-    type: `${$!{moduleName}_NAMESPACE}/clearDetail`,
+    type: `${$!{upperEntityPath}_NAMESPACE}/clearDetail`,
     payload: {},
   };
 }
 
-export function $!{moduleName}_SUBMIT(payload) {
+export function $!{upperEntityPath}_SUBMIT(payload) {
   return {
-    type: `${$!{moduleName}_NAMESPACE}/submit`,
+    type: `${$!{upperEntityPath}_NAMESPACE}/submit`,
     payload,
   };
 }
 
-export function $!{moduleName}_REMOVE(payload) {
+export function $!{upperEntityPath}_REMOVE(payload) {
   return {
-    type: `${$!{moduleName}_NAMESPACE}/remove`,
+    type: `${$!{upperEntityPath}_NAMESPACE}/remove`,
     payload,
   };
 }

@@ -205,12 +205,15 @@ public class BladeGenerator {
 		pc.setXml("mapper");
 		mpg.setPackageInfo(pc);
 
+		String servicePackage = serviceName.split("-").length > 1 ? serviceName.split("-")[1] : serviceName;
+
 		// 自定义配置
 		InjectionConfig cfg = new InjectionConfig() {
 			@Override
 			public void initMap() {
 				Map<String, Object> map = new HashMap<>(16);
 				map.put("serviceName", serviceName);
+				map.put("servicePackage", servicePackage);
 				this.setMap(map);
 			}
 		};
@@ -249,6 +252,30 @@ public class BladeGenerator {
 			@Override
 			public String outputFile(TableInfo tableInfo) {
 				return getOutputWebDir() + "/services" + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
+			}
+		});
+		focList.add(new FileOutConfig("/templates/sword/list.js.vm") {
+			@Override
+			public String outputFile(TableInfo tableInfo) {
+				return getOutputWebDir() + "/pages" + "/" + StringUtil.upperFirst(servicePackage) + "/" + tableInfo.getEntityName() + "/" + tableInfo.getEntityName() + ".js";
+			}
+		});
+		focList.add(new FileOutConfig("/templates/sword/add.js.vm") {
+			@Override
+			public String outputFile(TableInfo tableInfo) {
+				return getOutputWebDir() + "/pages" + "/" + StringUtil.upperFirst(servicePackage) + "/" + tableInfo.getEntityName() + "/" + tableInfo.getEntityName() + "Add.js";
+			}
+		});
+		focList.add(new FileOutConfig("/templates/sword/edit.js.vm") {
+			@Override
+			public String outputFile(TableInfo tableInfo) {
+				return getOutputWebDir() + "/pages" + "/" + StringUtil.upperFirst(servicePackage) + "/" + tableInfo.getEntityName() + "/" + tableInfo.getEntityName() + "Edit.js";
+			}
+		});
+		focList.add(new FileOutConfig("/templates/sword/view.js.vm") {
+			@Override
+			public String outputFile(TableInfo tableInfo) {
+				return getOutputWebDir() + "/pages" + "/" + StringUtil.upperFirst(servicePackage) + "/" + tableInfo.getEntityName() + "/" + tableInfo.getEntityName() + "View.js";
 			}
 		});
 		cfg.setFileOutConfigList(focList);

@@ -1,10 +1,11 @@
-#set($moduleName=$table.entityPath.toUpperCase())
+#set($upperEntityPath=$table.entityPath.toUpperCase())
 import { message } from 'antd';
-import { $!{moduleName}_NAMESPACE } from '../actions/$!{table.entityPath}';
+import router from 'umi/router';
+import { $!{upperEntityPath}_NAMESPACE } from '../actions/$!{table.entityPath}';
 import { list, submit, detail, remove } from '../services/$!{table.entityPath}';
 
 export default {
-  namespace: $!{moduleName}_NAMESPACE,
+  namespace: $!{upperEntityPath}_NAMESPACE,
   state: {
     data: {
       list: [],
@@ -46,6 +47,7 @@ export default {
       const response = yield call(submit, payload);
       if (response.success) {
         message.success('提交成功');
+        router.push('/$!{cfg.servicePackage}/$!{table.entityPath}');
       }
     },
     *remove({ payload }, { call }) {
