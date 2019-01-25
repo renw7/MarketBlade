@@ -193,48 +193,50 @@ public class BladeGenerator {
 				return getOutputDir() + "/" + packageName.replace(".", "/") + "/" + "wrapper" + "/" + tableInfo.getEntityName() + "Wrapper" + StringPool.DOT_JAVA;
 			}
 		});
-		focList.add(new FileOutConfig("/templates/sword/action.js.vm") {
-			@Override
-			public String outputFile(TableInfo tableInfo) {
-				return getOutputWebDir() + "/actions" + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
-			}
-		});
-		focList.add(new FileOutConfig("/templates/sword/model.js.vm") {
-			@Override
-			public String outputFile(TableInfo tableInfo) {
-				return getOutputWebDir() + "/models" + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
-			}
-		});
-		focList.add(new FileOutConfig("/templates/sword/service.js.vm") {
-			@Override
-			public String outputFile(TableInfo tableInfo) {
-				return getOutputWebDir() + "/services" + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
-			}
-		});
-		focList.add(new FileOutConfig("/templates/sword/list.js.vm") {
-			@Override
-			public String outputFile(TableInfo tableInfo) {
-				return getOutputWebDir() + "/pages" + "/" + StringUtil.upperFirst(servicePackage) + "/" + tableInfo.getEntityName() + "/" + tableInfo.getEntityName() + ".js";
-			}
-		});
-		focList.add(new FileOutConfig("/templates/sword/add.js.vm") {
-			@Override
-			public String outputFile(TableInfo tableInfo) {
-				return getOutputWebDir() + "/pages" + "/" + StringUtil.upperFirst(servicePackage) + "/" + tableInfo.getEntityName() + "/" + tableInfo.getEntityName() + "Add.js";
-			}
-		});
-		focList.add(new FileOutConfig("/templates/sword/edit.js.vm") {
-			@Override
-			public String outputFile(TableInfo tableInfo) {
-				return getOutputWebDir() + "/pages" + "/" + StringUtil.upperFirst(servicePackage) + "/" + tableInfo.getEntityName() + "/" + tableInfo.getEntityName() + "Edit.js";
-			}
-		});
-		focList.add(new FileOutConfig("/templates/sword/view.js.vm") {
-			@Override
-			public String outputFile(TableInfo tableInfo) {
-				return getOutputWebDir() + "/pages" + "/" + StringUtil.upperFirst(servicePackage) + "/" + tableInfo.getEntityName() + "/" + tableInfo.getEntityName() + "View.js";
-			}
-		});
+		if (Func.isNotBlank(packageWebDir)) {
+			focList.add(new FileOutConfig("/templates/sword/action.js.vm") {
+				@Override
+				public String outputFile(TableInfo tableInfo) {
+					return getOutputWebDir() + "/actions" + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
+				}
+			});
+			focList.add(new FileOutConfig("/templates/sword/model.js.vm") {
+				@Override
+				public String outputFile(TableInfo tableInfo) {
+					return getOutputWebDir() + "/models" + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
+				}
+			});
+			focList.add(new FileOutConfig("/templates/sword/service.js.vm") {
+				@Override
+				public String outputFile(TableInfo tableInfo) {
+					return getOutputWebDir() + "/services" + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
+				}
+			});
+			focList.add(new FileOutConfig("/templates/sword/list.js.vm") {
+				@Override
+				public String outputFile(TableInfo tableInfo) {
+					return getOutputWebDir() + "/pages" + "/" + StringUtil.upperFirst(servicePackage) + "/" + tableInfo.getEntityName() + "/" + tableInfo.getEntityName() + ".js";
+				}
+			});
+			focList.add(new FileOutConfig("/templates/sword/add.js.vm") {
+				@Override
+				public String outputFile(TableInfo tableInfo) {
+					return getOutputWebDir() + "/pages" + "/" + StringUtil.upperFirst(servicePackage) + "/" + tableInfo.getEntityName() + "/" + tableInfo.getEntityName() + "Add.js";
+				}
+			});
+			focList.add(new FileOutConfig("/templates/sword/edit.js.vm") {
+				@Override
+				public String outputFile(TableInfo tableInfo) {
+					return getOutputWebDir() + "/pages" + "/" + StringUtil.upperFirst(servicePackage) + "/" + tableInfo.getEntityName() + "/" + tableInfo.getEntityName() + "Edit.js";
+				}
+			});
+			focList.add(new FileOutConfig("/templates/sword/view.js.vm") {
+				@Override
+				public String outputFile(TableInfo tableInfo) {
+					return getOutputWebDir() + "/pages" + "/" + StringUtil.upperFirst(servicePackage) + "/" + tableInfo.getEntityName() + "/" + tableInfo.getEntityName() + "View.js";
+				}
+			});
+		}
 		cfg.setFileOutConfigList(focList);
 		return cfg;
 	}
