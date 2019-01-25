@@ -87,12 +87,8 @@ public class BladeGenerator {
 	private Boolean isSwagger2 = Boolean.TRUE;
 
 	public void run() {
-		// 获取配置文件
 		Properties props = getProperties();
-		// 代码生成器
 		AutoGenerator mpg = new AutoGenerator();
-
-		// 全局配置
 		GlobalConfig gc = new GlobalConfig();
 		String outputDir = getOutputDir();
 		String author = props.getProperty("author");
@@ -100,25 +96,10 @@ public class BladeGenerator {
 		gc.setAuthor(author);
 		gc.setFileOverride(true);
 		gc.setOpen(false);
-		/**
-		 * 开启 activeRecord 模式
-		 */
 		gc.setActiveRecord(false);
-		/**
-		 * XML 二级缓存
-		 */
 		gc.setEnableCache(false);
-		/**
-		 * XML ResultMap
-		 */
 		gc.setBaseResultMap(true);
-		/**
-		 * XML columList
-		 */
 		gc.setBaseColumnList(true);
-		/**
-		 * 自定义文件命名，注意 %s 会自动填充表实体属性！
-		 */
 		gc.setMapperName("%sMapper");
 		gc.setXmlName("%sMapper");
 		gc.setServiceName("I%sService");
@@ -126,8 +107,6 @@ public class BladeGenerator {
 		gc.setControllerName("%sController");
 		gc.setSwagger2(isSwagger2);
 		mpg.setGlobalConfig(gc);
-
-		// 数据源配置
 		DataSourceConfig dsc = new DataSourceConfig();
 		String driverName = props.getProperty("spring.datasource.driver-class-name");
 		if (StringUtil.containsAny(driverName, DbType.MYSQL.getDb())) {
@@ -138,45 +117,23 @@ public class BladeGenerator {
 			dsc.setTypeConvert(new PostgreSqlTypeConvert());
 		}
 		dsc.setUrl(props.getProperty("spring.datasource.url"));
-
 		dsc.setDriverName(driverName);
 		dsc.setUsername(props.getProperty("spring.datasource.username"));
 		dsc.setPassword(props.getProperty("spring.datasource.password"));
 		mpg.setDataSource(dsc);
-
 		// 策略配置
 		StrategyConfig strategy = new StrategyConfig();
 		// strategy.setCapitalMode(true);// 全局大写命名
 		// strategy.setDbColumnUnderline(true);//全局下划线命名
-
-		/**
-		 * 表名生成策略
-		 */
 		strategy.setNaming(NamingStrategy.underline_to_camel);
-		/**
-		 * 字段名生成策略
-		 */
 		strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-		/**
-		 * 此处可以修改为您的表前缀
-		 */
 		strategy.setTablePrefix(tablePrefix);
-
 		if (includeTables.length > 0) {
-			/**
-			 * 需要生成的表
-			 */
 			strategy.setInclude(includeTables);
 		}
-
 		if (excludeTables.length > 0) {
-			/**
-			 * 排除生成的表
-			 */
 			strategy.setExclude(excludeTables);
 		}
-
-
 		if (hasSuperEntity) {
 			strategy.setSuperEntityClass("org.springblade.core.mp.base.BaseEntity");
 			strategy.setSuperEntityColumns(superEntityColumns);
@@ -186,15 +143,12 @@ public class BladeGenerator {
 			strategy.setSuperServiceClass("com.baomidou.mybatisplus.extension.service.IService");
 			strategy.setSuperServiceImplClass("com.baomidou.mybatisplus.extension.service.impl.ServiceImpl");
 		}
-
 		// 自定义 controller 父类
 		strategy.setSuperControllerClass("org.springblade.core.boot.ctrl.BladeController");
-
 		strategy.setEntityBuilderModel(false);
 		strategy.setEntityLombokModel(true);
 		strategy.setControllerMappingHyphenStyle(true);
 		mpg.setStrategy(strategy);
-
 		// 包配置
 		PackageConfig pc = new PackageConfig();
 		// 控制台扫描
@@ -204,9 +158,12 @@ public class BladeGenerator {
 		pc.setEntity("entity");
 		pc.setXml("mapper");
 		mpg.setPackageInfo(pc);
+		mpg.setCfg(getInjectionConfig());
+		mpg.execute();
+	}
 
+	private InjectionConfig getInjectionConfig() {
 		String servicePackage = serviceName.split("-").length > 1 ? serviceName.split("-")[1] : serviceName;
-
 		// 自定义配置
 		InjectionConfig cfg = new InjectionConfig() {
 			@Override
@@ -279,9 +236,7 @@ public class BladeGenerator {
 			}
 		});
 		cfg.setFileOutConfigList(focList);
-		mpg.setCfg(cfg);
-
-		mpg.execute();
+		return cfg;
 	}
 
 	/**
