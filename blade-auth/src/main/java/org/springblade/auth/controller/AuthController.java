@@ -25,7 +25,6 @@ import org.springblade.core.secure.utils.SecureUtil;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.DigestUtil;
 import org.springblade.core.tool.utils.Func;
-import org.springblade.core.tool.utils.StringUtil;
 import org.springblade.system.user.entity.User;
 import org.springblade.system.user.entity.UserInfo;
 import org.springblade.system.user.feign.IUserClient;
@@ -65,11 +64,6 @@ public class AuthController {
 		//验证用户
 		if (user == null) {
 			return R.fail("用户名或密码不正确");
-		} else {
-			String digestPassword = DigestUtil.encrypt(password);
-			if (!StringUtil.equalsIgnoreCase(Func.toStr(user.getPassword()), digestPassword)) {
-				return R.fail("用户名或密码不正确");
-			}
 		}
 
 		//设置jwt参数
