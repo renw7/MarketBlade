@@ -20,6 +20,12 @@
             <artifactId>blade-core-launch</artifactId>
             <version>${blade.tool.version}</version>
         </dependency>
+        <dependency>
+            <groupId>net.dreamlu</groupId>
+            <artifactId>mica-auto</artifactId>
+            <version>${mica.auto.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>

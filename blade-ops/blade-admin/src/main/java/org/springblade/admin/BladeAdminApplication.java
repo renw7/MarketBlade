@@ -16,9 +16,9 @@
 package org.springblade.admin;
 
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
-import org.springblade.core.launch.constant.AppConstant;
 import org.springblade.core.launch.BladeApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springblade.core.launch.constant.AppConstant;
+import org.springframework.cloud.client.SpringCloudApplication;
 
 /**
  * admin启动器
@@ -26,7 +26,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Chill
  */
 @EnableAdminServer
-@SpringBootApplication
+@SpringCloudApplication
 public class BladeAdminApplication {
 
 	public static void main(String[] args) {

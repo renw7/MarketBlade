@@ -8,19 +8,14 @@ package org.springblade.common.constant;
 public interface CommonConstant {
 
 	/**
-	 * consul dev 地址
+	 * nacos dev 地址
 	 */
-	String CONSUL_DEV_HOST = "http://localhost";
+	String NACOS_DEV_ADDR = "127.0.0.1:8848";
 
 	/**
-	 * consul prod 地址
+	 * nacos prod 地址
 	 */
-	String CONSUL_PROD_HOST = "http://192.168.186.129";
-
-	/**
-	 * consul端口
-	 */
-	String CONSUL_PORT = "8500";
+	String NACOS_PROD_ADDR = "192.168.186.129:8848";
 
 	/**
 	 * 顶级父节点id
@@ -37,4 +32,5 @@ public interface CommonConstant {
 	 * 默认密码
 	 */
 	String DEFAULT_PASSWORD = "123456";
+
 }
