@@ -27,10 +27,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @SpringCloudApplication
 @EnableFeignClients(AppConstant.BASE_PACKAGES)
-public class BladeLogApplication {
+public class LogApplication {
 
 	public static void main(String[] args) {
-		BladeApplication.run(AppConstant.APPLICATION_LOG_NAME, BladeLogApplication.class, args);
+		BladeApplication.run(AppConstant.APPLICATION_LOG_NAME, LogApplication.class, args);
 	}
 
 }

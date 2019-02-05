@@ -27,10 +27,10 @@ import org.springframework.cloud.client.SpringCloudApplication;
  */
 @EnableAdminServer
 @SpringCloudApplication
-public class BladeAdminApplication {
+public class AdminApplication {
 
 	public static void main(String[] args) {
-		BladeApplication.run(AppConstant.APPLICATION_ADMIN_NAME, BladeAdminApplication.class, args);
+		BladeApplication.run(AppConstant.APPLICATION_ADMIN_NAME, AdminApplication.class, args);
 	}
 
 }
