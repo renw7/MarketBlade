@@ -18,6 +18,16 @@ public interface CommonConstant {
 	String NACOS_PROD_ADDR = "192.168.186.129:8848";
 
 	/**
+	 * sentinel dev 地址
+	 */
+	String SENTINEL_DEV_ADDR = "127.0.0.1:8858";
+
+	/**
+	 * sentinel prod 地址
+	 */
+	String SENTINEL_PROD_ADDR = "192.168.186.129:8858";
+
+	/**
 	 * 顶级父节点id
 	 */
 	Integer TOP_PARENT_ID = 0;
