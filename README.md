@@ -21,6 +21,9 @@
 * 在2.0诞生之前，已经稳定生产了近一年，经历了从Camden -> Finchley的技术架构，也经历了从fat jar -> docker -> k8s + jenkins的部署架构
 * 项目分包明确，规范微服务的开发模式，使包与包之间的分工清晰。
 
+## 会员计划及交流群
+* [会员计划及交流群](https://gitee.com/smallc/SpringBlade/wikis/SpringBlade会员计划)
+
 ## 技术文档
 * [SpringBlade开发手册](https://gitee.com/smallc/SpringBlade/wikis/SpringBlade开发手册)
 
