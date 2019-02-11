@@ -20,7 +20,7 @@
         <curator.framework.version>4.0.1</curator.framework.version>
         <protostuff.version>1.6.0</protostuff.version>
         <mica.auto.version>1.0.1</mica.auto.version>
-        <nacos.version>0.2.1.RELEASE</nacos.version>
+        <alibaba.cloud.version>0.2.1.RELEASE</alibaba.cloud.version>
         <spring.boot.admin.version>2.0.2</spring.boot.admin.version>
 
         <spring.boot.version>2.0.8.RELEASE</spring.boot.version>
