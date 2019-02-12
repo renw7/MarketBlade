@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.springblade</groupId>
     <artifactId>SpringBlade</artifactId>
-    <version>2.0.0</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
+    <version>2.0</version>
 
     <properties>
         <blade.tool.version>2.0.0</blade.tool.version>
@@ -17,14 +18,9 @@
         <swagger.models.version>1.5.21</swagger.models.version>
         <swagger.bootstrapui.version>1.8.8</swagger.bootstrapui.version>
         <mybatis.plus.version>3.0.7.1</mybatis.plus.version>
-        <curator.framework.version>4.0.1</curator.framework.version>
         <protostuff.version>1.6.0</protostuff.version>
-        <mica.auto.version>1.0.1</mica.auto.version>
-        <alibaba.cloud.version>0.2.1.RELEASE</alibaba.cloud.version>
-        <spring.boot.admin.version>2.0.2</spring.boot.admin.version>
 
         <spring.boot.version>2.0.8.RELEASE</spring.boot.version>
-        <spring.cloud.version>Finchley.SR2</spring.cloud.version>
         <spring.platform.version>Cairo-SR5</spring.platform.version>
 
         <!-- 推荐使用Harbor -->
@@ -33,28 +29,12 @@
         <docker.plugin.version>1.2.0</docker.plugin.version>
     </properties>
 
-    <modules>
-        <module>blade-auth</module>
-        <module>blade-gateway</module>
-        <module>blade-ops</module>
-        <module>blade-service</module>
-        <module>blade-service-api</module>
-        <module>blade-common</module>
-    </modules>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring.boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring.cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -70,6 +50,27 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-boot</artifactId>
+            <version>${blade.tool.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springblade</groupId>
+                    <artifactId>blade-core-cloud</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springblade</groupId>
+            <artifactId>blade-core-swagger</artifactId>
+            <version>${blade.tool.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>${mybatis.plus.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
@@ -80,14 +81,20 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>swagger-bootstrap-ui</artifactId>
+            <version>${swagger.bootstrapui.version}</version>
         </dependency>
     </dependencies>
 
@@ -120,6 +127,26 @@
                             </goals>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${docker.plugin.version}</version>
+                    <configuration>
+                        <imageName>${docker.registry.url}/blade/${project.artifactId}:${project.version}</imageName>
+                        <dockerDirectory>${project.basedir}</dockerDirectory>
+                        <dockerHost>${docker.registry.host}</dockerHost>
+                        <resources>
+                            <resource>
+                                <targetPath>/</targetPath>
+                                <directory>${project.build.directory}</directory>
+                                <include>${project.build.finalName}.jar</include>
+                            </resource>
+                        </resources>
+                        <registryUrl>${docker.registry.url}</registryUrl>
+                        <serverId>${docker.registry.url}</serverId>
+                        <pushImage>true</pushImage>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
