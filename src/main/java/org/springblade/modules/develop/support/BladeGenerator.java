@@ -264,7 +264,7 @@ public class BladeGenerator {
 	 * @return outputDir
 	 */
 	public String getOutputDir() {
-		return Func.isBlank(packageDir) ? System.getProperty("user.dir") : packageDir + "/src/main/java";
+		return (Func.isBlank(packageDir) ? System.getProperty("user.dir") : packageDir) + "/src/main/java";
 	}
 
 	/**
@@ -273,7 +273,7 @@ public class BladeGenerator {
 	 * @return outputDir
 	 */
 	public String getOutputWebDir() {
-		return Func.isBlank(packageWebDir) ? System.getProperty("user.dir") : packageWebDir + "/src";
+		return (Func.isBlank(packageWebDir) ? System.getProperty("user.dir") : packageWebDir) + "/src";
 	}
 
 	/**

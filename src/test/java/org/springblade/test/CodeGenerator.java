@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.modules.develop.support;
+package org.springblade.test;
 
+
+import org.springblade.modules.develop.support.BladeGenerator;
 
 /**
  * 代码生成器
@@ -27,6 +29,10 @@ public class CodeGenerator {
 	 * 代码生成的包名
 	 */
 	public static String PACKAGE_NAME = "org.springblade.demo";
+	/**
+	 * 前端代码生成地址
+	 */
+	public static String PACKAGE_WEB_DIR = "D:\\Sword";
 	/**
 	 * 需要去掉的表前缀
 	 */
@@ -48,12 +54,14 @@ public class CodeGenerator {
 	 */
 	public static String[] SUPER_ENTITY_COLUNMS = {"id", "create_time", "create_user", "update_time", "update_user", "status", "is_deleted"};
 
+
 	/**
 	 * RUN THIS
 	 */
-	public static void generate() {
+	public static void main(String[] args) {
 		BladeGenerator generator = new BladeGenerator();
 		generator.setPackageName(PACKAGE_NAME);
+		generator.setPackageWebDir(PACKAGE_WEB_DIR);
 		generator.setTablePrefix(TABLE_PREFIX);
 		generator.setIncludeTables(INCLUDE_TABLES);
 		generator.setExcludeTables(EXCLUDE_TABLES);
