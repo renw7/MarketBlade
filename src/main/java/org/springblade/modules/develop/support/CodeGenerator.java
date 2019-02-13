@@ -28,10 +28,6 @@ public class CodeGenerator {
 	 */
 	public static String PACKAGE_NAME = "org.springblade.demo";
 	/**
-	 * 代码生成的地址
-	 */
-	public static String PACKAGE_DIR = "/src/main/java";
-	/**
 	 * 需要去掉的表前缀
 	 */
 	public static String[] TABLE_PREFIX = {"blade_"};
@@ -58,7 +54,6 @@ public class CodeGenerator {
 	public static void generate() {
 		BladeGenerator generator = new BladeGenerator();
 		generator.setPackageName(PACKAGE_NAME);
-		generator.setPackageDir(PACKAGE_DIR);
 		generator.setTablePrefix(TABLE_PREFIX);
 		generator.setIncludeTables(INCLUDE_TABLES);
 		generator.setExcludeTables(EXCLUDE_TABLES);
