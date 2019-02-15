@@ -10,12 +10,12 @@
 * Saber演示地址：[https://saber.avue.top](https://saber.avue.top)
 
 ## 后端项目地址
-* [Gitee](https://gitee.com/smallc/SpringBlade)
-* [Github](https://github.com/chillzhuang/SpringBlade)
+* [Gitee地址](https://gitee.com/smallc/SpringBlade)
+* [Github地址](https://github.com/chillzhuang/SpringBlade)
 
 ## 前端项目地址
-* [Sword](https://gitee.com/smallc/Sword)
-* [Saber](https://gitee.com/smallc/Saber)
+* [Sword--基于React](https://gitee.com/smallc/Sword)
+* [Saber--基于Vue](https://gitee.com/smallc/Saber)
 
 ## 主要特性&&变化
 * 采用前后端分离的模式，前端开源出一个基于React的框架：[Sword](https://gitee.com/smallc/Sword)，主要选型技术为React、Ant Design、Umi、Dva
@@ -89,9 +89,10 @@ Apache Licence也是对商业应用友好的许可。使用者也可以在需要
 注意：若禁止条款被发现有权追讨19999的授权费。
 
 ## 注
-* SpringBlade前端UI项目地址：[Sword](https://gitee.com/smallc/Sword)
-* SpringBlade核心框架项目地址：[BladeTool](https://github.com/chillzhuang/blade-tool.git)
-* SpringBlade交流群：`477853168`
+* 前端UI项目地址(基于React)：[Sword](https://gitee.com/smallc/Sword)
+* 前端UI项目地址(基于Vue)：[Saber](https://gitee.com/smallc/Saber)
+* 核心框架项目地址：[BladeTool](https://github.com/chillzhuang/blade-tool.git)
+* 交流群：`477853168`
 
 
 # 界面
