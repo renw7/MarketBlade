@@ -6,14 +6,20 @@
 * 官网地址：[https://bladex.vip](https://bladex.vip)
 
 ## 在线演示
-* 演示地址：[https://sword.bladex.vip](https://sword.bladex.vip)
+* Sword演示地址：[https://sword.bladex.vip](https://sword.bladex.vip)
+* Saber演示地址：[https://saber.avue.top](https://saber.avue.top)
 
-## 项目地址
-* [gitee](https://gitee.com/smallc/SpringBlade)
-* [github](https://github.com/chillzhuang/SpringBlade)
+## 后端项目地址
+* [Gitee](https://gitee.com/smallc/SpringBlade)
+* [Github](https://github.com/chillzhuang/SpringBlade)
+
+## 前端项目地址
+* [Sword](https://gitee.com/smallc/Sword)
+* [Saber](https://gitee.com/smallc/Saber)
 
 ## 主要特性&&变化
-* 采用前后端分离的模式，前端单独开源出一个框架：[Sword](https://gitee.com/smallc/Sword)，主要选型技术为React、Ant Design、Umi、Dva
+* 采用前后端分离的模式，前端开源出一个基于React的框架：[Sword](https://gitee.com/smallc/Sword)，主要选型技术为React、Ant Design、Umi、Dva
+* 采用前后端分离的模式，前端开源出一个基于Vue的框架：[Saber](https://gitee.com/smallc/Saber)，主要选型技术为Vue、VueX、Avue、Element-UI
 * 后端采用SpringCloud全家桶，并同时对其基础组件做了高度的封装，单独开源出一个框架：[BladeTool](https://github.com/chillzhuang/blade-tool)
 * [BladeTool](https://github.com/chillzhuang/blade-tool)已推送至Maven中央库，直接引入即可，减少了工程的臃肿，也可更注重于业务开发
 * 集成Sentinel从流量控制、熔断降级、系统负载等多个维度保护服务的稳定性。
