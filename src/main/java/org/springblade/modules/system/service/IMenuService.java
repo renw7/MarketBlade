@@ -17,7 +17,8 @@ package org.springblade.modules.system.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.springblade.modules.system.dto.MenuDTO;
+import org.springblade.core.secure.BladeUser;
+import org.springblade.core.tool.support.Kv;
 import org.springblade.modules.system.entity.Menu;
 import org.springblade.modules.system.vo.MenuVO;
 
@@ -80,9 +81,9 @@ public interface IMenuService extends IService<Menu> {
 
 	/**
 	 * 获取配置的角色权限
-	 * @param roleIds
+	 * @param user
 	 * @return
 	 */
-	List<MenuDTO> authRoutes(List<Integer> roleIds);
+	List<Kv> authRoutes(BladeUser user);
 
 }
