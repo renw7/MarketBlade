@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <blade.tool.version>2.0.4</blade.tool.version>
+        <blade.tool.version>2.0.5</blade.tool.version>
         <blade.project.version>2.0.0</blade.project.version>
 
         <java.version>1.8</java.version>
@@ -25,7 +25,7 @@
 
         <spring.boot.version>2.0.8.RELEASE</spring.boot.version>
         <spring.cloud.version>Finchley.SR2</spring.cloud.version>
-        <spring.platform.version>Cairo-RELEASE</spring.platform.version>
+        <spring.platform.version>Cairo-SR7</spring.platform.version>
 
         <!-- 推荐使用Harbor -->
         <docker.registry.url>192.168.186.129</docker.registry.url>
