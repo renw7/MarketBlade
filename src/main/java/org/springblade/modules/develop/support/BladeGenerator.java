@@ -170,10 +170,10 @@ public class BladeGenerator {
 	private InjectionConfig getInjectionConfig() {
 		String servicePackage = serviceName.split("-").length > 1 ? serviceName.split("-")[1] : serviceName;
 		// 自定义配置
+		Map<String, Object> map = new HashMap<>(16);
 		InjectionConfig cfg = new InjectionConfig() {
 			@Override
 			public void initMap() {
-				Map<String, Object> map = new HashMap<>(16);
 				map.put("serviceName", serviceName);
 				map.put("servicePackage", servicePackage);
 				this.setMap(map);
@@ -183,6 +183,7 @@ public class BladeGenerator {
 		focList.add(new FileOutConfig("/templates/entityVO.java.vm") {
 			@Override
 			public String outputFile(TableInfo tableInfo) {
+				map.put("entityKey", StringUtil.humpToLine(tableInfo.getEntityName()));
 				return getOutputDir() + "/" + packageName.replace(".", "/") + "/" + "vo" + "/" + tableInfo.getEntityName() + "VO" + StringPool.DOT_JAVA;
 			}
 		});
@@ -246,13 +247,13 @@ public class BladeGenerator {
 				focList.add(new FileOutConfig("/templates/saber/api.js.vm") {
 					@Override
 					public String outputFile(TableInfo tableInfo) {
-						return getOutputWebDir() + "/api" + "/" + servicePackage.toLowerCase() + "/" + tableInfo.getEntityName().toLowerCase() + ".js";
+						return getOutputWebDir() + "/api" + "/" + servicePackage.toLowerCase() + "/" + StringUtil.humpToLine(tableInfo.getEntityName()) + ".js";
 					}
 				});
 				focList.add(new FileOutConfig("/templates/saber/crud.vue.vm") {
 					@Override
 					public String outputFile(TableInfo tableInfo) {
-						return getOutputWebDir() + "/views" + "/" + servicePackage.toLowerCase() + "/" + tableInfo.getEntityName().toLowerCase() + ".vue";
+						return getOutputWebDir() + "/views" + "/" + servicePackage.toLowerCase() + "/" + StringUtil.humpToLine(tableInfo.getEntityName()) + ".vue";
 					}
 				});
 			}

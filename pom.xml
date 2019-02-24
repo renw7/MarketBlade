@@ -10,8 +10,8 @@
     <version>2.0.0</version>
 
     <properties>
-        <blade.tool.version>2.0.6</blade.tool.version>
-        <blade.project.version>2.0.0</blade.project.version>
+        <blade.tool.version>2.0.7</blade.tool.version>
+        <blade.project.version>2.0.1</blade.project.version>
 
         <java.version>1.8</java.version>
         <swagger.version>2.9.2</swagger.version>
