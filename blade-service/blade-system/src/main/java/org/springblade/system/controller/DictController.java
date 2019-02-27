@@ -103,7 +103,7 @@ public class DictController extends BladeController {
 	 */
 	@PostMapping("/remove")
 	@CacheEvict(cacheNames = {CacheNames.DICT_LIST, CacheNames.DICT_VALUE})
-	@ApiOperation(value = "物理删除", notes = "传入ids", position = 7)
+	@ApiOperation(value = "删除", notes = "传入ids", position = 7)
 	public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
 		return R.status(dictService.removeByIds(Func.toIntList(ids)));
 	}
