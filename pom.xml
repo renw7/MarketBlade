@@ -10,14 +10,14 @@
     <version>2.0.0</version>
 
     <properties>
-        <blade.tool.version>2.0.7</blade.tool.version>
-        <blade.project.version>2.0.1</blade.project.version>
+        <blade.tool.version>2.0.8</blade.tool.version>
+        <blade.project.version>2.0.2</blade.project.version>
 
         <java.version>1.8</java.version>
         <swagger.version>2.9.2</swagger.version>
         <swagger.models.version>1.5.21</swagger.models.version>
-        <swagger.bootstrapui.version>1.8.9</swagger.bootstrapui.version>
-        <mybatis.plus.version>3.0.7.1</mybatis.plus.version>
+        <swagger.bootstrapui.version>1.9.0</swagger.bootstrapui.version>
+        <mybatis.plus.version>3.1.0</mybatis.plus.version>
         <protostuff.version>1.6.0</protostuff.version>
 
         <spring.boot.version>2.0.8.RELEASE</spring.boot.version>
