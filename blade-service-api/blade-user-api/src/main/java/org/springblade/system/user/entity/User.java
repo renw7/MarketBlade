@@ -18,7 +18,7 @@ package org.springblade.system.user.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springblade.core.tenant.mp.TenantEntity;
+import org.springblade.core.mp.base.TenantEntity;
 
 import java.time.LocalDateTime;
 
