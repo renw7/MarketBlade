@@ -20,7 +20,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiSort;
 import lombok.AllArgsConstructor;
-import org.springblade.core.log.annotation.ApiLog;
 import org.springblade.core.secure.AuthInfo;
 import org.springblade.core.secure.utils.SecureUtil;
 import org.springblade.core.tool.api.R;
@@ -49,9 +48,8 @@ import java.util.Map;
 @Api(value = "用户授权认证", tags = "授权接口")
 public class AuthController {
 
-	IUserService service;
+	private IUserService service;
 
-	@ApiLog("登录用户验证")
 	@PostMapping("token")
 	@ApiOperation(value = "获取认证token", notes = "传入租户编号:tenantCode,账号:account,密码:password")
 	public R<AuthInfo> token(@ApiParam(value = "租户编号", required = true) @RequestParam String tenantCode,
