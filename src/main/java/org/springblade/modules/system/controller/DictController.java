@@ -41,12 +41,11 @@ import static org.springblade.common.cache.CacheNames.DICT_VALUE;
  * 控制器
  *
  * @author Chill
- * @since 2018-12-24
  */
-@ApiIgnore
 @RestController
 @AllArgsConstructor
 @RequestMapping("/blade-system/dict")
+@ApiIgnore
 @Api(value = "字典", tags = "字典")
 public class DictController extends BladeController {
 

@@ -17,7 +17,6 @@ package org.springblade.common.config;
 
 
 import org.springblade.core.secure.registry.SecureRegistry;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -29,7 +28,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author Chill
  */
 @Configuration
-@EnableAutoConfiguration
 public class BladeConfiguration implements WebMvcConfigurer {
 
 	@Bean
@@ -37,6 +35,7 @@ public class BladeConfiguration implements WebMvcConfigurer {
 		SecureRegistry secureRegistry = new SecureRegistry();
 		secureRegistry.excludePathPatterns("/blade-auth/**");
 		secureRegistry.excludePathPatterns("/blade-log/**");
+		secureRegistry.excludePathPatterns("/blade-system/menu/auth-routes");
 		secureRegistry.excludePathPatterns("/doc.html");
 		secureRegistry.excludePathPatterns("/js/**");
 		secureRegistry.excludePathPatterns("/webjars/**");

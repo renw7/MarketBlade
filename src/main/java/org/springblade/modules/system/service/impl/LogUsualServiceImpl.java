@@ -25,7 +25,6 @@ import org.springframework.stereotype.Service;
  * 服务实现类
  *
  * @author Chill
- * @since 2018-10-12
  */
 @Service
 public class LogUsualServiceImpl extends ServiceImpl<LogUsualMapper, LogUsual> implements ILogUsualService {
