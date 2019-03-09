@@ -25,7 +25,7 @@ import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.develop.entity.Code;
 import org.springblade.develop.service.ICodeService;
-import org.springblade.develop.support.BladeGenerator;
+import org.springblade.develop.support.BladeCodeGenerator;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -37,7 +37,6 @@ import java.util.Map;
  * 控制器
  *
  * @author Chill
- * @since 2018-12-24
  */
 @RestController
 @AllArgsConstructor
@@ -99,9 +98,10 @@ public class CodeController extends BladeController {
 	public R genCode(@ApiParam(value = "主键集合", required = true) @RequestParam String ids, @RequestParam(defaultValue = "sword") String system) {
 		Collection<Code> codes = codeService.listByIds(Func.toIntList(ids));
 		codes.forEach(code -> {
-			BladeGenerator generator = new BladeGenerator();
+			BladeCodeGenerator generator = new BladeCodeGenerator();
 			generator.setSystemName(system);
 			generator.setServiceName(code.getServiceName());
+			generator.setCodeName(code.getCodeName());
 			generator.setPackageName(code.getPackageName());
 			generator.setPackageDir(code.getApiPath());
 			generator.setPackageWebDir(code.getWebPath());
