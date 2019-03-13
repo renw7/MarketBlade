@@ -3,10 +3,10 @@
 * SpringBlade 致力于创造新颖的开发模式，将开发中遇到的痛点、生产中所踩的坑整理归纳，并将解决方案都融合到框架中。
 
 ## 官网
-* 官网地址：[https://bladex.vip](https://bladex.vip)
+* 官网地址：[https://bladex.vip](http://118.24.148.246)
 
 ## 在线演示
-* Sword演示地址：[https://sword.bladex.vip](https://sword.bladex.vip)
+* Sword演示地址：[https://sword.bladex.vip](http://118.24.148.246:8000)
 * Saber演示地址：[https://saber.avue.top](https://saber.avue.top)
 
 ## 后端项目地址
