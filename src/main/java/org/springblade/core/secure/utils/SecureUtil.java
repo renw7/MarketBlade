@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2018-2028, Chill Zhuang 庄骞 (smallchill@163.com).
  * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE 3.0;
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.gnu.org/licenses/lgpl.html
  * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -50,7 +50,7 @@ public class SecureUtil {
 	public final static String ROLE_NAME = "roleName";
 	public final static String TENANT_CODE = "tenantCode";
 	public final static Integer AUTH_LENGTH = 7;
-	public static String BASE64_SECURITY = Base64.getEncoder().encodeToString("SpringBlade".getBytes(Charsets.UTF_8));
+	public static String BASE64_SECURITY = Base64.getEncoder().encodeToString("BladeX".getBytes(Charsets.UTF_8));
 
 	/**
 	 * 获取用户信息
@@ -161,6 +161,28 @@ public class SecureUtil {
 		BladeUser user = getUser(request);
 		return (null == user) ? StringPool.EMPTY : user.getUserName();
 	}
+
+	/**
+	 * 获取用户角色
+	 *
+	 * @return userName
+	 */
+	public static String getUserRole() {
+		BladeUser user = getUser();
+		return (null == user) ? StringPool.EMPTY : user.getRoleName();
+	}
+
+	/**
+	 * 获取用角色
+	 *
+	 * @param request request
+	 * @return userName
+	 */
+	public static String getUserRole(HttpServletRequest request) {
+		BladeUser user = getUser(request);
+		return (null == user) ? StringPool.EMPTY : user.getRoleName();
+	}
+
 
 	/**
 	 * 获取租户编号
