@@ -98,6 +98,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
 	@Override
 	public List<Kv> authRoutes(BladeUser user) {
+		if (Func.isEmpty(user)) {
+			return null;
+		}
 		List<MenuDTO> routes = baseMapper.authRoutes(Func.toIntList(user.getRoleId()));
 		List<Kv> list = new ArrayList<>();
 		routes.forEach(route -> list.add(Kv.init().set(route.getPath(), Kv.init().set("authority", Func.toStrArray(route.getAlias())))));
