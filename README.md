@@ -11,10 +11,11 @@
 * 集成Sentinel从流量控制、熔断降级、系统负载等多个维度保护服务的稳定性。
 * 注册中心、配置中心选型Nacos，为工程瘦身的同时加强各模块之间的联动。
 * 使用Traefik进行反向代理，监听后台变化自动化应用新的配置文件。
-* 部署使用Docker或K8s + Jenkins
+* 极简封装了多租户底层，用更少的代码换来拓展性更强的SaaS多租户系统。
+* 借鉴OAuth2，实现了多终端认证系统，可控制子系统的token权限互相隔离。
+* 借鉴Security，封装了Secure模块，采用JWT做Token认证，可拓展集成Redis等细颗粒度控制方案。
 * 踩了踩Kong的坑，有个基本的使用方案，但不深入，因为涉及到OpenResty。
-* 封装了简单的Secure模块，采用JWT做Token认证，可拓展集成Redis等细颗粒度控制方案
-* 在2.0诞生之前，已经稳定生产了近一年，经历了从Camden -> Finchley的技术架构，也经历了从fat jar -> docker -> k8s + jenkins的部署架构
+* 稳定生产了一年，经历了从Camden -> Finchley的技术架构，也经历了从fat jar -> docker -> k8s + jenkins的部署架构
 * 项目分包明确，规范微服务的开发模式，使包与包之间的分工清晰。
 
 ## 工程结构
@@ -40,6 +41,7 @@ SpringBlade
 
 ## 官网
 * 官网地址：[https://bladex.vip](https://bladex.vip)
+* 会员计划：[https://gitee.com/smallc/SpringBlade/wikis/SpringBlade会员计划](https://gitee.com/smallc/SpringBlade/wikis/SpringBlade会员计划)
 * 交流群：`477853168`
 
 ## 在线演示
@@ -50,12 +52,9 @@ SpringBlade
 * 后端Gitee地址：[https://gitee.com/smallc/SpringBlade](https://gitee.com/smallc/SpringBlade)
 * 后端Github地址：[https://github.com/chillzhuang/SpringBlade](https://github.com/chillzhuang/SpringBlade)
 * 后端SpringBoot版：[https://gitee.com/smallc/SpringBlade/tree/2.0-boot/](https://gitee.com/smallc/SpringBlade/tree/2.0-boot/)
-* 前端UI项目地址(基于React)：[https://gitee.com/smallc/Sword](https://gitee.com/smallc/Sword)
-* 前端UI项目地址(基于Vue)：[https://gitee.com/smallc/Saber](https://gitee.com/smallc/Saber)
+* 前端框架Sword(基于React)：[https://gitee.com/smallc/Sword](https://gitee.com/smallc/Sword)
+* 前端框架Saber(基于Vue)：[https://gitee.com/smallc/Saber](https://gitee.com/smallc/Saber)
 * 核心框架项目地址：[https://github.com/chillzhuang/blade-tool](https://github.com/chillzhuang/blade-tool)
-
-## 会员计划及交流群
-* [会员计划及交流群](https://gitee.com/smallc/SpringBlade/wikis/SpringBlade会员计划)
 
 ## 技术文档
 * [SpringBlade开发手册](https://gitee.com/smallc/SpringBlade/wikis/SpringBlade开发手册)
