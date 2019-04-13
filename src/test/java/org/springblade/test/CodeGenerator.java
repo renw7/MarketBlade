@@ -16,7 +16,7 @@
 package org.springblade.test;
 
 
-import org.springblade.modules.develop.support.BladeCodeGenerator;
+import org.springblade.develop.support.BladeCodeGenerator;
 
 /**
  * 代码生成器

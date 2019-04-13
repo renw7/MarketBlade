@@ -20,7 +20,9 @@ import lombok.AllArgsConstructor;
 import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.secure.BladeUser;
+import org.springblade.core.secure.annotation.PreAuth;
 import org.springblade.core.tool.api.R;
+import org.springblade.core.tool.constant.RoleConstant;
 import org.springblade.core.tool.support.Kv;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.system.entity.Menu;
@@ -45,6 +47,7 @@ import java.util.Map;
 @AllArgsConstructor
 @RequestMapping("/blade-system/menu")
 @Api(value = "菜单", tags = "菜单")
+@PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 public class MenuController extends BladeController {
 
 	private IMenuService menuService;
