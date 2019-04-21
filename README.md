@@ -41,6 +41,7 @@ SpringBlade
 
 ## 官网
 * 官网地址：[https://bladex.vip](https://bladex.vip)
+* 问答社区：[https://sns.bladex.vip](https://sns.bladex.vip)
 * 会员计划：[https://gitee.com/smallc/SpringBlade/wikis/SpringBlade会员计划](https://gitee.com/smallc/SpringBlade/wikis/SpringBlade会员计划)
 * 交流群：`477853168`
 
