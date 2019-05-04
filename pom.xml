@@ -77,7 +77,7 @@
     </dependencies>
 
     <build>
-        <finalName>${project.name}</finalName>
+        <finalName>SpringBlade</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
