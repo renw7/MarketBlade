@@ -29,7 +29,7 @@ spring:
   resources:
     add-mappings: false
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   devtools:
     restart:
       log-condition-evaluation-delta: false
