@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.modules.resources;
+package org.springblade.modules.resource;
 
 import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
