@@ -15,12 +15,12 @@
  */
 package org.springblade.modules.system.wrapper;
 
-import lombok.AllArgsConstructor;
 import org.springblade.common.constant.CommonConstant;
 import org.springblade.core.mp.support.BaseEntityWrapper;
 import org.springblade.core.tool.node.ForestNodeMerger;
 import org.springblade.core.tool.utils.BeanUtil;
 import org.springblade.core.tool.utils.Func;
+import org.springblade.core.tool.utils.SpringUtil;
 import org.springblade.modules.system.entity.Menu;
 import org.springblade.modules.system.service.IDictService;
 import org.springblade.modules.system.service.IMenuService;
@@ -34,14 +34,19 @@ import java.util.stream.Collectors;
  *
  * @author Chill
  */
-@AllArgsConstructor
 public class MenuWrapper extends BaseEntityWrapper<Menu, MenuVO> {
 
-	private IMenuService menuService;
+	private static IMenuService menuService;
 
-	private IDictService dictService;
+	private static IDictService dictService;
 
-	public MenuWrapper() {
+	static {
+		menuService = SpringUtil.getBean(IMenuService.class);
+		dictService = SpringUtil.getBean(IDictService.class);
+	}
+
+	public static MenuWrapper init() {
+		return new MenuWrapper();
 	}
 
 	@Override

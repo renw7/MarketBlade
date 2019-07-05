@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2018-2028, Chill Zhuang 庄骞 (smallchill@163.com).
  * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE 3.0;
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.gnu.org/licenses/lgpl.html
  * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -31,6 +31,8 @@ public class AuthInfo {
 	private String accessToken;
 	@ApiModelProperty(value = "令牌类型")
 	private String tokenType;
+	@ApiModelProperty(value = "刷新令牌")
+	private String refreshToken;
 	@ApiModelProperty(value = "头像")
 	private String avatar = "https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png";
 	@ApiModelProperty(value = "角色名")

@@ -33,7 +33,7 @@ public class DashBoardController {
 	 * @return
 	 */
 	@GetMapping("/activities")
-	@ApiOperation(value = "活跃用户", notes = "活跃用户", position = 1)
+	@ApiOperation(value = "活跃用户", notes = "活跃用户")
 	public R activities() {
 
 		List<Map<String, Object>> list = new ArrayList<>();

@@ -13,29 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.modules.system.wrapper;
+package org.springblade.modules.auth.enums;
 
 import lombok.AllArgsConstructor;
-import org.springblade.core.mp.support.BaseEntityWrapper;
-import org.springblade.core.tool.utils.BeanUtil;
-import org.springblade.modules.system.entity.RoleMenu;
-import org.springblade.modules.system.service.IDictService;
-import org.springblade.modules.system.vo.RoleMenuVO;
+import lombok.Getter;
 
 /**
- * 包装类,返回视图层所需的字段
+ * 用户类型枚举
  *
  * @author Chill
  */
+@Getter
 @AllArgsConstructor
-public class RoleMenuWrapper extends BaseEntityWrapper<RoleMenu, RoleMenuVO> {
+public enum BladeUserEnum {
 
-	private IDictService dictService;
+	/**
+	 * web
+	 */
+	WEB("web", 1),
 
-	@Override
-	public RoleMenuVO entityVO(RoleMenu roleMenu) {
-		RoleMenuVO roleMenuVO = BeanUtil.copy(roleMenu, RoleMenuVO.class);
-		return roleMenuVO;
-	}
+	/**
+	 * app
+	 */
+	APP("app", 2),
+	;
+
+	final String name;
+	final int category;
 
 }

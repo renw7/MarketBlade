@@ -15,10 +15,10 @@
  */
 package org.springblade.modules.system.wrapper;
 
-import lombok.AllArgsConstructor;
 import org.springblade.core.mp.support.BaseEntityWrapper;
 import org.springblade.core.tool.utils.BeanUtil;
 import org.springblade.core.tool.utils.Func;
+import org.springblade.core.tool.utils.SpringUtil;
 import org.springblade.modules.system.entity.User;
 import org.springblade.modules.system.service.IDictService;
 import org.springblade.modules.system.service.IUserService;
@@ -31,14 +31,19 @@ import java.util.List;
  *
  * @author Chill
  */
-@AllArgsConstructor
 public class UserWrapper extends BaseEntityWrapper<User, UserVO> {
 
-	private IUserService userService;
+	private static IUserService userService;
 
-	private IDictService dictService;
+	private static IDictService dictService;
 
-	public UserWrapper() {
+	static {
+		userService = SpringUtil.getBean(IUserService.class);
+		dictService = SpringUtil.getBean(IDictService.class);
+	}
+
+	public static UserWrapper init() {
+		return new UserWrapper();
 	}
 
 	@Override
