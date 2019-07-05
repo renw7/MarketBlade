@@ -13,25 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.springblade.gateway.props;
 
-package org.springblade.gateway.config;
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 
-import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import reactor.core.publisher.Mono;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * 路由限流配置
+ * 路由配置类
  *
  * @author Chill
  */
-@Configuration
-public class RateLimiterConfiguration {
+@Data
+@RefreshScope
+@ConfigurationProperties("blade.document")
+public class RouteProperties {
 
-	@Bean(value = "remoteAddrKeyResolver")
-	public KeyResolver remoteAddrKeyResolver() {
-		return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getAddress().getHostAddress());
-	}
+	private final List<RouteResource> resources = new ArrayList<>();
 
 }
