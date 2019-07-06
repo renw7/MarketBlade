@@ -52,7 +52,7 @@ public class TokenGranterBuilder {
 		if (tokenGranter == null) {
 			throw new SecureException("no grantType was found");
 		} else {
-			return granterPool.get(Func.toStr(grantType, PasswordTokenGranter.GRANT_TYPE));
+			return tokenGranter;
 		}
 	}
 
