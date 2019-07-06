@@ -56,7 +56,7 @@ public class UserController {
 	@GetMapping("/detail")
 	public R<UserVO> detail(User user) {
 		User detail = userService.getOne(Condition.getQueryWrapper(user));
-		return R.data(UserWrapper.init().entityVO(detail));
+		return R.data(UserWrapper.build().entityVO(detail));
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class UserController {
 	public R<IPage<UserVO>> list(@ApiIgnore @RequestParam Map<String, Object> user, Query query, BladeUser bladeUser) {
 		QueryWrapper<User> queryWrapper = Condition.getQueryWrapper(user, User.class);
 		IPage<User> pages = userService.page(Condition.getPage(query), (!bladeUser.getTenantCode().equals(BladeConstant.ADMIN_TENANT_CODE)) ? queryWrapper.lambda().eq(User::getTenantCode, bladeUser.getTenantCode()) : queryWrapper);
-		return R.data(UserWrapper.init().pageVO(pages));
+		return R.data(UserWrapper.build().pageVO(pages));
 	}
 
 	/**

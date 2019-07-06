@@ -58,7 +58,7 @@ public class NoticeController extends BladeController implements CacheNames {
 	@ApiOperation(value = "详情", notes = "传入notice")
 	public R<NoticeVO> detail(Notice notice) {
 		Notice detail = noticeService.getOne(Condition.getQueryWrapper(notice));
-		return R.data(NoticeWrapper.init().entityVO(detail));
+		return R.data(NoticeWrapper.build().entityVO(detail));
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class NoticeController extends BladeController implements CacheNames {
 	@ApiOperation(value = "分页", notes = "传入notice")
 	public R<IPage<NoticeVO>> list(@ApiIgnore @RequestParam Map<String, Object> notice, Query query) {
 		IPage<Notice> pages = noticeService.page(Condition.getPage(query), Condition.getQueryWrapper(notice, Notice.class));
-		return R.data(NoticeWrapper.init().pageVO(pages));
+		return R.data(NoticeWrapper.build().pageVO(pages));
 	}
 
 	/**

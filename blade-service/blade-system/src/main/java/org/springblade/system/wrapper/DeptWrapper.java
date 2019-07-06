@@ -42,7 +42,7 @@ public class DeptWrapper extends BaseEntityWrapper<Dept, DeptVO> {
 		deptService = SpringUtil.getBean(IDeptService.class);
 	}
 
-	public static DeptWrapper init() {
+	public static DeptWrapper build() {
 		return new DeptWrapper();
 	}
 

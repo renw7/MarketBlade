@@ -36,7 +36,7 @@ public class NoticeWrapper extends BaseEntityWrapper<Notice, NoticeVO> {
 		dictClient = SpringUtil.getBean(IDictClient.class);
 	}
 
-	public static NoticeWrapper init() {
+	public static NoticeWrapper build() {
 		return new NoticeWrapper();
 	}
 

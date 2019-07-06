@@ -57,7 +57,7 @@ public class RoleController extends BladeController {
 	@ApiOperation(value = "详情", notes = "传入role")
 	public R<RoleVO> detail(Role role) {
 		Role detail = roleService.getOne(Condition.getQueryWrapper(role));
-		return R.data(RoleWrapper.init().entityVO(detail));
+		return R.data(RoleWrapper.build().entityVO(detail));
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class RoleController extends BladeController {
 	public R<List<INode>> list(@ApiIgnore @RequestParam Map<String, Object> role, BladeUser bladeUser) {
 		QueryWrapper<Role> queryWrapper = Condition.getQueryWrapper(role, Role.class);
 		List<Role> list = roleService.list((!bladeUser.getTenantCode().equals(BladeConstant.ADMIN_TENANT_CODE)) ? queryWrapper.lambda().eq(Role::getTenantCode, bladeUser.getTenantCode()) : queryWrapper);
-		return R.data(RoleWrapper.init().listNodeVO(list));
+		return R.data(RoleWrapper.build().listNodeVO(list));
 	}
 
 	/**
