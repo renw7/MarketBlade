@@ -42,7 +42,7 @@ public class RoleWrapper extends BaseEntityWrapper<Role, RoleVO> {
 		roleService = SpringUtil.getBean(IRoleService.class);
 	}
 
-	public static RoleWrapper init() {
+	public static RoleWrapper build() {
 		return new RoleWrapper();
 	}
 

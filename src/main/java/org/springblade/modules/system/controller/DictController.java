@@ -59,7 +59,7 @@ public class DictController extends BladeController {
 	@ApiOperation(value = "详情", notes = "传入dict")
 	public R<DictVO> detail(Dict dict) {
 		Dict detail = dictService.getOne(Condition.getQueryWrapper(dict));
-		return R.data(DictWrapper.init().entityVO(detail));
+		return R.data(DictWrapper.build().entityVO(detail));
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class DictController extends BladeController {
 	public R<List<INode>> list(@ApiIgnore @RequestParam Map<String, Object> dict) {
 		@SuppressWarnings("unchecked")
 		List<Dict> list = dictService.list(Condition.getQueryWrapper(dict, Dict.class).lambda().orderByAsc(Dict::getSort));
-		return R.data(DictWrapper.init().listNodeVO(list));
+		return R.data(DictWrapper.build().listNodeVO(list));
 	}
 
 	/**

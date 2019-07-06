@@ -58,7 +58,7 @@ public class DeptController extends BladeController {
 	@ApiOperation(value = "详情", notes = "传入dept")
 	public R<DeptVO> detail(Dept dept) {
 		Dept detail = deptService.getOne(Condition.getQueryWrapper(dept));
-		return R.data(DeptWrapper.init().entityVO(detail));
+		return R.data(DeptWrapper.build().entityVO(detail));
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class DeptController extends BladeController {
 	public R<List<INode>> list(@ApiIgnore @RequestParam Map<String, Object> dept, BladeUser bladeUser) {
 		QueryWrapper<Dept> queryWrapper = Condition.getQueryWrapper(dept, Dept.class);
 		List<Dept> list = deptService.list((!bladeUser.getTenantCode().equals(BladeConstant.ADMIN_TENANT_CODE)) ? queryWrapper.lambda().eq(Dept::getTenantCode, bladeUser.getTenantCode()) : queryWrapper);
-		return R.data(DeptWrapper.init().listNodeVO(list));
+		return R.data(DeptWrapper.build().listNodeVO(list));
 	}
 
 	/**

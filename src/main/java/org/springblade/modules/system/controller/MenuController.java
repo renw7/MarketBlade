@@ -59,7 +59,7 @@ public class MenuController extends BladeController {
 	@ApiOperation(value = "详情", notes = "传入menu")
 	public R<MenuVO> detail(Menu menu) {
 		Menu detail = menuService.getOne(Condition.getQueryWrapper(menu));
-		return R.data(MenuWrapper.init().entityVO(detail));
+		return R.data(MenuWrapper.build().entityVO(detail));
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class MenuController extends BladeController {
 	public R<List<MenuVO>> list(@ApiIgnore @RequestParam Map<String, Object> menu) {
 		@SuppressWarnings("unchecked")
 		List<Menu> list = menuService.list(Condition.getQueryWrapper(menu, Menu.class).lambda().orderByAsc(Menu::getSort));
-		return R.data(MenuWrapper.init().listNodeVO(list));
+		return R.data(MenuWrapper.build().listNodeVO(list));
 	}
 
 	/**

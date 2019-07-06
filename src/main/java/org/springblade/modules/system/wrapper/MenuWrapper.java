@@ -45,7 +45,7 @@ public class MenuWrapper extends BaseEntityWrapper<Menu, MenuVO> {
 		dictService = SpringUtil.getBean(IDictService.class);
 	}
 
-	public static MenuWrapper init() {
+	public static MenuWrapper build() {
 		return new MenuWrapper();
 	}
 

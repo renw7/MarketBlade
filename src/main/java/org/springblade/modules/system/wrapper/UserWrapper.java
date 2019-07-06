@@ -42,7 +42,7 @@ public class UserWrapper extends BaseEntityWrapper<User, UserVO> {
 		dictService = SpringUtil.getBean(IDictService.class);
 	}
 
-	public static UserWrapper init() {
+	public static UserWrapper build() {
 		return new UserWrapper();
 	}
 

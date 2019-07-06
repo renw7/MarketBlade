@@ -42,7 +42,7 @@ public class DictWrapper extends BaseEntityWrapper<Dict, DictVO> {
 		dictService = SpringUtil.getBean(IDictService.class);
 	}
 
-	public static DictWrapper init() {
+	public static DictWrapper build() {
 		return new DictWrapper();
 	}
 
