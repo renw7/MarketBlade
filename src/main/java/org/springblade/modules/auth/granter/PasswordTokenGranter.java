@@ -38,7 +38,7 @@ public class PasswordTokenGranter implements ITokenGranter {
 
 	@Override
 	public UserInfo grant(TokenParameter tokenParameter) {
-		String tenantCode = tokenParameter.getArgs().getStr("tenantCode");
+		String tenantId = tokenParameter.getArgs().getStr("tenantId");
 		String account = tokenParameter.getArgs().getStr("account");
 		String password = tokenParameter.getArgs().getStr("password");
 		UserInfo userInfo = null;
@@ -47,11 +47,11 @@ public class PasswordTokenGranter implements ITokenGranter {
 			String userType = tokenParameter.getArgs().getStr("userType");
 			// 根据不同用户类型调用对应的接口返回数据，用户可自行拓展
 			if (userType.equals(BladeUserEnum.WEB.getName())) {
-				userInfo = userService.userInfo(tenantCode, account, DigestUtil.encrypt(password));
+				userInfo = userService.userInfo(tenantId, account, DigestUtil.encrypt(password));
 			} else if (userType.equals(BladeUserEnum.APP.getName())) {
-				userInfo = userService.userInfo(tenantCode, account, DigestUtil.encrypt(password));
+				userInfo = userService.userInfo(tenantId, account, DigestUtil.encrypt(password));
 			} else {
-				userInfo = userService.userInfo(tenantCode, account, DigestUtil.encrypt(password));
+				userInfo = userService.userInfo(tenantId, account, DigestUtil.encrypt(password));
 			}
 		}
 		return userInfo;
