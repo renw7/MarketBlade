@@ -52,6 +52,7 @@ public class SecureUtil {
 	private final static String TENANT_ID = TokenConstant.TENANT_ID;
 	private final static String CLIENT_ID = TokenConstant.CLIENT_ID;
 	private final static Integer AUTH_LENGTH = TokenConstant.AUTH_LENGTH;
+	private final static String BASIC_HEADER_PREFIX_EXT = "Basic%20";
 	private static String BASE64_SECURITY = Base64.getEncoder().encodeToString(TokenConstant.SIGN_KEY.getBytes(Charsets.UTF_8));
 
 	private static IClientDetailsService clientDetailsService;
@@ -379,7 +380,7 @@ public class SecureUtil {
 	public static String[] extractAndDecodeHeader() {
 		// 获取请求头客户端信息
 		String header = Objects.requireNonNull(WebUtil.getRequest()).getHeader(SecureConstant.BASIC_HEADER_KEY);
-		header = Func.toStr(header).replace(SecureConstant.BASIC_HEADER_PREFIX_EXT, SecureConstant.BASIC_HEADER_PREFIX);
+		header = Func.toStr(header).replace(BASIC_HEADER_PREFIX_EXT, SecureConstant.BASIC_HEADER_PREFIX);
 		if (!header.startsWith(SecureConstant.BASIC_HEADER_PREFIX)) {
 			throw new SecureException("No client information in request header");
 		}
