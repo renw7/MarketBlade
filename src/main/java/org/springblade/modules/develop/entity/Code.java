@@ -45,6 +45,12 @@ public class Code implements Serializable {
 	private Integer id;
 
 	/**
+	 * 数据源主键
+	 */
+	@ApiModelProperty(value = "数据源主键")
+	private Integer datasourceId;
+
+	/**
 	 * 模块名称
 	 */
 	@ApiModelProperty(value = "服务名称")
@@ -73,6 +79,18 @@ public class Code implements Serializable {
 	 */
 	@ApiModelProperty(value = "主键名")
 	private String pkName;
+
+	/**
+	 * 基础业务模式
+	 */
+	@ApiModelProperty(value = "基础业务模式")
+	private Integer baseMode;
+
+	/**
+	 * 包装器模式
+	 */
+	@ApiModelProperty(value = "包装器模式")
+	private Integer wrapMode;
 
 	/**
 	 * 后端包名
