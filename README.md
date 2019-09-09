@@ -62,6 +62,7 @@ SpringBlade
 
 ## 技术文档
 * [SpringBlade开发手册](https://gitee.com/smallc/SpringBlade/wikis/SpringBlade开发手册)
+* [SpringBlade常见问题集锦](https://sns.bladex.vip/article-14966.html)
 
 # 开源协议
 Apache Licence 2.0 （[英文原文](http://www.apache.org/licenses/LICENSE-2.0.html)）
