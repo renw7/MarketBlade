@@ -5,7 +5,7 @@
    <img src="https://img.shields.io/badge/Spring%20Cloud-Greenwich.SR3-blue.svg" alt="Coverage Status">
    <img src="https://img.shields.io/badge/Spring%20Boot-2.1.8.RELEASE-blue.svg" alt="Downloads">
    <a target="_blank" href="https://bladex.vip">
-   <img src="https://img.shields.io/badge/SpringBlade%20Author-Small%20Chill-ff69b4.svg" alt="Downloads">
+   <img src="https://img.shields.io/badge/Author-Small%20Chill-ff69b4.svg" alt="Downloads">
  </a>
  <a target="_blank" href="https://bladex.vip">
    <img src="https://img.shields.io/badge/Copyright%20-@BladeX-%23ff3f59.svg" alt="Downloads">
