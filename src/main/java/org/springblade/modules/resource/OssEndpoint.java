@@ -33,7 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/oss/endpoint")
+@RequestMapping("/blade-resource/oss/endpoint")
 @Api(value = "对象存储端点", tags = "对象存储端点")
 public class OssEndpoint {
 
