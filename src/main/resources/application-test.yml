@@ -12,9 +12,9 @@ spring:
     #  nodes: 127.0.0.1:7001,127.0.0.1:7002,127.0.0.1:7003
     #  commandTimeout: 5000
   datasource:
-    url: jdbc:mysql://localhost:3306/blade?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8
-    username: root
-    password: root
+    url: jdbc:mysql://119.29.106.248:3306/EngineplanDb?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
+    username: test
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 #blade配置

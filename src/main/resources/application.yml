@@ -3,41 +3,40 @@ server:
   port: 80
   undertow:
     # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程
-    io-threads: 16
+    io-threads: 4
     # 阻塞任务线程池, 当执行类似servlet请求阻塞操作, undertow会从这个线程池中取得线程,它的值设置取决于系统的负载
-    worker-threads: 400
+    worker-threads: 20
     # 以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理
     buffer-size: 1024
     # 是否分配的直接内存
     direct-buffers: true
 
-#spring配置
 spring:
-  cache:
-    ehcache:
-      config: classpath:config/ehcache.xml
-  http:
-    encoding:
-      charset: UTF-8
-      force: true
-  servlet:
-    multipart:
-      max-file-size: 256MB
-      max-request-size: 1024MB
-  mvc:
-    throw-exception-if-no-handler-found: true
-  resources:
-    add-mappings: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-  devtools:
-    restart:
-      log-condition-evaluation-delta: false
-
-
-#配置日志地址
-logging:
-  config: classpath:log/logback_${blade.env}.xml
+    druid:
+      initial-size: 5
+      max-active: 20
+      min-idle: 5
+      max-wait: 60000
+      validation-query: select 1
+      validation-query-timeout: 2000
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      filters: stat,wall
+      stat-view-servlet:
+        enabled: true
+        login-username: blade
+        login-password: 1qaz@WSX
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: '*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*'
+        session-stat-enable: true
+        session-stat-max-count: 10
 
 # mybatis
 mybatis-plus:
@@ -51,10 +50,8 @@ mybatis-plus:
     db-config:
       #主键类型  0:"数据库ID自增", 1:"不操作", 2:"用户输入ID",3:"数字型snowflake", 4:"全局唯一ID UUID", 5:"字符串型snowflake";
       id-type: id_worker
-      #字段策略
-      insert-strategy: not_null
-      update-strategy: not_null
-      select-strategy: not_null
+      #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+      field-strategy: not_null
       #驼峰下划线转换
       table-underline: true
       # 逻辑删除配置
@@ -66,43 +63,57 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: false
 
-#swagger配置信息
+#swagger公共信息
 swagger:
-  title: SpringBlade 接口文档系统
-  description: SpringBlade 接口文档系统
-  version: 2.5.2
-  license: Powered By SpringBlade
-  licenseUrl: https://bladex.vip
+  title: BladeX 接口文档系统
+  description: BladeX 接口文档系统
+  version: 2.0.0
+  license: Powered By BladeX
+  license-url: https://bladex.vip
   terms-of-service-url: https://bladex.vip
   contact:
     name: smallchill
     email: smallchill@163.com
     url: https://gitee.com/smallc
 
-#oss配置
+#flowable配置
+flowable:
+  activity-font-name: \u5B8B\u4F53
+  label-font-name: \u5B8B\u4F53
+  annotation-font-name: \u5B8B\u4F53
+  check-process-definitions: false
+
+#oss默认配置
 oss:
   enable: true
   name: qiniu
   tenant-mode: true
-  endpoint: http://prt1thnw3.bkt.clouddn.com
+  endpoint: prt1thnw3.bkt.clouddn.com
   access-key: N_Loh1ngBqcJovwiAJqR91Ifj2vgOWHOf8AwBA_h
   secret-key: AuzuA1KHAbkIndCU0dB3Zfii2O3crHNODDmpxHRS
-  bucket-name: blade
+  bucket-name: bladex
+
 
 #blade配置
 blade:
+  xss:
+    url:
+      exclude-patterns:
+      - /weixin
   secure:
     url:
       exclude-patterns:
-        - /blade-test/**
+      - /blade-test/**
     client:
-      - client-id: sword
-        path-patterns:
-          - /blade-sword/**
-      - client-id: saber
-        path-patterns:
-          - /blade-saber/**
+    - client-id: sword
+      path-patterns:
+      - /blade-sword/**
+    - client-id: saber
+      path-patterns:
+      - /blade-saber/**
   tenant:
     column: tenant_id
     tables:
-      - blade_notice
+    - blade_notice
+
+
