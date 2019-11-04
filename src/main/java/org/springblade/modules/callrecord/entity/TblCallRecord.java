@@ -13,60 +13,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.modules.desk.entity;
+package org.springblade.modules.callrecord.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import org.springblade.core.mp.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springblade.core.mp.base.BaseEntity;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  * 实体类
  *
- * @author Chill
+ * @author BladeX
+ * @since 2019-11-04
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("blade_notice")
-public class Notice extends BaseEntity {
+@ApiModel(value = "TblCallRecord对象", description = "TblCallRecord对象")
+public class TblCallRecord extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * 主键id
-	 */
-	@TableId(value = "id", type = IdType.AUTO)
-	@ApiModelProperty(value = "主键id")
-	private Integer id;
+	@TableId(value = "recordId", type = IdType.AUTO)
+	private Long recordId;
 
-	/**
-	 * 标题
-	 */
-	@ApiModelProperty(value = "标题")
-	private String title;
+    private String serialNumber;
 
-	/**
-	 * 通知类型
-	 */
-	@ApiModelProperty(value = "通知类型")
-	private Integer category;
+    private Long taskId;
 
-	/**
-	 * 发布日期
-	 */
-	@ApiModelProperty(value = "发布日期")
-	private Date releaseTime;
+	private Timestamp startTime;
 
-	/**
-	 * 内容
-	 */
-	@ApiModelProperty(value = "内容")
-	private String content;
+	private Timestamp endTime;
 
+	private String resultCode;
+
+	private String productId;
+
+	private Long callTimes;
+
+	private Timestamp updateTime;
+
+	private String remark;
+
+	private Long staffId;
 
 }

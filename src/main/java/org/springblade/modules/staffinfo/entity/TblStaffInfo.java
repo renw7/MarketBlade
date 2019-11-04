@@ -15,6 +15,8 @@
  */
 package org.springblade.modules.staffinfo.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import org.springblade.core.mp.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -40,7 +42,8 @@ public class TblStaffInfo extends BaseEntity {
 	@ApiModelProperty(value = "用户名")
 	private String staffUsrname;
 
-	@ApiModelProperty(value = "用户名")
+	@TableId(value = "staffId", type = IdType.AUTO)
+	@ApiModelProperty(value = "id")
 	private Long staffId;
 
 	@ApiModelProperty(value = "用户名")

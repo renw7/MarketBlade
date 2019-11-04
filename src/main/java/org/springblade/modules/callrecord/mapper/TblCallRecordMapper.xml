@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springblade.modules.callrecord.mapper.TblCallRecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="tblCallRecordResultMap" type="org.springblade.modules.callrecord.entity.TblCallRecord">
+        <result column="record_id" property="recordId"/>
+        <result column="serial_number" property="serialNumber"/>
+        <result column="task_id" property="taskId"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="result_code" property="resultCode"/>
+        <result column="product_id" property="productId"/>
+        <result column="call_times" property="callTimes"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="remark" property="remark"/>
+        <result column="staff_id" property="staffId"/>
+    </resultMap>
+
+
+    <select id="selectTblCallRecordPage" resultMap="tblCallRecordResultMap">
+        select * from tbl_call_record where 1=1
+        <if test="resultCode != '' and resultCode !='null' and resultCode !=null">
+            and result_code = #{resultCode}
+        </if>
+    </select>
+
+    <select id="selectTblCallRecord" resultMap="tblCallRecordResultMap">
+        select * from tbl_call_record where record_id = #{recordId}
+
+    </select>
+
+</mapper>

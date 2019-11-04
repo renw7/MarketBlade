@@ -43,6 +43,8 @@ public class BladeConfiguration implements WebMvcConfigurer {
 		secureRegistry.excludePathPatterns("/swagger-resources/**");
 		secureRegistry.excludePathPatterns("/tbluserinfo/**");
 		secureRegistry.excludePathPatterns("/tblstaffinfo/**");
+		secureRegistry.excludePathPatterns("/tblcallrecord/**");
+
 
 		return secureRegistry;
 	}

@@ -13,25 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.modules.desk.service;
+package org.springblade.modules.callrecord.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springblade.modules.callrecord.entity.TblCallRecord;
+import org.springblade.modules.callrecord.vo.TblCallRecordVO;
 import org.springblade.core.mp.base.BaseService;
-import org.springblade.modules.desk.entity.Notice;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 /**
- * 服务类
+ *  服务类
  *
- * @author Chill
+ * @author BladeX
+ * @since 2019-11-04
  */
-public interface INoticeService extends BaseService<Notice> {
+public interface ITblCallRecordService extends BaseService<TblCallRecord> {
 
 	/**
 	 * 自定义分页
+	 *
 	 * @param page
-	 * @param notice
+	 * @param tblCallRecord
 	 * @return
 	 */
-	IPage<Notice> selectNoticePage(IPage<Notice> page, Notice notice);
+	IPage<TblCallRecordVO> selectTblCallRecordPage(IPage<TblCallRecordVO> page, String resultCode);
+
+	IPage<TblCallRecordVO> selectTblCallRecord(IPage<TblCallRecordVO> page, Long recordId);
 
 }
