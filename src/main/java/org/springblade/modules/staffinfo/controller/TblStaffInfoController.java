@@ -136,6 +136,8 @@ public class TblStaffInfoController extends BladeController {
 		String staffUsrname = tblStaffInfo.getStaffUsrname();
 		String staffPwd = tblStaffInfo.getStaffPwd();
 		IPage<TblStaffInfoVO> pages = tblStaffInfoService.checkUser(Condition.getPage(query), staffUsrname, serialNumber, staffPwd);
+		if (pages.getRecords().size() == 0)
+			return R.fail("无结果返回");
 		return R.data(pages);
 	}
 
