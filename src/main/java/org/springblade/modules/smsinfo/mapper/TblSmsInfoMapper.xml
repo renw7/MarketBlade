@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springblade.modules.smsinfo.mapper.TblSmsInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="tblSmsInfoResultMap" type="org.springblade.modules.smsinfo.entity.TblSmsInfo">
+        <result column="sms_id" property="smsId"/>
+        <result column="serial_number" property="serialNumber"/>
+        <result column="task_id" property="taskId"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+
+    <select id="selectTblSmsInfoPage" resultMap="tblSmsInfoResultMap">
+        select * from tbl_sms_info
+    </select>
+
+    <select id="insertTblSmsInfo" resultMap="tblSmsInfoResultMap">
+        INSERT INTO tbl_sms_info
+        SET serial_number=#{serialNumber},task_id=#{taskId},update_time=now()
+    </select>
+
+</mapper>
