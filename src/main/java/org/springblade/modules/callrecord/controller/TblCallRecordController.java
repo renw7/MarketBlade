@@ -143,4 +143,6 @@ public class TblCallRecordController extends BladeController {
 		IPage<TblCallRecordVO> pages = tblCallRecordService.tblCallRecordStatistics(Condition.getPage(query), resultCode, staffId);
 		return R.data(pages);
 	}
+
+
 }
