@@ -42,4 +42,14 @@
             and result_code = #{resultCode}
         </if>
     </select>
+
+    <insert id="insertTblCallRecord" parameterType="TblCallRecord">
+        INSERT INTO tbl_call_record(serial_number,task_id,start_time,end_time,
+        result_code,product_id,call_times,remark,staff_id,update_time)
+        VALUES(#{serialNumber},#{taskId},#{startTime},#{endTime},
+        #{resultCode},#{productId},#{callTimes},#{remark},#{staffId},now())
+        <selectKey keyProperty="recordId" resultType="long" order="AFTER">
+            select last_insert_id() as recordId
+        </selectKey>
+    </insert>
 </mapper>

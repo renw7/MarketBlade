@@ -42,4 +42,12 @@ public interface TblCallRecordMapper extends BaseMapper<TblCallRecord> {
 	List<TblCallRecordVO> selectTblCallRecord(IPage page, @Param("recordId")Long recordId);
 
 	IPage<TblCallRecordVO> tblCallRecordStatistics(IPage page, @Param("resultCode")String resultCode, @Param("staffId")Long staffId);
+
+	/**
+	 * 插入通话记录
+	 *
+	 * @param tblCallRecord
+	 * @return TblCallRecord
+	 */
+	Long insertTblCallRecord(TblCallRecord tblCallRecord);
 }

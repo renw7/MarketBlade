@@ -145,4 +145,18 @@ public class TblCallRecordController extends BladeController {
 	}
 
 
+	/**
+	 * 新增 call
+	 */
+	@PostMapping("/saveCall")
+	@ApiOperationSupport(order = 8)
+	@ApiOperation(value = "新增", notes = "传入tblCallRecord")
+	@ResponseBody
+	public Long savePost(@Valid @RequestBody TblCallRecord tblCallRecord) {
+		System.out.println("插入数据"+tblCallRecord);
+		Long RecordId=tblCallRecordService.insertTblCallRecord(tblCallRecord);
+		System.out.println("插入记录RecordId"+RecordId);
+		return RecordId;
+	}
+
 }
