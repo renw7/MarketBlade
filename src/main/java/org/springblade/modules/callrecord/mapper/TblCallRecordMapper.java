@@ -13,26 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.modules.desk.service.impl;
+package org.springblade.modules.callrecord.mapper;
 
+import org.apache.ibatis.annotations.Param;
+import org.springblade.modules.callrecord.entity.TblCallRecord;
+import org.springblade.modules.callrecord.vo.TblCallRecordVO;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.core.mp.base.BaseServiceImpl;
-import org.springblade.modules.desk.entity.Notice;
-import org.springblade.modules.desk.mapper.NoticeMapper;
-import org.springblade.modules.desk.service.INoticeService;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
 /**
- * 服务实现类
+ *  Mapper 接口
  *
- * @author Chill
+ * @author BladeX
+ * @since 2019-11-04
  */
-@Service
-public class NoticeServiceImpl extends BaseServiceImpl<NoticeMapper, Notice> implements INoticeService {
+public interface TblCallRecordMapper extends BaseMapper<TblCallRecord> {
 
-	@Override
-	public IPage<Notice> selectNoticePage(IPage<Notice> page, Notice notice) {
-		return page.setRecords(baseMapper.selectNoticePage(page, notice));
-	}
+	/**
+	 * 自定义分页
+	 *
+	 * @param page
+	 * @param tblCallRecord
+	 * @return
+	 */
+	List<TblCallRecordVO> selectTblCallRecordPage(IPage page, @Param("resultCode")String resultCode);
+
+	List<TblCallRecordVO> selectTblCallRecord(IPage page, @Param("recordId")Long recordId);
+
 
 }

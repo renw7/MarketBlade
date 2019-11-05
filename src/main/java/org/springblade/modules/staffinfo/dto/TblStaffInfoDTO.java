@@ -13,25 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.modules.desk.service;
+package org.springblade.modules.staffinfo.dto;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.core.mp.base.BaseService;
-import org.springblade.modules.desk.entity.Notice;
+import org.springblade.modules.staffinfo.entity.TblStaffInfo;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
- * 服务类
+ * 数据传输对象实体类
  *
- * @author Chill
+ * @author BladeX
+ * @since 2019-11-01
  */
-public interface INoticeService extends BaseService<Notice> {
-
-	/**
-	 * 自定义分页
-	 * @param page
-	 * @param notice
-	 * @return
-	 */
-	IPage<Notice> selectNoticePage(IPage<Notice> page, Notice notice);
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class TblStaffInfoDTO extends TblStaffInfo {
+	private static final long serialVersionUID = 1L;
 
 }

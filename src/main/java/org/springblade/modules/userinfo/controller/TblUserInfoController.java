@@ -59,7 +59,7 @@ public class TblUserInfoController extends BladeController {
 	}
 
 	/**
-	* 分页 
+	* 分页   /tbluserinfo/list
 	*/
 	@PostMapping("/list")
 	@ApiOperation(value = "分页", notes = "传入tblUserInfo", position = 2)
@@ -70,7 +70,7 @@ public class TblUserInfoController extends BladeController {
 	}
 
 	/**
-	* 自定义分页 
+	* 自定义分页  /tbluserinfo/page
 	*/
 	@GetMapping("/page")
 	@ApiOperation(value = "分页", notes = "传入tblUserInfo", position = 3)

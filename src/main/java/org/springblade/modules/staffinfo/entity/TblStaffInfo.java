@@ -13,60 +13,50 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.modules.desk.entity;
+package org.springblade.modules.staffinfo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import org.springblade.core.mp.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springblade.core.mp.base.BaseEntity;
-
-import java.util.Date;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 实体类
  *
- * @author Chill
+ * @author BladeX
+ * @since 2019-11-01
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("blade_notice")
-public class Notice extends BaseEntity {
+@ApiModel(value = "TblStaffInfo对象", description = "TblStaffInfo对象")
+public class TblStaffInfo extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 主键id
+	 * 用户名
 	 */
-	@TableId(value = "id", type = IdType.AUTO)
-	@ApiModelProperty(value = "主键id")
-	private Integer id;
+	@ApiModelProperty(value = "用户名")
+	private String staffUsrname;
 
-	/**
-	 * 标题
-	 */
-	@ApiModelProperty(value = "标题")
-	private String title;
+	@TableId(value = "staffId", type = IdType.AUTO)
+	@ApiModelProperty(value = "id")
+	private Long staffId;
 
-	/**
-	 * 通知类型
-	 */
-	@ApiModelProperty(value = "通知类型")
-	private Integer category;
+	@ApiModelProperty(value = "用户名")
+	private String staffName;
 
-	/**
-	 * 发布日期
-	 */
-	@ApiModelProperty(value = "发布日期")
-	private Date releaseTime;
+	@ApiModelProperty(value = "用户名")
+	private String staffNo;
 
-	/**
-	 * 内容
-	 */
-	@ApiModelProperty(value = "内容")
-	private String content;
+	@ApiModelProperty(value = "用户名")
+	private String staffPwd;
 
-
+	@ApiModelProperty(value = "用户名")
+	private String serialNumber;
 }
+
+

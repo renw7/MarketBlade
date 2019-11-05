@@ -13,34 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.modules.desk.mapper;
+package org.springblade.modules.callrecord.vo;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.modules.desk.entity.Notice;
-
-import java.util.List;
+import org.springblade.modules.callrecord.entity.TblCallRecord;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import io.swagger.annotations.ApiModel;
 
 /**
- * Mapper 接口
+ * 视图实体类
  *
- * @author Chill
+ * @author BladeX
+ * @since 2019-11-04
  */
-public interface NoticeMapper extends BaseMapper<Notice> {
-
-	/**
-	 * 前N条数据
-	 * @param number
-	 * @return
-	 */
-	List<Notice> topList(Integer number);
-
-	/**
-	 * 自定义分页
-	 * @param page
-	 * @param notice
-	 * @return
-	 */
-	List<Notice> selectNoticePage(IPage page, Notice notice);
+@Data
+@EqualsAndHashCode(callSuper = true)
+@ApiModel(value = "TblCallRecordVO对象", description = "TblCallRecordVO对象")
+public class TblCallRecordVO extends TblCallRecord {
+	private static final long serialVersionUID = 1L;
 
 }
