@@ -13,25 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.modules.desk.service;
+package org.springblade.modules.callrecord.vo;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.core.mp.base.BaseService;
-import org.springblade.modules.desk.entity.Notice;
+import org.springblade.modules.callrecord.entity.TblCallRecord;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import io.swagger.annotations.ApiModel;
 
 /**
- * 服务类
+ * 视图实体类
  *
- * @author Chill
+ * @author BladeX
+ * @since 2019-11-04
  */
-public interface INoticeService extends BaseService<Notice> {
-
-	/**
-	 * 自定义分页
-	 * @param page
-	 * @param notice
-	 * @return
-	 */
-	IPage<Notice> selectNoticePage(IPage<Notice> page, Notice notice);
+@Data
+@EqualsAndHashCode(callSuper = true)
+@ApiModel(value = "TblCallRecordVO对象", description = "TblCallRecordVO对象")
+public class TblCallRecordVO extends TblCallRecord {
+	private static final long serialVersionUID = 1L;
 
 }

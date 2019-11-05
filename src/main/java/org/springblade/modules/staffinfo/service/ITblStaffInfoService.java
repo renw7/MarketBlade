@@ -13,26 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.modules.desk.service.impl;
+package org.springblade.modules.staffinfo.service;
 
+import org.springblade.modules.staffinfo.entity.TblStaffInfo;
+import org.springblade.modules.staffinfo.vo.TblStaffInfoVO;
+import org.springblade.core.mp.base.BaseService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.core.mp.base.BaseServiceImpl;
-import org.springblade.modules.desk.entity.Notice;
-import org.springblade.modules.desk.mapper.NoticeMapper;
-import org.springblade.modules.desk.service.INoticeService;
-import org.springframework.stereotype.Service;
 
 /**
- * 服务实现类
+ *  服务类
  *
- * @author Chill
+ * @author BladeX
+ * @since 2019-11-01
  */
-@Service
-public class NoticeServiceImpl extends BaseServiceImpl<NoticeMapper, Notice> implements INoticeService {
+public interface ITblStaffInfoService extends BaseService<TblStaffInfo> {
 
-	@Override
-	public IPage<Notice> selectNoticePage(IPage<Notice> page, Notice notice) {
-		return page.setRecords(baseMapper.selectNoticePage(page, notice));
-	}
+	/**
+	 * 自定义分页
+	 *
+	 * @param page
+	 * @param tblStaffInfo
+	 * @return
+	 */
+	IPage<TblStaffInfoVO> selectTblStaffInfoPage(IPage<TblStaffInfoVO> page, TblStaffInfoVO tblStaffInfo);
+
+	IPage<TblStaffInfoVO> checkUser(IPage<TblStaffInfoVO> page, String staffUsrname, String serialNumber, String staffPwd);
 
 }

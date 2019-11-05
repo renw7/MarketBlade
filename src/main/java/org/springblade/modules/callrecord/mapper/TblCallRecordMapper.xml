@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springblade.modules.callrecord.mapper.TblCallRecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="tblCallRecordResultMap" type="org.springblade.modules.callrecord.entity.TblCallRecord">
+        <result column="record_id" property="recordId"/>
+        <result column="serial_number" property="serialNumber"/>
+        <result column="task_id" property="taskId"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="result_code" property="resultCode"/>
+        <result column="product_id" property="productId"/>
+        <result column="call_times" property="callTimes"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="remark" property="remark"/>
+        <result column="staff_id" property="staffId"/>
+        <result column="task_name" property="taskName"/>
+        <result column="result_desc" property="resultDesc"/>
+        <result column="num" property="num"/>
+    </resultMap>
+
+
+    <select id="selectTblCallRecordPage" resultMap="tblCallRecordResultMap">
+        select * from tbl_call_record where 1=1
+        <if test="resultCode != '' and resultCode !='null' and resultCode !=null">
+            and result_code = #{resultCode}
+        </if>
+    </select>
+
+    <select id="selectTblCallRecord" resultMap="tblCallRecordResultMap">
+        select a.*, b.task_name, (select c.param_name from tbl_common_params c where c.param_type = '通话记录表用户意向' and c.param_value = a.result_code ) result_desc
+         from tbl_call_record a, tbl_task_info b where a.task_id = b.task_id and record_id = #{recordId}
+    </select>
+
+
+    <select id="tblCallRecordStatistics" resultMap="tblCallRecordResultMap">
+        select count(*) num from tbl_call_record a
+            where to_days(update_time) = to_days(now())
+            and staff_id = #{staffId}
+        <if test="resultCode != '' and resultCode !='null' and resultCode !=null">
+            and result_code = #{resultCode}
+        </if>
+    </select>
+
+    <insert id="insertTblCallRecord" parameterType="TblCallRecord">
+        INSERT INTO tbl_call_record(serial_number,task_id,start_time,end_time,
+        result_code,product_id,call_times,remark,staff_id,update_time)
+        VALUES(#{serialNumber},#{taskId},#{startTime},#{endTime},
+        #{resultCode},#{productId},#{callTimes},#{remark},#{staffId},now())
+        <selectKey keyProperty="recordId" resultType="long" order="AFTER">
+            select last_insert_id() as recordId
+        </selectKey>
+    </insert>
+</mapper>
