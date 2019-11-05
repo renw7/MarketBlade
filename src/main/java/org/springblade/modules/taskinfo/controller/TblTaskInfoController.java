@@ -73,22 +73,49 @@ public class TblTaskInfoController extends BladeController {
 	/**
 	 * 自定义分页
 	 */
-	@GetMapping("/get")
+	@PostMapping("/postInfoPage1")
 	@ApiOperationSupport(order = 3)
 	@ApiOperation(value = "分页", notes = "传入tblTaskInfo")
-	public R<IPage<TblTaskInfoVO>> get(TblTaskInfoVO tblTaskInfo, Query query) {
-		IPage<TblTaskInfoVO> pages = tblTaskInfoService.selectTblTaskInfoPage(Condition.getPage(query), tblTaskInfo);
+	public R<IPage<TblTaskInfoVO>> postInfoPage1(@RequestBody TblTaskInfoVO tblTaskInfo, Query query) {
+		String task_type = tblTaskInfo.getTaskType();
+		IPage<TblTaskInfoVO> pages = tblTaskInfoService.selectTblTaskInfoPage1(Condition.getPage(query), task_type);
 		return R.data(pages);
 	}
 
 	/**
 	 * 自定义分页
 	 */
-	@PostMapping("/post")
+	@GetMapping("/getInfoPage1")
 	@ApiOperationSupport(order = 3)
 	@ApiOperation(value = "分页", notes = "传入tblTaskInfo")
-	public R<IPage<TblTaskInfoVO>> post(TblTaskInfoVO tblTaskInfo, Query query) {
-		IPage<TblTaskInfoVO> pages = tblTaskInfoService.selectTblTaskInfoPage(Condition.getPage(query), tblTaskInfo);
+	public R<IPage<TblTaskInfoVO>> getInfoPage1( TblTaskInfoVO tblTaskInfo, Query query) {
+		String task_type = tblTaskInfo.getTaskType();
+		IPage<TblTaskInfoVO> pages = tblTaskInfoService.selectTblTaskInfoPage1(Condition.getPage(query), task_type);
+		return R.data(pages);
+	}
+
+
+	/**
+	 * 自定义分页
+	 */
+	@PostMapping("/postInfoPage2")
+	@ApiOperationSupport(order = 3)
+	@ApiOperation(value = "分页", notes = "传入tblTaskInfo")
+	public R<IPage<TblTaskInfoVO>> postInfoPage2(@RequestBody TblTaskInfoVO tblTaskInfo, Query query) {
+		long taskid = tblTaskInfo.getTaskId();
+		IPage<TblTaskInfoVO> pages = tblTaskInfoService.selectTblTaskInfoPage2(Condition.getPage(query), taskid);
+		return R.data(pages);
+	}
+
+	/**
+	 * 自定义分页
+	 */
+	@GetMapping("/getInfoPage2")
+	@ApiOperationSupport(order = 3)
+	@ApiOperation(value = "分页", notes = "传入tblTaskInfo")
+	public R<IPage<TblTaskInfoVO>> getInfoPage2(TblTaskInfoVO tblTaskInfo, Query query) {
+		long taskid = tblTaskInfo.getTaskId();
+		IPage<TblTaskInfoVO> pages = tblTaskInfoService.selectTblTaskInfoPage2(Condition.getPage(query), taskid);
 		return R.data(pages);
 	}
 
