@@ -134,5 +134,13 @@ public class TblCallRecordController extends BladeController {
 		return R.status(tblCallRecordService.deleteLogic(Func.toIntList(ids)));
 	}
 
-	
+	@GetMapping("/statistics")
+	@ApiOperationSupport(order = 3)
+	@ApiOperation(value = "分页", notes = "传入tblCallRecord")
+	public R<IPage<TblCallRecordVO>> tblCallRecordStatistics(TblCallRecordVO tblCallRecord, Query query) {
+		String resultCode = tblCallRecord.getResultCode();
+		Long staffId = tblCallRecord.getStaffId();
+		IPage<TblCallRecordVO> pages = tblCallRecordService.tblCallRecordStatistics(Condition.getPage(query), resultCode, staffId);
+		return R.data(pages);
+	}
 }

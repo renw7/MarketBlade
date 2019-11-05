@@ -61,4 +61,9 @@ public class TblCallRecord extends BaseEntity {
 
 	private Long staffId;
 
+	private String taskName;
+
+	private String resultDesc;
+
+	private Long num;
 }

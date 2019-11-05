@@ -39,4 +39,5 @@ public interface ITblCallRecordService extends BaseService<TblCallRecord> {
 
 	IPage<TblCallRecordVO> selectTblCallRecord(IPage<TblCallRecordVO> page, Long recordId);
 
+	IPage<TblCallRecordVO> tblCallRecordStatistics(IPage<TblCallRecordVO> page, String resultCoded, Long staffId);
 }

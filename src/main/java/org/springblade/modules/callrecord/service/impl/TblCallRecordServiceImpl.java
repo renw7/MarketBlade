@@ -42,4 +42,9 @@ public class TblCallRecordServiceImpl extends BaseServiceImpl<TblCallRecordMappe
 		return page.setRecords(baseMapper.selectTblCallRecord(page, recordId));
 	}
 
+	@Override
+	public IPage<TblCallRecordVO> tblCallRecordStatistics(IPage<TblCallRecordVO> page, String resultCoded, Long staffId) {
+		return baseMapper.tblCallRecordStatistics(page, resultCoded, staffId);
+	}
+
 }
