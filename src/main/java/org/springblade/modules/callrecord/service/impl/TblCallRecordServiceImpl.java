@@ -42,4 +42,17 @@ public class TblCallRecordServiceImpl extends BaseServiceImpl<TblCallRecordMappe
 		return page.setRecords(baseMapper.selectTblCallRecord(page, recordId));
 	}
 
+	@Override
+	public IPage<TblCallRecordVO> tblCallRecordStatistics(IPage<TblCallRecordVO> page, String resultCoded, Long staffId) {
+		return baseMapper.tblCallRecordStatistics(page, resultCoded, staffId);
+	}
+
+	@Override
+	public Long insertTblCallRecord(TblCallRecord tblCallRecord) {
+		Long RecordId=baseMapper.insertTblCallRecord(tblCallRecord);
+		System.out.println("插入记录后返回"+tblCallRecord);
+		//System.out.println("插入记录后返回RecordId"+RecordId);//这个为什么不对
+		return tblCallRecord.getRecordId();
+	}
+
 }

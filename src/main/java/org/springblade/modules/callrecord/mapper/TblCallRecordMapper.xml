@@ -15,6 +15,9 @@
         <result column="update_time" property="updateTime"/>
         <result column="remark" property="remark"/>
         <result column="staff_id" property="staffId"/>
+        <result column="task_name" property="taskName"/>
+        <result column="result_desc" property="resultDesc"/>
+        <result column="num" property="num"/>
     </resultMap>
 
 
@@ -26,8 +29,27 @@
     </select>
 
     <select id="selectTblCallRecord" resultMap="tblCallRecordResultMap">
-        select * from tbl_call_record where record_id = #{recordId}
-
+        select a.*, b.task_name, (select c.param_name from tbl_common_params c where c.param_type = '通话记录表用户意向' and c.param_value = a.result_code ) result_desc
+         from tbl_call_record a, tbl_task_info b where a.task_id = b.task_id and record_id = #{recordId}
     </select>
 
+
+    <select id="tblCallRecordStatistics" resultMap="tblCallRecordResultMap">
+        select count(*) num from tbl_call_record a
+            where to_days(update_time) = to_days(now())
+            and staff_id = #{staffId}
+        <if test="resultCode != '' and resultCode !='null' and resultCode !=null">
+            and result_code = #{resultCode}
+        </if>
+    </select>
+
+    <insert id="insertTblCallRecord" parameterType="TblCallRecord">
+        INSERT INTO tbl_call_record(serial_number,task_id,start_time,end_time,
+        result_code,product_id,call_times,remark,staff_id,update_time)
+        VALUES(#{serialNumber},#{taskId},#{startTime},#{endTime},
+        #{resultCode},#{productId},#{callTimes},#{remark},#{staffId},now())
+        <selectKey keyProperty="recordId" resultType="long" order="AFTER">
+            select last_insert_id() as recordId
+        </selectKey>
+    </insert>
 </mapper>

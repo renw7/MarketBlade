@@ -13,39 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.modules.callrecord.service;
+package org.springblade.modules.smsinfo.mapper;
 
 import org.springblade.modules.callrecord.entity.TblCallRecord;
-import org.springblade.modules.callrecord.vo.TblCallRecordVO;
-import org.springblade.core.mp.base.BaseService;
+import org.springblade.modules.smsinfo.entity.TblSmsInfo;
+import org.springblade.modules.smsinfo.vo.TblSmsInfoVO;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import java.util.List;
 
 /**
- *  服务类
+ *  Mapper 接口
  *
  * @author BladeX
  * @since 2019-11-04
  */
-public interface ITblCallRecordService extends BaseService<TblCallRecord> {
+public interface TblSmsInfoMapper extends BaseMapper<TblSmsInfo> {
 
 	/**
 	 * 自定义分页
 	 *
 	 * @param page
-	 * @param tblCallRecord
+	 * @param tblSmsInfo
 	 * @return
 	 */
-	IPage<TblCallRecordVO> selectTblCallRecordPage(IPage<TblCallRecordVO> page, String resultCode);
-
-	IPage<TblCallRecordVO> selectTblCallRecord(IPage<TblCallRecordVO> page, Long recordId);
-
-	IPage<TblCallRecordVO> tblCallRecordStatistics(IPage<TblCallRecordVO> page, String resultCoded, Long staffId);
+	List<TblSmsInfoVO> selectTblSmsInfoPage(IPage page, TblSmsInfoVO tblSmsInfo);
 
 	/**
-	 * 插入通话记录
+	 * 插入短信发送记录
 	 *
-	 * @param tblCallRecord
-	 * @return TblCallRecord
+	 * @param TblSmsInfo
+	 * @return TblSmsInfo
 	 */
-	Long insertTblCallRecord(TblCallRecord tblCallRecord);
+	TblSmsInfo insertTblSmsInfo(TblSmsInfo TblSmsInfo);
 }

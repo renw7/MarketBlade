@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.modules.callrecord.entity;
+package org.springblade.modules.smsinfo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -33,37 +33,19 @@ import java.sql.Timestamp;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "TblCallRecord对象", description = "TblCallRecord对象")
-public class TblCallRecord extends BaseEntity {
+@ApiModel(value = "TblSmsInfo对象", description = "TblSmsInfo对象")
+public class TblSmsInfo extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-	@TableId(value = "recordId", type = IdType.AUTO)
-	private Long recordId;
-
-    private String serialNumber;
-
-    private Long taskId;
-
-	private Timestamp startTime;
-
-	private Timestamp endTime;
-
-	private String resultCode;
-
-	private String productId;
-
-	private Long callTimes;
-
+    @TableId(value = "dataId", type = IdType.AUTO)
+	private Long smsId;
+	@ApiModelProperty(value = "用户号码")
+	private String serialNumber;
+	@ApiModelProperty(value = "任务id")
+	private Long taskId;
+	@ApiModelProperty(value = "更新时间")
 	private Timestamp updateTime;
 
-	private String remark;
 
-	private Long staffId;
-
-	private String taskName;
-
-	private String resultDesc;
-
-	private Long num;
 }
