@@ -73,10 +73,10 @@ public class TblCallRecordController extends BladeController {
 	/**
 	 * 自定义分页 
 	 */
-	@PostMapping("/page")
+	@GetMapping("/page")
 	@ApiOperationSupport(order = 3)
 	@ApiOperation(value = "分页", notes = "传入tblCallRecord")
-	public R<IPage<TblCallRecordVO>> page(@RequestBody TblCallRecordVO tblCallRecord, Query query) {
+	public R<IPage<TblCallRecordVO>> page(TblCallRecordVO tblCallRecord, Query query) {
 		String resultCode = tblCallRecord.getResultCode();
 		IPage<TblCallRecordVO> pages = tblCallRecordService.selectTblCallRecordPage(Condition.getPage(query), resultCode);
 		return R.data(pages);
@@ -85,10 +85,10 @@ public class TblCallRecordController extends BladeController {
 	/**
 	 * 自定义分页
 	 */
-	@PostMapping("/info")
+	@GetMapping("/info")
 	@ApiOperationSupport(order = 3)
 	@ApiOperation(value = "分页", notes = "传入tblCallRecord")
-	public R<IPage<TblCallRecordVO>> info(@RequestBody TblCallRecordVO tblCallRecord, Query query) {
+	public R<IPage<TblCallRecordVO>> info(TblCallRecordVO tblCallRecord, Query query) {
 		IPage<TblCallRecordVO> pages = tblCallRecordService.selectTblCallRecord(Condition.getPage(query), tblCallRecord.getRecordId());
 		return R.data(pages);
 	}
