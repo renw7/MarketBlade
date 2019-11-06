@@ -24,4 +24,13 @@
         select * from tbl_task_info WHERE  task_id = #{taskId}
     </select>
 
+    <select id="selectTblTaskInfoOne" resultMap="tblTaskInfoResultMap">
+        select task_id,product_id,product_name,voice_content,sms_content from tbl_task_info
+        WHERE task_status=5
+        <if test="_parameter!=null">
+            AND task_id=#{_parameter}
+        </if>
+        ORDER BY RAND() LIMIT 1
+    </select>
+
 </mapper>

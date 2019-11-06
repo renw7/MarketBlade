@@ -120,6 +120,32 @@ public class TblTaskInfoController extends BladeController {
 	}
 
 	/**
+	 * 根据任务taskId查询任务信息  post
+	 */
+	@PostMapping("/selectOnePost")
+	@ApiOperationSupport(order = 3)
+	@ApiOperation(value = "分页", notes = "传入tblTaskInfo")
+	public R<TblTaskInfo> selectOnePost(@Valid @RequestBody TblTaskInfoVO tblTaskInfo, Query query) {
+		Long taskId = tblTaskInfo.getTaskId();
+		System.out.println("查询任务信息"+taskId);
+		TblTaskInfo one = tblTaskInfoService.selectTblTaskInfoOne(taskId);
+		return R.data(one);
+	}
+
+	/**
+	 * 根据任务taskId查询任务信息  get
+	 */
+	@GetMapping("/selectOneGet")
+	@ApiOperationSupport(order = 4)
+	@ApiOperation(value = "分页", notes = "传入tblTaskInfo")
+	public R<TblTaskInfo> selectOneGet(TblTaskInfoVO tblTaskInfo, Query query) {
+		Long taskId = tblTaskInfo.getTaskId();
+		//System.out.println(taskId);
+		TblTaskInfo one = tblTaskInfoService.selectTblTaskInfoOne(taskId);
+		return R.data(one);
+	}
+
+	/**
 	 * 新增
 	 */
 	@PostMapping("/save")

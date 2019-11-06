@@ -34,11 +34,17 @@ public interface TblTaskInfoMapper extends BaseMapper<TblTaskInfo> {
 	 * 自定义分页
 	 *
 	 * @param page
-	 * @param tblTaskInfo
+	 * @param
 	 * @return
 	 */
 	List<TblTaskInfoVO> selectTblTaskInfoPage1(IPage page, @Param("taskType")String taskType);
 
 	List<TblTaskInfoVO> selectTblTaskInfoPage2(IPage page, @Param("taskId")long taskId);
 
+	/**
+	 * 根据任务id查询一条任务数据
+	 * @param taskId
+	 * @return
+	 */
+	TblTaskInfo selectTblTaskInfoOne(Long taskId);
 }

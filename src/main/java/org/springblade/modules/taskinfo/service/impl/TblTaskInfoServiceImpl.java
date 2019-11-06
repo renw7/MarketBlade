@@ -42,4 +42,9 @@ public class TblTaskInfoServiceImpl extends BaseServiceImpl<TblTaskInfoMapper, T
 		return page.setRecords(baseMapper.selectTblTaskInfoPage2(page, taskId));
 	}
 
+	@Override
+	public TblTaskInfo selectTblTaskInfoOne(Long taskId){
+		return baseMapper.selectTblTaskInfoOne(taskId);
+	};
+
 }
