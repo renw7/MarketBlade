@@ -43,8 +43,8 @@ public class TblStaffInfoServiceImpl extends BaseServiceImpl<TblStaffInfoMapper,
 	}
 
 	@Override
-	public int updatePwd(IPage page, String staffPwd, String staffNo) {
-		return baseMapper.updatePwd(page, staffPwd, staffNo);
+	public void updatePwd(String staffPwd, String staffNo) {
+		 baseMapper.updatePwd(staffPwd, staffNo);
 
 	}
 

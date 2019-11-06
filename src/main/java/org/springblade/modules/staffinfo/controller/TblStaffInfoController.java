@@ -144,11 +144,17 @@ public class TblStaffInfoController extends BladeController {
 	@PostMapping("/updatePwd")
 	@ApiOperationSupport(order = 3)
 	@ApiOperation(value = "分页", notes = "登录校验")
-	public R updatePwd(@RequestBody TblStaffInfoVO tblStaffInfo, Query query) {
+	public R updatePwd(@RequestBody TblStaffInfoVO tblStaffInfo) {
 		String staffPwd = tblStaffInfo.getStaffPwd();
 		String staffNo = tblStaffInfo.getStaffNo();
-		int code = tblStaffInfoService.updatePwd(Condition.getPage(query), staffPwd, staffNo);
-		return R.success(String.valueOf(code));
+		try {
+			tblStaffInfoService.updatePwd(staffPwd, staffNo);
+			return R.success("修改成功");
+		}
+		catch(Exception e) {
+			return R.fail("修改失败");
+		}
+
 	}
 
 

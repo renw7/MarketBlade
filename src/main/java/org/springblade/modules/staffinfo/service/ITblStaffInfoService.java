@@ -41,6 +41,6 @@ public interface ITblStaffInfoService extends BaseService<TblStaffInfo> {
 
 	IPage<TblStaffInfoVO> checkUser(IPage<TblStaffInfoVO> page, String staffUsrname, String serialNumber, String staffPwd);
 
-	int updatePwd(IPage page, String staffPwd, String staffNo);
+	void updatePwd( String staffPwd, String staffNo);
 
 }
