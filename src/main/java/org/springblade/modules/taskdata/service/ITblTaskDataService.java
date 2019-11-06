@@ -46,6 +46,14 @@ public interface ITblTaskDataService extends BaseService<TblTaskData> {
 	TblTaskData selectTblTaskDataOne(Long taskId);
 
 	/**
+	 * 根据号码查询指定的数据
+	 *
+	 * @param taskId
+	 * @return TblTaskData
+	 */
+	TblTaskData selectTblTaskDataSpe(Long taskId);
+
+	/**
 	 * 修改任务数据
 	 *
 	 * @param tblTaskData

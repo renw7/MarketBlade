@@ -39,16 +39,21 @@ public class TblTaskDataServiceImpl extends BaseServiceImpl<TblTaskDataMapper, T
 
 	@Override
 	public TblTaskData selectTblTaskDataOne(Long taskId) {
-		return baseMapper.selectTblTaskDataOne(taskId);
+		TblTaskData t;
+		synchronized("data"){
+			t=baseMapper.selectTblTaskDataOne(taskId);
+		}
+		return t;
+	}
+
+	@Override
+	public TblTaskData selectTblTaskDataSpe(Long taskId) {
+		return baseMapper.selectTblTaskDataSpe(taskId);
 	}
 
 	@Override
 	public TblTaskData updateTblTaskData(TblTaskData tblTaskData) {
-		TblTaskData t;
-		synchronized("data"){
-			t=baseMapper.updateTblTaskData(tblTaskData);
-		}
-		return t;
+		return baseMapper.updateTblTaskData(tblTaskData);
 	}
 
 }
