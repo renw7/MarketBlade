@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.modules.taskinfo.mapper;
+package org.springblade.modules.taskdata.mapper;
 
-import org.apache.ibatis.annotations.Param;
-import org.springblade.modules.taskinfo.entity.TblTaskInfo;
-import org.springblade.modules.taskinfo.vo.TblTaskInfoVO;
+import org.springblade.modules.taskdata.entity.TblTaskData;
+import org.springblade.modules.taskdata.vo.TblTaskDataVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.List;
@@ -26,25 +25,33 @@ import java.util.List;
  *  Mapper 接口
  *
  * @author BladeX
- * @since 2019-11-03
+ * @since 2019-11-01
  */
-public interface TblTaskInfoMapper extends BaseMapper<TblTaskInfo> {
+public interface TblTaskDataMapper extends BaseMapper<TblTaskData> {
 
 	/**
 	 * 自定义分页
 	 *
 	 * @param page
-	 * @param
+	 * @param tblTaskData
 	 * @return
 	 */
-	List<TblTaskInfoVO> selectTblTaskInfoPage1(IPage page, @Param("taskType")String taskType);
-
-	List<TblTaskInfoVO> selectTblTaskInfoPage2(IPage page, @Param("taskId")long taskId);
+	List<TblTaskDataVO> selectTblTaskDataPage(IPage page, TblTaskDataVO tblTaskData);
 
 	/**
-	 * 根据任务id查询一条任务数据
+	 * 查询一条任务数据
+	 *
 	 * @param taskId
-	 * @return
+	 * @return TblTaskData
 	 */
-	TblTaskInfo selectTblTaskInfoOne(Long taskId);
+	TblTaskData selectTblTaskDataOne(Long taskId);
+
+	/**
+	 * 修改任务数据
+	 *
+	 * @param tblTaskData
+	 * @return TblTaskData
+	 */
+	TblTaskData updateTblTaskData(TblTaskData tblTaskData);
+
 }

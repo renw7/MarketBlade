@@ -13,41 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.modules.taskinfo.entity;
+package org.springblade.modules.taskdata.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import org.springblade.core.mp.base.BaseEntity;
+import org.springblade.modules.taskdata.entity.TblTaskData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
-import java.sql.Timestamp;
 
 /**
- * 实体类
+ * 视图实体类
  *
  * @author BladeX
- * @since 2019-11-03
+ * @since 2019-11-01
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "TblTaskInfo对象", description = "TblTaskInfo对象")
-public class TblTaskInfo extends BaseEntity {
-
-    private static final long serialVersionUID = 1L;
-
-	@TableId(value = "dataId", type = IdType.AUTO)
-    private long taskId;
-    private String taskName;
-	private String taskType;
-	private String taskStatus;
-	private String productId;
-	private String productName;
-	private String voiceContent;
-	private String smsContent;
-	private Timestamp updateTime;
-
+@ApiModel(value = "TblTaskDataVO对象", description = "TblTaskDataVO对象")
+public class TblTaskDataVO extends TblTaskData {
+	private static final long serialVersionUID = 1L;
 
 }

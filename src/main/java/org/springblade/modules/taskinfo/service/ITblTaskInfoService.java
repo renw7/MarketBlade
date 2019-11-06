@@ -32,11 +32,17 @@ public interface ITblTaskInfoService extends BaseService<TblTaskInfo> {
 	 * 自定义分页
 	 *
 	 * @param page
-	 * @param tblTaskInfo
+	 * @param
 	 * @return
 	 */
 	IPage<TblTaskInfoVO> selectTblTaskInfoPage1(IPage<TblTaskInfoVO> page, String taskType);
 
 	IPage<TblTaskInfoVO> selectTblTaskInfoPage2(IPage<TblTaskInfoVO> page, long taskId);
 
+	/**
+	 * 根据任务id查询一条任务数据
+	 * @param taskId
+	 * @return
+	 */
+	TblTaskInfo selectTblTaskInfoOne(Long taskId);
 }

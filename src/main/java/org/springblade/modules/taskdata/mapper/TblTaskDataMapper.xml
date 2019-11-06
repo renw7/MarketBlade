@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springblade.modules.taskdata.mapper.TblTaskDataMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="tblTaskDataResultMap" type="org.springblade.modules.taskdata.entity.TblTaskData">
+        <result column="data_id" property="dataId"/>
+        <result column="serial_number" property="serialNumber"/>
+        <result column="task_id" property="taskId"/>
+        <result column="cust_info" property="custInfo"/>
+        <result column="is_lock" property="isLock"/>
+        <result column="is_call" property="isCall"/>
+        <result column="staff_id" property="staffId"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+
+    <select id="selectTblTaskDataPage" resultMap="tblTaskDataResultMap">
+        select * from tbl_task_data
+    </select>
+
+    <select id="selectTblTaskDataOne" resultMap="tblTaskDataResultMap">
+
+        SELECT data_id,serial_number,task_id,cust_info
+        FROM tbl_task_data
+        WHERE is_lock=0
+        AND is_call=0
+        <if test="_parameter!=null">
+            AND task_id=#{_parameter}
+        </if>
+        ORDER BY RAND()  LIMIT 1
+
+    </select>
+
+    <select id="updateTblTaskData" resultMap="tblTaskDataResultMap">
+        UPDATE tbl_task_data
+        SET is_call=#{isCall},staff_id=#{staffId},is_lock=#{isLock},update_time=now()
+        WHERE 1=1
+        AND data_id=#{dataId}
+    </select>
+
+</mapper>
