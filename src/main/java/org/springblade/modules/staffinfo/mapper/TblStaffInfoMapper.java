@@ -41,4 +41,7 @@ public interface TblStaffInfoMapper extends BaseMapper<TblStaffInfo> {
 
 	List<TblStaffInfoVO> checkUser(IPage page, @Param("staffUsrname") String staffUsrname, @Param("serialNumber") String serialNumber, @Param("staffPwd")String staffPwd);
 
+	int updatePwd(IPage page, @Param("staffPwd") String staffPwd, @Param("staffNo") String staffNo);
+
+
 }

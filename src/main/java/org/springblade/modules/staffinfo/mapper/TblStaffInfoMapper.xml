@@ -25,4 +25,10 @@
         </if>
 
     </select>
+
+
+    <select id="updatePwd" resultMap="tblStaffInfoResultMap">
+        update tbl_staff_info set staff_pwd = #{staffPwd}
+        where staff_no = #{staffNo}
+    </select>
 </mapper>

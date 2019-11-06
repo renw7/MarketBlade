@@ -141,4 +141,16 @@ public class TblStaffInfoController extends BladeController {
 		return R.data(pages);
 	}
 
+	@PostMapping("/updatePwd")
+	@ApiOperationSupport(order = 3)
+	@ApiOperation(value = "分页", notes = "登录校验")
+	public R updatePwd(@RequestBody TblStaffInfoVO tblStaffInfo, Query query) {
+		String staffPwd = tblStaffInfo.getStaffPwd();
+		String staffNo = tblStaffInfo.getStaffNo();
+		int code = tblStaffInfoService.updatePwd(Condition.getPage(query), staffPwd, staffNo);
+		return R.success(String.valueOf(code));
+	}
+
+
+
 }

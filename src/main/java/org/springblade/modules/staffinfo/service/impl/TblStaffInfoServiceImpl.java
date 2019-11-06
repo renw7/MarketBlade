@@ -42,4 +42,10 @@ public class TblStaffInfoServiceImpl extends BaseServiceImpl<TblStaffInfoMapper,
 		return page.setRecords(baseMapper.checkUser(page, staffUsrname, serialNumber, staffPwd));
 	}
 
+	@Override
+	public int updatePwd(IPage page, String staffPwd, String staffNo) {
+		return baseMapper.updatePwd(page, staffPwd, staffNo);
+
+	}
+
 }

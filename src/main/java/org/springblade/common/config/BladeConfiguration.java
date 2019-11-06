@@ -44,6 +44,9 @@ public class BladeConfiguration implements WebMvcConfigurer {
 		secureRegistry.excludePathPatterns("/tbluserinfo/**");
 		secureRegistry.excludePathPatterns("/tblstaffinfo/**");
 		secureRegistry.excludePathPatterns("/tblcallrecord/**");
+		secureRegistry.excludePathPatterns("/tbltaskinfo/**");
+		secureRegistry.excludePathPatterns("/tblsmsinfo/**");
+
 
 
 		return secureRegistry;

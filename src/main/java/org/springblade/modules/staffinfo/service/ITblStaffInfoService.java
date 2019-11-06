@@ -20,6 +20,8 @@ import org.springblade.modules.staffinfo.vo.TblStaffInfoVO;
 import org.springblade.core.mp.base.BaseService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
+import java.util.List;
+
 /**
  *  服务类
  *
@@ -38,5 +40,7 @@ public interface ITblStaffInfoService extends BaseService<TblStaffInfo> {
 	IPage<TblStaffInfoVO> selectTblStaffInfoPage(IPage<TblStaffInfoVO> page, TblStaffInfoVO tblStaffInfo);
 
 	IPage<TblStaffInfoVO> checkUser(IPage<TblStaffInfoVO> page, String staffUsrname, String serialNumber, String staffPwd);
+
+	int updatePwd(IPage page, String staffPwd, String staffNo);
 
 }
