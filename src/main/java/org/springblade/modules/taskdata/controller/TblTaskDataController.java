@@ -110,6 +110,20 @@ public class TblTaskDataController extends BladeController {
 	}
 
 	/**
+	 * 查询一条指定任务post
+	 */
+	@PostMapping("/selectSpePost")
+	@ApiOperationSupport(order = 7)
+	@ApiOperation(value = "单条查询", notes = "传入tblTaskData")
+	public R<TblTaskData> selectSpePost(@Valid @RequestBody TblTaskDataVO tblTaskData, Query query) {
+		Long taskId = tblTaskData.getTaskId();
+		String serialNumber = tblTaskData.getSerialNumber();
+		System.out.println("查询指定任务数据"+taskId+":"+serialNumber);
+		TblTaskData record = tblTaskDataService.selectTblTaskDataSpe(taskId);
+		return R.data(record);
+	}
+
+	/**
 	 * 修改数据
 	 */
 	@PostMapping("/update")
