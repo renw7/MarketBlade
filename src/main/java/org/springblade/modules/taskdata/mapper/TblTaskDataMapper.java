@@ -49,10 +49,10 @@ public interface TblTaskDataMapper extends BaseMapper<TblTaskData> {
 	/**
 	 * 根据号码查询指定的数据
 	 *
-	 * @param taskId
+	 * @param
 	 * @return TblTaskData
 	 */
-	TblTaskData selectTblTaskDataSpe(Long taskId);
+	TblTaskData selectTblTaskDataSpe(Long dataId);
 
 	/**
 	 * 修改任务数据

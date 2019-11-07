@@ -47,8 +47,8 @@ public class TblTaskDataServiceImpl extends BaseServiceImpl<TblTaskDataMapper, T
 	}
 
 	@Override
-	public TblTaskData selectTblTaskDataSpe(Long taskId) {
-		return baseMapper.selectTblTaskDataSpe(taskId);
+	public TblTaskData selectTblTaskDataSpe(Long dataId) {
+		return baseMapper.selectTblTaskDataSpe(dataId);
 	}
 
 	@Override

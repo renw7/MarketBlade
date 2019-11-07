@@ -66,4 +66,6 @@ public class TblCallRecord extends BaseEntity {
 	private String resultDesc;
 
 	private Long num;
+
+	private Long dataId;
 }

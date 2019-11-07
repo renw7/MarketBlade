@@ -37,11 +37,8 @@
         SELECT data_id,serial_number,task_id,cust_info
         FROM tbl_task_data
         WHERE is_lock=0
-        <if test="taskId!=null">
-            AND task_id=#{taskId}
-        </if>
-        <if test="serialNumber!=null">
-            AND serial_number=#{serialNumber}
+        <if test="_parameter!=null">
+            AND data_id=#{_parameter}
         </if>
 
     </select>

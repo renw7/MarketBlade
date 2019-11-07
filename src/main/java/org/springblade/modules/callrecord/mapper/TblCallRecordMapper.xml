@@ -15,6 +15,7 @@
         <result column="update_time" property="updateTime"/>
         <result column="remark" property="remark"/>
         <result column="staff_id" property="staffId"/>
+        <result column="data_id" property="dataId"/>
         <result column="task_name" property="taskName"/>
         <result column="result_desc" property="resultDesc"/>
         <result column="num" property="num"/>
@@ -36,8 +37,8 @@
 
     <select id="tblCallRecordStatistics" resultMap="tblCallRecordResultMap">
         select count(*) num from tbl_call_record a
-            where to_days(update_time) = to_days(now())
-            and staff_id = #{staffId}
+        where to_days(update_time) = to_days(now())
+        and staff_id = #{staffId}
         <if test="resultCode != '' and resultCode !='null' and resultCode !=null">
             and result_code = #{resultCode}
         </if>
@@ -45,9 +46,9 @@
 
     <insert id="insertTblCallRecord" parameterType="TblCallRecord">
         INSERT INTO tbl_call_record(serial_number,task_id,start_time,end_time,
-        result_code,product_id,call_times,remark,staff_id,update_time)
+        result_code,product_id,call_times,remark,staff_id,data_id,update_time)
         VALUES(#{serialNumber},#{taskId},#{startTime},#{endTime},
-        #{resultCode},#{productId},#{callTimes},#{remark},#{staffId},now())
+        #{resultCode},#{productId},#{callTimes},#{remark},#{staffId},#{dataId},now())
         <selectKey keyProperty="recordId" resultType="long" order="AFTER">
             select last_insert_id() as recordId
         </selectKey>
