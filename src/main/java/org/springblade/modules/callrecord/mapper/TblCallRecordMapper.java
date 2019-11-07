@@ -37,7 +37,7 @@ public interface TblCallRecordMapper extends BaseMapper<TblCallRecord> {
 	 * @param tblCallRecord
 	 * @return
 	 */
-	List<TblCallRecordVO> selectTblCallRecordPage(IPage page, @Param("resultCode")String resultCode);
+	List<TblCallRecordVO> selectTblCallRecordPage(IPage page, @Param("staffId")Long staffId, @Param("resultCode")String resultCode);
 
 	List<TblCallRecordVO> selectTblCallRecord(IPage page, @Param("recordId")Long recordId);
 
