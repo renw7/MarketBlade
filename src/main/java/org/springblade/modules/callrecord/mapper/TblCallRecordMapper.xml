@@ -23,7 +23,7 @@
 
 
     <select id="selectTblCallRecordPage" resultMap="tblCallRecordResultMap">
-        select * from tbl_call_record where 1=1
+        select * from tbl_call_record where 1=1 and staff_id = #{staffId}
         <if test="resultCode != '' and resultCode !='null' and resultCode !=null">
             and result_code = #{resultCode}
         </if>
