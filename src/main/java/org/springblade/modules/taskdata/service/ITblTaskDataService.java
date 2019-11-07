@@ -61,4 +61,6 @@ public interface ITblTaskDataService extends BaseService<TblTaskData> {
 	 */
 	TblTaskData updateTblTaskData(TblTaskData tblTaskData);
 
+	IPage<TblTaskDataVO> tblTaskDataStatistics(IPage<TblTaskDataVO> page, Long staffId) ;
+
 }
