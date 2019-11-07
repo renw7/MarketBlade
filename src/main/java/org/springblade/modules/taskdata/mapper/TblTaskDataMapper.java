@@ -15,6 +15,7 @@
  */
 package org.springblade.modules.taskdata.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.springblade.modules.taskdata.entity.TblTaskData;
 import org.springblade.modules.taskdata.vo.TblTaskDataVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -61,5 +62,8 @@ public interface TblTaskDataMapper extends BaseMapper<TblTaskData> {
 	 * @return TblTaskData
 	 */
 	TblTaskData updateTblTaskData(TblTaskData tblTaskData);
+
+
+	List<TblTaskDataVO> tblTaskDataStatistics(@Param("staffId")Long staffId);
 
 }

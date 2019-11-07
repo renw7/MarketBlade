@@ -78,7 +78,8 @@ public class TblCallRecordController extends BladeController {
 	@ApiOperation(value = "分页", notes = "传入tblCallRecord")
 	public R<IPage<TblCallRecordVO>> page(TblCallRecordVO tblCallRecord, Query query) {
 		String resultCode = tblCallRecord.getResultCode();
-		IPage<TblCallRecordVO> pages = tblCallRecordService.selectTblCallRecordPage(Condition.getPage(query), resultCode);
+		Long staffId = tblCallRecord.getStaffId();
+		IPage<TblCallRecordVO> pages = tblCallRecordService.selectTblCallRecordPage(Condition.getPage(query), staffId, resultCode);
 		return R.data(pages);
 	}
 

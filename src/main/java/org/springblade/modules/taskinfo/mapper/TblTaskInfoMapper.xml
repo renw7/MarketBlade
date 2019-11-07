@@ -17,11 +17,14 @@
 
 
     <select id="selectTblTaskInfoPage1" resultMap="tblTaskInfoResultMap">
-        select * from tbl_task_info WHERE task_type = #{taskType}
+        select * from tbl_task_info WHERE task_type = #{taskType} order by task_status
     </select>
 
     <select id="selectTblTaskInfoPage2" resultMap="tblTaskInfoResultMap">
-        select * from tbl_task_info WHERE  task_id = #{taskId}
+        select a.task_id, a.task_name, a.product_id, a.product_name, a.voice_content, a.sms_content,a.update_time,
+(select t.param_name from tbl_common_params t where t.param_type = '任务类型' and t.param_value = a.task_type) task_type,
+(select t.param_name from tbl_common_params t where t.param_type = '任务状态' and t.param_value = a.task_status) task_status
+from tbl_task_info a WHERE task_id =  #{taskId}
     </select>
 
     <select id="selectTblTaskInfoOne" resultMap="tblTaskInfoResultMap">

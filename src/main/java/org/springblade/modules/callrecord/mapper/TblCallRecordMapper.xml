@@ -18,12 +18,13 @@
         <result column="data_id" property="dataId"/>
         <result column="task_name" property="taskName"/>
         <result column="result_desc" property="resultDesc"/>
-        <result column="num" property="num"/>
+        <result column="finish_num" property="finishNum"/>
+        <result column="intent_num" property="intentNum"/>
     </resultMap>
 
 
     <select id="selectTblCallRecordPage" resultMap="tblCallRecordResultMap">
-        select * from tbl_call_record where 1=1
+        select * from tbl_call_record where 1=1 and staff_id = #{staffId}
         <if test="resultCode != '' and resultCode !='null' and resultCode !=null">
             and result_code = #{resultCode}
         </if>
@@ -36,12 +37,11 @@
 
 
     <select id="tblCallRecordStatistics" resultMap="tblCallRecordResultMap">
-        select count(*) num from tbl_call_record a
-        where to_days(update_time) = to_days(now())
-        and staff_id = #{staffId}
-        <if test="resultCode != '' and resultCode !='null' and resultCode !=null">
-            and result_code = #{resultCode}
-        </if>
+     select count(*) finish_num ,
+		  ifnull(sum(case  result_code when  '2' then 1 else 0 end), 0) intent_num
+		 from tbl_call_record a
+     where to_days(update_time) = to_days(now())
+    and staff_id = #{staffId}
     </select>
 
     <insert id="insertTblCallRecord" parameterType="TblCallRecord">

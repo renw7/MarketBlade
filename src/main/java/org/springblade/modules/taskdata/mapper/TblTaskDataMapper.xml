@@ -12,6 +12,7 @@
         <result column="is_call" property="isCall"/>
         <result column="staff_id" property="staffId"/>
         <result column="update_time" property="updateTime"/>
+        <result column="incomp_num" property="incompNum"/>
     </resultMap>
 
 
@@ -50,4 +51,8 @@
         AND data_id=#{dataId}
     </select>
 
+
+    <select id="tblTaskDataStatistics" resultMap="tblTaskDataResultMap">
+        select count(*) incomp_num from tbl_task_data where staff_id = #{staffId} and is_call = 0
+    </select>
 </mapper>

@@ -33,8 +33,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 public class TblCallRecordServiceImpl extends BaseServiceImpl<TblCallRecordMapper, TblCallRecord> implements ITblCallRecordService {
 
 	@Override
-	public IPage<TblCallRecordVO> selectTblCallRecordPage(IPage<TblCallRecordVO> page, String resultCode) {
-		return page.setRecords(baseMapper.selectTblCallRecordPage(page, resultCode));
+	public IPage<TblCallRecordVO> selectTblCallRecordPage(IPage<TblCallRecordVO> page,  Long staffId,  String resultCode) {
+		return page.setRecords(baseMapper.selectTblCallRecordPage(page, staffId, resultCode));
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class TblCallRecordServiceImpl extends BaseServiceImpl<TblCallRecordMappe
 
 	@Override
 	public IPage<TblCallRecordVO> tblCallRecordStatistics(IPage<TblCallRecordVO> page, String resultCoded, Long staffId) {
-		return baseMapper.tblCallRecordStatistics(page, resultCoded, staffId);
+		return page.setRecords(baseMapper.tblCallRecordStatistics(resultCoded, staffId));
 	}
 
 	@Override

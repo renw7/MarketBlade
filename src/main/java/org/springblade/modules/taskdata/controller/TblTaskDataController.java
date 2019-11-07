@@ -132,7 +132,14 @@ public class TblTaskDataController extends BladeController {
 		return tblTaskDataService.updateTblTaskData(tblTaskData);
 	}
 
-
+	@GetMapping("/tblTaskDataStatistics")
+	@ApiOperationSupport(order = 7)
+	@ApiOperation(value = "单条查询", notes = "传入tblTaskData")
+	public R<IPage<TblTaskDataVO>> tblTaskDataStatistics(TblTaskDataVO tblTaskData, Query query) {
+		Long staffId = tblTaskData.getStaffId();
+		IPage<TblTaskDataVO> pages = tblTaskDataService.tblTaskDataStatistics(Condition.getPage(query), staffId);
+		return R.data(pages);
+	}
 
 
 }

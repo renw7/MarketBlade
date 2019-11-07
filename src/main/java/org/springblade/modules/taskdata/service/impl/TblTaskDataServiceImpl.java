@@ -56,4 +56,9 @@ public class TblTaskDataServiceImpl extends BaseServiceImpl<TblTaskDataMapper, T
 		return baseMapper.updateTblTaskData(tblTaskData);
 	}
 
+
+	@Override
+	public IPage<TblTaskDataVO> tblTaskDataStatistics(IPage<TblTaskDataVO> page, Long staffId) {
+		return page.setRecords(baseMapper.tblTaskDataStatistics(staffId));
+	}
 }
