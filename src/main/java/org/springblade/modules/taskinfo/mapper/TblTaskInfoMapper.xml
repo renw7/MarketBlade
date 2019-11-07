@@ -17,7 +17,7 @@
 
 
     <select id="selectTblTaskInfoPage1" resultMap="tblTaskInfoResultMap">
-        select * from tbl_task_info WHERE task_type = #{taskType}
+        select * from tbl_task_info WHERE task_type = #{taskType} order by task_status
     </select>
 
     <select id="selectTblTaskInfoPage2" resultMap="tblTaskInfoResultMap">
