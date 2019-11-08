@@ -48,4 +48,9 @@ public class TblTaskData extends BaseEntity {
 	private Long staffId;
 	private Timestamp updateTime;
 	private Long incompNum;
+
+	private String productId;
+	private String productName;
+	private String voiceContent;
+	private String smsContent;
 }

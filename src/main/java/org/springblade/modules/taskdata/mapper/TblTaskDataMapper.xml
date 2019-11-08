@@ -13,6 +13,11 @@
         <result column="staff_id" property="staffId"/>
         <result column="update_time" property="updateTime"/>
         <result column="incomp_num" property="incompNum"/>
+
+        <result column="product_id" property="productId"/>
+        <result column="product_name" property="productName"/>
+        <result column="voice_content" property="voiceContent"/>
+        <result column="sms_content" property="smsContent"/>
     </resultMap>
 
 
@@ -22,26 +27,30 @@
 
     <select id="selectTblTaskDataOne" resultMap="tblTaskDataResultMap">
 
-        SELECT data_id,serial_number,task_id,cust_info
-        FROM tbl_task_data
-        WHERE is_lock=0
-        AND is_call=0
+        SELECT a.data_id,a.serial_number,a.task_id,a.cust_info,
+        i.product_id,i.product_name,i.voice_content,i.sms_content
+        FROM tbl_task_data a,tbl_task_info i
+        WHERE a.is_lock=0
+        AND a.is_call=0
+        AND i.task_status=5
         <if test="_parameter!=null">
-            AND task_id=#{_parameter}
+            AND a.task_id=#{_parameter}
         </if>
+        AND a.task_id=i.task_id
         ORDER BY RAND()  LIMIT 1
-
     </select>
 
     <select id="selectTblTaskDataSpe" resultMap="tblTaskDataResultMap">
 
-        SELECT data_id,serial_number,task_id,cust_info
-        FROM tbl_task_data
-        WHERE is_lock=0
+        SELECT a.data_id,a.serial_number,a.task_id,a.cust_info,
+        i.product_id,i.product_name,i.voice_content,i.sms_content
+        FROM tbl_task_data a,tbl_task_info i
+        WHERE a.is_lock=0
         <if test="_parameter!=null">
-            AND data_id=#{_parameter}
+            AND a.data_id=#{_parameter}
         </if>
-
+        AND i.task_status=5
+        AND a.task_id=i.task_id
     </select>
 
     <select id="updateTblTaskData" resultMap="tblTaskDataResultMap">

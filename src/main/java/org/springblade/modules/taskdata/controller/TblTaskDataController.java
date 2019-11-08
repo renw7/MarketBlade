@@ -91,7 +91,7 @@ public class TblTaskDataController extends BladeController {
 		Long taskId = tblTaskData.getTaskId();
 		System.out.println("查询任务数据"+taskId);
 		TblTaskData record = tblTaskDataService.selectTblTaskDataOne(taskId);
-		if (record.getDataId() == null || record.getDataId() == 0L)
+		if (record==null||record.getDataId() == null || record.getDataId() == 0L)
 			return R.fail("无数据返回");
 		return R.data(record);
 	}
