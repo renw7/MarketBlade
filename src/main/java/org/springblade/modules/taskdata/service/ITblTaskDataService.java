@@ -21,7 +21,7 @@ import org.springblade.core.mp.base.BaseService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
 /**
- *  服务类
+ * 服务类
  *
  * @author BladeX
  * @since 2019-11-01
@@ -54,6 +54,14 @@ public interface ITblTaskDataService extends BaseService<TblTaskData> {
 	TblTaskData selectTblTaskDataSpe(Long dataId);
 
 	/**
+	 * 解锁任务数据
+	 *
+	 * @param
+	 * @return
+	 */
+	TblTaskData updateTblTaskDataUnLock(TblTaskData tblTaskData);
+
+	/**
 	 * 修改任务数据
 	 *
 	 * @param tblTaskData
@@ -61,6 +69,6 @@ public interface ITblTaskDataService extends BaseService<TblTaskData> {
 	 */
 	TblTaskData updateTblTaskData(TblTaskData tblTaskData);
 
-	IPage<TblTaskDataVO> tblTaskDataStatistics(IPage<TblTaskDataVO> page, Long staffId) ;
+	IPage<TblTaskDataVO> tblTaskDataStatistics(IPage<TblTaskDataVO> page, Long staffId);
 
 }
