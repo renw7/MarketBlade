@@ -20,10 +20,11 @@ import org.springblade.modules.taskdata.entity.TblTaskData;
 import org.springblade.modules.taskdata.vo.TblTaskDataVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+
 import java.util.List;
 
 /**
- *  Mapper 接口
+ * Mapper 接口
  *
  * @author BladeX
  * @since 2019-11-01
@@ -56,7 +57,23 @@ public interface TblTaskDataMapper extends BaseMapper<TblTaskData> {
 	TblTaskData selectTblTaskDataSpe(Long dataId);
 
 	/**
-	 * 修改任务数据
+	 * 锁定任务数据
+	 *
+	 * @param
+	 * @return
+	 */
+	void updateTblTaskDataLock(Long dataId);
+
+	/**
+	 * 解锁任务数据
+	 *
+	 * @param
+	 * @return
+	 */
+	TblTaskData updateTblTaskDataUnLock(TblTaskData tblTaskData);
+
+	/**
+	 * 修改任务数据 并解锁
 	 *
 	 * @param tblTaskData
 	 * @return TblTaskData
@@ -64,6 +81,6 @@ public interface TblTaskDataMapper extends BaseMapper<TblTaskData> {
 	TblTaskData updateTblTaskData(TblTaskData tblTaskData);
 
 
-	List<TblTaskDataVO> tblTaskDataStatistics(@Param("staffId")Long staffId);
+	List<TblTaskDataVO> tblTaskDataStatistics(@Param("staffId") Long staffId);
 
 }

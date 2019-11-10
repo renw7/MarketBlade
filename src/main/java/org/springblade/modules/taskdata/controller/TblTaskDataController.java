@@ -20,6 +20,7 @@ import io.swagger.annotations.ApiOperationSupport;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
+
 import javax.validation.Valid;
 
 import org.springblade.core.mp.support.Condition;
@@ -35,7 +36,7 @@ import org.springblade.modules.taskdata.service.ITblTaskDataService;
 import org.springblade.core.boot.ctrl.BladeController;
 
 /**
- *  控制器
+ * 控制器
  *
  * @author BladeX
  * @since 2019-11-01
@@ -89,9 +90,9 @@ public class TblTaskDataController extends BladeController {
 	@ApiOperation(value = "单条查询", notes = "传入tblTaskData")
 	public R<TblTaskData> selectOnePost(@Valid @RequestBody TblTaskDataVO tblTaskData, Query query) {
 		Long taskId = tblTaskData.getTaskId();
-		System.out.println("查询任务数据"+taskId);
+		System.out.println("查询任务数据" + taskId);
 		TblTaskData record = tblTaskDataService.selectTblTaskDataOne(taskId);
-		if (record==null||record.getDataId() == null || record.getDataId() == 0L)
+		if (record == null || record.getDataId() == null || record.getDataId() == 0L)
 			return R.fail("无数据返回");
 		return R.data(record);
 	}
@@ -104,7 +105,7 @@ public class TblTaskDataController extends BladeController {
 	@ApiOperation(value = "单条查询", notes = "传入tblTaskData")
 	public R<TblTaskData> selectOneGet(TblTaskDataVO tblTaskData, Query query) {
 		Long taskId = tblTaskData.getTaskId();
-		System.out.println("taskId="+taskId);
+		System.out.println("taskId=" + taskId);
 		TblTaskData record = tblTaskDataService.selectTblTaskDataOne(taskId);
 		return R.data(record);
 	}
@@ -117,13 +118,23 @@ public class TblTaskDataController extends BladeController {
 	@ApiOperation(value = "单条查询", notes = "传入tblTaskData")
 	public R<TblTaskData> selectSpePost(@Valid @RequestBody TblTaskDataVO tblTaskData, Query query) {
 		Long dataId = tblTaskData.getDataId();
-		System.out.println("查询指定任务数据"+dataId);
+		System.out.println("查询指定任务数据" + dataId);
 		TblTaskData record = tblTaskDataService.selectTblTaskDataSpe(dataId);
 		return R.data(record);
 	}
 
 	/**
-	 * 修改数据
+	 * 解锁数据  修改是否锁定状态
+	 */
+	@PostMapping("/updateUnLock")
+	@ApiOperationSupport(order = 4)
+	@ApiOperation(value = "解锁", notes = "传入tblTaskData")
+	public TblTaskData updateUnLock(@Valid @RequestBody TblTaskData tblTaskData) {
+		return tblTaskDataService.updateTblTaskDataUnLock(tblTaskData);
+	}
+
+	/**
+	 * 修改数据  设置拨打状态和员工id
 	 */
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 4)

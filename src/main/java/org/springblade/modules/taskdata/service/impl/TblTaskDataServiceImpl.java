@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
 /**
- *  服务实现类
+ * 服务实现类
  *
  * @author BladeX
  * @since 2019-11-01
@@ -39,9 +39,16 @@ public class TblTaskDataServiceImpl extends BaseServiceImpl<TblTaskDataMapper, T
 
 	@Override
 	public TblTaskData selectTblTaskDataOne(Long taskId) {
+
 		TblTaskData t;
-		synchronized("data"){
-			t=baseMapper.selectTblTaskDataOne(taskId);
+		synchronized ("data") {
+			t = baseMapper.selectTblTaskDataOne(taskId);
+
+			//如果查询到，修改锁定状态
+			if (t != null) {
+				Long dataId = t.getDataId();
+				baseMapper.updateTblTaskDataLock(dataId);
+			}
 		}
 		return t;
 	}
@@ -49,6 +56,11 @@ public class TblTaskDataServiceImpl extends BaseServiceImpl<TblTaskDataMapper, T
 	@Override
 	public TblTaskData selectTblTaskDataSpe(Long dataId) {
 		return baseMapper.selectTblTaskDataSpe(dataId);
+	}
+
+	@Override
+	public TblTaskData updateTblTaskDataUnLock(TblTaskData tblTaskData) {
+		return baseMapper.updateTblTaskDataUnLock(tblTaskData);
 	}
 
 	@Override
