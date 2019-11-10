@@ -133,9 +133,9 @@ public class TblStaffInfoController extends BladeController {
 	@ApiOperation(value = "分页", notes = "登录校验")
 	public R<IPage<TblStaffInfoVO>> checkUser(@RequestBody TblStaffInfoVO tblStaffInfo, Query query) {
 		String serialNumber = tblStaffInfo.getSerialNumber();
-		String staffUsrname = tblStaffInfo.getStaffUsrname();
+		String staffUsername = tblStaffInfo.getStaffUsername();
 		String staffPwd = tblStaffInfo.getStaffPwd();
-		IPage<TblStaffInfoVO> pages = tblStaffInfoService.checkUser(Condition.getPage(query), staffUsrname, serialNumber, staffPwd);
+		IPage<TblStaffInfoVO> pages = tblStaffInfoService.checkUser(Condition.getPage(query), staffUsername, serialNumber, staffPwd);
 		if (pages.getRecords().size() == 0)
 			return R.fail("无结果返回");
 		return R.data(pages);

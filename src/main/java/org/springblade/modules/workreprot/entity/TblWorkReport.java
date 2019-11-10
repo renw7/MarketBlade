@@ -13,10 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.modules.callrecord.entity;
+package org.springblade.modules.workreprot.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import org.springblade.core.mp.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,47 +27,21 @@ import java.sql.Timestamp;
  * 实体类
  *
  * @author BladeX
- * @since 2019-11-04
+ * @since 2019-11-09
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "TblCallRecord对象", description = "TblCallRecord对象")
-public class TblCallRecord extends BaseEntity {
+@ApiModel(value = "TblWorkReport对象", description = "TblWorkReport对象")
+public class TblWorkReport extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-	@TableId(value = "recordId", type = IdType.AUTO)
-	private Long recordId;
-
-    private String serialNumber;
-
-    private Long taskId;
-
-	private Timestamp startTime;
-
-	private Timestamp endTime;
-
-	private String resultCode;
-
-	private String productId;
-
-	private Long callTimes;
-
+    private long reportId;
+	private String cycleId;
+	private long kpi ;
+	private String compRate;
+	private String level;
 	private Timestamp updateTime;
+	private long staffId ;
 
-	private String remark;
-
-	private Long staffId;
-
-	private String taskName;
-
-	private String resultDesc;
-
-	private Long finishNum;
-
-	private Long intentNum;
-
-	private Long dataId;
-
-	private Long incompNum;
 }

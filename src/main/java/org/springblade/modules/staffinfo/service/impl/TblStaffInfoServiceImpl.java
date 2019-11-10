@@ -38,8 +38,8 @@ public class TblStaffInfoServiceImpl extends BaseServiceImpl<TblStaffInfoMapper,
 	}
 
 	@Override
-	public IPage<TblStaffInfoVO> checkUser(IPage<TblStaffInfoVO> page, String staffUsrname, String serialNumber, String staffPwd) {
-		return page.setRecords(baseMapper.checkUser(page, staffUsrname, serialNumber, staffPwd));
+	public IPage<TblStaffInfoVO> checkUser(IPage<TblStaffInfoVO> page, String staffUsername, String serialNumber, String staffPwd) {
+		return page.setRecords(baseMapper.checkUser(page, staffUsername, serialNumber, staffPwd));
 	}
 
 	@Override

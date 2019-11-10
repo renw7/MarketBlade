@@ -25,3 +25,15 @@ blade:
     remote-path: /usr/share/nginx/html
     remote-path-iis: D://iis/html
     log-mode: true
+
+mqtt:
+  username: mqttPubClient
+  password: 123456
+  cleanSession: false
+  serverURIs:
+  - tcp://iot.eclipse.org:1883
+  async: true
+  completionTimeout: 20000
+  keepAliveInterval: 30
+  clientId: mqttPubClient
+  defaultQos: 1

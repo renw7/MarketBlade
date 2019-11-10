@@ -9,7 +9,7 @@
         <result column="staff_no" property="staffNo"/>
         <result column="staff_pwd" property="staffPwd"/>
         <result column="serial_number" property="serialNumber"/>
-        <result column="staff_username" property="staffUsrname"/>
+        <result column="staff_username" property="staffUsername"/>
     </resultMap>
 
 
@@ -20,9 +20,8 @@
     <select id="checkUser" resultMap="tblStaffInfoResultMap">
         select * from tbl_staff_info
         where 1=1
-        <if test="staffUsrname != '' and staffUsrname !='null' and staffUsrname !=null">
-            and ((staff_username = #{staffUsrname} and staff_pwd = #{staffPwd}) or (serial_number = #{staffUsrname} and staff_pwd = #{staffPwd}))
-        </if>
+        and  ((staff_username = #{staffUsername} and staff_pwd = #{staffPwd}) or (serial_number = #{staffUsername} and staff_pwd = #{staffPwd}))
+
 
     </select>
 

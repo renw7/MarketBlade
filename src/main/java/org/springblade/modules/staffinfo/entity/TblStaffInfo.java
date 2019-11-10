@@ -40,7 +40,7 @@ public class TblStaffInfo extends BaseEntity {
 	 * 用户名
 	 */
 	@ApiModelProperty(value = "用户名")
-	private String staffUsrname;
+	private String staffUsername;
 
 	@TableId(value = "staffId", type = IdType.AUTO)
 	@ApiModelProperty(value = "id")

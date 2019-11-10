@@ -20,6 +20,7 @@ import io.swagger.annotations.ApiOperationSupport;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
+
 import javax.validation.Valid;
 
 import org.springblade.core.mp.support.Condition;
@@ -33,6 +34,7 @@ import org.springblade.modules.callrecord.entity.TblCallRecord;
 import org.springblade.modules.callrecord.vo.TblCallRecordVO;
 import org.springblade.modules.callrecord.service.ITblCallRecordService;
 import org.springblade.core.boot.ctrl.BladeController;
+
 
 /**
  *  控制器
@@ -159,5 +161,7 @@ public class TblCallRecordController extends BladeController {
 		System.out.println("插入记录RecordId"+RecordId);
 		return RecordId;
 	}
+
+
 
 }

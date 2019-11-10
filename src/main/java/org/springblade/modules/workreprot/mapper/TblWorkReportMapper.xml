@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springblade.modules.workreprot.mapper.TblWorkReportMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="tblWorkReportResultMap" type="org.springblade.modules.workreprot.entity.TblWorkReport">
+        <result column="report_id" property="reportId"/>
+        <result column="cycle_id" property="cycleId"/>
+        <result column="kpi" property="kpi"/>
+        <result column="comp_rate" property="compRate"/>
+        <result column="level" property="level"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="staff_id" property="staffId"/>
+    </resultMap>
+
+
+    <select id="selectTblWorkReportPage" resultMap="tblWorkReportResultMap">
+        select * from tbl_work_report where staff_id = #{staffId}
+    </select>
+
+</mapper>

@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springblade.modules.staffinfo.service;
+package org.springblade.modules.workreprot.service;
 
-import org.springblade.modules.staffinfo.entity.TblStaffInfo;
-import org.springblade.modules.staffinfo.vo.TblStaffInfoVO;
+import org.springblade.modules.callrecord.vo.TblCallRecordVO;
+import org.springblade.modules.workreprot.entity.TblWorkReport;
+import org.springblade.modules.workreprot.vo.TblWorkReportVO;
 import org.springblade.core.mp.base.BaseService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
@@ -26,21 +27,17 @@ import java.util.List;
  *  服务类
  *
  * @author BladeX
- * @since 2019-11-01
+ * @since 2019-11-09
  */
-public interface ITblStaffInfoService extends BaseService<TblStaffInfo> {
+public interface ITblWorkReportService extends BaseService<TblWorkReport> {
 
 	/**
 	 * 自定义分页
 	 *
 	 * @param page
-	 * @param tblStaffInfo
+	 * @param tblWorkReport
 	 * @return
 	 */
-	IPage<TblStaffInfoVO> selectTblStaffInfoPage(IPage<TblStaffInfoVO> page, TblStaffInfoVO tblStaffInfo);
-
-	IPage<TblStaffInfoVO> checkUser(IPage<TblStaffInfoVO> page, String staffUsername, String serialNumber, String staffPwd);
-
-	void updatePwd( String staffPwd, String staffNo);
+	IPage<TblWorkReportVO> selectTblWorkReportPage(IPage<TblWorkReportVO> page, long staffId);
 
 }
