@@ -41,6 +41,8 @@ public interface ITblCallRecordService extends BaseService<TblCallRecord> {
 
 	IPage<TblCallRecordVO> tblCallRecordStatistics(IPage<TblCallRecordVO> page, String resultCoded, Long staffId);
 
+	IPage<TblCallRecordVO> tblCallRecordStatisticsWeek(IPage<TblCallRecordVO> page, String resultCoded, Long staffId);
+
 	/**
 	 * 插入通话记录
 	 *

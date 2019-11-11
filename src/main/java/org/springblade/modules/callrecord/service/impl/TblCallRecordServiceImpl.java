@@ -48,6 +48,11 @@ public class TblCallRecordServiceImpl extends BaseServiceImpl<TblCallRecordMappe
 	}
 
 	@Override
+	public IPage<TblCallRecordVO> tblCallRecordStatisticsWeek(IPage<TblCallRecordVO> page, String resultCoded, Long staffId) {
+		return page.setRecords(baseMapper.tblCallRecordStatisticsWeek(resultCoded, staffId));
+	}
+
+	@Override
 	public Long insertTblCallRecord(TblCallRecord tblCallRecord) {
 		Long RecordId=baseMapper.insertTblCallRecord(tblCallRecord);
 		System.out.println("插入记录后返回"+tblCallRecord);

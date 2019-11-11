@@ -43,6 +43,9 @@ public interface TblCallRecordMapper extends BaseMapper<TblCallRecord> {
 
 	List<TblCallRecordVO> tblCallRecordStatistics(@Param("resultCode")String resultCode, @Param("staffId")Long staffId);
 
+	List<TblCallRecordVO> tblCallRecordStatisticsWeek(@Param("resultCode")String resultCode, @Param("staffId")Long staffId);
+
+
 	/**
 	 * 插入通话记录
 	 *

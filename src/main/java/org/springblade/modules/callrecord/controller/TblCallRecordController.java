@@ -147,6 +147,16 @@ public class TblCallRecordController extends BladeController {
 		return R.data(pages);
 	}
 
+	@GetMapping("/statisticsweek")
+	@ApiOperationSupport(order = 3)
+	@ApiOperation(value = "分页", notes = "传入tblCallRecord")
+	public R<IPage<TblCallRecordVO>> tblCallRecordStatisticsWeek(TblCallRecordVO tblCallRecord, Query query) {
+		String resultCode = tblCallRecord.getResultCode();
+		Long staffId = tblCallRecord.getStaffId();
+		IPage<TblCallRecordVO> pages = tblCallRecordService.tblCallRecordStatistics(Condition.getPage(query), resultCode, staffId);
+		return R.data(pages);
+	}
+
 
 	/**
 	 * 新增 call

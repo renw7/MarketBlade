@@ -46,6 +46,16 @@
     and staff_id = #{staffId}
     </select>
 
+
+    <select id="tblCallRecordStatisticsWeek" resultMap="tblCallRecordResultMap">
+     select count(*) finish_num ,
+		  ifnull(sum(case  result_code when  '2' then 1 else 0 end), 0) intent_num,
+		(select count(*) from tbl_task_data t where t.staff_id = a.staff_id and t.is_call = '0') incomp_num
+		 from tbl_call_record a
+     where update_time >= DATE_SUB(NOW(),INTERVAL 7 DAY)
+    and staff_id = #{staffId}
+    </select>
+
     <insert id="insertTblCallRecord" parameterType="TblCallRecord">
         INSERT INTO tbl_call_record(serial_number,task_id,start_time,end_time,
         result_code,product_id,call_times,remark,staff_id,data_id,update_time)
