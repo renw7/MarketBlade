@@ -153,7 +153,7 @@ public class TblCallRecordController extends BladeController {
 	public R<IPage<TblCallRecordVO>> tblCallRecordStatisticsWeek(TblCallRecordVO tblCallRecord, Query query) {
 		String resultCode = tblCallRecord.getResultCode();
 		Long staffId = tblCallRecord.getStaffId();
-		IPage<TblCallRecordVO> pages = tblCallRecordService.tblCallRecordStatistics(Condition.getPage(query), resultCode, staffId);
+		IPage<TblCallRecordVO> pages = tblCallRecordService.tblCallRecordStatisticsWeek(Condition.getPage(query), resultCode, staffId);
 		return R.data(pages);
 	}
 
